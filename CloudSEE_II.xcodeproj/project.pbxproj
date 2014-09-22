@@ -19,6 +19,10 @@
 		ADA77C0F19D0250F003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
 		ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */; };
 		ADA77C1919D0250F003EE7A1 /* CloudSEE_IITests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C1819D0250F003EE7A1 /* CloudSEE_IITests.m */; };
+		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
+		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
+		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
+		ADA77C3519D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,13 @@
 		ADA77C1419D0250F003EE7A1 /* CloudSEE_IITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudSEE_IITests-Info.plist"; sourceTree = "<group>"; };
 		ADA77C1619D0250F003EE7A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ADA77C1819D0250F003EE7A1 /* CloudSEE_IITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudSEE_IITests.m; sourceTree = "<group>"; };
+		ADA77C2B19D02919003EE7A1 /* JVCAccountInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountInterface.h; sourceTree = "<group>"; };
+		ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountInterface.mm; sourceTree = "<group>"; };
+		ADA77C2E19D02983003EE7A1 /* JVCAccountMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountMacro.h; sourceTree = "<group>"; };
+		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
+		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
+		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_iBaby_v2.1.0.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
+				ADA77C3519D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a in Frameworks */,
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
@@ -96,6 +109,8 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
+				ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */,
 				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
 				ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */,
 				ADA77BF719D0250E003EE7A1 /* UIKit.framework */,
@@ -107,8 +122,15 @@
 		ADA77BF919D0250E003EE7A1 /* CloudSEE_II */ = {
 			isa = PBXGroup;
 			children = (
-				ADA77C0219D0250E003EE7A1 /* AppDelegate.h */,
-				ADA77C0319D0250E003EE7A1 /* AppDelegate.m */,
+				ADA77C2A19D028DD003EE7A1 /* InterfaceFiles */,
+				ADA77C2919D02844003EE7A1 /* Helper */,
+				ADA77C2819D0282F003EE7A1 /* Resources */,
+				ADA77C2719D0281D003EE7A1 /* Sections */,
+				ADA77C2619D0280E003EE7A1 /* Vendors */,
+				ADA77C2519D027FA003EE7A1 /* General */,
+				ADA77C2419D027E4003EE7A1 /* Macro */,
+				ADA77C2319D027C7003EE7A1 /* AppDelegate */,
+				ADA77C2219D027C0003EE7A1 /* Models */,
 				ADA77C0519D0250E003EE7A1 /* Images.xcassets */,
 				ADA77BFA19D0250E003EE7A1 /* Supporting Files */,
 			);
@@ -142,6 +164,76 @@
 				ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ADA77C2219D027C0003EE7A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		ADA77C2319D027C7003EE7A1 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C0219D0250E003EE7A1 /* AppDelegate.h */,
+				ADA77C0319D0250E003EE7A1 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		ADA77C2419D027E4003EE7A1 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C2E19D02983003EE7A1 /* JVCAccountMacro.h */,
+			);
+			name = Macro;
+			sourceTree = "<group>";
+		};
+		ADA77C2519D027FA003EE7A1 /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Vendors;
+			sourceTree = "<group>";
+		};
+		ADA77C2719D0281D003EE7A1 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Sections;
+			sourceTree = "<group>";
+		};
+		ADA77C2819D0282F003EE7A1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		ADA77C2919D02844003EE7A1 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */,
+				ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		ADA77C2A19D028DD003EE7A1 /* InterfaceFiles */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C2B19D02919003EE7A1 /* JVCAccountInterface.h */,
+				ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */,
+			);
+			name = InterfaceFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +283,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "___FULLUSERNAME___";
 				TargetAttributes = {
+					ADA77BEF19D0250E003EE7A1 = {
+						DevelopmentTeam = 5U4E6NB59X;
+					};
 					ADA77C0A19D0250F003EE7A1 = {
 						TestTargetID = ADA77BEF19D0250E003EE7A1;
 					};
@@ -239,7 +334,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
+				ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,10 +383,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -314,9 +412,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -324,10 +423,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -346,21 +446,29 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
 		ADA77C1D19D0250F003EE7A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
 				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -368,12 +476,19 @@
 		ADA77C1E19D0250F003EE7A1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
 				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -437,6 +552,7 @@
 				ADA77C1E19D0250F003EE7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ADA77C1F19D0250F003EE7A1 /* Build configuration list for PBXNativeTarget "CloudSEE_IITests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +561,7 @@
 				ADA77C2119D0250F003EE7A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
