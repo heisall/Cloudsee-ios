@@ -22,7 +22,7 @@
 		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
-		ADA77C3519D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */; };
+		ADA77C3719D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,7 @@
 		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_iBaby_v2.1.0.a; sourceTree = "<group>"; };
+		ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.16_2014_7_30.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA77C3719D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a in Frameworks */,
 				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
-				ADA77C3519D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a in Frameworks */,
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
-				ADA77C3419D02AD2003EE7A1 /* libuserAcount_iBaby_v2.1.0.a */,
+				ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */,
 				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
 				ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */,
 				ADA77BF719D0250E003EE7A1 /* UIKit.framework */,
