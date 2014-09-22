@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
+		ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */; };
+		ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
+		ADA77BFE19D0250E003EE7A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77BFC19D0250E003EE7A1 /* InfoPlist.strings */; };
+		ADA77C0019D0250E003EE7A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA77BFF19D0250E003EE7A1 /* main.m */; };
+		ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C0319D0250E003EE7A1 /* AppDelegate.m */; };
+		ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C0519D0250E003EE7A1 /* Images.xcassets */; };
+		ADA77C0D19D0250F003EE7A1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C0C19D0250F003EE7A1 /* XCTest.framework */; };
+		ADA77C0E19D0250F003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
+		ADA77C0F19D0250F003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
+		ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */; };
+		ADA77C1919D0250F003EE7A1 /* CloudSEE_IITests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C1819D0250F003EE7A1 /* CloudSEE_IITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ADA77C1019D0250F003EE7A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADA77BE819D0250E003EE7A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADA77BEF19D0250E003EE7A1;
+			remoteInfo = CloudSEE_II;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudSEE_II.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA77BF319D0250E003EE7A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		ADA77BF719D0250E003EE7A1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		ADA77BFB19D0250E003EE7A1 /* CloudSEE_II-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudSEE_II-Info.plist"; sourceTree = "<group>"; };
+		ADA77BFD19D0250E003EE7A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ADA77BFF19D0250E003EE7A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ADA77C0119D0250E003EE7A1 /* CloudSEE_II-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CloudSEE_II-Prefix.pch"; sourceTree = "<group>"; };
+		ADA77C0219D0250E003EE7A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		ADA77C0319D0250E003EE7A1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		ADA77C0519D0250E003EE7A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ADA77C0B19D0250F003EE7A1 /* CloudSEE_IITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudSEE_IITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA77C0C19D0250F003EE7A1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		ADA77C1419D0250F003EE7A1 /* CloudSEE_IITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudSEE_IITests-Info.plist"; sourceTree = "<group>"; };
+		ADA77C1619D0250F003EE7A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ADA77C1819D0250F003EE7A1 /* CloudSEE_IITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudSEE_IITests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ADA77BED19D0250E003EE7A1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
+				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
+				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA77C0819D0250F003EE7A1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77C0D19D0250F003EE7A1 /* XCTest.framework in Frameworks */,
+				ADA77C0F19D0250F003EE7A1 /* UIKit.framework in Frameworks */,
+				ADA77C0E19D0250F003EE7A1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ADA77BE719D0250E003EE7A1 = {
+			isa = PBXGroup;
+			children = (
+				ADA77BF919D0250E003EE7A1 /* CloudSEE_II */,
+				ADA77C1219D0250F003EE7A1 /* CloudSEE_IITests */,
+				ADA77BF219D0250E003EE7A1 /* Frameworks */,
+				ADA77BF119D0250E003EE7A1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ADA77BF119D0250E003EE7A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */,
+				ADA77C0B19D0250F003EE7A1 /* CloudSEE_IITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
+				ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */,
+				ADA77BF719D0250E003EE7A1 /* UIKit.framework */,
+				ADA77C0C19D0250F003EE7A1 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ADA77BF919D0250E003EE7A1 /* CloudSEE_II */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C0219D0250E003EE7A1 /* AppDelegate.h */,
+				ADA77C0319D0250E003EE7A1 /* AppDelegate.m */,
+				ADA77C0519D0250E003EE7A1 /* Images.xcassets */,
+				ADA77BFA19D0250E003EE7A1 /* Supporting Files */,
+			);
+			path = CloudSEE_II;
+			sourceTree = "<group>";
+		};
+		ADA77BFA19D0250E003EE7A1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77BFB19D0250E003EE7A1 /* CloudSEE_II-Info.plist */,
+				ADA77BFC19D0250E003EE7A1 /* InfoPlist.strings */,
+				ADA77BFF19D0250E003EE7A1 /* main.m */,
+				ADA77C0119D0250E003EE7A1 /* CloudSEE_II-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ADA77C1219D0250F003EE7A1 /* CloudSEE_IITests */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C1819D0250F003EE7A1 /* CloudSEE_IITests.m */,
+				ADA77C1319D0250F003EE7A1 /* Supporting Files */,
+			);
+			path = CloudSEE_IITests;
+			sourceTree = "<group>";
+		};
+		ADA77C1319D0250F003EE7A1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ADA77C1419D0250F003EE7A1 /* CloudSEE_IITests-Info.plist */,
+				ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ADA77BEF19D0250E003EE7A1 /* CloudSEE_II */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADA77C1C19D0250F003EE7A1 /* Build configuration list for PBXNativeTarget "CloudSEE_II" */;
+			buildPhases = (
+				ADA77BEC19D0250E003EE7A1 /* Sources */,
+				ADA77BED19D0250E003EE7A1 /* Frameworks */,
+				ADA77BEE19D0250E003EE7A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudSEE_II;
+			productName = CloudSEE_II;
+			productReference = ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ADA77C0A19D0250F003EE7A1 /* CloudSEE_IITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADA77C1F19D0250F003EE7A1 /* Build configuration list for PBXNativeTarget "CloudSEE_IITests" */;
+			buildPhases = (
+				ADA77C0719D0250F003EE7A1 /* Sources */,
+				ADA77C0819D0250F003EE7A1 /* Frameworks */,
+				ADA77C0919D0250F003EE7A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ADA77C1119D0250F003EE7A1 /* PBXTargetDependency */,
+			);
+			name = CloudSEE_IITests;
+			productName = CloudSEE_IITests;
+			productReference = ADA77C0B19D0250F003EE7A1 /* CloudSEE_IITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ADA77BE819D0250E003EE7A1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "___FULLUSERNAME___";
+				TargetAttributes = {
+					ADA77C0A19D0250F003EE7A1 = {
+						TestTargetID = ADA77BEF19D0250E003EE7A1;
+					};
+				};
+			};
+			buildConfigurationList = ADA77BEB19D0250E003EE7A1 /* Build configuration list for PBXProject "CloudSEE_II" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ADA77BE719D0250E003EE7A1;
+			productRefGroup = ADA77BF119D0250E003EE7A1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ADA77BEF19D0250E003EE7A1 /* CloudSEE_II */,
+				ADA77C0A19D0250F003EE7A1 /* CloudSEE_IITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ADA77BEE19D0250E003EE7A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77BFE19D0250E003EE7A1 /* InfoPlist.strings in Resources */,
+				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA77C0919D0250F003EE7A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ADA77BEC19D0250E003EE7A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
+				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA77C0719D0250F003EE7A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA77C1919D0250F003EE7A1 /* CloudSEE_IITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ADA77C1119D0250F003EE7A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADA77BEF19D0250E003EE7A1 /* CloudSEE_II */;
+			targetProxy = ADA77C1019D0250F003EE7A1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ADA77BFC19D0250E003EE7A1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADA77BFD19D0250E003EE7A1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADA77C1619D0250F003EE7A1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ADA77C1A19D0250F003EE7A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ADA77C1B19D0250F003EE7A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ADA77C1D19D0250F003EE7A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
+				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		ADA77C1E19D0250F003EE7A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
+				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		ADA77C2019D0250F003EE7A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CloudSEE_II.app/CloudSEE_II";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CloudSEE_IITests/CloudSEE_IITests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		ADA77C2119D0250F003EE7A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CloudSEE_II.app/CloudSEE_II";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
+				INFOPLIST_FILE = "CloudSEE_IITests/CloudSEE_IITests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ADA77BEB19D0250E003EE7A1 /* Build configuration list for PBXProject "CloudSEE_II" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA77C1A19D0250F003EE7A1 /* Debug */,
+				ADA77C1B19D0250F003EE7A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADA77C1C19D0250F003EE7A1 /* Build configuration list for PBXNativeTarget "CloudSEE_II" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA77C1D19D0250F003EE7A1 /* Debug */,
+				ADA77C1E19D0250F003EE7A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ADA77C1F19D0250F003EE7A1 /* Build configuration list for PBXNativeTarget "CloudSEE_IITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA77C2019D0250F003EE7A1 /* Debug */,
+				ADA77C2119D0250F003EE7A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ADA77BE819D0250E003EE7A1 /* Project object */;
+}
