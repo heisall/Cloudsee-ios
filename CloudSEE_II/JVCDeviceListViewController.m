@@ -10,10 +10,18 @@
 #import "MJRefreshHeaderView.h"
 #import "UIScrollView+MJRefresh.h"
 #import "JVCDeviceListAdvertCell.h"
+#import "JVCRGBColorMacro.h"
+
+static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数组
+
 
 @interface JVCDeviceListViewController ()
 {
     UITableView *_tableView;
+
+    NSMutableArray *_arrayColorFirstList;//存放颜色数据的数组
+    NSMutableArray *_arrayColorSecondList;//存放颜色数据的数组
+
 }
 
 @end
@@ -37,15 +45,33 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     self.navigationController.navigationBar.hidden = NO;
+    
+    //初始化颜色数组
+    _arrayColorFirstList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,nil];
+    
+    _arrayColorSecondList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
+
+    
     /**
      *  初始化tableview
      */
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
+    
+    //添加下拉刷新
     [self setupRefresh];
+    
+    //添加数据，为了测试
+    arrayDeviceList = [[NSMutableArray alloc] init];
+    
+    for (int i=0; i<5; i++) {
+        
+       [ arrayDeviceList addObject:[NSString stringWithFormat:@"%d",i]];
+    }
 }
 
 /**
@@ -94,7 +120,7 @@
         return 1;
     }
     
-    return 4;//self.arrayDeviceList.count;
+    return self.arrayDeviceList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -103,7 +129,7 @@
         
         return 180;
     }
-    return 44;
+    return 120;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,17 +145,38 @@
             
             cell = [[[JVCDeviceListAdvertCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellAdverIdentify] autorelease];
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         [cell initCellContent];
+        
         return cell;
+        
     }else{
     
         static NSString *cellIdentify = @"cellIndetify";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+        JVCDeviceListDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
         
         if (cell == nil) {
             
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify] autorelease];
+            cell = [[[JVCDeviceListDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify] autorelease];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.deviceCellDelegate = self;
+        
+        int iCurrent = indexPath.row%CLOURROWNUM;
+        
+        if (iCurrent%CLOURROWNUM == 0) {
+            
+            [cell initCellContent:_arrayColorFirstList];
+
+        }else{
+            
+            [cell initCellContent:_arrayColorSecondList];
+
         }
         
         
@@ -139,7 +186,16 @@
     }
 }
 
-
+#pragma mark  点击设备的回调
+/**
+ *  选中要播放的设备的回调
+ *
+ *  @param selectIndex 选中的播放设备号
+ */
+- (void)selectDeviceToPlayWithIndex:(int)selectIndex
+{
+    DDLogInfo(@"===%s===%d",__FUNCTION__,selectIndex);
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -150,6 +206,11 @@
 
 - (void)dealloc
 {
+    [_arrayColorFirstList release];
+    _arrayColorFirstList = nil;
+    
+    [_arrayColorSecondList release];
+    _arrayColorSecondList = nil;
     
     [_tableView release];
     _tableView = nil;

@@ -45,6 +45,10 @@
  */
 - (void)initCellContent
 {
+    for (UIView *contentViewInCell in self.contentView.subviews) {
+        
+        [contentViewInCell removeFromSuperview];
+    }
  
     _arrayDefaultImage = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++) {
@@ -69,7 +73,7 @@
         [imgView release];
     }
     
-    _pageController = [[StyledPageControl alloc] initWithFrame:CGRectMake(self.width - 100, _scrollView.width - 100,80 , 30)];
+    _pageController = [[StyledPageControl alloc] initWithFrame:CGRectMake(self.width - 100, _scrollView.height - 30,80 , 30)];
     [_pageController setPageControlStyle:PageControlStyleThumb];
     _pageController.currentPage = 0;
     _pageController.numberOfPages = _arrayDefaultImage.count;
@@ -80,6 +84,13 @@
    
     
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat contentOffX = floor(scrollView.contentOffset.x/self.width) ;
+    [_pageController setCurrentPage:contentOffX];
+}
+
 - (void)awakeFromNib
 {
     // Initialization code

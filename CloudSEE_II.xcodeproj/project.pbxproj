@@ -66,6 +66,7 @@
 		A7F5EF6A19D27077009B797A /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF6519D27077009B797A /* EGOCache.m */; };
 		A7F5EF6B19D27077009B797A /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF6719D27077009B797A /* EGOImageLoadConnection.m */; };
 		A7F5EF6C19D27077009B797A /* EGOImageLoadConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF6719D27077009B797A /* EGOImageLoadConnection.m */; };
+		A7F5EF7019D296B5009B797A /* JVCDeviceListDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF6F19D296B5009B797A /* JVCDeviceListDeviceCell.m */; };
 		A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */; };
 		A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
 		A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
@@ -190,6 +191,8 @@
 		A7F5EF6619D27077009B797A /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		A7F5EF6719D27077009B797A /* EGOImageLoadConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageLoadConnection.m; sourceTree = "<group>"; };
 		A7F5EF6819D27077009B797A /* EGOImageLoadConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageLoadConnection.h; sourceTree = "<group>"; };
+		A7F5EF6E19D296B5009B797A /* JVCDeviceListDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListDeviceCell.h; sourceTree = "<group>"; };
+		A7F5EF6F19D296B5009B797A /* JVCDeviceListDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListDeviceCell.m; sourceTree = "<group>"; };
 		A7FAF5A819D108DB00B3F395 /* JVCRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRegisterViewController.h; sourceTree = "<group>"; };
 		A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRegisterViewController.m; sourceTree = "<group>"; };
 		A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_fieldBg@2x.png"; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 		A7F5EF1919D25A4E009B797A /* DeviceList */ = {
 			isa = PBXGroup;
 			children = (
+				A7F5EF6E19D296B5009B797A /* JVCDeviceListDeviceCell.h */,
+				A7F5EF6F19D296B5009B797A /* JVCDeviceListDeviceCell.m */,
 				A7F5EF4119D26A09009B797A /* JVCDeviceListAdvertCell.h */,
 				A7F5EF4219D26A09009B797A /* JVCDeviceListAdvertCell.m */,
 				AD2BDB2C19D291B300AA6D73 /* JVCDeviceListDeviceVIew.h */,
@@ -843,6 +848,7 @@
 				A7FAF5E419D144AB00B3F395 /* DDASLLogCapture.m in Sources */,
 				A7FAF5F019D144AB00B3F395 /* DDDispatchQueueLogFormatter.m in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
+				A7F5EF7019D296B5009B797A /* JVCDeviceListDeviceCell.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7FAF5E619D144AB00B3F395 /* DDASLLogger.m in Sources */,
