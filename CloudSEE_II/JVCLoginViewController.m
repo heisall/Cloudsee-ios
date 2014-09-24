@@ -9,6 +9,8 @@
 #import "JVCLoginViewController.h"
 #import "JVCSystemUtility.h"
 #import "JVCAccountHelper.h"
+
+#import "JVCDeviceListViewController.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -207,20 +209,28 @@ enum LOGINVIEWTAG
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
-    [self resiginTextFields];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int result = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
-            DDLogInfo(@"=%s=%d",__FUNCTION__,result);
-            
-            
-            
-        });
-    });
+#pragma mark 测试用
+    JVCDeviceListViewController *deviceVC = [[JVCDeviceListViewController alloc] init];
+    
+    [self.navigationController pushViewController:deviceVC animated:YES];
+    
+    [deviceVC release];
+    
+//    [self resiginTextFields];
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    
+//        int result = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//            DDLogInfo(@"=%s=%d",__FUNCTION__,result);
+//            
+//            
+//            
+//        });
+//    });
 }
 
 

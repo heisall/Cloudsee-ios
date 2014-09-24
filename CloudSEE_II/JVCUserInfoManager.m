@@ -127,8 +127,8 @@ static JVCUserInfoManager *shanreInstance = nil;
  */
 - (void)setConstantUserInfoWithUserName:(NSString *)userName passWord:(NSString *)passWord
 {
-    [[JVCUserInfoManager shareUserInfoManager] setstrUserName:userName];
-    [[JVCUserInfoManager shareUserInfoManager] setstrPassword:passWord];
+    [[JVCUserInfoManager shareUserInfoManager] setStrUserName:userName];
+    [[JVCUserInfoManager shareUserInfoManager] setStrPassword:passWord];
     
 }
 

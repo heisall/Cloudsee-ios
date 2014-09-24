@@ -56,21 +56,21 @@
  *
  *  @param value 用户名
  */
-- (void)setstrUserName:(NSString *)value ;
+- (void)setStrUserName:(NSString *)value ;
 
 /**
  *  设置密码
  *
  *  @param value 密码
  */
-- (void)setstrPassword:(NSString *)value ;
+- (void)setStrPassword:(NSString *)value ;
 
 /**
  *  设置最后一次登录时间
  *
  *  @param value 最后登录时间
  */
-- (void)setstrLastLoginTimer:(NSString *)value ;
+- (void)setStrLastLoginTimer:(NSString *)value ;
 
 /**
  *  保存用户名密码
