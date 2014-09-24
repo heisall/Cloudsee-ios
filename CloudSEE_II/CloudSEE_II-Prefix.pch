@@ -13,4 +13,23 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+    //frame坐标的
+    #import "UIView+ViewFrame.h"
+
+    //ddlog
+    #import "DDLog.h"
+    #import "DDASLLogCapture.h"
+    #import "DDFileLogger.h"
+    #import "DDTTYLogger.h"
+    #import "DDLogMacros.h"
+    static const int ddLogLevel = LOG_LEVEL_VERBOSE;//LOG_FLAG_WARN
+
+    #import "JVCUserInfoManager.h"
+
+    #import "JVCSystemConfigMacro.h"
+
 #endif
+
+
+

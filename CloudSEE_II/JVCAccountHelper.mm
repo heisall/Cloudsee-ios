@@ -103,13 +103,13 @@ static JVCAccountHelper *sharedjvcAccountHelper = nil;
     }
     
     
-    if (isSetAddress) {
+    if (isSetAddress) {//SetServerIP_C 设置服务器的IP地址，不能为域名
         
         SetServerIP_C([channelServerAddressStr UTF8String], [onlineServerAddressStr UTF8String]);
         
         return SUCCESS;
     }
-    
+    //ConfigServerAddress_C 设置服务器的地址，但是这个接口可以传ip也可以传域名
     bool ConfigServerAddressResult=ConfigServerAddress_C([channelServerAddressStr UTF8String],[onlineServerAddressStr UTF8String]);
     
     

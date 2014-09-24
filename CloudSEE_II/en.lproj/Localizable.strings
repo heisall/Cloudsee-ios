@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  CloudSEE_II
+
+  Created by Yanghu on 9/24/14.
+  Copyright (c) 2014 Yanghu. All rights reserved.
+*/
+
+"APPCHANNELSERVICEADDRESS" = "appchannelen.afdvr.com";
+"APPONLINESERVICEADDRESS" =  "apponlineen.afdvr.com";
+
+//登录界面
+"log_TextField_placeName"="Email/UserName";
+"log_TextField_placePassWord"="Password";
