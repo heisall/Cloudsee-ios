@@ -9,7 +9,6 @@
 #import "JVCEditDeviceListViewController.h"
 #import "JVCRGBColorMacro.h"
 #import "JVCRGBHelper.h"
-#import "JVCRGBModel.h"
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceListDeviceVIew.h"
 
@@ -44,6 +43,11 @@ static const int kInitWithLayoutColumnCount = 3;
     
     if (self) {
         
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备管理", nil) image:nil tag:1];
+        [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_deviceManager_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_deviceManager_unselect.png"]];
+        self.tabBarItem = moreItem;
+        [moreItem release];
+        
     }
     return self;
 }
@@ -53,43 +57,40 @@ static const int kInitWithLayoutColumnCount = 3;
  */
 -(void)initWithRgbListArray {
     
-    JVCRGBHelper *rgbHelper      = [[JVCRGBHelper alloc] init];
+    JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
     mArrayColors                 = [[NSMutableArray alloc] initWithCapacity:10];
    
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroGreen]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroGreen]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroGreen]];
+        [mArrayColors addObject:rgbHelper.rgbModel];
     }
     
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroSkyBlue]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroSkyBlue]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroSkyBlue]];
+        [mArrayColors addObject:rgbHelper.rgbModel];
     }
     
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroOrange]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroOrange]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroOrange]];
+        [mArrayColors addObject:rgbHelper.rgbModel];
     }
     
-   
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroDeepRed]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroDeepRed]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroDeepRed]];
+        [mArrayColors addObject:rgbHelper.rgbModel];
     }
     
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroYellow]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroYellow]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroYellow]];
+       [mArrayColors addObject:rgbHelper.rgbModel];
     }
     
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroPurple]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroPurple]) {
         
-        [mArrayColors addObject:[rgbHelper objectForKeyName:kJVCRGBColorMacroPurple]];
+        [mArrayColors addObject:rgbHelper.rgbModel];
     }
-    
-    [rgbHelper release];
-    
+        
 }
 
 /**
@@ -121,7 +122,7 @@ static const int kInitWithLayoutColumnCount = 3;
 
     UIImage *viewBgImage =[UIImage imageNamed:@"edi_bg.png"];
     
-    JVCRGBHelper *rgbHelper  = [[JVCRGBHelper alloc] init];
+    JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
     
     for (int i = 0; i< mArrayColors.count; i++) {
         
@@ -143,9 +144,9 @@ static const int kInitWithLayoutColumnCount = 3;
             
              UIColor   *titleColor ;
             
-             if ([rgbHelper objectForKeyName:kJVCRGBColorMacroEditDeviceButtonFont]) {
+             if ([rgbHelper setObjectForKey:kJVCRGBColorMacroEditDeviceButtonFont]) {
                 
-                JVCRGBModel *rgbModel = (JVCRGBModel *)[rgbHelper objectForKeyName:kJVCRGBColorMacroEditDeviceButtonFont];
+                JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
                 
                 titleColor            = RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f);
                 
@@ -172,15 +173,15 @@ static const int kInitWithLayoutColumnCount = 3;
     UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
     UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
     
-    if ([rgbHelper objectForKeyName:kJVCRGBColorMacroSkyBlue]) {
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroSkyBlue]) {
         
-        JVCRGBModel *rgbModel = (JVCRGBModel *)[rgbHelper objectForKeyName:kJVCRGBColorMacroSkyBlue];
+        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
         
         JVCDeviceListDeviceVIew *deviceBg = [[JVCDeviceListDeviceVIew alloc] initWithFrame:CGRectMake(20.0, self.view.frame.size.height - deviceImage.size.height-20.0, deviceImage.size.width, deviceImage.size.height) backgroundColor:RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f) cornerRadius:6.0f];
         
-        if ([rgbHelper objectForKeyName:kJVCRGBColorMacroWhite]) {
+        if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
             
-            JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)[rgbHelper objectForKeyName:kJVCRGBColorMacroEditDeviceButtonFont];
+            JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
             
             [deviceBg initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
             [deviceBg setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
@@ -188,8 +189,6 @@ static const int kInitWithLayoutColumnCount = 3;
         
         [self.view addSubview:deviceBg];
     }
-
-    [rgbHelper release];
 }
 
 /**

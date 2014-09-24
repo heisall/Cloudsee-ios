@@ -23,5 +23,8 @@ static NSString const *  kJVCRGBColorMacroEditDeviceButtonFont    = @"editDevice
 //设备列表
 static NSString const *  kJVCRGBColorMacroWhite   = @"white";
 
+//TabarViewController
+static NSString const *  kJVCRGBColorMacroTabarWhite   = @"tabarWhite";
+
 
 #endif

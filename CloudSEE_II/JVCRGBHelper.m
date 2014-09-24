@@ -7,7 +7,6 @@
 //
 
 #import "JVCRGBHelper.h"
-#import "JVCRGBModel.h"
 #import "JVCRGBColorMacro.h"
 
 
@@ -19,6 +18,9 @@
 @end
 
 @implementation JVCRGBHelper
+@synthesize rgbModel;
+
+static JVCRGBHelper *jvcRGBHelper = nil;
 
 /**
  *  初始化颜色的辅助类
@@ -33,10 +35,43 @@
         
         [self initEditDeviceViewRgbColors];
         [self initDeviceListViewRgbColors];
-        
+        [self initTabarViewRgbColors];
     }
 
     return self;
+}
+
+/**
+ *  单例
+ *
+ *  @return 返回AddDeviceAlertMaths的单例
+ */
++ (JVCRGBHelper *)shareJVCRGBHelper
+{
+    @synchronized(self)
+    {
+        if (jvcRGBHelper == nil) {
+            
+            jvcRGBHelper = [[self alloc] init];
+            
+        }
+        return jvcRGBHelper;
+    }
+    return jvcRGBHelper;
+}
+
++(id)allocWithZone:(struct _NSZone *)zone
+{
+    @synchronized(self)
+    {
+        if (jvcRGBHelper == nil) {
+            
+            jvcRGBHelper = [super allocWithZone:zone];
+            
+            return jvcRGBHelper;
+        }
+    }
+    return nil;
 }
 
 /**
@@ -114,23 +149,48 @@
 }
 
 /**
- *  根据key返回RGB对象
+ *  初始化设备列表界面的RGB集合
+ */
+-(void)initTabarViewRgbColors{
+    
+    JVCRGBModel *tabarWhite  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    tabarWhite.r = 245.0f;
+    tabarWhite.g = 245.0f;
+    tabarWhite.b = 245.0f;
+    
+    [mdicRgbModelList setObject:tabarWhite forKey:kJVCRGBColorMacroTabarWhite];
+    
+    [tabarWhite release];
+}
+
+/**
+ *  设置当前颜色助手类选择的RGB对象
  *
- *  @param strkeyName 对象的键值
+ *  @param strkeyName RGB颜色的Key
  *
  *  @return RGB对象
  */
--(id)objectForKeyName:(NSString const *)strkeyName{
+- (BOOL)setObjectForKey:(NSString const *)strkeyName{
     
-    return [mdicRgbModelList objectForKey:strkeyName];
+    if ([mdicRgbModelList objectForKey:strkeyName]) {
+        
+        self.rgbModel  = (JVCRGBModel *)[mdicRgbModelList objectForKey:strkeyName];
+        
+        return TRUE;
+        
+    }else {
+        
+        return NO;
+    }
 }
-
 
 /**
  *  释放颜色助手类对象
  */
 -(void)dealloc{
 
+    [rgbModel release];
+    [mdicRgbModelList release];
     [super dealloc];
 }
 

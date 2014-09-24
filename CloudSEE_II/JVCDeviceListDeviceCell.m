@@ -11,9 +11,7 @@
 #import "JVCDeviceListDeviceCell.h"
 #import "JVCRGBHelper.h"
 #import "JVCDeviceListDeviceVIew.h"
-#import "JVCRGBModel.h"
 #import "JVCRGBColorMacro.h"
-
 
 @implementation JVCDeviceListDeviceCell
 @synthesize _arrayCellClolors;
@@ -51,7 +49,7 @@
     
     [arrayColor retain];
     
-    JVCRGBHelper *rgbHelper  = [[JVCRGBHelper alloc] init];
+    JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
 
     UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
     UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
@@ -60,9 +58,9 @@
         
         NSString *strClolor = [arrayColor objectAtIndex:i];
         
-        if ([rgbHelper objectForKeyName:strClolor]) {
+        if ([rgbHelper setObjectForKey:strClolor]) {
             
-            JVCRGBModel *rgbModel = (JVCRGBModel *)[rgbHelper objectForKeyName:strClolor];
+            JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
             
             CGFloat seperate = (self.width - 2*deviceImage.size.width)/3.0;
             JVCDeviceListDeviceVIew *deviceBg = [[JVCDeviceListDeviceVIew alloc] initWithFrame:CGRectMake(seperate+i*(deviceImage.size.width+seperate), 120 - deviceImage.size.height-20.0, deviceImage.size.width, deviceImage.size.height) backgroundColor:RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f) cornerRadius:6.0f];
@@ -74,9 +72,9 @@
             [self addGestureRecognizer:gesture];
             [gesture release];
             
-            if ([rgbHelper objectForKeyName:kJVCRGBColorMacroWhite]) {
+            if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
                 
-                JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)[rgbHelper objectForKeyName:kJVCRGBColorMacroEditDeviceButtonFont];
+                JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
                 
                 [deviceBg initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
                 [deviceBg setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
@@ -84,14 +82,9 @@
             
             [self.contentView addSubview:deviceBg];
         }
-
     }
     
-    
-    [rgbHelper release];
-    
     [arrayColor release];
- 
 }
 
 /**

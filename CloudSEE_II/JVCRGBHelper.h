@@ -7,16 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JVCRGBModel.h"
 
-@interface JVCRGBHelper : NSObject
+@interface JVCRGBHelper : NSObject {
+    
+    JVCRGBModel *rgbModel;       //当前选择的RgbModel
+}
+
+@property (nonatomic,retain) JVCRGBModel *rgbModel;
 
 /**
- *  根据key返回RGB对象
+ *  单例
  *
- *  @param strkeyName 对象的键值
+ *  @return 返回AddDeviceAlertMaths的单例
+ */
++ (JVCRGBHelper *)shareJVCRGBHelper;
+
+/**
+ *  设置当前颜色助手类选择的RGB对象
+ *
+ *  @param strkeyName RGB颜色的Key
  *
  *  @return RGB对象
  */
--(id)objectForKeyName:(NSString const *)strkeyName;
+- (BOOL)setObjectForKey:(NSString const *)strkeyName;
 
 @end

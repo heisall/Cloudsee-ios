@@ -10,11 +10,11 @@
 #import "JVCLoginViewController.h"
 #import "JVCAccountHelper.h"
 #import "JVCSystemUtility.h"
-
-
+#import "JVCRootTabarViewControllersHelper.h"
+#import "JVCRGBHelper.h"
+#import "JVCRGBColorMacro.h"
 
 static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
-
 
 @implementation AppDelegate
 
@@ -27,7 +27,7 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor clearColor];
     [self.window makeKeyAndVisible];
     
     //设置导航
@@ -45,7 +45,30 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
     return YES;
 }
 
-
+/**
+ *  初始化TabarViewControllers
+ */
+-(void)initWithTabarViewControllers{
+    
+    JVCRootTabarViewControllersHelper *rootTabarHelper = [[JVCRootTabarViewControllersHelper alloc] init];
+    NSArray *viewControllers = [rootTabarHelper initWithTabarViewControllers];
+    [viewControllers retain];
+    
+    UITabBarController *rootViewController=[[UITabBarController alloc] init];
+    rootViewController.viewControllers=viewControllers;
+    [viewControllers release];
+    [rootTabarHelper release];
+    
+    JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
+    
+    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroTabarWhite]) {
+        
+        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
+        rootViewController.tabBar.backgroundColor = RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b, 1.0f);
+    }
+    
+    self.window.rootViewController = rootViewController;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -161,9 +184,7 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
                 
                 
                 return [[JVCAccountHelper sharedJVCAccountHelper] InitSdk:sdkLogPath channelServerAddressStr:mstrChannelServer onlineServerAddressStr:mstronlineServer islocalCheck:islocalCheck isSetAddress:TRUE];
-                
             }
-            
         }
         
     }
@@ -182,7 +203,6 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
     fileLogger.rollingFrequency = 60*60*24;
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [DDLog addLogger:fileLogger];
-
 }
 
 
