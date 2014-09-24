@@ -54,11 +54,11 @@ static JVCSystemUtility *shareInstance = nil;
     if (iphone5) {
         
         NSArray *ArrayImageName = [imageStr componentsSeparatedByString:@"."];
+        
         if (ArrayImageName.count == 2) {//正确
             
             return [NSString stringWithFormat:@"%@_iphone5.png",[ArrayImageName objectAtIndex:0]];
         }
-        
     }
     
     return imageStr;
@@ -74,11 +74,9 @@ static JVCSystemUtility *shareInstance = nil;
  */
 -(BOOL)checkLocalFileExist:(NSString *)checkFilePath{
     
-    
     NSFileManager *fileManager=[NSFileManager defaultManager];
     
     return  [fileManager fileExistsAtPath:checkFilePath];
-    
 }
 
 @end
