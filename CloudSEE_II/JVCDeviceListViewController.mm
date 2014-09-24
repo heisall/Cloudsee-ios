@@ -11,8 +11,12 @@
 #import "UIScrollView+MJRefresh.h"
 #import "JVCDeviceListAdvertCell.h"
 #import "JVCRGBColorMacro.h"
+#import "JVCRGBHelper.h"
+#import "JVCDeviceListDeviceVIew.h"
+#import "JVCAppHelper.h"
 
-static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数组
+static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
+static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
 
 
 @interface JVCDeviceListViewController ()
@@ -21,7 +25,6 @@ static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数�
 
     NSMutableArray *_arrayColorFirstList;//存放颜色数据的数组
     NSMutableArray *_arrayColorSecondList;//存放颜色数据的数组
-
 }
 
 @end
@@ -47,7 +50,7 @@ static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数�
     self.navigationController.navigationBar.hidden = NO;
     
     //初始化颜色数组
-    _arrayColorFirstList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,nil];
+    _arrayColorFirstList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
     
     _arrayColorSecondList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
 
@@ -120,7 +123,7 @@ static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数�
         return 1;
     }
     
-    return self.arrayDeviceList.count;
+    return self.arrayDeviceList.count%kTableViewCellInViewColumnCount == 0 ? self.arrayDeviceList.count/kTableViewCellInViewColumnCount:self.arrayDeviceList.count/kTableViewCellInViewColumnCount+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,22 +170,43 @@ static const int  CLOURROWNUM  = 2 ; //判断设备的颜色值是第几个数�
         
         cell.deviceCellDelegate = self;
         
-        int iCurrent = indexPath.row%CLOURROWNUM;
-        
-        if (iCurrent%CLOURROWNUM == 0) {
+        for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
             
-            [cell initCellContent:_arrayColorFirstList];
-
-        }else{
-            
-            [cell initCellContent:_arrayColorSecondList];
-
+            if (index < arrayDeviceList.count) {
+                
+                int viewIndex  = index % kTableViewCellInViewColumnCount;
+                int colorIndex = index % kTableViewCellColorTypeCount;
+                
+                JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
+                
+                UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
+                UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
+                
+                CGRect position;
+                position.size.width  = deviceImage.size.width;
+                position.size.height = deviceImage.size.height;
+                
+                [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
+                
+                if ([rgbHelper setObjectForKey:[_arrayColorFirstList objectAtIndex:colorIndex]]) {
+                    
+                    JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:RGBConvertColor(rgbHelper.rgbModel.r, rgbHelper.rgbModel.g, rgbHelper.rgbModel.b, 1.0f) cornerRadius:6.0f];
+                    
+                    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
+                        
+                        JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
+                        
+                        [deviceView initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
+                        [deviceView setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+                    }
+                    
+                    [cell.contentView addSubview:deviceView];
+                    [deviceView release];
+                }
+            }
         }
         
-        
         return cell;
-
-    
     }
 }
 

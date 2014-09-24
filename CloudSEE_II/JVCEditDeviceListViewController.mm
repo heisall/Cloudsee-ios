@@ -11,6 +11,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceListDeviceVIew.h"
+#import "JVCAppHelper.h"
 
 @interface JVCEditDeviceListViewController () {
 
@@ -57,40 +58,7 @@ static const int kInitWithLayoutColumnCount = 3;
  */
 -(void)initWithRgbListArray {
     
-    JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
-    
-    mArrayColors                 = [[NSMutableArray alloc] initWithCapacity:10];
-   
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroGreen]) {
-        
-        [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroSkyBlue]) {
-        
-        [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroOrange]) {
-        
-        [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroDeepRed]) {
-        
-        [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroYellow]) {
-        
-       [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroPurple]) {
-        
-        [mArrayColors addObject:rgbHelper.rgbModel];
-    }
-        
+    mArrayColors                 = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroOrange,kJVCRGBColorMacroDeepRed,kJVCRGBColorMacroYellow,kJVCRGBColorMacroPurple,nil];
 }
 
 /**
@@ -131,9 +99,14 @@ static const int kInitWithLayoutColumnCount = 3;
         position.size.width  = viewBgImage.size.width;
         position.size.height = viewBgImage.size.height;
         
-        [self viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
+        [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         
-        JVCRGBModel *rgbModel = (JVCRGBModel *) [mArrayColors objectAtIndex:i];
+        if (![rgbHelper setObjectForKey:[mArrayColors objectAtIndex:i]]) {
+            
+            continue;
+        }
+        
+        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
         
         JVCEditDeviceOperationView *bgView = [[JVCEditDeviceOperationView alloc] initWithFrame:position backgroundColor:RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f) cornerRadius:position.size.height/2.0];
         
@@ -234,37 +207,6 @@ static const int kInitWithLayoutColumnCount = 3;
                 break;
         }
     }
-}
-
-/**
- *  获取指定索引View在矩阵视图中的位置
- *
- *  @param SuperViewWidth 父视图的宽
- *  @param viewCGRect     子视图的坐标
- *  @param nColumnCount   一列几个元素
- *  @param viewIndex      矩阵中的索引 （从1开始）
- */
--(void)viewInThePositionOfTheSuperView:(CGFloat)SuperViewWidth viewCGRect:(CGRect &)viewCGRect  nColumnCount:(int)nColumnCount viewIndex:(int)viewIndex{
-	
-    CGFloat viewWidth  = viewCGRect.size.width;
-    CGFloat viewHeight = viewCGRect.size.height;
-    
-    float spacing = (SuperViewWidth - viewWidth*nColumnCount ) / (nColumnCount + 1);
-    
-    int column    =  viewIndex % nColumnCount; // 1
-    int row       =  viewIndex / nColumnCount; // 0
-    
-    if (column != 0 ) {
-        
-        row = row + 1;
-        
-    }else {
-        
-        column = nColumnCount;
-    }
-    
-    viewCGRect.origin.x = spacing * column + viewWidth  * (column -1);
-    viewCGRect.origin.y = spacing * row    + viewHeight * (row -1);
 }
 
 -(void)dealloc{
