@@ -27,4 +27,12 @@
  */
 -(void)viewInThePositionOfTheSuperView:(CGFloat)SuperViewWidth viewCGRect:(CGRect &)viewCGRect  nColumnCount:(int)nColumnCount viewIndex:(int)viewIndex;
 
+/**
+ *  判断字典是不是为空
+ *
+ *  @param infoId 字典类型的数据
+ *
+ *  @return yes:空  no：非空
+ */
+- (BOOL)judgeDictionIsNil:(NSDictionary *)infoId;
 @end

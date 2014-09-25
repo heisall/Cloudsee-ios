@@ -76,4 +76,19 @@ static JVCAppHelper *jvcAppHelper = nil;
     viewCGRect.origin.y = spacing * row    + viewHeight * (row -1);
 }
 
+
+/**
+ *  判断字典是不是为空
+ *
+ *  @param infoId 字典类型的数据
+ *
+ *  @return yes:空  no：非空
+ */
+- (BOOL)judgeDictionIsNil:(NSDictionary *)infoId
+{
+    if (infoId != nil) {
+        return NO;
+    }
+    return YES ;
+}
 @end

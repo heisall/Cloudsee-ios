@@ -18,7 +18,6 @@ typedef void (*ServerPushCallBack_Info_C)(const int message_type, const c_SERVER
 
 extern "C" {
     
-    
     void DestroyResouce_C();
 	
     bool ConfigServerAddress_C(const char* appchannel_server_addr, const char* apponline_server_addr);

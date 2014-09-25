@@ -522,8 +522,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	totalSize.height += indicatorF.size.height;
     
     CGFloat remainingHeight2 = bounds.size.height - totalSize.height - kPadding - 4 * margin;
-    CGSize size = CGSizeMake(maxWidth,remainingHeight2);
-    CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
+    CGSize sizeCurrent = CGSizeMake(maxWidth,remainingHeight2);
+    CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:sizeCurrent lineBreakMode:NSLineBreakByCharWrapping];
   //  [label setFrame:CGRectMake(0, 0, labelsize.width, labelsize.height)];
 	
 	//CGSize labelSize = [label.text sizeWithFont:label.font];

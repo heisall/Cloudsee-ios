@@ -175,7 +175,7 @@ static JVCAccountHelper *sharedjvcAccountHelper = nil;
  *
  *	@return 成功返回0
  */
--(int)UserRegister:(NSString *)userName passWord:(NSString *)passWord appTypeName:(NSString *)appTypeName{
+-(int)UserRegister:(NSString *)userName passWord:(NSString *)passWord appTypeName:(const NSString *)appTypeName{
     
     
     int resultValue=UserRegister_C([userName UTF8String],[passWord UTF8String],[appTypeName UTF8String]);

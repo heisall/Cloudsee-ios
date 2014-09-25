@@ -14,6 +14,9 @@
 #import "JVCRGBHelper.h"
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
+#import "JVCDeviceHelper.h"
+#import "JVCHandleDeviceMaths.h"
+#import "JVCDeviceModel.h"
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
@@ -37,6 +40,11 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
+        [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_device_unselect.png"]];
+        self.tabBarItem = moreItem;
+        [moreItem release];
     }
     return self;
 }
@@ -71,10 +79,8 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     //添加数据，为了测试
     arrayDeviceList = [[NSMutableArray alloc] init];
     
-    for (int i=0; i<5; i++) {
-        
-       [ arrayDeviceList addObject:[NSString stringWithFormat:@"%d",i]];
-    }
+    [self getDeviceList];
+    
 }
 
 /**
@@ -91,7 +97,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
     _tableView.headerPullToRefreshText = @"下拉可以刷新了";
     _tableView.headerReleaseToRefreshText = @"松开马上刷新了";
-    _tableView.headerRefreshingText = @"MJ哥正在帮你刷新中,不客气";
+    _tableView.headerRefreshingText = @"杨虎哥正在帮你刷新中,不客气";
 
 
 }
@@ -122,7 +128,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         
         return 1;
     }
-    
+    DDLogInfo(@"_%s==%d=",__FUNCTION__,self.arrayDeviceList.count%kTableViewCellInViewColumnCount == 0 ? self.arrayDeviceList.count/kTableViewCellInViewColumnCount:self.arrayDeviceList.count/kTableViewCellInViewColumnCount+1);
     return self.arrayDeviceList.count%kTableViewCellInViewColumnCount == 0 ? self.arrayDeviceList.count/kTableViewCellInViewColumnCount:self.arrayDeviceList.count/kTableViewCellInViewColumnCount+1;
 }
 
@@ -167,11 +173,15 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
                 
         for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
             
+            
             if (index < arrayDeviceList.count) {
                 
+                JVCDeviceModel *modelCell = [self.arrayDeviceList objectAtIndex:index];
+
                 int viewIndex  = index % kTableViewCellInViewColumnCount;
                 int colorIndex = index % kTableViewCellColorTypeCount;
                 
@@ -196,7 +206,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                         JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
                         
                         [deviceView initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
-                        [deviceView setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+                        [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
                     }
                     
                     //添加选中设备的事件
@@ -224,6 +234,45 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
     
 
+}
+
+#pragma mark 获取设备
+- (void)getDeviceList
+{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+            
+            if (![[JVCAppHelper shareJVCRGBHelper]judgeDictionIsNil:tdicDevice]) {//非空
+                
+                DDLogInfo(@"_%s===%@",__func__,tdicDevice);
+                
+               NSArray *deviceListArray =  [[JVCHandleDeviceMaths shareHandleDeviceMaths] convertDeviceListDictionToModelArray:tdicDevice];
+                
+                [self.arrayDeviceList removeAllObjects];
+                
+                [self.arrayDeviceList addObjectsFromArray:deviceListArray];
+                
+                [_tableView reloadData];
+                
+            }else{//空
+            
+                
+                [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
+
+            
+            }
+            
+        });
+
+    });
 }
 
 #pragma mark  点击设备的回调

@@ -115,14 +115,14 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
 //    
 //    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
     
-    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:@"appchannelen.afdvr.com"];
+    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:@"appchannel.afdvr.com"];
     
-    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:@"apponlineen.afdvr.com"];
+    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:@"apponline.afdvr.com"];
 
     int result = [self InitSdk:pathAccount
-                       channelServerAddressStr:@"appchannelen.afdvr.com"
+                       channelServerAddressStr:@"appchannel.afdvr.com"
                        channelServerAddressStrLocalPath:APPCHANNELSERVICEADDRESSPATHPATH
-                       onlineServerAddressStr:@"apponlineen.afdvr.com"
+                       onlineServerAddressStr:@"apponline.afdvr.com"
                        onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
                        islocalCheck:NO
                        isLogAppend:YES];

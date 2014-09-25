@@ -88,8 +88,8 @@
  *
  *	@return 成功返回0
  */
--(int)UserRegister:(NSString *)userName passWord:(NSString *)passWord appTypeName:(NSString *)appTypeName;
-
+//-(int)UserRegister:(NSString *)userName passWord:(NSString *)passWord appTypeName:(NSString *)appTypeName;
+-(int)UserRegister:(NSString *)userName passWord:(NSString *)passWord appTypeName:(const NSString *)appTypeName;
 /**
  *  绑定用户的邮箱
  *

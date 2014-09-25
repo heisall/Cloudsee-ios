@@ -19,6 +19,7 @@ static const int SLIDEHEIGINT  = -100;//动画的时间
 
 static const int RESISTERRESULT_SUCCESS  = 0;//返回值成功
 
+static  NSString const *APPNAME  = @"CloudSEE";//app标识
 
 
 @interface JVCRegisterViewController ()
@@ -193,12 +194,16 @@ static const int RESISTERRESULT_SUCCESS  = 0;//返回值成功
 #pragma mark 注册按钮按下时间
 - (void)signUp
 {
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int result = [[JVCAccountHelper sharedJVCAccountHelper] UserRegister:textFieldUser.text passWord:textFieldPassWord.text appTypeName:@"CLOUDSEE_II"];
+        int result = [[JVCAccountHelper sharedJVCAccountHelper] UserRegister:textFieldUser.text passWord:textFieldPassWord.text appTypeName:APPNAME];
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
             DDLogInfo(@"%s==注册收到的返回值 =%d",__FUNCTION__,result);
             
             [self dealWithRegisterResutl:result];
@@ -228,6 +233,8 @@ static const int RESISTERRESULT_SUCCESS  = 0;//返回值成功
         DDLogError(@"=%s=注册失败收到的返回值=%d",__FUNCTION__,iResult);
     }
 }
+
+
 
 #pragma mark 界面向上滑动
 /**

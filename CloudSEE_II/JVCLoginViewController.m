@@ -13,6 +13,7 @@
 #import "JVCAccountMacro.h"
 #import "JVCDeviceListViewController.h"
 #import "AppDelegate.h"
+#import "JVCResultTipsHelper.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -31,7 +32,11 @@ enum LOGINVIEWTAG
     LOGINVIEWTAG_Line       = 106,//账号下面横杆的tag
 };
 
-static const int  LOGINRUSULT_SUCCESS = 0;
+//static const int  LOGINRUSULT_SUCCESS = 0;
+
+static const int  USERTYPE_NEW = 119;//新账号
+
+static const int  USERTYPE_OLD = 118;//老账号
 
 @interface JVCLoginViewController ()
 {
@@ -236,35 +241,55 @@ static const int  LOGINRUSULT_SUCCESS = 0;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            int result = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
             
+            //判断用户的强度，119是用户的新密码加密规则，调用UserLogin接口登陆118是用户的老密码加密规则调用OldUserLogin接口登陆
+            int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:textFieldUser.text ];
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 DDLogInfo(@"=%s=%d",__FUNCTION__,result);
                 
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
-                if (LOGINRUSULT_SUCCESS == result) {//登录成功，切换主视图的rootviewcontroller
+                if (result == USERTYPE_OLD) {
                     
-                    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-
-                    [delegate initWithTabarViewControllers];
+                    [self loginInWithOldUserType];
                     
-                }else{
-                
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"登录失败"];
+                }else if(result == USERTYPE_NEW ){
+                    
+                    [self loginInWithNewUserType];
+                    
+                }else {//超时以及其他的一些提示
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+                    
+                    [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:result];
 
-                
+                    
+////                    [[AccountAlertObject shareAccountAlertInstance] loginInWithResult:resultState];
+////                    
+////                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+////                        
+////                        if (resultState ==REQ_RES_TIMEOUT ||resultState ==CONN_OTHER_ERROR ||resultState ==CANT_CONNECT_SERVER) {
+////                            /**
+////                             *  重新初始化账号sdk，忽略本地缓存ip
+////                             */
+////                            JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
+////                            [delegate intiAccountSDKWithIsLocalCheck:TRUE];
+////                            
+////                        }
+//                        
+//                    });
+                    
                 }
-                
                 
             });
         });
 
         
-    }else{
+    }else{//失败
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"用户名、密码为空"];
+        //[[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"用户名、密码为空"];
+        
+        [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
     }
     
     
@@ -272,6 +297,53 @@ static const int  LOGINRUSULT_SUCCESS = 0;
 
 }
 
+#pragma mark 老账号登录
+/**
+ *  老账号登录
+ */
+- (void)loginInWithOldUserType
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+      // int resultOldType = [[JVCAccountHelper sharedJVCAccountHelper] OldUserLogin:textFieldUser.text passWord:textFieldPW.text];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+//            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//            
+//            [delegate initWithTabarViewControllers];
+        });
+    });
+}
+
+#pragma mark 新账号登录
+/**
+ *  新账号登录
+ */
+- (void)loginInWithNewUserType
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (LOGINRESULT_SUCCESS == resultnewType) {//成功
+                
+                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                
+                [delegate initWithTabarViewControllers];
+            
+            }else{
+            
+                [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultnewType];
+
+            }
+            
+
+        });
+    });
+}
 
 #pragma mark 注册成功之后的回调函数
 /**
