@@ -9,8 +9,10 @@
 #import "JVCLoginViewController.h"
 #import "JVCSystemUtility.h"
 #import "JVCAccountHelper.h"
-
+#import "JVCAccountPredicateMaths.h"
+#import "JVCAccountMacro.h"
 #import "JVCDeviceListViewController.h"
+#import "AppDelegate.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -28,6 +30,8 @@ enum LOGINVIEWTAG
     LOGINVIEWTAG_Down       = 104,//多张号时的三角按钮的tag
     LOGINVIEWTAG_Line       = 106,//账号下面横杆的tag
 };
+
+static const int  LOGINRUSULT_SUCCESS = 0;
 
 @interface JVCLoginViewController ()
 {
@@ -52,6 +56,11 @@ enum LOGINVIEWTAG
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
+        [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_unselect.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_deviceManager_unselect.png"]];
+        self.tabBarItem = moreItem;
+        [moreItem release];
     }
     return self;
 }
@@ -62,6 +71,15 @@ enum LOGINVIEWTAG
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    textFieldUser.text  =  [[NSUserDefaults standardUserDefaults] objectForKey:@"USER"];
+    textFieldPW.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"PassWord"];
+    
 }
 
 
@@ -209,28 +227,49 @@ enum LOGINVIEWTAG
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
+    //判断用户名、密码是否合法
+    int result = [[JVCAccountPredicateMaths shareAccontPredicateMaths] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
     
-#pragma mark 测试用
-    JVCDeviceListViewController *deviceVC = [[JVCDeviceListViewController alloc] init];
+    if (LOGINRESULT_SUCCESS == result) {//用户名秘密合法，登录,
+        
+        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            int result = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                DDLogInfo(@"=%s=%d",__FUNCTION__,result);
+                
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+                if (LOGINRUSULT_SUCCESS == result) {//登录成功，切换主视图的rootviewcontroller
+                    
+                    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+                    [delegate initWithTabarViewControllers];
+                    
+                }else{
+                
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"登录失败"];
+
+                
+                }
+                
+                
+            });
+        });
+
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"用户名、密码为空"];
+    }
     
-    [self.navigationController pushViewController:deviceVC animated:YES];
     
-    [deviceVC release];
-    
-//    [self resiginTextFields];
-//
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//    
-//        int result = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//            DDLogInfo(@"=%s=%d",__FUNCTION__,result);
-//            
-//            
-//            
-//        });
-//    });
+    [self resiginTextFields];
+
 }
 
 
@@ -245,8 +284,10 @@ enum LOGINVIEWTAG
      */
     textFieldUser.text  = kkUserName;
     textFieldPW.text    = kkPassword;
-    
-    DDLogInfo(@"=%@=%@==%@",kkUserName,kkPassword,textFieldUser.text);
+    [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
+    [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
+
+    DDLogInfo(@"=%@=%@==%@=USER=%@",kkUserName,kkPassword,textFieldUser.text,[[NSUserDefaults standardUserDefaults] objectForKey:@"USER"]);
     
     /**
      *  登录

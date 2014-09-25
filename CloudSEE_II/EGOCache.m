@@ -64,7 +64,6 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[[self class] alloc] init];
-		[instance setDefaultTimeoutInterval:86400];
 	});
 	
 	return instance;
@@ -73,20 +72,18 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 - (id)init {
 	NSString* cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
 	NSString* oldCachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"EGOCache"] copy];
-    
+
 	if([[NSFileManager defaultManager] fileExistsAtPath:oldCachesDirectory]) {
 		[[NSFileManager defaultManager] removeItemAtPath:oldCachesDirectory error:NULL];
 	}
 	
-    NSString *cachesDirectoryPath = [[cachesDirectory stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"EGOCache"];
-    [oldCachesDirectory release];
-	return [self initWithCacheDirectory:cachesDirectoryPath];
+	cachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"EGOCache"] copy];
+	return [self initWithCacheDirectory:cachesDirectory];
 }
 
-- (id)initWithCacheDirectory:(NSString*)cachesDirectoryPath {
-    
+- (id)initWithCacheDirectory:(NSString*)cacheDirectory {
 	if((self = [super init])) {
-        NSString  *cacheDirectory =[cachesDirectoryPath copy];
+
 		_cacheInfoQueue = dispatch_queue_create("com.enormego.egocache.info", DISPATCH_QUEUE_SERIAL);
 		dispatch_queue_t priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 		dispatch_set_target_queue(priority, _cacheInfoQueue);
@@ -96,13 +93,12 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 		dispatch_set_target_queue(priority, _frozenCacheInfoQueue);
 		
 		_diskQueue = dispatch_queue_create("com.enormego.egocache.disk", DISPATCH_QUEUE_CONCURRENT);
-		priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-		dispatch_set_target_queue(priority, _cacheInfoQueue);
+		priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+		dispatch_set_target_queue(priority, _diskQueue);
 		
 		
 		_directory = cacheDirectory;
-        // NSLog(@"%d",[_directory retainCount]);
-        
+
 		_cacheInfo = [[NSDictionary dictionaryWithContentsOfFile:cachePathForKey(_directory, @"EGOCache.plist")] mutableCopy];
 		
 		if(!_cacheInfo) {
@@ -122,10 +118,8 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 		}
 		
 		[_cacheInfo removeObjectsForKeys:removedKeys];
-        [removedKeys release];
 		self.frozenCacheInfo = _cacheInfo;
-        //  [_cacheInfo release];
-        // [cacheDirectory release];
+		[self setDefaultTimeoutInterval:86400];
 	}
 	
 	return self;
@@ -140,36 +134,49 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 		[_cacheInfo removeAllObjects];
 		
 		dispatch_sync(_frozenCacheInfoQueue, ^{
-            NSDictionary *dicTemp =  [_cacheInfo copy];
-			self.frozenCacheInfo =dicTemp;
-            [dicTemp release];
+			self.frozenCacheInfo = [_cacheInfo copy];
 		});
-        
+
 		[self setNeedsSave];
 	});
 }
 
 - (void)removeCacheForKey:(NSString*)key {
 	CHECK_FOR_EGOCACHE_PLIST();
-    
+
 	dispatch_async(_diskQueue, ^{
 		[[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(_directory, key) error:NULL];
 	});
-    
+
 	[self setCacheTimeoutInterval:0 forKey:key];
 }
 
 - (BOOL)hasCacheForKey:(NSString*)key {
-	__block NSDate* date = nil;;
-	
-	dispatch_sync(_frozenCacheInfoQueue, ^{
-		date = (self.frozenCacheInfo)[key];
-	});
-	
+    NSDate* date = [self dateForKey:key];
 	if(!date) return NO;
 	if([date compare:[NSDate date]] != NSOrderedDescending) return NO;
 	
 	return [[NSFileManager defaultManager] fileExistsAtPath:cachePathForKey(_directory, key)];
+}
+
+- (NSDate*)dateForKey:(NSString*)key {
+	__block NSDate* date = nil;
+
+	dispatch_sync(_frozenCacheInfoQueue, ^{
+		date = (self.frozenCacheInfo)[key];
+	});
+
+    return date;
+}
+
+- (NSArray*)allKeys {
+    __block NSArray* keys = nil;
+
+    dispatch_sync(_frozenCacheInfoQueue, ^{
+        keys = [self.frozenCacheInfo allKeys];
+    });
+
+    return keys;
 }
 
 - (void)setCacheTimeoutInterval:(NSTimeInterval)timeoutInterval forKey:(NSString*)key {
@@ -186,7 +193,6 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 		}
 		
 		self.frozenCacheInfo = info;
-        [info release];
 	});
 	
 	
@@ -199,12 +205,9 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 		}
 		
 		dispatch_sync(_frozenCacheInfoQueue, ^{
-            
-			NSDictionary *tempDic =[_cacheInfo copy];
-            self.frozenCacheInfo = tempDic;
-            [tempDic release];
+			self.frozenCacheInfo = [_cacheInfo copy];
 		});
-        
+
 		[self setNeedsSave];
 	});
 }
@@ -270,7 +273,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 #pragma mark String methods
 
 - (NSString*)stringForKey:(NSString*)key {
-	return [[[NSString alloc] initWithData:[self dataForKey:key] encoding:NSUTF8StringEncoding] autorelease];
+	return [[NSString alloc] initWithData:[self dataForKey:key] encoding:NSUTF8StringEncoding];
 }
 
 - (void)setString:(NSString*)aString forKey:(NSString*)key {
@@ -332,7 +335,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 #pragma mark -
 #pragma mark Property List methods
 
-- (NSData*)plistForKey:(NSString*)key; {
+- (NSData*)plistForKey:(NSString*)key; {  
 	NSData* plistData = [self dataForKey:key];
 	
 	return [NSPropertyListSerialization propertyListFromData:plistData
@@ -347,7 +350,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 
 - (void)setPlist:(id)plistObject forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval; {
 	// Binary plists are used over XML for better performance
-	NSData* plistData = [NSPropertyListSerialization dataFromPropertyList:plistObject
+	NSData* plistData = [NSPropertyListSerialization dataFromPropertyList:plistObject 
 																   format:NSPropertyListBinaryFormat_v1_0
 														 errorDescription:NULL];
 	
@@ -376,8 +379,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 #pragma mark -
 
 - (void)dealloc {
-    [_directory release];
-    [super dealloc];
+
 }
 
 @end

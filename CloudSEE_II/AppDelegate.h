@@ -12,4 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+/**
+ *  初始化TabarViewControllers
+ */
+-(void)initWithTabarViewControllers;
 @end

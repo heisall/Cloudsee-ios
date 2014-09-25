@@ -159,17 +159,15 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     
         static NSString *cellIdentify = @"cellIndetify";
         
-        JVCDeviceListDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
         
         if (cell == nil) {
             
-            cell = [[[JVCDeviceListDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify] autorelease];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify] autorelease];
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        cell.deviceCellDelegate = self;
-        
+                
         for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
             
             if (index < arrayDeviceList.count) {
@@ -191,6 +189,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                 if ([rgbHelper setObjectForKey:[_arrayColorFirstList objectAtIndex:colorIndex]]) {
                     
                     JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:RGBConvertColor(rgbHelper.rgbModel.r, rgbHelper.rgbModel.g, rgbHelper.rgbModel.b, 1.0f) cornerRadius:6.0f];
+                    deviceView.tag = index;
                     
                     if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
                         
@@ -200,6 +199,11 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                         [deviceView setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
                     }
                     
+                    //添加选中设备的事件
+                    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectDeviceToPlay:)];
+                    [deviceView addGestureRecognizer:gesture];
+                    [gesture release];
+                    
                     [cell.contentView addSubview:deviceView];
                     [deviceView release];
                 }
@@ -208,6 +212,18 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         
         return cell;
     }
+}
+
+#pragma mark 选中相应设备的按下事件
+/**
+ *  选中相应的设备
+ */
+- (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
+{
+    
+    DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
+    
+
 }
 
 #pragma mark  点击设备的回调

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JVCDeviceListDeviceCell.h"
 
-@interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,DeviceCellSelectToPlayDelegate>
+@interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     /**
      *  设备列表

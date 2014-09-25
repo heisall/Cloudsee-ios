@@ -104,4 +104,23 @@ enum alarmflag
     ALARM_OFF = 1,
 };
 
+/**
+ *  登录注册的枚举
+ */
+enum  loginResut
+{
+    LOGINRESULT_SUCCESS = 0,//登录成功
+    LOGINRESULT_USERNAME_NIL,//用户名为空
+    LOGINRESULT_PASSWORLD_NIL,//密码为空
+    LOGINRESULT_USERNAME_ERROR,//用户名不合法
+    LOGINRESULT_PASSWORLD_ERROR,//密码不合法
+    LOGINRESULT_ENSURE_PASSWORD_NIL,//确认密码为空
+    LOGINRESULT_ENSURE_PASSWORD_ERROR,//确认密码与密码不相同
+    LOGINRESULT_EMAIL_ERROR,//邮箱不合法
+    LOGINRESULT_NOT_EQUAL_USER_PASSWORD,//用户保存密码与用户输入的不一致
+    LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD,//用户保存密码与用户输入的不一致
+    
+};
+
+
 #endif

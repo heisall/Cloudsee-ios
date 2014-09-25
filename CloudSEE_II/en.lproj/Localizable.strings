@@ -12,3 +12,6 @@
 //登录界面
 "log_TextField_placeName"="Email/UserName";
 "log_TextField_placePassWord"="Password";
+
+//ALert
+"Alert_btn_sure"="Sure";

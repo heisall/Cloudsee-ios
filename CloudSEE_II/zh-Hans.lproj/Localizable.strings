@@ -12,3 +12,6 @@
 //登录界面
 "log_TextField_placeName"="用户名";
 "log_TextField_placePassWord"="密码";
+
+//ALert
+"Alert_btn_sure"="确定";
