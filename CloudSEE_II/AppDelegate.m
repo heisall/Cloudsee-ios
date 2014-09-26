@@ -13,8 +13,10 @@
 #import "JVCRootTabarViewControllersHelper.h"
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
+#import "AHReach.h"
+#import "JVCConfigModel.h"
+//#import "JVCAppHelper.h"
 
-static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
 
 @implementation AppDelegate
 
@@ -24,6 +26,12 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
      *  设置ddlog
      */
     [self DDLogSettings];
+    
+    /**
+     *  设置导航条的颜色值
+     */
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255.0/255 alpha:1]];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -37,10 +45,11 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
     [loginVC release];
     [rootNav release];
     
-    /**
-     *  初始化账号SDK
-     */
-    [self intiAccountSDKWithIsLocalCheck];
+    //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
+    [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = -1;
+    
+    //初始化sdk
+    [self initAHReachSetting];
     
     return YES;
 }
@@ -98,100 +107,7 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
 }
 
 
-/**
- *  初始化账号服务器域名
- *
- *  @param state TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
- */
-- (int)intiAccountSDKWithIsLocalCheck {
-    
-    NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    
-    NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
-    
-    NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:ACCOUNTSERVICELOG];
-    
-//    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPCHANNELSERVICEADDRESS")];
-//    
-//    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
-    
-    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:@"appchannel.afdvr.com"];
-    
-    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:@"apponline.afdvr.com"];
 
-    int result = [self InitSdk:pathAccount
-                       channelServerAddressStr:@"appchannel.afdvr.com"
-                       channelServerAddressStrLocalPath:APPCHANNELSERVICEADDRESSPATHPATH
-                       onlineServerAddressStr:@"apponline.afdvr.com"
-                       onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
-                       islocalCheck:NO
-                       isLogAppend:YES];
-    
-    DDLogInfo(@"=%s=注册账号收到的返回值=%d==%@",__FUNCTION__,result,NSLocalizedString(@"APPCHANNELSERVICEADDRESS", nil));
-    
-    return result;
-}
-
-
--(int)InitSdk:(NSString *)sdkLogPath  channelServerAddressStr:(NSString *)channelServerAddressStr channelServerAddressStrLocalPath:(NSString *) channelServerAddressStrLocalPath onlineServerAddressStr:(NSString *)onlineServerAddressStr onlineServerAddressStrLocalPath:(NSString *)onlineServerAddressStrLocalPath islocalCheck:(BOOL)islocalCheck isLogAppend:(BOOL)isLogAppend{
-    
-    NSMutableString *mstrChannelServerPath=nil;
-    
-    NSMutableString *mstronlineServerPath=nil;
-    
-    [mstrChannelServerPath deleteCharactersInRange:NSMakeRange(0, [mstrChannelServerPath length])];
-    
-    [mstronlineServerPath deleteCharactersInRange:NSMakeRange(0, [mstronlineServerPath length])];
-    
-    [mstrChannelServerPath appendString:channelServerAddressStrLocalPath];
-    [mstronlineServerPath appendString:onlineServerAddressStrLocalPath];
-    
-    NSFileManager *fileManager=[NSFileManager defaultManager];
-    
-    if (!isLogAppend) {
-        
-        [fileManager removeItemAtPath:sdkLogPath error:nil];
-    }
-    
-    if (!islocalCheck) {
-        
-        NSMutableString *mstrChannelServer = [NSMutableString stringWithCapacity:10];
-        
-        NSMutableString *mstronlineServer = [NSMutableString stringWithCapacity:10];
-        
-        if ([[JVCSystemUtility shareSystemUtilityInstance] checkLocalFileExist:channelServerAddressStrLocalPath]) {
-            
-            NSData *channelServerAddressData=[NSData dataWithContentsOfFile:channelServerAddressStrLocalPath];
-            
-            
-            NSString *strChannelServer=[[NSString alloc] initWithData:channelServerAddressData encoding:NSUTF8StringEncoding];
-            
-            [mstrChannelServer appendString:strChannelServer];
-            
-            
-            [strChannelServer release];
-            
-            if ([[JVCSystemUtility shareSystemUtilityInstance] checkLocalFileExist:onlineServerAddressStrLocalPath]) {
-                
-                NSData *onlineServerAddressData=[NSData dataWithContentsOfFile:onlineServerAddressStrLocalPath];
-                
-                NSString *stronlineServerAddress=[[NSString alloc] initWithData:onlineServerAddressData encoding:NSUTF8StringEncoding];
-                
-                
-                [mstronlineServer appendString:stronlineServerAddress];
-                
-                [stronlineServerAddress release];
-                
-                
-                return [[JVCAccountHelper sharedJVCAccountHelper] InitSdk:sdkLogPath channelServerAddressStr:mstrChannelServer onlineServerAddressStr:mstronlineServer islocalCheck:islocalCheck isSetAddress:TRUE];
-            }
-        }
-        
-    }
-    
-    return [[JVCAccountHelper sharedJVCAccountHelper] InitSdk:sdkLogPath channelServerAddressStr:channelServerAddressStr onlineServerAddressStr:onlineServerAddressStr islocalCheck:islocalCheck isSetAddress:FALSE];
-    
-}
 
 - (void)DDLogSettings
 {
@@ -205,5 +121,54 @@ static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
     [DDLog addLogger:fileLogger];
 }
 
+#pragma mark 初始化网路检测
+- (void)initAHReachSetting
+{
+    AHReach *hostReach = [AHReach reachForHost:LOCALANGER(@"AHReach_url")];
+    
+    [hostReach startUpdatingWithBlock:^(AHReach *reach) {
+        
+        
+		[self updateAvailabilityStatus:reach];
+	}];
+    /**
+     *  初始化账号SDK
+     */
+    [self updateAvailabilityStatus:hostReach];
+}
+/**
+ *  更新设备的网络状态的变化
+ *
+ *  @param reach 网络参数对象
+ */
+-(void)updateAvailabilityStatus:(AHReach *)reach {
+    
+    
+    [JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_NONET;
+    
+    if([reach isReachableViaWWAN]){
+        
+        [JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_3G;
+    }
+	if([reach isReachableViaWiFi]){
+        
+		[JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_WIFI;
+    }
+    DDLogInfo(@"[JVCConfigModel shareInstance]._netLinkType =%d",[JVCConfigModel shareInstance]._netLinkType );
+    
+    if ([JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET && [JVCConfigModel shareInstance]._bInitAccountSDKSuccess !=0) {
+        
+       int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO];
+        
+        if ( result == 0) {
+            
+            [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = 0;
+        }
+        
+        DDLogInfo(@"%s---- hahha....==%d",__FUNCTION__,result);
+
+    }
+    
+}
 
 @end

@@ -79,4 +79,52 @@ static JVCSystemUtility *shareInstance = nil;
     return  [fileManager fileExistsAtPath:checkFilePath];
 }
 
+/**
+ *  获取应用的app的Documents目录
+ *
+ *  @return 应用的app的Documents目录
+ */
+- (NSString *)getAppDocumentsPath
+{
+    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return [pathArray objectAtIndex:0];
+}
+
+/**
+ *  获取应用的app的Caches目录
+ *
+ *  @return 应用的app的Caches目录
+ */
+- (NSString *)getAppCachesPath
+{
+    NSArray *pathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    return [pathArray objectAtIndex:0];
+}
+
+/**
+ *  获取app的Temp路径
+ *
+ *  @return app的temp路径
+ */
+- (NSString *)getAppTempPath
+{
+    return NSTemporaryDirectory();
+}
+
+/**
+ *  创建appDocuments下面的目录
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return 创建好的应用目录
+ */
+- (NSString *)getAppDocumentsPathWithName:(NSString *)fileName
+{
+    NSString *DocumentsPath = [self getAppDocumentsPath];
+    
+    return [DocumentsPath stringByAppendingPathComponent:fileName];
+}
+
+
+
 @end

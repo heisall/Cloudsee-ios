@@ -8,6 +8,7 @@
 
 #import "JVCAccountHelper.h"
 #import "JVCAccountInterface.h"
+#import "JVCSystemUtility.h"
 
 
 @implementation JVCAccountHelper
@@ -15,6 +16,9 @@
 @synthesize delegate;
 
 static JVCAccountHelper *sharedjvcAccountHelper = nil;
+
+static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
+
 
 #define CONNECTTIMEOUTSECOND 10
 #define RQCONNECTTIMEOUTSECOND 10
@@ -422,7 +426,102 @@ void ServerPushCallBack(const int message_type, const c_SERVER_PUSH_INFO serverP
     
 }
 
- 
+#pragma mark 初始化账号
+/**
+ *  初始化账号服务器域名
+ *
+ *  @param state TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ */
+- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state {
+    
+    NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
+    
+    NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:ACCOUNTSERVICELOG];
+    
+    //    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPCHANNELSERVICEADDRESS")];
+    //
+    //    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
+    
+    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:@"appchannel.afdvr.com"];
+    
+    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:@"apponline.afdvr.com"];
+    
+    int result = [self InitSdk:pathAccount
+       channelServerAddressStr:@"appchannel.afdvr.com"
+channelServerAddressStrLocalPath:APPCHANNELSERVICEADDRESSPATHPATH
+        onlineServerAddressStr:@"apponline.afdvr.com"
+onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
+                  islocalCheck:state
+                   isLogAppend:YES];
+    
+    DDLogInfo(@"=%s=注册账号收到的返回值=%d==%@",__FUNCTION__,result,NSLocalizedString(@"APPCHANNELSERVICEADDRESS", nil));
+    
+    return result;
+}
+
+
+-(int)InitSdk:(NSString *)sdkLogPath  channelServerAddressStr:(NSString *)channelServerAddressStr channelServerAddressStrLocalPath:(NSString *) channelServerAddressStrLocalPath onlineServerAddressStr:(NSString *)onlineServerAddressStr onlineServerAddressStrLocalPath:(NSString *)onlineServerAddressStrLocalPath islocalCheck:(BOOL)islocalCheck isLogAppend:(BOOL)isLogAppend{
+    
+    NSMutableString *mstrChannelServerPath=nil;
+    
+    NSMutableString *mstronlineServerPath=nil;
+    
+    [mstrChannelServerPath deleteCharactersInRange:NSMakeRange(0, [mstrChannelServerPath length])];
+    
+    [mstronlineServerPath deleteCharactersInRange:NSMakeRange(0, [mstronlineServerPath length])];
+    
+    [mstrChannelServerPath appendString:channelServerAddressStrLocalPath];
+    [mstronlineServerPath appendString:onlineServerAddressStrLocalPath];
+    
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    
+    if (!isLogAppend) {
+        
+        [fileManager removeItemAtPath:sdkLogPath error:nil];
+    }
+    
+    if (!islocalCheck) {
+        
+        NSMutableString *mstrChannelServer = [NSMutableString stringWithCapacity:10];
+        
+        NSMutableString *mstronlineServer = [NSMutableString stringWithCapacity:10];
+        
+        if ([[JVCSystemUtility shareSystemUtilityInstance] checkLocalFileExist:channelServerAddressStrLocalPath]) {
+            
+            NSData *channelServerAddressData=[NSData dataWithContentsOfFile:channelServerAddressStrLocalPath];
+            
+            
+            NSString *strChannelServer=[[NSString alloc] initWithData:channelServerAddressData encoding:NSUTF8StringEncoding];
+            
+            [mstrChannelServer appendString:strChannelServer];
+            
+            
+            [strChannelServer release];
+            
+            if ([[JVCSystemUtility shareSystemUtilityInstance] checkLocalFileExist:onlineServerAddressStrLocalPath]) {
+                
+                NSData *onlineServerAddressData=[NSData dataWithContentsOfFile:onlineServerAddressStrLocalPath];
+                
+                NSString *stronlineServerAddress=[[NSString alloc] initWithData:onlineServerAddressData encoding:NSUTF8StringEncoding];
+                
+                
+                [mstronlineServer appendString:stronlineServerAddress];
+                
+                [stronlineServerAddress release];
+                
+                
+                return [[JVCAccountHelper sharedJVCAccountHelper] InitSdk:sdkLogPath channelServerAddressStr:mstrChannelServer onlineServerAddressStr:mstronlineServer islocalCheck:islocalCheck isSetAddress:TRUE];
+            }
+        }
+        
+    }
+    
+    return [[JVCAccountHelper sharedJVCAccountHelper] InitSdk:sdkLogPath channelServerAddressStr:channelServerAddressStr onlineServerAddressStr:onlineServerAddressStr islocalCheck:islocalCheck isSetAddress:FALSE];
+    
+}
+
 
 
 

@@ -7,6 +7,9 @@
 //
 
 #import "JVCAppHelper.h"
+#import "JVCAccountHelper.h"
+#import "JVCSystemUtility.h"
+
 
 @implementation JVCAppHelper
 
@@ -91,4 +94,7 @@ static JVCAppHelper *jvcAppHelper = nil;
     }
     return YES ;
 }
+
+
+
 @end

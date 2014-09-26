@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JVCMoreViewController : UIViewController
+@interface JVCMoreViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end

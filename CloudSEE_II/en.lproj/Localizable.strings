@@ -15,3 +15,5 @@
 
 //ALert
 "Alert_btn_sure"="Sure";
+//网路检测
+"AHReach_url"= "apple.com";

@@ -7,8 +7,15 @@
 //
 
 #import "JVCMoreViewController.h"
+#import "JVCMoreUserCell.h"
+
+static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
+static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 
 @interface JVCMoreViewController ()
+{
+    UITableView *_tableView;
+}
 
 @end
 
@@ -32,12 +39,106 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.view.backgroundColor = [UIColor whiteColor];
+     //初始化tableview
+    _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+    
+    
 }
+
+#pragma mark  tableview 的代理方法
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        
+        return CELLHEIGHT_USERHEADER;
+        
+    }
+    return CELLHEIGHT_CONTENTH;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  
+    return 3;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        
+        return 1;
+        
+    }
+
+    return 3;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.section == 0) {//用户信息
+        
+        static NSString *cellIndentify = @"cellUserIndentifiy";
+        
+        JVCMoreUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
+        
+        if (cell == nil) {
+            
+            cell = [[[JVCMoreUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        [cell initMoreCellContentView];
+        
+        return cell;
+        
+    }else {
+        
+        static NSString *cellIndentify = @"cellIndentifiy";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
+        
+        if (cell == nil) {
+            
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        cell.imageView.image = [UIImage imageNamed:@"mor_head_0.png"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        cell.textLabel.text = @"1";
+        
+        return cell;
+    }
+    
+}
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [_tableView release];
+    _tableView = nil;
+    
+    [super dealloc];
 }
 
 /*

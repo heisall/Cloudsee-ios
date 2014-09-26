@@ -32,11 +32,15 @@ enum LOGINVIEWTAG
     LOGINVIEWTAG_Line       = 106,//账号下面横杆的tag
 };
 
-//static const int  LOGINRUSULT_SUCCESS = 0;
+static const int  LOGINRUSULT_SUCCESS = 0;
 
 static const int  USERTYPE_NEW = 119;//新账号
 
 static const int  USERTYPE_OLD = 118;//老账号
+
+static const int RESERT_USER_AND_PASSWORD =  -16;  //重置用户名和密码
+
+static const int RESERT_PASSWORD    =  -17;             //重置密码
 
 @interface JVCLoginViewController ()
 {
@@ -139,6 +143,7 @@ static const int  USERTYPE_OLD = 118;//老账号
     //输入框
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake(imageViewUser.frame.origin.x+10+imageViewUser.frame.size.width, imageViewUser.frame.origin.y, imageviewInPutLine.frame.size.width - imageViewUser.frame.size.width-50, imageViewUser.frame.size.height+5)];
     textFieldUser.placeholder = @"用户名";
+    textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUser];
     
     //    /**
@@ -169,6 +174,7 @@ static const int  USERTYPE_OLD = 118;//老账号
     //输入框
     textFieldPW = [[UITextField alloc] initWithFrame:CGRectMake(imageViewPW.frame.origin.x+10+imageViewPW.frame.size.width, imageViewPW.frame.origin.y, imageviewInPutLinePW.frame.size.width - imageViewPW.frame.size.width-30, imageViewPW.frame.size.height+5)];
     textFieldPW.placeholder = @"密码";
+    textFieldPW.keyboardType = UIKeyboardTypeASCIICapable;
     textFieldPW.secureTextEntry = YES;
     [self.view addSubview:textFieldPW];
     
@@ -232,10 +238,10 @@ static const int  USERTYPE_OLD = 118;//老账号
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
-    //判断用户名、密码是否合法
+    //正则判断用户名、密码是否合法
     int result = [[JVCAccountPredicateMaths shareAccontPredicateMaths] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
     
-    if (LOGINRESULT_SUCCESS == result) {//用户名秘密合法，登录,
+    if (LOGINRESULT_SUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
         
         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         
@@ -262,22 +268,6 @@ static const int  USERTYPE_OLD = 118;//老账号
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
                     [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:result];
-
-                    
-////                    [[AccountAlertObject shareAccountAlertInstance] loginInWithResult:resultState];
-////                    
-////                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-////                        
-////                        if (resultState ==REQ_RES_TIMEOUT ||resultState ==CONN_OTHER_ERROR ||resultState ==CANT_CONNECT_SERVER) {
-////                            /**
-////                             *  重新初始化账号sdk，忽略本地缓存ip
-////                             */
-////                            JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
-////                            [delegate intiAccountSDKWithIsLocalCheck:TRUE];
-////                            
-////                        }
-//                        
-//                    });
                     
                 }
                 
@@ -285,9 +275,8 @@ static const int  USERTYPE_OLD = 118;//老账号
         });
 
         
-    }else{//失败
+    }else{//正则校验失败，提示相应的错误
         
-        //[[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"用户名、密码为空"];
         
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
     }
@@ -305,14 +294,55 @@ static const int  USERTYPE_OLD = 118;//老账号
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-      // int resultOldType = [[JVCAccountHelper sharedJVCAccountHelper] OldUserLogin:textFieldUser.text passWord:textFieldPW.text];
+       int resultOldType = [[JVCAccountHelper sharedJVCAccountHelper] OldUserLogin:textFieldUser.text passWord:textFieldPW.text];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-//            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//            
-//            [delegate initWithTabarViewControllers];
+            if (RESERT_USER_AND_PASSWORD == resultOldType) {//重置用户名和密码
+
+            
+            }else if(RESERT_PASSWORD == resultOldType)//重置密码的，再后台自动重置
+            {
+                [self modifyPassWordInbackGround];
+            
+            }else if(LOGINRUSULT_SUCCESS == resultOldType)//登录成功，一般这个不会出现，因为既然是老用户了，就会由这些问题
+            {
+            
+                
+                
+            }else{
+            
+                [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultOldType];
+            }
         });
+    });
+}
+
+/**
+ *  后台修改密码
+ */
+- (void)modifyPassWordInbackGround
+{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        int result = [[JVCAccountHelper sharedJVCAccountHelper] ResetUserPassword:textFieldUser.text username:textFieldPW.text];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if(LOGINRUSULT_SUCCESS == result)//成功
+        {
+            [self changeWindowRootViewController];
+
+        }else{//修改失败之后，也要让用户切换试图
+        
+            [self changeWindowRootViewController];
+
+        }
+            
+        });
+        
     });
 }
 
@@ -322,6 +352,9 @@ static const int  USERTYPE_OLD = 118;//老账号
  */
 - (void)loginInWithNewUserType
 {
+    
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
@@ -330,9 +363,10 @@ static const int  USERTYPE_OLD = 118;//老账号
             
             if (LOGINRESULT_SUCCESS == resultnewType) {//成功
                 
-                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
+                [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
                 
-                [delegate initWithTabarViewControllers];
+                [self changeWindowRootViewController];
             
             }else{
             
@@ -340,7 +374,6 @@ static const int  USERTYPE_OLD = 118;//老账号
 
             }
             
-
         });
     });
 }
@@ -367,6 +400,13 @@ static const int  USERTYPE_OLD = 118;//老账号
     [self clickTologin];
 }
 
+#pragma mark 切换主视图的root
+- (void)changeWindowRootViewController
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [delegate initWithTabarViewControllers];
+}
 
 #pragma mark
 /**

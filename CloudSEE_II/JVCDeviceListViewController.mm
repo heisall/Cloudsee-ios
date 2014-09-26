@@ -56,7 +56,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     self.view.backgroundColor = [UIColor grayColor];
     
     self.navigationController.navigationBar.hidden = NO;
-    
+        
     //初始化颜色数组
     _arrayColorFirstList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
     

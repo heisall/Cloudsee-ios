@@ -30,4 +30,36 @@
  *  @return 存在返回TRUE
  */
 -(BOOL)checkLocalFileExist:(NSString *)checkFilePath;
+
+/**
+ *  创建appDocuments下面的目录
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return 创建好的应用目录
+ */
+- (NSString *)getAppDocumentsPathWithName:(NSString *)fileName;
+
+/**
+ *  获取应用的app的Documents目录
+ *
+ *  @return 应用的app的Documents目录
+ */
+- (NSString *)getAppDocumentsPath;
+
+/**
+ *  获取应用的app的Caches目录
+ *
+ *  @return 应用的app的Caches目录
+ */
+- (NSString *)getAppCachesPath;
+
+/**
+ *  获取app的Temp路径
+ *
+ *  @return app的temp路径
+ */
+- (NSString *)getAppTempPath;
+
+
 @end

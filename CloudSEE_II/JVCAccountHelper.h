@@ -198,4 +198,20 @@
  */
 -(void)getAccountServerAddress:(char *)channelServerAddress onlineServerAddress:(char *)onlineServerAddress;
 
+/**
+ *  判断字典是不是为空
+ *
+ *  @param infoId 字典类型的数据
+ *
+ *  @return yes:空  no：非空
+ */
+- (BOOL)judgeDictionIsNil:(NSDictionary *)infoId;
+
+/**
+ *  初始化账号服务器域名
+ *
+ *  @param state TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ */
+- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state;
+
 @end
