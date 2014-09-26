@@ -17,9 +17,11 @@
 @end
 
 @implementation JVCLableScoollView
-static const CGFloat kTitleLableFontSize      = 16.0f;
-static const CGFloat kTitleWithRightSpacting  = 15.0f;
-static const int  kTitleFlagWithBeginValue    = 10000;
+static const CGFloat        kTitleLableFontSize                = 16.0f;
+static const CGFloat        kTitleWithRightSpacting            = 15.0f;
+static const int            kTitleFlagWithBeginValue           = 10000;
+static const NSTimeInterval kTitleViewScaleAnimationsInterval  = 0.5;
+static const CGFloat        KTitleViewDefaultScale             = 0.85f;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -52,16 +54,13 @@ static const int  kTitleFlagWithBeginValue    = 10000;
     totalLength = totalLength + kTitleWithRightSpacting * (titles.count + 1);
     
 	self.directionalLockEnabled = YES;
-	//self.pagingEnabled = YES;
 	self.showsVerticalScrollIndicator=NO;
 	self.showsHorizontalScrollIndicator=YES;
-	self.bounces=NO;
     self.clipsToBounds= YES;
 	self.backgroundColor=[UIColor clearColor];
     
 	CGSize newSize = CGSizeMake(totalLength,self.frame.size.height);
 	[self setContentSize:newSize];
-    
     
     CGFloat titleLblRightSpacting  = kTitleWithRightSpacting;
     
@@ -75,7 +74,7 @@ static const int  kTitleFlagWithBeginValue    = 10000;
                                                     initWithFrame:CGRectMake(titleLblRightSpacting, 0.0, titleLenth, self.frame.size.height) title:title titleLableFontSize:kTitleLableFontSize];
         topBarItemView.tag = kTitleFlagWithBeginValue + i;
 
-       
+        topBarItemView.transform = CGAffineTransformMakeScale(KTitleViewDefaultScale,KTitleViewDefaultScale);
         //添加单击事件
         UITapGestureRecognizer* singleRecognizer;
         
@@ -83,7 +82,7 @@ static const int  kTitleFlagWithBeginValue    = 10000;
         singleRecognizer.numberOfTapsRequired = 1;
         [topBarItemView addGestureRecognizer:singleRecognizer];
         [singleRecognizer release];
-
+     
         [self addSubview:topBarItemView];
         titleLblRightSpacting = titleLblRightSpacting + titleLenth + kTitleWithRightSpacting;
         [topBarItemView release];
@@ -105,11 +104,15 @@ static const int  kTitleFlagWithBeginValue    = 10000;
         
         if (recognizer.view.tag != currentIndex) {
             
-            [self deviceTopItemAtCurrentIndexWithUnselected];
+            [UIView animateWithDuration:kTitleViewScaleAnimationsInterval animations:^{
             
-            currentIndex = recognizer.view.tag;
+                [self deviceTopItemAtCurrentIndexWithUnselected];
+                
+                currentIndex = recognizer.view.tag;
+                
+                [self deviceTopItemAtCurrentIndexWithSelected];
             
-            [self deviceTopItemAtCurrentIndexWithSelected];
+            }];
         }
     }
 }
@@ -138,8 +141,8 @@ static const int  kTitleFlagWithBeginValue    = 10000;
 
     JVCEditDeviceTopItemView *deviceTopItemView = (JVCEditDeviceTopItemView *)[self viewWithTag:currentIndex];
     
+    deviceTopItemView.transform = CGAffineTransformIdentity;
     [deviceTopItemView setViewSatus:YES];
-    
 }
 
 /**
@@ -150,6 +153,7 @@ static const int  kTitleFlagWithBeginValue    = 10000;
     
     JVCEditDeviceTopItemView *deviceTopItemView = (JVCEditDeviceTopItemView *)[self viewWithTag:currentIndex];
     
+    deviceTopItemView.transform = CGAffineTransformMakeScale(KTitleViewDefaultScale,KTitleViewDefaultScale);
     [deviceTopItemView setViewSatus:NO];
 }
 
