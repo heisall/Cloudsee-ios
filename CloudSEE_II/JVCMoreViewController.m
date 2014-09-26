@@ -31,6 +31,8 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_more_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_more_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
+        
+        self.title = self.tabBarItem.title;
     }
     return self;
 }
@@ -40,7 +42,6 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.view.backgroundColor = [UIColor whiteColor];
      //初始化tableview
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     _tableView.delegate = self;

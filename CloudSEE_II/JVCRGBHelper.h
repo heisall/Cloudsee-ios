@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "JVCRGBModel.h"
+#import "JVCRGBColorMacro.h"
 
-@interface JVCRGBHelper : NSObject {
-    
-    JVCRGBModel *rgbModel;       //当前选择的RgbModel
-}
-
-@property (nonatomic,retain) JVCRGBModel *rgbModel;
+@interface JVCRGBHelper : NSObject 
 
 /**
  *  单例
@@ -24,12 +20,22 @@
 + (JVCRGBHelper *)shareJVCRGBHelper;
 
 /**
- *  设置当前颜色助手类选择的RGB对象
+ *  根据RGBModel的键值获取UIColor对象
  *
- *  @param strkeyName RGB颜色的Key
+ *  @param strkeyName RGBModel的键
+ *  @param alpha      透明度
  *
- *  @return RGB对象
+ *  @return UIColor对象 不存在返回nil
  */
-- (BOOL)setObjectForKey:(NSString const *)strkeyName;
+-(UIColor *)rgbColorForKey:(NSString const *)strkeyName alpha:(CGFloat)alpha;
+
+/**
+ *  根据RGBModel的键值获取UIColor对象
+ *
+ *  @param strkeyName RGBModel的键
+ *
+ *  @return UIColor对象 不存在返回nil
+ */
+-(UIColor *)rgbColorForKey:(NSString const *)strkeyName;
 
 @end

@@ -7,11 +7,12 @@
 //
 
 #import "JVCEditDeviceListViewController.h"
-#import "JVCRGBColorMacro.h"
 #import "JVCRGBHelper.h"
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
+#import "JVCTopToolBarView.h"
+#import "JVCLableScoollView.h"
 
 @interface JVCEditDeviceListViewController () {
 
@@ -19,6 +20,7 @@
     NSMutableArray *mArrayIconNames;
     NSMutableArray *mArrayIconTitles;
     int  nIndex ;
+    UITableView    *deviceListTableView;
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
@@ -48,6 +50,19 @@ static const int kInitWithLayoutColumnCount = 3;
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_deviceManager_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_deviceManager_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
+        
+        self.title = self.tabBarItem.title;
+        
+        /**
+         *  解决父类UIViewController带导航条添加ScorllView坐标系下沉64像素的问题（ios7）
+         
+         */
+        
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
+      
         
     }
     return self;
@@ -87,6 +102,34 @@ static const int kInitWithLayoutColumnCount = 3;
  *  初始化布局
  */
 -(void)initWithLayoutView{
+    
+    CGRect toolViewRect = CGRectMake(0.0, 0.0f, self.view.frame.size.width, 0.0);
+    
+    JVCTopToolBarView *toolBarView = [[JVCTopToolBarView alloc] initWithFrame:toolViewRect];
+    [toolBarView initWithLayout];
+    [self.view addSubview:toolBarView];
+    [toolBarView release];
+    
+    
+    UIImage *topBarDropImage   = [UIImage imageNamed:@"edi_topBar_dropBtn.png"];
+    
+    UIImageView *dropImageView    = [[UIImageView alloc] init];
+    dropImageView.frame           = CGRectMake(self.view.frame.size.width - topBarDropImage.size.width,toolBarView.frame.origin.y , topBarDropImage.size.width, topBarDropImage.size.height);
+    dropImageView.backgroundColor = [UIColor clearColor];
+    dropImageView.image           = topBarDropImage;
+    dropImageView.userInteractionEnabled = YES;
+    [self.view addSubview:dropImageView];
+    
+    //添加单击事件
+    UITapGestureRecognizer *dropClickRecognizer;
+    
+    dropClickRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dropDownCilck:)];
+    dropClickRecognizer.numberOfTapsRequired = 1;
+    [dropImageView addGestureRecognizer:dropClickRecognizer];
+    [dropClickRecognizer release];
+    
+    [dropImageView release];
+    
 
     UIImage *viewBgImage =[UIImage imageNamed:@"edi_bg.png"];
     
@@ -101,27 +144,25 @@ static const int kInitWithLayoutColumnCount = 3;
         
         [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         
-        if (![rgbHelper setObjectForKey:[mArrayColors objectAtIndex:i]]) {
+        position.origin.y = position.origin.y + toolBarView.frame.origin.y + toolBarView.frame.size.height;
+        
+        UIColor *backgroundColor = [rgbHelper rgbColorForKey:[mArrayColors objectAtIndex:i]];
+        
+        if (!backgroundColor) {
             
             continue;
         }
         
-        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
-        
-        JVCEditDeviceOperationView *bgView = [[JVCEditDeviceOperationView alloc] initWithFrame:position backgroundColor:RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f) cornerRadius:position.size.height/2.0];
+        JVCEditDeviceOperationView *bgView = [[JVCEditDeviceOperationView alloc] initWithFrame:position backgroundColor:backgroundColor cornerRadius:position.size.height/2.0];
         
         if (i < mArrayIconNames.count && i< mArrayIconTitles.count) {
             
-             UIImage  *iconImage  = [UIImage imageNamed:[mArrayIconNames objectAtIndex:i]];
-             NSString *title      = [mArrayIconTitles objectAtIndex:i];
+             UIImage  *iconImage   = [UIImage imageNamed:[mArrayIconNames objectAtIndex:i]];
+             NSString *title       = [mArrayIconTitles objectAtIndex:i];
             
-             UIColor   *titleColor ;
+             UIColor   *titleColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroEditDeviceButtonFont];
             
-             if ([rgbHelper setObjectForKey:kJVCRGBColorMacroEditDeviceButtonFont]) {
-                
-                JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
-                
-                titleColor            = RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f);
+             if (titleColor) {
                 
                 //初始化标题和图标
                 [bgView initWithLayoutView:title titleColor:titleColor iconImage:iconImage];
@@ -142,25 +183,56 @@ static const int kInitWithLayoutColumnCount = 3;
         [self.view addSubview:bgView];
         [bgView release];
     }
-    
-    UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
-    UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
-    
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroSkyBlue]) {
+}
+
+/**
+ *  单击事件
+ *
+ *  @param recognizer 单击手势对象
+ */
+-(void)dropDownCilck:(UITapGestureRecognizer*)recognizer
+{
+    if ([recognizer state] == UIGestureRecognizerStateEnded) {
         
-        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
-        
-        JVCDeviceListDeviceVIew *deviceBg = [[JVCDeviceListDeviceVIew alloc] initWithFrame:CGRectMake(20.0, self.view.frame.size.height - deviceImage.size.height-20.0, deviceImage.size.width, deviceImage.size.height) backgroundColor:RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b,1.0f) cornerRadius:6.0f];
-        
-        if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
+        if (deviceListTableView.frame.size.height <= 0.0f) {
             
-            JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
+            [UIView animateWithDuration:0.8f animations:^{
+                
+                self.view.backgroundColor = [UIColor blackColor];
+                deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, recognizer.view.frame.origin.y, deviceListTableView.frame.size.width, self.view.frame.size.height);
+                
+                [self.view bringSubviewToFront:recognizer.view];
+                
+                
+            } completion:^(BOOL finished){
+                
+                [UIView animateWithDuration:0.5f animations:^{
+                    
+                    recognizer.view.transform =  CGAffineTransformMakeRotation(-180 * M_PI/180.0);
+                    
+                }];
+            }];
             
-            [deviceBg initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
-            [deviceBg setAtObjectTitles:@"A366" onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+        }else {
+            
+            [UIView animateWithDuration:0.5f animations:^{
+                
+                self.view.backgroundColor = [UIColor clearColor];
+                deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
+                
+                
+            }completion:^(BOOL finished){
+                
+                
+                [UIView animateWithDuration:0.5f animations:^{
+                    
+                    recognizer.view.transform =  CGAffineTransformIdentity;
+                    
+                }];
+                
+            }];
         }
         
-        [self.view addSubview:deviceBg];
     }
 }
 
@@ -172,6 +244,29 @@ static const int kInitWithLayoutColumnCount = 3;
 -(void)singleCilck:(UITapGestureRecognizer*)recognizer
 {
     if ([recognizer state] == UIGestureRecognizerStateEnded) {
+        
+        [UIView animateWithDuration:0.7f animations:^{
+            
+            recognizer.view.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+            
+            
+        } completion:^(BOOL finished){
+            
+            [UIView animateWithDuration:0.5f animations:^{
+                
+                //recognizer.view.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
+                recognizer.view.transform = CGAffineTransformIdentity;
+                
+            } completion:^(BOOL finished){
+                
+                [UIView animateWithDuration:0.2f animations:^{
+                    
+                    recognizer.view.transform = CGAffineTransformIdentity;
+                    
+                }];
+            }];
+        }];
+        
         
         int clickType  = recognizer.view.tag;
         
@@ -237,6 +332,14 @@ static const int kInitWithLayoutColumnCount = 3;
     [swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
     [self.view addGestureRecognizer:swipeGestureRecognizer];
     [swipeGestureRecognizer release];
+    
+    deviceListTableView            = [[UITableView alloc] init];
+    deviceListTableView.delegate   = self;
+    deviceListTableView.dataSource = self;
+    deviceListTableView.frame      = CGRectMake(0.0, 0.0, self.view.frame.size.width, 0.0);
+    
+    [self.view addSubview:deviceListTableView];
+    [deviceListTableView release];
 }
 
 /**
@@ -257,6 +360,39 @@ static const int kInitWithLayoutColumnCount = 3;
     }
 
 }
+
+#pragma mark ---------- deviceListTableView dataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return mArrayIconNames.count;
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 0;
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return nil;
+}
+
+#pragma mark ------- deviceListTableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        self.view.backgroundColor = [UIColor clearColor];
+        deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
+        
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

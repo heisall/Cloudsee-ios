@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JVCEditDeviceListViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface JVCEditDeviceListViewController : UIViewController <UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate>
 
 
 

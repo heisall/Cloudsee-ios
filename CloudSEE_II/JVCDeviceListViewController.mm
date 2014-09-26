@@ -10,7 +10,6 @@
 #import "MJRefreshHeaderView.h"
 #import "UIScrollView+MJRefresh.h"
 #import "JVCDeviceListAdvertCell.h"
-#import "JVCRGBColorMacro.h"
 #import "JVCRGBHelper.h"
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
@@ -45,6 +44,8 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_device_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
+        
+         self.title = self.tabBarItem.title;
     }
     return self;
 }
@@ -196,16 +197,20 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                 
                 [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
                 
-                if ([rgbHelper setObjectForKey:[_arrayColorFirstList objectAtIndex:colorIndex]]) {
+                
+                UIColor *deviceDeviceViewColor = [rgbHelper rgbColorForKey:[_arrayColorFirstList objectAtIndex:colorIndex]];
+    
+                if (deviceDeviceViewColor) {
                     
-                    JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:RGBConvertColor(rgbHelper.rgbModel.r, rgbHelper.rgbModel.g, rgbHelper.rgbModel.b, 1.0f) cornerRadius:6.0f];
+                    JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:deviceDeviceViewColor cornerRadius:6.0f];
                     deviceView.tag = index;
                     
-                    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroWhite]) {
+                    UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:0.3];
+                    UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
+                    
+                    if (borderColor) {
                         
-                        JVCRGBModel *rgbWhiteModel = (JVCRGBModel *)rgbHelper.rgbModel;
-                        
-                        [deviceView initWithLayoutView:iconDeviceImage borderColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 0.3f) titleFontColor:RGBConvertColor(rgbWhiteModel.r, rgbWhiteModel.g, rgbWhiteModel.b, 1.0f)];
+                        [deviceView initWithLayoutView:iconDeviceImage borderColor:borderColor titleFontColor:titleGontColor];
                         [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
                     }
                     
@@ -250,7 +255,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
             
-            if (![[JVCAppHelper shareJVCRGBHelper]judgeDictionIsNil:tdicDevice]) {//非空
+            if (![[JVCAppHelper shareJVCRGBHelper] judgeDictionIsNil:tdicDevice]) {//非空
                 
                 DDLogInfo(@"_%s===%@",__func__,tdicDevice);
                 
