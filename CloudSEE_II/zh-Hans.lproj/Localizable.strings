@@ -18,3 +18,6 @@
 
 //网路检测
 "AHReach_url"= "baidu.com";
+
+//更多界面
+"more_aphelp"="mor_aphelpch.png";

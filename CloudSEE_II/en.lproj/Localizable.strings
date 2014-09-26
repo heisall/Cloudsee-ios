@@ -17,3 +17,6 @@
 "Alert_btn_sure"="Sure";
 //网路检测
 "AHReach_url"= "apple.com";
+
+//更多界面
+"more_aphelp"="mor_aphelpen.png";

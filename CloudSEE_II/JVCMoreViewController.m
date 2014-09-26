@@ -8,13 +8,22 @@
 
 #import "JVCMoreViewController.h"
 #import "JVCMoreUserCell.h"
+#import "JVCMoreSettingHelper.h"
+#import "JVCMoreSettingModel.h"
+#import "JVCMoreContentCell.h"
+
+//tableview的选中时间
+#import "JVCApHelpViewController.h"
 
 static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
 static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
+static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
 
 @interface JVCMoreViewController ()
 {
     UITableView *_tableView;
+    
+    NSMutableArray *arrayList;
 }
 
 @end
@@ -41,12 +50,18 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
     // Do any additional setup after loading the view.
 
     self.view.backgroundColor = [UIColor whiteColor];
-     //初始化tableview
+    
+    
+    //初始化arrayList
+    arrayList = [[NSMutableArray alloc] initWithCapacity:10];
+    [arrayList addObjectsFromArray:[[JVCMoreSettingHelper shareDataBaseHelper]getMoreSettingList]];
+    
+    //初始化tableview
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
-    
     
 }
 
@@ -64,7 +79,35 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   
-    return 3;
+    return arrayList.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section ==0||section ==1) {
+        
+        return 0;
+    }
+    
+    return CELLHEIGHT_HEADSECTION;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    int height = 0.0;
+    if (section !=0||section !=1) {
+        height =  CELLHEIGHT_HEADSECTION;
+    }
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.width,height)];
+    view.backgroundColor = [UIColor clearColor];
+    //横线
+    UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
+    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width- imgLine.size.width)/2.0, CELLHEIGHT_HEADSECTION - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
+    lineImageView.image = imgLine;
+    [view addSubview:lineImageView];
+    [lineImageView release];
+
+    return [view autorelease];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -75,9 +118,12 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
         
     }
 
-    return 3;
+    NSMutableArray *array = [arrayList objectAtIndex:section];
+    
+    return array.count;
     
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -100,30 +146,72 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
         
         return cell;
         
-    }else {
+    }else  {
         
         static NSString *cellIndentify = @"cellIndentifiy";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
+        JVCMoreContentCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
         
         if (cell == nil) {
             
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
+            cell = [[[JVCMoreContentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
         
-        cell.imageView.image = [UIImage imageNamed:@"mor_head_0.png"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        for (UIView *viewContent in cell.contentView.subviews) {
+            
+            [viewContent removeFromSuperview];
+        }
         
-        cell.textLabel.text = @"1";
+        NSMutableArray *arraySection = [arrayList objectAtIndex:indexPath.section];
+        JVCMoreSettingModel *cellModel = [arraySection objectAtIndex:indexPath.row];
+       
+        if (!cellModel.bBtnState) {//正常显示
+            
+            [cell initContentCells:cellModel];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+        }else{//按钮显示
+        
+         
+            
+            UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
+            UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
+            btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
+            [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
+            [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
+            [cell.contentView addSubview:btnLoginOut];
+            
+            
+        }
         
         return cell;
     }
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1 ) {//
+        
+        if (indexPath.row == 0) {//帮助
+            
+            JVCApHelpViewController *apHelper = [[JVCApHelpViewController alloc] init] ;
+            [self.navigationController pushViewController:apHelper animated:YES];
+            apHelper.hidesBottomBarWhenPushed = YES;
+            [apHelper release];
+        }
+    }else if(indexPath.section == 3)
+    {
+        if (indexPath.row == 0) {//打开评论
+            
+            NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",kAPPIDNUM];
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+        }
+    }
+}
 
 
 
@@ -137,6 +225,9 @@ static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 {
     [_tableView release];
     _tableView = nil;
+    
+    [arrayList release];
+    arrayList = nil;
     
     [super dealloc];
 }

@@ -81,6 +81,8 @@ void AHReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabili
 		CFRelease(reachability);
 		reachability = NULL;
 	}
+    
+    [super dealloc];
 }
 
 #pragma mark - Reachability and notification methods
