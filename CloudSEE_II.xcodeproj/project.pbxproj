@@ -208,15 +208,20 @@
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
 		AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */; };
 		AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */; };
-		AD2BDB6F19D2BC6A00AA6D73 /* tab_device_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6719D2BC6A00AA6D73 /* tab_device_unselect@2x.png */; };
 		AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */; };
-		AD2BDB7119D2BC6A00AA6D73 /* tab_device_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6919D2BC6A00AA6D73 /* tab_device_select@2x.png */; };
 		AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */; };
 		AD2BDB7319D2BC6A00AA6D73 /* tab_message_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */; };
 		AD2BDB7419D2BC6A00AA6D73 /* tab_message_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6C19D2BC6A00AA6D73 /* tab_message_unselect@2x.png */; };
 		AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6D19D2BC6A00AA6D73 /* tab_more_select@2x.png */; };
 		AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */; };
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
+		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
+		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
+		AD916BCA19D4F73000B925A2 /* JVCLableScoollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */; };
+		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
+		AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */; };
+		AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BCD19D510BE00B925A2 /* tab_device_unselect@2x.png */; };
+		AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BCF19D510C200B925A2 /* tab_device_select@2x.png */; };
 		ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
 		ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */; };
 		ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
@@ -431,9 +436,7 @@
 		AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreViewController.m; sourceTree = "<group>"; };
 		AD2BDB6319D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRootTabarViewControllersHelper.h; sourceTree = "<group>"; };
 		AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRootTabarViewControllersHelper.m; sourceTree = "<group>"; };
-		AD2BDB6719D2BC6A00AA6D73 /* tab_device_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_select@2x.png"; sourceTree = "<group>"; };
-		AD2BDB6919D2BC6A00AA6D73 /* tab_device_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_select@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_message_select@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6C19D2BC6A00AA6D73 /* tab_message_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_message_unselect@2x.png"; sourceTree = "<group>"; };
@@ -441,6 +444,16 @@
 		AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_more_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB7719D2CB7F00AA6D73 /* JVCAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppHelper.h; sourceTree = "<group>"; };
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
+		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
+		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
+		AD916BC419D4F73000B925A2 /* JVCLableScoollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLableScoollView.h; sourceTree = "<group>"; };
+		AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLableScoollView.m; sourceTree = "<group>"; };
+		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
+		AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditDeviceTopItemView.m; sourceTree = "<group>"; };
+		AD916BC819D4F73000B925A2 /* JVCTopToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCTopToolBarView.h; sourceTree = "<group>"; };
+		AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTopToolBarView.m; sourceTree = "<group>"; };
+		AD916BCD19D510BE00B925A2 /* tab_device_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_unselect@2x.png"; sourceTree = "<group>"; };
+		AD916BCF19D510C200B925A2 /* tab_device_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_select@2x.png"; sourceTree = "<group>"; };
 		ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudSEE_II.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA77BF319D0250E003EE7A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -789,6 +802,8 @@
 			isa = PBXGroup;
 			children = (
 				AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */,
+				AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */,
+				AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */,
 				AD2BDB0B19D28F0600AA6D73 /* edi_bg@2x.png */,
 				AD2BDB0C19D28F0600AA6D73 /* edi_channelManager@2x.png */,
 				AD2BDB0D19D28F0600AA6D73 /* edi_deviceManger@2x.png */,
@@ -803,6 +818,12 @@
 			isa = PBXGroup;
 			children = (
 				AD2BDB5619D2B32D00AA6D73 /* JVCEditDeviceOperationView.h */,
+				AD916BC419D4F73000B925A2 /* JVCLableScoollView.h */,
+				AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */,
+				AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */,
+				AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */,
+				AD916BC819D4F73000B925A2 /* JVCTopToolBarView.h */,
+				AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */,
 				AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */,
 				AD2BDB5819D2B32D00AA6D73 /* JVCEditDeviceListViewController.h */,
 				AD2BDB5919D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm */,
@@ -822,12 +843,12 @@
 		AD2BDB6619D2BC4500AA6D73 /* tabarImages */ = {
 			isa = PBXGroup;
 			children = (
-				AD2BDB6719D2BC6A00AA6D73 /* tab_device_unselect@2x.png */,
 				AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */,
-				AD2BDB6919D2BC6A00AA6D73 /* tab_device_select@2x.png */,
+				AD916BCD19D510BE00B925A2 /* tab_device_unselect@2x.png */,
 				AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */,
 				AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */,
 				AD2BDB6C19D2BC6A00AA6D73 /* tab_message_unselect@2x.png */,
+				AD916BCF19D510C200B925A2 /* tab_device_select@2x.png */,
 				AD2BDB6D19D2BC6A00AA6D73 /* tab_more_select@2x.png */,
 				AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */,
 			);
@@ -1124,8 +1145,7 @@
 			files = (
 				AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */,
 				A7F424F819D0FD7500D96475 /* log_line@2x.png in Resources */,
-				AD2BDB7119D2BC6A00AA6D73 /* tab_device_select@2x.png in Resources */,
-				A7F5015819D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */,
+				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				A7F424FE19D0FD7500D96475 /* log_pw@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
@@ -1134,6 +1154,7 @@
 				A7F424F419D0FD7500D96475 /* log_bg@2x.png in Resources */,
 				A7F5011A19D4EFB400AA78F0 /* Icon-Small.png in Resources */,
 				A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */,
+				AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */,
 				A7F424FC19D0FD7500D96475 /* log_logo@2x.png in Resources */,
 				A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
@@ -1148,6 +1169,7 @@
 				AD2BDB1619D28F0600AA6D73 /* edi_play@2x.png in Resources */,
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
 				AD2BDB1519D28F0600AA6D73 /* edi_linkModel@2x.png in Resources */,
+				AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */,
 				A7F4250019D0FD7500D96475 /* log_user@2x.png in Resources */,
 				A7F5015219D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A7F5013819D50A8A00AA78F0 /* mor_line@2x.png in Resources */,
@@ -1168,6 +1190,7 @@
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
 				A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
+				AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */,
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
 				AD2BDB1219D28F0600AA6D73 /* edi_bg@2x.png in Resources */,
@@ -1178,7 +1201,6 @@
 				A7F5014419D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */,
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
-				AD2BDB6F19D2BC6A00AA6D73 /* tab_device_unselect@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1255,7 +1277,9 @@
 				A7F5EF4319D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				A7FAF5EC19D144AB00B3F395 /* DDTTYLogger.m in Sources */,
 				A7F5EF3C19D2621B009B797A /* UIScrollView+MJRefresh.m in Sources */,
+				AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */,
 				A7F5EF5B19D27061009B797A /* EGOImageView.m in Sources */,
+				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */,
@@ -1294,6 +1318,7 @@
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
+				AD916BCA19D4F73000B925A2 /* JVCLableScoollView.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				AD2BDB5B19D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm in Sources */,
@@ -1413,7 +1438,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1453,7 +1479,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1476,7 +1503,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
 				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
@@ -1496,7 +1524,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
 				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";

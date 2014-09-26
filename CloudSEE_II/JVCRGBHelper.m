@@ -7,8 +7,6 @@
 //
 
 #import "JVCRGBHelper.h"
-#import "JVCRGBColorMacro.h"
-
 
 @interface JVCRGBHelper () {
     
@@ -18,9 +16,12 @@
 @end
 
 @implementation JVCRGBHelper
-@synthesize rgbModel;
+
+#define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 static JVCRGBHelper *jvcRGBHelper = nil;
+
+
 
 /**
  *  初始化颜色的辅助类
@@ -33,11 +34,12 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         
         mdicRgbModelList = [[NSMutableDictionary alloc] initWithCapacity:10];
         
+        [self initAppRgbColors];
         [self initEditDeviceViewRgbColors];
         [self initDeviceListViewRgbColors];
         [self initTabarViewRgbColors];
     }
-
+    
     return self;
 }
 
@@ -72,6 +74,21 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         }
     }
     return nil;
+}
+
+/**
+ *  初始化应用程序的一些背景色
+ */
+-(void)initAppRgbColors {
+    
+    JVCRGBModel *navBackgroundColor   = [[JVCRGBModel alloc] init];  //导航条背景色
+    navBackgroundColor.r = 0.0f;
+    navBackgroundColor.g = 122.0f;
+    navBackgroundColor.b = 255.0f;
+    
+    [mdicRgbModelList setObject:navBackgroundColor forKey:kJVCRGBColorMacroNavBackgroundColor];
+    
+    [navBackgroundColor release];
 }
 
 /**
@@ -115,7 +132,36 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     editDeviceButtonFont.g = 254.0f;
     editDeviceButtonFont.b = 251.0f;
     
-
+    
+    JVCRGBModel *topBarItemSelectFontColor = [[JVCRGBModel alloc] init];
+    
+    topBarItemSelectFontColor.r            = 0.0f;
+    topBarItemSelectFontColor.g            = 88.0f;
+    topBarItemSelectFontColor.b            = 168.0f;
+    
+    JVCRGBModel *topBarItemUnselectFontColor = [[JVCRGBModel alloc] init];
+    
+    topBarItemUnselectFontColor.r            = 47.0f;
+    topBarItemUnselectFontColor.g            = 48.0f;
+    topBarItemUnselectFontColor.b            = 47.0f;
+    
+    JVCRGBModel *topBarItemSelectUnderlineViewColor = [[JVCRGBModel alloc] init];
+    
+    topBarItemSelectUnderlineViewColor.r            = 0.0f;
+    topBarItemSelectUnderlineViewColor.g            = 122.0f;
+    topBarItemSelectUnderlineViewColor.b            = 255.0f;
+    
+    JVCRGBModel *topToolBarBackgroundColor = [[JVCRGBModel alloc] init];
+    
+    topToolBarBackgroundColor.r            = 239.0f;
+    topToolBarBackgroundColor.g            = 239.0f;
+    topToolBarBackgroundColor.b            = 239.0f;
+    
+    JVCRGBModel *toolBarDropButtonBackgroundColor = [[JVCRGBModel alloc] init];
+    
+    toolBarDropButtonBackgroundColor.r            = 236.0f;
+    toolBarDropButtonBackgroundColor.g            = 236.0f;
+    toolBarDropButtonBackgroundColor.b            = 236.0f;
     
     [mdicRgbModelList setObject:orange  forKey:kJVCRGBColorMacroOrange];
     [mdicRgbModelList setObject:yellow  forKey:kJVCRGBColorMacroYellow];
@@ -123,7 +169,13 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [mdicRgbModelList setObject:purple  forKey:kJVCRGBColorMacroPurple];
     [mdicRgbModelList setObject:deepRed forKey:kJVCRGBColorMacroDeepRed];
     [mdicRgbModelList setObject:green   forKey:kJVCRGBColorMacroGreen];
-    [mdicRgbModelList setObject:editDeviceButtonFont forKey:kJVCRGBColorMacroEditDeviceButtonFont];
+    
+    [mdicRgbModelList setObject:editDeviceButtonFont               forKey:kJVCRGBColorMacroEditDeviceButtonFont];
+    [mdicRgbModelList setObject:topBarItemUnselectFontColor        forKey:kJVCRGBColorMacroEditDeviceTopBarItemUnselectFontColor];
+    [mdicRgbModelList setObject:topBarItemSelectFontColor          forKey:kJVCRGBColorMacroEditDeviceTopBarItemSelectFontColor];
+    [mdicRgbModelList setObject:topBarItemSelectUnderlineViewColor forKey:kJVCRGBColorMacroEditDeviceTopBarItemSelectUnderlineViewColor];
+    [mdicRgbModelList setObject:topToolBarBackgroundColor          forKey:kJVCRGBColorMacroEditTopToolBarBackgroundColor];
+    [mdicRgbModelList setObject:toolBarDropButtonBackgroundColor  forKey:kJVCRGBColorMacroEditToolBarDropButtonBackgroundColor];
     
     [orange release];
     [yellow release];
@@ -131,6 +183,12 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [purple release];
     [deepRed release];
     [green release];
+    [editDeviceButtonFont release];
+    [topBarItemSelectFontColor release];
+    [topBarItemUnselectFontColor release];
+    [topBarItemSelectUnderlineViewColor release];
+    [topToolBarBackgroundColor release];
+    [toolBarDropButtonBackgroundColor release];
 }
 
 /**
@@ -158,29 +216,51 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     tabarWhite.g = 245.0f;
     tabarWhite.b = 245.0f;
     
-    [mdicRgbModelList setObject:tabarWhite forKey:kJVCRGBColorMacroTabarWhite];
+    [mdicRgbModelList setObject:tabarWhite forKey:kJVCRGBColorMacroTabarTitleFontColor];
     
     [tabarWhite release];
 }
 
 /**
- *  设置当前颜色助手类选择的RGB对象
+ *  根据RGBModel的键值获取UIColor对象
  *
- *  @param strkeyName RGB颜色的Key
+ *  @param strkeyName RGBModel的键
+ *  @param alpha      透明度
  *
- *  @return RGB对象
+ *  @return UIColor对象 不存在返回nil
  */
-- (BOOL)setObjectForKey:(NSString const *)strkeyName{
+-(UIColor *)rgbColorForKey:(NSString const *)strkeyName alpha:(CGFloat)alpha {
     
     if ([mdicRgbModelList objectForKey:strkeyName]) {
         
-        self.rgbModel  = (JVCRGBModel *)[mdicRgbModelList objectForKey:strkeyName];
+        JVCRGBModel *rgbModel  = (JVCRGBModel *)[mdicRgbModelList objectForKey:strkeyName];
         
-        return TRUE;
+        return RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b, alpha);
         
     }else {
         
-        return NO;
+        return nil;
+    }
+}
+
+/**
+ *  根据RGBModel的键值获取UIColor对象
+ *
+ *  @param strkeyName RGBModel的键
+ *
+ *  @return UIColor对象 不存在返回nil
+ */
+-(UIColor *)rgbColorForKey:(NSString const *)strkeyName {
+    
+    if ([mdicRgbModelList objectForKey:strkeyName]) {
+        
+        JVCRGBModel *rgbModel  = (JVCRGBModel *)[mdicRgbModelList objectForKey:strkeyName];
+        
+        return RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b, 1.0f);
+        
+    }else {
+        
+        return nil;
     }
 }
 
@@ -188,8 +268,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
  *  释放颜色助手类对象
  */
 -(void)dealloc{
-
-    [rgbModel release];
+    
     [mdicRgbModelList release];
     [super dealloc];
 }

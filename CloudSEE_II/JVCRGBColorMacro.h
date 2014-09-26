@@ -16,15 +16,24 @@ static NSString const *  kJVCRGBColorMacroSkyBlue  = @"skyBlue";
 static NSString const *  kJVCRGBColorMacroPurple   = @"purple";
 static NSString const *  kJVCRGBColorMacroDeepRed  = @"deepRed";
 static NSString const *  kJVCRGBColorMacroGreen    = @"green";
-static NSString const *  kJVCRGBColorMacroEditDeviceButtonFont    = @"editDeviceButtonFont";
-
-#define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
+static NSString const *  kJVCRGBColorMacroEditDeviceButtonFont                     = @"editDeviceButtonFont";
+//topBar
+static NSString const *  kJVCRGBColorMacroEditDeviceTopBarItemSelectFontColor           = @"editDeviceTopBarItemSelectFontColor";
+static NSString const *  kJVCRGBColorMacroEditDeviceTopBarItemUnselectFontColor         = @"editDeviceTopBarItemUnselectFontColor";
+static NSString const *  kJVCRGBColorMacroEditDeviceTopBarItemSelectUnderlineViewColor  = @"editDeviceTopBarItemSelectUnderlineViewColor";
+static NSString const *  kJVCRGBColorMacroEditTopToolBarBackgroundColor                 = @"editTopToolBarBackgroundColor";
+static NSString const *  kJVCRGBColorMacroEditToolBarDropButtonBackgroundColor          = @"editToolBarDropButtonBackgroundColor";
 
 //设备列表
-static NSString const *  kJVCRGBColorMacroWhite   = @"white";
+static NSString const *  kJVCRGBColorMacroWhite        = @"white";
 
 //TabarViewController
-static NSString const *  kJVCRGBColorMacroTabarWhite   = @"tabarWhite";
+static NSString const *  kJVCRGBColorMacroTabarTitleFontColor   = @"tabarTitleFontColor";
+
+//Nav
+//TabarViewController
+static NSString const *  kJVCRGBColorMacroNavBackgroundColor    = @"NavBackgroundColor";
+
 
 
 #endif

@@ -102,10 +102,6 @@ static  NSString const *APPNAME  = @"CloudSEE";//app标识
     
     self.navigationController.navigationBar.hidden = NO;
     
-    /**
-     *  设置背景
-     */
-    self.view.backgroundColor = [UIColor whiteColor];
     
     /**
      *  设置标题

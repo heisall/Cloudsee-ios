@@ -12,7 +12,6 @@
 #import "JVCSystemUtility.h"
 #import "JVCRootTabarViewControllersHelper.h"
 #import "JVCRGBHelper.h"
-#import "JVCRGBColorMacro.h"
 #import "AHReach.h"
 #import "JVCConfigModel.h"
 //#import "JVCAppHelper.h"
@@ -27,15 +26,39 @@
      */
     [self DDLogSettings];
     
+    
+    JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    
+    UIColor *navBackgroundColor  = [rgbHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
+    
     /**
      *  设置导航条的颜色值
      */
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255.0/255 alpha:1]];
+    if (navBackgroundColor) {
+        
+         [[UINavigationBar appearance] setBarTintColor:navBackgroundColor];
+    }
     
+    UIColor *navtitleFontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
     
+    /**
+     *  设置全局的导航条字体颜色
+     */
+    if (navtitleFontColor) {
+        
+        [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:navtitleFontColor, UITextAttributeTextColor,navtitleFontColor, UITextAttributeTextShadowColor,[NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,[UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,nil]];
+    }
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor clearColor];
+    
+    UIColor *viewDefaultColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
+    
+    if (viewDefaultColor) {
+        
+         self.window.backgroundColor = viewDefaultColor;
+    }
+   
     [self.window makeKeyAndVisible];
     
     //设置导航
@@ -70,10 +93,11 @@
     
     JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
     
-    if ([rgbHelper setObjectForKey:kJVCRGBColorMacroTabarWhite]) {
+    UIColor *tabBarBackgroundColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
+    
+    if (tabBarBackgroundColor) {
         
-        JVCRGBModel *rgbModel = (JVCRGBModel *)rgbHelper.rgbModel;
-        rootViewController.tabBar.backgroundColor = RGBConvertColor(rgbModel.r, rgbModel.g, rgbModel.b, 1.0f);
+        rootViewController.tabBar.backgroundColor = tabBarBackgroundColor;
     }
     
     self.window.rootViewController = rootViewController;
