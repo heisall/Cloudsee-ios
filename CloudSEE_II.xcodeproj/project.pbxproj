@@ -85,7 +85,6 @@
 		A7F5015319D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015119D5352700AA78F0 /* mor_IconAbout@2x.png */; };
 		A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */; };
 		A7F5015619D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */; };
-		A7F5015819D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */; };
 		A7F5015919D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */; };
 		A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */; };
 		A7F5015D19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */; };

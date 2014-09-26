@@ -15,11 +15,11 @@
 /**
  *  账号信息
  */
-static  NSString const* USERINFO_NAME       =  @"user" ;//用户名
-
-static  NSString const* USERINFO_PW         =  @"password";//密码
-
-static  NSString const* USERINFO_TIMER      =   @"timer";//最后一次登录时间
+//static  NSString const* USERINFO_NAME       =  @"user" ;//用户名
+//
+//static  NSString const* USERINFO_PW         =  @"password";//密码
+//
+//static  NSString const* USERINFO_TIMER      =   @"timer";//最后一次登录时间
 
 static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的名称
 
