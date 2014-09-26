@@ -16,6 +16,7 @@
 #import "JVCDeviceHelper.h"
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceModel.h"
+#import "JVCSystemUtility.h"
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
@@ -255,7 +256,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
             
-            if (![[JVCAppHelper shareJVCRGBHelper] judgeDictionIsNil:tdicDevice]) {//非空
+            if (![[JVCAppHelper shareJVCRGBHelper]judgeDictionIsNil:tdicDevice]) {//非空
                 
                 DDLogInfo(@"_%s===%@",__func__,tdicDevice);
                 
