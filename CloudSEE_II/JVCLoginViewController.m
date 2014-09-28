@@ -370,7 +370,7 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
                 
-                [[JVCDataBaseHelper shareDataBaseHelper] writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
+                //[[JVCDataBaseHelper shareDataBaseHelper] writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
                 
                 [self changeWindowRootViewController];
             
