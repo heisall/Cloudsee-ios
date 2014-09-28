@@ -207,7 +207,9 @@
 		A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
 		AD1673AD19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */; };
 		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
-		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */; };
+		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
+		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
+		AD1673BF19D8277A0021CD1B /* dev_channelList_button_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -446,7 +448,10 @@
 		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
 		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
-		AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListWithChannelListViewController.m; sourceTree = "<group>"; };
+		AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCDeviceListWithChannelListViewController.mm; sourceTree = "<group>"; };
+		AD1673BB19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListTitleView.h; sourceTree = "<group>"; };
+		AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListWithChannelListTitleView.m; sourceTree = "<group>"; };
+		AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_channelList_button_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -700,7 +705,9 @@
 				A7F5EF1A19D25C21009B797A /* JVCDeviceListViewController.h */,
 				A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */,
 				AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */,
-				AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */,
+				AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */,
+				AD1673BB19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.h */,
+				AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */,
 				A72B4B6819D3EA2500760695 /* JVCHandleDeviceMaths.h */,
 				A72B4B6919D3EA2500760695 /* JVCHandleDeviceMaths.m */,
 				A7F5015A19D5399C00AA78F0 /* JVCAddDeviceViewController.h */,
@@ -744,6 +751,7 @@
 		A7F5EF4A19D26D67009B797A /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
+				AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */,
 				A7F6EFAF19D7993100FFE02D /* devAdv_default_0@2x.png */,
 				A7F6EFB019D7993100FFE02D /* devAdv_default_1@2x.png */,
 				A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */,
@@ -1243,6 +1251,7 @@
 				AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */,
 				AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */,
 				A7F4250019D0FD7500D96475 /* log_user@2x.png in Resources */,
+				AD1673BF19D8277A0021CD1B /* dev_channelList_button_bg@2x.png in Resources */,
 				A7F5015219D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A7F5013819D50A8A00AA78F0 /* mor_line@2x.png in Resources */,
 				AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */,
@@ -1341,7 +1350,7 @@
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7FAF5EE19D144AB00B3F395 /* DDContextFilterLogFormatter.m in Sources */,
-				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m in Sources */,
+				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
 				AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */,
@@ -1408,6 +1417,7 @@
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
+				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7FAF5E619D144AB00B3F395 /* DDASLLogger.m in Sources */,

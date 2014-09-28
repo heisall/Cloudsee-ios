@@ -18,9 +18,9 @@ static JVCAppHelper *jvcAppHelper = nil;
 /**
  *  单例
  *
- *  @return 返回AddDeviceAlertMaths的单例
+ *  @return 返回JVCAppHelper的单例
  */
-+ (JVCAppHelper *)shareJVCRGBHelper
++ (JVCAppHelper *)shareJVCAppHelper
 {
     @synchronized(self)
     {

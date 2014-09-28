@@ -15,7 +15,7 @@
  *
  *  @return 返回AddDeviceAlertMaths的单例
  */
-+ (JVCAppHelper *)shareJVCRGBHelper;
++ (JVCAppHelper *)shareJVCAppHelper;
 
 /**
  *  获取指定索引View在矩阵视图中的位置
