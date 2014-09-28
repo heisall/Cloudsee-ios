@@ -7,10 +7,14 @@
 //
 
 #import "JVCSystemUtility.h"
+#import "JVCDeviceMacro.h"
+
+static NSString const *APPLANGUAGE = @"zh-Hans";//简体中文的标志
 
 @implementation JVCSystemUtility
 
 static JVCSystemUtility *shareInstance = nil;
+
 
 + (JVCSystemUtility *)shareSystemUtilityInstance
 {
@@ -140,6 +144,38 @@ static JVCSystemUtility *shareInstance = nil;
     return YES ;
 }
 
+/**
+ *  判断收到的字典是否合法，只有再rt字段等于0的时候才是合法
+ *
+ *  @param dicInfo 传入的字典字段
+ *
+ *  @return yes：合法  no：不合法
+ */
+- (BOOL)JudgeGetDictionIsLegal:(NSDictionary *)dicInfo
+{
+    if (DEVICESERVICERESPONSE_SUCCESS ==  [[dicInfo objectForKey:DEVICE_JSON_RT] intValue]) {
+        
+        return YES;
+    }
+    return NO;
+}
 
+/**
+ *  判断系统的语言
+ *
+ *  @return yes  中文  no英文
+ */
+- (BOOL)judgeAPPSystemLanguage
+{
+    NSArray *languages = [NSLocale preferredLanguages];
+    
+    NSString *currentLanguage = [languages objectAtIndex:0];
+
+    if([currentLanguage isEqualToString:(NSString *)APPLANGUAGE])
+    {
+        return YES;
+    }
+    return NO;
+}
 
 @end

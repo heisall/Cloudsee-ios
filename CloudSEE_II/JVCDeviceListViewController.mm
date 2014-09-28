@@ -14,9 +14,10 @@
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
 #import "JVCDeviceHelper.h"
-#import "JVCHandleDeviceMaths.h"
+#import "JVCDeviceSourceHelper.h"
 #import "JVCDeviceModel.h"
 #import "JVCSystemUtility.h"
+#import "JVCAddDeviceViewController.h"
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
@@ -33,7 +34,6 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
 @end
 
 @implementation JVCDeviceListViewController
-@synthesize arrayDeviceList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,12 +74,18 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
+    //添加按钮
+    UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
+    UIButton *RightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, imageRight.size.width, imageRight.size.height)];
+    [RightBtn setImage:imageRight forState:UIControlStateNormal];
+    [RightBtn addTarget:self action:@selector(AddDevice) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:RightBtn];
+    self.navigationItem.rightBarButtonItem=rightBarBtn;
+    [RightBtn release];
+    [rightBarBtn release];
     
     //添加下拉刷新
     [self setupRefresh];
-    
-    //添加数据，为了测试
-    arrayDeviceList = [[NSMutableArray alloc] init];
     
     [self getDeviceList];
     
@@ -116,6 +122,18 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     });
 }
 
+#pragma mark 跳转到添加设备界面
+/**
+ *  跳转到添加设备界面
+ */
+- (void)AddDevice
+{
+    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+    addDeviceVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:addDeviceVC animated:YES];
+    [addDeviceVC release];
+    
+}
 
 #pragma mark  tableView 的方法
 
@@ -130,8 +148,8 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         
         return 1;
     }
-    DDLogInfo(@"_%s==%d=",__FUNCTION__,self.arrayDeviceList.count%kTableViewCellInViewColumnCount == 0 ? self.arrayDeviceList.count/kTableViewCellInViewColumnCount:self.arrayDeviceList.count/kTableViewCellInViewColumnCount+1);
-    return self.arrayDeviceList.count%kTableViewCellInViewColumnCount == 0 ? self.arrayDeviceList.count/kTableViewCellInViewColumnCount:self.arrayDeviceList.count/kTableViewCellInViewColumnCount+1;
+
+    return  [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count%kTableViewCellInViewColumnCount == 0 ?  [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count/kTableViewCellInViewColumnCount: [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count/kTableViewCellInViewColumnCount+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -180,9 +198,9 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
             
             
-            if (index < arrayDeviceList.count) {
+            if (index < [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count) {
                 
-                JVCDeviceModel *modelCell = [self.arrayDeviceList objectAtIndex:index];
+                JVCDeviceModel *modelCell = [[JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray objectAtIndex:index];
 
                 int viewIndex  = index % kTableViewCellInViewColumnCount;
                 int colorIndex = index % kTableViewCellColorTypeCount;
@@ -260,12 +278,9 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                 
                 DDLogInfo(@"_%s===%@",__func__,tdicDevice);
                 
-               NSArray *deviceListArray =  [[JVCHandleDeviceMaths shareHandleDeviceMaths] convertDeviceListDictionToModelArray:tdicDevice];
+               [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertServerDictionToModelArray:tdicDevice];
                 
-                [self.arrayDeviceList removeAllObjects];
-                
-                [self.arrayDeviceList addObjectsFromArray:deviceListArray];
-                
+    
                 [_tableView reloadData];
                 
             }else{//空
@@ -309,9 +324,6 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     
     [_tableView release];
     _tableView = nil;
-    
-    [arrayDeviceList release];
-    arrayDeviceList = nil;
     
     [super dealloc];
 }

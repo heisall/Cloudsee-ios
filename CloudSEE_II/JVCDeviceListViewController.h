@@ -9,11 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
-{
-    /**
-     *  设备列表
-     */
-    NSMutableArray *arrayDeviceList;
-}
-@property(nonatomic,retain)NSMutableArray *arrayDeviceList;
+
 @end

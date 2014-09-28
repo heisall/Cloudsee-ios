@@ -25,15 +25,7 @@ enum DEVICESERVICERESPONSE{
     
 };
 
-enum DEVICEONLINESTATE
-{
-    DEVICEONLINESTATE_ONLINE        = 0,          //设备在线
-    DEVICEONLINESTATE_OFFLINE       = 1,          //设备离线
-    DEVICEONLINESTATE_UNKONWN       = 2,          //设备不确定
-    DEVICEONLINESTATE_TIMEROUT      = 3,          //设备请求超时
-    DEVICEONLINESTATE_ERROR         = 4,          //设备请求错误
-    
-};
+
 
 #define TOKEN_LENGTH			5
 #define TOKEN_STR				"@#1$6"
@@ -203,6 +195,14 @@ enum DEVICEONLINESTATE
 #define DEVICE_CHANNEL_JSON_NUMBER   @"dcn" //通道编号
 
 #define DEVICE_ONLINE_STATUS         @"dsls"
+#define DEVICE_DEVICE_RELATION_NUM    @"drn"
+
+/**
+ *  ap 的密码
+ *
+ */
+#define AP_USER       @"jwifiApuser"
+#define AP_PASSWORLD  @"^!^@#&1a**U"
 
 /** Message Type */
 enum MessageType
@@ -340,6 +340,8 @@ enum MessageType_DeviceInfo
     MODIFY_DEVICE_WIFI_FLAG=2047,
     MODIFY_DEVICE_WIFI_FLAG_RESPONSE=2048,
     
+    GET_DEVICE_Info_stateAndBing  = 2051,
+
     
     
 };
@@ -382,6 +384,16 @@ enum LogicProcessNo
 	IM_SERVER_RELAY = 7,
 	IM_SERVER_RELAY_REQUEST = 8,
 	IM_DEV_DIRECT = 9,
+    
+    IM_DEV_RESETSTATE = 99,
+
+    
+};
+
+enum DEVICESTATUS{
+    
+    DEVICESTATUS_OFFLINE=0,
+    DEVICESTATUS_ONLINE=1
     
 };
 

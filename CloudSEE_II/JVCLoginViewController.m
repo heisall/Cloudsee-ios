@@ -14,6 +14,8 @@
 #import "JVCDeviceListViewController.h"
 #import "AppDelegate.h"
 #import "JVCResultTipsHelper.h"
+#import "JVCDataBaseHelper.h"
+
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -96,6 +98,8 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
     
     /**
      *  注册所有的
@@ -365,6 +369,8 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
                 
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
+                
+                [[JVCDataBaseHelper shareDataBaseHelper] writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
                 
                 [self changeWindowRootViewController];
             

@@ -70,4 +70,20 @@
  */
 - (BOOL)judgeDictionIsNil:(NSDictionary *)infoId;
 
+/**
+ *  判断收到的字典是否合法，只有再rt字段等于0的时候才是合法
+ *
+ *  @param dicInfo 传入的字典字段
+ *
+ *  @return yes：合法  no：不合法
+ */
+- (BOOL)JudgeGetDictionIsLegal:(NSDictionary *)dicInfo;
+
+/**
+ *  判断系统的语言
+ *
+ *  @return yes  中文  no英文
+ */
+- (BOOL)judgeAPPSystemLanguage;
+
 @end

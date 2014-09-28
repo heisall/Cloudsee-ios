@@ -31,6 +31,15 @@ enum UPDATEDEVICEMATHTYPE{
     
 };
 
+enum DEVICEONLINESTATE
+{
+    DEVICEONLINESTATE_ONLINE        = 0,          //设备在线
+    DEVICEONLINESTATE_OFFLINE       = 1,          //设备离线
+    DEVICEONLINESTATE_UNKONWN       = 2,          //设备不确定
+    DEVICEONLINESTATE_TIMEROUT      = 3,          //设备请求超时
+    DEVICEONLINESTATE_ERROR         = 4,          //设备请求错误
+    
+};
 
 /**
  *  获取设备服务类库对象（注需要帐号初始化SDK，帐号登陆
@@ -283,5 +292,14 @@ enum UPDATEDEVICEMATHTYPE{
  *  @return
  */
 -(int)predicateDeviceOnlineStateWithYST:(NSString *)deviceGuidStr;
+
+/**
+ *  获取添加设备的信息
+ *
+ *  @param deviceGuidStr 传入的云视通号
+ *
+ *  @return 收到的字典   dsls 设备在线状态， 1为在线  drn 设备的绑定状态  0 没有绑定  其他值有绑定
+ */
+- (NSDictionary *)getDeviceOnlineAndBindingStateInfoWithGuid:(NSString *)deviceGuidStr;
 
 @end

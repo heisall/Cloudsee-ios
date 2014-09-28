@@ -103,11 +103,11 @@ static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
     view.backgroundColor = [UIColor clearColor];
     //横线
     UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
-    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width- imgLine.size.width)/2.0, CELLHEIGHT_HEADSECTION - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
+    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width- imgLine.size.width)/2.0, imgLine.size.height, imgLine.size.width, imgLine.size.height)];
     lineImageView.image = imgLine;
     [view addSubview:lineImageView];
     [lineImageView release];
-
+    
     return [view autorelease];
 }
 

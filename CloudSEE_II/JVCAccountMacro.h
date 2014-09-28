@@ -95,7 +95,8 @@ enum IReturnCode
 	SEND_MAIL_FAILED		= -11,
 	ACCOUNTNAME_OTHER 		= -16,						//已注册不符合规则注册的用户（老用户）
 	PASSWORD_DANGER 		= -17,						//用户密码级别太低
-	OTHER_ERROR				= -1000,
+    PHONE_NUM_ERROR 		= -15,						//手机号格式不正确
+    OTHER_ERROR				= -1000,
 };
 
 enum alarmflag

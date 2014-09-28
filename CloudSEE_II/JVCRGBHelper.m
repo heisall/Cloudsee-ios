@@ -17,7 +17,6 @@
 
 @implementation JVCRGBHelper
 
-#define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 static JVCRGBHelper *jvcRGBHelper = nil;
 

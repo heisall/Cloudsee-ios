@@ -38,6 +38,13 @@ static const int  moreContentRight= 40;//new 的位置距离右边的位置
 - (void)initContentCells:(JVCMoreSettingModel *)model
 {
  
+    self.clipsToBounds = YES;
+    //横线
+    UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
+    UIImageView *HeadlineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.width- imgLine.size.width)/2.0, imgLine.size.height, imgLine.size.width, imgLine.size.height)];
+    HeadlineImageView.image = imgLine;
+    [self.contentView addSubview:HeadlineImageView];
+    [HeadlineImageView release];
     //图标
     UIImage *imgIcon = [UIImage imageNamed:model.iconImageName];
     UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(moreContentCellOff_X, (self.height - imgIcon.size.height)/2.0, imgIcon.size.width, imgIcon.size.height)];
@@ -63,12 +70,11 @@ static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
     }
     
-    //横线
-    UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
-    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.width- imgLine.size.width)/2.0, self.height - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
-    lineImageView.image = imgLine;
-    [self.contentView addSubview:lineImageView];
-    [lineImageView release];
+//    //横线
+//    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.width- imgLine.size.width)/2.0, self.height - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
+//    lineImageView.image = imgLine;
+//    [self.contentView addSubview:lineImageView];
+//    [lineImageView release];
 
     
 }

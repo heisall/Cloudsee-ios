@@ -51,9 +51,9 @@
     }
  
     _arrayDefaultImage = [[NSMutableArray alloc] init];
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<2; i++) {
         
-        [_arrayDefaultImage addObject:@"devAdv_default@2x.png"];
+        [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d@2x.png",i]];
         
     }
     

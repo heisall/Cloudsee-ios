@@ -46,6 +46,9 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         if (shareDataBaseHelper == nil) {
             
             shareDataBaseHelper = [[self alloc] init];
+            
+            [shareDataBaseHelper  createUserInfoTable];
+
         }
         
         return shareDataBaseHelper;
@@ -188,31 +191,32 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
  */
 - (void)writeUserInfoToDataBaseWithUserName:(NSString *)userName  passWord:(NSString *)passWord
 {
+    
     if ([userInfoSqlite open]) {
         
-        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FORM  USERINFOTABLE  WHERE 'USERNAME' = '%@'",userName];
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
         
         FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
         
-        while ([resultSet next]) {
-            
-            NSUInteger totalNum = [resultSet intForColumn:@"TOTALCOUNT"];
-            
-            DDLogInfo(@"查询数据库结果,数据库中共有==%d",totalNum);
-            
-            if (totalNum == 0) {//数据库没有，直接插入
+            while ([resultSet next]) {
                 
-                [self insertUserInfoWithUserName:userName passWord:passWord];
+                NSUInteger totalNum = [resultSet intForColumn:@"TOTALCOUNT"];
                 
-
-            }else{//数据库中又，直接更新时间，以及密码
-            
-                [self updateUserPasswordInfoWithUserName:userName modifyPassWord:passWord];
+                DDLogInfo(@"查询数据库结果,数据库中共有==%d",totalNum);
                 
-                [self insertUserInfoWithUserName:userName passWord:passWord];
-
+                if (totalNum == 0) {//数据库没有，直接插入
+                    
+                    [self insertUserInfoWithUserName:userName passWord:passWord];
+                    
+                    
+                }else{//数据库中又，直接更新时间，以及密码
+                    
+                    [self updateUserPasswordInfoWithUserName:userName modifyPassWord:passWord];
+                    
+                    [self updateUserLoginTimeInfoWithUserName:userName];
+                    
+                }
             }
-        }
         
         [userInfoSqlite close];
     }
@@ -363,6 +367,8 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             userModel.loginTimer = strLogintimer;
             
             [userArray addObject:userModel];
+            
+            NSLog(@"userModel.loginTimer=%lf===",userModel.loginTimer);
             
             [userModel release];
         }

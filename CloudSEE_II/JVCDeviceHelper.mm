@@ -11,6 +11,8 @@
 #import "JVCDeviceMacro.h"
 #import "JVCAccountInterface.h"
 
+
+
 @implementation JVCDeviceHelper
 
 static JVCDeviceHelper *shareDevicelibrary=nil;
@@ -1159,5 +1161,47 @@ char outTextBuffer[1280*720*3];
         
     }
 }
+
+/**
+ *  获取添加设备的信息
+ *
+ *  @param deviceGuidStr 传入的云视通号
+ *
+ *  @return 收到的字典   dsls 设备在线状态， 1为在线  drn 设备的绑定状态  0 没有绑定  其他值有绑定
+ */
+- (NSDictionary *)getDeviceOnlineAndBindingStateInfoWithGuid:(NSString *)deviceGuidStr
+{
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    //    [requestInfoMDict setValue:CONVERTCHARTOSTRING(JK_SESSION_TEXT) forKey:CONVERTCHARTOSTRING(JK_SESSION_ID)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_DEVICE_Info_stateAndBing] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:DEV_INFO_PRO] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:IM_DEV_RESETSTATE] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_ID)];
+    [requestInfoMDict setValue:deviceGuidStr forKey:CONVERTCHARTOSTRING(JK_DEVICE_GUID)];
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    
+    [requestInfoMDict release];
+    
+    id resultID= [self getResponseByRequestBusinessServer:parseStr];
+    
+    DDLogInfo(@"resultID=%@",resultID);
+    
+    if (resultID==nil||![resultID isKindOfClass:[NSDictionary class]]) {
+        
+        return nil;//非重置设备
+    }
+    
+    NSDictionary *resultMDic=(NSDictionary *)resultID;
+    
+    return resultMDic;
+    
+}
+
 
 @end

@@ -75,7 +75,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *FistSectionArray = [[NSMutableArray alloc] init];
     //帮助界面
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
-    modelHelp.itemName = @"版主界面";
+    modelHelp.itemName = @"帮助界面";
     modelHelp.iconImageName = @"mor_IconHelp.png";
     modelHelp.bNewState = YES;
     modelHelp.bBtnState = NO;

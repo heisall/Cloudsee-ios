@@ -12,7 +12,7 @@
 
 @synthesize  userName,passWord,ip,port,nickName,yunShiTongNum;
 
-@synthesize linkType,onLineState,hasWifi,useWifi;
+@synthesize linkType,onLineState,hasWifi,useWifi,sortNum;
 
 
 - (void)dealloc
@@ -46,5 +46,13 @@
     [super dealloc];
 
 }
+
+
+//-(id)init:(NSDictionary *)info {
+//
+//
+//
+//
+//}
 
 @end
