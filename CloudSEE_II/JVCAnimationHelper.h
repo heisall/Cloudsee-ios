@@ -30,5 +30,5 @@
  *
  *  @return CATransition 对象
  */
--(void )startWithAnimation:(UIView *)baseView exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2 duration:(NSTimeInterval)duration animationType:(NSString const *)type animationSubType:(NSString *)subType;
+-(void)startWithAnimation:(UIView *)baseView exchangeSubviewAtIndex:(NSInteger)index1 withSubviewAtIndex:(NSInteger)index2 duration:(NSTimeInterval)duration animationType:(NSString const *)type animationSubType:(NSString *)subType;
 @end

@@ -205,6 +205,9 @@
 		A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */; };
 		A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
 		A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
+		AD1673AD19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */; };
+		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
+		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -219,7 +222,6 @@
 		AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB2D19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m */; };
 		AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5419D2B31000AA6D73 /* JVCRGBHelper.m */; };
 		AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */; };
-		AD2BDB5B19D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5919D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm */; };
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
 		AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */; };
 		AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */; };
@@ -439,6 +441,12 @@
 		A7FAF60819D14FE200B3F395 /* JVCUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserInfoManager.h; sourceTree = "<group>"; };
 		A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCUserInfoManager.m; sourceTree = "<group>"; };
 		A7FAF60C19D1782600B3F395 /* JVCSystemConfigMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JVCSystemConfigMacro.h; sourceTree = "<group>"; };
+		AD1673AB19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseTopToolViewAndDropListViewController.h; sourceTree = "<group>"; };
+		AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseTopToolViewAndDropListViewController.m; sourceTree = "<group>"; };
+		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
+		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
+		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
+		AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListWithChannelListViewController.m; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -459,8 +467,6 @@
 		AD2BDB5419D2B31000AA6D73 /* JVCRGBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRGBHelper.m; sourceTree = "<group>"; };
 		AD2BDB5619D2B32D00AA6D73 /* JVCEditDeviceOperationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceOperationView.h; sourceTree = "<group>"; };
 		AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditDeviceOperationView.m; sourceTree = "<group>"; };
-		AD2BDB5819D2B32D00AA6D73 /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
-		AD2BDB5919D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD2BDB5D19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmMessageViewController.h; sourceTree = "<group>"; };
 		AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmMessageViewController.m; sourceTree = "<group>"; };
 		AD2BDB6019D2BBF500AA6D73 /* JVCMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreViewController.h; sourceTree = "<group>"; };
@@ -693,6 +699,8 @@
 				AD2BDB2D19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m */,
 				A7F5EF1A19D25C21009B797A /* JVCDeviceListViewController.h */,
 				A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */,
+				AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */,
+				AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m */,
 				A72B4B6819D3EA2500760695 /* JVCHandleDeviceMaths.h */,
 				A72B4B6919D3EA2500760695 /* JVCHandleDeviceMaths.m */,
 				A7F5015A19D5399C00AA78F0 /* JVCAddDeviceViewController.h */,
@@ -872,8 +880,8 @@
 				AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */,
 				AD2BDB5619D2B32D00AA6D73 /* JVCEditDeviceOperationView.h */,
 				AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */,
-				AD2BDB5819D2B32D00AA6D73 /* JVCEditDeviceListViewController.h */,
-				AD2BDB5919D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm */,
+				AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */,
+				AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */,
 			);
 			name = editDeviceViewController;
 			sourceTree = "<group>";
@@ -1027,6 +1035,8 @@
 			children = (
 				AD2BDB1E19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.h */,
 				AD2BDB1F19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m */,
+				AD1673AB19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.h */,
+				AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -1331,6 +1341,7 @@
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7FAF5EE19D144AB00B3F395 /* DDContextFilterLogFormatter.m in Sources */,
+				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.m in Sources */,
 				A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
 				AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */,
@@ -1356,8 +1367,10 @@
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */,
+				AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */,
 				A7F5EF4819D26B31009B797A /* StyledPageControl.m in Sources */,
 				A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
+				AD1673AD19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m in Sources */,
 				A7F5013219D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
 				A7F5EF8019D2F453009B797A /* JVCPredicateHelper.m in Sources */,
 				A7F5EF3819D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
@@ -1395,7 +1408,6 @@
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
-				AD2BDB5B19D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7FAF5E619D144AB00B3F395 /* DDASLLogger.m in Sources */,

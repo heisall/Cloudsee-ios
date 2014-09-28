@@ -1,5 +1,5 @@
 //
-//  JVCEditDeviceListViewController.h
+//  JVCDeviceListWithChannelListViewController.h
 //  CloudSEE_II
 //
 //  Created by chenzhenyang on 14-9-28.
@@ -8,6 +8,6 @@
 
 #import "JVCBaseTopToolViewAndDropListViewController.h"
 
-@interface JVCEditDeviceListViewController : JVCBaseTopToolViewAndDropListViewController
+@interface JVCDeviceListWithChannelListViewController : JVCBaseTopToolViewAndDropListViewController
 
 @end
