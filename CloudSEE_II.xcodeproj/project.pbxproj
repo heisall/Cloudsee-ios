@@ -232,11 +232,15 @@
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
-		AD916BCA19D4F73000B925A2 /* JVCLableScoollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
 		AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */; };
 		AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BCD19D510BE00B925A2 /* tab_device_unselect@2x.png */; };
 		AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BCF19D510C200B925A2 /* tab_device_select@2x.png */; };
+		AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BD219D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m */; };
+		AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD419D5445900B925A2 /* edi_drop_flag_select@2x.png */; };
+		AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD519D5445900B925A2 /* edi_drop_icon_select@2x.png */; };
+		AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD619D5445900B925A2 /* edi_drop_icon_unselect@2x.png */; };
+		AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD719D5445900B925A2 /* edi_drop_line@2x.png */; };
 		ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
 		ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */; };
 		ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
@@ -252,6 +256,7 @@
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
 		ADA77C3719D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */; };
+		ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -472,14 +477,18 @@
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
-		AD916BC419D4F73000B925A2 /* JVCLableScoollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLableScoollView.h; sourceTree = "<group>"; };
-		AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLableScoollView.m; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
 		AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditDeviceTopItemView.m; sourceTree = "<group>"; };
 		AD916BC819D4F73000B925A2 /* JVCTopToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCTopToolBarView.h; sourceTree = "<group>"; };
 		AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTopToolBarView.m; sourceTree = "<group>"; };
 		AD916BCD19D510BE00B925A2 /* tab_device_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_unselect@2x.png"; sourceTree = "<group>"; };
 		AD916BCF19D510C200B925A2 /* tab_device_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_device_select@2x.png"; sourceTree = "<group>"; };
+		AD916BD119D543B400B925A2 /* JVCEditViewControllerDropListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditViewControllerDropListViewCell.h; sourceTree = "<group>"; };
+		AD916BD219D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditViewControllerDropListViewCell.m; sourceTree = "<group>"; };
+		AD916BD419D5445900B925A2 /* edi_drop_flag_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_drop_flag_select@2x.png"; sourceTree = "<group>"; };
+		AD916BD519D5445900B925A2 /* edi_drop_icon_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_drop_icon_select@2x.png"; sourceTree = "<group>"; };
+		AD916BD619D5445900B925A2 /* edi_drop_icon_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_drop_icon_unselect@2x.png"; sourceTree = "<group>"; };
+		AD916BD719D5445900B925A2 /* edi_drop_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_drop_line@2x.png"; sourceTree = "<group>"; };
 		ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudSEE_II.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA77BF319D0250E003EE7A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -502,6 +511,9 @@
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.16_2014_7_30.a; sourceTree = "<group>"; };
+		ADE03D0719D7B945002F65DA /* JVCAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationHelper.h; sourceTree = "<group>"; };
+		ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAnimationHelper.m; sourceTree = "<group>"; };
+		ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -833,6 +845,10 @@
 			isa = PBXGroup;
 			children = (
 				AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */,
+				AD916BD419D5445900B925A2 /* edi_drop_flag_select@2x.png */,
+				AD916BD519D5445900B925A2 /* edi_drop_icon_select@2x.png */,
+				AD916BD619D5445900B925A2 /* edi_drop_icon_unselect@2x.png */,
+				AD916BD719D5445900B925A2 /* edi_drop_line@2x.png */,
 				AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */,
 				AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */,
 				AD2BDB0B19D28F0600AA6D73 /* edi_bg@2x.png */,
@@ -848,13 +864,13 @@
 		AD2BDB2219D2914600AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
-				AD2BDB5619D2B32D00AA6D73 /* JVCEditDeviceOperationView.h */,
-				AD916BC419D4F73000B925A2 /* JVCLableScoollView.h */,
-				AD916BC519D4F73000B925A2 /* JVCLableScoollView.m */,
+				AD916BD119D543B400B925A2 /* JVCEditViewControllerDropListViewCell.h */,
+				AD916BD219D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m */,
 				AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */,
 				AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */,
 				AD916BC819D4F73000B925A2 /* JVCTopToolBarView.h */,
 				AD916BC919D4F73000B925A2 /* JVCTopToolBarView.m */,
+				AD2BDB5619D2B32D00AA6D73 /* JVCEditDeviceOperationView.h */,
 				AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */,
 				AD2BDB5819D2B32D00AA6D73 /* JVCEditDeviceListViewController.h */,
 				AD2BDB5919D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm */,
@@ -1001,6 +1017,7 @@
 				ADA77C2E19D02983003EE7A1 /* JVCAccountMacro.h */,
 				A7FAF60C19D1782600B3F395 /* JVCSystemConfigMacro.h */,
 				A72B4B6719D3BB4E00760695 /* JVCDeviceMacro.h */,
+				ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */,
 			);
 			name = Macro;
 			sourceTree = "<group>";
@@ -1088,6 +1105,8 @@
 				A7F5017019D5521E00AA78F0 /* JVCDeviceSourceHelper.m */,
 				A7F5017719D5AA3800AA78F0 /* JVCChannelScourseHelper.h */,
 				A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */,
+				ADE03D0719D7B945002F65DA /* JVCAnimationHelper.h */,
+				ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1185,6 +1204,7 @@
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				A7F424FE19D0FD7500D96475 /* log_pw@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
+				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
 				A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */,
 				A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
@@ -1193,6 +1213,7 @@
 				A7F5011A19D4EFB400AA78F0 /* Icon-Small.png in Resources */,
 				A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */,
 				AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */,
+				AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */,
 				A7F424FC19D0FD7500D96475 /* log_logo@2x.png in Resources */,
 				A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
@@ -1209,6 +1230,7 @@
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
 				A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */,
 				AD2BDB1519D28F0600AA6D73 /* edi_linkModel@2x.png in Resources */,
+				AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */,
 				AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */,
 				A7F4250019D0FD7500D96475 /* log_user@2x.png in Resources */,
 				A7F5015219D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
@@ -1228,6 +1250,7 @@
 				AD2BDB7419D2BC6A00AA6D73 /* tab_message_unselect@2x.png in Resources */,
 				A7F4250319D0FD8600D96475 /* log_bg_iphone5.png in Resources */,
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
+				AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */,
 				A7F5013519D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
@@ -1324,6 +1347,7 @@
 				A7FAF5EA19D144AB00B3F395 /* DDLog.m in Sources */,
 				A7F5EF6319D2706F009B797A /* EGOImageButton.m in Sources */,
 				A7F5EF4319D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
+				ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */,
 				A7FAF5EC19D144AB00B3F395 /* DDTTYLogger.m in Sources */,
 				A7F5EF3C19D2621B009B797A /* UIScrollView+MJRefresh.m in Sources */,
 				AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */,
@@ -1343,6 +1367,7 @@
 				A7F5EF3419D2621B009B797A /* MJRefreshConst.m in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F4250C19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
+				AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */,
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */,
 				A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
@@ -1368,7 +1393,6 @@
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
-				AD916BCA19D4F73000B925A2 /* JVCLableScoollView.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				AD2BDB5B19D2B32D00AA6D73 /* JVCEditDeviceListViewController.mm in Sources */,

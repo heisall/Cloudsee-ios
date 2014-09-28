@@ -45,7 +45,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 /**
  *  单例
  *
- *  @return 返回AddDeviceAlertMaths的单例
+ *  @return 返回JVCRGBHelper的单例
  */
 + (JVCRGBHelper *)shareJVCRGBHelper
 {
@@ -162,6 +162,12 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     toolBarDropButtonBackgroundColor.g            = 236.0f;
     toolBarDropButtonBackgroundColor.b            = 236.0f;
     
+    JVCRGBModel *dropListCellTitleUnselectedColor = [[JVCRGBModel alloc] init]; //设备编辑界面下拉表格的默认字体颜色
+    
+    dropListCellTitleUnselectedColor.r            = 75.0f;
+    dropListCellTitleUnselectedColor.g            = 75.0f;
+    dropListCellTitleUnselectedColor.b            = 75.0f;
+    
     [mdicRgbModelList setObject:orange  forKey:kJVCRGBColorMacroOrange];
     [mdicRgbModelList setObject:yellow  forKey:kJVCRGBColorMacroYellow];
     [mdicRgbModelList setObject:skyBlue forKey:kJVCRGBColorMacroSkyBlue];
@@ -174,7 +180,8 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [mdicRgbModelList setObject:topBarItemSelectFontColor          forKey:kJVCRGBColorMacroEditDeviceTopBarItemSelectFontColor];
     [mdicRgbModelList setObject:topBarItemSelectUnderlineViewColor forKey:kJVCRGBColorMacroEditDeviceTopBarItemSelectUnderlineViewColor];
     [mdicRgbModelList setObject:topToolBarBackgroundColor          forKey:kJVCRGBColorMacroEditTopToolBarBackgroundColor];
-    [mdicRgbModelList setObject:toolBarDropButtonBackgroundColor  forKey:kJVCRGBColorMacroEditToolBarDropButtonBackgroundColor];
+    [mdicRgbModelList setObject:toolBarDropButtonBackgroundColor   forKey:kJVCRGBColorMacroEditToolBarDropButtonBackgroundColor];
+    [mdicRgbModelList setObject:dropListCellTitleUnselectedColor   forKey:kJVCRGBColorMacroEditDropListViewCellTitleFontUnselectedColor];
     
     [orange release];
     [yellow release];
@@ -188,6 +195,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [topBarItemSelectUnderlineViewColor release];
     [topToolBarBackgroundColor release];
     [toolBarDropButtonBackgroundColor release];
+    [dropListCellTitleUnselectedColor release];
 }
 
 /**

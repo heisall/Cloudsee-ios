@@ -1,7 +1,7 @@
 //
 //  JVCEditDeviceListViewController.m
 //  JVCEditDevice
-//
+//  视频管理界面
 //  Created by chenzhenyang on 14-9-23.
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
@@ -11,8 +11,8 @@
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
-#import "JVCTopToolBarView.h"
-#import "JVCLableScoollView.h"
+#import "JVCEditViewControllerDropListViewCell.h"
+#import "JVCAnimationHelper.h"
 
 @interface JVCEditDeviceListViewController () {
 
@@ -21,6 +21,10 @@
     NSMutableArray *mArrayIconTitles;
     int  nIndex ;
     UITableView    *deviceListTableView;
+    UIImageView    *dropImageView;
+    
+    NSArray        *titles;
+    JVCTopToolBarView *toolBarView;         //顶部工具条
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
@@ -37,8 +41,12 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 
 @implementation JVCEditDeviceListViewController
 
-static const int kInitWithLayoutColumnCount = 3;
-
+static const int            kInitWithLayoutColumnCount           = 3;
+static const CGFloat        kDropTableViewHeight                 = 46.0f;
+static const NSTimeInterval kOperationViewAnimationScaleBig      = 0.7;
+static const NSTimeInterval kOperationViewAnimationScaleRestore  = 0.5;
+static const NSTimeInterval kDropListViewAnimationBegin          = 0.8;
+static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -103,17 +111,19 @@ static const int kInitWithLayoutColumnCount = 3;
  */
 -(void)initWithLayoutView{
     
+     titles = [[NSArray alloc] initWithObjects:@"A361",@"A35555555562",@"A3633456",@"A361",@"A35555555562",@"A366666663",@"A36444444441",@"A35555555562",@"A36333333",@"A361",@"A35555555562",@"A3633456",@"A361",@"A35555555562",@"A366666663",@"A36444444441",@"A35555555562",@"A36333333", nil];
+    
     CGRect toolViewRect = CGRectMake(0.0, 0.0f, self.view.frame.size.width, 0.0);
     
-    JVCTopToolBarView *toolBarView = [[JVCTopToolBarView alloc] initWithFrame:toolViewRect];
-    [toolBarView initWithLayout];
+    toolBarView          = [[JVCTopToolBarView alloc] initWithFrame:toolViewRect];
+    toolBarView.jvcTopToolBarViewDelegate   = self;
+    [toolBarView initWithLayout:titles];
     [self.view addSubview:toolBarView];
     [toolBarView release];
     
-    
     UIImage *topBarDropImage   = [UIImage imageNamed:@"edi_topBar_dropBtn.png"];
     
-    UIImageView *dropImageView    = [[UIImageView alloc] init];
+    dropImageView    = [[UIImageView alloc] init];
     dropImageView.frame           = CGRectMake(self.view.frame.size.width - topBarDropImage.size.width,toolBarView.frame.origin.y , topBarDropImage.size.width, topBarDropImage.size.height);
     dropImageView.backgroundColor = [UIColor clearColor];
     dropImageView.image           = topBarDropImage;
@@ -130,7 +140,6 @@ static const int kInitWithLayoutColumnCount = 3;
     
     [dropImageView release];
     
-
     UIImage *viewBgImage =[UIImage imageNamed:@"edi_bg.png"];
     
     JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
@@ -185,6 +194,17 @@ static const int kInitWithLayoutColumnCount = 3;
     }
 }
 
+#pragma mark -------------JVCTopToolBarView delegate
+
+-(void)topItemSelectedIndex:(int)index {
+
+    DDLogVerbose(@"%s----%d",__FUNCTION__,index);
+    
+    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType:index > nIndex ? kCATransitionFromLeft : kCATransitionFromRight];
+
+    nIndex = index;
+}
+
 /**
  *  单击事件
  *
@@ -196,43 +216,37 @@ static const int kInitWithLayoutColumnCount = 3;
         
         if (deviceListTableView.frame.size.height <= 0.0f) {
             
-            [UIView animateWithDuration:0.8f animations:^{
+            [UIView animateWithDuration:kDropListViewAnimationBegin animations:^{
                 
                 self.view.backgroundColor = [UIColor blackColor];
                 deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, recognizer.view.frame.origin.y, deviceListTableView.frame.size.width, self.view.frame.size.height);
-                
                 [self.view bringSubviewToFront:recognizer.view];
+                recognizer.view.transform =  CGAffineTransformMakeRotation(-180 * M_PI/180.0);
+
                 
                 
             } completion:^(BOOL finished){
                 
-                [UIView animateWithDuration:0.5f animations:^{
-                    
-                    recognizer.view.transform =  CGAffineTransformMakeRotation(-180 * M_PI/180.0);
-                    
-                }];
             }];
             
         }else {
             
-            [UIView animateWithDuration:0.5f animations:^{
+            [UIView animateWithDuration:kDropListViewAnimationEnd animations:^{
                 
                 self.view.backgroundColor = [UIColor clearColor];
                 deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
+                recognizer.view.transform =  CGAffineTransformIdentity;
                 
                 
             }completion:^(BOOL finished){
                 
                 
-                [UIView animateWithDuration:0.5f animations:^{
-                    
-                    recognizer.view.transform =  CGAffineTransformIdentity;
-                    
-                }];
-                
             }];
         }
         
+    } if ([recognizer state] == UIGestureRecognizerStateBegan) {
+        
+        [deviceListTableView reloadData];
     }
 }
 
@@ -245,62 +259,56 @@ static const int kInitWithLayoutColumnCount = 3;
 {
     if ([recognizer state] == UIGestureRecognizerStateEnded) {
         
-        [UIView animateWithDuration:0.7f animations:^{
+        [UIView animateWithDuration:kOperationViewAnimationScaleBig animations:^{
             
             recognizer.view.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
             
             
         } completion:^(BOOL finished){
             
-            [UIView animateWithDuration:0.5f animations:^{
-                
-                //recognizer.view.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
+            [UIView animateWithDuration:kOperationViewAnimationScaleRestore animations:^{
+            
                 recognizer.view.transform = CGAffineTransformIdentity;
                 
-            } completion:^(BOOL finished){
+            } completion:^(BOOL finshed){
+            
+              //单击事件
                 
-                [UIView animateWithDuration:0.2f animations:^{
-                    
-                    recognizer.view.transform = CGAffineTransformIdentity;
-                    
-                }];
+                switch (recognizer.view.tag)
+                {
+                    case JVCEditDeviceListViewControllerClickType_remoteSetup:{
+                        
+                    }
+                        break;
+                    case JVCEditDeviceListViewControllerClickType_deviceManager:{
+                        
+                    }
+                        break;
+                    case JVCEditDeviceListViewControllerClickType_linkModel:{
+                        
+                    }
+                        break;
+                    case JVCEditDeviceListViewControllerClickType_channelManage:{
+                        
+                    }
+                        break;
+                    case JVCEditDeviceListViewControllerClickType_play:{
+                        
+                    }
+                        break;
+                        
+                    case JVCEditDeviceListViewControllerClickType_add:{
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            
             }];
         }];
         
-        
-        int clickType  = recognizer.view.tag;
-        
-        switch (clickType) {
-                
-            case JVCEditDeviceListViewControllerClickType_remoteSetup:{
-                
-            }
-                break;
-            case JVCEditDeviceListViewControllerClickType_deviceManager:{
-                
-            }
-                break;
-            case JVCEditDeviceListViewControllerClickType_linkModel:{
-                
-            }
-                break;
-            case JVCEditDeviceListViewControllerClickType_channelManage:{
-                
-            }
-                break;
-            case JVCEditDeviceListViewControllerClickType_play:{
-                
-            }
-                break;
-                
-            case JVCEditDeviceListViewControllerClickType_add:{
-                
-            }
-                break;
-                
-            default:
-                break;
-        }
     }
 }
 
@@ -309,6 +317,7 @@ static const int kInitWithLayoutColumnCount = 3;
     [mArrayIconNames release];
     [mArrayColors release];
     [mArrayIconTitles release];
+    [titles release];
     [super dealloc];
 }
 
@@ -337,7 +346,7 @@ static const int kInitWithLayoutColumnCount = 3;
     deviceListTableView.delegate   = self;
     deviceListTableView.dataSource = self;
     deviceListTableView.frame      = CGRectMake(0.0, 0.0, self.view.frame.size.width, 0.0);
-    
+    [deviceListTableView setSeparatorColor:[UIColor clearColor]]; //去掉UITableViewCell的边框
     [self.view addSubview:deviceListTableView];
     [deviceListTableView release];
 }
@@ -351,12 +360,24 @@ static const int kInitWithLayoutColumnCount = 3;
     
     if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         
-        NSLog(@"%s---left",__FUNCTION__);
+        
+        if (nIndex > 0) {
+            
+            nIndex --;
+            [toolBarView setSelectedTopItemAtIndex:nIndex];
+             [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType: kCATransitionFromRight];
+        }
         
     }else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight){
-    
-        NSLog(@"%s---right",__FUNCTION__);
-    
+        
+        if (nIndex < titles.count -1) {
+            
+            nIndex ++;
+            [toolBarView setSelectedTopItemAtIndex:nIndex];
+            
+            [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType: kCATransitionFromLeft];
+            
+        }
     }
 
 }
@@ -365,34 +386,87 @@ static const int kInitWithLayoutColumnCount = 3;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return mArrayIconNames.count;
+    return  mArrayIconNames.count;
     
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 0;
+    return 1;
     
 }
 
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return nil;
+    static NSString *cellIndentify = @"cellIndentifiy";
+    
+    JVCEditViewControllerDropListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
+    
+    if (cell == nil) {
+        
+        cell = [[[JVCEditViewControllerDropListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    for (UIView *viewContent in cell.contentView.subviews) {
+        
+        [viewContent removeFromSuperview];
+    }
+    
+    cell.contentView.backgroundColor = [UIColor clearColor];
+    
+    [cell initWithLayoutView:@"A3678900000"];
+    
+    [cell setViewSelectedView:indexPath.row == nIndex];
+    
+    return cell;
 }
 
 #pragma mark ------- deviceListTableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (nIndex != indexPath.row) {
+        
+        nIndex = indexPath.row;
+    }
+    
     [UIView animateWithDuration:0.5f animations:^{
         
         self.view.backgroundColor = [UIColor clearColor];
         deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
+        dropImageView.transform   =  CGAffineTransformIdentity;
+        
         
     }];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return kDropTableViewHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    UIImage *topBarDropImage   = [UIImage imageNamed:@"edi_topBar_dropBtn.png"];
+    
+    return topBarDropImage.size.height;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;    {
+
+    return [NSString stringWithFormat:@"共%d个设备", mArrayIconNames.count];
+
+}
 
 - (void)didReceiveMemoryWarning
 {

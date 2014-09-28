@@ -65,7 +65,6 @@ static const CGFloat kUnderlineViewHeight  = 3.0f;
     return self;
 }
 
-
 /**
  *  设置View的状态
  *
@@ -103,7 +102,6 @@ static const CGFloat kUnderlineViewHeight  = 3.0f;
     
     if (isSelected == YES) {
         
-        
         UIColor *UnderlineViewColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroEditDeviceTopBarItemSelectUnderlineViewColor];
         
         if (UnderlineViewColor) {
@@ -116,6 +114,5 @@ static const CGFloat kUnderlineViewHeight  = 3.0f;
         underlineView.backgroundColor = [UIColor clearColor];
     }
 }
-
 
 @end
