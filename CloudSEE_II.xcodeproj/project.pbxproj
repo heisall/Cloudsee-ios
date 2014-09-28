@@ -69,10 +69,8 @@
 		A7F5013919D50A8A00AA78F0 /* mor_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5013719D50A8A00AA78F0 /* mor_line@2x.png */; };
 		A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5013A19D50DDA00AA78F0 /* mor_logOut@2x.png */; };
 		A7F5013C19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5013A19D50DDA00AA78F0 /* mor_logOut@2x.png */; };
-		A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.m */; };
-		A7F5014019D515C800AA78F0 /* JVCApHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.m */; };
-		A7F5014419D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5014219D519FC00AA78F0 /* mor_aphelpch@2x.png */; };
-		A7F5014519D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5014219D519FC00AA78F0 /* mor_aphelpch@2x.png */; };
+		A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.mm */; };
+		A7F5014019D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.mm */; };
 		A7F5014619D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5014319D519FC00AA78F0 /* mor_aphelpen@2x.png */; };
 		A7F5014719D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5014319D519FC00AA78F0 /* mor_aphelpen@2x.png */; };
 		A7F5014919D5344800AA78F0 /* mor_IconUser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5014819D5344800AA78F0 /* mor_IconUser@2x.png */; };
@@ -210,6 +208,7 @@
 		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
 		AD1673BF19D8277A0021CD1B /* dev_channelList_button_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */; };
+		AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -323,8 +322,7 @@
 		A7F5013719D50A8A00AA78F0 /* mor_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_line@2x.png"; sourceTree = "<group>"; };
 		A7F5013A19D50DDA00AA78F0 /* mor_logOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_logOut@2x.png"; sourceTree = "<group>"; };
 		A7F5013D19D515C800AA78F0 /* JVCApHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApHelpViewController.h; sourceTree = "<group>"; };
-		A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCApHelpViewController.m; sourceTree = "<group>"; };
-		A7F5014219D519FC00AA78F0 /* mor_aphelpch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_aphelpch@2x.png"; sourceTree = "<group>"; };
+		A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCApHelpViewController.mm; sourceTree = "<group>"; };
 		A7F5014319D519FC00AA78F0 /* mor_aphelpen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_aphelpen@2x.png"; sourceTree = "<group>"; };
 		A7F5014819D5344800AA78F0 /* mor_IconUser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconUser@2x.png"; sourceTree = "<group>"; };
 		A7F5014B19D5345F00AA78F0 /* mor_IconFun@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconFun@2x.png"; sourceTree = "<group>"; };
@@ -452,6 +450,7 @@
 		AD1673BB19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListTitleView.h; sourceTree = "<group>"; };
 		AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListWithChannelListTitleView.m; sourceTree = "<group>"; };
 		AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_channelList_button_bg@2x.png"; sourceTree = "<group>"; };
+		AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_aphelpch@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -567,13 +566,13 @@
 			isa = PBXGroup;
 			children = (
 				A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */,
+				AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */,
 				A7F5014819D5344800AA78F0 /* mor_IconUser@2x.png */,
 				A7F5014B19D5345F00AA78F0 /* mor_IconFun@2x.png */,
 				A7F5014E19D534E600AA78F0 /* mor_IconShark@2x.png */,
 				A7F5015119D5352700AA78F0 /* mor_IconAbout@2x.png */,
 				A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */,
 				A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */,
-				A7F5014219D519FC00AA78F0 /* mor_aphelpch@2x.png */,
 				A7F5014319D519FC00AA78F0 /* mor_aphelpen@2x.png */,
 				A7F5013A19D50DDA00AA78F0 /* mor_logOut@2x.png */,
 				A7F5013719D50A8A00AA78F0 /* mor_line@2x.png */,
@@ -593,7 +592,7 @@
 				A7F5013019D501A500AA78F0 /* JVCMoreContentCell.h */,
 				A7F5013119D501A500AA78F0 /* JVCMoreContentCell.m */,
 				A7F5013D19D515C800AA78F0 /* JVCApHelpViewController.h */,
-				A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.m */,
+				A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.mm */,
 			);
 			name = more;
 			sourceTree = "<group>";
@@ -1243,6 +1242,7 @@
 				A7F5011C19D4EFB400AA78F0 /* Icon-Small@2x.png in Resources */,
 				A7F424F619D0FD7500D96475 /* log_darbg@2x.png in Resources */,
 				A7F5012419D4EFB400AA78F0 /* Icon-76.png in Resources */,
+				AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */,
 				AD2BDB7319D2BC6A00AA6D73 /* tab_message_select@2x.png in Resources */,
 				AD2BDB1619D28F0600AA6D73 /* edi_play@2x.png in Resources */,
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
@@ -1282,7 +1282,6 @@
 				A7F5014619D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */,
 				A7F5E23C19D43AF300609BC3 /* Default-568h@2x.png in Resources */,
 				A7F5014C19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
-				A7F5014419D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */,
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
 			);
@@ -1295,7 +1294,6 @@
 				A7F5014D19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
 				A7F5016519D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
 				A7F5EF5019D26D77009B797A /* devAdv_white@2x.png in Resources */,
-				A7F5014519D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */,
 				A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
 				A7F5014A19D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
 				A7F5EF1519D257D0009B797A /* Localizable.strings in Resources */,
@@ -1360,7 +1358,7 @@
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
 				A7F5EF3E19D2621B009B797A /* UIView+MJExtension.m in Sources */,
-				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.m in Sources */,
+				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
 				AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */,
 				A7F5012A19D4F96A00AA78F0 /* JVCMoreSettingHelper.m in Sources */,
@@ -1438,7 +1436,7 @@
 				A7F5EF6019D27067009B797A /* EGOImageLoader.m in Sources */,
 				A7FAF5F119D144AB00B3F395 /* DDDispatchQueueLogFormatter.m in Sources */,
 				A72B4B6619D3B98900760695 /* JSONKit.m in Sources */,
-				A7F5014019D515C800AA78F0 /* JVCApHelpViewController.m in Sources */,
+				A7F5014019D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				A7F5EF3F19D2621B009B797A /* UIView+MJExtension.m in Sources */,
 				A7F5E25819D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F5EF4919D26B31009B797A /* StyledPageControl.m in Sources */,

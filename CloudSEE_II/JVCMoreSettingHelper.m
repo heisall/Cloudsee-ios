@@ -54,12 +54,13 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
  */
 - (NSMutableArray *)getMoreSettingList
 {
-    NSMutableArray *arrayList = [[NSMutableArray alloc]init];
+    NSMutableArray *arrayList = [[NSMutableArray alloc] init];
     
     /**
      *  用户信息,这个model是为了占位置，不用
      */
     NSMutableArray *HeadSectionArray = [[NSMutableArray alloc] init];
+    
     //这个界面不用
     JVCMoreSettingModel *modehead = [[JVCMoreSettingModel alloc] init];
     modehead.itemName = @"不用";
@@ -67,7 +68,10 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     modehead.bBtnState = NO;
     [HeadSectionArray addObject:modehead];
     [modehead release];
+    
     [arrayList addObject:HeadSectionArray];
+    
+    [HeadSectionArray release];
     
     /**
      *  第一部分
@@ -101,6 +105,8 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     [arrayList addObject:FistSectionArray];
     
+    [FistSectionArray release];
+    
     /**
      *  第2部分
      */
@@ -131,6 +137,8 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
 
     [arrayList addObject:secondSectionArray];
     
+    [secondSectionArray release];
+    
     /**
      *  第三部分
      */
@@ -144,6 +152,8 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [modelItuns release];
     
     [arrayList addObject:thirdSectionArray];
+    
+    [thirdSectionArray release];
 
     //第四部分
     NSMutableArray *fourthArray = [[NSMutableArray alloc] init];
@@ -156,6 +166,8 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [modelBtn release];
     
     [arrayList addObject:fourthArray];
+    
+    [fourthArray release];
 
 
     return [arrayList autorelease];

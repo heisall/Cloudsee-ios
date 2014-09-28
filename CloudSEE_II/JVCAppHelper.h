@@ -27,6 +27,13 @@
  */
 -(void)viewInThePositionOfTheSuperView:(CGFloat)SuperViewWidth viewCGRect:(CGRect &)viewCGRect  nColumnCount:(int)nColumnCount viewIndex:(int)viewIndex;
 
-
+/**
+ *  根据图片名字按路径加载图片
+ *
+ *  @param ImageName 图片名
+ *
+ *  @return 图片
+ */
+-(UIImage *)initImageWithContentsOfFile:(NSString *)ImageName;
 
 @end

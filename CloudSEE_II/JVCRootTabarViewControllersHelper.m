@@ -22,7 +22,6 @@
  */
 -(NSArray *)initWithTabarViewControllers{
     
-    
     /**
      *	我的设备模块
      */
@@ -54,7 +53,7 @@
     [moreViewController release];
     
 
-    NSArray *viewControllers = [[[NSArray alloc] initWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav,nil] autorelease];
+    NSArray *viewControllers = [NSArray arrayWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav,nil];
     
     [deviceNav release];
     [alarmMessageViewNav release];

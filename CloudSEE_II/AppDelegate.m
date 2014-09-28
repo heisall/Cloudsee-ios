@@ -36,7 +36,7 @@
      */
     if (navBackgroundColor) {
         
-         [[UINavigationBar appearance] setBarTintColor:navBackgroundColor];
+         //[[UINavigationBar appearance] setBarTintColor:navBackgroundColor];
     }
     
     UIColor *navtitleFontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
@@ -83,12 +83,13 @@
 -(void)initWithTabarViewControllers{
     
     JVCRootTabarViewControllersHelper *rootTabarHelper = [[JVCRootTabarViewControllersHelper alloc] init];
-    NSArray *viewControllers = [rootTabarHelper initWithTabarViewControllers];
-    [viewControllers retain];
     
-    UITabBarController *rootViewController=[[UITabBarController alloc] init];
-    rootViewController.viewControllers=viewControllers;
-    [viewControllers release];
+    NSArray            *viewControllesMarry = [rootTabarHelper initWithTabarViewControllers];
+    
+    UITabBarController *rootViewController  = [[UITabBarController alloc] init];
+    rootViewController.viewControllers      = viewControllesMarry;
+    
+    [viewControllesMarry release];
     [rootTabarHelper release];
     
     JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
@@ -101,6 +102,8 @@
     }
     
     self.window.rootViewController = rootViewController;
+    
+    [rootViewController release];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -143,6 +146,7 @@
     fileLogger.rollingFrequency = 60*60*24;
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [DDLog addLogger:fileLogger];
+    [fileLogger release];
 }
 
 #pragma mark 初始化网路检测
