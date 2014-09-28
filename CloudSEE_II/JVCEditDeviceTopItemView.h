@@ -28,4 +28,5 @@
  *  @param selected YES:选中 NO:未选中
  */
 - (void)setViewSatus:(BOOL)selected;
+
 @end

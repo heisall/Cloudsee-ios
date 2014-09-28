@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JVCTopToolBarView.h"
 
-@interface JVCEditDeviceListViewController : UIViewController <UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface JVCEditDeviceListViewController : UIViewController <UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,JVCTopToolBarViewDelegate>
 
 
 

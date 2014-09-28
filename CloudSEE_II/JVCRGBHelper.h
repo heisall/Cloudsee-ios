@@ -15,7 +15,7 @@
 /**
  *  单例
  *
- *  @return 返回AddDeviceAlertMaths的单例
+ *  @return 返回JVCRGBHelper的单例
  */
 + (JVCRGBHelper *)shareJVCRGBHelper;
 
