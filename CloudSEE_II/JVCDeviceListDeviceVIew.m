@@ -8,6 +8,8 @@
 
 #import "JVCDeviceListDeviceVIew.h"
 
+
+
 @interface JVCDeviceListDeviceVIew (){
 
     UILabel *deviceNameLbl;
@@ -29,6 +31,8 @@ static const CGFloat kDeviceNameLableHeight   = kDeviceNameLableFontSize + 4.0f;
 //设置状态标签
 static const CGFloat kStatusLableFontSize     = 8.0f;
 static const CGFloat kStatusLableFontHeight   = kStatusLableFontSize +4.0f;
+
+
 
 -(void)dealloc{
     

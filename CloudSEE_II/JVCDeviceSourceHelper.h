@@ -21,10 +21,7 @@ enum ADDDEVICE_TYPE
 };
 
 @interface JVCDeviceSourceHelper : NSObject
-{
-    NSMutableArray *deviceArray;//存放设备数组
-}
-@property(nonatomic,assign) NSMutableArray *deviceArray;
+
 
 /**
  *  单例
@@ -34,11 +31,28 @@ enum ADDDEVICE_TYPE
 +(JVCDeviceSourceHelper *)shareDeviceSourceHelper;
 
 /**
- *  把从服务器收到的数据转化成model
+ *  获取设备列表
+ *
+ *  @return 设备列表
+ */
+- (NSMutableArray *)deviceListArray;
+
+/**
+ *  清楚设备列表的所有数据
+ */
+- (void)removeAllDeviceObject;
+
+/**
+ *  往数据列表中插入数据
+ */
+- (void)addDeviceObjectFromArray:(NSArray *)array;
+
+/**
+ *  把从服务器收到的数据放到设备数组中
  *
  *  @param tdicDevice 服务器收到的数据
  */
-- (void)convertServerDictionToModelArray:(NSDictionary *)tdicDevice;
+- (void)addServerDateToDeviceList:(NSDictionary *)tdicDevice;
 
 
 /**

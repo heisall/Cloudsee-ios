@@ -37,6 +37,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initEditDeviceViewRgbColors];
         [self initDeviceListViewRgbColors];
         [self initTabarViewRgbColors];
+        [self initRegisterRgbColors];
     }
     
     return self;
@@ -76,11 +77,11 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 }
 
 /**
- *  初始化应用程序的一些背景色
+ *  初始化应用程序的一些背景色，
  */
 -(void)initAppRgbColors {
     
-    JVCRGBModel *navBackgroundColor   = [[JVCRGBModel alloc] init];  //导航条背景色
+    JVCRGBModel *navBackgroundColor   = [[JVCRGBModel alloc] init];  //导航条背景色，蓝色
     navBackgroundColor.r = 0.0f;
     navBackgroundColor.g = 122.0f;
     navBackgroundColor.b = 255.0f;
@@ -228,6 +229,28 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [tabarWhite release];
 }
 
+#pragma mark 初始化注册界面提示的颜色值
+- (void)initRegisterRgbColors
+{
+    JVCRGBModel *registerRed  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    registerRed.r = 217.0f;
+    registerRed.g = 34.0f;
+    registerRed.b = 38.0f;
+    
+    JVCRGBModel *registerBlue  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    registerBlue.r = 21.0f;
+    registerBlue.g = 103.0f;
+    registerBlue.b = 255.0f;
+    
+    [mdicRgbModelList setObject:registerRed forKey:kJVCRGBColorMacroRed];
+    [mdicRgbModelList setObject:registerBlue forKey:kJVCRGBColorMacroBlue];
+
+    [registerRed release];
+    [registerBlue release];
+
+    
+}
+
 /**
  *  根据RGBModel的键值获取UIColor对象
  *
@@ -270,6 +293,8 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         return nil;
     }
 }
+
+
 
 /**
  *  释放颜色助手类对象

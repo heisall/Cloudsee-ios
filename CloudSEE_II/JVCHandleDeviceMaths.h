@@ -17,12 +17,5 @@
  */
 + (JVCHandleDeviceMaths *)shareHandleDeviceMaths;
 
-/**
- *  把设备列表中得设备字段转化为model字段，存放到数组中，返回
- *
- *  @param deviceDic 设备列表的返回值
- *
- *  @return 包含所有设备的model的数组
- */
-- (NSMutableArray *)convertDeviceListDictionToModelArray:(NSDictionary *)deviceDic;
+
 @end
