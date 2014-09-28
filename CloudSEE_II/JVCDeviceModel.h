@@ -43,5 +43,13 @@
 @property(nonatomic,assign) int hasWifi;
 @property(nonatomic,assign) int useWifi;
 
+/**
+ *  初始化
+ *
+ *  @param info 数组信息
+ *
+ *  @return 初始化好的数据
+ */
+-(id)initWithDictionary:(NSDictionary *)info;
 
 @end

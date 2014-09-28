@@ -11,6 +11,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCAccountMacro.h"
 #import "JVCResultTipsHelper.h"
+#import "JVCRGBHelper.h"
 
 static const int ORIGIN_Y  = 40;//第一个textfield距离顶端的距离
 
@@ -258,7 +259,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
                     break;
             }
             
-            labUser.textColor = RGBConvertColor(217.0, 34.0, 38.0, 1) ;//[UIColor colorWithRed:217.0/255.0 green:34.0/255.0 blue:38.0/255.0 alpha:1];
+            [self setUserLabelRed];
             labUser.text =_strTitle;
             
         }else{//校验通过
@@ -347,17 +348,18 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
 - (void)handleJudgeUserNameHsaResign:(int )tType
 {
         if (tType == USER_HAS_EXIST) {
-            labUser.textColor = [UIColor colorWithRed:217.0/255.0 green:34.0/255.0 blue:38.0/255.0 alpha:1];
+            
+            [self setUserLabelRed];
+
             labUser.text = LOCALANGER(@"home_login_resign_user_exit");
             
         }else if(tType == USER_NOT_EXIST){
             
-            
-            labUser.textColor = [UIColor colorWithRed:21.0/255.0 green:103.0/255.0 blue:215.0/255.0 alpha:1];
+            [self setUserLabelBlue];
             labUser.text = LOCALANGER(@"home_login_resign_user_noFound");
         }else if(tType == PHONE_NUM_ERROR){
             
-            labUser.textColor = [UIColor colorWithRed:217.0/255.0 green:34.0/255.0 blue:38.0/255.0 alpha:1];
+            [self setUserLabelRed];
             labUser.text = LOCALANGER(@"home_login_resign_PhoneNum_error");
         }
     
@@ -473,6 +475,28 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
         self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         
     }];
+}
+
+#pragma mark 设置lable的颜色值为红色
+- (void)setUserLabelRed
+{
+    UIColor *redColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroRed];
+    
+    if (redColor) {
+        
+        labUser.textColor = redColor;
+    }
+}
+
+#pragma mark 设置lable的颜色值为蓝色
+- (void)setUserLabelBlue
+{
+    UIColor *redColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroBlue];
+    
+    if (redColor) {
+        
+        labUser.textColor = redColor;
+    }
 }
 
 

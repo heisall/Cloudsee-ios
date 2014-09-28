@@ -8,6 +8,7 @@
 
 #import "JVCBaseRgbBackgroundColorView.h"
 
+
 @interface JVCDeviceListDeviceVIew : JVCBaseRgbBackgroundColorView
 
 /**

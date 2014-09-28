@@ -9,11 +9,18 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
+#import "JVCDeviceSourceHelper.h"
 
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
+@interface JVCDeviceSourceHelper ()
+{
+    NSMutableArray *deviceArray;////存放设备数组
+}
+
+@end
+
 @implementation JVCDeviceSourceHelper
-@synthesize deviceArray;
 
 static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 
@@ -65,17 +72,58 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 }
 
 /**
+ *  获取设备列表
+ *
+ *  @return 设备列表
+ */
+- (NSMutableArray *)deviceListArray
+{
+    return deviceArray;
+}
+
+/**
+ *  清楚设备列表的所有数据
+ */
+- (void)removeAllDeviceObject
+{
+    [deviceArray removeAllObjects];
+}
+
+/**
+ *  往数据列表中插入数据
+ */
+- (void)addDeviceObjectFromArray:(NSArray *)array
+{
+    [array retain];
+    
+    [deviceArray addObjectsFromArray:array];
+    
+    [array release];
+}
+
+/**
  *  把从服务器收到的数据转化成model
  *
  *  @param tdicDevice 服务器收到的数据
  */
-- (void)convertServerDictionToModelArray:(NSDictionary *)tdicDevice
+- (void)addServerDateToDeviceList:(NSDictionary *)tdicDevice
 {
-    NSArray *deviceListArray =  [[JVCHandleDeviceMaths shareHandleDeviceMaths] convertDeviceListDictionToModelArray:tdicDevice];
+
+    [self removeAllDeviceObject];
+
+    NSArray *array = [tdicDevice objectForKey:DEVICE_JSON_DLIST];
     
-    [self.deviceArray removeAllObjects];
-    
-    [self.deviceArray addObjectsFromArray:deviceListArray];
+    for (int i=0; i<array.count; i++) {
+        
+        NSDictionary *_dicInfo = [array objectAtIndex:i];
+        
+        JVCDeviceModel *_model = [[JVCDeviceModel alloc] initWithDictionary:_dicInfo];
+        
+        [deviceArray addObject:_model];
+        
+        [_model release];
+    }
+
 }
 
 /**
@@ -89,15 +137,15 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 - (int)addDevicePredicateHaveYSTNUM:(NSString *)YSTNum
 {
     
-    if (self.deviceArray.count>MAX_DEVICE_NUM) {
+    if (deviceArray.count>MAX_DEVICE_NUM) {
         
         return ADDDEVICE_MAX_MUX;
         
     }
     
-    for (int i=0; i<self.deviceArray.count; i++) {
+    for (int i=0; i<deviceArray.count; i++) {
         
-        JVCDeviceModel *tSouceModel = [self.deviceArray objectAtIndex:i];
+        JVCDeviceModel *tSouceModel = [deviceArray objectAtIndex:i];
         
         if([tSouceModel.yunShiTongNum.uppercaseString isEqualToString:YSTNum.uppercaseString])
         {
@@ -133,7 +181,7 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     _model.onLineState=DEVICESTATUS_ONLINE;
     _model.hasWifi    =DEVICESTATUS_OFFLINE;
     _model.linkType= CONNECTTYPE_YST;
-    [self.deviceArray insertObject:_model atIndex:0];
+    [deviceArray insertObject:_model atIndex:0];
     return [_model autorelease];
 }
 
@@ -147,9 +195,9 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 -(JVCDeviceModel *)getDeviceModelByYstNumber:(NSString *)ystNumber
 {
     
-    for (int i=0; i<self.deviceArray.count; i++) {
+    for (int i=0; i<deviceArray.count; i++) {
         
-        JVCDeviceModel *deviceModel= [self.deviceArray objectAtIndex:i];
+        JVCDeviceModel *deviceModel= [deviceArray objectAtIndex:i];
         
         if ([[deviceModel.yunShiTongNum uppercaseString] isEqualToString:[ystNumber uppercaseString]]) {
             

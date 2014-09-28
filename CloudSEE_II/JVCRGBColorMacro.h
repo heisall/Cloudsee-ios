@@ -35,6 +35,9 @@ static NSString const *  kJVCRGBColorMacroTabarTitleFontColor   = @"tabarTitleFo
 //TabarViewController
 static NSString const *  kJVCRGBColorMacroNavBackgroundColor    = @"NavBackgroundColor";
 
+//注册界面
+static NSString const *  kJVCRGBColorMacroRed    = @"Red";
+static NSString const *  kJVCRGBColorMacroBlue    = @"Blue";
 
 
 #endif

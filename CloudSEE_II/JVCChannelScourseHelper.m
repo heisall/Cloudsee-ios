@@ -14,12 +14,11 @@
 #import "JVCChannelModel.h"
 
 @interface JVCChannelScourseHelper ()
-
-
+{
+    NSMutableArray *channelArray;
+}
 @end
 @implementation JVCChannelScourseHelper
-
-@synthesize channelArray;
 
 static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 
@@ -63,8 +62,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 
 - (void)dealloc
 {
-    [self.channelArray release];
-    self.channelArray = nil;
+    [channelArray release];
+    channelArray = nil;
     
     [super dealloc];
 }
@@ -76,6 +75,14 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 {
     channelArray = [[NSMutableArray alloc] init];
     
+}
+
+/**
+ *  获取通道数组
+ */
+- (NSMutableArray *)ChannelListArray
+{
+    return channelArray;
 }
 
 /**
@@ -145,7 +152,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             channelModel.ip=deviceModel.ip;
             channelModel.port=deviceModel.port;
                     
-            [self.channelArray addObject:channelModel];
+            [channelArray addObject:channelModel];
             
             [channelModel release];
         }

@@ -21,14 +21,14 @@
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
+static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
 
 
 @interface JVCDeviceListViewController ()
 {
     UITableView *_tableView;
 
-    NSMutableArray *_arrayColorFirstList;//存放颜色数据的数组
-    NSMutableArray *_arrayColorSecondList;//存放颜色数据的数组
+    NSMutableArray *_arrayColorList;//存放颜色数据的数组
 }
 
 @end
@@ -60,10 +60,8 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
     self.navigationController.navigationBar.hidden = NO;
         
     //初始化颜色数组
-    _arrayColorFirstList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
+    _arrayColorList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
     
-    _arrayColorSecondList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
-
     
     /**
      *  初始化tableview
@@ -149,7 +147,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         return 1;
     }
 
-    return  [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count%kTableViewCellInViewColumnCount == 0 ?  [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count/kTableViewCellInViewColumnCount: [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count/kTableViewCellInViewColumnCount+1;
+    return  [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count%kTableViewCellInViewColumnCount == 0 ?  [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount: [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,9 +196,9 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
         for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
             
             
-            if (index < [JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray.count) {
+            if (index < [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count) {
                 
-                JVCDeviceModel *modelCell = [[JVCDeviceSourceHelper shareDeviceSourceHelper].deviceArray objectAtIndex:index];
+                JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray] objectAtIndex:index];
 
                 int viewIndex  = index % kTableViewCellInViewColumnCount;
                 int colorIndex = index % kTableViewCellColorTypeCount;
@@ -217,7 +215,7 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
                 [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
                 
                 
-                UIColor *deviceDeviceViewColor = [rgbHelper rgbColorForKey:[_arrayColorFirstList objectAtIndex:colorIndex]];
+                UIColor *deviceDeviceViewColor = [rgbHelper rgbColorForKey:[_arrayColorList objectAtIndex:colorIndex]];
     
                 if (deviceDeviceViewColor) {
                     
@@ -244,9 +242,13 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
             }
         }
         
+        cell.contentView.clipsToBounds = NO;
+        cell.clipsToBounds = NO;
+        
         return cell;
     }
 }
+
 
 #pragma mark 选中相应设备的按下事件
 /**
@@ -255,9 +257,68 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
     
-    DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
-    
-
+//    DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
+//    
+//    JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)gesture.view;
+//    
+//    JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray] objectAtIndex:gesture.view.tag];
+//    
+//    UIView *viewContent = [[UIView alloc] initWithFrame:self.view.frame];
+//    
+//    CGRect rectOldFram = [deviceView.superview convertRect:deviceView.frame toView:_tableView];
+//    CGRect position;
+//    position.size.width = deviceView.width;
+//    position.size.height = deviceView.height;
+//    position.origin.x = rectOldFram.origin.x;//(self.view.width  - deviceView.width)/2.0;
+//    position.origin.y =rectOldFram.origin.y;// (self.view.height -  deviceView.height)/2.0;
+//
+//    JVCDeviceListDeviceVIew *deviceViewNew = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:deviceView.backgroundColor cornerRadius:6.0f];
+//    
+//    JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
+//
+//    UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:0.3];
+//    UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
+//    
+//    UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
+//
+//    if (borderColor) {
+//        
+//        [deviceViewNew initWithLayoutView:iconDeviceImage borderColor:borderColor titleFontColor:titleGontColor];
+//        [deviceViewNew setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+//    }
+//    
+//    [viewContent addSubview:deviceViewNew];
+//    [self.view addSubview:viewContent];
+//    [deviceViewNew release];
+//    
+//  
+//    [UIView animateWithDuration:kAnimationDuratin animations:^{
+//    
+//        CGRect position;
+//        position.size.width = deviceView.width;
+//        position.size.height = deviceView.height;
+//        position.origin.x = (self.view.width  - deviceView.width)/2.0;;
+//        position.origin.y =(self.view.height -  deviceView.height)/2.0;;
+//        
+//        deviceViewNew.frame = position;
+//        
+//        viewContent.transform = CGAffineTransformMakeScale(5.0, 5.0);
+//        viewContent.alpha     = 0.0;
+//
+//    
+//    } completion:^(BOOL finish){
+//    
+//        [UIView animateWithDuration:kAnimationDuratin animations:^{
+//            
+//            viewContent.transform = CGAffineTransformMakeScale(5.0, 5.0);
+//            viewContent.alpha     = 0.0;
+//            
+//        } completion:^(BOOL finish){
+//            
+//            [viewContent removeFromSuperview];
+//            
+//        }];
+//    }];
 }
 
 #pragma mark 获取设备
@@ -277,10 +338,9 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
             if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
                 
                 DDLogInfo(@"_%s===%@",__func__,tdicDevice);
-                
-               [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertServerDictionToModelArray:tdicDevice];
-                
-    
+                //把从服务器获取到的数据存放到数组中
+               [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
+                //必须刷新
                 [_tableView reloadData];
                 
             }else{//空
@@ -316,11 +376,8 @@ static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜�
 
 - (void)dealloc
 {
-    [_arrayColorFirstList release];
-    _arrayColorFirstList = nil;
-    
-    [_arrayColorSecondList release];
-    _arrayColorSecondList = nil;
+    [_arrayColorList release];
+    _arrayColorList = nil;
     
     [_tableView release];
     _tableView = nil;

@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface JVCChannelScourseHelper : NSObject
-{
-    NSMutableArray *channelArray;
-}
-@property(nonatomic,retain)NSMutableArray *channelArray;
 
 /**
  *  单例
@@ -20,6 +16,11 @@
  *  @return 返回JVCResultTipsHelper 对象
  */
 +(JVCChannelScourseHelper *)shareChannelScourseHelper;
+
+/**
+ *  获取通道数组
+ */
+- (NSMutableArray *)ChannelListArray;
 
 /**
  *  把获取的单个设备的通道信息转换成model的数组并添加到arrayPoint集合里面
