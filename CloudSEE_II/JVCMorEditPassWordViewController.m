@@ -79,6 +79,10 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     _textFieldNewPassWord = [self initTextFieldWithTextFieldType:TEXTFIELDTYPE_NEWPASSWORD];
     _textFieldEnSurePassWord = [self initTextFieldWithTextFieldType:TEXTFIELDTYPE_ENSUREPASSWORD];
     
+    [mControll addSubview:_textFieldOldPassWord];
+    [mControll addSubview:_textFieldNewPassWord];
+    [mControll addSubview:_textFieldEnSurePassWord];
+
     [self initSaveBtn];
 }
 
@@ -134,12 +138,11 @@ static const int kPredicateSuccess   = 0;//正则校验成功
             break;
             
         default:
-            strTitle =NSLocalizedString(@"", nil);
+            strTitle =@"";
             break;
     }
     _textFieldUserName.placeholder = strTitle;
     
-    [mControll addSubview:_textFieldUserName];
     
     return _textFieldUserName ;
 }

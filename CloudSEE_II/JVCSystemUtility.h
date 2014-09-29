@@ -86,4 +86,14 @@
  */
 - (BOOL)judgeAPPSystemLanguage;
 
+/**
+ *  初始化返回按钮
+ *
+ *  @param event  按下的事件
+ *  @param sender 发送对象
+ *
+ *  @return 返回UIBarButtonItem
+ */
+- (UIBarButtonItem *)navicationBarWithTouchEvent:(SEL)event  Target:(id)sender;
+
 @end

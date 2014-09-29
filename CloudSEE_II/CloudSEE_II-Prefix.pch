@@ -23,6 +23,7 @@
     #import "DDFileLogger.h"
     #import "DDTTYLogger.h"
     #import "DDLogMacros.h"
+    #import"JVCSystemUtility.h"
     static const int ddLogLevel = LOG_LEVEL_VERBOSE;//LOG_FLAG_WARN
 
     #import "JVCUserInfoManager.h"

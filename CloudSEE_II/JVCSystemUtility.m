@@ -178,4 +178,35 @@ static JVCSystemUtility *shareInstance = nil;
     return NO;
 }
 
+/**
+ *  初始化返回按钮
+ *
+ *  @param event  按下的事件
+ *  @param sender 发送对象
+ *
+ *  @return 返回UIBarButtonItem
+ */
+- (UIBarButtonItem *)navicationBarWithTouchEvent:(SEL)event  Target:(id)sender
+{
+    NSString *path= nil;
+    
+    path = [[NSBundle mainBundle] pathForResource:@"nav_back" ofType:@"png"];
+    
+    if (path == nil) {
+        
+        path = [[NSBundle mainBundle] pathForResource:@"nav_back@2x" ofType:@"png"];
+
+    }
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    [btn addTarget:sender action:event forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    [image release];
+    
+    return [barButtonItem autorelease];
+    
+}
+
 @end
