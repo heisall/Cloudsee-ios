@@ -34,6 +34,7 @@ static const int kInitWithChannelViewColumnCount = 4;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    DDLogVerbose(@"%s---view=%@",__FUNCTION__,self.view);
 }
 
 /**
@@ -41,17 +42,14 @@ static const int kInitWithChannelViewColumnCount = 4;
  */
 -(void)initWithOperationView {
     
+   
+    
     JVCRGBHelper   *rgbHelper                   = [JVCRGBHelper shareJVCRGBHelper];
     JVCAppHelper   *appHelper                   = [JVCAppHelper shareJVCAppHelper];
-    
     UIImage        *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
-    
     UIColor        *skyColor                    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroSkyBlue];
-    
     NSMutableArray *titleViews                  = [[NSMutableArray alloc] initWithCapacity:10];
-    
     CGFloat         totalHeight                 = 0.0;
-    
     CGFloat         spacingY                    = 0.0;
     
     if (skyColor) {

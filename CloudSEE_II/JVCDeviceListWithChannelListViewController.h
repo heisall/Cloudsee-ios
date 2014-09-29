@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import "JVCBaseTopToolViewAndDropListViewController.h"
+#import "JVCBaseWithTopToolViewAndDropListViewController.h"
 
-@interface JVCDeviceListWithChannelListViewController : JVCBaseTopToolViewAndDropListViewController
+@interface JVCDeviceListWithChannelListViewController : JVCBaseWithTopToolViewAndDropListViewController
 
 @end

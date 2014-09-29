@@ -214,7 +214,6 @@
 		A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */; };
 		A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
 		A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
-		AD1673AD19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */; };
 		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
 		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
@@ -223,6 +222,8 @@
 		AD1673C919D93BAA0021CD1B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C619D93BAA0021CD1B /* Default-568h@2x.png */; };
 		AD1673CA19D93BAA0021CD1B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C719D93BAA0021CD1B /* Default.png */; };
 		AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C819D93BAA0021CD1B /* Default@2x.png */; };
+		AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */; };
+		AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -463,8 +464,6 @@
 		A7FAF60819D14FE200B3F395 /* JVCUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserInfoManager.h; sourceTree = "<group>"; };
 		A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCUserInfoManager.m; sourceTree = "<group>"; };
 		A7FAF60C19D1782600B3F395 /* JVCSystemConfigMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JVCSystemConfigMacro.h; sourceTree = "<group>"; };
-		AD1673AB19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseTopToolViewAndDropListViewController.h; sourceTree = "<group>"; };
-		AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseTopToolViewAndDropListViewController.m; sourceTree = "<group>"; };
 		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
 		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
@@ -476,6 +475,10 @@
 		AD1673C619D93BAA0021CD1B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AD1673C719D93BAA0021CD1B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AD1673C819D93BAA0021CD1B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		AD1673D219D9552E0021CD1B /* JVCBaseWithGeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseWithGeneralViewController.h; sourceTree = "<group>"; };
+		AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseWithGeneralViewController.m; sourceTree = "<group>"; };
+		AD1673D519D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseWithTopToolViewAndDropListViewController.h; sourceTree = "<group>"; };
+		AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseWithTopToolViewAndDropListViewController.m; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -1084,8 +1087,10 @@
 			children = (
 				AD2BDB1E19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.h */,
 				AD2BDB1F19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m */,
-				AD1673AB19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.h */,
-				AD1673AC19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m */,
+				AD1673D219D9552E0021CD1B /* JVCBaseWithGeneralViewController.h */,
+				AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */,
+				AD1673D519D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.h */,
+				AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -1429,9 +1434,10 @@
 				AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */,
 				A7F5EF4819D26B31009B797A /* StyledPageControl.m in Sources */,
 				A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
-				AD1673AD19D7FC070021CD1B /* JVCBaseTopToolViewAndDropListViewController.m in Sources */,
+				AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */,
 				A7F5013219D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
 				A7F5EF8019D2F453009B797A /* JVCPredicateHelper.m in Sources */,
+				AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */,
 				A7F5EF3819D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
 				A7FAF5F219D144AB00B3F395 /* DDMultiFormatter.m in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
