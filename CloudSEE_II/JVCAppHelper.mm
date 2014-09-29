@@ -81,20 +81,4 @@ static NSString const *KImageWithType = @"png";
     viewCGRect.origin.y = spacing * row    + viewHeight * (row -1);
 }
 
-
-///**
-// *  根据图片名字按路径加载图片
-// *
-// *  @param ImageName 图片名
-// *
-// *  @return 图片
-// */
-//-(UIImage *)initImageWithContentsOfFile:(NSString *)ImageName{
-//
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource:ImageName ofType:(NSString *)KImageWithType];
-//    
-//    [UIImage imageWithContentsOfFile:ImageName];
-//
-//}
-
 @end

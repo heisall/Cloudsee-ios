@@ -36,8 +36,14 @@ static NSString const *  kJVCRGBColorMacroTabarTitleFontColor   = @"tabarTitleFo
 static NSString const *  kJVCRGBColorMacroNavBackgroundColor    = @"NavBackgroundColor";
 
 //注册界面
-static NSString const *  kJVCRGBColorMacroRed    = @"Red";
+static NSString const *  kJVCRGBColorMacroRed     = @"Red";
 static NSString const *  kJVCRGBColorMacroBlue    = @"Blue";
+//选择通道列表界面
+static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListLakeBlue     = @"deviceListWithChannelListLakeBlue";
+static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListMediumYellow = @"deviceListWithChannelListMediumYellow";
+static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListGrassGreen   = @"deviceListWithChannelListGrassGreen";
+static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListWarmOrange   = @"deviceListWithChannelListWarmOrange";
+
 
 
 #endif

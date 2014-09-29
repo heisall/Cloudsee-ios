@@ -38,6 +38,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initDeviceListViewRgbColors];
         [self initTabarViewRgbColors];
         [self initRegisterRgbColors];
+        [self initWithChanelListView];
     }
     
     return self;
@@ -252,6 +253,42 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 }
 
 /**
+ *  初始化通道选择的RGB
+ */
+-(void)initWithChanelListView{
+    
+    JVCRGBModel *lakeBlue  = [[JVCRGBModel alloc] init]; //湖蓝色
+    lakeBlue.r = 66.0f;
+    lakeBlue.g = 189.0f;
+    lakeBlue.b = 232.0f;
+    
+    JVCRGBModel *mediumYellow  = [[JVCRGBModel alloc] init]; //中黄
+    mediumYellow.r = 245.0f;
+    mediumYellow.g = 193.0f;
+    mediumYellow.b = 50.0f;
+    
+    JVCRGBModel *grassGreen  = [[JVCRGBModel alloc] init]; //草绿
+    grassGreen.r = 108.0f;
+    grassGreen.g = 193.0f;
+    grassGreen.b = 67.0f;
+    
+    JVCRGBModel *warmOrange  = [[JVCRGBModel alloc] init]; //暖橙色
+    warmOrange.r = 253.0f;
+    warmOrange.g = 142.0f;
+    warmOrange.b = 53.0f;
+    
+    [mdicRgbModelList setObject:lakeBlue     forKey:kJVCRGBColorMacroDeviceListWithChannelListLakeBlue];
+    [mdicRgbModelList setObject:mediumYellow forKey:kJVCRGBColorMacroDeviceListWithChannelListMediumYellow];
+    [mdicRgbModelList setObject:grassGreen   forKey:kJVCRGBColorMacroDeviceListWithChannelListGrassGreen];
+    [mdicRgbModelList setObject:warmOrange   forKey:kJVCRGBColorMacroDeviceListWithChannelListWarmOrange];
+    
+    [lakeBlue release];
+    [mediumYellow release];
+    [grassGreen release];
+    [warmOrange release];
+}
+
+/**
  *  根据RGBModel的键值获取UIColor对象
  *
  *  @param strkeyName RGBModel的键
@@ -293,8 +330,6 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         return nil;
     }
 }
-
-
 
 /**
  *  释放颜色助手类对象
