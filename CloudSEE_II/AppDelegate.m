@@ -10,11 +10,15 @@
 #import "JVCLoginViewController.h"
 #import "JVCAccountHelper.h"
 #import "JVCSystemUtility.h"
-#import "JVCRootTabarViewControllersHelper.h"
 #import "JVCRGBHelper.h"
 #import "AHReach.h"
 #import "JVCConfigModel.h"
 //#import "JVCAppHelper.h"
+
+#import "JVCEditDeviceListViewController.h"
+#import "JVCDeviceListViewController.h"
+#import "JVCAlarmMessageViewController.h"
+#import "JVCMoreViewController.h"
 
 
 @implementation AppDelegate
@@ -36,7 +40,7 @@
      */
     if (navBackgroundColor) {
         
-         //[[UINavigationBar appearance] setBarTintColor:navBackgroundColor];
+         [[UINavigationBar appearance] setBarTintColor:navBackgroundColor];
     }
     
     UIColor *navtitleFontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
@@ -49,7 +53,7 @@
         [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:navtitleFontColor, UITextAttributeTextColor,navtitleFontColor, UITextAttributeTextShadowColor,[NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,[UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,nil]];
     }
 
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     
     UIColor *viewDefaultColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
@@ -59,7 +63,7 @@
          self.window.backgroundColor = viewDefaultColor;
     }
    
-    [self.window makeKeyAndVisible];
+    
     
     //设置导航
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
@@ -68,8 +72,11 @@
     [loginVC release];
     [rootNav release];
     
+    [self.window makeKeyAndVisible];
+    
     //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
     [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = -1;
+    
     
     //初始化sdk
     [self initAHReachSetting];
@@ -82,15 +89,46 @@
  */
 -(void)initWithTabarViewControllers{
     
-    JVCRootTabarViewControllersHelper *rootTabarHelper = [[JVCRootTabarViewControllersHelper alloc] init];
+    /**
+     *	我的设备模块
+     */
+    JVCDeviceListViewController *deviceListController = [[JVCDeviceListViewController alloc] init];
+    UINavigationController      *deviceNav            = [[UINavigationController alloc] initWithRootViewController:deviceListController];
+    [deviceListController release];
     
-    NSArray            *viewControllesMarry = [rootTabarHelper initWithTabarViewControllers];
+    /**
+     *	报警消息模块
+     */
+    JVCAlarmMessageViewController *alarmMessageViewController = [[JVCAlarmMessageViewController alloc] init];
+    UINavigationController        *alarmMessageViewNav        =[[UINavigationController alloc] initWithRootViewController:alarmMessageViewController];
+    
+    [alarmMessageViewController release];
+    
+    /**
+     *	设备管理模块
+     */
+    JVCEditDeviceListViewController *editDeviceViewController =[[JVCEditDeviceListViewController alloc] init];
+    UINavigationController          *editDeviceNav            = [[UINavigationController alloc] initWithRootViewController:editDeviceViewController];
+    
+    [editDeviceViewController release];
+    
+    /**
+     *	更多模块
+     */
+    JVCMoreViewController  *moreViewController = [[JVCMoreViewController alloc] init];
+    UINavigationController *moreNav            = [[UINavigationController alloc] initWithRootViewController:moreViewController];
+    [moreViewController release];
+    
     
     UITabBarController *rootViewController  = [[UITabBarController alloc] init];
-    rootViewController.viewControllers      = viewControllesMarry;
+    rootViewController.viewControllers      =  [NSArray arrayWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav, nil] ;
     
-    [viewControllesMarry release];
-    [rootTabarHelper release];
+    self.window.rootViewController = rootViewController ;
+    
+    [deviceNav release];
+    [alarmMessageViewNav release];
+    [editDeviceNav release];
+    [moreNav release];
     
     JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
     
@@ -100,8 +138,6 @@
         
         rootViewController.tabBar.backgroundColor = tabBarBackgroundColor;
     }
-    
-    self.window.rootViewController = rootViewController;
     
     [rootViewController release];
 }

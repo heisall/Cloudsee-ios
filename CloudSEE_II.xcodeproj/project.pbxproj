@@ -100,12 +100,6 @@
 		A7F5017A19D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
-		A7F5E23819D43AF300609BC3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23519D43AF300609BC3 /* Default@2x.png */; };
-		A7F5E23919D43AF300609BC3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23519D43AF300609BC3 /* Default@2x.png */; };
-		A7F5E23A19D43AF300609BC3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23619D43AF300609BC3 /* Default.png */; };
-		A7F5E23B19D43AF300609BC3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23619D43AF300609BC3 /* Default.png */; };
-		A7F5E23C19D43AF300609BC3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23719D43AF300609BC3 /* Default-568h@2x.png */; };
-		A7F5E23D19D43AF300609BC3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23719D43AF300609BC3 /* Default-568h@2x.png */; };
 		A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
 		A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
 		A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24319D43F6E00609BC3 /* FMResultSet.m */; };
@@ -209,6 +203,9 @@
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
 		AD1673BF19D8277A0021CD1B /* dev_channelList_button_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */; };
 		AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */; };
+		AD1673C919D93BAA0021CD1B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C619D93BAA0021CD1B /* Default-568h@2x.png */; };
+		AD1673CA19D93BAA0021CD1B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C719D93BAA0021CD1B /* Default.png */; };
+		AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C819D93BAA0021CD1B /* Default@2x.png */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -225,7 +222,6 @@
 		AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */; };
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
 		AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */; };
-		AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */; };
 		AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */; };
 		AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */; };
 		AD2BDB7319D2BC6A00AA6D73 /* tab_message_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */; };
@@ -341,9 +337,6 @@
 		A7F5017719D5AA3800AA78F0 /* JVCChannelScourseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCChannelScourseHelper.h; sourceTree = "<group>"; };
 		A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCChannelScourseHelper.m; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
-		A7F5E23519D43AF300609BC3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		A7F5E23619D43AF300609BC3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		A7F5E23719D43AF300609BC3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7F5E23F19D43F6E00609BC3 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		A7F5E24019D43F6E00609BC3 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A7F5E24119D43F6E00609BC3 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -451,6 +444,9 @@
 		AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListWithChannelListTitleView.m; sourceTree = "<group>"; };
 		AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_channelList_button_bg@2x.png"; sourceTree = "<group>"; };
 		AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_aphelpch@2x.png"; sourceTree = "<group>"; };
+		AD1673C619D93BAA0021CD1B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AD1673C719D93BAA0021CD1B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		AD1673C819D93BAA0021CD1B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -475,8 +471,6 @@
 		AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmMessageViewController.m; sourceTree = "<group>"; };
 		AD2BDB6019D2BBF500AA6D73 /* JVCMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreViewController.h; sourceTree = "<group>"; };
 		AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreViewController.m; sourceTree = "<group>"; };
-		AD2BDB6319D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRootTabarViewControllersHelper.h; sourceTree = "<group>"; };
-		AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRootTabarViewControllersHelper.m; sourceTree = "<group>"; };
 		AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_select@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_message_select@2x.png"; sourceTree = "<group>"; };
@@ -660,9 +654,9 @@
 		A7F5E23419D43AE700609BC3 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				A7F5E23519D43AF300609BC3 /* Default@2x.png */,
-				A7F5E23619D43AF300609BC3 /* Default.png */,
-				A7F5E23719D43AF300609BC3 /* Default-568h@2x.png */,
+				AD1673C619D93BAA0021CD1B /* Default-568h@2x.png */,
+				AD1673C719D93BAA0021CD1B /* Default.png */,
+				AD1673C819D93BAA0021CD1B /* Default@2x.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -1094,8 +1088,6 @@
 		ADA77C2919D02844003EE7A1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				AD2BDB6319D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.h */,
-				AD2BDB6419D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m */,
 				A7F4250A19D1021C00D96475 /* JVCSystemUtility.h */,
 				A7F4250B19D1021C00D96475 /* JVCSystemUtility.m */,
 				AD2BDB5319D2B31000AA6D73 /* JVCRGBHelper.h */,
@@ -1219,6 +1211,7 @@
 				AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */,
 				A7F424F819D0FD7500D96475 /* log_line@2x.png in Resources */,
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
+				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
 				A7F424FE19D0FD7500D96475 /* log_pw@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
@@ -1237,9 +1230,9 @@
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
-				A7F5E23A19D43AF300609BC3 /* Default.png in Resources */,
 				A7F5014919D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
 				A7F5011C19D4EFB400AA78F0 /* Icon-Small@2x.png in Resources */,
+				AD1673C919D93BAA0021CD1B /* Default-568h@2x.png in Resources */,
 				A7F424F619D0FD7500D96475 /* log_darbg@2x.png in Resources */,
 				A7F5012419D4EFB400AA78F0 /* Icon-76.png in Resources */,
 				AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */,
@@ -1257,7 +1250,6 @@
 				AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */,
 				A7F424FA19D0FD7500D96475 /* log_btn@2x.png in Resources */,
 				A7F6EFB319D7993100FFE02D /* devAdv_default_1@2x.png in Resources */,
-				A7F5E23819D43AF300609BC3 /* Default@2x.png in Resources */,
 				AD2BDB1719D28F0600AA6D73 /* edi_RemoteSetup@2x.png in Resources */,
 				AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */,
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
@@ -1276,11 +1268,11 @@
 				A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
 				AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */,
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
+				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
 				AD2BDB1219D28F0600AA6D73 /* edi_bg@2x.png in Resources */,
 				AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */,
 				A7F5014619D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */,
-				A7F5E23C19D43AF300609BC3 /* Default-568h@2x.png in Resources */,
 				A7F5014C19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
@@ -1299,7 +1291,6 @@
 				A7F5EF1519D257D0009B797A /* Localizable.strings in Resources */,
 				A7F5013619D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
-				A7F5E23D19D43AF300609BC3 /* Default-568h@2x.png in Resources */,
 				A7F5015619D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
 				A7F5015319D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A72B4B6F19D3F9AA00760695 /* mor_user@2x.png in Resources */,
@@ -1326,14 +1317,12 @@
 				A7F5012119D4EFB400AA78F0 /* Icon@2x.png in Resources */,
 				A7F5016719D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F424F919D0FD7500D96475 /* log_line@2x.png in Resources */,
-				A7F5E23919D43AF300609BC3 /* Default@2x.png in Resources */,
 				A7F424F719D0FD7500D96475 /* log_darbg@2x.png in Resources */,
 				A7F6EFB419D7993100FFE02D /* devAdv_default_1@2x.png in Resources */,
 				A7F5015019D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7F5013C19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
 				A7F5015919D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */,
 				ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */,
-				A7F5E23B19D43AF300609BC3 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,7 +1340,6 @@
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
-				AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */,
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
 				A7F5EF6B19D27077009B797A /* EGOImageLoadConnection.m in Sources */,
@@ -1599,7 +1587,6 @@
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1620,7 +1607,6 @@
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
