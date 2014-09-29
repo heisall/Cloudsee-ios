@@ -7,6 +7,7 @@
 //
 
 #import "JVCBaseRgbBackgroundColorView.h"
+#import  <QuartzCore/QuartzCore.h>
 
 @implementation JVCBaseRgbBackgroundColorView
 
@@ -30,10 +31,33 @@
         
         if (cornerRadius > 0) {
             
-            [[self layer] setCornerRadius:cornerRadius];
+            self.layer.cornerRadius  = cornerRadius;
+            self.layer.borderWidth   = 0.0;
+            self.layer.borderColor   = [UIColor clearColor].CGColor;
+            self.layer.masksToBounds = YES;
         }
     }
     return self;
+}
+
+/**
+ *  UIView转Image
+ *
+ *  @return 转换后的Image
+ */
+-(UIImage *)imageWithUIView{
+
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(self.bounds.size);
+    CGContextRef currnetContext = UIGraphicsGetCurrentContext();
+    //[view.layer drawInContext:currnetContext];
+    [self.layer renderInContext:currnetContext];
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "JVCDeviceListWithChannelListTitleView.h"
+#import "JVCRGBHelper.h"
 
 @implementation JVCDeviceListWithChannelListTitleView
 
@@ -22,13 +23,22 @@ static const CGFloat kTitleWithHeight    = 24.0f;
 
     [title retain];
     
+    JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
+    
     UILabel *titleLbl        = [[UILabel alloc] init];
     titleLbl.backgroundColor = [UIColor clearColor];
     titleLbl.lineBreakMode   = NSLineBreakByWordWrapping;
     titleLbl.numberOfLines   = 1;
     titleLbl.font            = [UIFont systemFontOfSize:kTitleWithFontSize];
     titleLbl.frame           = CGRectMake(0.0, (self.frame.size.height - kTitleWithHeight)/2.0, self.frame.size.width,kTitleWithHeight);
-    titleLbl.textColor       = [UIColor blackColor];
+
+    UIColor *titleColor  = [rgbHelper rgbColorForKey:kJVCRGBColorMacroEditDeviceButtonFont];
+    
+    if (titleColor) {
+        
+        titleLbl.textColor       = titleColor;
+    }
+  
     titleLbl.text            = title;
     titleLbl.textAlignment   = NSTextAlignmentCenter;
     [self addSubview:titleLbl];

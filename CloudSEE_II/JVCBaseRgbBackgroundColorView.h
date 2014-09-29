@@ -22,4 +22,11 @@
  */
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)backgroundColor cornerRadius:(CGFloat)cornerRadius;
 
+/**
+ *  UIView转Image
+ *
+ *  @return 转换后的Image
+ */
+-(UIImage *)imageWithUIView;
+
 @end

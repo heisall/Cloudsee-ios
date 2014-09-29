@@ -15,6 +15,6 @@
  *
  *  @param title 标题
  */
--(void)initWithTitleView:(NSString *)title;
+-(void)initWithTitleView:(NSString *)title ;
 
 @end

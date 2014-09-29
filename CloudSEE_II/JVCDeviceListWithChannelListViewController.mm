@@ -11,13 +11,23 @@
 #import "JVCDeviceListWithChannelListTitleView.h"
 #import "JVCAppHelper.h"
 
-@interface JVCDeviceListWithChannelListViewController ()
+@interface JVCDeviceListWithChannelListViewController () {
+
+    NSMutableArray *titleColors;
+
+}
 
 @end
 
 @implementation JVCDeviceListWithChannelListViewController
 
-static const int kInitWithChannelViewColumnCount = 4;
+static const int      kInitWithChannelViewColumnCount = 4;
+static const CGFloat  kConnectAllButtonWithHeight     = 48.0f;
+static const CGFloat  kConnectAllButtonWithWidth      = 280.0f;
+static const CGFloat  kConnectAllButtonWithBottom     = 30.0f;
+static const CGFloat  kConnectAllButtonWithTop        = 15.0f;
+static const CGFloat  kConnectAllButtonWithRadius     = 4.0f;
+static const CGFloat  kTitleViewWithRadius            = 5.0f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +36,7 @@ static const int kInitWithChannelViewColumnCount = 4;
     if (self) {
         
         self.title  = @"选择通道";
+        [self initWithTitleColors];
     }
     
     return self;
@@ -34,15 +45,33 @@ static const int kInitWithChannelViewColumnCount = 4;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    DDLogVerbose(@"%s---view=%@",__FUNCTION__,self.view);
+    [self initWithConnectAllButton];
+}
+
+-(void)dealloc{
+
+    [titleColors release];
+    [super dealloc];
+}
+
+/**
+ *  初始化标签颜色的rgb集合
+ */
+-(void)initWithTitleColors {
+    
+    titleColors = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [titleColors addObject:kJVCRGBColorMacroDeviceListWithChannelListLakeBlue];
+    [titleColors addObject:kJVCRGBColorMacroDeviceListWithChannelListMediumYellow];
+    [titleColors addObject:kJVCRGBColorMacroDeviceListWithChannelListGrassGreen];
+    [titleColors addObject:kJVCRGBColorMacroDeviceListWithChannelListWarmOrange];
+    
 }
 
 /**
  *  初始化功能按钮
  */
 -(void)initWithOperationView {
-    
-   
     
     JVCRGBHelper   *rgbHelper                   = [JVCRGBHelper shareJVCRGBHelper];
     JVCAppHelper   *appHelper                   = [JVCAppHelper shareJVCAppHelper];
@@ -63,7 +92,24 @@ static const int kInitWithChannelViewColumnCount = 4;
             
             [appHelper viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithChannelViewColumnCount viewIndex:i+1];
             
-        
+            int column    =  (i + 1) % kInitWithChannelViewColumnCount; // 1
+            int row       =  (i + 1) / kInitWithChannelViewColumnCount; // 0
+            
+            if (column != 0 ) {
+                
+                row = row + 1;
+                
+            }
+            
+            int colorIndex = (row -1) % titleColors.count;
+            
+            UIColor *titleViewBgColor = [rgbHelper rgbColorForKey:[titleColors objectAtIndex:colorIndex]];
+            
+            if (!titleViewBgColor) {
+                
+                continue;
+            }
+            
             if (i == 0) {
                 
                 spacingY      = position.origin.y ;
@@ -75,27 +121,33 @@ static const int kInitWithChannelViewColumnCount = 4;
             
             totalHeight       = position.origin.y + position.size.height ;
             
-            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:skyColor cornerRadius:5.0f];
+            
+            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
             [titleViews addObject:channelTitleView];
             
             //初始化按钮标题
             [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%d通道",i+1]];
-            
+          
             [channelTitleView release];
-        
         }
         
-        UIScrollView *titlelableScoollView = [[UIScrollView alloc] init];
-        titlelableScoollView.frame = CGRectMake(0.0, toolBarView.frame.origin.y + toolBarView.frame.size.height ,self.view.frame.size.width, self.view.frame.size.height - toolBarView.frame.origin.y - toolBarView.frame.size.height -200.0);
+        CGRect scrollRect;
+        
+        scrollRect.size.width  = self.view.frame.size.width;
+        scrollRect.size.height = self.view.frame.size.height - toolBarView.frame.size.height - kConnectAllButtonWithBottom - kConnectAllButtonWithTop - kConnectAllButtonWithHeight;
+        scrollRect.origin.x    = 0.0f;
+        scrollRect.origin.y    = toolBarView.frame.origin.y + toolBarView.frame.size.height;
+        
+        UIScrollView *titlelableScoollView = [[UIScrollView alloc] initWithFrame:scrollRect];
+       
         [self.view addSubview:titlelableScoollView];
         
-        DDLogVerbose(@"%s---scrollView=%@ tooBarView=%lf",__FUNCTION__,titlelableScoollView, 300.0);
-        
+       
         titlelableScoollView.directionalLockEnabled         =  NO;
         titlelableScoollView.showsVerticalScrollIndicator   =  FALSE;
         titlelableScoollView.showsHorizontalScrollIndicator =  FALSE;
-        titlelableScoollView.clipsToBounds                  = YES;
-        titlelableScoollView.backgroundColor                = [UIColor clearColor];
+        titlelableScoollView.clipsToBounds                  =  YES;
+        titlelableScoollView.backgroundColor                =  [UIColor clearColor];
         
         CGSize newSize = CGSizeMake(self.view.frame.size.width,totalHeight);
         [titlelableScoollView setContentSize:newSize];
@@ -110,13 +162,53 @@ static const int kInitWithChannelViewColumnCount = 4;
     }
     
     [titleViews release];
-    
-    
-    
-    
-    
-    
 
+}
+
+/**
+ *  初始化全连按钮
+ */
+-(void)initWithConnectAllButton{
+    
+    JVCRGBHelper *rgbHelper       =  [JVCRGBHelper shareJVCRGBHelper];
+    
+    UIColor      *connectBtnColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
+    
+    if (!connectBtnColor) {
+        
+        return;
+    }
+    
+    CGRect imageViewRect ;
+    
+    imageViewRect.size.width  = kConnectAllButtonWithWidth;
+    imageViewRect.size.height = kConnectAllButtonWithHeight;
+    imageViewRect.origin.x    = (self.view.frame.size.width - kConnectAllButtonWithWidth) / 2.0;
+    imageViewRect.origin.y    = self.view.frame.size.height - kConnectAllButtonWithHeight - kConnectAllButtonWithBottom;
+    
+    
+    JVCBaseRgbBackgroundColorView *connectBtnImageView = [[JVCBaseRgbBackgroundColorView alloc] initWithFrame:imageViewRect backgroundColor:connectBtnColor cornerRadius:kConnectAllButtonWithRadius];
+    
+    UIImage  *connectBtnImage     = [connectBtnImageView imageWithUIView];
+    UIButton *connectButton       = [UIButton buttonWithType:UIButtonTypeCustom];
+    connectButton.frame           = imageViewRect;
+    [connectButton setBackgroundImage:connectBtnImage forState:UIControlStateNormal];
+    connectButton.backgroundColor = [UIColor clearColor];
+    connectButton.clipsToBounds   = YES;
+    
+    UIColor *titleColor  = [rgbHelper rgbColorForKey:kJVCRGBColorMacroEditDeviceButtonFont];
+    
+    if (titleColor) {
+        
+        [connectButton setTitleColor:titleColor forState:UIControlStateNormal];
+        
+    }
+    
+    [connectButton setTitle:@"全连" forState:UIControlStateNormal];
+    
+    [self.view addSubview:connectButton];
+    
+    [connectBtnImageView release];
 
 }
 
