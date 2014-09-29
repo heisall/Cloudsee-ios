@@ -17,7 +17,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCDeviceModel.h"
 #import "JVCSystemUtility.h"
-
+#import "JVCDeviceListWithChannelListViewController.h"
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
 static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
@@ -212,7 +212,7 @@ static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
                 position.size.width  = deviceImage.size.width;
                 position.size.height = deviceImage.size.height;
                 
-                [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
+                [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
                 
                 
                 UIColor *deviceDeviceViewColor = [rgbHelper rgbColorForKey:[_arrayColorList objectAtIndex:colorIndex]];
@@ -256,6 +256,10 @@ static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
  */
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
+    JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
+    deviceChannelList.hidesBottomBarWhenPushed                    = YES;
+    [self.navigationController pushViewController:deviceChannelList animated:YES];
+    [deviceChannelList release];
     
 //    DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
 //    

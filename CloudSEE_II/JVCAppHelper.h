@@ -15,7 +15,7 @@
  *
  *  @return 返回AddDeviceAlertMaths的单例
  */
-+ (JVCAppHelper *)shareJVCRGBHelper;
++ (JVCAppHelper *)shareJVCAppHelper;
 
 /**
  *  获取指定索引View在矩阵视图中的位置
@@ -27,6 +27,13 @@
  */
 -(void)viewInThePositionOfTheSuperView:(CGFloat)SuperViewWidth viewCGRect:(CGRect &)viewCGRect  nColumnCount:(int)nColumnCount viewIndex:(int)viewIndex;
 
-
+/**
+ *  根据图片名字按路径加载图片
+ *
+ *  @param ImageName 图片名
+ *
+ *  @return 图片
+ */
+-(UIImage *)initImageWithContentsOfFile:(NSString *)ImageName;
 
 @end

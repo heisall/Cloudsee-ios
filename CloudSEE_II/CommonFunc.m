@@ -43,7 +43,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
         //IOS 自带DES解密 Begin    改动了此处
         //data = [self DESDecrypt:data WithKey:key];
         //IOS 自带DES加密 End
-        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     }
     else {
         return LocalStr_None;
@@ -236,6 +236,6 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
         else characters[length++] = '=';
     }
     
-    return [[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES];
+    return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] autorelease];
 }
 @end

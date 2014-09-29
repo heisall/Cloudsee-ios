@@ -62,6 +62,7 @@ static const CGFloat kStatusLableFontHeight   = kStatusLableFontSize +4.0f;
     iconImageView.frame = CGRectMake(self.frame.size.width - iconImageView.image.size.width - kIconWithRightSpacting, (self.frame.size.height - iconImageView.image.size.height)/2.0, iconImageView.image.size.width, iconImageView.image.size.height);
     [self addSubview:iconImageView];
     
+    
     [iconImage release];
     [borderColor release];
     
@@ -95,6 +96,8 @@ static const CGFloat kStatusLableFontHeight   = kStatusLableFontSize +4.0f;
     deviceWifiStatusLbl.font            = [UIFont systemFontOfSize:kStatusLableFontSize];
     [self addSubview:deviceWifiStatusLbl];
     [deviceWifiStatusLbl release];
+    
+    [iconImageView release];
 }
 
 /**

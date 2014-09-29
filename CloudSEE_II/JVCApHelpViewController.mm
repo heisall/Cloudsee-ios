@@ -7,6 +7,7 @@
 //
 
 #import "JVCApHelpViewController.h"
+#import "JVCAppHelper.h"
 
 @interface JVCApHelpViewController ()
 
@@ -29,7 +30,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIImage *iamgeAp = [UIImage imageNamed:LOCALANGER(@"more_aphelp")];
+    UIImage  *iamgeAp  = [UIImage imageNamed:(@"more_aphelp")];
+    
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     scrollView.contentSize = CGSizeMake(iamgeAp.size.width, iamgeAp.size.height);
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iamgeAp.size.width, iamgeAp.size.height)];
@@ -47,15 +49,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)dealloc{
+
+    [super dealloc];
 }
-*/
 
 @end

@@ -16,7 +16,6 @@
     NSMutableArray *mArrayColors;
     NSMutableArray *mArrayIconNames;
     NSMutableArray *mArrayIconTitles;
-    
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
@@ -98,7 +97,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         position.size.width  = viewBgImage.size.width;
         position.size.height = viewBgImage.size.height;
         
-        [[JVCAppHelper shareJVCRGBHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
+        [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         
         position.origin.y = position.origin.y + toolBarView.frame.origin.y + toolBarView.frame.size.height;
         
@@ -169,7 +168,6 @@ static const int  kInitWithLayoutColumnCount           = 3;
                 
             }];
         }];
-        
     }
 }
 
@@ -230,7 +228,5 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [super viewDidLoad];
     
 }
-
-
 
 @end
