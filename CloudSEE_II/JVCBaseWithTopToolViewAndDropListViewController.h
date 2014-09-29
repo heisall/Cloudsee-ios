@@ -1,12 +1,12 @@
 //
-//  JVCBaseTopToolViewAndDropListViewController.h
+//  JVCBaseWithTopToolViewAndDropListViewController.h
 //  CloudSEE_II
 //
-//  Created by chenzhenyang on 14-9-28.
+//  Created by chenzhenyang on 14-9-29.
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 #import "JVCTopToolBarView.h"
 #import "JVCAnimationHelper.h"
 #import "JVCEditViewControllerDropListViewCell.h"
@@ -17,7 +17,7 @@ static const NSTimeInterval kOperationViewAnimationScaleRestore  = 0.5;    //功
 static const NSTimeInterval kDropListViewAnimationBegin          = 0.8;    //下拉视图下拉的延时时间
 static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下拉视图收回的延时时间
 
-@interface JVCBaseTopToolViewAndDropListViewController : UIViewController <UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,JVCTopToolBarViewDelegate> {
+@interface JVCBaseWithTopToolViewAndDropListViewController : JVCBaseWithGeneralViewController <UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate,JVCTopToolBarViewDelegate> {
     
     int                nIndex ;
     UITableView       *deviceListTableView;

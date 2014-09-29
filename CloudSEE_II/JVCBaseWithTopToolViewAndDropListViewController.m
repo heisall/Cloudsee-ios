@@ -1,39 +1,26 @@
 //
-//  JVCBaseTopToolViewAndDropListViewController.m
+//  JVCBaseWithTopToolViewAndDropListViewController.m
 //  CloudSEE_II
-//
-//  Created by chenzhenyang on 14-9-28.
+//  顶部工具条和下拉框架
+//  Created by chenzhenyang on 14-9-29.
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import "JVCBaseTopToolViewAndDropListViewController.h"
+#import "JVCBaseWithTopToolViewAndDropListViewController.h"
 
-@interface JVCBaseTopToolViewAndDropListViewController ()
+@interface JVCBaseWithTopToolViewAndDropListViewController ()
 
 @end
 
-@implementation JVCBaseTopToolViewAndDropListViewController
+@implementation JVCBaseWithTopToolViewAndDropListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
     if (self) {
-        
-        /**
-         *  解决父类UIViewController带导航条添加ScorllView坐标系下沉64像素的问题（ios7）
-         
-         */
-        
-        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-        }
-        
     }
     return self;
 }
-
 
 /**
  *  初始化布局
@@ -105,7 +92,7 @@
                 
             }completion:^(BOOL finished){
                 
-                 [deviceListTableView reloadData];
+                [deviceListTableView reloadData];
                 
             }];
         }
@@ -117,9 +104,9 @@
  *  初始化功能区域按钮
  */
 -(void)initWithOperationView{
-
     
-
+    
+    
 }
 
 /**
@@ -204,7 +191,7 @@
 -(void)swipeGestureRecognizerEnd:(UISwipeGestureRecognizerDirection)direction{
     
     [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType: direction == UISwipeGestureRecognizerDirectionLeft?kCATransitionFromRight:kCATransitionFromLeft];
-
+    
 }
 
 #pragma mark -------------JVCTopToolBarView delegate
@@ -302,7 +289,7 @@
  *  下拉结束处理逻辑
  */
 -(void)dropDownCilckEnd{
-
+    
     [UIView animateWithDuration:kDropListViewAnimationEnd animations:^{
         
         self.view.backgroundColor = [UIColor clearColor];
@@ -333,6 +320,14 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+-(void)dealloc{
+
+    [titles release];
+    [super dealloc];
+
+}
+
 
 
 @end
