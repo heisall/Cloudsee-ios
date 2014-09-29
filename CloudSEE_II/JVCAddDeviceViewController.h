@@ -36,7 +36,7 @@ enum DEVICEBIND
 
 @end
 
-@interface JVCAddDeviceViewController : UIViewController
+@interface JVCAddDeviceViewController : UIViewController<UITextFieldDelegate>
 {
     id<addDeviceDelegate>addDeviceDelegate;
 }

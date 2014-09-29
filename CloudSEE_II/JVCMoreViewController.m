@@ -12,8 +12,9 @@
 #import "JVCMoreSettingModel.h"
 #import "JVCMoreContentCell.h"
 
-//tableview的选中时间
+//tableview的选中事件
 #import "JVCApHelpViewController.h"
+#import "JVCMoreUserSettingViewController.h"
 
 static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
 static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
@@ -140,7 +141,6 @@ static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
             cell = [[[JVCMoreUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
         }
         
         [cell initMoreCellContentView];
@@ -195,6 +195,14 @@ static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {//账号信息
+        
+        JVCMoreUserSettingViewController *moreUserSettingVC = [[JVCMoreUserSettingViewController alloc] init] ;
+        [self.navigationController pushViewController:moreUserSettingVC animated:YES];
+        moreUserSettingVC.hidesBottomBarWhenPushed = YES;
+        [moreUserSettingVC release];
+    }
+    
     if (indexPath.section == 1 ) {//
         
         if (indexPath.row == 0) {//帮助

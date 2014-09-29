@@ -18,13 +18,15 @@
 
 
 
-static const int ADDPREDICATE_SUCCESS = 0;
-static const int TESTORIIGIN_Y = 30;//距离navicationbar的距离
-static const int SEPERATE = 20;//控件之间的距离，纵向
-static const int ADDDEVICE_RESULT_SUCCESS = 0;//成功
-static const int DEFAULTCHANNELCOUNT = 4;//莫仍的通道数
-static const int DEFAULRESIGNTFONTSIZE = 14;//默认的字体大小
-static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的宽度
+static const int    ADDPREDICATE_SUCCESS        = 0;
+static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
+static const int    SEPERATE                    = 20;//控件之间的距离，纵向
+static const int    ADDDEVICE_RESULT_SUCCESS    = 0;//成功
+static const int    DEFAULTCHANNELCOUNT         = 4;//莫仍的通道数
+static const int    DEFAULRESIGNTFONTSIZE       = 14;//默认的字体大小
+static const int    DEFAULTLABELWITH            = 70;//textfield的lefitwiew对应的label的宽度
+static const int    kADDDEVICESLIDEHEIGIT       = 100;//向上滑动的高度
+static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 
 
 
@@ -62,19 +64,28 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     return self;
 }
 
+- (void) viewDidLayoutSubviews {
+    
+    if (IOS_VERSION>=IOS7) {
+        
+        CGRect viewBounds = self.view.bounds;
+        
+        CGFloat topBarOffset = self.topLayoutGuide.length;
+        
+        viewBounds.origin.y = topBarOffset * -1;
+        
+        self.view.bounds = viewBounds;
+    }
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.title = @"添加设备";
-    //ios7
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars = NO;
-        self.modalPresentationCapturesStatusBarAppearance = NO;
-    }
+
     
     /**
      *  设置背景为白色
@@ -89,7 +100,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     self.view.backgroundColor = [UIColor grayColor];
     
     UIControl *controlBg = [[UIControl alloc] initWithFrame:self.view.frame];
-    [controlBg addTarget:self action:@selector(resignTextFields) forControlEvents:UIControlEventTouchUpInside];
+    [controlBg addTarget:self action:@selector(resignADDDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:controlBg];
     [controlBg release];
     
@@ -170,6 +181,8 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     textFieldPassWord.background = imgTextFieldBG;
     textFieldPassWord.textAlignment = UITextAlignmentRight;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
+    textFieldPassWord.delegate = self;
+    textFieldPassWord.secureTextEntry = YES;
     [self.view addSubview:textFieldPassWord];
     UILabel *labelPassLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelPassLeft.backgroundColor = [UIColor clearColor];
@@ -252,7 +265,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     
     if (ADDPREDICATE_SUCCESS == result) {//成功
         
-        [self resignTextFields];
+        [self resignADDDeviceTextFields];
         
         //判断是否超过最大值以及数据表中是否有这个设备
         int result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:textFieldYST.text];
@@ -333,7 +346,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
                      *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
                      */
                     
-                  JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModel:resutlDic withYSTNUM:textFieldYST.text];
+                  JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text];
                     
                     [tempMode retain];
                     
@@ -488,12 +501,46 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     });
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == textFieldPassWord) {
+        
+        [self addDeviceSlideUp];
+    }
+}
+
+/**
+ *  向上滑动
+ */
+- (void)addDeviceSlideUp
+{
+    [UIView animateWithDuration:kADDDEVICEANIMATION animations:^{
+    
+        self.view.frame = CGRectMake(0, -kADDDEVICESLIDEHEIGIT, self.view.width, self.view.height);
+    }];
+}
+
+/**
+ *  变会正常的位置
+ */
+- (void)addDeviceSlideDown
+{
+    [UIView animateWithDuration:kADDDEVICEANIMATION animations:^{
+        
+        self.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    }];
+}
+
 /**
  *  注销键盘
  */
--(void)resignTextFields
+-(void)resignADDDeviceTextFields
 {
-    [textFieldYST resignFirstResponder];
+    [textFieldYST       resignFirstResponder];
+    [textFieldUserName  resignFirstResponder];
+    [textFieldPassWord  resignFirstResponder];
+    
+    [self addDeviceSlideDown];
 }
 - (void)didReceiveMemoryWarning
 {

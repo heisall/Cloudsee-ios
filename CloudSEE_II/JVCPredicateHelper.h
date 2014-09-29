@@ -117,4 +117,20 @@ enum ADDDEVICERESULT
                       andPassWord:(NSString *)passWord
                 andEnsurePassWord:(NSString *)enSurePassWord;
 
+/**
+ *  判断旧密码、新密码、确认密码、是否合法
+ *
+ *  @param OldPassWord 用户输入的用户名
+ *  @param NewPassWord 新密码
+ *  @param enSurePassWord 确认密码
+ *  @param userSavePassWord         本地保存的用户名
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法、 5确认密码不合法、6邮箱不合法 、7与本地保存的秘密不一致
+ *  @return 返回相应的数值
+ */
+- (int)predicateUserOldPassWord:(NSString *)OldPassWord
+                 NewPassWord:(NSString *)NewPassWord
+              EnsurePassWord:(NSString *)enSurePassWord
+               UserSavePassWord:(NSString *)userSavePassWord;
+
 @end

@@ -25,6 +25,21 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     return self;
 }
 
+//- (void) viewDidLayoutSubviews {
+//    
+//    if (IOS_VERSION>=IOS7) {
+//        
+//        CGRect viewBounds = self.view.bounds;
+//        
+//        CGFloat topBarOffset = self.topLayoutGuide.length;
+//        
+//        viewBounds.origin.y = topBarOffset * -1;
+//        
+//        self.view.bounds = viewBounds;
+//    }
+//    
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,21 +47,30 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    //ios7
+//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+//    {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.extendedLayoutIncludesOpaqueBars = NO;
+//        self.modalPresentationCapturesStatusBarAppearance = NO;
+//    }
+    
     UIImage *iamgeAp = [UIImage imageNamed:LOCALANGER(@"add_apConfig")];
     UIImage *btnBg = [UIImage imageNamed:@"add_ApConfig.png"];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     
-    scrollView.contentSize = CGSizeMake(iamgeAp.size.width, iamgeAp.size.height);
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iamgeAp.size.width, iamgeAp.size.height+ADDCONFIGHEIGIN)];
+    scrollView.contentSize = CGSizeMake(iamgeAp.size.width, iamgeAp.size.height+ADDCONFIGHEIGIN);
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iamgeAp.size.width, iamgeAp.size.height)];
     imageview.image = iamgeAp;
     [scrollView addSubview:imageview];
     [imageview release];
-    
     [self.view addSubview:scrollView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake((self.view.width -btnBg.size.width)/2.0 , (imageview.height+ADDCONFIGHEIGIN- btnBg.size.height)/2.0, btnBg.size.width, btnBg.size.height);
+    btn.frame = CGRectMake((self.view.width -btnBg.size.width)/2.0 , imageview.height+(ADDCONFIGHEIGIN -btnBg.size.height)/2.0, btnBg.size.width, btnBg.size.height);
+    [btn setBackgroundImage:btnBg forState:UIControlStateNormal];
+    [btn setTitle:@"开始添加" forState:UIControlStateNormal];
     [scrollView addSubview:btn];
     [btn addTarget:self action:@selector(exitToAPPConfig) forControlEvents:UIControlEventTouchUpInside];
     [scrollView release];

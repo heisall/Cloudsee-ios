@@ -52,4 +52,24 @@
  */
 -(id)initWithDictionary:(NSDictionary *)info;
 
+/**
+ *  添加设备初始化model类型
+ *
+ *  @param info   传入的字典
+ *  @param YSTNum 云视通号
+ *
+ *  @return 返回相应的设备model类型
+ */
+-(id)initWithADDDeviceDictionary:(NSDictionary *)info  YSTNUM:(NSString *)YSTNum;
+
+/**
+ *  根据收到的channel的
+ *
+ *  @param channelDic  通道的字典
+ *  @param deviceModel 通道对应的设备字典
+ *
+ *  @return 通道的model类型
+ */
+-(id)initWithChannelDic:(NSDictionary *)channelDic  devieModel:(JVCDeviceModel *)deviceModel;
+
 @end

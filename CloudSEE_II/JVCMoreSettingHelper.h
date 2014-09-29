@@ -22,4 +22,9 @@
  */
 - (NSMutableArray *)getMoreSettingList;
 
+/**
+ *  获取更多界面用户设置
+ */
+- (NSMutableArray *)getMoreUserSettingList;
+
 @end

@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSString *strUserName;
 @property (nonatomic, retain) NSString *strPassword;
 @property (nonatomic, retain) NSString *strLastLoginTimer;
+@property (nonatomic, assign) BOOL bAutoLoginState;
+@property (nonatomic, assign) BOOL bGestureState;
 
 /**
  *  单例
@@ -26,10 +28,11 @@
 + (JVCUserInfoManager *)shareUserInfoManager;
 
 
-#define kkUserName [JVCUserInfoManager shareUserInfoManager].strUserName
-#define kkPassword [JVCUserInfoManager shareUserInfoManager].strPassword
-#define kLastTimer [JVCUserInfoManager shareUserInfoManager].strLastLoginTimer
-
+#define kkUserName      [JVCUserInfoManager shareUserInfoManager].strUserName
+#define kkPassword      [JVCUserInfoManager shareUserInfoManager].strPassword
+#define kLastTimer      [JVCUserInfoManager shareUserInfoManager].strLastLoginTimer
+#define kkLoginState    [JVCUserInfoManager shareUserInfoManager].bAutoLoginState
+#define kkGustureStgate [JVCUserInfoManager shareUserInfoManager].bGestureState
 /**
  *  获取用户名
  *

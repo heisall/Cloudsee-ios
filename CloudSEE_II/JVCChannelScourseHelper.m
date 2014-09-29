@@ -137,21 +137,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             
             NSDictionary *channelMdic=(NSDictionary *)[channelInfoArray objectAtIndex:i];
             
-            JVCDeviceModel *channelModel=[[JVCDeviceModel alloc] init];
+            JVCDeviceModel *channelModel=[[JVCDeviceModel alloc] initWithChannelDic:channelMdic devieModel:deviceModel];
             
-            channelModel.yunShiTongNum = deviceModel.yunShiTongNum;
-            channelModel.nickName = [channelMdic objectForKey:DEVICE_CHANNEL_JSON_NAME];
-            channelModel.userName=deviceModel.userName;
-            channelModel.passWord = deviceModel.passWord;
-            channelModel.onLineState = deviceModel.onLineState;
-            channelModel.hasWifi = deviceModel.hasWifi;
-            DDLogVerbose(@"channelMDic=%@",channelMdic);
-            channelModel.sortNum =[NSString stringWithFormat:@"%@",[channelMdic objectForKey:DEVICE_CHANNEL_JSON_NUMBER]];
-            DDLogVerbose(@"channelNumber=%@",channelModel.nickName);
-            channelModel.linkType=deviceModel.linkType;
-            channelModel.ip=deviceModel.ip;
-            channelModel.port=deviceModel.port;
-                    
             [channelArray addObject:channelModel];
             
             [channelModel release];

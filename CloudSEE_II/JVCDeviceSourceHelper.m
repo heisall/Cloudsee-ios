@@ -168,21 +168,13 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
  *
  *  @return 转化完成后的model类型
  */
-- (JVCDeviceModel *)convertDeviceDictionToModel:(NSDictionary *)deviceInfoDic withYSTNUM:(NSString *)YSTNum
+- (JVCDeviceModel *)convertDeviceDictionToModelAndInsertDeviceList:(NSDictionary *)deviceInfoDic withYSTNUM:(NSString *)YSTNum
 {
-    NSDictionary *dInfo = [deviceInfoDic objectForKey:DEVICE_JSON_DINFO];
-    JVCDeviceModel *_model = [[JVCDeviceModel alloc] init];
-    _model.yunShiTongNum = YSTNum.uppercaseString;
-    _model.nickName = YSTNum.uppercaseString;
-    _model.userName = [dInfo objectForKey:DEVICE_JSON_DVUSERNAME];
-    _model.passWord = [dInfo objectForKey:DEVICE_JSON_DVPASSWORD];
-    _model.onLineState = [[dInfo objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
-    _model.hasWifi = [[dInfo objectForKey:DEVICE_JSON_WIFI] intValue];
-    _model.onLineState=DEVICESTATUS_ONLINE;
-    _model.hasWifi    =DEVICESTATUS_OFFLINE;
-    _model.linkType= CONNECTTYPE_YST;
+    JVCDeviceModel *_model = [[JVCDeviceModel alloc] initWithADDDeviceDictionary:deviceInfoDic YSTNUM:YSTNum];
+    
     [deviceArray insertObject:_model atIndex:0];
-    return [_model autorelease];
+    
+    return _model;
 }
 
 /**

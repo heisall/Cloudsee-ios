@@ -75,7 +75,7 @@ enum ADDDEVICE_TYPE
  *
  *  @return 转化完成后的model类型
  */
-- (JVCDeviceModel *)convertDeviceDictionToModel:(NSDictionary *)deviceInfoDic withYSTNUM:(NSString *)YSTNum;
+- (JVCDeviceModel *)convertDeviceDictionToModelAndInsertDeviceList:(NSDictionary *)deviceInfoDic withYSTNUM:(NSString *)YSTNum;
 
 /**
  *  根据云通号获取sourceModel

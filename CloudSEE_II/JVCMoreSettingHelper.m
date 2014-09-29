@@ -8,6 +8,7 @@
 
 #import "JVCMoreSettingHelper.h"
 #import "JVCMoreSettingModel.h"
+#import "JVCMoreUserSettingModel.h"
 
 @implementation JVCMoreSettingHelper
 
@@ -174,4 +175,48 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
 }
 
+
+/**
+ *  获取更多界面用户设置
+ */
+- (NSMutableArray *)getMoreUserSettingList
+{
+    NSMutableArray *arrayUserList = [[NSMutableArray alloc] init];
+    
+    //自动登录
+    JVCMoreUserSettingModel *modelUserLogin = [[JVCMoreUserSettingModel alloc] init];
+    modelUserLogin.titleString = @"自动登录";
+    modelUserLogin.footString = @"关闭自动登录工恩呢刚，会同时关闭手势密码功能";
+    modelUserLogin.typeFlag = TYPEFLAG_SWitch;
+    [arrayUserList addObject:modelUserLogin];
+    [modelUserLogin release];
+    
+    //修改密码
+    JVCMoreUserSettingModel *modelEditUserName = [[JVCMoreUserSettingModel alloc] init];
+    modelEditUserName.titleString = @"修改密码";
+    modelEditUserName.footString = @"";
+    modelEditUserName.typeFlag = TYPEFLAG_Indicator;
+    [arrayUserList addObject:modelEditUserName];
+    [modelEditUserName release];
+    
+    //手势秘密
+    JVCMoreUserSettingModel *modelGuest = [[JVCMoreUserSettingModel alloc] init];
+    modelGuest.titleString = @"手势密码";
+    modelGuest.footString = @"开启手势秘密时会同时开启自动登录功能";
+    modelGuest.typeFlag = TYPEFLAG_SWitch;
+    [arrayUserList addObject:modelGuest];
+    [modelGuest release];
+    
+    //手势秘密
+    JVCMoreUserSettingModel *modelEditGuest = [[JVCMoreUserSettingModel alloc] init];
+    modelEditGuest.titleString = @"修改手势密码";
+    modelEditGuest.footString = @"";
+    modelEditGuest.typeFlag = TYPEFLAG_None;
+    [arrayUserList addObject:modelEditGuest];
+    [modelEditGuest release];
+
+    
+    return [arrayUserList autorelease];
+    
+}
 @end

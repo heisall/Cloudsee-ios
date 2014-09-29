@@ -83,7 +83,6 @@
 		A7F5015319D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015119D5352700AA78F0 /* mor_IconAbout@2x.png */; };
 		A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */; };
 		A7F5015619D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */; };
-		A7F5015919D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */; };
 		A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */; };
 		A7F5015D19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */; };
 		A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015E19D5412600AA78F0 /* dev_add@2x.png */; };
@@ -98,6 +97,26 @@
 		A7F5017219D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017019D5521E00AA78F0 /* JVCDeviceSourceHelper.m */; };
 		A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */; };
 		A7F5017A19D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */; };
+		A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */; };
+		A7F5555419D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */; };
+		A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */; };
+		A7F5555819D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */; };
+		A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */; };
+		A7F5555C19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */; };
+		A7F5555E19D906970009F75C /* mor_cellSigleBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555D19D906970009F75C /* mor_cellSigleBg@2x.png */; };
+		A7F5555F19D906970009F75C /* mor_cellSigleBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555D19D906970009F75C /* mor_cellSigleBg@2x.png */; };
+		A7F5556D19D90FB10009F75C /* SPLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556119D90FB10009F75C /* SPLine.m */; };
+		A7F5556E19D90FB10009F75C /* SPLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556119D90FB10009F75C /* SPLine.m */; };
+		A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556319D90FB10009F75C /* NormalCircle.m */; };
+		A7F5557019D90FB10009F75C /* NormalCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556319D90FB10009F75C /* NormalCircle.m */; };
+		A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556519D90FB10009F75C /* SPLockOverlay.m */; };
+		A7F5557219D90FB10009F75C /* SPLockOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556519D90FB10009F75C /* SPLockOverlay.m */; };
+		A7F5557319D90FB10009F75C /* SPLockScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556719D90FB10009F75C /* SPLockScreen.m */; };
+		A7F5557419D90FB10009F75C /* SPLockScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5556719D90FB10009F75C /* SPLockScreen.m */; };
+		A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */; };
+		A7F5557C19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */; };
+		A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */; };
+		A7F5557F19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23819D43AF300609BC3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23519D43AF300609BC3 /* Default@2x.png */; };
@@ -336,7 +355,6 @@
 		A7F5014E19D534E600AA78F0 /* mor_IconShark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconShark@2x.png"; sourceTree = "<group>"; };
 		A7F5015119D5352700AA78F0 /* mor_IconAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconAbout@2x.png"; sourceTree = "<group>"; };
 		A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconSug@2x.png"; sourceTree = "<group>"; };
-		A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconItuns@2x.png"; sourceTree = "<group>"; };
 		A7F5015A19D5399C00AA78F0 /* JVCAddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAddDeviceViewController.h; sourceTree = "<group>"; };
 		A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAddDeviceViewController.m; sourceTree = "<group>"; };
 		A7F5015E19D5412600AA78F0 /* dev_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_add@2x.png"; sourceTree = "<group>"; };
@@ -347,6 +365,23 @@
 		A7F5017019D5521E00AA78F0 /* JVCDeviceSourceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceSourceHelper.m; sourceTree = "<group>"; };
 		A7F5017719D5AA3800AA78F0 /* JVCChannelScourseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCChannelScourseHelper.h; sourceTree = "<group>"; };
 		A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCChannelScourseHelper.m; sourceTree = "<group>"; };
+		A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconItuns@2x.png"; sourceTree = "<group>"; };
+		A7F5555519D8FEA50009F75C /* JVCMoreUserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreUserSettingViewController.h; sourceTree = "<group>"; };
+		A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreUserSettingViewController.m; sourceTree = "<group>"; };
+		A7F5555919D9009A0009F75C /* JVCMoreUserSettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreUserSettingModel.h; sourceTree = "<group>"; };
+		A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreUserSettingModel.m; sourceTree = "<group>"; };
+		A7F5555D19D906970009F75C /* mor_cellSigleBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_cellSigleBg@2x.png"; sourceTree = "<group>"; };
+		A7F5556119D90FB10009F75C /* SPLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLine.m; sourceTree = "<group>"; };
+		A7F5556219D90FB10009F75C /* SPLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLine.h; sourceTree = "<group>"; };
+		A7F5556319D90FB10009F75C /* NormalCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalCircle.m; sourceTree = "<group>"; };
+		A7F5556419D90FB10009F75C /* NormalCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalCircle.h; sourceTree = "<group>"; };
+		A7F5556519D90FB10009F75C /* SPLockOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLockOverlay.m; sourceTree = "<group>"; };
+		A7F5556619D90FB10009F75C /* SPLockOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLockOverlay.h; sourceTree = "<group>"; };
+		A7F5556719D90FB10009F75C /* SPLockScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLockScreen.m; sourceTree = "<group>"; };
+		A7F5556819D90FB10009F75C /* SPLockScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLockScreen.h; sourceTree = "<group>"; };
+		A7F5557919D9340C0009F75C /* JVCMorEditPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMorEditPassWordViewController.h; sourceTree = "<group>"; };
+		A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMorEditPassWordViewController.m; sourceTree = "<group>"; };
+		A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_editPwdBtnBg@2x.png"; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
 		A7F5E23519D43AF300609BC3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A7F5E23619D43AF300609BC3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -577,6 +612,8 @@
 		A72B4B6C19D3F99C00760695 /* JVCMore */ = {
 			isa = PBXGroup;
 			children = (
+				A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */,
+				A7F5555D19D906970009F75C /* mor_cellSigleBg@2x.png */,
 				A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */,
 				AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */,
 				A7F5014819D5344800AA78F0 /* mor_IconUser@2x.png */,
@@ -584,7 +621,7 @@
 				A7F5014E19D534E600AA78F0 /* mor_IconShark@2x.png */,
 				A7F5015119D5352700AA78F0 /* mor_IconAbout@2x.png */,
 				A7F5015419D5353C00AA78F0 /* mor_IconSug@2x.png */,
-				A7F5015719D5354D00AA78F0 /* mor_IconItuns@2x.png */,
+				A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */,
 				A7F5014319D519FC00AA78F0 /* mor_aphelpen@2x.png */,
 				A7F5013A19D50DDA00AA78F0 /* mor_logOut@2x.png */,
 				A7F5013719D50A8A00AA78F0 /* mor_line@2x.png */,
@@ -605,6 +642,10 @@
 				A7F5013119D501A500AA78F0 /* JVCMoreContentCell.m */,
 				A7F5013D19D515C800AA78F0 /* JVCApHelpViewController.h */,
 				A7F5013E19D515C800AA78F0 /* JVCApHelpViewController.mm */,
+				A7F5555519D8FEA50009F75C /* JVCMoreUserSettingViewController.h */,
+				A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */,
+				A7F5557919D9340C0009F75C /* JVCMorEditPassWordViewController.h */,
+				A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */,
 			);
 			name = more;
 			sourceTree = "<group>";
@@ -667,6 +708,21 @@
 				A7F5011919D4EFB400AA78F0 /* Icon-152.png */,
 			);
 			name = Icon;
+			sourceTree = "<group>";
+		};
+		A7F5556019D90F9B0009F75C /* GestureSecreat */ = {
+			isa = PBXGroup;
+			children = (
+				A7F5556119D90FB10009F75C /* SPLine.m */,
+				A7F5556219D90FB10009F75C /* SPLine.h */,
+				A7F5556319D90FB10009F75C /* NormalCircle.m */,
+				A7F5556419D90FB10009F75C /* NormalCircle.h */,
+				A7F5556519D90FB10009F75C /* SPLockOverlay.m */,
+				A7F5556619D90FB10009F75C /* SPLockOverlay.h */,
+				A7F5556719D90FB10009F75C /* SPLockScreen.m */,
+				A7F5556819D90FB10009F75C /* SPLockScreen.h */,
+			);
+			name = GestureSecreat;
 			sourceTree = "<group>";
 		};
 		A7F5E23419D43AE700609BC3 /* Default */ = {
@@ -1029,6 +1085,8 @@
 				A7F5012D19D4F9F800AA78F0 /* JVCMoreSettingModel.m */,
 				A7F6EFB519D79BD500FFE02D /* JVCChannelModel.h */,
 				A7F6EFB619D79BD500FFE02D /* JVCChannelModel.m */,
+				A7F5555919D9009A0009F75C /* JVCMoreUserSettingModel.h */,
+				A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1068,6 +1126,7 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				A7F5556019D90F9B0009F75C /* GestureSecreat */,
 				A7F0042019D45BE40028533E /* AHReach */,
 				A7F5E25419D43FB200609BC3 /* base64 */,
 				A7F5E23E19D43F5600609BC3 /* FMDB */,
@@ -1251,10 +1310,12 @@
 				AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */,
 				A7F424FC19D0FD7500D96475 /* log_logo@2x.png in Resources */,
 				A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
+				A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
+				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
 				A7F5E23A19D43AF300609BC3 /* Default.png in Resources */,
 				A7F5014919D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
@@ -1263,6 +1324,7 @@
 				A7F5012419D4EFB400AA78F0 /* Icon-76.png in Resources */,
 				AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */,
 				AD2BDB7319D2BC6A00AA6D73 /* tab_message_select@2x.png in Resources */,
+				A7F5555E19D906970009F75C /* mor_cellSigleBg@2x.png in Resources */,
 				AD2BDB1619D28F0600AA6D73 /* edi_play@2x.png in Resources */,
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
 				A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */,
@@ -1318,6 +1380,7 @@
 				A7F5014A19D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
 				A7F7178419D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */,
 				A7F5EF1519D257D0009B797A /* Localizable.strings in Resources */,
+				A7F5555F19D906970009F75C /* mor_cellSigleBg@2x.png in Resources */,
 				A7F5013619D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				A7F5E23D19D43AF300609BC3 /* Default-568h@2x.png in Resources */,
@@ -1325,6 +1388,8 @@
 				A7F5015319D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A72B4B6F19D3F9AA00760695 /* mor_user@2x.png in Resources */,
 				A7F424FB19D0FD7500D96475 /* log_btn@2x.png in Resources */,
+				A7F5557F19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
+				A7F5555419D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A7F7178219D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7F5012319D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7F5012719D4EFB400AA78F0 /* Icon-152.png in Resources */,
@@ -1353,7 +1418,6 @@
 				A7F6EFB419D7993100FFE02D /* devAdv_default_1@2x.png in Resources */,
 				A7F5015019D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7F5013C19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
-				A7F5015919D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */,
 				ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */,
 				A7F5E23B19D43AF300609BC3 /* Default.png in Resources */,
 				A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
@@ -1371,6 +1435,8 @@
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7FAF5EE19D144AB00B3F395 /* DDContextFilterLogFormatter.m in Sources */,
+				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
+				A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
@@ -1378,9 +1444,12 @@
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
 				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
+				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
 				A7F5EF6B19D27077009B797A /* EGOImageLoadConnection.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
+				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
+				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F5EF3E19D2621B009B797A /* UIView+MJExtension.m in Sources */,
 				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
@@ -1398,6 +1467,7 @@
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */,
+				A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,
 				AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */,
 				A7F5EF4819D26B31009B797A /* StyledPageControl.m in Sources */,
 				A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
@@ -1441,6 +1511,7 @@
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
+				A7F5557319D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7FAF5E619D144AB00B3F395 /* DDASLLogger.m in Sources */,
 				A7F5E25219D43F6E00609BC3 /* FMDatabasePool.m in Sources */,
@@ -1454,13 +1525,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F5555819D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,
 				A7F5E26219D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
+				A7F5556E19D90FB10009F75C /* SPLine.m in Sources */,
 				A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7FAF5EB19D144AB00B3F395 /* DDLog.m in Sources */,
 				A7F5EF6019D27067009B797A /* EGOImageLoader.m in Sources */,
 				A7FAF5F119D144AB00B3F395 /* DDDispatchQueueLogFormatter.m in Sources */,
 				A72B4B6619D3B98900760695 /* JSONKit.m in Sources */,
 				A7F5014019D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
+				A7F5555C19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
 				A7F5EF3F19D2621B009B797A /* UIView+MJExtension.m in Sources */,
 				A7F5E25819D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F5EF4919D26B31009B797A /* StyledPageControl.m in Sources */,
@@ -1471,10 +1545,12 @@
 				A7F5017219D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				A7F5EF3919D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
 				ADA77C1919D0250F003EE7A1 /* CloudSEE_IITests.m in Sources */,
+				A7F5557019D90FB10009F75C /* NormalCircle.m in Sources */,
 				A7F5EF4419D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				A7F0042419D45C030028533E /* AHReach.m in Sources */,
 				A7F5EF1D19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */,
 				A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */,
+				A7F5557419D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7F5EF3B19D2621B009B797A /* UIScrollView+MJExtension.m in Sources */,
 				A7F5013319D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
 				A7F5E24F19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
@@ -1492,6 +1568,7 @@
 				A7F6EFB819D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				A7F5E24D19D43F6E00609BC3 /* FMResultSet.m in Sources */,
 				A7F5EF3D19D2621B009B797A /* UIScrollView+MJRefresh.m in Sources */,
+				A7F5557C19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
 				A7FAF5E319D144AB00B3F395 /* DDAbstractDatabaseLogger.m in Sources */,
 				A7F0042819D45DC70028533E /* JVCConfigModel.m in Sources */,
 				A7F4250D19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
@@ -1503,6 +1580,7 @@
 				A7FAF5F319D144AB00B3F395 /* DDMultiFormatter.m in Sources */,
 				A7F5EF3519D2621B009B797A /* MJRefreshConst.m in Sources */,
 				A7FAF5EF19D144AB00B3F395 /* DDContextFilterLogFormatter.m in Sources */,
+				A7F5557219D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				A7FAF5E919D144AB00B3F395 /* DDFileLogger.m in Sources */,
 				A7FAF5BA19D11C4000B3F395 /* JVCAccountPredicateMaths.m in Sources */,
 				A7F5EF7819D2DC18009B797A /* JVCAlertHelper.m in Sources */,

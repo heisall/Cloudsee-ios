@@ -30,7 +30,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIImage  *iamgeAp  = [UIImage imageNamed:(@"more_aphelp")];
+    UIImage  *iamgeAp  = [UIImage imageNamed:LOCALANGER(@"more_aphelp")];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     scrollView.contentSize = CGSizeMake(iamgeAp.size.width, iamgeAp.size.height);

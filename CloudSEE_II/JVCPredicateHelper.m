@@ -429,5 +429,81 @@ static JVCPredicateHelper *_shareInstance = nil;
     return [predicateTest evaluateWithObject:strCompare];
 }
 
+/**
+ *  判断旧密码、新密码、确认密码、是否合法
+ *
+ *  @param OldPassWord 用户输入的用户名
+ *  @param NewPassWord 新密码
+ *  @param enSurePassWord 确认密码
+ *  @param userSavePassWord         本地保存的用户名
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法、 5确认密码不合法、6邮箱不合法 、7与本地保存的秘密不一致
+ *  @return 返回相应的数值
+ */
+- (int)predicateUserOldPassWord:(NSString *)OldPassWord
+                    NewPassWord:(NSString *)NewPassWord
+                 EnsurePassWord:(NSString *)enSurePassWord
+               UserSavePassWord:(NSString *)userSavePassWord
+{
+    /**
+     *  判断用户名是否为空
+     */
+    if ([self predicateBlankString:OldPassWord]) {
+        
+        return LOGINRESULT_PASSWORLD_NIL;
+    }
+    /**
+     *  判断用户名是否合法
+     */
+    if (![self PredicateResignPasswordIslegal:OldPassWord]) {
+        
+        return LOGINRESULT_PASSWORLD_ERROR;
+    }
+    /**
+     *  本地保存的用户名密码与现在的用户名密码是否一致
+     */
+    if (![userSavePassWord isEqualToString:OldPassWord]) {
+        
+        return LOGINRESULT_NOT_EQUAL_USER_PASSWORD;
+    }
+    /**
+     *  判断密码是否为空
+     */
+    if ([self predicateBlankString:NewPassWord]) {
+        
+        return LOGINRESULT_PASSWORLD_NIL;
+    }
+    /**
+     *  判断密码是否合法
+     */
+    if (![self PredicateResignPasswordIslegal:NewPassWord]) {
+        
+        return LOGINRESULT_PASSWORLD_ERROR;
+    }
+    
+    if ([self predicateBlankString:enSurePassWord]) {
+        
+        return  LOGINRESULT_ENSURE_PASSWORD_NIL;
+    }
+    
+    if (![enSurePassWord isEqualToString:NewPassWord]) {
+        
+        return LOGINRESULT_ENSURE_PASSWORD_ERROR;
+    }
+    
+    if ([NewPassWord isEqualToString:OldPassWord]) {
+        
+        return LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD;
+    }
+    
+    /**
+     *  合法
+     */
+    return LOGINRESULT_SUCCESS;
+    
+}
+
+
+
 
 @end
