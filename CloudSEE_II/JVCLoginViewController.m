@@ -81,7 +81,10 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
 {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBarHidden = YES;
+
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,6 +99,8 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
 
 - (void)viewDidLoad
 {
+    self.navigationController.navigationBarHidden = YES;
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     

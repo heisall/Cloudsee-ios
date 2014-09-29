@@ -104,16 +104,6 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    UIBarButtonItem *btnItem = [[JVCSystemUtility shareSystemUtilityInstance] navicationBarWithTouchEvent:@selector(gotoBack) Target:self];
-    
-    [btnItem retain];
-    
-    self.navigationItem.leftBarButtonItem = btnItem;
-    
-    [btnItem release];
-
-    
-    
     UIControl *controlBg = [[UIControl alloc] initWithFrame:self.view.frame];
     [controlBg addTarget:self action:@selector(resignADDDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:controlBg];

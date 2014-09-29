@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 #import "JVCAddDeviceViewController.h"
 
-@interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate>
+@interface JVCDeviceListViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate>
 
 @end

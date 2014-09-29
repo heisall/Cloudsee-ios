@@ -118,6 +118,8 @@
 		A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */; };
 		A7F5557F19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */; };
 		A7F5558219D9498C0009F75C /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5558119D9498C0009F75C /* nav_back@2x.png */; };
+		A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5558F19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m */; };
+		A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5559319D97E760009F75C /* UITabBarController+Rotation_IOS6.m */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
@@ -371,6 +373,10 @@
 		A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMorEditPassWordViewController.m; sourceTree = "<group>"; };
 		A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_editPwdBtnBg@2x.png"; sourceTree = "<group>"; };
 		A7F5558119D9498C0009F75C /* nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@2x.png"; sourceTree = "<group>"; };
+		A7F5558E19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Rotation_IOS6.h"; sourceTree = "<group>"; };
+		A7F5558F19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Rotation_IOS6.m"; sourceTree = "<group>"; };
+		A7F5559219D97E760009F75C /* UITabBarController+Rotation_IOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+Rotation_IOS6.h"; sourceTree = "<group>"; };
+		A7F5559319D97E760009F75C /* UITabBarController+Rotation_IOS6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+Rotation_IOS6.m"; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
 		A7F5E23F19D43F6E00609BC3 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		A7F5E24019D43F6E00609BC3 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -710,6 +716,24 @@
 				A7F5558119D9498C0009F75C /* nav_back@2x.png */,
 			);
 			name = navicationBar;
+			sourceTree = "<group>";
+		};
+		A7F5558D19D95E140009F75C /* UINavicationRotation_IOS6 */ = {
+			isa = PBXGroup;
+			children = (
+				A7F5558E19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.h */,
+				A7F5558F19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m */,
+			);
+			name = UINavicationRotation_IOS6;
+			sourceTree = "<group>";
+		};
+		A7F5559119D97E2F0009F75C /* tabbarautoRotate */ = {
+			isa = PBXGroup;
+			children = (
+				A7F5559219D97E760009F75C /* UITabBarController+Rotation_IOS6.h */,
+				A7F5559319D97E760009F75C /* UITabBarController+Rotation_IOS6.m */,
+			);
+			name = tabbarautoRotate;
 			sourceTree = "<group>";
 		};
 		A7F5E23419D43AE700609BC3 /* Default */ = {
@@ -1098,6 +1122,8 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				A7F5559119D97E2F0009F75C /* tabbarautoRotate */,
+				A7F5558D19D95E140009F75C /* UINavicationRotation_IOS6 */,
 				A7F5556019D90F9B0009F75C /* GestureSecreat */,
 				A7F0042019D45BE40028533E /* AHReach */,
 				A7F5E25419D43FB200609BC3 /* base64 */,
@@ -1445,6 +1471,7 @@
 				A7F5EF3419D2621B009B797A /* MJRefreshConst.m in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F4250C19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
+				A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */,
 				AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */,
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */,
@@ -1465,6 +1492,7 @@
 				A7F5EF1C19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */,
 				A7FAF5E419D144AB00B3F395 /* DDASLLogCapture.m in Sources */,
 				A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */,
+				A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */,
 				A7FAF5F019D144AB00B3F395 /* DDDispatchQueueLogFormatter.m in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,

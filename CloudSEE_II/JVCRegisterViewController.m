@@ -101,23 +101,10 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     [super dealloc];
 }
 
-- (void) viewDidLayoutSubviews {
-    
-    if (IOS_VERSION>=IOS7) {
-        
-        CGRect viewBounds = self.view.bounds;
-        
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        
-        viewBounds.origin.y = topBarOffset * -1;
-        
-        self.view.bounds = viewBounds;
-    }
-    
-}
-
 - (void)viewDidLoad
 {
+    self.navigationController.navigationBarHidden = NO;
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -134,8 +121,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     
     [control release];
     
-    self.navigationController.navigationBar.hidden = NO;
-    
+
     
     /**
      *  设置标题

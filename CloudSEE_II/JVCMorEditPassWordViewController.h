@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 
-@interface JVCMorEditPassWordViewController : UIViewController<UITextFieldDelegate>
+@interface JVCMorEditPassWordViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+//#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 @protocol RegisterUserDelegate <NSObject>
 
 /**
@@ -16,7 +16,7 @@
 - (void)registerUserSuccessCallBack;
 
 @end
-@interface JVCRegisterViewController : UIViewController<UITextFieldDelegate>
+@interface JVCRegisterViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
 {
     id<RegisterUserDelegate> resignDelegate;
 }

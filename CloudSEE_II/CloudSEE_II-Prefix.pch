@@ -30,6 +30,10 @@
 
     #import "JVCSystemConfigMacro.h"
 
+    #import"UINavigationController+Rotation_IOS6.h"
+
+    #import"UITabBarController+Rotation_IOS6.h"
+
     #import"JVCAlertHelper.h"
 
 #endif

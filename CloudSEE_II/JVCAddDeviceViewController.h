@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 
 enum DEVICE_INFO {
     
@@ -36,7 +36,7 @@ enum DEVICEBIND
 
 @end
 
-@interface JVCAddDeviceViewController : UIViewController<UITextFieldDelegate>
+@interface JVCAddDeviceViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
 {
     id<addDeviceDelegate>addDeviceDelegate;
 }

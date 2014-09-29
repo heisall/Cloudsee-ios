@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "JVCRegisterViewController.h"
+#import "JVCBaseWithGeneralViewController.h"
 
-@interface JVCLoginViewController : UIViewController<RegisterUserDelegate>
+@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate>
 
 @end

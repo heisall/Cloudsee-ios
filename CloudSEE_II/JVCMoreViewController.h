@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 
-@interface JVCMoreViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface JVCMoreViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end
