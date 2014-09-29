@@ -82,22 +82,19 @@ static NSString const *KImageWithType = @"png";
 }
 
 
-/**
- *  根据图片名字按路径加载图片
- *
- *  @param ImageName 图片名
- *
- *  @return 图片
- */
--(UIImage *)initImageWithContentsOfFile:(NSString *)ImageName{
-
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:ImageName ofType:(NSString *)KImageWithType];
-    UIImage  *iamgeAp  = [[UIImage alloc] initWithContentsOfFile:filePath];
-    
-    return [iamgeAp autorelease];
-
-}
-
-
+///**
+// *  根据图片名字按路径加载图片
+// *
+// *  @param ImageName 图片名
+// *
+// *  @return 图片
+// */
+//-(UIImage *)initImageWithContentsOfFile:(NSString *)ImageName{
+//
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:ImageName ofType:(NSString *)KImageWithType];
+//    
+//    [UIImage imageWithContentsOfFile:ImageName];
+//
+//}
 
 @end

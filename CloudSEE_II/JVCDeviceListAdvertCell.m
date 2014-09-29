@@ -8,7 +8,6 @@
 
 #import "JVCDeviceListAdvertCell.h"
 #import "StyledPageControl.h"
-#import "EGOImageView.h"
 
 @interface JVCDeviceListAdvertCell ()
 {
