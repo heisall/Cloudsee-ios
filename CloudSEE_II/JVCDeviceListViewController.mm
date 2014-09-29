@@ -17,7 +17,6 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCDeviceModel.h"
 #import "JVCSystemUtility.h"
-#import "JVCAddDeviceViewController.h"
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
@@ -128,6 +127,7 @@ static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
 {
     JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
     addDeviceVC.hidesBottomBarWhenPushed = YES;
+    addDeviceVC.addDeviceDelegate = self;
     [self.navigationController pushViewController:addDeviceVC animated:YES];
     [addDeviceVC release];
     
@@ -354,6 +354,14 @@ static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
         });
 
     });
+}
+
+/**
+ *  添加设备的回调
+ */
+- (void)addDeviceSuccessCallBack
+{
+    [_tableView reloadData];
 }
 
 #pragma mark  点击设备的回调

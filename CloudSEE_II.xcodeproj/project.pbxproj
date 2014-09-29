@@ -173,6 +173,13 @@
 		A7F6EFB419D7993100FFE02D /* devAdv_default_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6EFB019D7993100FFE02D /* devAdv_default_1@2x.png */; };
 		A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F6EFB619D79BD500FFE02D /* JVCChannelModel.m */; };
 		A7F6EFB819D79BD500FFE02D /* JVCChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F6EFB619D79BD500FFE02D /* JVCChannelModel.m */; };
+		A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F7177D19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m */; };
+		A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */; };
+		A7F7178219D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */; };
+		A7F7178319D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */; };
+		A7F7178419D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */; };
+		A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
+		A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
 		A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */; };
 		A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
 		A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
@@ -406,6 +413,11 @@
 		A7F6EFB019D7993100FFE02D /* devAdv_default_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devAdv_default_1@2x.png"; sourceTree = "<group>"; };
 		A7F6EFB519D79BD500FFE02D /* JVCChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCChannelModel.h; sourceTree = "<group>"; };
 		A7F6EFB619D79BD500FFE02D /* JVCChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCChannelModel.m; sourceTree = "<group>"; };
+		A7F7177C19D83146008DB1C5 /* JVCAPConfigPreparaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAPConfigPreparaViewController.h; sourceTree = "<group>"; };
+		A7F7177D19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAPConfigPreparaViewController.m; sourceTree = "<group>"; };
+		A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_ch@2x.png"; sourceTree = "<group>"; };
+		A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_en@2x.png"; sourceTree = "<group>"; };
+		A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig@2x.png"; sourceTree = "<group>"; };
 		A7FAF5A819D108DB00B3F395 /* JVCRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRegisterViewController.h; sourceTree = "<group>"; };
 		A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRegisterViewController.m; sourceTree = "<group>"; };
 		A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_fieldBg@2x.png"; sourceTree = "<group>"; };
@@ -705,6 +717,8 @@
 				A72B4B6919D3EA2500760695 /* JVCHandleDeviceMaths.m */,
 				A7F5015A19D5399C00AA78F0 /* JVCAddDeviceViewController.h */,
 				A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */,
+				A7F7177C19D83146008DB1C5 /* JVCAPConfigPreparaViewController.h */,
+				A7F7177D19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m */,
 			);
 			name = DeviceList;
 			sourceTree = "<group>";
@@ -744,6 +758,9 @@
 		A7F5EF4A19D26D67009B797A /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
+				A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */,
+				A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */,
+				A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */,
 				A7F6EFAF19D7993100FFE02D /* devAdv_default_0@2x.png */,
 				A7F6EFB019D7993100FFE02D /* devAdv_default_1@2x.png */,
 				A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */,
@@ -1215,6 +1232,7 @@
 				A7F424FE19D0FD7500D96475 /* log_pw@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
+				A7F7178319D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
 				A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */,
 				A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
@@ -1227,6 +1245,7 @@
 				A7F424FC19D0FD7500D96475 /* log_logo@2x.png in Resources */,
 				A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
+				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
@@ -1251,6 +1270,7 @@
 				A7F5E23819D43AF300609BC3 /* Default@2x.png in Resources */,
 				AD2BDB1719D28F0600AA6D73 /* edi_RemoteSetup@2x.png in Resources */,
 				AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */,
+				A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F5EF4F19D26D77009B797A /* devAdv_white@2x.png in Resources */,
@@ -1289,6 +1309,7 @@
 				A7F5014519D519FC00AA78F0 /* mor_aphelpch@2x.png in Resources */,
 				A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
 				A7F5014A19D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
+				A7F7178419D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */,
 				A7F5EF1519D257D0009B797A /* Localizable.strings in Resources */,
 				A7F5013619D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
@@ -1297,6 +1318,7 @@
 				A7F5015319D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A72B4B6F19D3F9AA00760695 /* mor_user@2x.png in Resources */,
 				A7F424FB19D0FD7500D96475 /* log_btn@2x.png in Resources */,
+				A7F7178219D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7F5012319D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7F5012719D4EFB400AA78F0 /* Icon-152.png in Resources */,
 				A7F5013919D50A8A00AA78F0 /* mor_line@2x.png in Resources */,
@@ -1327,6 +1349,7 @@
 				A7F5015919D5354D00AA78F0 /* mor_IconItuns@2x.png in Resources */,
 				ADA77C1719D0250F003EE7A1 /* InfoPlist.strings in Resources */,
 				A7F5E23B19D43AF300609BC3 /* Default.png in Resources */,
+				A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,6 +1369,7 @@
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
 				AD2BDB6519D2BC1B00AA6D73 /* JVCRootTabarViewControllersHelper.m in Sources */,
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
+				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
 				A7F5EF6B19D27077009B797A /* EGOImageLoadConnection.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,

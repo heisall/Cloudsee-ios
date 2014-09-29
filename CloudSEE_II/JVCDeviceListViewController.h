@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JVCAddDeviceViewController.h"
 
-@interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface JVCDeviceListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate>
 
 @end

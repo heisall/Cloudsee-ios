@@ -14,6 +14,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCSystemUtility.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCAPConfigPreparaViewController.h"
 
 
 
@@ -50,6 +51,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
 @end
 
 @implementation JVCAddDeviceViewController
+@synthesize addDeviceDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,6 +67,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"添加设备";
     //ios7
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
     {
@@ -134,7 +137,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     
     //ap按钮
     btnAP = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnAP.frame = CGRectMake(btnAdvace.left, btnAdvace.bottom+SEPERATE, self.view.width - 2*seperate, imgBtnNor.size.height);
+    btnAP.frame = CGRectMake(btnAdvace.left, btnAdvace.bottom+SEPERATE, self.view.width - 2*seperate, btnSave.frame.size.height);
     [btnAP setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
     [btnAP setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
     [btnAP setTitle:@"添加无线设备" forState:UIControlStateNormal];
@@ -236,7 +239,9 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
 
 - (void)AddWlanDevice
 {
-    
+    JVCAPConfigPreparaViewController *configViewController = [[JVCAPConfigPreparaViewController alloc] init];
+    [self.navigationController pushViewController:configViewController animated:YES];
+    [configViewController release];
 }
 /**
  *  保存云视通到账号,备注这里的“abc” “123”都用不动，只是为了让她满足正则，主要方便本地添加设备
@@ -248,8 +253,6 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
     if (ADDPREDICATE_SUCCESS == result) {//成功
         
         [self resignTextFields];
-        
-        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         
         //判断是否超过最大值以及数据表中是否有这个设备
         int result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:textFieldYST.text];
@@ -315,8 +318,7 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-            
-            
+    
             /**
              *  判断返回的字典是不是nil
              */
@@ -462,7 +464,15 @@ static const int DEFAULTLABELWITH = 70;//textfield的lefitwiew对应的label的�
                 
                 //把获取的设备通道信息的josn数据转换成model集合
                 [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text];
-//                
+                
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+                if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
+                    
+                    [addDeviceDelegate addDeviceSuccessCallBack];
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+
 //                [self serachCloseFindDevice];
                 
             }else{//空

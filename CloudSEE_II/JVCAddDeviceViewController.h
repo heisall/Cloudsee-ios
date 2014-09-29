@@ -27,6 +27,18 @@ enum DEVICEBIND
     
 };
 
-@interface JVCAddDeviceViewController : UIViewController
+@protocol addDeviceDelegate <NSObject>
 
+/**
+ *  添加设备的回调
+ */
+- (void)addDeviceSuccessCallBack;
+
+@end
+
+@interface JVCAddDeviceViewController : UIViewController
+{
+    id<addDeviceDelegate>addDeviceDelegate;
+}
+@property(nonatomic,assign)id<addDeviceDelegate>addDeviceDelegate;
 @end
