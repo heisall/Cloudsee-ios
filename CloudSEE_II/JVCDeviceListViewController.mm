@@ -19,6 +19,7 @@
 #import "JVCSystemUtility.h"
 #import "JVCDeviceListWithChannelListViewController.h"
 #import "JVCDeviceListNoDevieCell.h"
+#import "JVCChannelScourseHelper.h"
 
 static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
 static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
@@ -382,6 +383,10 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
                 //必须刷新
                 [_tableView reloadData];
                 
+                //获取设备通道
+                
+                [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
+                
             }else{//空
             
                 
@@ -393,6 +398,43 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
         });
 
     });
+}
+
+/**
+ *  获取通道
+ */
+- (void)getAllChannelsWithDeviceList:(NSArray *)deviceListData
+{
+    [deviceListData retain];
+    
+    dispatch_queue_t queue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        
+        dispatch_apply([deviceListData count], queue, ^(size_t index){
+            
+            NSMutableArray *singleDeviceChannelListMArray=[[NSMutableArray alloc] init];
+            JVCDeviceModel *model=[deviceListData objectAtIndex:index];
+            
+            
+            NSDictionary *channelInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:model.yunShiTongNum];
+            
+            DDLogVerbose(@"gcd_info_mdic=%@",channelInfoMdic);
+            
+            if ([channelInfoMdic isKindOfClass:[NSDictionary class]]) {
+                
+                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelInfoMdic deviceYstNumber:model.yunShiTongNum];
+            
+            }
+            
+            [singleDeviceChannelListMArray release];
+            
+        });
+        
+    });
+    
+    [deviceListData release];
+
 }
 
 /**
