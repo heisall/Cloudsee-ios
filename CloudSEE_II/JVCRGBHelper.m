@@ -39,6 +39,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initTabarViewRgbColors];
         [self initRegisterRgbColors];
         [self initWithChanelListView];
+        [self initLoginViewRgbColors];
     }
     
     return self;
@@ -286,6 +287,27 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [mediumYellow release];
     [grassGreen release];
     [warmOrange release];
+}
+
+#pragma mark 初始化登录界面的颜色值
+- (void)initLoginViewRgbColors
+{
+    JVCRGBModel *loginUserGray  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    loginUserGray.r = 143.0f;
+    loginUserGray.g = 143.0f;
+    loginUserGray.b = 143.0f;
+    
+    JVCRGBModel *loginDemoBlue  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    loginDemoBlue.r = 72.0f;
+    loginDemoBlue.g = 156.0f;
+    loginDemoBlue.b = 242.0f;
+    
+    [mdicRgbModelList setObject:loginUserGray forKey:kJVCRGBColorMacroLoginGray];
+    [mdicRgbModelList setObject:loginDemoBlue forKey:kJVCRGBColorMacroLoginBlue];
+    
+    [loginUserGray release];
+    [loginDemoBlue release];
+    
 }
 
 /**

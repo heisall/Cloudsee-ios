@@ -59,7 +59,10 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
             
         }
         
-      
+        if ((self.tabBarController !=nil) && !self.tabBarController.tabBar.hidden) {
+            
+            contentRect.size.height = contentRect.size.height - self.tabBarController.tabBar.height;
+        }
         
         self.view.frame = contentRect;
     }

@@ -46,6 +46,8 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     UIButton *btnAP;//Ap按钮
     
     BOOL isShowUSerAndPW;//旋转的标志
+    
+    CGRect rectRectFrame;//原始的数据
 
 
 }
@@ -64,25 +66,6 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     return self;
 }
 
-- (void) viewDidLayoutSubviews {
-    
-    if (IOS_VERSION>=IOS7) {
-        
-        CGRect viewBounds = self.view.bounds;
-        
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        
-        viewBounds.origin.y = topBarOffset * -1;
-        
-        self.view.bounds = viewBounds;
-    }
-    
-}
-
-- (void)gotoBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)viewDidLoad
 {
@@ -91,6 +74,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     
     self.title = @"添加设备";
 
+    rectRectFrame = self.view.frame;
     
     /**
      *  设置背景为白色
@@ -235,7 +219,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
         textFieldPassWord.hidden = NO;
         textFieldUserName.hidden = NO;
         [btnAdvace setTitle:LOCALANGER(@"返回") forState:UIControlStateNormal];
-        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, tImageBG.size.height);
+        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
     }else{
         CGRect rectFrame =btnAdvace.frame;
         rectFrame.origin.y -=2*(SEPERATE+tImageBG.size.height);
@@ -248,7 +232,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
         
         textFieldPassWord.hidden = YES;
         textFieldUserName.hidden = YES;
-        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, tImageBG.size.height);
+        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
         
     }
     
@@ -531,8 +515,8 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 - (void)addDeviceSlideDown
 {
     [UIView animateWithDuration:kADDDEVICEANIMATION animations:^{
-        
-        self.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+        DDLogVerbose(@"%@",NSStringFromCGRect(rectRectFrame));
+        self.view.frame = rectRectFrame;
     }];
 }
 

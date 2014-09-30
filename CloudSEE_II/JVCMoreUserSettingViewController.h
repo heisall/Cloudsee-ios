@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+//#import <UIKit/UIKit.h>
+#import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCMoreUserSettingViewController : UITableViewController
+@interface JVCMoreUserSettingViewController : JVCBaseGeneralTableViewController
 
 @end

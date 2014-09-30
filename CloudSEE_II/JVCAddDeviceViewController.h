@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import "JVCBaseWithGeneralViewController.h"
-
+#import "JVCBaseSliderViewController.h"
 enum DEVICE_INFO {
     
     DEVICE_E      = -1,
@@ -36,7 +35,7 @@ enum DEVICEBIND
 
 @end
 
-@interface JVCAddDeviceViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
+@interface JVCAddDeviceViewController : JVCBaseSliderViewController<UITextFieldDelegate>
 {
     id<addDeviceDelegate>addDeviceDelegate;
 }

@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCDataBaseHelper.h"
+#import "JVCRGBHelper.h"
 
 enum LOGINBTNTYPE
 {
@@ -134,6 +135,13 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
     [imageViewLogo release];
     
     /**
+     *  获取颜色值处理
+     */
+    JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    UIColor *btnColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
+   
+    /**
      *  用户名模块
      */
     // 横杆
@@ -152,6 +160,10 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
     //输入框
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake(imageViewUser.frame.origin.x+10+imageViewUser.frame.size.width, imageViewUser.frame.origin.y, imageviewInPutLine.frame.size.width - imageViewUser.frame.size.width-50, imageViewUser.frame.size.height+5)];
     textFieldUser.placeholder = @"用户名";
+    if (labColor) {
+        
+        textFieldUser.textColor =labColor;
+    }
     textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUser];
     
@@ -184,6 +196,10 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
     textFieldPW = [[UITextField alloc] initWithFrame:CGRectMake(imageViewPW.frame.origin.x+10+imageViewPW.frame.size.width, imageViewPW.frame.origin.y, imageviewInPutLinePW.frame.size.width - imageViewPW.frame.size.width-30, imageViewPW.frame.size.height+5)];
     textFieldPW.placeholder = @"密码";
     textFieldPW.keyboardType = UIKeyboardTypeASCIICapable;
+    if (labColor) {
+        
+        textFieldPW.textColor =labColor;
+    }
     textFieldPW.secureTextEntry = YES;
     [self.view addSubview:textFieldPW];
     
@@ -217,6 +233,10 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
         [btnDemo setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [btnDemo setTitle:@"演示点" forState:UIControlStateNormal];
         btnDemo.tag = LOGINVIEWTAG_Demo;
+        if (btnColor) {
+            
+            btnDemo.titleLabel.textColor = btnColor;
+        }
         [self.view addSubview:btnDemo];
         /**
          *  注册
@@ -227,6 +247,10 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
         [btnResig setTitle:@"注册" forState:UIControlStateNormal];
         [btnResig addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
         btnResig.tag = LOGINVIEWTAG_Resign;
+        if (btnColor) {
+            
+            btnResig.titleLabel.textColor = btnColor;
+        }
         [self.view addSubview:btnResig];
     
     
