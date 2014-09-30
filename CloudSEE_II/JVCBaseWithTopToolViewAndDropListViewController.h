@@ -28,44 +28,14 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
 }
 
 /**
- *  初始化布局
- */
--(void)initWithTopToolView;
-
-/**
- *  单击事件
- *
- *  @param recognizer 单击手势对象
- */
--(void)dropDownCilck:(UITapGestureRecognizer*)recognizer;
-
-/**
  *  初始化功能区域按钮
  */
 -(void)initWithOperationView;
 
 /**
- *  初始化下拉的设备表格视图
+ *  动画借结束后处理逻辑
  */
--(void)initWithDropDeviceListView;
-
-/**
- *  初始化滑动事件
- */
--(void)initWithSwipeGestureRecognizer;
-
-/**
- *  左右滑动切换设备
- *
- *  @param swipeGestureRecognizer 滑动的对象
- */
--(void)swipeGestureRecognizer:(UISwipeGestureRecognizer *)swipeGestureRecognizer;
-
-
-/**
- *  滑动结束处理逻辑
- */
--(void)swipeGestureRecognizerEnd:(UISwipeGestureRecognizerDirection)direction;
+-(void)animationEndCallBack;
 
 /**
  *  下拉结束处理逻辑

@@ -14,6 +14,8 @@
 
 @implementation JVCBaseWithTopToolViewAndDropListViewController
 
+static const CGFloat  kViewWithAnimationSwipe = 0.7f;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -184,16 +186,18 @@
     
     if (changeStatus) {
         
-        [self swipeGestureRecognizerEnd:swipeGestureRecognizer.direction];
+        [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft?kCATransitionFromRight:kCATransitionFromLeft];
+        
+        [self animationEndCallBack];
     }
 }
 
 /**
- *  滑动结束处理逻辑
+ *  动画借结束后处理逻辑
  */
--(void)swipeGestureRecognizerEnd:(UISwipeGestureRecognizerDirection)direction{
+-(void)animationEndCallBack{
     
-    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType: direction == UISwipeGestureRecognizerDirectionLeft?kCATransitionFromRight:kCATransitionFromLeft];
+    
     
 }
 
@@ -203,9 +207,11 @@
     
     DDLogVerbose(@"%s----%d",__FUNCTION__,index);
     
-    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:0.7 animationType:kJVCAnimationMacroCube animationSubType:index > nIndex ? kCATransitionFromLeft : kCATransitionFromRight];
+    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:index > nIndex ? kCATransitionFromLeft : kCATransitionFromRight];
     
     nIndex = index;
+    
+    [self animationEndCallBack];
 }
 
 #pragma mark ---------- deviceListTableView dataSource
@@ -314,9 +320,6 @@
     [self initWithOperationView];
     [self initWithDropDeviceListView];
     [self initWithSwipeGestureRecognizer];
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning

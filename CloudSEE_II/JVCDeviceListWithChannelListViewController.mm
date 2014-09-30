@@ -94,6 +94,15 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
     
     [channelValues retain];
+    
+    if (titlelableScoollView) {
+        
+        for (UIView *v  in titlelableScoollView.subviews) {
+            
+            [v removeFromSuperview];
+            v = nil;
+        }
+    }
 
     JVCRGBHelper   *rgbHelper                   = [JVCRGBHelper shareJVCRGBHelper];
     JVCAppHelper   *appHelper                   = [JVCAppHelper shareJVCAppHelper];
@@ -137,19 +146,14 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
                 spacingY      = position.origin.y ;
             }
             
-            if (i == channelValues.count) {
-                DDLogVerbose(@"%s---63===%lf",__FUNCTION__,position.origin.y + position.size.height);
-            }
-            
             totalHeight       = position.origin.y + position.size.height ;
             
             JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
             [titleViews addObject:channelTitleView];
             
-           
             //初始化按钮标题
             [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%@通道", [channelValues objectAtIndex:i]]];
-            
+    
             [channelTitleView release];
         }
         
@@ -178,7 +182,16 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     }
     
     [titleViews release];
+    
     [channelValues release];
+}
+
+/**
+ *  滑动结束之后的回调
+ */
+-(void)animationEndCallBack{
+
+    [self initWithChannelListView];
 }
 
 /**

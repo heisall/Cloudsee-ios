@@ -148,7 +148,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
  */
 -( void)convertChannelDictionToModelList:(NSDictionary *)channelInfoMDic deviceModel:(JVCDeviceModel *)deviceModel
 {
-    
     id channelInfoId=[channelInfoMDic objectForKey:DEVICE_CHANNEL_JSON_LIST];
     
     if ([channelInfoId isKindOfClass:[NSArray class]]) {
