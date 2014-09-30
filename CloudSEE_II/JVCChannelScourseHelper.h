@@ -23,6 +23,13 @@
 - (NSMutableArray *)ChannelListArray;
 
 /**
+ *  根据云视通号返回一个设备的所有通道号集合
+ *
+ *  @return 一个设备的所有通道号集合
+ */
+-(NSMutableArray *)channelValuesWithDeviceYstNumber:(NSString *)ystNumber;
+
+/**
  *  把获取的单个设备的通道信息转换成model的数组并添加到arrayPoint集合里面
  *
  *  @param channelMdicInfo 设备通道信息的JSON数据

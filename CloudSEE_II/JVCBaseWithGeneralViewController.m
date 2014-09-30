@@ -58,9 +58,6 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
             }
             
         }
-        
-      
-        
         self.view.frame = contentRect;
     }
     

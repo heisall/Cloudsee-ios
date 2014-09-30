@@ -18,6 +18,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        titles = [[NSMutableArray alloc] initWithCapacity:10];
     }
     return self;
 }
@@ -27,7 +29,6 @@
  */
 -(void)initWithTopToolView{
     
-    titles = [[NSArray alloc] initWithObjects:@"A361",@"A35555555562",@"A3633456",@"A361",@"A35555555562",@"A366666663",@"A36444444441",@"A35555555562",@"A36333333",@"A361",@"A35555555562",@"A3633456",@"A361",@"A35555555562",@"A366666663",@"A36444444441",@"A35555555562",@"A36333333", nil];
     
     CGRect toolViewRect = CGRectMake(0.0, 0.0f, self.view.frame.size.width, 0.0);
     
@@ -72,6 +73,8 @@
                 
                 self.view.backgroundColor = [UIColor blackColor];
                 deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, recognizer.view.frame.origin.y, deviceListTableView.frame.size.width, self.view.frame.size.height);
+                
+                [self.view bringSubviewToFront:deviceListTableView];
                 [self.view bringSubviewToFront:recognizer.view];
                 recognizer.view.transform =  CGAffineTransformMakeRotation(-180 * M_PI/180.0);
                 
