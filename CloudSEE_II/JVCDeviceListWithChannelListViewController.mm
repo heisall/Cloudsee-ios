@@ -10,11 +10,13 @@
 #import "JVCRGBHelper.h"
 #import "JVCDeviceListWithChannelListTitleView.h"
 #import "JVCAppHelper.h"
+#import "JVCDeviceSourceHelper.h"
+#import "JVCChannelScourseHelper.h"
 
 @interface JVCDeviceListWithChannelListViewController () {
 
     NSMutableArray *titleColors;
-
+    UIScrollView   *titlelableScoollView;
 }
 
 @end
@@ -35,8 +37,10 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     if (self) {
         
+        [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
         self.title  = @"选择通道";
         [self initWithTitleColors];
+        
     }
     
     return self;
@@ -46,6 +50,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 {
     [super viewDidLoad];
     [self initWithConnectAllButton];
+    [self initWithChannelListView];
 }
 
 -(void)dealloc{
@@ -73,6 +78,23 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithOperationView {
     
+    if (!titlelableScoollView) {
+        
+        titlelableScoollView = [[UIScrollView alloc] init];
+        [self.view addSubview:titlelableScoollView];
+        [titlelableScoollView release];
+    }
+}
+
+/**
+ *  初始化标签视图
+ */
+-(void)initWithChannelListView{
+    
+    NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
+    
+    [channelValues retain];
+
     JVCRGBHelper   *rgbHelper                   = [JVCRGBHelper shareJVCRGBHelper];
     JVCAppHelper   *appHelper                   = [JVCAppHelper shareJVCAppHelper];
     UIImage        *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
@@ -83,7 +105,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     if (skyColor) {
         
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < channelValues.count; i++) {
             
             CGRect position;
             
@@ -115,19 +137,19 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
                 spacingY      = position.origin.y ;
             }
             
-            if (i == 63) {
+            if (i == channelValues.count) {
                 DDLogVerbose(@"%s---63===%lf",__FUNCTION__,position.origin.y + position.size.height);
             }
             
             totalHeight       = position.origin.y + position.size.height ;
             
-            
             JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
             [titleViews addObject:channelTitleView];
             
+           
             //初始化按钮标题
-            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%d通道",i+1]];
-          
+            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%@通道", [channelValues objectAtIndex:i]]];
+            
             [channelTitleView release];
         }
         
@@ -138,11 +160,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         scrollRect.origin.x    = 0.0f;
         scrollRect.origin.y    = toolBarView.frame.origin.y + toolBarView.frame.size.height;
         
-        UIScrollView *titlelableScoollView = [[UIScrollView alloc] initWithFrame:scrollRect];
-       
-        [self.view addSubview:titlelableScoollView];
-        
-       
+        titlelableScoollView.frame                          = scrollRect;
         titlelableScoollView.directionalLockEnabled         =  NO;
         titlelableScoollView.showsVerticalScrollIndicator   =  FALSE;
         titlelableScoollView.showsHorizontalScrollIndicator =  FALSE;
@@ -154,15 +172,13 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
         
         for (JVCDeviceListWithChannelListTitleView *channelTitleView in titleViews) {
-        
+            
             [titlelableScoollView addSubview:channelTitleView];
         }
-        
-        [titlelableScoollView release];
     }
     
     [titleViews release];
-
+    [channelValues release];
 }
 
 /**

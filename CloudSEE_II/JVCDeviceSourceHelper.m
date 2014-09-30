@@ -1,7 +1,7 @@
 //
 //  JVCDeviceSourceHelper.m
 //  CloudSEE_II
-//
+//  设备集合管理的助手类 用于增删改、排序等操作
 //  Created by Yanghu on 9/26/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
@@ -79,6 +79,25 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 - (NSMutableArray *)deviceListArray
 {
     return deviceArray;
+}
+
+/**
+ *  返回所有的云视通号集合
+ *
+ *  @return 云视通号集合
+ */
+-(NSMutableArray *)ystNumbersWithDevceList{
+
+    NSMutableArray *ystNumberArray = [NSMutableArray arrayWithCapacity:10]; //autoRelease类型的，系统释放
+    
+    for (int i = 0; i < deviceArray.count; i++) {
+        
+        JVCDeviceModel *deviceModel = (JVCDeviceModel *)[deviceArray objectAtIndex:i];
+        
+        [ystNumberArray addObject:deviceModel.yunShiTongNum];
+    }
+
+    return ystNumberArray;
 }
 
 /**

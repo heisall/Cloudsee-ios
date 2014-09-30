@@ -23,7 +23,7 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
     UITableView       *deviceListTableView;
     UIImageView       *dropImageView;
     
-    NSArray           *titles;
+    NSMutableArray    *titles;
     JVCTopToolBarView *toolBarView;         //顶部工具条
 }
 

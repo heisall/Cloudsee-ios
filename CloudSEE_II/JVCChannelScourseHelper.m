@@ -86,6 +86,32 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 }
 
 /**
+ *  根据云视通号返回一个设备的所有通道号集合
+ *
+ *  @return 一个设备的所有通道号集合
+ */
+-(NSMutableArray *)channelValuesWithDeviceYstNumber:(NSString *)ystNumber{
+    
+    NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
+    
+     DDLogVerbose(@"%s---deviceYst=%@,channelCount=%d",__FUNCTION__,ystNumber,channelArray.count);
+    
+    for (int i = 0; i < channelArray.count; i++) {
+
+        JVCDeviceModel *channelModel = (JVCDeviceModel *)[channelArray objectAtIndex:i];
+        
+        DDLogVerbose(@"%s---channelYst=%@",__FUNCTION__,channelModel.yunShiTongNum);
+        
+        if ([channelModel.yunShiTongNum isEqualToString:ystNumber]) {
+            
+            [channnleValues addObject:[NSNumber numberWithInt:channelModel.channelValue]];
+        }
+    }
+
+    return channnleValues;
+}
+
+/**
  *  把获取的单个设备的通道信息转换成model的数组并添加到arrayPoint集合里面
  *
  *  @param channelMdicInfo 设备通道信息的JSON数据
@@ -97,7 +123,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
      */
     if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelMdicInfo]) {
         
-        
         //根据云通号获取相应的设备Model类
         JVCDeviceModel *deviceModel=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:deviceYstNumber];
         
@@ -108,12 +133,9 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
         if (deviceModel!=nil) {
             
           [self convertChannelDictionToModelList:channelMdicInfo deviceModel:deviceModel];
-            
-            
         }
         
         [deviceModel release];
-        
     }
 }
 
@@ -144,8 +166,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             [channelModel release];
         }
     }
-    
-    
 }
 
 
