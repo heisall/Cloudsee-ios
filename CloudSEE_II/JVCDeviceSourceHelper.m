@@ -221,5 +221,4 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     return nil;
 }
 
-
 @end
