@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+        NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property(nonatomic,retain) NSMutableArray *_amOpenGLViewListData;
 
 /**
  *  初始化TabarViewControllers

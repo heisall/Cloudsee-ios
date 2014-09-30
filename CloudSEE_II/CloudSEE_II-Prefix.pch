@@ -33,7 +33,11 @@
 
     #import"UIImage+BundlePath.h"
 
+    #import"JVCSystemConfigMacro.h"
+
+
 #endif
+#define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/RGBVALUE green:Y/RGBVALUE blue:Z/RGBVALUE alpha:1.0]
 
 
 

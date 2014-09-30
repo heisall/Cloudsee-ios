@@ -26,7 +26,7 @@
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
 @implementation AppDelegate
-
+@synthesize _amOpenGLViewListData;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     /**
@@ -34,6 +34,7 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
      */
     [self DDLogSettings];
     
+    [self initYSTSDK];
     
     JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
@@ -67,7 +68,8 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
          self.window.backgroundColor = viewDefaultColor;
     }
    
-    
+
+
     
     //设置导航
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
@@ -252,6 +254,33 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
     }
     
+}
+
+/**
+ *  初始化云视通sdk
+ */
+- (void)initYSTSDK
+{
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    
+    JVC_InitSDK(9200, (char *)[path UTF8String]);
+    JVD04_InitSDK();
+    JVD05_InitSDK();
+    InitDecode(); //板卡语音解码
+    InitEncode(); //板卡语音编解]
+    JVC_EnableHelp(TRUE,3);  //手机端是3
+}
+
+
+
+
+
+- (void)dealloc
+{
+    [_amOpenGLViewListData release];
+    _amOpenGLViewListData=nil;
+    [super dealloc];
 }
 
 @end

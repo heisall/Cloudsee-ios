@@ -21,4 +21,8 @@
 
 static NSString *const kAPPIDNUM  = @"583826804";
 
+static const int  kOPENGLMAXCOUNT = 17;//opengl数量
+
+static const int  KWINDOWSFLAG  = 1000;//tag
+
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]

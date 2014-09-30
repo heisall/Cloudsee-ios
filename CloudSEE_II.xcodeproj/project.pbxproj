@@ -751,6 +751,13 @@
 			name = login;
 			sourceTree = "<group>";
 		};
+		A7F4347619DA9E7600E7ECA1 /* operation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = operation;
+			sourceTree = "<group>";
+		};
 		A7F5011219D4EF8E00AA78F0 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,6 +1301,7 @@
 		ADA77C2719D0281D003EE7A1 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				A7F4347619DA9E7600E7ECA1 /* operation */,
 				A72B4B7019D3FDB200760695 /* more */,
 				AD2BDB5C19D2BBBF00AA6D73 /* other */,
 				AD2BDB2219D2914600AA6D73 /* editDeviceViewController */,
@@ -1888,6 +1896,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "CloudSEE_IITests/CloudSEE_IITests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1906,6 +1918,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
 				INFOPLIST_FILE = "CloudSEE_IITests/CloudSEE_IITests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
