@@ -58,10 +58,8 @@
  **/
 
 #import "DDLog.h"
-#import "DDLogMacros.h"
-#import "DDAssertMacros.h"
-
-// Loggers
-#import "DDTTYLogger.h"
 #import "DDASLLogger.h"
+#import "DDTTYLogger.h"
 #import "DDFileLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;//LOG_FLAG_WARN

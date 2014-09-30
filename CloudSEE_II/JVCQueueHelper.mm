@@ -1,0 +1,475 @@
+//
+//  JVCQueueHelper.m
+//  CloudSEE
+//
+//  Created by chenzhenyang on 14-9-9.
+//  Copyright (c) 2014年 miaofaqiang. All rights reserved.
+//
+
+#import "JVCQueueHelper.h"
+#import "data_queue.h"
+#include <sys/time.h>
+
+@interface JVCQueueHelper (){
+    
+    DataQueue      *dqueue;
+    pthread_mutex_t mutex;
+    long long       lastTime;
+    int             nDefaultFrameFps;
+    BOOL            bm_exit;
+    BOOL            playThreadExit;
+}
+
+typedef struct queueServiceUtilityClassParam
+{
+    //float video_frame_rate;
+    int   video_frame_seconds_rec_dataSize;
+    int   video_frame_decoder_count;
+    float video_frame_fps;
+    int   video_frame_display_count;
+    int   video_frame_Display_Time;
+    int   video_frame_decoder_Time;
+    
+    int   audio_type;
+    int   audio_sample_rate;
+    int   audio_bit;
+    int   audio_channel;
+    int   audio_total_count;
+    int   audio_decoder_time;
+    
+}queueServiceUtilityClassParam;
+
+
+@end
+
+@implementation JVCQueueHelper
+
+@synthesize jvcQueueHelperDelegate;
+
+queueServiceUtilityClassParam  *param;
+
+static const int  KFrameQueueMinCriticalValue = 2;                  //缓存帧的加快播放临界值最小
+static const int  KFrameQueueMaxCriticalValue = 5;                  //缓存帧的加快播放临界值最大
+static NSString * const kVideoQueueSemNameDefaultHead  = @"video";  //远程回放检索出文件的日期
+
+
+
+/**
+ * 毫秒级的睡觉
+ *
+ */
+void msleep(int millisSec) {
+    
+	if (millisSec > 0) {
+        
+		struct timeval tt;
+		tt.tv_sec = 0;
+		tt.tv_usec = millisSec * 1000;
+		select(0, NULL, NULL, NULL, &tt);
+	}
+}
+
+/**
+ * 秒级的睡觉
+ *
+ */
+void ssleep(int Sec) {
+    
+	if (Sec > 0) {
+        
+		struct timeval tt;
+		tt.tv_sec = Sec;
+		tt.tv_usec = 0;
+		select(0, NULL, NULL, NULL, &tt);
+	}
+}
+
+/**
+ * 获取当前时间，单位是毫秒
+ *
+ */
+long long currentMillisSec() {
+    
+	long long result = 0l;
+    
+	struct timeval t;
+    
+	gettimeofday(&t, NULL);
+	result = (long long) t.tv_sec * 1000 + t.tv_usec / 1000;
+    
+	return result;
+}
+
+/**
+ *   初始化缓存队列对象
+ *
+ *  @param nLocalChannelID 当前本地通道编号
+ *
+ *  @return 缓存队列对象
+ */
+-(id)init:(int)nLocalChannelID{
+    
+    if (self = [super init]) {
+        
+        NSString *strQueueSemName = [NSString stringWithFormat:@"%@%d",kVideoQueueSemNameDefaultHead,nLocalChannelID];
+
+        dqueue = new DataQueue((char *)[strQueueSemName UTF8String]);
+        
+        /*init the queue_mutex*/
+        int ret = pthread_mutex_init(&mutex, NULL);
+        
+        if (ret != 0) {
+            
+            printf("%s:pthread_mutex_init error:%s(%d) at %s, line %d.", __func__, strerror(errno), ret, __FILE__, __LINE__);
+        }
+        
+        
+        size_t size                = sizeof(queueServiceUtilityClassParam);
+        
+        param                      = (queueServiceUtilityClassParam *)malloc(size);
+        memset(param, 0, size);
+    }
+    
+    return self;
+}
+
+/**
+ *  设置O帧传来的默认帧率
+ *
+ *  @param frameRateValue 帧率树值
+ */
+-(void)setDefaultFrameRate:(float)frameRateValue{
+    
+    
+    nDefaultFrameFps       = frameRateValue;
+    
+    //[self Lock];
+    param->video_frame_fps = frameRateValue;
+    //[self Unlock];
+    
+    DDLogInfo(@"%s----frameRate=%lf",__FUNCTION__,param->video_frame_fps);
+    
+    
+}
+
+/**
+ *  启动出队线程（消费者）
+ */
+-(void)startPopDataThread {
+    
+    if (!bm_exit) {
+        
+        [NSThread detachNewThreadSelector:@selector(popDataCallBack) toTarget:self withObject:nil];
+    }
+}
+
+/**
+ *  出队数据的回调
+ */
+-(void)popDataCallBack{
+    
+    playThreadExit = TRUE;
+    bm_exit = TRUE;
+    
+    long long timeStamp = currentMillisSec();
+    int  needDelay      = 0;
+    bool need_jump      = true;
+    BOOL isFastPlay     = FALSE;
+    
+    
+    DDLogInfo(@"%s-----start popDataCallBack",__FUNCTION__);
+    
+    while (TRUE) {
+        
+        if (!bm_exit) {
+            
+            break;
+        }
+        
+        //获取当前缓存队列中当前帧的个数
+        int queueFrameCount = [self GetEnqueueDataCount];
+        
+        float queue_fps = param->video_frame_fps;
+        
+        //当缓存区达到临界值时开启加速播放模式，如果依然排解不了拥堵现象启用跳帧模式
+        if (queueFrameCount > KFrameQueueMinCriticalValue && queueFrameCount <= KFrameQueueMaxCriticalValue) {
+            
+            if (!isFastPlay) {
+                
+                isFastPlay = TRUE;
+                
+                queue_fps = param->video_frame_fps + queueFrameCount;
+                
+                //[self Lock];
+                param->video_frame_fps = queue_fps;
+               // [self Unlock];
+                //DDLogInfo(@"%s---countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
+            }
+            
+        }else{
+            
+            queue_fps   = nDefaultFrameFps;
+            
+           //[self Lock];
+            param->video_frame_fps = queue_fps;
+            //[self Unlock];
+             //DDLogInfo(@"%s---002 countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
+            isFastPlay  = FALSE;
+        }
+        
+        int full_delay = 1000 / queue_fps;
+        
+         //DDLogInfo(@"%s---0001frameRate=%lf count=%d",__FUNCTION__,queue_fps,queueFrameCount);
+        frame *frameBuffer = (frame * )dqueue->PopData();
+        
+        if (queue_fps != nDefaultFrameFps) {
+            
+             //DDLogInfo(@"%s---frameRate=%d count=%d",__FUNCTION__,queue_fps,queueFrameCount);
+        }
+       
+        if (NULL == frameBuffer) {
+            
+            DDLogInfo(@"%s------bufferisNull",__FUNCTION__);
+            continue;
+        }
+        
+        //开启跳帧模式
+        if(queueFrameCount > queue_fps ) {
+            
+            need_jump = true;
+        }
+        
+        if(need_jump && !frameBuffer->is_i_frame) {
+            
+            
+        }else {
+            
+            if(frameBuffer->is_i_frame && need_jump && queueFrameCount < queue_fps) {
+                
+                //结束跳帧模式，启用正常播放模式
+                need_jump = false;
+            }
+
+            if (self.jvcQueueHelperDelegate !=nil && [self.jvcQueueHelperDelegate respondsToSelector:@selector(popDataCallBack:)]) {
+                
+                [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
+            }
+            
+            needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
+            msleep(needDelay);
+            timeStamp = currentMillisSec();
+        }
+        
+        free(frameBuffer->buf);
+        free(frameBuffer);
+    }
+    
+    DDLogInfo(@"%s----playThread---end",__FUNCTION__);
+    playThreadExit = FALSE;
+}
+
+-(void)dealloc
+{
+    dqueue->ClearQueue();
+    
+    delete dqueue;
+    
+    pthread_mutex_destroy(&mutex);
+    
+    DDLogInfo(@"%s",__FUNCTION__);
+    
+	[super dealloc];
+}
+
+/**
+ *  数据入队 （生产者）
+ *
+ *  @param data       入队的数据
+ *  @param nSize      入队的数据大小
+ *  @param is_i_frame 是否是I帧（视频数据用的）
+ *  @param is_b_frame 是否是B帧
+ *
+ *  @return 成功返回 0, 队列满返回 －1
+ */
+-(int)offer:(unsigned char *)data nSize:(int)nSize is_i_frame:(BOOL)is_i_frame is_b_frame:(BOOL)is_b_frame
+{
+	if (dqueue==NULL)
+        return  OPERATION_TYPE_ERROR;
+    
+    size_t size                = sizeof(frame);
+    
+    frame *bufferFrame      = (frame *)malloc(size);
+    memset(bufferFrame, 0, size);
+    
+    if (nSize > 0) {
+        
+        bufferFrame->nSize      = nSize;
+        bufferFrame->is_i_frame = is_i_frame;
+        bufferFrame->is_b_frame = is_b_frame;
+        bufferFrame->buf = (unsigned char *)malloc(sizeof(unsigned char)*nSize);
+        
+        memcpy(bufferFrame->buf, data, nSize);
+        
+    }else{
+        
+        bufferFrame->nSize      = 0;
+        bufferFrame->is_i_frame = FALSE;
+        bufferFrame->buf = NULL;
+        bufferFrame->is_b_frame = FALSE;
+    }
+    
+    int result = dqueue->PushData(bufferFrame);
+    
+    if (result == 0) {
+        
+//        [self Lock];
+//        
+//        param.video_frame_fps ++;
+//        
+//        param.video_frame_seconds_rec_dataSize += nSize;
+//        
+//        [self Unlock];
+    }
+    
+    sem_post(dqueue->dataqueue_sem_);
+    
+    return result;
+}
+
+/**
+ *  获取队列中的数据个数
+ *
+ *  @return 队列中的数据个数
+ */
+-(int)GetEnqueueDataCount{
+    
+    if (dqueue==NULL)
+        return  OPERATION_TYPE_ERROR;
+    
+    int result = dqueue->GetQueueDataSize();
+    return result;
+}
+
+/**
+ *  判断队列是否为空
+ *
+ *  @return YES空 NO:不为空
+ */
+-(BOOL) isQueueEmpty{
+    
+    if (dqueue==NULL)
+        return  OPERATION_TYPE_ERROR;
+    
+    bool result = dqueue->IsQueueEmpty();
+    
+    return result;
+}
+
+/**
+ *  清空队列
+ *
+ *  @return 成功返回 0
+ */
+-(int)clearEnqueueData{
+    
+    if (dqueue==NULL)
+        return  OPERATION_TYPE_ERROR;
+    
+    int result = dqueue->ClearQueue();
+    return result;
+}
+
+/**
+ *  退出出队线程
+ *
+ *  @return 成功返回YES
+ */
+-(BOOL)exitPopDataThread
+{
+    [self clearEnqueueData];
+    
+    BOOL result = FALSE;
+    bm_exit = FALSE;
+    sem_post(dqueue->dataqueue_sem_);
+    
+    while (TRUE) {
+        
+        if (playThreadExit) {
+            
+            msleep(40);
+            
+        }else{
+            
+            result = true;
+            break;
+        }
+    }
+    
+    DDLogInfo(@"%s----exit--successful",__FUNCTION__);
+    
+    return result;
+}
+
+/**
+ *  上锁
+ */
+-(void)Lock
+{
+	pthread_mutex_lock(&mutex);
+}
+
+/**
+ *  下锁
+ */
+-(void)Unlock
+{
+	pthread_mutex_unlock(&mutex);
+}
+
+/**
+ *  每秒统计当前的码率bps等
+ */
+-(void)refreshParam{
+    
+//    while (true) {
+//        
+//        [self Lock];
+//        
+//        long long currentTime = currentMillisSec();
+//        
+//        long delayed     = currentTime - lastTime;
+//        
+//        int netWorkSingleFrameTime = delayed / param->video_frame_fps;
+//        int decoderSingleFrameTime = param->video_frame_decoder_Time / param->video_frame_decoder_count;
+//        int displaySingleFrameTime = param->video_frame_Display_Time / param->video_frame_display_count;
+//        
+//        int audioSingePlayTime     = param->audio_decoder_time       / param->audio_total_count;
+//        
+//        // printf("currentTime = %lld-lastTime=%lld---delayed=%ld video: Bps=%d videoNetCount=%d videoNetSingleFrmae=%d,videoDecodeCount=%d,videoDecodeSingleTime=%d,displayCount=%d,displaySingleTime=%d audio: audioCount=%d,audioSingleTime=%d\n",currentTime,lastTime,delayed,playChannel.video_frame_seconds_total/1024,playChannel.video_frame_net_count,netWorkSingleFrameTime,playChannel.video_frame_decoder_count,decoderSingleFrameTime,playChannel.video_frame_display_count,displaySingleFrameTime,playChannel.audio_total_count,audioSingePlayTime);
+//        
+//        param->video_frame_decoder_count        = 0;
+//        //param.video_frame_rate                 = 0;
+//        param->video_frame_seconds_rec_dataSize = 0;
+//        param->video_frame_decoder_count        = 0;
+//        param->video_frame_fps                  = 0;
+//        param->video_frame_display_count        = 0;
+//        param->video_frame_Display_Time         = 0;
+//        param->video_frame_decoder_Time         = 0;
+//        
+//        param->audio_type                = 0;
+//        param->audio_sample_rate         = 0;
+//        param->audio_bit                 = 0;
+//        param->audio_channel             = 0;
+//        param->audio_total_count         = 0;
+//        param->audio_decoder_time        = 0;
+//        
+//        lastTime         =  currentTime;
+//        
+//        [self Unlock];
+//        
+//        ssleep(1);
+//        
+//    }
+}
+
+@end
