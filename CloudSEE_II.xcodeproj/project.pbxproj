@@ -278,6 +278,12 @@
 		ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D8319DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m */; };
 		ADA22DA519DA97B50092F8B9 /* OpenALBufferViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D9919DA97B50092F8B9 /* OpenALBufferViewcontroller.m */; };
 		ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */; };
+		ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DF219DAAE200092F8B9 /* AQPlayer.mm */; };
+		ADA22DFF19DAAE2A0092F8B9 /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DF519DAAE2A0092F8B9 /* AQRecorder.mm */; };
+		ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DF719DAAE2A0092F8B9 /* AQSController.mm */; };
+		ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DF819DAAE2A0092F8B9 /* CADebugMacros.cpp */; };
+		ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DFB19DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp */; };
+		ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DFD19DAAE2A0092F8B9 /* CAXException.cpp */; };
 		ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
 		ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */; };
 		ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
@@ -590,10 +596,22 @@
 		ADA22D8019DA85260092F8B9 /* JVCCloudSEEManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCloudSEEManagerHelper.m; sourceTree = "<group>"; };
 		ADA22D8219DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCloudSEESendGeneralHelper.h; sourceTree = "<group>"; };
 		ADA22D8319DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCloudSEESendGeneralHelper.m; sourceTree = "<group>"; };
-		ADA22D8F19DA8ED00092F8B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ADA22D9819DA97B50092F8B9 /* OpenALBufferViewcontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALBufferViewcontroller.h; sourceTree = "<group>"; };
 		ADA22D9919DA97B50092F8B9 /* OpenALBufferViewcontroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALBufferViewcontroller.m; sourceTree = "<group>"; };
 		ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		ADA22DF119DAAE200092F8B9 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
+		ADA22DF219DAAE200092F8B9 /* AQPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQPlayer.mm; sourceTree = "<group>"; };
+		ADA22DF319DAAE200092F8B9 /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
+		ADA22DF519DAAE2A0092F8B9 /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
+		ADA22DF619DAAE2A0092F8B9 /* AQSController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSController.h; sourceTree = "<group>"; };
+		ADA22DF719DAAE2A0092F8B9 /* AQSController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQSController.mm; sourceTree = "<group>"; };
+		ADA22DF819DAAE2A0092F8B9 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		ADA22DF919DAAE2A0092F8B9 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		ADA22DFA19DAAE2A0092F8B9 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		ADA22DFB19DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		ADA22DFC19DAAE2A0092F8B9 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		ADA22DFD19DAAE2A0092F8B9 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		ADA22DFE19DAAE2A0092F8B9 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudSEE_II.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA77BF319D0250E003EE7A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1121,6 +1139,19 @@
 		ADA22D9319DA96F30092F8B9 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				ADA22DF119DAAE200092F8B9 /* AQPlayer.h */,
+				ADA22DF219DAAE200092F8B9 /* AQPlayer.mm */,
+				ADA22DF319DAAE200092F8B9 /* AQRecorder.h */,
+				ADA22DF519DAAE2A0092F8B9 /* AQRecorder.mm */,
+				ADA22DF619DAAE2A0092F8B9 /* AQSController.h */,
+				ADA22DF719DAAE2A0092F8B9 /* AQSController.mm */,
+				ADA22DF819DAAE2A0092F8B9 /* CADebugMacros.cpp */,
+				ADA22DF919DAAE2A0092F8B9 /* CADebugMacros.h */,
+				ADA22DFA19DAAE2A0092F8B9 /* CAMath.h */,
+				ADA22DFB19DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp */,
+				ADA22DFC19DAAE2A0092F8B9 /* CAStreamBasicDescription.h */,
+				ADA22DFD19DAAE2A0092F8B9 /* CAXException.cpp */,
+				ADA22DFE19DAAE2A0092F8B9 /* CAXException.h */,
 				ADA22D9819DA97B50092F8B9 /* OpenALBufferViewcontroller.h */,
 				ADA22D9919DA97B50092F8B9 /* OpenALBufferViewcontroller.m */,
 			);
@@ -1150,7 +1181,6 @@
 			isa = PBXGroup;
 			children = (
 				ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */,
-				ADA22D8F19DA8ED00092F8B9 /* AVFoundation.framework */,
 				ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */,
 				ADA22D7A19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a */,
 				ADA22D7819DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a */,
@@ -1574,11 +1604,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */,
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
 				A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
+				ADA22DFF19DAAE2A0092F8B9 /* AQRecorder.mm in Sources */,
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				ADA22D3119DA5D0A0092F8B9 /* JVCVideoDecoderHelper.m in Sources */,
 				ADA22D7E19DA84500092F8B9 /* JVCVoiceIntercomHelper.m in Sources */,
@@ -1596,12 +1628,14 @@
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
+				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,
 				A7F5EF3E19D2621B009B797A /* UIView+MJExtension.m in Sources */,
 				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				ADA22D5919DA613E0092F8B9 /* DDTTYLogger.m in Sources */,
 				A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
 				AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */,
 				ADA22D4919DA611D0092F8B9 /* DDDispatchQueueLogFormatter.m in Sources */,
+				ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */,
 				ADA22D5619DA613E0092F8B9 /* DDASLLogger.m in Sources */,
 				A7F5012A19D4F96A00AA78F0 /* JVCMoreSettingHelper.m in Sources */,
 				A7F5EF4319D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
@@ -1663,8 +1697,10 @@
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
 				A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
+				ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
+				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
@@ -1849,6 +1885,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingjie Wang (K35Q7Q8LG4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CloudSEE_II/CloudSEE_II-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "CloudSEE_II/CloudSEE_II-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

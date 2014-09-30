@@ -10,6 +10,7 @@
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCCloudSEENetworkInterface.h"
 #import "JVNetConst.h"
+#import  <Arpa/inet.h>
 
 @implementation JVCCloudSEESendGeneralHelper
 
@@ -298,28 +299,28 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     
     if(!nIsEnableDHCP){
         
-//        u_int32_t _uip=inet_addr((const char*)[strIpAddress UTF8String]);
-//        
-//        sprintf(acBuffer, "nlIP=%d;", HTONL(_uip));
-//        strcat(m_pstExt->acData+nOffset, acBuffer);
-//        nOffset += strlen(acBuffer);
-//        
-//        u_int32_t _uNM=inet_addr((const char*)[strSubnetMask UTF8String]);
-//        
-//        sprintf(acBuffer, "nlNM=%d;",HTONL(_uNM));
-//        strcat(m_pstExt->acData+nOffset, acBuffer);
-//        nOffset += strlen(acBuffer);
-//        
-//        u_int32_t _uGW=inet_addr((const char*)[strDefaultGateway UTF8String]);
-//        
-//        sprintf(acBuffer, "nlGW=%d;",HTONL(_uGW));
-//        strcat(m_pstExt->acData+nOffset, acBuffer);
-//        nOffset += strlen(acBuffer);
-//        
-//        u_int32_t _uDns=inet_addr((const char*)[strDns UTF8String]);
-//        
-//        sprintf(acBuffer, "nlDNS=%d;",HTONL(_uDns));
-//        strcat(m_pstExt->acData+nOffset, acBuffer);
+        u_int32_t _uip=inet_addr((const char*)[strIpAddress UTF8String]);
+        
+        sprintf(acBuffer, "nlIP=%d;", HTONL(_uip));
+        strcat(m_pstExt->acData+nOffset, acBuffer);
+        nOffset += strlen(acBuffer);
+        
+        u_int32_t _uNM=inet_addr((const char*)[strSubnetMask UTF8String]);
+        
+        sprintf(acBuffer, "nlNM=%d;",HTONL(_uNM));
+        strcat(m_pstExt->acData+nOffset, acBuffer);
+        nOffset += strlen(acBuffer);
+        
+        u_int32_t _uGW=inet_addr((const char*)[strDefaultGateway UTF8String]);
+        
+        sprintf(acBuffer, "nlGW=%d;",HTONL(_uGW));
+        strcat(m_pstExt->acData+nOffset, acBuffer);
+        nOffset += strlen(acBuffer);
+        
+        u_int32_t _uDns=inet_addr((const char*)[strDns UTF8String]);
+        
+        sprintf(acBuffer, "nlDNS=%d;",HTONL(_uDns));
+        strcat(m_pstExt->acData+nOffset, acBuffer);
     }
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
