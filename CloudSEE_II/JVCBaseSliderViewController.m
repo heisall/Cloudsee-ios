@@ -7,6 +7,7 @@
 //
 
 #import "JVCBaseSliderViewController.h"
+#import "JVCRGBHelper.h"
 static const int  NavicationSlideViewControllersCount = 1;//navicationbar的viewcontroller的数量，1标示根试图
 
 @interface JVCBaseSliderViewController ()
@@ -43,6 +44,13 @@ static const int  NavicationSlideViewControllersCount = 1;//navicationbar的view
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIColor *viewDefaultColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroViewControllerBackGround];
+    
+    if (viewDefaultColor) {
+        
+        self.view.backgroundColor = viewDefaultColor;
+    }
     
     if (self.navigationController.viewControllers.count != NavicationSlideViewControllersCount) {//不是顶级试图
         

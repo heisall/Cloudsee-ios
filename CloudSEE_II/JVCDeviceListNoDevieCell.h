@@ -10,4 +10,9 @@
 
 @interface JVCDeviceListNoDevieCell : UITableViewCell
 
+/**
+ *  初始化cell
+ */
+- (void)initContentCellWithHeigint:(CGFloat)frameHeight;
+
 @end

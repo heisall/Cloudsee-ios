@@ -23,6 +23,11 @@
 - (NSMutableArray *)ChannelListArray;
 
 /**
+ *  清楚通道列表的所有数据
+ */
+- (void)removeAllchannelsObject;
+
+/**
  *  根据云视通号返回一个设备的所有通道号集合
  *
  *  @return 一个设备的所有通道号集合

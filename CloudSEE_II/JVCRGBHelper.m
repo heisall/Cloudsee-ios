@@ -40,6 +40,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initRegisterRgbColors];
         [self initWithChanelListView];
         [self initLoginViewRgbColors];
+        [self initViewControllerRGBColors];
     }
     
     return self;
@@ -202,6 +203,20 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 }
 
 /**
+ *  初始化试图的backgrou的颜色
+ */
+- (void)initViewControllerRGBColors
+{
+    JVCRGBModel *whiteVCBackGround  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    whiteVCBackGround.r = 245.0f;
+    whiteVCBackGround.g = 245.0f;
+    whiteVCBackGround.b = 245.0f;
+    [mdicRgbModelList setObject:whiteVCBackGround forKey:kJVCRGBColorMacroViewControllerBackGround];
+    [whiteVCBackGround release];
+
+}
+
+/**
  *  初始化设备列表界面的RGB集合
  */
 -(void)initDeviceListViewRgbColors{
@@ -211,10 +226,19 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     white.g = 255.0f;
     white.b = 255.0f;
     
+    JVCRGBModel *labTextClolr  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    labTextClolr.r = 125.0f;
+    labTextClolr.g = 133.0f;
+    labTextClolr.b = 147.0f;
+    
+    [mdicRgbModelList setObject:labTextClolr forKey:kJVCRGBColorMacroDeviceListLabelGray];
     [mdicRgbModelList setObject:white forKey:kJVCRGBColorMacroWhite];
     
     [white release];
+    [labTextClolr release];
 }
+
+
 
 /**
  *  初始化设备列表界面的RGB集合
@@ -292,15 +316,15 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 #pragma mark 初始化登录界面的颜色值
 - (void)initLoginViewRgbColors
 {
-    JVCRGBModel *loginUserGray  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    JVCRGBModel *loginUserGray  = [[JVCRGBModel alloc] init];
     loginUserGray.r = 143.0f;
     loginUserGray.g = 143.0f;
     loginUserGray.b = 143.0f;
     
-    JVCRGBModel *loginDemoBlue  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
-    loginDemoBlue.r = 72.0f;
-    loginDemoBlue.g = 156.0f;
-    loginDemoBlue.b = 242.0f;
+    JVCRGBModel *loginDemoBlue  = [[JVCRGBModel alloc] init];
+    loginDemoBlue.r = 0.0f;
+    loginDemoBlue.g = 122.0f;
+    loginDemoBlue.b = 255.0f;
     
     [mdicRgbModelList setObject:loginUserGray forKey:kJVCRGBColorMacroLoginGray];
     [mdicRgbModelList setObject:loginDemoBlue forKey:kJVCRGBColorMacroLoginBlue];

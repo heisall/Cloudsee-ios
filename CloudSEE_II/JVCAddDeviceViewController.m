@@ -92,7 +92,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     [controlBg addTarget:self action:@selector(resignADDDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:controlBg];
     [controlBg release];
-    
+        
    //云视通号
     UIImage *imgTextFieldBG = [UIImage imageNamed:@"addDev_textFiedlBg.png"];
     textFieldYST = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, TESTORIIGIN_Y, imgTextFieldBG.size.width, imgTextFieldBG.size.height)];

@@ -36,6 +36,8 @@
 
     #import"JVCAlertHelper.h"
 
+    #import"UIImage+BundlePath.h"
+
 #endif
 
 

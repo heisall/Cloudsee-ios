@@ -27,6 +27,7 @@ static NSString const *  kJVCRGBColorMacroEditDropListViewCellTitleFontUnselecte
 
 //设备列表
 static NSString const *  kJVCRGBColorMacroWhite        = @"white";
+static NSString const *  kJVCRGBColorMacroDeviceListLabelGray    = @"DeviceLabelGray";
 
 //TabarViewController
 static NSString const *  kJVCRGBColorMacroTabarTitleFontColor   = @"tabarTitleFontColor";
@@ -48,6 +49,8 @@ static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListMediumYellow 
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListGrassGreen   = @"deviceListWithChannelListGrassGreen";
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListWarmOrange   = @"deviceListWithChannelListWarmOrange";
 
+//所有试图的背景
+static NSString const *  kJVCRGBColorMacroViewControllerBackGround       = @"ViewControllerBackGroundColor";
 
 
 #endif

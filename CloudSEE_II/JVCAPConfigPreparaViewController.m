@@ -45,7 +45,6 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
     
     //ios7
 //    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
@@ -54,9 +53,11 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
 //        self.extendedLayoutIncludesOpaqueBars = NO;
 //        self.modalPresentationCapturesStatusBarAppearance = NO;
 //    }
+    NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(@"add_apConfig")];
+    UIImage *iamgeAp = [[UIImage alloc] initWithContentsOfFile:imageBundlePath];
     
-    UIImage *iamgeAp = [UIImage imageNamed:LOCALANGER(@"add_apConfig")];
-    UIImage *btnBg = [UIImage imageNamed:@"add_ApConfig.png"];
+    NSString *btnBgBundlePath = [UIImage imageBundlePath:@"add_ApConfig.png"];
+    UIImage *btnBg = [[UIImage alloc] initWithContentsOfFile:btnBgBundlePath];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     
@@ -65,6 +66,7 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     imageview.image = iamgeAp;
     [scrollView addSubview:imageview];
     [imageview release];
+    [iamgeAp release];
     [self.view addSubview:scrollView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -74,6 +76,7 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     [scrollView addSubview:btn];
     [btn addTarget:self action:@selector(exitToAPPConfig) forControlEvents:UIControlEventTouchUpInside];
     [scrollView release];
+    [btnBg release];
 
 }
 

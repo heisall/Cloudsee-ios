@@ -16,4 +16,9 @@
  *  初始化TabarViewControllers
  */
 -(void)initWithTabarViewControllers;
+
+/**
+ *  重新登录后，初始化TabarViewControllers
+ */
+-(void)UpdateTabarViewControllers;
 @end

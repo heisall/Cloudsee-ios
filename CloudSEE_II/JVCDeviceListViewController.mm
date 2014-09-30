@@ -59,7 +59,6 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor grayColor];
     
     self.navigationController.navigationBar.hidden = NO;
         
@@ -208,6 +207,8 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            [cell initContentCellWithHeigint:self.view.height - kTableViewCellAdeviceHeigit];
+            
             return cell;
             
         }else{
@@ -282,6 +283,14 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
         }
 
     
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1&&[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {
+        
+        [self AddDevice];
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "JVCDeviceListNoDevieCell.h"
+#import "JVCRGBColorMacro.h"
+#import "JVCRGBHelper.h"
 
 static const int kNodeviceLabelHeigt = 40;//lab的高度
 
@@ -28,20 +30,29 @@ static const int kNodeviceLabelHeigt = 40;//lab的高度
     // Initialization code
 }
 
-- (void)initContentCell
+/**
+ *  初始化cell
+ */
+- (void)initContentCellWithHeigint:(CGFloat)frameHeight
 {
     //暂无图片
-    UIImage *image = [UIImage imageNamed:@"dev_nodevBg.png"];
-    UIImageView *imageViewNoDevice = [[UIImageView alloc] initWithFrame:CGRectMake((self.width - image.size.width)/2.0, (self.height - image.size.height-kNodeviceLabelHeigt)/2.0, image.size.width, image.size.height)];
+    NSString *imageName = [UIImage imageBundlePath:@"dev_nodevBg.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageName];
+    UIImageView *imageViewNoDevice = [[UIImageView alloc] initWithFrame:CGRectMake((self.width - image.size.width)/2.0, (frameHeight - image.size.height-kNodeviceLabelHeigt)/2.0, image.size.width, image.size.height)];
     imageViewNoDevice.image  = image;
     [self.contentView addSubview:imageViewNoDevice];
     [imageViewNoDevice release];
-    
+    [image release];
     //提示
     UILabel *labelNodevie = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewNoDevice.bottom, self.width, kNodeviceLabelHeigt)];
     labelNodevie.backgroundColor = [UIColor clearColor];
     labelNodevie.numberOfLines = 0;
+    labelNodevie.textAlignment = UITextAlignmentCenter;
     labelNodevie.lineBreakMode = UILineBreakModeWordWrap;
+    UIColor *labColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroDeviceListLabelGray];
+    if (labColor) {
+        labelNodevie.textColor = labColor;
+    }
     labelNodevie.text = @"点我添加设备";
     [self.contentView addSubview:labelNodevie];
     [labelNodevie release];

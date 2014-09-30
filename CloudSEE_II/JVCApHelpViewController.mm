@@ -28,16 +28,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    UIImage  *iamgeAp  = [UIImage imageNamed:LOCALANGER(@"more_aphelp")];
-    
+    self.title = @"帮助界面";
+    NSString *pathImage = [UIImage imageBundlePath:LOCALANGER(@"more_aphelp")];
+    UIImage  *iamgeAp  = [[UIImage alloc] initWithContentsOfFile:pathImage];
+
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     scrollView.contentSize = CGSizeMake(iamgeAp.size.width, iamgeAp.size.height);
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, iamgeAp.size.width, iamgeAp.size.height)];
     imageview.image = iamgeAp;
     [scrollView addSubview:imageview];
     [imageview release];
+    [iamgeAp release];
 
     [self.view addSubview:scrollView];
     [scrollView release];

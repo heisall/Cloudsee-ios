@@ -67,7 +67,10 @@
     for (int i=0; i<_arrayDefaultImage.count; i++) {
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
-        imgView.image = [UIImage imageNamed:[_arrayDefaultImage objectAtIndex:i]];
+        NSString *imageBundlePath = [UIImage imageBundlePath:[_arrayDefaultImage objectAtIndex:i]];
+        UIImage *imageName = [[UIImage alloc]initWithContentsOfFile:imageBundlePath];
+        imgView.image = imageName;
+        [imageName release];
         [_scrollView addSubview:imgView];
         [imgView release];
     }

@@ -11,14 +11,18 @@
 #import "JVCMoreSettingHelper.h"
 #import "JVCMoreSettingModel.h"
 #import "JVCMoreContentCell.h"
-
+//账号
+#import "JVCAccountHelper.h"
 //tableview的选中事件
 #import "JVCApHelpViewController.h"
 #import "JVCMoreUserSettingViewController.h"
+//登录
+#import "JVCLoginViewController.h"
 
 static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
 static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
+static const int KUserLoginOutState_Success= 0;   //账号注册成功
 
 @interface JVCMoreViewController ()
 {
@@ -176,14 +180,13 @@ static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
 
         }else{//按钮显示
         
-         
-            
-            UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
-            UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
-            btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
-            [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
-            [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
-            [cell.contentView addSubview:btnLoginOut];
+        UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
+        UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
+        [btnLoginOut addTarget:self action:@selector(userLoginOut) forControlEvents:UIControlEventTouchUpInside];
+        [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
+        [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
+        [cell.contentView addSubview:btnLoginOut];
             
             
         }
@@ -222,7 +225,38 @@ static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
     }
 }
 
+/**
+ *  账号注销
+ */
+- (void)userLoginOut
+{
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        int reuslt = 0 ;// [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
 
+            DDLogVerbose(@"注销收到的返回值=%d",reuslt);
+            
+            [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
+
+            if (KUserLoginOutState_Success == reuslt) {//成功,弹出注册界面
+                
+                JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
+                UINavigationController *navLoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                [self presentModalViewController:navLoginVC animated:YES];
+                [loginVC release];
+                [navLoginVC release];
+                
+            }else{//失败
+            
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"注销失败"];
+            }
+        });
+    });
+}
 
 - (void)didReceiveMemoryWarning
 {

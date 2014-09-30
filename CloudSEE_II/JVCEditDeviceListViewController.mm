@@ -10,6 +10,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCAppHelper.h"
 #import "JVCEditDeviceOperationView.h"
+#import "JVCDeviceSourceHelper.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -47,6 +48,9 @@ static const int  kInitWithLayoutColumnCount           = 3;
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
+        [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+
     }
     return self;
 }
@@ -80,6 +84,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [mArrayIconTitles addObjectsFromArray:@[@"远程设置",@"设备管理",@"连接模式",
                                             @"通道管理",@"立即观看",@"添加设备"]];
 }
+
 
 /**
  *  初始化功能区域按钮

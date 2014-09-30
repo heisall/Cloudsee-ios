@@ -45,6 +45,10 @@ static const int RESERT_USER_AND_PASSWORD =  -16;  //重置用户名和密码
 
 static const int RESERT_PASSWORD    =  -17;             //重置密码
 
+static const int KlogoOffSet_y    =  80;             //logo的开始问题
+
+
+
 @interface JVCLoginViewController ()
 {
     /**
@@ -70,9 +74,18 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
         // Custom initialization
         
         UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
-        [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_unselect.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_deviceManager_unselect.png"]];
+        
+        NSString *pathSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
+        UIImage *imageSelect = [[UIImage alloc] initWithContentsOfFile:pathSelectimage];
+        
+        NSString *pathUnSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
+        UIImage *imageUbSelect = [[UIImage alloc] initWithContentsOfFile:pathUnSelectimage];
+        
+        [moreItem setFinishedSelectedImage: imageSelect withFinishedUnselectedImage: imageUbSelect];
         self.tabBarItem = moreItem;
         [moreItem release];
+        [imageSelect release];
+        [imageUbSelect release];
     }
     return self;
 }
@@ -101,11 +114,11 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
 - (void)viewDidLoad
 {
     self.navigationController.navigationBarHidden = YES;
-
+    [UIApplication sharedApplication].statusBarHidden = YES;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+//    [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
     
     /**
      *  注册所有的
@@ -119,34 +132,38 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
     /**
      *  背景
      */
-    UIImage *imageBg = [UIImage imageNamed:[[JVCSystemUtility shareSystemUtilityInstance] getImageByImageName:@"log_bg.png"]];
+    NSString *imagebgName = [UIImage correctImageName:@"log_bg.png"];
+    UIImage *imageBg = [[UIImage alloc] initWithContentsOfFile:imagebgName];
     UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:self.view.frame];
     imageViewBg.image = imageBg;
     [self.view addSubview:imageViewBg];
     [imageViewBg release];
+    [imageBg release];
     
     /**
      *  图标的logo
      */
-    UIImage *imageLogo = [UIImage imageNamed:@"log_logo.png"];
-    UIImageView *imageViewLogo = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width- imageLogo.size.width)/2.0, 80, imageLogo.size.width, imageLogo.size.height)];
+    NSString *imageLogoName = [UIImage imageBundlePath:@"log_logo.png"];
+    UIImage *imageLogo = [[UIImage alloc] initWithContentsOfFile:imageLogoName];
+    UIImageView *imageViewLogo = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width- imageLogo.size.width)/2.0,KlogoOffSet_y , imageLogo.size.width, imageLogo.size.height)];
     imageViewLogo.image = imageLogo;
     [self.view addSubview:imageViewLogo];
     [imageViewLogo release];
+    [imageLogo release];
     
     /**
      *  获取颜色值处理
      */
     JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
     UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
-    UIColor *btnColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
+    UIColor *btnColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBlue];
    
     /**
      *  用户名模块
      */
     // 横杆
     UIImage *imageInPutLine = [UIImage imageNamed:@"log_line.png"];
-    UIImageView *imageviewInPutLine = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-imageInPutLine.size.width)/2.0, 70+imageViewLogo.frame.origin.y+imageViewLogo.frame.size.height, imageInPutLine.size.width, imageInPutLine.size.height)];
+    UIImageView *imageviewInPutLine = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-imageInPutLine.size.width)/2.0, KlogoOffSet_y+imageViewLogo.frame.origin.y+imageViewLogo.frame.size.height, imageInPutLine.size.width, imageInPutLine.size.height)];
     imageviewInPutLine.image = imageInPutLine;
     imageviewInPutLine.tag = LOGINVIEWTAG_Line;
     [self.view addSubview:imageviewInPutLine];
@@ -400,8 +417,17 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
                 
                 //[[JVCDataBaseHelper shareDataBaseHelper] writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
-                
-                [self changeWindowRootViewController];
+                //如果是present出来的，就让他dismiss掉，如果不是直接切换
+                if (self.presentingViewController !=nil) {
+                    
+                    [self dismissModalViewControllerAnimated:YES];
+                    
+                    [self updaeeRootViewController];
+                    
+                }else{
+                    
+                    [self changeWindowRootViewController];
+                }
             
             }else{
             
@@ -441,6 +467,14 @@ static const int RESERT_PASSWORD    =  -17;             //重置密码
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate initWithTabarViewControllers];
+}
+
+#pragma mark 用户注销登录后的方法
+- (void)updaeeRootViewController
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [delegate UpdateTabarViewControllers];
 }
 
 #pragma mark

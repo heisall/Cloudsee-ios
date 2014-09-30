@@ -107,9 +107,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    
+        
     /**
      *  设置背景的点击事件
      */

@@ -7,6 +7,7 @@
 //
 
 #import "JVCBaseWithGeneralViewController.h"
+#import "JVCRGBHelper.h"
 
 static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontroller的数量，1标示根试图
 
@@ -40,11 +41,20 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
 {
     [super viewDidLoad];
     
+    UIColor *viewDefaultColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroViewControllerBackGround];
+    
+    if (viewDefaultColor) {
+        
+        self.view.backgroundColor = viewDefaultColor;
+    }
+    
     //处理UIViewController的可视区域的高度
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
     {
         
         CGRect contentRect = self.view.frame;
+        
+        DDLogVerbose(@"开始之前的=%@",NSStringFromCGRect(contentRect));
         
         //减去导航条的高度
         if (!self.navigationController.navigationBarHidden) {
@@ -57,15 +67,24 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
                 contentRect.size.height = contentRect.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
             }
             
+            DDLogVerbose(@"中间去导航条的=%@",NSStringFromCGRect(contentRect));
+
+            
         }
         
         if ((self.tabBarController !=nil) && !self.tabBarController.tabBar.hidden) {
             
             contentRect.size.height = contentRect.size.height - self.tabBarController.tabBar.height;
         }
-        
+        DDLogVerbose(@"中间的=%@",NSStringFromCGRect(contentRect));
+
         self.view.frame = contentRect;
+        
+        DDLogVerbose(@"最后的frame=%@",NSStringFromCGRect(contentRect));
+
     }
+    
+
     
     if (self.navigationController.viewControllers.count != NavicationViewControllersCount) {//不是顶级试图
         

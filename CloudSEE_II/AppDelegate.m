@@ -20,6 +20,10 @@
 #import "JVCAlarmMessageViewController.h"
 #import "JVCMoreViewController.h"
 
+#import "JVCDeviceSourceHelper.h"
+#import "JVCChannelScourseHelper.h"
+
+static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
 @implementation AppDelegate
 
@@ -141,6 +145,21 @@
     
     [rootViewController release];
 }
+
+/**
+ *  重新登录后，初始化TabarViewControllers
+ */
+-(void)UpdateTabarViewControllers{
+    
+    UITabBarController *tabbar =(UITabBarController *)self.window.rootViewController;
+    
+    [tabbar setSelectedIndex:kTableBarDefaultSelectIndex];
+    
+    //清理数据
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] removeAllDeviceObject];
+    [[JVCChannelScourseHelper shareChannelScourseHelper]removeAllchannelsObject];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
