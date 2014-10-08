@@ -8,12 +8,14 @@
 
 #import "JVCOperationMiddleView.h"
 
-#define BUNDLENAME  @"customMiddleView_cloudsee.bundle"
+static const NSString *BUNDLENAMEMiddle =  @"customMiddleView_cloudsee.bundle";
 #define IOS_VERSION_A [[[UIDevice currentDevice] systemVersion] floatValue]
 static const double IOS_SYSTEM_7_A  =  7.0;     //ios7
 static const int    TAGADD          =  10000;   //tag开始
 static const int    SEPERATENUM     =   4;      //按钮之间的空格数
 static const double HEGIHT          =   20.0;   //lable的高度
+static const int    kMiddleImageSeperateCount     =   2;      //图片名称根据.截开之后得到的数组个数
+
 
 @interface JVCOperationMiddleView ()
 {
@@ -113,7 +115,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
     /**
      *  默认的背景图片
      */
-    UIImage *_bigItemImage = [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePaht:@"operation_bigItemBtnBg.png"]];
+    UIImage *_bigItemImage = [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePath:@"operation_bigItemBtnBg.png"]];
     
     /**
      *  计算按钮之间的空格
@@ -127,9 +129,9 @@ static JVCOperationMiddleView *_shareInstance = nil;
         
         btn.frame = CGRectMake(seperateSpace+i*(seperateSpace+_bigItemImage.size.width), (frame.size.height - _bigItemImage.size.height)/2.0, _bigItemImage.size.width, _bigItemImage.size.height);
         
-        UIImage *normalImage = [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePaht:[_amUnSelectedImageNameListData objectAtIndex:i]]];
+        UIImage *normalImage = [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePath:[_amUnSelectedImageNameListData objectAtIndex:i]]];
         
-        UIImage * hoverImage= [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]]];
+        UIImage * hoverImage= [[UIImage alloc] initWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]];
         
         [btn setBackgroundImage:_bigItemImage forState:UIControlStateNormal];
         
@@ -225,9 +227,9 @@ static JVCOperationMiddleView *_shareInstance = nil;
         
     }
     
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected_%d.png",skinType]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn_%d.png",skinType]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"playBackVideoSelected_%d.png",skinType]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"playBackVideoSelected.png"]];
 }
 
 /**
@@ -275,14 +277,24 @@ static JVCOperationMiddleView *_shareInstance = nil;
  *
  *	@return	返回指定指定图片名的图片
  */
--(NSString *)getBundleImagePaht:(NSString *)ImageName{
+-(NSString *)getBundleImagePath:(NSString *)ImageName{
     
-    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:BUNDLENAME];
+    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:(NSString *)BUNDLENAMEMiddle];
     
-    NSString *image_path=[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
     
+    NSArray *array = [ImageName componentsSeparatedByString:@"."];
+    
+    if (kMiddleImageSeperateCount == array.count ) {
+        
+        NSString *imageName = [array objectAtIndex:0];
+        imageName  = [imageName stringByAppendingString:@"@2x."];
+        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+    }
     return image_path;
 }
+
 
 - (void)dealloc
 {

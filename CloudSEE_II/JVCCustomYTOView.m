@@ -10,7 +10,8 @@
 
 static const int  ADDYTOPERATIONNUM =  20;
 
-#define BUNDLENAME  @"YTOperation.bundle"
+static const NSString * BUNDLENAMEYT = @"YTOperation.bundle";//云台控制
+static const int kImageImageSeperateCount = 2;//图片分割的数组大小
 #define JudgeIphone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
 @interface JVCCustomYTOView ()
@@ -89,7 +90,7 @@ static JVCCustomYTOView *_shareInstance = nil;
     [_v addGestureRecognizer:singleRecognizer];
     [singleRecognizer release];
     
-    UIImage *_closeImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"ytoClose.png"]];
+    UIImage *_closeImage=[UIImage imageWithContentsOfFile:[self getBundleImagePath:@"ytoClose.png"]];
     UIButton *closeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     closeBtn.frame=CGRectMake([UIApplication sharedApplication].keyWindow.frame.size.width-_closeImage.size.width-15.0, 10.0+_iphonePadding, _closeImage.size.width*1.2, _closeImage.size.height*1.2);
     [closeBtn setBackgroundImage:_closeImage forState:UIControlStateNormal];
@@ -132,7 +133,7 @@ static JVCCustomYTOView *_shareInstance = nil;
 			if ([info count]==2) {
                 
 				//UIImage *image=[UIImage imageNamed:[array objectAtIndex:0]];
-                UIImage *image=[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [array objectAtIndex:0]]];
+                UIImage *image=[UIImage imageWithContentsOfFile:[self getBundleImagePath: [array objectAtIndex:0]]];
                 
 				UIButton *menuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
                 
@@ -415,12 +416,21 @@ static JVCCustomYTOView *_shareInstance = nil;
  *
  *	@return	返回指定指定图片名的图片
  */
--(NSString *)getBundleImagePaht:(NSString *)ImageName{
+-(NSString *)getBundleImagePath:(NSString *)ImageName{
     
-    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:BUNDLENAME];
+    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:(NSString *)BUNDLENAMEYT];
     
-    NSString *image_path=[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
     
+    NSArray *array = [ImageName componentsSeparatedByString:@"."];
+    
+    if (kImageImageSeperateCount == array.count ) {
+        
+        NSString *imageName = [array objectAtIndex:0];
+        imageName  = [imageName stringByAppendingString:@"@2x."];
+        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+    }
     return image_path;
 }
 

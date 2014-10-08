@@ -28,4 +28,14 @@
  */
 + (NSString *)correctImageName:(NSString *)imageStr;
 
+/**
+ *  返回UIImage的bundle的路径
+ *
+ *	@param	ImageName	图片的名字
+ *  @param  bundleName  bundle的名称
+ *
+ *	@return	返回指定指定图片名的图片
+ */
++(NSString *)getBundleImagePath:(NSString *)ImageName  bundleName:(NSString *)bundleName;
+
 @end

@@ -115,7 +115,7 @@
         [openAlObj initOpenAL];
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:nil];
         
-        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin:skinSelect];
+        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
         
     }
 }

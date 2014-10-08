@@ -1,19 +1,18 @@
 //
 //  JVCCustomOperationBottomView.m
 //  CloudSEE_II
-//
+//  视频播放界面，最下面的部分
 //  Created by Yanghu on 9/30/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
 #import "JVCCustomOperationBottomView.h"
 
-#define BUNDLENAME  @"customBottomView_cloudsee.bundle"
+static const NSString *BUNDLENAMEButtom = @"customBottomView_cloudsee.bundle";//bundle的名称
 
-#define IOS_VERSION_A [[[UIDevice currentDevice] systemVersion] floatValue]
-#define IOS_SYSTEM_7_A 7.0
-#define TAGADD  100000
-
+static const double IOS_SYSTEM_7_A = 7.0; //ios7
+static const int TAGADD = 100000;         //起始tag
+static const int kButtomImageSeperateCount = 2;//png图片被.分开的时候的数组个数
 @interface JVCCustomOperationBottomView (){
     
     /**
@@ -108,13 +107,15 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     for (int i=0; i<titileArray.count; i++) {
         
-        UIImage *imageNormal  =[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [_amUnSelectedImageNameListData  objectAtIndex:i]]];
+        UIImage *imageNormal  =[UIImage imageWithContentsOfFile:[self getBundleImagePath: [_amUnSelectedImageNameListData  objectAtIndex:i]]];
         
-        UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]]];
+        UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]];
         
         NSString *title  = [titileArray objectAtIndex:i];
         
         CGSize size  = CGSizeMake(imageNormal.size.width, 800);
+        
+        double IOS_VERSION_A =[[UIDevice currentDevice] systemVersion].floatValue;
         
         if (IOS_VERSION_A>=IOS_SYSTEM_7_A) {//ios7
             
@@ -148,11 +149,11 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
         
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -size.width/2)];
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: @"smallItem__Normal.png"]] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: @"smallItem__Normal.png"]] forState:UIControlStateNormal];
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateSelected];
+        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover_.png"]]] forState:UIControlStateSelected];
         
         
         [_shareInstance addSubview:btn];
@@ -196,10 +197,10 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
         
     }
     
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"smallCaptureSelectedBtn_%d.png",skinType]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"megaphoneSelected_%d.png",skinType]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected_%d.png",skinType]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"moreSelected_%d.png",skinType]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"smallCaptureSelectedBtn.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"megaphoneSelected.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"moreSelected.png"]];
 }
 
 /**
@@ -257,12 +258,12 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     [self setSelectImageListWithType:skinType];
     
-    UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:index]]];
+    UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:index]]];
     
     [btn setImage:imageHover forState:UIControlStateSelected];
     [btn setImage:imageHover forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateSelected];
+    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
+    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateSelected];
     [btn setSelected:YES];
     
     return YES;
@@ -312,13 +313,13 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
             
             btn.selected = NO;
             
-            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]] ] forState:UIControlStateSelected];
+            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]] ] forState:UIControlStateSelected];
             
-            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]] ] forState:UIControlStateHighlighted];
+            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]] ] forState:UIControlStateHighlighted];
             
-            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateHighlighted];
+            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
             
-            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateSelected];
+            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateSelected];
             
             
             btn.selected = YES;
@@ -326,12 +327,12 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
             
         }else{
             
-            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateHighlighted];
-            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht: [ NSString stringWithFormat: @"smallItem_Hover_%d.png",skinType]]] forState:UIControlStateSelected];
+            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
+            [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateSelected];
             
             
-            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateHighlighted];
-            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateSelected];
+            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateHighlighted];
+            [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateSelected];
             
             
             
@@ -364,15 +365,23 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
  *
  *	@return	返回指定指定图片名的图片
  */
--(NSString *)getBundleImagePaht:(NSString *)ImageName{
+-(NSString *)getBundleImagePath:(NSString *)ImageName{
     
-    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:BUNDLENAME];
+    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:(NSString *)BUNDLENAMEButtom];
     
-    NSString *image_path=[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
     
+    NSArray *array = [ImageName componentsSeparatedByString:@"."];
+    
+    if (kButtomImageSeperateCount == array.count ) {
+        
+        NSString *imageName = [array objectAtIndex:0];
+        imageName  = [imageName stringByAppendingString:@"@2x."];
+        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+    }
     return image_path;
 }
-
 
 
 - (void)dealloc

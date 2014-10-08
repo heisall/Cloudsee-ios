@@ -91,4 +91,30 @@ static const int kImageSeperateCount = 2;//图片的image.png 分割，数组大
     return path;
 }
 
+/**
+ *  返回UIImage的bundle的路径
+ *
+ *	@param	ImageName	图片的名字
+ *  @param  bundleName  bundle的名称
+ *
+ *	@return	返回指定指定图片名的图片
+ */
++(NSString *)getBundleImagePath:(NSString *)ImageName  bundleName:(NSString *)bundleName{
+    
+    NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:bundleName];
+    
+    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    
+    NSArray *array = [ImageName componentsSeparatedByString:@"."];
+    
+    if (kImageSeperateCount == array.count ) {
+        
+        NSString *imageName = [array objectAtIndex:0];
+        imageName  = [imageName stringByAppendingString:@"@2x."];
+        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+    }
+    return image_path;
+}
+
 @end

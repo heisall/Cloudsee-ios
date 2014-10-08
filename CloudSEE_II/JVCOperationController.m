@@ -22,7 +22,10 @@
 
 #import<AssetsLibrary/AssetsLibrary.h>
 
-#define STARTHEIGHTITEM  40
+static const int  STARTHEIGHTITEM =  40;
+
+static const NSString * BUNDLENAMEBottom  = @"customBottomView_cloudsee.bundle";//bundle的名称
+
 
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
 
@@ -303,7 +306,8 @@ bool _isConnectdevcieOpenDecoder;
     /**
      *  抓拍、对讲、录像、更多按钮的view
      */
-    UIImage *_smallItemBgImage=[UIImage imageNamed:@"smallItem__Normal.png"];
+    NSString *pathSamllImage = [UIImage getBundleImagePath:@"smallItem__Normal.png" bundleName:(NSString *)BUNDLENAMEBottom];
+    UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
     
     if (IOS_VERSION>=IOS7) {
@@ -312,6 +316,8 @@ bool _isConnectdevcieOpenDecoder;
         frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
         
     }
+    [_smallItemBgImage release];
+    
     NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"MoreOper", nil), nil];
     
     /**
@@ -2228,7 +2234,7 @@ bool _isConnectdevcieOpenDecoder;
             
             _strSaveVideoPath = [videoPath retain];
             
-            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:videoPath];
+          //  [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:videoPath];
             
         };
         
