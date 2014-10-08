@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "JVCDeviceModel.h"
 #import "AQSController.h"
+#import "JVCCustomOperationBottomView.h"
+#import "JVCCustomCoverView.h"
+
 @class JVCManagePalyVideoComtroller;
 @class OpenALBufferViewcontroller;
 
@@ -24,9 +27,9 @@
 @end
 
 
-@interface JVCOperationController : UIViewController
+@interface JVCOperationController : UIViewController<customBottomDelegate,CustomCoverViewDelegate>
 {
-    NSMutableArray *_aDeviceChannelListData;
+    NSMutableArray *_aDeviceChannelListData;        //存放
     int _iSelectedChannelIndex;
     UIAlertView * wheelAlterInfo;
     NSMutableArray *_amUnSelectedImageNameListData;
@@ -42,7 +45,6 @@
 
     
     NSMutableString *_playBackDateString;
-    BOOL _isConnectdevcieType;
     
     UIScrollView *scrollview;
     NSMutableArray *_amDeviceListData;    //存放的设备信息集合
@@ -60,7 +62,6 @@
 @property (nonatomic,retain) NSMutableArray *_aDeviceChannelListData;
 @property (nonatomic,assign) int _iSelectedChannelIndex;
 @property (nonatomic,assign) bool _issound,_isTalk,_isLocalVideo,_isPlayBack;
-@property (nonatomic,assign) BOOL _isConnectdevcieType;
 @property (nonatomic,retain) JVCDeviceModel *_deviceModel;
 @property (nonatomic,assign) int _iViewState;
 @property (nonatomic,retain) NSMutableString *_playBackDateString;
@@ -111,9 +112,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 -(void)playBackVideo;
 -(void)ytoClick:(UIButton*)button;
 
-- (void)showPlayBackVideo:(bool)_isOpen;
-
-
 -(BOOL)isKindOfBufInStartCode:(char*)buffer;
 -(void)changePlaySate;
 -(void)playBackSendPlayVideoData:(NSDate*)date;
@@ -131,7 +129,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 -(void)changeSplitView:(int)_splitWindows;
 -(NSMutableArray*)getSplitWindowMaxNumbers;
 -(void)channelAllWaitI;
--(UIImage*)convertViewToImage:(UIView*)v;
 -(BOOL)isCheckCurrentSingleViewGlViewHidden;
 
 /**

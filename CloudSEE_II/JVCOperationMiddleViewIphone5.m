@@ -7,9 +7,9 @@
 //
 
 #import "JVCOperationMiddleViewIphone5.h"
-
-#define OFF_X   20
-#define OPERATIONBIGITEM 20.0
+static const int kMiddleIphone5ImageSeperateCount =2;//图片的名称用点分割之后，得到的数组个数，后面要给他追加@2x
+static const int  OFF_X  =  20;                      //距离左边距的距离
+static const int OPERATIONBIGITEM  = 20.0;           //距离
 
 #define bundleOperationMiddleViewIphone5  @"OperationMiddleViewIphone5.bundle"
 
@@ -90,12 +90,11 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         
         
         UIImage *image = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_arrayList objectAtIndex:i]]];
-        NSLog(@"%@==%@",[self getBundleImagePaht:[_arrayList objectAtIndex:i]],image);
         UIImage *imageHover = image;
         //只有第一个按钮有选中状态
         if (i == 0) {
             
-            imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn_%d.png",skinType]]];
+            imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn.png"]]];
             
         }
         
@@ -158,10 +157,10 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
 }
 
 //设置选中的btn的类型
-- (void)setAudioBtnSelectWithSkin:(int)skinType
+- (void)setAudioBtnSelectWithSkin
 {
     
-    UIImage *imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn_%d.png",skinType]]];
+    UIImage *imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn.png"]]];
     //[btnAudio setBackgroundImage:imageHover forState:UIControlStateHighlighted];
     [btnAudio setBackgroundImage:imageHover forState:UIControlStateSelected];
     [btnAudio setSelected:YES];
@@ -185,8 +184,17 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
     
     NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:bundleOperationMiddleViewIphone5];
     
-    NSString *image_path=[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
     
+    NSArray *array = [ImageName componentsSeparatedByString:@"."];
+    
+    if (kMiddleIphone5ImageSeperateCount == array.count ) {
+
+        NSString *imageName = [array objectAtIndex:0];
+        imageName  = [imageName stringByAppendingString:@"@2x."];
+        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+    }
     return image_path;
 }
 

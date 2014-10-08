@@ -7,12 +7,10 @@
 //
 
 #import "JVCOperationController.h"
-#import "JVCCustomOperationBottomView.h"
 #import "JVCOperationMiddleViewIphone5.h"
 #import "OpenALBufferViewcontroller.h"
 #import "JVCManagePalyVideoComtroller.h"
 #import "JVCRemoteVideoPlayBackVControler.h"
-#import "JVCCustomCoverView.h"
 #import "JVCOperationMiddleView.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
@@ -64,15 +62,14 @@ bool selectState_audio ;
 @implementation JVCOperationController
 @synthesize _aDeviceChannelListData,_iSelectedChannelIndex,_iViewState;
 @synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack,_deviceModel;
-@synthesize _playBackVideoDataArray,_playBackDateString,_isConnectdevcieType;
+@synthesize _playBackVideoDataArray,_playBackDateString;
 @synthesize _amDeviceListData,_selectedDeviceIndex;
 @synthesize showSingeleDeviceLongTap,_isConnectModel;
 @synthesize delegate;
 
-JVCOperationController *_operationController;
 JVCCustomOperationBottomView *_operationItemSmallBg;
 
-#define CONNECTMAXNUMS 16
+static const int  JVCOPERATIONCONNECTMAXNUMS  = 16;//
 
 char imageBuffer[1][1280*720*3];
 char imageBufferY[1][1280*720*3];
@@ -85,7 +82,6 @@ char capImageBuffer[1][1280*720*3];
 OpenALBufferViewcontroller *_openALBufferSound;
 AQSController *_audioRecordControler;
 char ppszPCMBuf[640];;
-int windowsPageNums;
 int unAllLinkFlag;
 AVAudioPlayer *_play;
 UIButton *_bSmallTalkBtn;
@@ -98,9 +94,9 @@ UIImageView * capImageView;
 OpenALBufferViewcontroller *_openALBufferSound;
 JVCRemoteVideoPlayBackVControler *_remoteVideoPlayBackVControler;
 unsigned char acFLBuffer[64*1024] = {0};//存放远程回放数据原始值
-NSTimer *repeatLinkTimer[CONNECTMAXNUMS];
-int linkFlag[CONNECTMAXNUMS];
-int _iWindowsSelectedChannelIndex[CONNECTMAXNUMS];
+NSTimer *repeatLinkTimer[JVCOPERATIONCONNECTMAXNUMS];
+int linkFlag[JVCOPERATIONCONNECTMAXNUMS];
+int _iWindowsSelectedChannelIndex[JVCOPERATIONCONNECTMAXNUMS];
 
 
 
@@ -118,9 +114,7 @@ JVCCustomCoverView *_splitViewCon;
 bool _isConnectdevcieOpenDecoder;
 
 
-bool _isAllLinkFlag;
 
-bool isShowHelper;
 
 #define CONNECTTURNFLAG @"(TURN)"
 
@@ -231,22 +225,17 @@ bool isShowHelper;
 {
     [super viewDidLoad];
     
-    if (IOS_VERSION>=7.0) {
+    if (IOS_VERSION>=IOS7) {
         
         self.automaticallyAdjustsScrollViewInsets =NO;
     }
     
-    _isAllLinkFlag=FALSE;
     unAllLinkFlag=0;
-    isShowHelper = NO;
     
-    self._isConnectdevcieType=FALSE;
-    _isConnectdevcieOpenDecoder=FALSE;
-    self._issound=FALSE;
-    self._isTalk=FALSE;
-    self._isLocalVideo=FALSE;
-    windowsPageNums=1;
-    _operationController=self;
+    self._issound=FALSE;//音频监听
+    self._isTalk=FALSE; //语音对讲
+    self._isLocalVideo=FALSE;//录像
+    
     NSMutableString *mutableString=[[NSMutableString alloc] initWithCapacity:10];
     self._playBackDateString=mutableString;
     [mutableString release];
@@ -266,34 +255,14 @@ bool isShowHelper;
 		}
     }
     
-    _amUnSelectedImageNameListData=[[NSMutableArray alloc] initWithCapacity:10];
-    
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"smallCaptureUnselectedBtn.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"megaphoneUnselected.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"videoUnselected.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"moreUnselected.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"audioListener.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"ytoBtn.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"playBackVideo.png"]];
-    
-    _amSelectedImageNameListData=[[NSMutableArray alloc] initWithCapacity:10];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"smallCaptureSelectedBtn_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"megaphoneSelected_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"moreSelected_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn_%d.png",0]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"playBackVideoSelected_%d.png",0]];
-    
     
     /**
      *  返回按钮
      */
-    UIImage *image = [UIImage imageNamed:@"back.png"];
+    UIImage *image = [UIImage imageNamed:@"nav_back.png"];
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
-    [backBtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backBtn setImage:image forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(gotoBack) forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     // backBarBtn.style = UIBarButtonItemStylePlain;
     self.navigationItem.leftBarButtonItem=backBarBtn;
@@ -326,7 +295,6 @@ bool isShowHelper;
      */
     capImageView=[[UIImageView alloc] init];
     capImageView.frame=_managerVideo.frame;
-    [capImageView setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:capImageView];
     [capImageView setHidden:YES];
     //[capImageView release];
@@ -338,8 +306,8 @@ bool isShowHelper;
     UIImage *_smallItemBgImage=[UIImage imageNamed:@"smallItem__Normal.png"];
     CGRect frameBottom ;
     
-    if (IOS_VERSION>=7.0) {
-        frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height-20, self.view.frame.size.width, _smallItemBgImage.size.height);
+    if (IOS_VERSION>=IOS7) {
+        frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height-[UIApplication sharedApplication].statusBarFrame.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
     }else{
         frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
         
@@ -368,6 +336,7 @@ bool isShowHelper;
     {
         _x= 225;
     }
+    
     UIImage *_splitShow=[UIImage imageNamed:@"splitScreenBtn.png"];
     _splitViewBtn.frame=CGRectMake(_x, (self.navigationController.navigationBar.frame.size.height-_splitShow.size.height-5.0)/2.0+3.0, _splitShow.size.width-5.0, _splitShow.size.height-2.0);
     // NSLog(@"_splitConBtn=%@",_splitViewBtn);
@@ -421,73 +390,9 @@ bool isShowHelper;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    skinSelect = 0;
-    
-    //    [_amSelectedImageNameListData removeAllObjects];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"smallCaptureSelectedBtn_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"megaphoneSelected_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"moreSelected_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn_%d.png",delegate.selectSkin]];
-    //    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"playBackVideoSelected_%d.png",delegate.selectSkin]];
-    //
-    //    /**
-    //     *  判断是不是要显示帮助
-    //     */
-    //    [self judgeShowFirsthelpView];
-    //
-    //    //[_bSoundBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ytoSelectedBtn_%d.png",delegate.selectSkin] ]forState:UIControlStateHighlighted];
-    //    [_bYTOBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ytoSelectedBtn_%d.png",delegate.selectSkin]] forState:UIControlStateHighlighted];
-    //
-    //    UIButton *_bPlayBackVideoBtn=(UIButton *)[self.view viewWithTag:99977];
-    //    [_bPlayBackVideoBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"playBackVideoSelected_%d.png",delegate.selectSkin]] forState:UIControlStateHighlighted];
-    //
-    //    UIImage *_smallItemBgImage=[UIImage imageNamed:[NSString stringWithFormat: @"smallItem_Hover_%d.png",delegate.selectSkin]];
-    //    [_bSmallTalkBtn setBackgroundImage:_smallItemBgImage forState:UIControlStateHighlighted];
-    //    [_bSmallVideoBtn setBackgroundImage:_smallItemBgImage forState:UIControlStateHighlighted];
-    //    [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
-    //    if (self._issound) {
-    //        [_bSoundBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"audioListennerSelected_%d.png",delegate.selectSkin]] forState:UIControlStateNormal];
-    //    }
-    //    if (self._isLocalVideo) {
-    //        [self selectSmallButtonStyle:_bSmallVideoBtn];
-    //    }else{
-    //        [self unSelectSmallButtonStyle:_bSmallVideoBtn];
-    //    }
-    //
-    //    if (self._isTalk) {
-    //        [self selectSmallButtonStyle:_bSmallTalkBtn];
-    //    }else{
-    //        [self unSelectSmallButtonStyle:_bSmallTalkBtn];
-    //    }
-    //
-    //    [self unSelectSmallButtonStyle:_bSmallMoreBtn];
-    
-    
-    //
-    //    if (_splitViewCon) {
-    //        [_splitViewCon setSelectBg];
-    //    }
-    //
-    //    [operationBigView reloadTableData];
-    
 }
 
 
-//- (void)judgeShowFirsthelpView
-//{
-//    isShowHelper = YES;
-//    NSMutableDictionary *tAppDic = [NSMutableDictionary dictionaryWithContentsOfFile:[OperationSet getAppInfoPlistPath]];
-//    if([[tAppDic objectForKey:APP_Help_YT] isEqualToString:@"no"])
-//    {
-//        _helpImageView = [[HelpViewController alloc] init];
-//        _helpImageView.delegateImageHelp = self;
-//        [self.view addSubview:_helpImageView.view];
-//        [self.view bringSubviewToFront:_helpImageView.view];
-//        [_helpImageView initHelpImageViewInOperationPlayingVC:_aDeviceChannelListData];
-//    }
-//}
 -(void)gotoShowSpltWindow{
     
     NSMutableArray *_splitItems=[[NSMutableArray alloc] initWithCapacity:10];
@@ -544,202 +449,6 @@ bool isShowHelper;
     // [self changeViewWithSave];
     [self sendSelectDate:[NSDate date]];
     
-    
-}
-
-
-
-//-(void)playBackSendPlayVideoData:(NSDate*)date{
-//    
-//    int channleID=[self returnChannelID:self._iSelectedChannelIndex];
-//    //远程回放请求
-//    char pBuf[29] = {0};
-//    NSDateFormatter *formatter =[[[NSDateFormatter alloc] init] autorelease];
-//    
-//    [formatter setTimeStyle:NSDateFormatterMediumStyle];
-//    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-//    // NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
-//    NSInteger unitFlags = NSYearCalendarUnit |
-//    NSMonthCalendarUnit |
-//    NSDayCalendarUnit |
-//    NSWeekdayCalendarUnit |
-//    NSHourCalendarUnit |
-//    NSMinuteCalendarUnit |
-//    NSSecondCalendarUnit;
-//    //int week=0;
-//    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
-//    //int week = [comps weekday];
-//    int year=[comps year];
-//    int month = [comps month];
-//    int day = [comps day];
-//    NSString *dateStr = [[NSString alloc] initWithFormat:@"%04d%02d%02d000000%04d%02d%02d000000",year, month, day,year, month, day];
-//    memset(&pBuf, 0, 29);
-//    sprintf(pBuf, [dateStr UTF8String], 29);
-//    //    JVC_SendData(channleID+1,JVN_CMD_PLAYSTOP,NULL,0);
-//    //    sleep(0.5);
-//	JVC_SendData(channel[channleID].nChannel+1,JVN_REQ_CHECK,pBuf,28);
-//    
-//    //    sleep(0.5);
-//    
-//    [dateStr release];
-//    
-//    
-//}
-
-
-#pragma mark 开启本地录像
--(void)operationPlayVideo:(UIButton*)button{
-    
-    if (button.selected) {
-        
-        /**
-         *  保存录像的回调
-         */
-        ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
-            
-            if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
-
-                    [self unSelectSmallButtonStyle:button];
-                });
-                
-            }else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
-
-                    //   NSLog(@"相册访问失败.");
-                    [self unSelectSmallButtonStyle:button];
-                });
-                
-            }
-            
-        };
-        
-        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
-            
-            NSString *documentPaths = NSTemporaryDirectory();
-            
-            NSString *filePath = [documentPaths stringByAppendingPathComponent:@"LocalValue"];
-            
-            if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
-                [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:nil];
-            }
-            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setDateFormat:@"YYYYMMddHHmmssSSSS"];
-            NSString *videoPath =[NSString stringWithFormat:@"%@/%@.mp4",filePath,[df stringFromDate:[NSDate date]]];
-            [df release];
-            
-            [_strSaveVideoPath  release];
-            _strSaveVideoPath= nil;
-            
-            _strSaveVideoPath = [videoPath retain];
-            
-//            [[ystNetWorkHelper shareystNetWorkHelperobjInstance] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:videoPath];
-            
-        };
-        
-        
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
-        [library enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureblock];
-        
-    }else{
-        
-//        [[ystNetWorkHelper shareystNetWorkHelperobjInstance] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:_strSaveVideoPath];
-        
-        [self saveLocalVideo:_strSaveVideoPath];
-    }
-}
-
-//-(void)smallCaptureTouchDown:(UIButton*)button{
-//
-//    [self selectSmallButtonStyle:button];
-//
-//
-//
-//}
-
--(void)smallCaptureTouchUpInside:(UIButton*)button{
-    
-    //    int ID=[self returnChannelID:self._iSelectedChannelIndex];
-    //
-    //
-    //    if (channel[ID]!=nil) {
-    //
-    //        if(channel[ID].isStandDecoder){
-    //
-    //            if (![self isCheckCurrentSingleViewGlViewHidden]) {
-    //
-    //                channel[ID]._iCapturePic=TRUE;
-    //            }
-    //
-    //        }else if (channel[ID].ImageData!=nil){
-    //
-    //            [self saveLocalChannelPhoto];
-    //
-    //        }
-    //    }
-    
-    
-    /**
-     *  保存照片失败的事件
-     */
-    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
-        
-        
-        if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
-                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
-                
-                // NSLog(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
-            });
-            
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
-
-                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
-                //   NSLog(@"相册访问失败.");
-            });
-            
-        }
-        
-    };
-    
-    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
-        
-        [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].ystNWRODelegate = self;
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
-        
-       // [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
-    };
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
-    [library enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureblock];
-    
-    
-    [library release];
-    
-}
-
--(UIImage*)convertViewToImage:(UIView*)v{
-    
-    
-    
-    UIGraphicsBeginImageContext(v.bounds.size);
-    
-    [v.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return image;
     
 }
 
@@ -900,7 +609,7 @@ bool isShowHelper;
     
     [_managerVideo CancelConnectAllVideoByLocalChannelID];
     
-	for (int i=0; i<CONNECTMAXNUMS; i++) {
+	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:i+1];
 	}
@@ -940,7 +649,7 @@ bool isShowHelper;
     
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
     
-	for (int i=0; i<CONNECTMAXNUMS; i++) {
+	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
         
 //        if (channel[i]!=nil) {
 //            
@@ -1012,7 +721,7 @@ bool isShowHelper;
 
 -(void)channelAllWaitI{
     
-    for (int i=0; i<CONNECTMAXNUMS; i++) {
+    for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
 //        if (channel[i]!=nil) {
 //            channel[i].isWaitIFrame=FALSE;
 //        }
@@ -1043,12 +752,12 @@ bool isShowHelper;
 
 -(int)returnChannelID:(int)windowIndexValue{
     
-    return windowIndexValue%CONNECTMAXNUMS;
+    return windowIndexValue%JVCOPERATIONCONNECTMAXNUMS;
     
 }
 
 -(int)returnChannelPage:(int)windowIndexValue{
-    return windowIndexValue/CONNECTMAXNUMS;
+    return windowIndexValue/JVCOPERATIONCONNECTMAXNUMS;
 }
 - (void)setScrollviewByIndex:(NSInteger)Index
 {
@@ -1714,1873 +1423,8 @@ bool isShowHelper;
     
     
 }
-#pragma mark 远程回放播放视频
--(void)playBackDisplay:(int)selecetedIndex playBackDate:(NSDate*)date{
-    
-//    _iPlayBackVideo=selecetedIndex;
-//    int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//    JVChannel *selectChannel= channel[channelID];
-//    if (!selectChannel) {
-//        return;
-//    }else if(selectChannel){
-//        
-//        NSDateFormatter *formatter =[[[NSDateFormatter alloc] init] autorelease];
-//        [formatter setTimeStyle:NSDateFormatterMediumStyle];
-//        NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-//        //        NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
-//        NSInteger unitFlags = NSYearCalendarUnit |
-//        NSMonthCalendarUnit |
-//        NSDayCalendarUnit |
-//        NSWeekdayCalendarUnit |
-//        NSHourCalendarUnit |
-//        NSMinuteCalendarUnit |
-//        NSSecondCalendarUnit;
-//        //int week=0;
-//        NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
-//        //int week = [comps weekday];
-//        int year=[comps year];
-//        int month = [comps month];
-//        int day = [comps day];
-//        
-//        
-//        NSMutableDictionary *dic = [_playBackVideoDataArray objectAtIndex:selecetedIndex];
-//        //NSLog(@"%@",dic);
-//        char acBuff[50] = {0};
-//        char acChn[3] = {0};
-//        char acTime[10] = {0};
-//        char acDisk[2] = {0};
-//        if (selectChannel.IsStartCode) {
-//            
-//            
-//            if (selectChannel.connectDeviceType==4||selectChannel.connectDeviceType==1) {
-//                sprintf(acChn, "%s",[[dic valueForKey:@"remoteChannel"] UTF8String]);
-//                sprintf(acTime, "%s",[[dic valueForKey:@"date"] UTF8String]);
-//                //                char *diskc  = (char *) [[dic valueForKey:@"disk"] substringFromIndex:4];
-//                //                int a;
-//                //                a=(int)*diskc;
-//                //                sprintf(acDisk, "%s",(a-1)*10);
-//                sprintf(acBuff, "./rec/%02d/%04d%02d%02d/%c%c%c%c%c%c%c%c%c.mp4",acFLBuffer[selecetedIndex*2]-'C',year, month, day,acFLBuffer[selecetedIndex*2+1],acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]);
-//                
-//                
-//            }else if(selectChannel.connectDeviceType==0){
-//                
-//                sprintf(acChn, "%s",[[dic valueForKey:@"remoteChannel"] UTF8String]);
-//                sprintf(acTime, "%s",[[dic valueForKey:@"date"] UTF8String]);
-//                sprintf(acDisk, "%s",[[dic valueForKey:@"disk"] UTF8String]);
-//                sprintf(acBuff, "%c:\\JdvrFile\\%04d%02d%02d\\%c%c%c%c%c%c%c%c.mp4",acDisk[0],year, month, day,acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]
-//                        );
-//                //  NSLog(@"%s",acBuff);
-//            }
-//            
-//            //            else{
-//            //
-//            //
-//            //
-//            //            }
-//            //            sprintf(acBuff, "%c:\\JdvrFile\\%04d%02d%02d\\%c%c%c%c%c%c%c%c.mp4",acDisk[0],year, month, day,acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]
-//            //                    );
-//            //printf("url: %s\n",acBuff);
-//        }else if(selectChannel.connectDeviceType==0){
-//            sprintf(acChn, "%s",[[dic valueForKey:@"remoteChannel"] UTF8String]);
-//            sprintf(acTime, "%s",[[dic valueForKey:@"date"] UTF8String]);
-//            sprintf(acDisk, "%s",[[dic valueForKey:@"disk"] UTF8String]);
-//            sprintf(acBuff, "%c:\\JdvrFile\\%04d%02d%02d\\%c%c%c%c%c%c%c%c.sv4",acDisk[0],year, month, day,acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]
-//                    );
-//            //printf("url: %s\n",acBuff);
-//            
-//        }else if(selectChannel.connectDeviceType==1 ||selectChannel.connectDeviceType==4){
-//            sprintf(acChn, "%s",[[dic valueForKey:@"remoteChannel"] UTF8String]);
-//            sprintf(acTime, "%s",[[dic valueForKey:@"date"] UTF8String]);
-//            sprintf(acBuff, "./rec/%02d/%04d%02d%02d/%c%c%c%c%c%c%c%c%c.sv5",acFLBuffer[2*2]-'C',year, month, day,acFLBuffer[2*2+1],acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]);
-//            printf("url: %s\n",acBuff);
-//        }else if(selectChannel.connectDeviceType==2 ||selectChannel.connectDeviceType==3){
-//            sprintf(acChn, "%s",[[dic valueForKey:@"remoteChannel"] UTF8String]);
-//            sprintf(acTime, "%s",[[dic valueForKey:@"date"] UTF8String]);
-//            sprintf(acDisk, "%s",[[dic valueForKey:@"disk"] UTF8String]);
-//            sprintf(acBuff, "%c:\\JdvrFile\\%04d%02d%02d\\%c%c%c%c%c%c%c%c.sv6",acDisk[0],year, month, day,acChn[0],acChn[1],acTime[0],acTime[1],acTime[3],acTime[4],acTime[6],acTime[7]
-//                    );
-//            //printf("url: %s\n",acBuff);
-//            
-//        }
-//        
-//        JVC_SendData(channelID+1,JVN_CMD_PLAYSTOP,NULL,0);
-//        usleep(50000);
-//        JVC_SendData(channelID+1,JVN_REQ_PLAY,(unsigned char*)acBuff,strlen(acBuff));
-//    }
-}
 
 
-#pragma mark 视频流回调函数
-void deliverDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, int nSize,int nWidth,int nHeight){
-    
-//    if (1==unAllLinkFlag||_isPlayBackVideo||nLocalChannel>CONNECTMAXNUMS) {
-//        return;
-//    }
-//    
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    
-//    if (nSize>0) {
-//        
-//        JVChannel *selectChannel= channel[nLocalChannel-1];
-//        
-//        if (selectChannel==nil) {
-//            
-//            [pool release];
-//            return;
-//        }
-//        
-//        if (uchType==JVN_DATA_I || uchType==JVN_DATA_B || uchType==JVN_DATA_P) {
-//            
-//            if (1==selectChannel.changeDecodeFlag) {
-//                [pool release];
-//                return;
-//            }
-//            
-//            int ver=[[[UIDevice currentDevice] systemVersion] intValue];
-//            
-//            int startCode = 0;
-//            
-//			memcpy(&startCode, pBuffer, 4);
-//            
-//            if (startCode==0x0453564A ||startCode==0x0953564A) {//非准解马流
-//                
-//                unsigned int i_data =*(unsigned int *)(pBuffer+4);
-//                unsigned int uType = i_data & 0xF;
-//                
-//                if (uType>4) {
-//                    [pool release];
-//                    return;
-//                }
-//                
-//                unsigned int nLen = (i_data>>4) & 0xFFFFF;
-//                //等待i针
-//                if (!selectChannel.isWaitIFrame) {
-//                    
-//                    if (uType==JVN_DATA_I) {
-//                        if (selectChannel.bmWidth>0&&selectChannel.bmHeight>0) {
-//                            
-//                            selectChannel.isWaitIFrame=TRUE;
-//                            JVD04_DecodeOpen(selectChannel.bmWidth ,selectChannel.bmHeight,nLocalChannel-1);
-//                            selectChannel.openDecoderFlag=true;
-//                        }else{
-//                            [pool release];
-//                            return;
-//                        }
-//                        
-//                    }else{
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        [pool release];
-//                        return;
-//                    }
-//                }
-//                
-//                if (!selectChannel.openDecoderFlag) {
-//                    [pool release];
-//                    return;
-//                }
-//                selectChannel.UseDecoderFlag=TRUE;
-//                int ret1=JVD04_DecodeOneFrame((unsigned char*)pBuffer+8,imageBuffer[0],nLen, nLocalChannel-1, uType,ver);
-//                selectChannel.UseDecoderFlag=FALSE;
-//                if (ret1==0) {
-//                    
-//                    selectChannel.tryCount=0;
-//                    NSData *d=[NSData dataWithBytes:imageBuffer[0] length:selectChannel.bmWidth*selectChannel.bmHeight*2+66];
-//                    //memset(imageBuffer[0], 0, sizeof(imageBuffer[0]));
-//                    CallBackMsg *m=[[CallBackMsg alloc] init];
-//                    m.channelID=nLocalChannel-1;
-//                    m.param=d;
-//                    [_operationController performSelectorOnMainThread:@selector(refreshImgView:) withObject:m waitUntilDone:YES];
-//                    [m release];
-//                }else{
-//                    
-//                    selectChannel.tryCount++;
-//                    if (selectChannel.tryCount>=TRYCOUNTMAX) {
-//                        selectChannel.changeDecodeFlag=1;
-//                        selectChannel.tryCount=0;
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        if (selectChannel.openDecoderFlag) {
-//                            
-//                            selectChannel.openDecoderFlag=FALSE;
-//                            
-//                            while (TRUE) {
-//                                
-//                                if (!selectChannel.UseDecoderFlag) {
-//                                    
-//                                    if(selectChannel.isStandDecoder){
-//                                        JVD05_DecodeClose(nLocalChannel-1);
-//                                    }
-//                                    break;
-//                                    
-//                                }
-//                                usleep(200);
-//                            }
-//                        }
-//                        selectChannel.tryCount=222;
-//                        
-//                    }
-//                    [pool release];
-//                    return;
-//                }
-//                
-//            }else{
-//                
-//                if (!selectChannel.openDecoderFlag) {
-//                    
-//                    if (selectChannel.bmWidth>0&&selectChannel.bmHeight>0) {
-//                        
-//                        memset(imageBufferY[0], 0, sizeof(imageBufferY[0]));
-//                        memset(imageBufferU[0], 0, sizeof(imageBufferU[0]));
-//                        memset(imageBufferV[0], 0, sizeof(imageBufferV[0]));
-//                        
-//                        JVD05_DecodeOpen(nLocalChannel-1);
-//                        selectChannel.openDecoderFlag=TRUE;
-//                    }
-//                }
-//                
-//                if (!selectChannel.openDecoderFlag) {
-//                    [pool release];
-//                    return;
-//                }
-//                
-//                int  ret=-1;
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    if (!selectChannel.isWaitIFrame) {
-//                        
-//                        if (uchType==JVN_DATA_I) {
-//                            
-//                            selectChannel._iWaitICount--;
-//                            
-//                            if (selectChannel._iWaitICount<=0) {
-//                                
-//                                selectChannel.isWaitIFrame=TRUE;
-//                                
-//                            }else{
-//                                
-//                                [pool release];
-//                                return;
-//                            }
-//                            
-//                        }else{
-//                            
-//                            [pool release];
-//                            return;
-//                            
-//                        }
-//                    }
-//                    
-//                    if ([_operationController isKindOfBufInStartCode:pBuffer]) {
-//                        
-//                        pBuffer=pBuffer+8;
-//                        nSize=nSize-8;
-//                    }
-//                    
-//                    
-//                    if (selectChannel.IsLocalVideo) {
-//                        
-//                        if (!selectChannel.isLocalVideoWaitIFrame) {
-//                            
-//                            if (uchType==JVN_DATA_I) {
-//                                selectChannel.isLocalVideoWaitIFrame=TRUE;
-//                                JP_PackageOneFrame((unsigned char*)pBuffer, nSize, nLocalChannel-1);
-//                                
-//                            }
-//                            
-//                        }else{
-//                            if (uchType!=JVN_DATA_B) {
-//                                JP_PackageOneFrame((unsigned char*)pBuffer, nSize, nLocalChannel-1);
-//                            }else{
-//                                int tempSize = nSize;
-//                                unsigned char pp[tempSize];
-//                                memset(pp, 0, tempSize);
-//                                JP_PackageOneFrame(pp ,nSize, nLocalChannel - 1,0,0);
-//                            }
-//                        }
-//                        
-//                    }
-//                    if (_operationController._isConnectdevcieType) {
-//                        
-//                        if (uchType!=JVN_DATA_I) {
-//                            [pool release];
-//                            return;
-//                        }
-//                    }
-//                    selectChannel.UseDecoderFlag=TRUE;
-//                    
-//                    ret = JVD05_DecodeOneFrame(nLocalChannel-1,nSize,pBuffer,imageBufferY[0],imageBufferU[0],imageBufferV[0],0,ver,0);
-//                    
-//                    if (channel[nLocalChannel-1]._iCapturePic) {
-//                        
-//                        yuv_rgb(nLocalChannel-1,(unsigned int*)(capImageBuffer[0]+66),ver);
-//                        CreateBitmap((unsigned char *)capImageBuffer[0],channel[nLocalChannel-1].bmWidth,channel[nLocalChannel-1].bmHeight,ver);
-//                        NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[nLocalChannel-1].bmWidth*channel[nLocalChannel-1].bmHeight*2+66];
-//                        channel[nLocalChannel-1].ImageData=d;
-//                        [_operationController performSelectorOnMainThread:@selector(saveLocalChannelPhoto) withObject:nil waitUntilDone:NO];
-//                        
-//                    }
-//                    selectChannel.UseDecoderFlag=FALSE;
-//                    
-//                    
-//                    
-//                }
-//                else{
-//                    
-//                    JVS_FRAME_HEADER *jvs_header=(JVS_FRAME_HEADER*)pBuffer;
-//                    
-//                    if (!selectChannel.isWaitIFrame) {
-//                        
-//                        if (jvs_header->nFrameType==JVN_DATA_I) {
-//                            
-//                            if (selectChannel._iWaitICount<=0) {
-//                                
-//                                selectChannel.isWaitIFrame=TRUE;
-//                                
-//                            }else{
-//                                
-//                                selectChannel._iWaitICount--;
-//                                [pool release];
-//                                return;
-//                            }
-//                            
-//                        }else{
-//                            
-//                            [pool release];
-//                            return;
-//                        }
-//                    }
-//                    if (selectChannel.IsLocalVideo) {
-//                        
-//                        if (!selectChannel.isLocalVideoWaitIFrame) {
-//                            
-//                            if (jvs_header->nFrameType==JVN_DATA_I) {
-//                                
-//                                selectChannel.isLocalVideoWaitIFrame=TRUE;
-//                                
-//                                JP_PackageOneFrame((unsigned char*)pBuffer+8, jvs_header->nFrameLens, nLocalChannel-1);
-//                            }
-//                            
-//                        }else{
-//                            
-//                            if (jvs_header->nFrameType!=JVN_DATA_B) {
-//                                
-//                                JP_PackageOneFrame((unsigned char*)pBuffer+8, jvs_header->nFrameLens, nLocalChannel-1);
-//                                
-//                            }else{
-//                                int tempSize = nSize;
-//                                unsigned char pp[tempSize];
-//                                memset(pp, 0, tempSize);
-//                                JP_PackageOneFrame(pp ,nSize, nLocalChannel - 1,0,0);
-//                            }
-//                        }
-//                        
-//                    }
-//                    if (_operationController._isConnectdevcieType) {
-//                        
-//                        if (jvs_header->nFrameType!=JVN_DATA_I) {
-//                            [pool release];
-//                            return;
-//                        }
-//                    }
-//                    
-//                    selectChannel.UseDecoderFlag=TRUE;
-//                    
-//                    ret = JVD05_DecodeOneFrame(nLocalChannel-1,jvs_header->nFrameLens,pBuffer+8,imageBufferY[0],imageBufferU[0],imageBufferV[0],0,ver,0);
-//                    if (channel[nLocalChannel-1]._iCapturePic) {
-//                        
-//                        yuv_rgb(nLocalChannel-1,(unsigned int*)(capImageBuffer[0]+66),ver);
-//                        CreateBitmap((unsigned char *)capImageBuffer[0],channel[nLocalChannel-1].bmWidth,channel[nLocalChannel-1].bmHeight,ver);
-//                        NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[nLocalChannel-1].bmWidth*channel[nLocalChannel-1].bmHeight*2+66];
-//                        channel[nLocalChannel-1].ImageData=d;
-//                        [_operationController performSelectorOnMainThread:@selector(saveLocalChannelPhoto) withObject:nil waitUntilDone:NO];
-//                        
-//                    }
-//                    selectChannel.UseDecoderFlag=FALSE;
-//                    
-//                }
-//                if (ret==0) {
-//                    
-//                    selectChannel.tryCount=0;
-//                    
-//                    CallBackMsg *m=[[CallBackMsg alloc] init];
-//                    m.channelID=nLocalChannel-1;
-//                    
-//                    
-//                    [_operationController performSelectorOnMainThread:@selector(openglRefresh:) withObject:m waitUntilDone:YES];
-//                    [m release];
-//                    
-//                    
-//                }else{
-//                    
-//                    selectChannel.tryCount++;
-//                    if (selectChannel.tryCount>=TRYCOUNTMAX) {
-//                        selectChannel.changeDecodeFlag=1;
-//                        selectChannel.tryCount=0;
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        if (selectChannel.openDecoderFlag) {
-//                            
-//                            selectChannel.openDecoderFlag=FALSE;
-//                            
-//                            while (TRUE) {
-//                                
-//                                if (!selectChannel.UseDecoderFlag) {
-//                                    
-//                                    if(selectChannel.isStandDecoder){
-//                                        JVD05_DecodeClose(nLocalChannel-1);
-//                                    }
-//                                    
-//                                    break;
-//                                    
-//                                }
-//                                usleep(200);
-//                            }
-//                        }
-//                        selectChannel.tryCount=222;
-//                        [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel]];
-//                    }
-//                    
-//                    
-//                }
-//            }
-//			
-//        } else if(uchType==JVN_DATA_O){
-//            
-//            
-//            if (pBuffer[0]!=0) {
-//                
-//                [pool release];
-//                return;
-//            }
-//            
-//            
-//            if ([_operationController IsFILE_HEADER_EX:pBuffer dwSize:nSize]) {
-//                
-//                
-//                JVS_FILE_HEADER_EX *fileHeader;
-//                fileHeader = malloc(sizeof(JVS_FILE_HEADER_EX));
-//                memset(fileHeader, 0, sizeof(JVS_FILE_HEADER_EX));
-//                memcpy(fileHeader, pBuffer+2, sizeof(JVS_FILE_HEADER_EX));
-//                
-//                selectChannel._dPlayVideoframeFrate = ((double)fileHeader->wFrameRateNum)/((double)fileHeader->wFrameRateDen);
-//                selectChannel._iAudioType=fileHeader->wAudioCodecID;
-//                
-//                free(fileHeader);
-//                
-//            }
-//            int startCode = 0;
-//            int width = 0;
-//            int height = 0;
-//            
-//            memcpy(&startCode, pBuffer+2, 4);
-//            memcpy(&width, pBuffer+6, 4);
-//            memcpy(&height, pBuffer+10, 4);
-//            
-//            if (startCode==JVN_NVR_STARTCODE) {
-//                
-//                memcpy(&startCode, pBuffer+26, 4);
-//            }
-//            selectChannel.connectDeviceType = 0; //软卡
-//            if (startCode==0x0553564A||startCode==0x0553564A) {//判断是dvr
-//                selectChannel.connectDeviceType = 1;//DVR
-//            }else if(startCode==0x0753564A){//判断951
-//                selectChannel.connectDeviceType = 3; //硬卡
-//            }else if(startCode==0x0653564A){//判断950
-//                selectChannel.connectDeviceType = 2; //硬卡
-//            }else if(startCode==0x1053564A ||startCode==0x1153564A){  //IPC
-//                selectChannel.connectDeviceType = 4;
-//            }
-//            selectChannel.connectStartCode=startCode;
-//            
-//            // NSLog(@"init with o zhen");
-//            if (selectChannel.connectStartCode==JVN_DSC_960CARD) {
-//                
-//                if (![_operationController IsFILE_HEADER_EX:pBuffer dwSize:nSize]){
-//                    
-//                    int version = 0;
-//                    int frameType =0;
-//                    int frameRate = 0;
-//                    memcpy(&version, pBuffer+34, 1);
-//                    memcpy(&frameType, pBuffer+35, 1);
-//                    memcpy(&frameRate, pBuffer+36, 4);
-//                    selectChannel._dPlayVideoframeFrate = (double)frameRate/10000;
-//                    
-//                }
-//                
-//            }
-//            
-//            //[NSThread detachNewThreadSelector:@selector(getFrameRateInfo:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel-1]];
-//            if (startCode==0x0453564A ||startCode==0x0953563A) {
-//                
-//                if (selectChannel.bmWidth!=width||selectChannel.bmHeight!=height) {
-//                    selectChannel.bmWidth=width;
-//                    selectChannel.bmHeight=height;
-//                    selectChannel.isWaitIFrame=FALSE;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel.iFrameCount=0;
-//                    selectChannel.isStandDecoder=FALSE;
-//                    selectChannel.changeDecodeFlag=1;
-//                    if (selectChannel.openDecoderFlag) {
-//                        selectChannel.openDecoderFlag=FALSE;
-//                        while (TRUE) {
-//                            
-//                            if (!selectChannel.UseDecoderFlag) {
-//                                
-//                                if(!selectChannel.isStandDecoder){
-//                                    JVD04_DecodeClose(nLocalChannel-1);
-//                                }
-//                                break;
-//                                
-//                            }
-//                            usleep(200);
-//                        }
-//                        selectChannel.changeDecodeFlag=0;
-//                    }else{
-//                        selectChannel.changeDecodeFlag=0;
-//                    }
-//                }
-//                
-//            }else if(0x564a0000==startCode||width>1280||height>720){
-//                
-//                [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel]];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    [OperationSet showText:NSLocalizedString(@"Not_720p", nil) andPraent:_operationController andTime:1.0 andYset:120.0];
-//                    
-//                    
-//                });
-//                [pool release];
-//                return;
-//                
-//            }else{
-//                
-//                
-//                if (selectChannel.bmWidth!=width||selectChannel.bmHeight!=height) {
-//                    
-//                    if (startCode==JVN_DSC_960CARD) {
-//                        
-//                        selectChannel.IsStartCode=YES;
-//                    }else{
-//                        selectChannel.IsStartCode=NO; ///
-//                    }
-//                    
-//                    if ([_operationController IsFILE_HEADER_EX:pBuffer dwSize:nSize]) {
-//                        
-//                        selectChannel.IsStartCode=YES;
-//                        
-//                        
-//                    }
-//                    
-//                    selectChannel.bmWidth=width;
-//                    selectChannel.bmHeight=height;
-//                    selectChannel.iFrameCount=0;
-//                    selectChannel.isStandDecoder=YES;
-//                    selectChannel.isWaitIFrame=FALSE;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel.changeDecodeFlag=1;
-//                    
-//                    if (selectChannel.openDecoderFlag) {
-//                        
-//                        selectChannel._iWaitICount=WAITIMAXCOUNT;
-//                        
-//                        selectChannel.openDecoderFlag=FALSE;
-//                        while (TRUE) {
-//                            
-//                            if (!selectChannel.UseDecoderFlag) {
-//                                
-//                                if(selectChannel.isStandDecoder){
-//                                    JVD05_DecodeClose(nLocalChannel-1);
-//                                }
-//                                break;
-//                            }
-//                            usleep(200);
-//                        }
-//                        selectChannel.changeDecodeFlag=0;
-//                    }else{
-//                        selectChannel.changeDecodeFlag=0;
-//                    }
-//                    
-//                    if (selectChannel.IsLocalVideo) {
-//                        
-//                        
-//                        
-//                        [_operationController performSelectorOnMainThread:@selector(operationPlayVideo:) withObject:_bSmallVideoBtn waitUntilDone:YES];
-//                        [_operationController performSelectorOnMainThread:@selector(operationPlayVideo:) withObject:_bSmallVideoBtn waitUntilDone:YES];
-//                    }
-//                    
-//                }
-//                
-//            }
-//        }else if(uchType==JVN_DATA_A){
-//            
-//            //--------------------播放声音方法
-//            if (!_operationController._issound) {
-//                [pool release];
-//                return;
-//            }
-//            
-//            if (selectChannel.connectDeviceType==2||selectChannel.connectDeviceType==3||selectChannel.connectDeviceType==0) {
-//                
-//                if(selectChannel.IsStartCode) {
-//                    
-//                    unsigned char *audioPcmBuf = NULL;
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 320);
-//                    
-//                    
-//                    JAD_DecodeOneFrame(0, pBuffer+21,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf+320, audioPcmBuf, 320);
-//                    [_openALBufferSound openAudioFromQueue:(short*)(ppszPCMBuf) dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                }else{
-//                    
-//                    if (nSize>3) {
-//                        
-//                        if ([_operationController isKindOfBufInStartCode:pBuffer]) {
-//                            
-//                            int startCode = 0;
-//                            memcpy(&startCode, pBuffer, 4);
-//                            
-//                            if (startCode==JVN_DSC_9800CARD) {
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:YES];
-//                                
-//                            }else if(startCode==JVSC951_STARTCOODE){
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                                
-//                            }else{
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                            }
-//                            
-//                        }
-//                        
-//                        
-//                    }
-//                    
-//                }
-//                
-//                
-//            }else if (selectChannel.connectDeviceType==1){
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    unsigned char *audioPcmBuf = NULL;
-//                    
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                    [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                    
-//                }else{
-//                    
-//                    [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                }
-//            }else if (selectChannel.connectDeviceType==4){
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    if ([_operationController isKindOfBufInStartCode:pBuffer]) {
-//                        
-//                        pBuffer=pBuffer+8;
-//                    }
-//                    unsigned char *audioPcmBuf = NULL;
-//                    
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                    [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                }
-//                
-//            }
-//            
-//        }else if(uchType==JVN_RSP_PLAYE||uchType==JVN_RSP_PLAYOVER||uchType==JVN_RSP_PLTIMEOUT){//文件回放失败
-//            [channel[nLocalChannel-1] operationZKVideo:JVN_CMD_VIDEO];
-//            
-//        }
-//    }else {
-//        
-//        if (channel[nLocalChannel-1].tryCount>=TRYCOUNTMAX) {
-//            channel[nLocalChannel-1].tryCount++;
-//            
-//            if (channel[nLocalChannel-1].tryCount>=TRYMAXCOUNT) {
-//                channel[nLocalChannel-1].tryCount=-1;
-//                [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel]];
-//            }
-//        }
-//    }
-//    
-//	[pool release];
-    
-}
-
-#pragma mark 文本回调函数
-void textDeliverDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, int nSize){
-    
-    
-//    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-//    PAC stpacket={0};
-//	if(nSize)//nSize有为0的情况，所以有数据才拷贝数据,lck20120301
-//	{
-//		memset(&stpacket, 0, sizeof(PAC));
-//		memcpy(&stpacket, pBuffer, nSize);
-//	}
-//    
-//    switch(uchType)
-//    {
-//        case JVN_REQ_TEXT:
-//            
-//            break;
-//        case JVN_RSP_TEXTACCEPT:
-//            
-//            [NSThread detachNewThreadSelector:@selector(requestDeviceRemoteData:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel-1]];
-//            break;
-//        case JVN_CMD_TEXTSTOP:
-//            
-//            
-//            break;
-//        case JVN_RSP_TEXTDATA:
-//        {
-//            
-//            memcpy(&stpacket, pBuffer, nSize);
-//            UInt32 n=0;
-//            memcpy(&n, stpacket.acData, 4);
-//            
-//            
-//            char name[32], para[128], *P = stpacket.acData+n;
-//            
-//            
-//            
-//            if (stpacket.nPacketType==5) {
-//                
-//                switch (stpacket.nPacketID) {
-//                        
-//                    case 2:{
-//                        P = stpacket.acData+n;
-//                        while (true) {
-//                            if(sscanf(P, "%[^=]=%[^;];", name, para))
-//                            {
-//                                
-//                                P = strchr(P, ';');
-//                                if(P==NULL)
-//                                    break;
-//                                NSString *keyName=[NSString stringWithFormat:@"%s",name];
-//                                if ([keyName isEqualToString:FRAMEQOS]) {
-//                                    
-//                                    break;
-//                                }
-//                                
-//                                P++;
-//                            }
-//                            else
-//                                break;
-//                        }
-//                        
-//                        break;
-//                        
-//                    }
-//                        
-//                        
-//                    default:
-//                        break;
-//                }
-//                
-//            }
-//            
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//    [pool release];
-//    
-    
-    
-    
-}
-
-#pragma mark 连接回调函数
-void deliverMessageCallBack(int nLocalChannel, unsigned char  uchType, char *pMsg){
-    
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    CallBackMsg *_msg=[[CallBackMsg alloc] init];
-//    _msg.type=uchType;
-//    _msg.channelID=nLocalChannel;
-//    
-//    if (pMsg==NULL||pMsg==nil) {
-//        pMsg="";
-//    }
-//    
-//    _msg.param=[NSData dataWithBytes:pMsg length:strlen(pMsg)];
-//    
-//    DDLogCVerbose(@"%s---%s",__FUNCTION__,pMsg);
-//    
-//    [_operationController performSelectorOnMainThread:@selector(refreshManageMessage:) withObject:_msg waitUntilDone:YES];
-//    
-//    [_msg release];
-//    [pool release];
-    
-}
-
-#pragma mark 语音对讲回调
-void remoteChatDataCallBack(int nLocalChannel, unsigned char uchType, unsigned char *pBuffer, int nSize){
-    
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    if (nLocalChannel>CONNECTMAXNUMS) {
-//        return;
-//    }
-//    
-//    JVChannel *selectChannel= channel[nLocalChannel-1];
-//    if (!selectChannel)
-//        return;
-//	switch(uchType)
-//	{
-//        case JVN_REQ_CHAT://"收到主控语音请求"
-//            //((CJDCSDlg *)g_pMainWnd)->PostMessage(WM_SHOWCHATDLG, JVN_REQ_CHAT,nLocalChannel);
-//            printf("");
-//            break;
-//        case JVN_RSP_CHATACCEPT://"对方接受语音请求"
-//            
-//            if(_operationController._isTalk){
-//                
-//                return;
-//            }
-//            printf("receive remote accept uchtype: %d nSize: %d\n",uchType,nSize);
-//            
-//            if (_operationController._issound) {
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    //                    if (_managerVideo.imageViewNums>1) {
-//                    //                        _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
-//                    //                        _managerVideo.imageViewNums=1;
-//                    //                        [_managerVideo changeContenView];
-//                    //                    }
-//                    
-//                    if (!iPhone5) {
-//                        
-//                        [_operationController unSelectBigButtonStyle:_bSoundBtn];
-//                        
-//                    }else{
-//                        
-//                        //                        operationBigView._isPlaySound=FALSE;
-//                        //
-//                        //                        [operationBigView.tableView reloadData];
-//                    }
-//                    
-//                    
-//                });
-//                _operationController._issound=FALSE;
-//                
-//                while (TRUE) {
-//                    
-//                    if (channel[nLocalChannel]._isUseDecodeSound) {
-//                        
-//                        if (!channel[nLocalChannel]._isStartingSound) {
-//                            
-//                            JAD_DecodeClose(0);
-//                            channel[nLocalChannel]._isUseDecodeSound = FALSE;
-//                            break;
-//                        }
-//                        usleep(200);
-//                        //printf("accept here");
-//                    }else{
-//                        break;
-//                    }
-//                }
-//                
-//                [_openALBufferSound stopSound];
-//                [_openALBufferSound cleanUpOpenALMath];
-//                [_openALBufferSound initOpenAL];
-//                
-//                
-//            }else{
-//                
-//                [_openALBufferSound initOpenAL];
-//                if (selectChannel.connectDeviceType==1||selectChannel.connectDeviceType==4) {
-//                    
-//                    if (selectChannel.IsStartCode) {
-//                        selectChannel._isUseDecodeSound=TRUE;
-//                        JAD_DecodeOpen(0,selectChannel._iAudioType);
-//                    }
-//                    
-//                }else{
-//                    
-//                    if (selectChannel.IsStartCode) {
-//                        selectChannel._isUseDecodeSound=TRUE;
-//                        JAD_DecodeOpen(0,1);
-//                    }
-//                }
-//                
-//                
-//            }
-//            [_operationController performSelectorOnMainThread:@selector(selectSmallButtonStyle:) withObject:_bSmallTalkBtn waitUntilDone:NO];
-//            _operationController._isTalk=true;
-//            
-//            if (selectChannel.connectDeviceType==2||selectChannel.connectDeviceType==3||selectChannel.connectDeviceType==0) {
-//                
-//                [_audioRecordControler record:960 mChannelBit:16];
-//                
-//            }else if(selectChannel.connectDeviceType==1){
-//                
-//                if (selectChannel.IsStartCode) {
-//                    [_audioRecordControler record:640 mChannelBit:16];
-//                }else{
-//                    [_audioRecordControler record:320 mChannelBit:8 ];
-//                }
-//                
-//            } else if (4==selectChannel.connectDeviceType) {
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    [_audioRecordControler record:640 mChannelBit:16];
-//                }
-//                
-//            }
-//            
-//            break;
-//        case JVN_CMD_CHATSTOP://"终止语音"
-//            
-//            if (_operationController._isTalk) {
-//                
-//                _operationController._isTalk=FALSE;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    
-//                    [_operationController unSelectSmallButtonStyle:_bSmallTalkBtn];
-//                    
-//                    
-//                });
-//                printf("receive remote stop uchtype: %d nSize: %d\n",uchType,nSize);
-//                
-//                while (TRUE) {
-//                    
-//                    if (channel[nLocalChannel]._isUseDecodeSound) {
-//                        
-//                        if (!channel[nLocalChannel]._isStartingSound) {
-//                            
-//                            JAD_DecodeClose(0);
-//                            channel[nLocalChannel]._isUseDecodeSound = FALSE;
-//                            break;
-//                        }
-//                        usleep(200);
-//                    }else{
-//                        break;
-//                    }
-//                }
-//                
-//                [_openALBufferSound stopSound];
-//                [_openALBufferSound cleanUpOpenALMath];
-//                
-//            }
-//            
-//            //            else{
-//            //
-//            //
-//            //                 [_operationController performSelectorOnMainThread:@selector(showAlert:) withObject:LOCALANGER(@"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP") waitUntilDone:NO];
-//            //
-//            //            }
-//            
-//            break;
-//        case JVN_RSP_CHATDATA:
-//            
-//            if (!_operationController._isTalk) {
-//                return;
-//            }
-//            
-//            if (selectChannel.connectDeviceType==2||selectChannel.connectDeviceType==3||selectChannel.connectDeviceType==0) {
-//                
-//                int outLen;
-//                outLen = sizeof(m_cOut);
-//                
-//                DecodeAudioData(pBuffer+16,nSize-16,m_cOut,&outLen);
-//                
-//                for (int i=0; i<3; i++) {
-//                    
-//                    [_openALBufferSound openAudioFromQueue:(short*)(m_cOut+i*320) dataSize:outLen/3 monoValue:YES];
-//                }
-//                
-//            }else if (selectChannel.connectDeviceType==1){
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    unsigned char *audioPcmBuf = NULL;
-//                    
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                    [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                }else{
-//                    
-//                    [_openALBufferSound openAudioFromQueue:(short*)(pBuffer) dataSize:nSize monoValue:NO];
-//                }
-//            }else if (selectChannel.connectDeviceType==4&&selectChannel.IsStartCode){
-//                
-//                unsigned char *audioPcmBuf = NULL;
-//                selectChannel._isStartingSound=YES;
-//                JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                selectChannel._isStartingSound=FALSE;
-//            }
-//            
-//            break;
-//        default:
-//            break;
-//	}
-    
-}
-
-#pragma mark 远程回放检索回调
-void CheckResultCallBack(int nLocalChannel,unsigned char *pBuffer, int nSize){
-    
-    
-//    if (nLocalChannel>CONNECTMAXNUMS) {
-//        return;
-//    }
-//    [[_operationController _playBackVideoDataArray ] removeAllObjects];
-//    char *acData  = (char*)malloc(nSize);
-//    memcpy(acData, pBuffer, nSize);
-//    if (nSize == 0) {
-//        free(acData);
-//        [_operationController performSelectorOnMainThread:@selector(gotoPlayBackView) withObject:nil waitUntilDone:NO];
-//        return;
-//    }
-//    
-//    char acBuff[12] = {0};
-//    JVChannel *selectChannel= channel[nLocalChannel-1];
-//    
-//    if (!selectChannel) {
-//        
-//        free(acData);
-//        return;
-//        
-//    }else{
-//        
-//        if (selectChannel.connectDeviceType==0) {
-//            
-//            for (int i=0; i<=nSize-7; i+=7) {
-//                
-//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//                sprintf(acBuff,"%02d",selectChannel.remoteChannel);
-//                NSString *str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"remoteChannel"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%c%c:%c%c:%c%c",acData[i+1],acData[i+2],acData[i+3],acData[i+4],acData[i+5],acData[i+6]);
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"date"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%c",acData[i]);
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                
-//                [dic setValue:str forKey:@"disk"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                [[_operationController _playBackVideoDataArray ]  addObject:dic];
-//                [dic release];
-//                
-//            }
-//            
-//            
-//        }else if(selectChannel.connectDeviceType == 1 || selectChannel.connectDeviceType == 4){
-//            int nIndex = 0;
-//            memset(acFLBuffer,0,sizeof(acFLBuffer));
-//            for (int i = 0; i<=nSize-10; i+=10) {
-//                acFLBuffer[nIndex++] = acData[i];//录像所在盘
-//                acFLBuffer[nIndex++] = acData[i+7];//录像类型
-//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//                sprintf(acBuff,"%c%c",acData[i+8],acData[i+9]);//通道号
-//                NSString *str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"remoteChannel"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%c%c:%c%c:%c%c",acData[i+1],acData[i+2],acData[i+3],acData[i+4],acData[i+5],acData[i+6]);//日期
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"date"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%s%d","disk",(acData[i]-'C')/10+1);//盘符
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"disk"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                [[_operationController _playBackVideoDataArray ]  addObject:dic];
-//                
-//                [dic release];
-//            }
-//        }else if(selectChannel.connectDeviceType == 2 || selectChannel.connectDeviceType == 3){
-//            
-//            for (int i=0; i<=nSize-7; i+=7) {
-//                
-//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//                sprintf(acBuff,"%02d",selectChannel.remoteChannel);
-//                NSString *str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"remoteChannel"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%c%c:%c%c:%c%c",acData[i+1],acData[i+2],acData[i+3],acData[i+4],acData[i+5],acData[i+6]);
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"date"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                
-//                sprintf(acBuff,"%c",acData[i]);
-//                str = [[NSString alloc] initWithUTF8String:acBuff];
-//                [dic setValue:str forKey:@"disk"];
-//                [str release];
-//                memset(acBuff, 0, sizeof(acBuff));
-//                [[_operationController _playBackVideoDataArray ]  addObject:dic];
-//                [dic release];
-//                
-//            }
-//            
-//        }
-//    }
-//    
-//    free(acData);
-//    
-//    [_operationController performSelectorOnMainThread:@selector(gotoPlayBackView) withObject:nil waitUntilDone:NO];
-}
-
-
-#pragma mark 远程回放
-void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned char *pBuffer, int nSize, int nWidth, int nHeight, int nTotalFrame){
-//    
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    
-//    if (nSize>0) {
-//        
-//        JVChannel *selectChannel= channel[nLocalChannel-1];
-//        
-//        if (selectChannel==nil) {
-//            
-//            [pool release];
-//            return;
-//        }
-//        
-//        if (uchType==JVN_DATA_I || uchType==JVN_DATA_B || uchType==JVN_DATA_P) {
-//            
-//            JVS_FRAME_HEADER *jvs_header=(JVS_FRAME_HEADER*)pBuffer;
-//            //NSLog(@"type=%d,ch=%d,nlen=%d,bufferSize=%d",uchType,nLocalChannel,nSize,jvs_header->nFrameLens);
-//            if (1==selectChannel.changeDecodeFlag||!_isPlayBackVideo) {
-//                [pool release];
-//                return;
-//            }
-//            
-//            int ver=[[[UIDevice currentDevice] systemVersion] intValue];
-//            int startCode = 0;
-//            
-//			memcpy(&startCode, pBuffer, 4);
-//            
-//            if (startCode==0x0453564A ||startCode==0x0953564A) {//非准解马流
-//                
-//                unsigned int i_data =*(unsigned int *)(pBuffer+4);
-//                unsigned int uType = i_data & 0xF;
-//                if (uType>4) {
-//                    [pool release];
-//                    return;
-//                }
-//                unsigned int nLen = (i_data>>4) & 0xFFFFF;
-//                //等待i针
-//                if (!selectChannel.isWaitIFrame) {
-//                    
-//                    if (uType==JVN_DATA_I) {
-//                        
-//                        if (selectChannel.bmPlayVideoWidth>0&&selectChannel.bmPlayVideoHeight>0) {
-//                            
-//                            selectChannel.isWaitIFrame=TRUE;
-//                            JVD04_DecodeOpen(selectChannel.bmPlayVideoWidth ,selectChannel.bmPlayVideoHeight,nLocalChannel-1);
-//                            selectChannel.openDecoderFlag=true;
-//                            
-//                        }else{
-//                            
-//                            [pool release];
-//                            return;
-//                        }
-//                        
-//                    }else{
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        [pool release];
-//                        return;
-//                    }
-//                }
-//                if (!selectChannel.openDecoderFlag) {
-//                    
-//                    [pool release];
-//                    return;
-//                }
-//                selectChannel.UseDecoderFlag=TRUE;
-//                int ret1=JVD04_DecodeOneFrame((unsigned char*)pBuffer+8,imageBuffer[0],nLen, nLocalChannel-1, uType,ver);
-//                selectChannel.UseDecoderFlag=FALSE;
-//                if (ret1==0) {
-//                    
-//                    selectChannel.tryCount=0;
-//                    NSData *d=[NSData dataWithBytes:imageBuffer[0] length:selectChannel.bmPlayVideoWidth*selectChannel.bmPlayVideoHeight*2+66];
-//                    CallBackMsg *m=[[CallBackMsg alloc] init];
-//                    m.channelID=nLocalChannel-1;
-//                    m.param=d;
-//                    [_operationController performSelectorOnMainThread:@selector(refreshImgView:) withObject:m waitUntilDone:YES];
-//                    [m release];
-//                }else{
-//                    
-//                    selectChannel.tryCount++;
-//                    if (selectChannel.tryCount>=TRYCOUNTMAX) {
-//                        selectChannel.changeDecodeFlag=1;
-//                        selectChannel.tryCount=0;
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        if (selectChannel.openDecoderFlag) {
-//                            
-//                            selectChannel.openDecoderFlag=FALSE;
-//                            while (TRUE) {
-//                                
-//                                if (!selectChannel.UseDecoderFlag) {
-//                                    
-//                                    if(selectChannel.isStandDecoder){
-//                                        JVD05_DecodeClose(nLocalChannel-1);
-//                                    }
-//                                    break;
-//                                    
-//                                }
-//                                usleep(200);
-//                            }
-//                        }
-//                        selectChannel.tryCount=222;
-//                        CallBackMsg *m=[[CallBackMsg alloc] init];
-//                        m.channelID=nLocalChannel-1;
-//                        [_operationController performSelectorOnMainThread:@selector(disConnectSocket:) withObject:m waitUntilDone:YES];
-//                        [m release];
-//                    }
-//                    [pool release];
-//                    return;
-//                    
-//                    
-//                }
-//                
-//            }else{
-//                
-//                if (!selectChannel.openDecoderFlag) {
-//                    
-//                    if (selectChannel.bmPlayVideoWidth>0&&selectChannel.bmPlayVideoHeight>0) {
-//                        
-//                        memset(imageBufferY[0], 0, sizeof(imageBufferY[0]));
-//                        memset(imageBufferU[0], 0, sizeof(imageBufferU[0]));
-//                        memset(imageBufferV[0], 0, sizeof(imageBufferV[0]));
-//                        JVD05_DecodeOpen(nLocalChannel-1);
-//                        selectChannel.openDecoderFlag=TRUE;
-//                    }
-//                }
-//                if (!selectChannel.openDecoderFlag) {
-//                    [pool release];
-//                    return;
-//                }
-//                int  ret=-1;
-//                
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    if (!selectChannel.isWaitIFrame) {
-//                        
-//                        if (uchType==JVN_DATA_I) {
-//                            
-//                            selectChannel.isWaitIFrame=TRUE;
-//                            
-//                        }else{
-//                            
-//                            selectChannel.isWaitIFrame=FALSE;
-//                            selectChannel.UseDecoderFlag=FALSE;
-//                            [pool release];
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if (selectChannel.IsLocalVideo) {
-//                        
-//                        if (!selectChannel.isLocalVideoWaitIFrame) {
-//                            
-//                            if (uchType==JVN_DATA_I) {
-//                                
-//                                selectChannel.isLocalVideoWaitIFrame=TRUE;
-//                                JP_PackageOneFrame((unsigned char*)pBuffer, nSize, nLocalChannel-1);
-//                                
-//                            }
-//                            
-//                        }else{
-//                            
-//                            if (uchType!=JVN_DATA_B) {
-//                                
-//                                JP_PackageOneFrame((unsigned char*)pBuffer, nSize, nLocalChannel-1);
-//                            }else{
-//                                int tempSize = nSize;
-//                                unsigned char pp[tempSize];
-//                                memset(pp, 0, tempSize);
-//                                JP_PackageOneFrame(pp ,nSize, nLocalChannel-1,0,0);
-//                            }
-//                        }
-//                        
-//                    }
-//                    
-//                    selectChannel.UseDecoderFlag=TRUE;
-//                    
-//                    ret = JVD05_DecodeOneFrame(nLocalChannel-1,nSize,pBuffer,imageBufferY[0],imageBufferU[0],imageBufferV[0],0,ver,0);
-//                    if (channel[nLocalChannel-1]._iCapturePic) {
-//                        
-//                        yuv_rgb(nLocalChannel-1,(unsigned int*)(capImageBuffer[0]+66),ver);
-//                        CreateBitmap((unsigned char *)capImageBuffer[0],channel[nLocalChannel-1].bmPlayVideoWidth,channel[nLocalChannel-1].bmPlayVideoHeight,ver);
-//                        NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[nLocalChannel-1].bmPlayVideoWidth*channel[nLocalChannel-1].bmPlayVideoHeight*2+66];
-//                        channel[nLocalChannel-1].ImageData=d;
-//                        [_operationController performSelectorOnMainThread:@selector(saveLocalChannelPhoto) withObject:nil waitUntilDone:NO];
-//                        
-//                    }
-//                    
-//                    selectChannel.UseDecoderFlag=FALSE;
-//                }
-//                else{
-//                    
-//                    JVS_FRAME_HEADER *jvs_header=(JVS_FRAME_HEADER*)pBuffer;
-//                    if (!selectChannel.isWaitIFrame) {
-//                        
-//                        if (jvs_header->nFrameType==JVN_DATA_I) {
-//                            
-//                            selectChannel.isWaitIFrame=TRUE;
-//                        }else{
-//                            selectChannel.UseDecoderFlag=FALSE;
-//                            selectChannel.isWaitIFrame=FALSE;
-//                            [pool release];
-//                            return;
-//                        }
-//                    }
-//                    
-//                    if (selectChannel.IsLocalVideo) {
-//                        
-//                        if (!selectChannel.isLocalVideoWaitIFrame) {
-//                            
-//                            if (jvs_header->nFrameType==JVN_DATA_I) {
-//                                
-//                                selectChannel.isLocalVideoWaitIFrame=TRUE;
-//                                
-//                                JP_PackageOneFrame((unsigned char*)pBuffer+8, jvs_header->nFrameLens, nLocalChannel-1);
-//                            }
-//                            
-//                        }else{
-//                            
-//                            if (jvs_header->nFrameType!=JVN_DATA_B) {
-//                                
-//                                JP_PackageOneFrame((unsigned char*)pBuffer+8, jvs_header->nFrameLens, nLocalChannel-1);
-//                                
-//                            }else{
-//                                
-//                                int tempSize = nSize;
-//                                unsigned char pp[tempSize];
-//                                memset(pp, 0, tempSize);
-//                                JP_PackageOneFrame(pp ,nSize, nLocalChannel - 1,0,0);
-//                                
-//                                
-//                            }
-//                        }
-//                        
-//                    }
-//                    
-//                    selectChannel.UseDecoderFlag=TRUE;
-//                    
-//                    ret = JVD05_DecodeOneFrame(nLocalChannel-1,jvs_header->nFrameLens,pBuffer+8,imageBufferY[0],imageBufferU[0],imageBufferV[0],0,ver,0);
-//                    if (channel[nLocalChannel-1]._iCapturePic) {
-//                        
-//                        yuv_rgb(nLocalChannel-1,(unsigned int*)(capImageBuffer[0]+66),ver);
-//                        CreateBitmap((unsigned char *)capImageBuffer[0],channel[nLocalChannel-1].bmPlayVideoWidth,channel[nLocalChannel-1].bmPlayVideoHeight,ver);
-//                        NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[nLocalChannel-1].bmPlayVideoWidth*channel[nLocalChannel-1].bmPlayVideoHeight*2+66];
-//                        channel[nLocalChannel-1].ImageData=d;
-//                        [_operationController performSelectorOnMainThread:@selector(saveLocalChannelPhoto) withObject:nil waitUntilDone:NO];
-//                        
-//                    }
-//                    
-//                    selectChannel.UseDecoderFlag=FALSE;
-//                }
-//                if (ret==0) {
-//                    selectChannel.tryCount=0;
-//                    
-//                    CallBackMsg *m=[[CallBackMsg alloc] init];
-//                    m.channelID=nLocalChannel-1;
-//                    
-//                    
-//                    [_operationController performSelectorOnMainThread:@selector(openglPlayBackRefresh:) withObject:m waitUntilDone:YES];
-//                    [m release];
-//                    
-//                }else{
-//                    
-//                    selectChannel.tryCount++;
-//                    if (selectChannel.tryCount>=TRYCOUNTMAX) {
-//                        selectChannel.changeDecodeFlag=1;
-//                        selectChannel.tryCount=0;
-//                        selectChannel.isWaitIFrame=FALSE;
-//                        if (selectChannel.openDecoderFlag) {
-//                            
-//                            selectChannel.openDecoderFlag=FALSE;
-//                            while (TRUE) {
-//                                
-//                                if (!selectChannel.UseDecoderFlag) {
-//                                    
-//                                    if(selectChannel.isStandDecoder){
-//                                        JVD05_DecodeClose(nLocalChannel-1);
-//                                    }
-//                                    break;
-//                                    
-//                                }
-//                                usleep(200);
-//                            }
-//                        }
-//                        selectChannel.tryCount=222;
-//                        [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel]];
-//                    }
-//                    
-//                    
-//                }
-//                
-//            }
-//			
-//        } else if(uchType==JVN_DATA_O){
-//            
-//            int width = 0;
-//            int height = 0;
-//            int startCode=0;
-//            
-//            
-//            //判断新头
-//            if([_operationController IsFILE_HEADER_EX:pBuffer dwSize:nSize]){
-//                
-//                
-//                
-//                memcpy(&startCode, pBuffer+2, 4);
-//                memcpy(&width, pBuffer+6, 4);
-//                memcpy(&height, pBuffer+10, 4);
-//                JVS_FILE_HEADER_EX *fileHeader;
-//                
-//                fileHeader = malloc(sizeof(JVS_FILE_HEADER_EX));
-//                memset(fileHeader, 0, sizeof(JVS_FILE_HEADER_EX));
-//                memcpy(fileHeader, pBuffer+2, sizeof(JVS_FILE_HEADER_EX));
-//                selectChannel._iplayBackFrametotalNumber=fileHeader->dwRecFileTotalFrames;
-//                selectChannel._dPlayBackVideoframeFrate = ((double)fileHeader->wFrameRateNum)/((double)fileHeader->wFrameRateDen);
-//                
-//                free(fileHeader);
-//                
-//            }else{
-//                JVS_FILE_HEADER header;
-//                JVS_FILE_HEADER jHeader;
-//                
-//                if ((*(unsigned int*)pBuffer&0xFFFFFF)!=0x53564a) {
-//                    
-//                    memcpy(&jHeader.width, pBuffer, sizeof(int));
-//                    memcpy(&jHeader.height, pBuffer+4, sizeof(int));
-//                    
-//                    if (nSize>=12) {
-//                        
-//                        memcpy(&jHeader.dwToatlFrames, pBuffer+8, sizeof(int));
-//                        
-//                    }else{
-//                        jHeader.dwToatlFrames = 0;//总针数
-//                    }
-//                    
-//                    pBuffer = (unsigned char *)&jHeader;
-//                }
-//                
-//                
-//                memcpy(&header, pBuffer, sizeof(JVS_FILE_HEADER));
-//                width=header.width;
-//                height=header.height;
-//                selectChannel._iplayBackFrametotalNumber=header.dwToatlFrames;
-//                
-//            }
-//            
-//            
-//            startCode=selectChannel.connectStartCode;
-//            
-//            [_operationController stopSetting:nLocalChannel-1];
-//            _isPlayBackVideo=TRUE;
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                [_operationController showPlayBackVideo:_isPlayBackVideo];
-//                
-//            });
-//            
-//            CallBackMsg *m=[[CallBackMsg alloc] init];
-//            m.channelID=nLocalChannel-1;
-//            m.type=selectChannel._iplayBackFrametotalNumber;
-//            [_operationController performSelectorOnMainThread:@selector(refreshPlayBackVideo:) withObject:m waitUntilDone:YES];
-//            [m release];
-//            
-//            
-//            if (startCode==0x0453564A ||startCode==0x0953564A) {
-//                
-//                if (selectChannel.bmPlayVideoWidth!=width||selectChannel.bmPlayVideoHeight!=height) {
-//                    
-//                    selectChannel.bmPlayVideoWidth=width;
-//                    selectChannel.bmPlayVideoHeight=height;
-//                    selectChannel.isWaitIFrame=FALSE;
-//                    selectChannel.iFrameCount=0;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel.isStandDecoder=FALSE;
-//                    selectChannel.changeDecodeFlag=1;
-//                    selectChannel._iWaitICountPic=1;
-//                    selectChannel._iWaitICount=1;
-//                    
-//                    if (selectChannel.openDecoderFlag) {
-//                        
-//                        selectChannel.openDecoderFlag=FALSE;
-//                        
-//                        while (TRUE) {
-//                            
-//                            if (!selectChannel.UseDecoderFlag) {
-//                                
-//                                if(!selectChannel.isStandDecoder){
-//                                    JVD04_DecodeClose(nLocalChannel-1);
-//                                }
-//                                break;
-//                                
-//                            }
-//                            
-//                            usleep(200);
-//                        }
-//                        selectChannel.changeDecodeFlag=0;
-//                    }else{
-//                        selectChannel.changeDecodeFlag=0;
-//                    }
-//                }else{
-//                    selectChannel.isWaitIFrame = FALSE;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel._iWaitICountPic=1;
-//                    selectChannel._iWaitICount=1;
-//                }
-//            }else if(0x564a0000==startCode||width>1280||height>720){
-//                
-//                _isPlayBackVideo=FALSE;
-//                JVChannel *selectChannel= channel[nLocalChannel-1];
-//                
-//                if (selectChannel!=nil) {
-//                    
-//                    if (selectChannel.openDecoderFlag) {
-//                        
-//                        while (TRUE) {
-//                            
-//                            if (!selectChannel.UseDecoderFlag) {
-//                                
-//                                if(!selectChannel.isStandDecoder){
-//                                    
-//                                    JVD04_DecodeClose(nLocalChannel-1);
-//                                    JVD04_DecodeOpen(selectChannel.bmPlayVideoWidth ,selectChannel.bmPlayVideoHeight,nLocalChannel-1);
-//                                    
-//                                }else{
-//                                    
-//                                    JVD05_DecodeClose(nLocalChannel-1);
-//                                    JVD05_DecodeOpen(nLocalChannel-1);
-//                                    
-//                                    
-//                                }
-//                                //memset(imageBuffer[0], 0, sizeof(imageBuffer[0])) ;
-//                                break;
-//                            }
-//                            usleep(200);
-//                        }
-//                    }
-//                    
-//                    
-//                }
-//                
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    
-//                    [_operationController showPlayBackVideo:_isPlayBackVideo];
-//                    [OperationSet showText:NSLocalizedString(@"Not_720p", nil) andPraent:_operationController andTime:1 andYset:60];
-//                    
-//                    
-//                    
-//                });
-//                
-//                if(_operationController._isLocalVideo){
-//                    
-//                    [_operationController operationPlayVideo:_bSmallVideoBtn];
-//                    
-//                }
-//                selectChannel.isWaitIFrame=FALSE;
-//                selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                selectChannel._iWaitICount=1;
-//                selectChannel._iWaitICountPic=1;
-//                
-//                [channel[nLocalChannel-1] operationZKVideo:JVN_CMD_VIDEO];
-//                
-//                [pool release];
-//                return;
-//                
-//            }else{
-//                
-//                if (selectChannel.bmPlayVideoWidth!=width||selectChannel.bmPlayVideoHeight!=height) {
-//                    // printf("run here------------\n");
-//                    selectChannel.bmPlayVideoWidth=width;
-//                    selectChannel.bmPlayVideoHeight=height;
-//                    selectChannel.iFrameCount=0;
-//                    selectChannel.isStandDecoder=YES;
-//                    selectChannel.isWaitIFrame=FALSE;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel.changeDecodeFlag=1;
-//                    selectChannel._iWaitICount=1;
-//                    selectChannel._iWaitICountPic=1;
-//                    if (selectChannel.openDecoderFlag) {
-//                        
-//                        selectChannel.openDecoderFlag=FALSE;
-//                        while (TRUE) {
-//                            
-//                            if (!selectChannel.UseDecoderFlag) {
-//                                
-//                                if(selectChannel.isStandDecoder){
-//                                    JVD05_DecodeClose(nLocalChannel-1);
-//                                }
-//                                break;
-//                            }
-//                            usleep(200);
-//                        }
-//                        selectChannel.changeDecodeFlag=0;
-//                    }else{
-//                        
-//                        selectChannel.changeDecodeFlag=0;
-//                    }
-//                }else{
-//                    selectChannel.isWaitIFrame = FALSE;
-//                    selectChannel.isLocalVideoWaitIFrame=FALSE;
-//                    selectChannel._iWaitICount=1;
-//                    selectChannel._iWaitICountPic=1;
-//                }
-//                
-//            }
-//        }else if(uchType==JVN_DATA_A){
-//            
-//            //--------------------播放声音方法
-//            if (TRUE) {
-//                [pool release];
-//                return;
-//            }
-//            
-//            if (selectChannel.connectDeviceType==2||selectChannel.connectDeviceType==3||selectChannel.connectDeviceType==0) {
-//                
-//                if(selectChannel.IsStartCode) {
-//                    
-//                    unsigned char *audioPcmBuf = NULL;
-//                    
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 320);
-//                    
-//                    
-//                    JAD_DecodeOneFrame(0, pBuffer+21,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf+320, audioPcmBuf, 320);
-//                    [_openALBufferSound openAudioFromQueue:(short*)(ppszPCMBuf) dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                }else{
-//                    
-//                    if (nSize>3) {
-//                        
-//                        if ([_operationController isKindOfBufInStartCode:(char*)pBuffer]) {
-//                            
-//                            int startCode = 0;
-//                            memcpy(&startCode, pBuffer, 4);
-//                            
-//                            if (startCode==JVN_DSC_9800CARD) {
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:YES];
-//                                
-//                            }else if(startCode==JVSC951_STARTCOODE){
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                                
-//                            }else{
-//                                
-//                                [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                            }
-//                            
-//                        }
-//                    }
-//                    
-//                }
-//            }else if (selectChannel.connectDeviceType==1){
-//                if (selectChannel.IsStartCode) {
-//                    
-//                    unsigned char *audioPcmBuf = NULL;
-//                    selectChannel._isStartingSound=YES;
-//                    JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                    memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                    [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                    selectChannel._isStartingSound=FALSE;
-//                    
-//                }else{
-//                    
-//                    [_openALBufferSound openAudioFromQueue:(short*)(pBuffer+8) dataSize:nSize-8 monoValue:NO];
-//                }
-//                
-//            }else if (selectChannel.connectDeviceType==4&&selectChannel.IsStartCode){
-//                
-//                unsigned char *audioPcmBuf = NULL;
-//                selectChannel._isStartingSound=YES;
-//                JAD_DecodeOneFrame(0, pBuffer,  &audioPcmBuf);
-//                memcpy(ppszPCMBuf, audioPcmBuf, 640);
-//                [_openALBufferSound openAudioFromQueue:(short*)ppszPCMBuf dataSize:640 monoValue:YES];
-//                selectChannel._isStartingSound=FALSE;
-//            }
-//            
-//        }
-//    }else if(nSize==0&&(uchType==JVN_RSP_PLAYE||uchType==JVN_RSP_PLAYOVER||uchType==JVN_RSP_PLTIMEOUT)){//文件回放失败
-//        _isPlayBackVideo=FALSE;
-//        JVChannel *selectChannel= channel[nLocalChannel-1];
-//        
-//        if (selectChannel!=nil) {
-//            
-//            if (selectChannel.openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    
-//                    if (!selectChannel.UseDecoderFlag) {
-//                        
-//                        if(!selectChannel.isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel-1);
-//                            JVD04_DecodeOpen(selectChannel.bmPlayVideoWidth ,selectChannel.bmPlayVideoHeight,nLocalChannel-1);
-//                            
-//                        }else{
-//                            
-//                            JVD05_DecodeClose(nLocalChannel-1);
-//                            JVD05_DecodeOpen(nLocalChannel-1);
-//                            
-//                            
-//                        }
-//                        //memset(imageBuffer[0], 0, sizeof(imageBuffer[0])) ;
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            
-//            
-//        }
-//        
-//        
-//        [_operationController performSelectorOnMainThread:@selector(showPlayBackVideoDisplay) withObject:nil waitUntilDone:nil];
-//        
-//        if(_operationController._isLocalVideo){
-//            
-//            
-//            [_operationController performSelectorOnMainThread:@selector(operationPlayVideo:) withObject:_bSmallVideoBtn waitUntilDone:nil];
-//            //[_operationController operationPlayVideo:_bSmallVideoBtn];
-//            
-//        }
-//        
-//        
-//        
-//        selectChannel.isWaitIFrame=FALSE;
-//        selectChannel.isLocalVideoWaitIFrame=FALSE;
-//        selectChannel._iWaitICount=1;
-//        selectChannel._iCapturePic=false;
-//        [channel[nLocalChannel-1] operationZKVideo:JVN_CMD_VIDEO];
-//        
-//        
-//    }else {
-//        if (channel[nLocalChannel-1].tryCount>=TRYCOUNTMAX) {
-//            channel[nLocalChannel-1].tryCount++;
-//            if (channel[nLocalChannel-1].tryCount>=TRYMAXCOUNT) {
-//                channel[nLocalChannel-1].tryCount=-1;
-//                [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:_operationController withObject:[NSString stringWithFormat:@"%d",nLocalChannel]];
-//                
-//            }
-//        }
-//    }
-//	[pool release];
-    
-}
-
-
--(void)showPlayBackVideoDisplay{
-    
-    
-    
-    [self showPlayBackVideo:_isPlayBackVideo];
-    
-    
-}
-#pragma mark 前往远程播放界面
--(void)gotoPlayBackView{
-    
-//    if (!self._isPlayBack) {
-//        
-//        _remoteVideoPlayBackVControler=[[RemoteVideoPlayBackVControler alloc] initWithNibName:@"RemoteVideoPlayBackVControler" bundle:nil];
-//        [_remoteVideoPlayBackVControler.nultArray addObjectsFromArray:_playBackVideoDataArray];
-//        CATransition *transition = [CATransition animation];
-//        transition.duration = 0.5;
-//        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        transition.type = kCATransitionReveal;
-//        transition.subtype = kCATransitionFromTop;
-//        transition.delegate = self;
-//        self._isPlayBack=true;
-//        _remoteVideoPlayBackVControler._operationController=self;
-//        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-//        self.navigationController.navigationBarHidden = NO;
-//        [self.navigationController pushViewController:_remoteVideoPlayBackVControler animated:NO];
-//        [_remoteVideoPlayBackVControler release];
-//        
-//        
-//    }else{
-//        
-//        [_remoteVideoPlayBackVControler.nultArray removeAllObjects];
-//        [_remoteVideoPlayBackVControler.nultArray addObjectsFromArray:_playBackVideoDataArray];
-//        _remoteVideoPlayBackVControler._isSendState=NO;
-//        [_remoteVideoPlayBackVControler.myTable reloadData];
-//        
-//        if([_remoteVideoPlayBackVControler.nultArray count]<=0){
-//            
-//            [OperationSet showText:NSLocalizedString(@"No_video_file_found", nil) andPraent:_remoteVideoPlayBackVControler andTime:1 andYset:60];
-//            
-//        }
-//    }
-}
-
-#pragma mark ---------图片刷新方法
--(void) refreshPlayBackVideo:(id)sender{
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    CallBackMsg *callBackMsg= (CallBackMsg *)sender;
-//    if (1==channel[callBackMsg.channelID].changeDecodeFlag) {
-//        [pool release];
-//        return;
-//    }
-//    
-//    int _ID=channel[callBackMsg.channelID].flag*CONNECTMAXNUMS;
-//    int channelID=callBackMsg.channelID+_ID+WINDOWSFLAG;
-//    
-//    monitorConnectionSingleImageView *imgView=(monitorConnectionSingleImageView*)[self.view viewWithTag:channelID];
-//    [imgView playBackVideoNumber:callBackMsg.type];
-//    [pool release];
-    
-    
-}
 
 -(void)changeBtnState:(NSTimer*)timer{
     
@@ -3589,53 +1433,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
         [_bSmallTalkBtn setEnabled:YES];
     });
     [timer invalidate];
-}
-
-#pragma mark 远程回放界面操作 NO关闭 YES是开启
-
-- (void)showPlayBackVideo:(bool)_isOpen{
-    
-    if (_isOpen) {
-        
-        if (_managerVideo.imageViewNums>1) {
-            _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
-            _managerVideo.imageViewNums=1;
-            [_managerVideo changeContenView];
-        }
-        [_splitViewBgClick setHidden:YES];
-        [_splitViewBtn setHidden:YES];
-        self.navigationItem.title=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Play back", nil)];
-        _managerVideo.WheelShowListView.scrollEnabled=NO;
-        [_bYTOBtn setEnabled:NO];
-        [_bSoundBtn setEnabled:NO];
-        CATransition *transition = [CATransition animation];
-        transition.duration = 1.5;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionMoveIn;
-        transition.subtype = kCATransitionFromBottom;
-        transition.delegate = self;
-        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        
-        
-        
-    }else{
-        [_splitViewBgClick setHidden:NO];
-        [_splitViewBtn setHidden:NO];
-        _managerVideo.WheelShowListView.scrollEnabled=YES;
-        //NSLog(@"seleleindex=%d",self._iSelectedChannelIndex);
-        self.navigationItem.title=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Video Display", nil)];
-        [_bYTOBtn setEnabled:YES];
-        [_bSoundBtn setEnabled:YES];
-        CATransition *transition = [CATransition animation];
-        transition.duration = 1.5;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionMoveIn;
-        transition.subtype = kCATransitionFromTop;
-        transition.delegate = self;
-        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        JVCCustomOperationBottomView  *_singView=(JVCCustomOperationBottomView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
-        [_singView hiddenSlider];
-    }
 }
 
 #pragma mark 停止本地录像和音频监听、语音对讲
@@ -3717,31 +1514,7 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 }
 
 
-#pragma mark 判断是否带针头
--(BOOL)isKindOfBufInStartCode:(char*)buffer{
-    
-    uint8_t *pacBuffer = (uint8_t*)buffer;
-    
-	if(buffer == NULL )
-	{
-		return FALSE;
-	}
-	return pacBuffer[0] == 'J' && pacBuffer[1] == 'V' && pacBuffer[2] == 'S';
-}
 
-
-#pragma mark 判断设备是新的的还是旧的 新的返回TRUE
--(bool)IsFILE_HEADER_EX:(void *)pBuffer dwSize:(uint32_t)dwSize
-{
-	uint8_t *pacBuffer = (uint8_t*)pBuffer+2;
-    
-	if(pBuffer == NULL || dwSize < sizeof(JVS_FILE_HEADER_EX))
-	{
-		return FALSE;
-	}
-    
-	return pacBuffer[32] == 'J' && pacBuffer[33] == 'F' && pacBuffer[34] == 'H';
-}
 
 
 
@@ -3911,9 +1684,9 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 
 - (void)removHelpView
 {
-    if (isShowHelper) {
-//        [_helpImageView RemoveHelper];
-    }
+//    if (isShowHelper) {
+////        [_helpImageView RemoveHelper];
+//    }
 }
 
 /**
@@ -3946,380 +1719,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 }
 
 
-
--(void) refreshManageMessage:(id)sender{
-//    
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    CallBackMsg *_msg = (CallBackMsg *)sender;
-//    int uchType =_msg.type;
-//    int nLocalChannel =_msg.channelID-1;
-//    NSString *returnConnectInfo=[[NSString alloc] initWithData:(NSData*)_msg.param encoding:NSUTF8StringEncoding];
-//    
-//    int _ID=channel[nLocalChannel].flag*CONNECTMAXNUMS;
-//    int channelID=nLocalChannel+_ID+WINDOWSFLAG;
-//    monitorConnectionSingleImageView *imgView=(monitorConnectionSingleImageView*)[self.view viewWithTag:channelID];
-//    
-//    if (uchType!=1) {
-//        
-//        if (_isPlayBackVideo) {
-//            
-//            _isPlayBackVideo=FALSE;
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                [_operationController showPlayBackVideo:_isPlayBackVideo];
-//                
-//            });
-//        }
-//        
-//        [self stopSetting:nLocalChannel];
-//        
-//    }
-//    
-//    if (channel[nLocalChannel]==nil||channel[nLocalChannel]==nil) {
-//        
-//        if (1==uchType) {
-//            
-//            [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:self withObject:[NSString stringWithFormat:@"%d",nLocalChannel+1]];
-//        }
-//        [returnConnectInfo release];
-//        [pool release];
-//        return;
-//        
-//    }
-//	channel[nLocalChannel].connectState=1;
-//    
-//    if (uchType!=1) {
-//        
-//        [channel[nLocalChannel] stopTimer];
-//        
-//        if(!channel[nLocalChannel].isPPConnectStatus){
-//            
-//            [channel[nLocalChannel] stopConnectPPSTimer];
-//            
-//        }
-//    }
-//    if (uchType==1) {
-//        
-//        if (channel[nLocalChannel]!=nil||channel[nLocalChannel]!=NULL) {
-//            
-//            if ([returnConnectInfo.uppercaseString isEqualToString:CONNECTTURNFLAG.uppercaseString]) {
-//                
-//                channel[nLocalChannel].isPPConnectStatus=FALSE;
-//                [channel[nLocalChannel] startConnectPPSTimer];
-//                
-//            }else{
-//                
-//                channel[nLocalChannel].isPPConnectStatus=TRUE;
-//                
-//            }
-//            
-//            
-//        }
-//        
-//    }else if(uchType==2){//断开连接成功
-//        
-//        //NSLog(@"right %@",@"unalllink连接成功");
-//        if(channel[nLocalChannel]!=nil) {
-//            
-//            
-//            if (999==channel[nLocalChannel].tryCount) {
-//                
-//                [channel[nLocalChannel] ppConncetByYST];
-//                [returnConnectInfo release];
-//                [pool release];
-//                return;
-//                
-//            }
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            
-//            
-//            if (222==channel[nLocalChannel].tryCount) {
-//                
-//                [imgView stopActivity:NSLocalizedString(@"Connection Failed", nil)];
-//                
-//            }else{
-//                [imgView stopActivity:@""];
-//                
-//            }
-//            
-//            [imgView setImage:nil];
-//            if ( 0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//            
-//        }
-//		
-//    }else if(uchType==3){//不必要重复连接
-//        
-//		
-//    }else if(uchType==4){//连接失败
-//        
-//#pragma mark  修改的地方
-//        // NSLog(@"returnConnectInfo=%@",returnConnectInfo);
-//        
-//        if ([returnConnectInfo isEqualToString:@"password is wrong!"]) {
-//            
-//            [imgView stopActivity:NSLocalizedString(@"Connection Failed ID", nil)];
-//            
-//            iModifyIndex = channel[nLocalChannel]._iSelectSourceModelIndexValue;
-//            
-//            [_operationController  performSelectorOnMainThread:@selector(showAlertWithUserOrPassWordError) withObject:nil waitUntilDone:NO];
-//            
-//        }else if([returnConnectInfo isEqualToString:@"client count limit!"])
-//        {
-//            [imgView stopActivity:NSLocalizedString(@"client count limit", nil)];
-//        }else{
-//            
-//            [imgView stopActivity:[NSString stringWithFormat:@"%@",NSLocalizedString(@"Connection Failed", nil)]];
-//        }
-//        
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if (0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        //NSLog(@"right 连接失败222");
-//		
-//    }else if(uchType==5){//没有连接
-//		
-//    }else if(uchType==6){//连接异常断开
-//        [imgView stopActivity:NSLocalizedString(@"Disconnected Due To Abnormal Network", nil)];
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if ( 0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        
-//    }else if(uchType==7){//服务停止，连接断开
-//        
-//        [imgView stopActivity:NSLocalizedString(@"Disconnected Due To CloudSEE Service Has Been Stopped", nil)];
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if ( 0  ==  channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        
-//		
-//    }else if(uchType==8){//断开连接失败
-//        
-//		[imgView stopActivity:NSLocalizedString(@"Connection Failed", nil)];
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if ( 0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        
-//    }else if(uchType==9){//云视通服务已停止
-//        [imgView stopActivity:NSLocalizedString(@"CloudSEE Service Has Been Stopped", nil)];
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if ( 0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        
-//        
-//		//NSLog(@"right 云视通服务已停止");
-//    }else{
-//		[imgView stopActivity:NSLocalizedString(@"Connection Failed",nil)];
-//        
-//        if (channel[nLocalChannel]!=nil) {
-//            
-//            if (channel[nLocalChannel].openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    if (!channel[nLocalChannel].UseDecoderFlag) {
-//                        
-//                        if(!channel[nLocalChannel].isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(nLocalChannel);
-//                            
-//                            
-//                        }else{
-//                            JVD05_DecodeClose(nLocalChannel);
-//                            if (channel[nLocalChannel].connectDeviceType!=1) {
-//                                [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:0 decoderFrameHeight:0];
-//                            }
-//                            
-//                        }
-//                        
-//                        break;
-//                    }
-//                    usleep(200);
-//                }
-//            }
-//            [imgView setImage:nil];
-//            if ( 0 == channel[nLocalChannel]._isUpLoadImageState ) {
-//                
-//                [channel[nLocalChannel] release];
-//                channel[nLocalChannel]=nil;
-//            }
-//        }
-//        // NSLog(@"right 云视通服务已停1");
-//    }
-//    [returnConnectInfo release];
-//    [pool release];
-}
 
 #pragma mark ********************************************
 #pragma mark ********************************************
@@ -4391,6 +1790,74 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
             break;
     }
 }
+
+#pragma mark 保存图片
+-(void)smallCaptureTouchUpInside:(UIButton*)button{
+    
+    //    int ID=[self returnChannelID:self._iSelectedChannelIndex];
+    //
+    //
+    //    if (channel[ID]!=nil) {
+    //
+    //        if(channel[ID].isStandDecoder){
+    //
+    //            if (![self isCheckCurrentSingleViewGlViewHidden]) {
+    //
+    //                channel[ID]._iCapturePic=TRUE;
+    //            }
+    //
+    //        }else if (channel[ID].ImageData!=nil){
+    //
+    //            [self saveLocalChannelPhoto];
+    //
+    //        }
+    //    }
+    
+    
+    /**
+     *  保存照片失败的事件
+     */
+    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
+        
+        
+        if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
+                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
+                
+                // NSLog(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
+            });
+            
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
+                
+                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
+                //   NSLog(@"相册访问失败.");
+            });
+            
+        }
+        
+    };
+    
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
+        
+        [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].ystNWRODelegate = self;
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
+        
+        // [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
+    };
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
+    [library enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureblock];
+    
+    
+    [library release];
+    
+}
+
 
 /**
  *  开启语音对讲
@@ -4532,8 +1999,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
             
 //            ystNetWorkHelper *ystNetworkObj = [ystNetWorkHelper shareystNetWorkHelperobjInstance];
             JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-
-            
             ystNetworkObj.ystNWADelegate    =  self;
             [self audioButtonClick:NO];
             
@@ -4714,6 +2179,73 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
      */
 }
 
+#pragma mark 开启本地录像
+-(void)operationPlayVideo:(UIButton*)button{
+    
+    if (button.selected) {
+        
+        /**
+         *  保存录像的回调
+         */
+        ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
+            
+            if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
+                    
+                    [self unSelectSmallButtonStyle:button];
+                });
+                
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
+                    
+                    //   NSLog(@"相册访问失败.");
+                    [self unSelectSmallButtonStyle:button];
+                });
+                
+            }
+            
+        };
+        
+        ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
+            
+            NSString *documentPaths = NSTemporaryDirectory();
+            
+            NSString *filePath = [documentPaths stringByAppendingPathComponent:@"LocalValue"];
+            
+            if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+                [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:nil];
+            }
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"YYYYMMddHHmmssSSSS"];
+            NSString *videoPath =[NSString stringWithFormat:@"%@/%@.mp4",filePath,[df stringFromDate:[NSDate date]]];
+            [df release];
+            
+            [_strSaveVideoPath  release];
+            _strSaveVideoPath= nil;
+            
+            _strSaveVideoPath = [videoPath retain];
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:videoPath];
+            
+        };
+        
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
+        [library enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureblock];
+        
+    }else{
+        
+        //        [[ystNetWorkHelper shareystNetWorkHelperobjInstance] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:_strSaveVideoPath];
+        
+        [self saveLocalVideo:_strSaveVideoPath];
+    }
+}
+
+
 /**
  *  停止音频监听
  */
@@ -4805,9 +2337,6 @@ void remotePlayDataCallBack(int nLocalChannel, unsigned char uchType, unsigned c
 {
     return [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] checknLocalChannelExistConnect:_managerVideo.nSelectedChannelIndex+1];
 }
-
-
-
 
 @end
 

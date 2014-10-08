@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "JVCOperationController.h"
+#import "JVCCloudSEENetworkHelper.h"
+
 enum CONNECTALLDEVICE{
     
     CONNECTALLDEVICE_Run = 1, //正在全连接
@@ -16,7 +18,7 @@ enum CONNECTALLDEVICE{
     
 };
 
-@interface JVCManagePalyVideoComtroller : UIView
+@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate>
 {
     UIScrollView            *WheelShowListView;
     NSMutableArray          *_amWheelData;

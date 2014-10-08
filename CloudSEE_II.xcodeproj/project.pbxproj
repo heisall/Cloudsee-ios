@@ -23,6 +23,10 @@
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
 		A7F0042819D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
 		A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */; };
+		A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058919E50DAB0070945F /* customBottomView_cloudsee.bundle */; };
+		A7F4058C19E50DB80070945F /* YTOperation.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058B19E50DB80070945F /* YTOperation.bundle */; };
+		A7F4058E19E50DCA0070945F /* OperationMiddleViewIphone5.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058D19E50DCA0070945F /* OperationMiddleViewIphone5.bundle */; };
+		A7F4059019E50DD20070945F /* customMiddleView_cloudsee.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058F19E50DD20070945F /* customMiddleView_cloudsee.bundle */; };
 		A7F424EB19D0FB5400D96475 /* JVCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F424EA19D0FB5400D96475 /* JVCLoginViewController.m */; };
 		A7F424F419D0FD7500D96475 /* log_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F424ED19D0FD7500D96475 /* log_bg@2x.png */; };
 		A7F424F519D0FD7500D96475 /* log_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F424ED19D0FD7500D96475 /* log_bg@2x.png */; };
@@ -353,6 +357,10 @@
 		A7F0042619D45DC70028533E /* JVCConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConfigModel.m; sourceTree = "<group>"; };
 		A7F4055619E4C67E0070945F /* JVCOperationControllerIphone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationControllerIphone5.h; sourceTree = "<group>"; };
 		A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationControllerIphone5.m; sourceTree = "<group>"; };
+		A7F4058919E50DAB0070945F /* customBottomView_cloudsee.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = customBottomView_cloudsee.bundle; sourceTree = "<group>"; };
+		A7F4058B19E50DB80070945F /* YTOperation.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YTOperation.bundle; sourceTree = "<group>"; };
+		A7F4058D19E50DCA0070945F /* OperationMiddleViewIphone5.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OperationMiddleViewIphone5.bundle; sourceTree = "<group>"; };
+		A7F4058F19E50DD20070945F /* customMiddleView_cloudsee.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = customMiddleView_cloudsee.bundle; sourceTree = "<group>"; };
 		A7F424E919D0FB5400D96475 /* JVCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLoginViewController.h; sourceTree = "<group>"; };
 		A7F424EA19D0FB5400D96475 /* JVCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLoginViewController.m; sourceTree = "<group>"; };
 		A7F424ED19D0FD7500D96475 /* log_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_bg@2x.png"; sourceTree = "<group>"; };
@@ -777,6 +785,17 @@
 				A7F0042219D45C030028533E /* AHReach.m */,
 			);
 			name = AHReach;
+			sourceTree = "<group>";
+		};
+		A7F4055A19E50D4A0070945F /* operation */ = {
+			isa = PBXGroup;
+			children = (
+				A7F4058F19E50DD20070945F /* customMiddleView_cloudsee.bundle */,
+				A7F4058D19E50DCA0070945F /* OperationMiddleViewIphone5.bundle */,
+				A7F4058B19E50DB80070945F /* YTOperation.bundle */,
+				A7F4058919E50DAB0070945F /* customBottomView_cloudsee.bundle */,
+			);
+			name = operation;
 			sourceTree = "<group>";
 		};
 		A7F424E819D0FB1F00D96475 /* Account */ = {
@@ -1416,6 +1435,7 @@
 		ADA77C2819D0282F003EE7A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7F4055A19E50D4A0070945F /* operation */,
 				A7F5558019D949770009F75C /* navicationBar */,
 				A7F5011219D4EF8E00AA78F0 /* Icon */,
 				A7F5E23419D43AE700609BC3 /* Default */,
@@ -1538,6 +1558,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */,
+				A7F4059019E50DD20070945F /* customMiddleView_cloudsee.bundle in Resources */,
 				A7F424F819D0FD7500D96475 /* log_line@2x.png in Resources */,
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
@@ -1551,6 +1572,7 @@
 				A7F6EFB119D7993100FFE02D /* devAdv_default_0@2x.png in Resources */,
 				A7F5011A19D4EFB400AA78F0 /* Icon-Small.png in Resources */,
 				A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */,
+				A7F4058C19E50DB80070945F /* YTOperation.bundle in Resources */,
 				A7F4346819DA44A800E7ECA1 /* log_pw@2x.png in Resources */,
 				AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */,
 				AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */,
@@ -1559,6 +1581,7 @@
 				A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
+				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
@@ -1607,6 +1630,7 @@
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
 				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
+				A7F4058E19E50DCA0070945F /* OperationMiddleViewIphone5.bundle in Resources */,
 				AD2BDB1219D28F0600AA6D73 /* edi_bg@2x.png in Resources */,
 				AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */,
 				A7F5014619D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */,

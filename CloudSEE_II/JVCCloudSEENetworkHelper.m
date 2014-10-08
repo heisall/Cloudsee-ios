@@ -1489,5 +1489,19 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     }
 }
 
+#pragma mark 抓拍的回调  杨虎  2014-10-8
+/**
+ *  抓拍图片
+ *
+ *  @param captureOutImageData 抓拍的图片数据
+ */
+-(void)JVConnectChannelCaptureImageData:(NSData *)captureOutImageData
+{
+    if(self.ystNWRODelegate !=nil && [self.ystNWRODelegate respondsToSelector:@selector(captureImageCallBack:)])
+    {
+        [self.ystNWRODelegate captureImageCallBack:captureOutImageData];
+    }
+}
+
 
 @end

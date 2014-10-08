@@ -42,10 +42,8 @@ enum OPERATIONBTNCLICKTYPE
 
 /**
  *  设置选中的btn的类型
- *
- *  @param skinType 皮肤
  */
-- (void)setAudioBtnSelectWithSkin:(int)skinType;
+- (void)setAudioBtnSelectWithSkin;
 
 /**
  *  设置btn为非选中状态
