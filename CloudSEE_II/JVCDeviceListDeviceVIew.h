@@ -9,16 +9,22 @@
 #import "JVCBaseRgbBackgroundColorView.h"
 
 
-@interface JVCDeviceListDeviceVIew : JVCBaseRgbBackgroundColorView
+@interface JVCDeviceListDeviceVIew : JVCBaseRgbBackgroundColorView 
 
 /**
  *  设置设备列表的单个设备的图标
  *
  *  @param iconImage       图标
  *  @param borderColor     边框颜色
- *  @param titleFontColor  标签字体颜色
  */
--(void)initWithLayoutView:(UIImage *)iconImage borderColor:(UIColor *)borderColor titleFontColor:(UIColor *)titleFontColor;
+-(void)initWithLayoutView:(UIImage *)iconImage borderColor:(UIColor *)borderColor;
+
+/**
+ *  初始化标签视图
+ *
+ *  @param titleFontColor 标签的字体颜色
+ */
+-(void)initWithTitleView:(UIColor *)titleFontColor;
 
 /**
  *  设置设备的名称、状态、WI-FI 信息

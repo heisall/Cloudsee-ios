@@ -27,5 +27,14 @@
  */
 -(void)viewInThePositionOfTheSuperView:(CGFloat)SuperViewWidth viewCGRect:(CGRect &)viewCGRect  nColumnCount:(int)nColumnCount viewIndex:(int)viewIndex;
 
+/**
+ *  复制View的函数
+ *
+ *  @param templateView 模板View
+ *
+ *  @return 复制出的View
+ */
+-(UIView *)duplicate:(UIView *)templateView;
+
 
 @end

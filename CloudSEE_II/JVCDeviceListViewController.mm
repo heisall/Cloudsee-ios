@@ -21,18 +21,19 @@
 #import "JVCDeviceListNoDevieCell.h"
 #import "JVCChannelScourseHelper.h"
 
-static const int  kTableViewCellInViewColumnCount    = 2 ; //判断设备的颜色值是第几个数组
-static const int  kTableViewCellColorTypeCount       = 4 ; //判断设备的颜色值是第几个数组
-static const NSTimeInterval  kAnimationDuratin       = 0.5;//动画时间
-static const int  kTableViewCellAdeviceHeigit        = 180 ; //广告条的高度
-static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高度
+static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
+static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
+static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
+static const int             kTableViewCellNormalCellHeight          = 120 ; //正常cell的高度
+static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
+static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 
 
 @interface JVCDeviceListViewController ()
 {
-    UITableView *_tableView;
-
-    NSMutableArray *_arrayColorList;//存放颜色数据的数组
+    UITableView             *_tableView;
+    NSMutableArray          *_arrayColorList; //存放颜色数据的数组
+    JVCDeviceListDeviceVIew *tempView;        //单个设备视图的模板类
 }
 
 @end
@@ -50,7 +51,26 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
         self.tabBarItem = moreItem;
         [moreItem release];
         
-         self.title = self.tabBarItem.title;
+        self.title = self.tabBarItem.title;
+        
+        JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
+        
+        UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
+        UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
+        
+        CGRect position;
+        position.size.width  = deviceImage.size.width;
+        position.size.height = deviceImage.size.height;
+        
+        tempView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:[UIColor clearColor] cornerRadius:kTableViewIconImageViewCornerRadius];
+        
+        UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:kTableViewIconImageViewBorderColorAlpha];
+        
+        if (borderColor) {
+            
+            [tempView initWithLayoutView:iconDeviceImage borderColor:borderColor];
+        }
+        
     }
     return self;
 }
@@ -61,7 +81,7 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
     // Do any additional setup after loading the view.
     
     self.navigationController.navigationBar.hidden = NO;
-        
+    
     //初始化颜色数组
     _arrayColorList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
     
@@ -107,9 +127,9 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
     _tableView.headerPullToRefreshText = @"下拉可以刷新";
     _tableView.headerReleaseToRefreshText = @"松开马上刷新";
     _tableView.headerRefreshingText = @"正在刷新中";
-
-
+    
 }
+
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
@@ -174,7 +194,7 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DDLogInfo(@"indexPath=%@",indexPath);
+    
     if (indexPath.section == 0) {//新品展示图片
         
         static NSString *cellAdverIdentify = @"cellAdevetIndetify";
@@ -222,8 +242,13 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify] autorelease];
             }
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            for (UIView  *v in cell.contentView.subviews) {
+                
+                [v removeFromSuperview];
+                v = nil;
+            }
             
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             for (int index = indexPath.row * kTableViewCellInViewColumnCount; index < (indexPath.row +1 )* kTableViewCellInViewColumnCount ; index++) {
                 
@@ -238,7 +263,6 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
                     JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
                     
                     UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
-                    UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
                     
                     CGRect position;
                     position.size.width  = deviceImage.size.width;
@@ -246,30 +270,30 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
                     
                     [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:cell.width viewCGRect:position nColumnCount:kTableViewCellInViewColumnCount viewIndex:viewIndex+1];
                     
-                    
                     UIColor *deviceDeviceViewColor = [rgbHelper rgbColorForKey:[_arrayColorList objectAtIndex:colorIndex]];
                     
                     if (deviceDeviceViewColor) {
                         
-                        JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:deviceDeviceViewColor cornerRadius:6.0f];
-                        deviceView.tag = index;
+                        JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)[[JVCAppHelper shareJVCAppHelper] duplicate:tempView];
+                        deviceView.backgroundColor = deviceDeviceViewColor;
+                        deviceView.frame           = position;
+                        deviceView.tag             = index;
                         
-                        UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:0.3];
                         UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
                         
-                        if (borderColor) {
+                        if (titleGontColor) {
                             
-                            [deviceView initWithLayoutView:iconDeviceImage borderColor:borderColor titleFontColor:titleGontColor];
-                            [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+                            [deviceView initWithTitleView:titleGontColor];
                         }
+                        
+                        [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
                         
                         //添加选中设备的事件
                         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectDeviceToPlay:)];
                         [deviceView addGestureRecognizer:gesture];
                         [gesture release];
-                        
+
                         [cell.contentView addSubview:deviceView];
-                        [deviceView release];
                     }
                 }
             }
@@ -278,11 +302,7 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
             cell.clipsToBounds = NO;
             
             return cell;
-
-        
         }
-
-    
     }
 }
 
@@ -479,6 +499,10 @@ static const int  kTableViewCellNormalCellHeight     = 120 ; //正常cell的高�
     
     [_tableView release];
     _tableView = nil;
+    
+    [tempView release];
+    tempView = nil;
+    
     
     [super dealloc];
 }

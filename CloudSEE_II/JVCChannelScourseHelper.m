@@ -103,13 +103,9 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
     
-     DDLogVerbose(@"%s---deviceYst=%@,channelCount=%d",__FUNCTION__,ystNumber,channelArray.count);
-    
     for (int i = 0; i < channelArray.count; i++) {
 
         JVCDeviceModel *channelModel = (JVCDeviceModel *)[channelArray objectAtIndex:i];
-        
-        DDLogVerbose(@"%s---channelYst=%@",__FUNCTION__,channelModel.yunShiTongNum);
         
         if ([channelModel.yunShiTongNum isEqualToString:ystNumber]) {
             

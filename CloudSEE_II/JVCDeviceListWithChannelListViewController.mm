@@ -21,6 +21,7 @@
 
     NSMutableArray *titleColors;
     UIScrollView   *titlelableScoollView;
+    JVCDeviceListWithChannelListTitleView *tempChannelTitleView; //单个通道视图的模板
 }
 
 @end
@@ -41,9 +42,17 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     if (self) {
         
-        [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
         self.title  = @"选择通道";
         [self initWithTitleColors];
+        
+        UIImage *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
+        
+        CGRect position;
+        
+        position.size.width  = channelOperationViewBgImage.size.width;
+        position.size.height = channelOperationViewBgImage.size.height;
+        
+        tempChannelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:[UIColor clearColor] cornerRadius:kTitleViewWithRadius];
         
     }
     
@@ -52,6 +61,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 
 - (void)viewDidLoad
 {
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     [super viewDidLoad];
     [self initWithConnectAllButton];
     [self initWithChannelListView];
@@ -60,6 +70,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 -(void)dealloc{
 
     [titleColors release];
+    [tempChannelTitleView release];
     [super dealloc];
 }
 
@@ -97,6 +108,11 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
     
+//    for (int i = 0; i< 64; i++) {
+//        
+//        [channelValues addObject:[NSNumber numberWithInt:i+1]];
+//    }
+    
     [channelValues retain];
     
     if (titlelableScoollView) {
@@ -110,7 +126,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 
     JVCRGBHelper   *rgbHelper                   = [JVCRGBHelper shareJVCRGBHelper];
     JVCAppHelper   *appHelper                   = [JVCAppHelper shareJVCAppHelper];
-    UIImage        *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
     UIColor        *skyColor                    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroSkyBlue];
     NSMutableArray *titleViews                  = [[NSMutableArray alloc] initWithCapacity:10];
     CGFloat         totalHeight                 = 0.0;
@@ -122,8 +137,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             CGRect position;
             
-            position.size.width  = channelOperationViewBgImage.size.width;
-            position.size.height = channelOperationViewBgImage.size.height;
+            position.size.width  = tempChannelTitleView.size.width;
+            position.size.height = tempChannelTitleView.size.height;
             
             [appHelper viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithChannelViewColumnCount viewIndex:i+1];
             
@@ -152,18 +167,25 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             totalHeight       = position.origin.y + position.size.height ;
             
-            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
+            JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)[appHelper duplicate:tempChannelTitleView];
+            
+//            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
+
+            channelTitleView.backgroundColor = titleViewBgColor;
+            channelTitleView.frame           = position;
             [titleViews addObject:channelTitleView];
             
             //初始化按钮标题
             [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%@通道", [channelValues objectAtIndex:i]]];
+            
+        
             
             //添加选中通道的事件
             UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectChannelToPlay:)];
             [channelTitleView addGestureRecognizer:gesture];
             [gesture release];
     
-            [channelTitleView release];
+         
         }
         
         CGRect scrollRect;
