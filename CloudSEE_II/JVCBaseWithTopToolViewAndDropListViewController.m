@@ -27,9 +27,25 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 }
 
 /**
- *  初始化布局
+ *  初始化顶部的布局
  */
 -(void)initWithTopToolView{
+    
+    if (toolBarView) {
+        
+        for (UIView *v in toolBarView.subviews) {
+            
+            [v removeFromSuperview];
+            v=nil;
+        }
+        
+        [toolBarView removeFromSuperview];
+    }
+    
+    if (dropImageView) {
+        
+        [dropImageView removeFromSuperview];
+    }
     
     
     CGRect toolViewRect = CGRectMake(0.0, 0.0f, self.view.frame.size.width, 0.0);

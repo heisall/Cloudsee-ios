@@ -31,10 +31,15 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
     if (self) {
-        // Initialization code
         
-        //[self initCellContent];
+        _arrayDefaultImage = [[NSMutableArray alloc] init];
+        
+        for (int i=0; i<2; i++) {
+            
+            [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d@2x.png",i]];
+        }
     }
     return self;
 }
@@ -47,13 +52,7 @@
     for (UIView *contentViewInCell in self.contentView.subviews) {
         
         [contentViewInCell removeFromSuperview];
-    }
- 
-    _arrayDefaultImage = [[NSMutableArray alloc] init];
-    for (int i=0; i<2; i++) {
-        
-        [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d@2x.png",i]];
-        
+        contentViewInCell = nil;
     }
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, 180)];
@@ -67,13 +66,18 @@
     for (int i=0; i<_arrayDefaultImage.count; i++) {
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
+        
         NSString *imageBundlePath = [UIImage imageBundlePath:[_arrayDefaultImage objectAtIndex:i]];
+        
         UIImage *imageName = [[UIImage alloc]initWithContentsOfFile:imageBundlePath];
         imgView.image = imageName;
         [imageName release];
+        
         [_scrollView addSubview:imgView];
         [imgView release];
     }
+    
+    [_scrollView release];
     
     _pageController = [[StyledPageControl alloc] initWithFrame:CGRectMake(self.width - 100, _scrollView.height - 30,80 , 30)];
     [_pageController setPageControlStyle:PageControlStyleThumb];
@@ -82,8 +86,7 @@
     [_pageController setThumbImage:[UIImage imageNamed:@"devAdv_white.png"]];
     [_pageController setSelectedThumbImage:[UIImage imageNamed:@"devAdv_red.png"]];
     [self.contentView addSubview:_pageController];
-
-   
+    [_pageController release];
     
 }
 
@@ -107,9 +110,6 @@
 
 - (void)dealloc
 {
-    [_scrollView release];
-    _scrollView = nil;
-    
     [super dealloc];
 }
 

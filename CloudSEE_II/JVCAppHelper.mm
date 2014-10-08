@@ -15,7 +15,7 @@
 
 static JVCAppHelper *jvcAppHelper = nil;
 
-static NSString const *KImageWithType = @"png";
+//static NSString const *KImageWithType = @"png";
 
 /**
  *  单例
@@ -79,6 +79,20 @@ static NSString const *KImageWithType = @"png";
     
     viewCGRect.origin.x = spacing * column + viewWidth  * (column -1);
     viewCGRect.origin.y = spacing * row    + viewHeight * (row -1);
+}
+
+/**
+ *  复制View的函数
+ *
+ *  @param templateView 模板View
+ *
+ *  @return 复制出的View
+ */
+-(UIView *)duplicate:(UIView *)templateView{
+
+    NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:templateView];
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
 }
 
 @end

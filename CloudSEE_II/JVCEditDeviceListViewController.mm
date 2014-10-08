@@ -48,9 +48,6 @@ static const int  kInitWithLayoutColumnCount           = 3;
         [moreItem release];
         
         self.title = self.tabBarItem.title;
-        
-        [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
-
     }
     return self;
 }
@@ -230,8 +227,8 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [self initWithRgbListArray];
     [self initWithIconTitleListArray];
     [self initWithIconImageNameListArray];
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     [super viewDidLoad];
-    
 }
 
 @end

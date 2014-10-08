@@ -43,6 +43,8 @@ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 Copyright (C) 2009 Apple Inc. All Rights Reserved.
+ 
+ 注意：引用此框架需要 在项目的TARGETS  Build Settings 下的 preprocessor macros  参数清空
 
  
 */
