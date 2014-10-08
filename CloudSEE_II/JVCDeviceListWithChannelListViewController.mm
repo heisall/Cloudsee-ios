@@ -12,6 +12,10 @@
 #import "JVCAppHelper.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCOperationControllerIphone5.h"
+#import "JVCOperationController.h"
+#import "JVCChannelScourseHelper.h"
+#import "JVCDeviceSourceHelper.h"
 
 @interface JVCDeviceListWithChannelListViewController () {
 
@@ -153,6 +157,11 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             //初始化按钮标题
             [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%@通道", [channelValues objectAtIndex:i]]];
+            
+            //添加选中通道的事件
+            UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectChannelToPlay:)];
+            [channelTitleView addGestureRecognizer:gesture];
+            [gesture release];
     
             [channelTitleView release];
         }
@@ -238,6 +247,36 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     [self.view addSubview:connectButton];
     
     [connectBtnImageView release];
+
+}
+
+/**
+ *  选中通道的事件
+ *
+ *  @param gesture 手势
+ */
+- (void)selectChannelToPlay:(UIGestureRecognizer *)gesture
+{
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+        
+    }
+    tOPVC._aDeviceChannelListData = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:@"S53530352"];
+    tOPVC._iSelectedChannelIndex=0;
+    tOPVC._amDeviceListData = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
+    tOPVC._deviceModel=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:@"S53530352"];;
+    tOPVC._isConnectModel=NO;
+  // [tOPVC initwithSoundClass:delegate._openALBufferSound aqsController:delegate._audioRecordControler];
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
 
 }
 

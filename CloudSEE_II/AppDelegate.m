@@ -20,6 +20,8 @@
 #import "JVCAlarmMessageViewController.h"
 #import "JVCMoreViewController.h"
 
+#import "GlView.h"
+
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
 
@@ -34,7 +36,11 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
      */
     [self DDLogSettings];
     
+    //云视通
     [self initYSTSDK];
+    
+    //openglView
+    [self initOpenGlView];
     
     JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
@@ -272,7 +278,25 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     JVC_EnableHelp(TRUE,3);  //手机端是3
 }
 
+/**
+ *  初始化opengl的view
+ */
+- (void)initOpenGlView
+{
+    NSMutableArray *amOpenGLViewListData=[[NSMutableArray alloc] initWithCapacity:10];
+    self._amOpenGLViewListData  =amOpenGLViewListData;
+    [amOpenGLViewListData release];
+    
+    
+    for (int i=0; i<OPENGLMAXCOUNT; i++) {
+        
+        GlView *glView = [[GlView alloc] init];
+        [glView initWithDecoderWidth:320.0 decoderHeight:240.0 frameSizeWidth:320.0 frameSizeHeight:240.0];
+        [self._amOpenGLViewListData addObject:glView];
+        [glView release];
+    }
 
+}
 
 
 

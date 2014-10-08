@@ -176,5 +176,31 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     }
 }
 
+/**
+ *  根据云视通号返回一个设备的所有通道集合
+ *
+ *  @return 一个设备的所有通道集合
+ */
+-(NSMutableArray *)channelModelWithDeviceYstNumber:(NSString *)ystNumber{
+    
+    NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
+    
+    DDLogVerbose(@"%s---deviceYst=%@,channelCount=%d",__FUNCTION__,ystNumber,channelArray.count);
+    
+    for (int i = 0; i < channelArray.count; i++) {
+        
+        JVCDeviceModel *channelModel = (JVCDeviceModel *)[channelArray objectAtIndex:i];
+        
+        DDLogVerbose(@"%s---channelYst=%@",__FUNCTION__,channelModel.yunShiTongNum);
+        
+        if ([channelModel.yunShiTongNum isEqualToString:ystNumber]) {
+            
+            [channnleValues addObject:channelModel];
+        }
+    }
+    
+    return channnleValues;
+}
+
 
 @end

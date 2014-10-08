@@ -22,6 +22,7 @@
 		A7F0042419D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
 		A7F0042819D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
+		A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */; };
 		A7F424EB19D0FB5400D96475 /* JVCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F424EA19D0FB5400D96475 /* JVCLoginViewController.m */; };
 		A7F424F419D0FD7500D96475 /* log_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F424ED19D0FD7500D96475 /* log_bg@2x.png */; };
 		A7F424F519D0FD7500D96475 /* log_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F424ED19D0FD7500D96475 /* log_bg@2x.png */; };
@@ -191,6 +192,25 @@
 		A7F7178419D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */; };
 		A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
 		A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
+		A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
+		A7FA43D719E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
+		A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */; };
+		A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */; };
+		A7FA43DA19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */; };
+		A7FA43DB19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */; };
+		A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D119E3CC3C00F7A8A4 /* JVCOperationController.m */; };
+		A7FA43DD19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D119E3CC3C00F7A8A4 /* JVCOperationController.m */; };
+		A7FA43DE19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D319E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m */; };
+		A7FA43DF19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D319E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m */; };
+		A7FA43E019E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */; };
+		A7FA43E119E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */; };
+		A7FA43E419E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */; };
+		A7FA43E519E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */; };
+		A7FA43E819E3DF7C00F7A8A4 /* libGlView2014_1_7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FA43E719E3DF7C00F7A8A4 /* libGlView2014_1_7.a */; };
+		A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */; };
+		A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */; };
+		A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */; };
+		A7FA43F319E4140700F7A8A4 /* JVCCustomYTOView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */; };
 		A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */; };
 		A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
 		A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */; };
@@ -331,6 +351,8 @@
 		A7F0042219D45C030028533E /* AHReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReach.m; sourceTree = "<group>"; };
 		A7F0042519D45DC70028533E /* JVCConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConfigModel.h; sourceTree = "<group>"; };
 		A7F0042619D45DC70028533E /* JVCConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConfigModel.m; sourceTree = "<group>"; };
+		A7F4055619E4C67E0070945F /* JVCOperationControllerIphone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationControllerIphone5.h; sourceTree = "<group>"; };
+		A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationControllerIphone5.m; sourceTree = "<group>"; };
 		A7F424E919D0FB5400D96475 /* JVCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLoginViewController.h; sourceTree = "<group>"; };
 		A7F424EA19D0FB5400D96475 /* JVCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLoginViewController.m; sourceTree = "<group>"; };
 		A7F424ED19D0FD7500D96475 /* log_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_bg@2x.png"; sourceTree = "<group>"; };
@@ -468,6 +490,29 @@
 		A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_ch@2x.png"; sourceTree = "<group>"; };
 		A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_en@2x.png"; sourceTree = "<group>"; };
 		A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig@2x.png"; sourceTree = "<group>"; };
+		A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomOperationBottomView.h; sourceTree = "<group>"; };
+		A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomOperationBottomView.m; sourceTree = "<group>"; };
+		A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCManagePalyVideoComtroller.h; sourceTree = "<group>"; };
+		A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCManagePalyVideoComtroller.m; sourceTree = "<group>"; };
+		A7FA43CE19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMonitorConnectionSingleImageView.h; sourceTree = "<group>"; };
+		A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMonitorConnectionSingleImageView.m; sourceTree = "<group>"; };
+		A7FA43D019E3CC3C00F7A8A4 /* JVCOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationController.h; sourceTree = "<group>"; };
+		A7FA43D119E3CC3C00F7A8A4 /* JVCOperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationController.m; sourceTree = "<group>"; };
+		A7FA43D219E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationMiddleViewIphone5.h; sourceTree = "<group>"; };
+		A7FA43D319E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationMiddleViewIphone5.m; sourceTree = "<group>"; };
+		A7FA43D419E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRemoteVideoPlayBackVControler.h; sourceTree = "<group>"; };
+		A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRemoteVideoPlayBackVControler.m; sourceTree = "<group>"; };
+		A7FA43E219E3D90200F7A8A4 /* JVCCustomCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomCoverView.h; sourceTree = "<group>"; };
+		A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomCoverView.m; sourceTree = "<group>"; };
+		A7FA43E619E3DF5300F7A8A4 /* GlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlView.h; sourceTree = "<group>"; };
+		A7FA43E719E3DF7C00F7A8A4 /* libGlView2014_1_7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGlView2014_1_7.a; sourceTree = "<group>"; };
+		A7FA43E919E3E69200F7A8A4 /* JVCPlaybackBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPlaybackBean.h; sourceTree = "<group>"; };
+		A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPlaybackBean.m; sourceTree = "<group>"; };
+		A7FA43EC19E3E8C000F7A8A4 /* JVCOperationMiddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationMiddleView.h; sourceTree = "<group>"; };
+		A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationMiddleView.m; sourceTree = "<group>"; };
+		A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		A7FA43F119E4140700F7A8A4 /* JVCCustomYTOView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomYTOView.h; sourceTree = "<group>"; };
+		A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomYTOView.m; sourceTree = "<group>"; };
 		A7FAF5A819D108DB00B3F395 /* JVCRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCRegisterViewController.h; sourceTree = "<group>"; };
 		A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRegisterViewController.m; sourceTree = "<group>"; };
 		A7FAF5AC19D10F3A00B3F395 /* reg_fieldBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_fieldBg@2x.png"; sourceTree = "<group>"; };
@@ -644,10 +689,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D1F19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				A7F5E25A19D4424B00609BC3 /* libsqlite3.dylib in Frameworks */,
+				A7FA43E819E3DF7C00F7A8A4 /* libGlView2014_1_7.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
 				ADA77C3719D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a in Frameworks */,
 				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
@@ -772,6 +819,29 @@
 		A7F4347619DA9E7600E7ECA1 /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				A7FA43E619E3DF5300F7A8A4 /* GlView.h */,
+				A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */,
+				A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */,
+				A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */,
+				A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */,
+				A7FA43CE19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.h */,
+				A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */,
+				A7FA43D019E3CC3C00F7A8A4 /* JVCOperationController.h */,
+				A7FA43D119E3CC3C00F7A8A4 /* JVCOperationController.m */,
+				A7FA43D219E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.h */,
+				A7FA43D319E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m */,
+				A7FA43D419E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.h */,
+				A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */,
+				A7FA43E219E3D90200F7A8A4 /* JVCCustomCoverView.h */,
+				A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */,
+				A7FA43E919E3E69200F7A8A4 /* JVCPlaybackBean.h */,
+				A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */,
+				A7FA43EC19E3E8C000F7A8A4 /* JVCOperationMiddleView.h */,
+				A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */,
+				A7FA43F119E4140700F7A8A4 /* JVCCustomYTOView.h */,
+				A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */,
+				A7F4055619E4C67E0070945F /* JVCOperationControllerIphone5.h */,
+				A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */,
 			);
 			name = operation;
 			sourceTree = "<group>";
@@ -1180,6 +1250,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */,
 				ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */,
 				ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */,
 				ADA22D7A19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a */,
@@ -1190,6 +1261,7 @@
 				A7F5E25919D4424B00609BC3 /* libsqlite3.dylib */,
 				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
 				ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */,
+				A7FA43E719E3DF7C00F7A8A4 /* libGlView2014_1_7.a */,
 				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
 				ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */,
 				ADA77BF719D0250E003EE7A1 /* UIKit.framework */,
@@ -1606,13 +1678,19 @@
 			files = (
 				ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */,
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
+				A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
+				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */,
+				A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
+				A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */,
 				A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
+				A7FA43DE19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */,
 				ADA22DFF19DAAE2A0092F8B9 /* AQRecorder.mm in Sources */,
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				ADA22D3119DA5D0A0092F8B9 /* JVCVideoDecoderHelper.m in Sources */,
+				A7FA43F319E4140700F7A8A4 /* JVCCustomYTOView.m in Sources */,
 				ADA22D7E19DA84500092F8B9 /* JVCVoiceIntercomHelper.m in Sources */,
 				A7F6EFB719D79BD500FFE02D /* JVCChannelModel.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
@@ -1638,6 +1716,8 @@
 				ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */,
 				ADA22D5619DA613E0092F8B9 /* DDASLLogger.m in Sources */,
 				A7F5012A19D4F96A00AA78F0 /* JVCMoreSettingHelper.m in Sources */,
+				A7FA43E419E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */,
+				A7FA43DA19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */,
 				A7F5EF4319D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */,
 				A7F5EF3C19D2621B009B797A /* UIScrollView+MJRefresh.m in Sources */,
@@ -1656,6 +1736,7 @@
 				AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */,
 				A7F5013219D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
 				A7F5EF8019D2F453009B797A /* JVCPredicateHelper.m in Sources */,
+				A7FA43E019E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */,
 				ADA22D5519DA613E0092F8B9 /* DDAbstractDatabaseLogger.m in Sources */,
 				AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */,
 				A7F5EF3819D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
@@ -1701,6 +1782,7 @@
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,
+				A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */,
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
@@ -1708,6 +1790,7 @@
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7F5E25219D43F6E00609BC3 /* FMDatabasePool.m in Sources */,
 				ADA22D6119DA78380092F8B9 /* JVCAudioQueueHelper.mm in Sources */,
+				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */,
 				A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */,
 				A7F4346E19DA499C00E7ECA1 /* JVCDeviceListNoDevieCell.m in Sources */,
@@ -1723,10 +1806,12 @@
 				A7F5E26219D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
 				A7F5556E19D90FB10009F75C /* SPLine.m in Sources */,
 				A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
+				A7FA43DF19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */,
 				A72B4B6619D3B98900760695 /* JSONKit.m in Sources */,
 				A7F5014019D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				A7F5555C19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
 				A7F5EF3F19D2621B009B797A /* UIView+MJExtension.m in Sources */,
+				A7FA43D719E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */,
 				A7F5E25819D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F5EF4919D26B31009B797A /* StyledPageControl.m in Sources */,
 				A7F5EF8119D2F453009B797A /* JVCPredicateHelper.m in Sources */,
@@ -1735,11 +1820,15 @@
 				A7F5017219D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				A7F5EF3919D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
 				ADA77C1919D0250F003EE7A1 /* CloudSEE_IITests.m in Sources */,
+				A7FA43DB19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */,
+				A7FA43E519E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */,
 				A7F5557019D90FB10009F75C /* NormalCircle.m in Sources */,
 				A7F5EF4419D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
+				A7FA43DD19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				A7F0042419D45C030028533E /* AHReach.m in Sources */,
 				A7F5EF1D19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */,
 				A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */,
+				A7FA43E119E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */,
 				A7F5557419D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7F5EF3B19D2621B009B797A /* UIScrollView+MJExtension.m in Sources */,
 				A7F5013319D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
@@ -1765,6 +1854,7 @@
 				A7F5557219D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				A7FAF5BA19D11C4000B3F395 /* JVCAccountPredicateMaths.m in Sources */,
 				A7F5EF7819D2DC18009B797A /* JVCAlertHelper.m in Sources */,
+				A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */,
 				A7F5E25119D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

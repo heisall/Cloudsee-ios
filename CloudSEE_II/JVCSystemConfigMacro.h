@@ -25,4 +25,21 @@ static const int  kOPENGLMAXCOUNT = 17;//opengl数量
 
 static const int  KWINDOWSFLAG  = 1000;//tag
 
+static const int OPENGLMAXCOUNT  = 17;//opengl显示最大值
+
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
+
+#define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:1.0]
+
+#define RGB_YUANCHENG_BTN_R   255.0
+#define RGB_YUANCHENG_BTN_G   255.0
+#define RGB_YUANCHENG_BTN_B   255.0
+
+//--------------- 远程回放
+#define RGB_YUANCHENG_COLOUM_R 82.0
+#define RGB_YUANCHENG_COLOUM_G 32.0
+#define RGB_YUANCHENG_COLOUM_B 51.0
+
+#define RGB_YUANCHENG_LABLE_R   47.0
+#define RGB_YUANCHENG_LABLE_G   71.0
+#define RGB_YUANCHENG_LABLE_B   110.0
