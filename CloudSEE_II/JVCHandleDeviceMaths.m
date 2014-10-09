@@ -8,7 +8,6 @@
 
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
-#import "JVCDeviceModel.h"
 
 @implementation JVCHandleDeviceMaths
 
@@ -48,7 +47,5 @@ static JVCHandleDeviceMaths *shareHandleDeviceMaths = nil;
         return nil;
     }
 }
-
-
 
 @end

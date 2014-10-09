@@ -8,6 +8,10 @@
 
 #import "JVCBaseWithTopToolViewAndDropListViewController.h"
 
-@interface JVCDeviceListWithChannelListViewController : JVCBaseWithTopToolViewAndDropListViewController 
+@interface JVCDeviceListWithChannelListViewController : JVCBaseWithTopToolViewAndDropListViewController {
+
+
+
+}
 
 @end

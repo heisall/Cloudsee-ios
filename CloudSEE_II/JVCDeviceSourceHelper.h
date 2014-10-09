@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "JVCDeviceModel.h"
 
+@class JVCDeviceModel;
+
 /**
  *  判断用户名密码和是否超过最大数的枚举
  */

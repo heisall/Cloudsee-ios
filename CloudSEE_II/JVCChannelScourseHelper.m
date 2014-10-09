@@ -1,17 +1,14 @@
 //
 //  JVCChannelScourseHelper.m
 //  CloudSEE_II
-//
+//  通道数据的助手类，主要用于缓存设备通道数据、删除、增加、网络数据转换
 //  Created by Yanghu on 9/26/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
 #import "JVCChannelScourseHelper.h"
 #import "JVCSystemUtility.h"
-#import "JVCDeviceModel.h"
-#import "JVCDeviceSourceHelper.h"
 #import "JVCDeviceMacro.h"
-#import "JVCChannelModel.h"
 
 @interface JVCChannelScourseHelper ()
 {
@@ -93,7 +90,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     [channelArray removeAllObjects];
 }
 
-
 /**
  *  根据云视通号返回一个设备的所有通道号集合
  *
@@ -105,11 +101,11 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     for (int i = 0; i < channelArray.count; i++) {
 
-        JVCDeviceModel *channelModel = (JVCDeviceModel *)[channelArray objectAtIndex:i];
+        JVCChannelModel *channelModel = (JVCChannelModel *)[channelArray objectAtIndex:i];
         
-        if ([channelModel.yunShiTongNum isEqualToString:ystNumber]) {
+        if ([channelModel.strDeviceYstNumber isEqualToString:ystNumber]) {
             
-            [channnleValues addObject:[NSNumber numberWithInt:channelModel.channelValue]];
+            [channnleValues addObject:[NSNumber numberWithInt:channelModel.nChannelValue]];
         }
     }
 
@@ -128,30 +124,24 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
      */
     if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelMdicInfo]) {
         
-        //根据云通号获取相应的设备Model类
-        JVCDeviceModel *deviceModel=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:deviceYstNumber];
+        [deviceYstNumber retain];
         
-        [deviceModel retain];
+        DDLogVerbose(@"deviceModel=%@",deviceYstNumber);
         
-        DDLogVerbose(@"deviceModel=%@",deviceModel.yunShiTongNum);
+        [self convertChannelDictionToModelList:channelMdicInfo deviceYstNumber:deviceYstNumber];
         
-        if (deviceModel!=nil) {
-            
-          [self convertChannelDictionToModelList:channelMdicInfo deviceModel:deviceModel];
-        }
-        
-        [deviceModel release];
+        [deviceYstNumber release];
     }
 }
 
 /**
  *  将获取的通道信息转换成通道数组
  *
- *  @param channelInfoMDic 获取的通道信息数据
- *  @param deviceModel     设备的MODEl类
+ *  @param channelInfoMDic   获取的通道信息数据
+ *  @param deviceYstNumber   云视通号
  *
  */
--( void)convertChannelDictionToModelList:(NSDictionary *)channelInfoMDic deviceModel:(JVCDeviceModel *)deviceModel
+-( void)convertChannelDictionToModelList:(NSDictionary *)channelInfoMDic deviceYstNumber:(NSString *)deviceYstNumber
 {
     id channelInfoId=[channelInfoMDic objectForKey:DEVICE_CHANNEL_JSON_LIST];
     
@@ -162,8 +152,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
         for (int i=0; i<channelInfoArray.count; i++) {
             
             NSDictionary *channelMdic=(NSDictionary *)[channelInfoArray objectAtIndex:i];
-            
-            JVCDeviceModel *channelModel=[[JVCDeviceModel alloc] initWithChannelDic:channelMdic devieModel:deviceModel];
+    
+            JVCChannelModel *channelModel=[[JVCChannelModel alloc] initWithChannelDic:channelMdic ystNumber:deviceYstNumber];
             
             [channelArray addObject:channelModel];
             
@@ -173,7 +163,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 }
 
 /**
- *  根据云视通号返回一个设备的所有通道集合
+ *  根据云视通号返回一个设备的所有通道Model集合
  *
  *  @return 一个设备的所有通道集合
  */
@@ -181,15 +171,11 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
     
-    DDLogVerbose(@"%s---deviceYst=%@,channelCount=%d",__FUNCTION__,ystNumber,channelArray.count);
-    
     for (int i = 0; i < channelArray.count; i++) {
         
-        JVCDeviceModel *channelModel = (JVCDeviceModel *)[channelArray objectAtIndex:i];
+        JVCChannelModel *channelModel = (JVCChannelModel *)[channelArray objectAtIndex:i];
         
-        DDLogVerbose(@"%s---channelYst=%@",__FUNCTION__,channelModel.yunShiTongNum);
-        
-        if ([channelModel.yunShiTongNum isEqualToString:ystNumber]) {
+        if ([channelModel.strDeviceYstNumber isEqualToString:ystNumber]) {
             
             [channnleValues addObject:channelModel];
         }
@@ -197,6 +183,5 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     return channnleValues;
 }
-
 
 @end

@@ -8,7 +8,12 @@
 
 #import "JVCBaseRgbBackgroundColorView.h"
 
-@interface JVCDeviceListWithChannelListTitleView : JVCBaseRgbBackgroundColorView
+@interface JVCDeviceListWithChannelListTitleView : JVCBaseRgbBackgroundColorView {
+
+    int nChannelValueWithIndex;  //通道号在通道集合中的索引
+}
+
+@property (nonatomic,assign) int nChannelValueWithIndex;
 
 /**
  *  初始化标签视图

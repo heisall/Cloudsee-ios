@@ -19,9 +19,9 @@
 
 @interface JVCDeviceListWithChannelListViewController () {
 
-    NSMutableArray *titleColors;
-    UIScrollView   *titlelableScoollView;
-    JVCDeviceListWithChannelListTitleView *tempChannelTitleView; //单个通道视图的模板
+    NSMutableArray                        *titleColors;                //存放标签RGB颜色集合
+    UIScrollView                          *titlelableScoollView;       //存放通道的滚动视图
+    JVCDeviceListWithChannelListTitleView *tempChannelTitleView;       //单个通道视图的模板
 }
 
 @end
@@ -65,6 +65,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     [super viewDidLoad];
     [self initWithConnectAllButton];
     [self initWithChannelListView];
+    [toolBarView setSelectedTopItemAtIndex:self.nIndex];
 }
 
 -(void)dealloc{
@@ -108,11 +109,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
     
-//    for (int i = 0; i< 64; i++) {
-//        
-//        [channelValues addObject:[NSNumber numberWithInt:i+1]];
-//    }
-    
     [channelValues retain];
     
     if (titlelableScoollView) {
@@ -148,7 +144,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             if (column != 0 ) {
                 
                 row = row + 1;
-                
             }
             
             int colorIndex = (row -1) % titleColors.count;
@@ -167,25 +162,22 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             totalHeight       = position.origin.y + position.size.height ;
             
-            JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)[appHelper duplicate:tempChannelTitleView];
+            int channelValue  = [[channelValues objectAtIndex:i] intValue];
             
-//            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:titleViewBgColor cornerRadius:kTitleViewWithRadius];
+            JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)[appHelper duplicate:tempChannelTitleView];
 
-            channelTitleView.backgroundColor = titleViewBgColor;
-            channelTitleView.frame           = position;
+            channelTitleView.backgroundColor          = titleViewBgColor;
+            channelTitleView.frame                    = position;
+            channelTitleView.nChannelValueWithIndex   = i;
             [titleViews addObject:channelTitleView];
             
             //初始化按钮标题
-            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%@通道", [channelValues objectAtIndex:i]]];
-            
-        
+            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%d通道", channelValue]];
             
             //添加选中通道的事件
             UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectChannelToPlay:)];
             [channelTitleView addGestureRecognizer:gesture];
             [gesture release];
-    
-         
         }
         
         CGRect scrollRect;
@@ -213,7 +205,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     }
     
     [titleViews release];
-    
     [channelValues release];
 }
 
@@ -280,6 +271,10 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 - (void)selectChannelToPlay:(UIGestureRecognizer *)gesture
 {
     
+    JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)(gesture.view);
+    
+    int indexWithChannels =  channelTitleView.nChannelValueWithIndex;
+    
     JVCOperationController *tOPVC;
     
     if (iphone5) {
@@ -291,15 +286,11 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         tOPVC = [[JVCOperationController alloc] init];
         
     }
-    tOPVC._aDeviceChannelListData = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:@"S53530352"];
-    tOPVC._iSelectedChannelIndex=0;
-    tOPVC._amDeviceListData = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
-    tOPVC._deviceModel=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:@"S53530352"];;
-    tOPVC._isConnectModel=NO;
-  // [tOPVC initwithSoundClass:delegate._openALBufferSound aqsController:delegate._audioRecordControler];
+    
+    tOPVC._aDeviceChannelListData = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
+    tOPVC._iSelectedChannelIndex  = indexWithChannels;
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
-
 }
 
 - (void)didReceiveMemoryWarning

@@ -15,7 +15,6 @@
 #import "JVCAppHelper.h"
 #import "JVCDeviceHelper.h"
 #import "JVCDeviceSourceHelper.h"
-#import "JVCDeviceModel.h"
 #import "JVCSystemUtility.h"
 #import "JVCDeviceListWithChannelListViewController.h"
 #import "JVCDeviceListNoDevieCell.h"
@@ -31,7 +30,7 @@ static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ; //动画延迟时间
 static const int             kPopViewOffx                            = 290 ; //popview弹出的x坐标
-
+static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //设备视图的默认起始标志
 
 @interface JVCDeviceListViewController ()
 {
@@ -359,7 +358,7 @@ static const int             kPopViewOffx                            = 290 ; //p
                         JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)[[JVCAppHelper shareJVCAppHelper] duplicate:tempView];
                         deviceView.backgroundColor = deviceDeviceViewColor;
                         deviceView.frame           = position;
-                        deviceView.tag             = index;
+                        deviceView.tag             = index + kTableViewSingleDeviceViewBeginTag;
                         
                         UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
                         
@@ -405,6 +404,7 @@ static const int             kPopViewOffx                            = 290 ; //p
 {
     JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
     deviceChannelList.hidesBottomBarWhenPushed                    = YES;
+    deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
     [self.navigationController pushViewController:deviceChannelList animated:YES];
     [deviceChannelList release];
     
@@ -488,7 +488,6 @@ static const int             kPopViewOffx                            = 290 ; //p
             
             if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
                 
-                DDLogInfo(@"_%s===%@",__func__,tdicDevice);
                 //把从服务器获取到的数据存放到数组中
                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
                 //必须刷新
@@ -503,7 +502,6 @@ static const int             kPopViewOffx                            = 290 ; //p
                 
                 [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
 
-            
             }
             
         });
@@ -527,15 +525,11 @@ static const int             kPopViewOffx                            = 290 ; //p
             NSMutableArray *singleDeviceChannelListMArray=[[NSMutableArray alloc] init];
             JVCDeviceModel *model=[deviceListData objectAtIndex:index];
             
-            
             NSDictionary *channelInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:model.yunShiTongNum];
-            
-            DDLogVerbose(@"gcd_info_mdic=%@",channelInfoMdic);
             
             if ([channelInfoMdic isKindOfClass:[NSDictionary class]]) {
                 
                 [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelInfoMdic deviceYstNumber:model.yunShiTongNum];
-            
             }
             
             [singleDeviceChannelListMArray release];
@@ -545,7 +539,6 @@ static const int             kPopViewOffx                            = 290 ; //p
     });
     
     [deviceListData release];
-
 }
 
 /**

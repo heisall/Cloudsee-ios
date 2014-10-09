@@ -22,9 +22,6 @@
     int hasWifi;                //0：没有wifi   1：有WiFi
     int useWifi;                //0  没有用WiFi  1 ：使用WiFi
     int linkType;               //设备连接模式  0 云视通连接  1：ip连接
-    
-    //通道特有
-    int channelValue;           //通道 如 第一通道、第二通道
 }
 
 @property(nonatomic,retain) NSString *userName;
@@ -38,7 +35,6 @@
 @property(nonatomic,assign) int onLineState;
 @property(nonatomic,assign) int hasWifi;
 @property(nonatomic,assign) int useWifi;
-@property(nonatomic,assign) int channelValue;
 
 /**
  *  初始化
@@ -58,15 +54,5 @@
  *  @return 返回相应的设备model类型
  */
 -(id)initWithADDDeviceDictionary:(NSDictionary *)info  YSTNUM:(NSString *)YSTNum;
-
-/**
- *  根据收到的channel的
- *
- *  @param channelDic  通道的字典
- *  @param deviceModel 通道对应的设备字典
- *
- *  @return 通道的model类型
- */
--(id)initWithChannelDic:(NSDictionary *)channelDic  devieModel:(JVCDeviceModel *)deviceModel;
 
 @end

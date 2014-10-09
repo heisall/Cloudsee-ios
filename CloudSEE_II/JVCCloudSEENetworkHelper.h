@@ -125,11 +125,6 @@
 + (JVCCloudSEENetworkHelper *)shareJVCCloudSEENetworkHelper;
 
 /**
- *  注册回调函数
- */
--(void)registerCallBack;
-
-/**
  *  检测当前窗口连接是否已存在
  *
  *  @param nLocalChannel nLocalChannel description

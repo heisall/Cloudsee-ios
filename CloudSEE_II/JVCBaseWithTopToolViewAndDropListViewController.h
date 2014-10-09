@@ -27,6 +27,7 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
     JVCTopToolBarView *toolBarView;         //顶部工具条
 }
 
+@property (nonatomic,assign) int nIndex;
 
 /**
  *  初始化功能区域按钮

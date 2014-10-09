@@ -56,4 +56,9 @@
  */
 -(void)stopSound;
 
+/**
+ *  清除缓存声音
+ */
+-(void)cleanUpOpenALMath;
+
 @end

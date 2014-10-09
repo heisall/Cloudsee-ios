@@ -9,7 +9,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
-#import "JVCDeviceSourceHelper.h"
+
 
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
