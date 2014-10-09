@@ -19,16 +19,16 @@
 #import "JVCDeviceListViewController.h"
 #import "JVCAlarmMessageViewController.h"
 #import "JVCMoreViewController.h"
-
 #import "GlView.h"
-
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+
 
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
+@synthesize QRViewController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     /**
@@ -41,6 +41,9 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     
     //openglView
     [self initOpenGlView];
+    
+    //初始化二维码模块
+    [self initQRViewController];
     
     JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
@@ -298,10 +301,23 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
 }
 
+/**
+ *  初始化二维码模块
+ */
+- (void)initQRViewController
+{
+    JVCQRCoderViewController *_temp = [[JVCQRCoderViewController alloc] init];
+    self.QRViewController = _temp;
+    [_temp release];
+    
+}
 
 
 - (void)dealloc
 {
+    [QRViewController release];
+    QRViewController = nil;
+    
     [_amOpenGLViewListData release];
     _amOpenGLViewListData=nil;
     [super dealloc];

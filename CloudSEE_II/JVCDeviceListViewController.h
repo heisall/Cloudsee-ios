@@ -8,7 +8,20 @@
 
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCAddDeviceViewController.h"
+#import "JVCQRCoderViewController.h"
+#import "JVCAddDevicePopView.h"
 
-@interface JVCDeviceListViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate>
+typedef enum {
+
+    AddDevicePopType_NormalAddDevice    = 0,//正常添加
+    AddDevicePopType_QRAddDevice        = 1,//扫一扫
+    AddDevicePopType_WlanAddDevice      = 2,//无线添加
+    AddDevicePopType_ScanADDDevice      = 3,//扫描添加
+    AddDevicePopType_VloceAddDevice     = 4,//声波添加
+
+}AddDevicePopType;
+
+
+@interface JVCDeviceListViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate>
 
 @end

@@ -12,7 +12,6 @@
 #import "JVCDeviceHelper.h"
 #import "JVCDeviceMacro.h"
 #import "JVCDeviceSourceHelper.h"
-#import "JVCSystemUtility.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCAPConfigPreparaViewController.h"
 
@@ -27,6 +26,7 @@ static const int    DEFAULRESIGNTFONTSIZE       = 14;//默认的字体大小
 static const int    DEFAULTLABELWITH            = 70;//textfield的lefitwiew对应的label的宽度
 static const int    kADDDEVICESLIDEHEIGIT       = 100;//向上滑动的高度
 static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
+
 
 
 
@@ -76,33 +76,30 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 
     rectRectFrame = self.view.frame;
     
-    /**
-     *  设置背景为白色
-     */
-//    JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
-//    
-//    if ([rgbHelper rgbColorForKey:kJVCRGBColorMacroEditTopToolBarBackgroundColor]) {
-//        
-//        self.view.backgroundColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
-//    }
-    
-    self.view.backgroundColor = [UIColor grayColor];
-    
     UIControl *controlBg = [[UIControl alloc] initWithFrame:self.view.frame];
     [controlBg addTarget:self action:@selector(resignADDDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:controlBg];
     [controlBg release];
+    
+    UIColor *textColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroTextFontColor];
+
         
    //云视通号
     UIImage *imgTextFieldBG = [UIImage imageNamed:@"addDev_textFiedlBg.png"];
     textFieldYST = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, TESTORIIGIN_Y, imgTextFieldBG.size.width, imgTextFieldBG.size.height)];
     textFieldYST.background = imgTextFieldBG;
     textFieldYST.textAlignment = UITextAlignmentRight;
+    if (textColor) {
+        textFieldYST.textColor = textColor;
+    }
     textFieldYST.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldYST];
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelLeft.backgroundColor = [UIColor clearColor];
     labelLeft.text = @"云视通号";
+    if (textColor) {
+        labelLeft.textColor = textColor;
+    }
     labelLeft.textAlignment = UITextAlignmentRight;
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldYST.leftViewMode = UITextFieldViewModeAlways;
@@ -112,47 +109,25 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     labelRight.backgroundColor = [UIColor clearColor];
     textFieldYST.rightViewMode = UITextFieldViewModeAlways;
     textFieldYST.rightView = labelRight;
+    [textFieldYST becomeFirstResponder];
     [labelRight release];
-
-    UIImage *imgBtnNor = [UIImage imageNamed:@"addDev_btnHor.png"];
-    UIImage *imgBtnHor = [UIImage imageNamed:@"addDev_btnNor.png"];
-    int seperate = (self.view.width -2*imgBtnNor.size.width)/3.0;
-    //高级按钮
-    btnAdvace = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnAdvace.frame = CGRectMake(seperate, textFieldYST.bottom+SEPERATE, imgBtnNor.size.width, imgBtnNor.size.height);
-    [btnAdvace setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnAdvace setTitle:@"高级" forState:UIControlStateNormal];
-    [btnAdvace addTarget:self action:@selector(showUserAndPW) forControlEvents:UIControlEventTouchUpInside];
-    [btnAdvace setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [self.view addSubview:btnAdvace];
-    
-    //保存按钮
-    btnSave = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnSave.frame = CGRectMake(btnAdvace.right+seperate, btnAdvace.top, imgBtnNor.size.width, imgBtnNor.size.height);
-    [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [btnSave setTitle:@"保存" forState:UIControlStateNormal];
-    [btnSave addTarget:self action:@selector(saveDevice) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnSave];
-    
-    //ap按钮
-    btnAP = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnAP.frame = CGRectMake(btnAdvace.left, btnAdvace.bottom+SEPERATE, self.view.width - 2*seperate, btnSave.frame.size.height);
-    [btnAP setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnAP setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [btnAP setTitle:@"添加无线设备" forState:UIControlStateNormal];
-    [btnAP addTarget:self action:@selector(AddWlanDevice) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnAP];
     
     //用户名
     textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldYST.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
     textFieldUserName.background = imgTextFieldBG;
     textFieldUserName.textAlignment = UITextAlignmentRight;
+    if (textColor) {
+        textFieldUserName.textColor = textColor;
+    }
+    textFieldUserName.text = (NSString *)DefaultUserName;
     textFieldUserName.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
     labelNameLeft.text = @"用户名";
+    if (textColor) {
+        labelNameLeft.textColor = textColor;
+    }
     labelNameLeft.textAlignment = UITextAlignmentRight;
     labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldUserName.leftViewMode = UITextFieldViewModeAlways;
@@ -171,10 +146,20 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     textFieldPassWord.textAlignment = UITextAlignmentRight;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     textFieldPassWord.delegate = self;
+    textFieldPassWord.text = (NSString *)DefaultPassWord;
+
+    if (textColor) {
+        
+        textFieldPassWord.textColor = textColor;
+    }
     textFieldPassWord.secureTextEntry = YES;
     [self.view addSubview:textFieldPassWord];
     UILabel *labelPassLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelPassLeft.backgroundColor = [UIColor clearColor];
+    if (textColor) {
+        
+        labelPassLeft.textColor = textColor;
+    }
     labelPassLeft.text = @"密码";
     labelPassLeft.textAlignment = UITextAlignmentRight;
     labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
@@ -188,6 +173,40 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     [labelPassRight release];
     textFieldPassWord.hidden = YES;
 
+
+    UIImage *imgBtnNor = [UIImage imageNamed:@"addDev_btnHor.png"];
+    UIImage *imgBtnHor = [UIImage imageNamed:@"addDev_btnNor.png"];
+    int seperate = (self.view.width -2*imgBtnNor.size.width)/3.0;
+//    //高级按钮
+//    btnAdvace = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btnAdvace.frame = CGRectMake(seperate, textFieldYST.bottom+SEPERATE, imgBtnNor.size.width, imgBtnNor.size.height);
+//    [btnAdvace setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
+//    [btnAdvace setTitle:@"高级" forState:UIControlStateNormal];
+//    [btnAdvace addTarget:self action:@selector(showUserAndPW) forControlEvents:UIControlEventTouchUpInside];
+//    [btnAdvace setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
+//    [self.view addSubview:btnAdvace];
+    
+    [self showUserAndPW];
+    
+    //保存按钮
+    btnSave = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSave.frame = CGRectMake(seperate, textFieldPassWord.bottom+SEPERATE, self.view.width - 2*seperate, imgBtnNor.size.height);
+    [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
+    [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
+    [btnSave setTitle:@"保存" forState:UIControlStateNormal];
+    [btnSave addTarget:self action:@selector(saveDevice) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnSave];
+    
+    //ap按钮
+//    btnAP = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btnAP.frame = CGRectMake(btnAdvace.left, btnAdvace.bottom+SEPERATE, self.view.width - 2*seperate, btnSave.frame.size.height);
+//    [btnAP setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
+//    [btnAP setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
+//    [btnAP setTitle:@"添加无线设备" forState:UIControlStateNormal];
+//    [btnAP addTarget:self action:@selector(AddWlanDevice) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btnAP];
+    
+    
 
 }
 
@@ -219,7 +238,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
         textFieldPassWord.hidden = NO;
         textFieldUserName.hidden = NO;
         [btnAdvace setTitle:LOCALANGER(@"返回") forState:UIControlStateNormal];
-        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
+      //  btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
     }else{
         CGRect rectFrame =btnAdvace.frame;
         rectFrame.origin.y -=2*(SEPERATE+tImageBG.size.height);
@@ -232,7 +251,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
         
         textFieldPassWord.hidden = YES;
         textFieldUserName.hidden = YES;
-        btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
+        //btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
         
     }
     
@@ -521,6 +540,14 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 }
 
 /**
+ *  设置云视通textfield的文本
+ */
+- (void)YstTextFieldTextL:(NSString *)yunNum
+{
+    textFieldYST.text = yunNum;
+}
+
+/**
  *  注销键盘
  */
 -(void)resignADDDeviceTextFields
@@ -536,6 +563,7 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

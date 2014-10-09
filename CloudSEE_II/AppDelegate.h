@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "JVCQRCoderViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
-        NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
+    NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
+    
+    JVCQRCoderViewController *QRViewController;//二维码扫描view
+    
 }
 
-@property (strong, nonatomic) UIWindow *window;
-@property(nonatomic,retain) NSMutableArray *_amOpenGLViewListData;
+@property (strong, nonatomic)   UIWindow *window;
+@property(nonatomic,retain)     NSMutableArray *_amOpenGLViewListData;
+@property(nonatomic,retain)     JVCQRCoderViewController *QRViewController;
 
 /**
  *  初始化TabarViewControllers

@@ -20,13 +20,17 @@
 #import "JVCDeviceListWithChannelListViewController.h"
 #import "JVCDeviceListNoDevieCell.h"
 #import "JVCChannelScourseHelper.h"
-
+#import "AppDelegate.h"
+#import "JVCAPConfigPreparaViewController.h"
+#import "JVCQRAddDeviceViewController.h"
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
 static const int             kTableViewCellNormalCellHeight          = 120 ; //正常cell的高度
 static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
+static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ; //动画延迟时间
+static const int             kPopViewOffx                            = 290 ; //popview弹出的x坐标
 
 
 @interface JVCDeviceListViewController ()
@@ -99,7 +103,7 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
     UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
     UIButton *RightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, imageRight.size.width, imageRight.size.height)];
     [RightBtn setImage:imageRight forState:UIControlStateNormal];
-    [RightBtn addTarget:self action:@selector(AddDevice) forControlEvents:UIControlEventTouchUpInside];
+    [RightBtn addTarget:self action:@selector(popAddDeviceItems) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:RightBtn];
     self.navigationItem.rightBarButtonItem=rightBarBtn;
     [RightBtn release];
@@ -142,6 +146,34 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
         [_tableView headerEndRefreshing];
     });
 }
+/**
+ *  选中item的回调
+ *
+ *  @param index 索引
+ */
+- (void)didSelectItemRowAtIndex:(int)index
+{
+    switch (index ) {
+        case AddDevicePopType_NormalAddDevice:
+            [self AddDevice];
+            break;
+        case AddDevicePopType_QRAddDevice:
+            [self startQRScan];
+            break;
+        case AddDevicePopType_WlanAddDevice:
+            [self AddWlanDevice];
+            break;
+        case AddDevicePopType_ScanADDDevice:
+            
+            break;
+        case AddDevicePopType_VloceAddDevice:
+            
+            break;
+            
+        default:
+            break;
+    }
+}
 
 #pragma mark 跳转到添加设备界面
 /**
@@ -156,6 +188,56 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
     [addDeviceVC release];
     
 }
+
+/**
+ *  弹出添加设备选项
+ */
+- (void)popAddDeviceItems
+{
+    CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
+    NSArray *titles = @[@"添加设备", @"扫一扫", @"添加无线设备",@"局域网扫描", @"声波配置"];
+//    NSArray *images = @[@"28b.png", @"28b.png", @"28b.png"];
+    JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:nil];
+    pop.popDelegate = self;
+    [pop show];
+    [pop release];
+}
+/**
+ *  二维码扫描
+ */
+- (void)startQRScan
+{
+    AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegateApp.QRViewController.delegate = self;
+    [self.navigationController presentModalViewController:delegateApp.QRViewController animated:YES];
+    [delegateApp.QRViewController startScan];
+
+}
+
+#pragma mark 二维码扫描的回调
+- (void)customViewController:(JVCQRCoderViewController *)controller didScanResult:(NSString *)result
+{
+    [controller dismissViewControllerAnimated:YES completion:^{
+        
+        JVCQRAddDeviceViewController *qrAddDeviceVC = [[JVCQRAddDeviceViewController alloc] init];
+        [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
+        [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
+        [qrAddDeviceVC release];
+//        [controller dismissModalViewControllerAnimated:NO];
+    }];
+}
+
+
+/**
+ *  添加无线设备
+ */
+- (void)AddWlanDevice
+{
+    JVCAPConfigPreparaViewController *configViewController = [[JVCAPConfigPreparaViewController alloc] init];
+    [self.navigationController pushViewController:configViewController animated:YES];
+    [configViewController release];
+}
+
 
 #pragma mark  tableView 的方法
 

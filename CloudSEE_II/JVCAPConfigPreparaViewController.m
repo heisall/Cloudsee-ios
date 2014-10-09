@@ -25,34 +25,14 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     return self;
 }
 
-//- (void) viewDidLayoutSubviews {
-//    
-//    if (IOS_VERSION>=IOS7) {
-//        
-//        CGRect viewBounds = self.view.bounds;
-//        
-//        CGFloat topBarOffset = self.topLayoutGuide.length;
-//        
-//        viewBounds.origin.y = topBarOffset * -1;
-//        
-//        self.view.bounds = viewBounds;
-//    }
-//    
-//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"添加无线设备";
     
-    //ios7
-//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-//    {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//        self.extendedLayoutIncludesOpaqueBars = NO;
-//        self.modalPresentationCapturesStatusBarAppearance = NO;
-//    }
     NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(@"add_apConfig")];
     UIImage *iamgeAp = [[UIImage alloc] initWithContentsOfFile:imageBundlePath];
     

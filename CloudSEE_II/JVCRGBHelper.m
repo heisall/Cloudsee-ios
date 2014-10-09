@@ -41,6 +41,8 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initWithChanelListView];
         [self initLoginViewRgbColors];
         [self initViewControllerRGBColors];
+        [self initAddDeviceTextColor];
+        [self initAddDevicePopViewRGBColors];
     }
     
     return self;
@@ -331,6 +333,44 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     
     [loginUserGray release];
     [loginDemoBlue release];
+    
+}
+
+
+/**
+ *  初始化添加设备界面的RGB集合
+ */
+-(void)initAddDeviceTextColor{
+    
+    JVCRGBModel *textColor  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    textColor.r = 81.0f;
+    textColor.g = 82.0f;
+    textColor.b = 82.0f;
+    
+    [mdicRgbModelList setObject:textColor forKey:kJVCRGBColorMacroTextFontColor];
+    
+    [textColor release];
+}
+
+/**
+ *  初始化试图的backgrou的颜色
+ */
+- (void)initAddDevicePopViewRGBColors
+{
+    JVCRGBModel *PopViewBoard  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    PopViewBoard.r = 200.0f;
+    PopViewBoard.g = 199.0f;
+    PopViewBoard.b = 204.0f;
+    [mdicRgbModelList setObject:PopViewBoard forKey:kJVCRGBColorMacroPopBoardColor];
+    [PopViewBoard release];
+    
+    JVCRGBModel *PopViewBg = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    PopViewBg.r = 86.0f;
+    PopViewBg.g = 86.0f;
+    PopViewBg.b = 86.0f;
+    [mdicRgbModelList setObject:PopViewBg forKey:kJVCRGBColorMacroPopBgColor];
+    [PopViewBg release];
+
     
 }
 

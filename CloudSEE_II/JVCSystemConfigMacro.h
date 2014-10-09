@@ -27,6 +27,9 @@ static const int  KWINDOWSFLAG  = 1000;//tag
 
 static const int OPENGLMAXCOUNT  = 17;//opengl显示最大值
 
+static const NSString *DefaultUserName = @"admin";//默认用户名
+static const NSString *DefaultPassWord = @"";      //默认密码
+
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 #define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:1.0]

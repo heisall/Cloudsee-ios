@@ -40,4 +40,9 @@ enum DEVICEBIND
     id<addDeviceDelegate>addDeviceDelegate;
 }
 @property(nonatomic,assign)id<addDeviceDelegate>addDeviceDelegate;
+
+/**
+ *  设置云视通textfield的文本,二维码扫描的时候用到
+ */
+- (void)YstTextFieldTextL:(NSString *)yunNum;
 @end

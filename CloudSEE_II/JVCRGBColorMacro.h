@@ -52,5 +52,11 @@ static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListWarmOrange   
 //所有试图的背景
 static NSString const *  kJVCRGBColorMacroViewControllerBackGround       = @"ViewControllerBackGroundColor";
 
+//添加设备的文本颜色
+static NSString const *  kJVCRGBColorMacroTextFontColor   = @"addDeviceTextColor";
+
+//添加设备弹出试图的边框颜色
+static NSString const *  kJVCRGBColorMacroPopBoardColor   = @"PopBoardColor";
+static NSString const *  kJVCRGBColorMacroPopBgColor   = @"PopBgColor";
 
 #endif
