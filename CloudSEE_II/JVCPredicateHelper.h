@@ -26,6 +26,24 @@ enum ADDDEVICERESULT
     
 };
 
+enum MODIFY_DEVICE_TYPE
+{
+    
+    MODIFY_DEVIE_SUCCESS = 0,//符合规则
+    
+    MODIFY_DEVIE_NICK_NIL,//用户昵称为空
+    
+    MODIFY_DEVIE_NICK_ERROR,//用户昵称不合法
+    
+    MODIFY_DEVIE_USER_NIL,//用户名为空
+    
+    MODIFY_DEVIE_PASSWORD_NIL,//密码为空
+    
+    MODIFY_DEVIE_USER_ERROR,//用户名格式不正确
+    
+    MODIFY_DEVIE_PASSWORD_ERROR,//密码格式不正确
+    
+};
 
 
 
@@ -132,5 +150,19 @@ enum ADDDEVICERESULT
                  NewPassWord:(NSString *)NewPassWord
               EnsurePassWord:(NSString *)enSurePassWord
                UserSavePassWord:(NSString *)userSavePassWord;
+
+
+/**
+ *  修改设备昵称、用户名、密码的时候，判断一下相应的字段是否合法
+ *
+ *  @param nickName 昵称
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *  @return 相应的返回值
+ */
+- (int)modifyDevicePredicatWithNickName:(NSString *)nickName
+                            andUserName:(NSString *)userName
+                            andPassWord:(NSString *)passWord;
 
 @end

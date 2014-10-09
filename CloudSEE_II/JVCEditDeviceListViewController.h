@@ -7,7 +7,9 @@
 //
 
 #import "JVCBaseWithTopToolViewAndDropListViewController.h"
+#import "JVCEditDeviceInfoViewController.h"
 
-@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController
+
+@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate>
 
 @end

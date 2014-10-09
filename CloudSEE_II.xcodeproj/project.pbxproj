@@ -67,6 +67,11 @@
 		A7F486A319E6256700C10B2B /* qrReturnImageBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869D19E6256700C10B2B /* qrReturnImageBg@2x.png */; };
 		A7F486A419E6256700C10B2B /* QdContentbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869E19E6256700C10B2B /* QdContentbg@2x.png */; };
 		A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F486A619E6352A00C10B2B /* JVCQRAddDeviceViewController.m */; };
+		A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F486A919E662B600C10B2B /* JVCEditDeviceInfoViewController.m */; };
+		A7F486AD19E67EBB00C10B2B /* JVCConnectTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F486AC19E67EBB00C10B2B /* JVCConnectTypeViewController.m */; };
+		A7F486B519E6835600C10B2B /* edi_camer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F486B419E6835600C10B2B /* edi_camer@2x.png */; };
+		A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F486B619E6AC4600C10B2B /* QuartzCore.framework */; };
+		A7F486BA19E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F486B919E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m */; };
 		A7F5011019D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5010F19D4EE0C00AA78F0 /* JVCDataBaseHelper.m */; };
 		A7F5011119D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5010F19D4EE0C00AA78F0 /* JVCDataBaseHelper.m */; };
 		A7F5011A19D4EFB400AA78F0 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5011319D4EFB400AA78F0 /* Icon-Small.png */; };
@@ -413,6 +418,14 @@
 		A7F4869E19E6256700C10B2B /* QdContentbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QdContentbg@2x.png"; sourceTree = "<group>"; };
 		A7F486A519E6352A00C10B2B /* JVCQRAddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCQRAddDeviceViewController.h; sourceTree = "<group>"; };
 		A7F486A619E6352A00C10B2B /* JVCQRAddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCQRAddDeviceViewController.m; sourceTree = "<group>"; };
+		A7F486A819E662B600C10B2B /* JVCEditDeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceInfoViewController.h; sourceTree = "<group>"; };
+		A7F486A919E662B600C10B2B /* JVCEditDeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditDeviceInfoViewController.m; sourceTree = "<group>"; };
+		A7F486AB19E67EBB00C10B2B /* JVCConnectTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConnectTypeViewController.h; sourceTree = "<group>"; };
+		A7F486AC19E67EBB00C10B2B /* JVCConnectTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConnectTypeViewController.m; sourceTree = "<group>"; };
+		A7F486B419E6835600C10B2B /* edi_camer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_camer@2x.png"; sourceTree = "<group>"; };
+		A7F486B619E6AC4600C10B2B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A7F486B819E6B31C00C10B2B /* JVCEditChannelInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditChannelInfoTableViewController.h; sourceTree = "<group>"; };
+		A7F486B919E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditChannelInfoTableViewController.m; sourceTree = "<group>"; };
 		A7F5010E19D4EE0C00AA78F0 /* JVCDataBaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDataBaseHelper.h; sourceTree = "<group>"; };
 		A7F5010F19D4EE0C00AA78F0 /* JVCDataBaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDataBaseHelper.m; sourceTree = "<group>"; };
 		A7F5011319D4EFB400AA78F0 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -728,6 +741,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
 				A7F4059F19E55A260070945F /* CoreMedia.framework in Frameworks */,
 				A7F4059D19E55A1C0070945F /* CoreVideo.framework in Frameworks */,
 				A7F4059B19E55A0B0070945F /* libiconv.dylib in Frameworks */,
@@ -1149,6 +1163,7 @@
 		AD2BDB0919D28EEA00AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A7F486B419E6835600C10B2B /* edi_camer@2x.png */,
 				AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */,
 				AD916BD419D5445900B925A2 /* edi_drop_flag_select@2x.png */,
 				AD916BD519D5445900B925A2 /* edi_drop_icon_select@2x.png */,
@@ -1179,6 +1194,12 @@
 				AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */,
 				AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */,
 				AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */,
+				A7F486A819E662B600C10B2B /* JVCEditDeviceInfoViewController.h */,
+				A7F486A919E662B600C10B2B /* JVCEditDeviceInfoViewController.m */,
+				A7F486AB19E67EBB00C10B2B /* JVCConnectTypeViewController.h */,
+				A7F486AC19E67EBB00C10B2B /* JVCConnectTypeViewController.m */,
+				A7F486B819E6B31C00C10B2B /* JVCEditChannelInfoTableViewController.h */,
+				A7F486B919E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m */,
 			);
 			name = editDeviceViewController;
 			sourceTree = "<group>";
@@ -1333,6 +1354,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7F486B619E6AC4600C10B2B /* QuartzCore.framework */,
 				A7F4059E19E55A260070945F /* CoreMedia.framework */,
 				A7F4059C19E55A1C0070945F /* CoreVideo.framework */,
 				A7F4059A19E55A0B0070945F /* libiconv.dylib */,
@@ -1705,6 +1727,7 @@
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
 				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
+				A7F486B519E6835600C10B2B /* edi_camer@2x.png in Resources */,
 				A7F4058E19E50DCA0070945F /* OperationMiddleViewIphone5.bundle in Resources */,
 				AD2BDB1219D28F0600AA6D73 /* edi_bg@2x.png in Resources */,
 				AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */,
@@ -1832,6 +1855,7 @@
 				A7F5EF4819D26B31009B797A /* StyledPageControl.m in Sources */,
 				ADA22D6819DA7CBA0092F8B9 /* JVCRecordVideoInter.mm in Sources */,
 				A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
+				A7F486BA19E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m in Sources */,
 				ADA22D2B19DA5C260092F8B9 /* JVCVideoDecoderInterface.mm in Sources */,
 				AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */,
 				A7F5013219D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
@@ -1847,6 +1871,7 @@
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
 				ADA22D2E19DA5C8F0092F8B9 /* JVCAudioCodecInterface.mm in Sources */,
+				A7F486AD19E67EBB00C10B2B /* JVCConnectTypeViewController.m in Sources */,
 				A7F4250C19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
 				A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */,
 				AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */,
@@ -1877,6 +1902,7 @@
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				ADA22D7519DA816C0092F8B9 /* JVCPlaySoundHelper.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
+				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
 				A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,

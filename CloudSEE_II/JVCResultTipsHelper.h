@@ -31,4 +31,9 @@
  *  @param resutl 相应的返回值
  */
 - (void)loginInWithJudegeUserNameStrengthResult:(int)result;
+
+/**
+ *  修改设备的用户名、密码、昵称的返回值显示信息
+ */
+- (void)showModifyDeviceInfoResult:(int)result;
 @end

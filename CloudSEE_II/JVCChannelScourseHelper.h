@@ -49,4 +49,17 @@
  */
 -(NSMutableArray *)channelModelWithDeviceYstNumber:(NSString *)ystNumber;
 
+/**
+ *  删除一个设备下面的所有的通道
+ *
+ *  @param ystNumber 云视通号
+ */
+-(void)deleteChannelsWithDeviceYstNumber:(NSString *)ystNumber;
+
+/**
+ * 删除设备下面一个的通道
+ *
+ */
+-(void)deleteSingleChannelWithDeviceYstNumber:(JVCChannelModel *)channelModelDelete;
+
 @end
