@@ -103,7 +103,7 @@
      */
     if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
         
-        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:nil];
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
@@ -113,10 +113,9 @@
     }else{
         
         [openAlObj initOpenAL];
-        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:nil];
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
-        
     }
 }
 
@@ -134,16 +133,5 @@
     }
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

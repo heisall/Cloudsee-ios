@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JVCChannelModel.h"
 
 @interface JVCChannelScourseHelper : NSObject
 

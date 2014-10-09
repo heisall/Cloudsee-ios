@@ -15,7 +15,6 @@
 #import "JVCAppHelper.h"
 #import "JVCDeviceHelper.h"
 #import "JVCDeviceSourceHelper.h"
-#import "JVCDeviceModel.h"
 #import "JVCSystemUtility.h"
 #import "JVCDeviceListWithChannelListViewController.h"
 #import "JVCDeviceListNoDevieCell.h"
@@ -27,6 +26,7 @@ static const int             kTableViewCellAdeviceHeigit             = 180;//广
 static const int             kTableViewCellNormalCellHeight          = 120 ; //正常cell的高度
 static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
+static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //设备视图的默认起始标志
 
 
 @interface JVCDeviceListViewController ()
@@ -277,7 +277,7 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
                         JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)[[JVCAppHelper shareJVCAppHelper] duplicate:tempView];
                         deviceView.backgroundColor = deviceDeviceViewColor;
                         deviceView.frame           = position;
-                        deviceView.tag             = index;
+                        deviceView.tag             = index + kTableViewSingleDeviceViewBeginTag;
                         
                         UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
                         
@@ -323,6 +323,7 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 {
     JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
     deviceChannelList.hidesBottomBarWhenPushed                    = YES;
+    deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
     [self.navigationController pushViewController:deviceChannelList animated:YES];
     [deviceChannelList release];
     
@@ -406,7 +407,6 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
             
             if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
                 
-                DDLogInfo(@"_%s===%@",__func__,tdicDevice);
                 //把从服务器获取到的数据存放到数组中
                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
                 //必须刷新
@@ -421,7 +421,6 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
                 
                 [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
 
-            
             }
             
         });
@@ -445,15 +444,11 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
             NSMutableArray *singleDeviceChannelListMArray=[[NSMutableArray alloc] init];
             JVCDeviceModel *model=[deviceListData objectAtIndex:index];
             
-            
             NSDictionary *channelInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:model.yunShiTongNum];
-            
-            DDLogVerbose(@"gcd_info_mdic=%@",channelInfoMdic);
             
             if ([channelInfoMdic isKindOfClass:[NSDictionary class]]) {
                 
                 [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelInfoMdic deviceYstNumber:model.yunShiTongNum];
-            
             }
             
             [singleDeviceChannelListMArray release];
@@ -463,7 +458,6 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
     });
     
     [deviceListData release];
-
 }
 
 /**

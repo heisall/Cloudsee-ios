@@ -13,6 +13,7 @@
 @end
 
 @implementation JVCBaseWithTopToolViewAndDropListViewController
+@synthesize nIndex;
 
 static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 

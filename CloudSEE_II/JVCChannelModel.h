@@ -2,17 +2,30 @@
 //  JVCChannelModel.h
 //  CloudSEE_II
 //
-//  Created by Yanghu on 9/28/14.
-//  Copyright (c) 2014 Yanghu. All rights reserved.
+//  Created by chenzhenyang on 14-10-8.
+//  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import "JVCDeviceModel.h"
+#import <Foundation/Foundation.h>
 
-@interface JVCChannelModel : JVCDeviceModel
-//{
-//    
-//    NSString *sortNum;                //通道的排序，（设备不用）========通道
-//}
-//@property(nonatomic,retain)NSString *sortNum;                //通道的排序，（设备不用）========通道
+@interface JVCChannelModel : NSObject {
+    
+    NSString  *strDeviceYstNumber;
+    NSString  *strNickName;
+    int       nChannelValue;
+}
 
+@property (nonatomic,retain) NSString  *strDeviceYstNumber;
+@property (nonatomic,retain) NSString  *strNickName;
+@property (nonatomic,assign) int       nChannelValue;
+
+/**
+ *  根据网络通道信息的字典转换成通道Model
+ *
+ *  @param channelDic   通道信息的字典
+ *  @param ystNumber    云视通号
+ *
+ *  @return 通道实体
+ */
+-(id)initWithChannelDic:(NSDictionary *)channelDic  ystNumber:(NSString *)ystNumber;
 @end

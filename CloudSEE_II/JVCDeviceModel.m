@@ -13,7 +13,7 @@
 
 @synthesize  userName,passWord,ip,port,nickName,yunShiTongNum;
 
-@synthesize linkType,onLineState,hasWifi,useWifi,channelValue;
+@synthesize linkType,onLineState,hasWifi,useWifi;
 
 
 - (void)dealloc
@@ -93,36 +93,6 @@
         self.hasWifi        = DEVICESTATUS_OFFLINE;
         self.linkType       = CONNECTTYPE_YST;
 
-    }
-    
-    return self;
-}
-
-
-/**
- *  根据收到的channel的
- *
- *  @param channelDic  通道的字典
- *  @param deviceModel 通道对应的设备字典
- *
- *  @return 通道的model类型
- */
--(id)initWithChannelDic:(NSDictionary *)channelDic  devieModel:(JVCDeviceModel *)deviceModel{
-    
-    self = [super init];
-    
-    if (self !=nil) {
-        
-        self.yunShiTongNum = deviceModel.yunShiTongNum;
-        self.nickName      = [channelDic objectForKey:DEVICE_CHANNEL_JSON_NAME];
-        self.userName      = deviceModel.userName;
-        self.passWord      = deviceModel.passWord;
-        self.onLineState   = deviceModel.onLineState;
-        self.hasWifi       = deviceModel.hasWifi;
-        self.channelValue  = [[NSString stringWithFormat:@"%@",[channelDic objectForKey:DEVICE_CHANNEL_JSON_NUMBER]] intValue];
-        self.linkType      = deviceModel.linkType;
-        self.ip            = deviceModel.ip;
-        self.port          = deviceModel.port;
     }
     
     return self;

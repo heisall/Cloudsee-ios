@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JVCOperationController.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "JVCMonitorConnectionSingleImageView.h"
 
 enum CONNECTALLDEVICE{
     
@@ -18,19 +19,18 @@ enum CONNECTALLDEVICE{
     
 };
 
-@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate>
+@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,YstNetWorkHelpOperationDelegate>
 {
     UIScrollView            *WheelShowListView;
-    NSMutableArray          *_amWheelData;
+    NSMutableArray          *amChannelListData;
     JVCOperationController  *_operationController;
     int                     imageViewNums;            //ScorllView每页视图显示的窗体个数
     int                     _iCurrentPage;
     int                     _iBigNumbers;
     int                     nSelectedChannelIndex;
-
 }
 
-@property (nonatomic,retain) NSMutableArray *_amWheelData;
+@property (nonatomic,retain) NSMutableArray *amChannelListData;
 @property (nonatomic,assign) JVCOperationController *_operationController;
 @property (nonatomic,assign) UIScrollView *WheelShowListView;
 @property (nonatomic,assign) int imageViewNums,_iCurrentPage,_iBigNumbers;

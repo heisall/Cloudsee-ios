@@ -17,18 +17,13 @@
 #import "JVCCustomYTOView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVNetConst.h"
-#import "JVCMonitorConnectionSingleImageView.h"
 #import "GlView.h"
-
 #import<AssetsLibrary/AssetsLibrary.h>
 
 static const int  STARTHEIGHTITEM =  40;
-
 static const NSString * BUNDLENAMEBottom  = @"customBottomView_cloudsee.bundle";//bundle的名称
 
-
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
-
 
 bool selectState_sound ; // yes  选中   no：没有选中
 bool selectState_talk ;
@@ -57,34 +52,22 @@ bool selectState_audio ;
      *  音频监听、云台、远程回调的中间view
      */
     JVCOperationMiddleViewIphone5 *operationBigView;
-
 }
 
 @end
 
 @implementation JVCOperationController
 @synthesize _aDeviceChannelListData,_iSelectedChannelIndex,_iViewState;
-@synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack,_deviceModel;
+@synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack;
 @synthesize _playBackVideoDataArray,_playBackDateString;
-@synthesize _amDeviceListData,_selectedDeviceIndex;
-@synthesize showSingeleDeviceLongTap,_isConnectModel;
+@synthesize showSingeleDeviceLongTap;
 @synthesize delegate;
 
 JVCCustomOperationBottomView *_operationItemSmallBg;
 
 static const int  JVCOPERATIONCONNECTMAXNUMS  = 16;//
 
-char imageBuffer[1][1280*720*3];
-char imageBufferY[1][1280*720*3];
-char imageBufferU[1][1920*1080];
-char imageBufferV[1][1920*1080];
 
-char capImageBuffer[1][1280*720*3];
-
-
-OpenALBufferViewcontroller *_openALBufferSound;
-AQSController *_audioRecordControler;
-char ppszPCMBuf[640];;
 int unAllLinkFlag;
 AVAudioPlayer *_play;
 UIButton *_bSmallTalkBtn;
@@ -94,14 +77,9 @@ UIButton *_bYTOBtn;
 UIButton *_bSmallCaptureBtn;
 UIImageView * capImageView;
 
-OpenALBufferViewcontroller *_openALBufferSound;
 JVCRemoteVideoPlayBackVControler *_remoteVideoPlayBackVControler;
-unsigned char acFLBuffer[64*1024] = {0};//存放远程回放数据原始值
-NSTimer *repeatLinkTimer[JVCOPERATIONCONNECTMAXNUMS];
 int linkFlag[JVCOPERATIONCONNECTMAXNUMS];
 int _iWindowsSelectedChannelIndex[JVCOPERATIONCONNECTMAXNUMS];
-
-
 
 bool _isPlayBackVideo;
 
@@ -115,13 +93,6 @@ UIButton *_splitViewBtn;
 UIView *_splitViewBgClick;
 JVCCustomCoverView *_splitViewCon;
 bool _isConnectdevcieOpenDecoder;
-
-
-
-
-#define CONNECTTURNFLAG @"(TURN)"
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -158,8 +129,6 @@ bool _isConnectdevcieOpenDecoder;
     [_amUnSelectedImageNameListData release];
     _amUnSelectedImageNameListData=nil;
     
-    [_deviceModel release];
-    _deviceModel=nil;
     
     [_aDeviceChannelListData release];
     _aDeviceChannelListData=nil;
@@ -201,8 +170,8 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
-
 - (void) viewDidLayoutSubviews {
+    
     if (IOS_VERSION>=IOS7) {
         CGRect viewBounds = self.view.bounds;
         CGFloat topBarOffset = self.topLayoutGuide.length;
@@ -232,8 +201,6 @@ bool _isConnectdevcieOpenDecoder;
         
         self.automaticallyAdjustsScrollViewInsets =NO;
     }
-    
-    unAllLinkFlag=0;
     
     self._issound=FALSE;//音频监听
     self._isTalk=FALSE; //语音对讲
@@ -280,18 +247,19 @@ bool _isConnectdevcieOpenDecoder;
     /**
      *  播放窗体
      */
-    _managerVideo=[[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
-    _managerVideo.tag=100;
-    _managerVideo._amWheelData=self._aDeviceChannelListData;
-    _managerVideo._operationController=self;
-    _managerVideo.nSelectedChannelIndex=self._iSelectedChannelIndex;
-    _managerVideo.imageViewNums=1;
+    _managerVideo                       = [[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
+    _managerVideo.tag                   = 100;
+    _managerVideo.amChannelListData     = self._aDeviceChannelListData;
+    _managerVideo._operationController  = self;
+    _managerVideo.nSelectedChannelIndex = self._iSelectedChannelIndex;
+    _managerVideo.imageViewNums         = 1;
     [_managerVideo setUserInteractionEnabled:YES];
-    _managerVideo.backgroundColor=[UIColor blackColor];
+    _managerVideo.backgroundColor       =[UIColor blackColor];
     [self.view addSubview:_managerVideo];
+    
     [_managerVideo initWithLayout];
     
-    self.delegate = _managerVideo;
+   // self.delegate = _managerVideo;
     
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
@@ -439,91 +407,6 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
-
-
--(void)initwithSoundClass:(OpenALBufferViewcontroller*)openAl aqsController:(AQSController*)aqsController{
-    _openALBufferSound=openAl;
-    _audioRecordControler=aqsController;
-}
-
-
-#pragma mark
-#pragma mark 请求远程回放事件
-#pragma mark
--(void)playBackVideo{
-    
-    // [self changeViewWithSave];
-    [self sendSelectDate:[NSDate date]];
-    
-    
-}
-
-
--(void)changePlaySate{
-    
-    _isPlayBackVideo=FALSE;
-    
-}
-//#pragma mark  保存数据（）
-//- (void)changeViewWithSave
-//{
-//    if (_isPlayBackVideo) {
-//        
-//        _isPlayBackVideo=FALSE;
-//        
-//        int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//        
-//        [channel[channelID] operationZKVideo:JVN_CMD_PLAYSTOP];
-//        
-//        JVChannel *selectChannel= channel[channelID];
-//        
-//        if (selectChannel!=nil) {
-//            selectChannel.isWaitIFrame=FALSE;
-//            selectChannel.isLocalVideoWaitIFrame=FALSE;
-//            if (selectChannel.openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    
-//                    if (!selectChannel.UseDecoderFlag) {
-//                        
-//                        if(!selectChannel.isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(channelID);
-//                            JVD04_DecodeOpen(selectChannel.bmPlayVideoWidth ,selectChannel.bmPlayVideoHeight,channelID);
-//                            
-//                        }else{
-//                            
-//                            JVD05_DecodeClose(channelID);
-//                            JVD05_DecodeOpen(channelID);
-//                            
-//                            
-//                        }
-//                        break;
-//                    }
-//                    //printf("run back playBackVideo\n");
-//                    usleep(200);
-//                }
-//            }
-//            
-//            
-//        }
-//        _isPlayBackVideo=FALSE;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [self showPlayBackVideo:_isPlayBackVideo];
-//            
-//        });
-//        
-//        [self stopSetting:channelID];
-//        [selectChannel operationZKVideo:JVN_CMD_VIDEO];
-//        
-//    }else{
-//        int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//        [self stopSetting:channelID];
-//        
-//    }
-//}
-
 #pragma mark 返回上一级
 -(void)gotoBack{
     
@@ -603,7 +486,6 @@ bool _isConnectdevcieOpenDecoder;
     [activity release];
     [wheelAlterInfo show];
     [wheelAlterInfo release];
-    unAllLinkFlag=1;
     
     [NSThread detachNewThreadSelector:@selector(unAllLink) toTarget:self withObject:nil];
     
@@ -657,10 +539,6 @@ bool _isConnectdevcieOpenDecoder;
     
 	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
         
-//        if (channel[i]!=nil) {
-//            
-//            return;
-//        }
     }
     
     [timer invalidate];
@@ -672,9 +550,7 @@ bool _isConnectdevcieOpenDecoder;
 -(void)closeAlterViewAllDic{
     
     
-    memset(imageBuffer[0], 0, sizeof(imageBuffer[0])) ;
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
-    unAllLinkFlag=0;
     
     if (self._iViewState==0||self._iViewState==2) {
         
@@ -723,23 +599,6 @@ bool _isConnectdevcieOpenDecoder;
     [library release];
 }
 
-
-
--(void)channelAllWaitI{
-    
-    for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
-//        if (channel[i]!=nil) {
-//            channel[i].isWaitIFrame=FALSE;
-//        }
-    }
-    
-    
-    
-    
-    
-}
-
-
 #pragma mark 播放事件
 -(void)playSoundPressed
 {
@@ -756,367 +615,103 @@ bool _isConnectdevcieOpenDecoder;
 
 #pragma mark 处理通道轮数问题
 
--(int)returnChannelID:(int)windowIndexValue{
-    
-    return windowIndexValue%JVCOPERATIONCONNECTMAXNUMS;
-    
-}
-
--(int)returnChannelPage:(int)windowIndexValue{
-    return windowIndexValue/JVCOPERATIONCONNECTMAXNUMS;
-}
 - (void)setScrollviewByIndex:(NSInteger)Index
 {
     [_managerVideo  setScrollviewByIndex:Index];
 }
 
--(void)gotoDeviceShowChannels{
-    
-//    int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//    operationDeviceOfSourceListDatasComtroller *_currentDeviceChannelsView=[[operationDeviceOfSourceListDatasComtroller alloc] init];
-//    //NSLog(@"%d",self._aDeviceChannelListData.count);
-//    _currentDeviceChannelsView._amDeviceChannelListData=self._aDeviceChannelListData;
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 0.5;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    transition.type = kCATransitionReveal;
-//    transition.subtype = kCATransitionFromTop;
-//    transition.delegate = self;
-//    _currentDeviceChannelsView._operationView=self;
-//    _currentDeviceChannelsView._iSelectedWindowsIndex=_operationController._iSelectedChannelIndex;
-//    
-//    if (channel[channelID]!=nil||channel[channelID]!=NULL) {
-//        _currentDeviceChannelsView._iSelectedChannelIndex=_iWindowsSelectedChannelIndex[channelID];
-//    }else{
-//        
-//        _currentDeviceChannelsView._iSelectedChannelIndex=self._iSelectedChannelIndex;
-//    }
-//    
-//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-//    self.navigationController.navigationBarHidden = NO;
-//    [self.navigationController pushViewController:_currentDeviceChannelsView animated:NO];
-//    [_currentDeviceChannelsView release];
-}
-
-#pragma mark 打开当前通道视频流
--(void)openCurrentWindowsVideoData{
-    
-//    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-//    int start=_managerVideo._iCurrentPage*_managerVideo.imageViewNums;
-//    int end=(_managerVideo._iCurrentPage+1)*_managerVideo.imageViewNums;
-//    
-//    for (int i=start; i<end; i++) {
-//        
-//        int ID=i%CONNECTMAXNUMS;
-//        if (channel[ID]!=nil) {
-//            int _ID=channel[ID].flag*CONNECTMAXNUMS;
-//            int channelID=ID+_ID;
-//            if (i==channelID) {
-//                if (channel[ID].videoState) {
-//                    [channel[ID] operationZKVideo:JVN_CMD_VIDEO];
-//                    channel[ID].videoState=FALSE;
-//                }
-//            }
-//        }
-//    }
-//    [pool release];
-    
-}
-
--(void)connectSingleDevicesAllChannel{
-	
-    
-    return;
-    
-    if (unAllLinkFlag!=1) {
-        
-        [NSThread detachNewThreadSelector:@selector(connectSingleDeviceAllChannelMath) toTarget:self withObject:nil];
-        
-    }
-    
-}
-
--(void)connectSingleDeviceAllChannelMath{
-    
-    return;
-}
-
-
-
-
 -(void)startRepeatConnect:(NSDictionary*)_connectInfo{
     
-    
-    
-    
-    
 }
-
 
 /**
  *	窗口停止方法
  *
  *	@param	_channleIDStr	当前窗口的ID
  */
--(void)StopOtherWindowsVideoData:(NSString*)_channleIDStr{
-    
-    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-    
-    int start=_managerVideo._iCurrentPage*_managerVideo.imageViewNums;
-    int end=(_managerVideo._iCurrentPage+1)*_managerVideo.imageViewNums;
-    
-    int flag=0;
-    
-    int channelID=[_channleIDStr intValue];
-    
-//    for (int i=0; i<CONNECTMAXNUMS; i++) {
-//        
-//        
-//        int _ID=channel[i].flag*CONNECTMAXNUMS;
-//        
-//        int ID=i+_ID+WINDOWSFLAG;
-//        
-//        JVCCustomOperationBottomView  *imgView=(JVCCustomOperationBottomView*)[self.view viewWithTag:ID];
-//        BOOL checkResult=YES;
-//        if (imgView._glView._kxMoveGLView) {
-//            checkResult=[imgView._glView._kxMoveGLView isHidden];
-//        }
-//        if (channel[i]!=nil&&(channel[i].ImageData!=nil||!checkResult)) {
-//            
-//            
-//            if (_managerVideo.imageViewNums>4) {
-//                
-//                if (!channel[i]._isOnlyIState) {
-//                    
-//                    [channel[i] operationZKVideo_I:JVN_CMD_ONLYI];
-//                    channel[i]._isOnlyIState=YES;
-//                }
-//                
-//            }else{
-//                
-//                if (channel[i]._isOnlyIState) {
-//                    
-//                    [channel[i] operationZKVideo_I:JVN_CMD_FULL];
-//                    
-//                    channel[i]._isOnlyIState=FALSE;
-//                }
-//                
-//            }
-//        }
-//    }
-//    for (int i=start; i<end; i++) {
-//        
-//        int ID=i%CONNECTMAXNUMS;
-//        if (ID==channelID) {
-//            if (channel[ID]!=nil) {
-//                int _ID=channel[ID].flag*CONNECTMAXNUMS;
-//                int channelID=ID+_ID;
-//                if (i==channelID) {
-//                    if (channel[ID].videoState) {
-//                        [channel[ID] operationZKVideo:JVN_CMD_VIDEO];
-//                        channel[ID].videoState=FALSE;
-//                        // NSLog(@"run hahha vieo stop....................");
-//                    }
-//                }
-//                flag=1;
-//                break;
-//            }
-//        }
-//    }
-    
-//    if (0==flag) {
-//        if(channel[channelID]!=nil){
-//            if (!channel[channelID].videoState) {
-//                [channel[channelID] operationZKVideo:JVN_CMD_VIDEOPAUSE];
-//                channel[channelID].videoState=TRUE;
-//                // NSLog(@"run hahha vieo stop....................%d",channelID);
-//            }
-//        }
-//    }
-    
-    [pool release];
-    
-}
-
-
-#pragma mark 按照所选的索引的连接事件
--(void)connectSingleChannel:(int)_iWindowsIndex selectedChannel:(int)selectedChannel{
-
-    
-}
-
-
--(void)connectSingleScrollChannel:(int)_iWindowsIndex selectedChannel:(int)selectedChannel{
-    
-    
-}
-
-
--(void)repeatLink:(NSTimer*)repTimer{
-    
-    NSDictionary *dic=(NSDictionary*)[repTimer userInfo];
-    
-    JVCDeviceModel *model=(JVCDeviceModel*)[dic valueForKey:@"linkModel"];
-    
-//    int channelID = [model.deleteChannle intValue];
-//    int ID=[self returnChannelID:channelID];
+//-(void)StopOtherWindowsVideoData:(NSString*)_channleIDStr{
 //    
-//    linkFlag[ID]=1;
+//    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
 //    
-//    if (channel[ID]!=nil) {
-//        
-//        if (channel[ID]._iSelectSourceModelIndexValue!=_iWindowsSelectedChannelIndex[ID]) {
-//            
-//            [NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:self withObject:[NSString stringWithFormat:@"%d",ID+1]];
-//        }
-//        
-//    }else{
-//        
-//        [repeatLinkTimer[ID] invalidate];
-//        repeatLinkTimer[ID]=nil;
-//        [self repeatWheellink:model channID:channelID];
-//    }
-}
-
--(void)repeatWheellink:(id)object channID:(int)chanID{
-    
-//	int channelID=chanID;
-//	monitorConnectionSingleImageView *linkImageview=(monitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+channelID];
-//	int flag=channelID/CONNECTMAXNUMS;
+//    int start=_managerVideo._iCurrentPage*_managerVideo.imageViewNums;
+//    int end=(_managerVideo._iCurrentPage+1)*_managerVideo.imageViewNums;
 //    
-//	int ID=channelID%CONNECTMAXNUMS;
-//    linkFlag[ID]=0;
-//	sourceModel *model=(sourceModel*)object;
-//	[linkImageview startActivity:[NSString stringWithFormat:@"%@-%@",model.yunShiTongNum,model.channelNumber]  isConnectType:model.editByUser];
-//	channel[ID] =[[JVChannel alloc] initWithID:ID isTCP:0];
-//	channel[ID].flag=flag;
-//    channel[ID]._iSelectSourceModelIndexValue=_iWindowsSelectedChannelIndex[ID];
+//    int flag=0;
 //    
-//	NSString *password=model.password;
-//	if (model.passwordState==1) {
-//		password=@"";
-//	}
-//	UIDevice *device=[UIDevice currentDevice];
-//	channel[ID].systemVersion=[[device systemVersion] floatValue];
-//	if (model.linkType==0) {
-//		int jj=0;
-//		NSString *yst=model.yunShiTongNum;
-//		for (jj=0; jj<yst.length; jj++) {
-//			unsigned char c=[yst characterAtIndex:jj];
-//			if (c<='9' && c>='0') {
-//				break;
-//			}
-//		}
-//		channel[ID] .byTCP=model.byTCP;
-//		[channel[ID] connectByYST:[yst substringToIndex:jj] ystNum:[[yst substringFromIndex:jj] intValue] channel:[model.channelNumber intValue] passName:model.userName passWord:password localTry:model.localTry];
-//		
-//	}else {
-//		channel[ID] .byTCP=model.byTCP;
-//		[channel[ID] connectByIP:model.ip remotePort:[model.port intValue] channel:[model.channelNumber intValue] passName:model.userName passWord:password];
-//	}
-}
-
+//    int channelID=[_channleIDStr intValue];
+//    
+////    for (int i=0; i<CONNECTMAXNUMS; i++) {
+////        
+////        
+////        int _ID=channel[i].flag*CONNECTMAXNUMS;
+////        
+////        int ID=i+_ID+WINDOWSFLAG;
+////        
+////        JVCCustomOperationBottomView  *imgView=(JVCCustomOperationBottomView*)[self.view viewWithTag:ID];
+////        BOOL checkResult=YES;
+////        if (imgView._glView._kxMoveGLView) {
+////            checkResult=[imgView._glView._kxMoveGLView isHidden];
+////        }
+////        if (channel[i]!=nil&&(channel[i].ImageData!=nil||!checkResult)) {
+////            
+////            
+////            if (_managerVideo.imageViewNums>4) {
+////                
+////                if (!channel[i]._isOnlyIState) {
+////                    
+////                    [channel[i] operationZKVideo_I:JVN_CMD_ONLYI];
+////                    channel[i]._isOnlyIState=YES;
+////                }
+////                
+////            }else{
+////                
+////                if (channel[i]._isOnlyIState) {
+////                    
+////                    [channel[i] operationZKVideo_I:JVN_CMD_FULL];
+////                    
+////                    channel[i]._isOnlyIState=FALSE;
+////                }
+////                
+////            }
+////        }
+////    }
+////    for (int i=start; i<end; i++) {
+////        
+////        int ID=i%CONNECTMAXNUMS;
+////        if (ID==channelID) {
+////            if (channel[ID]!=nil) {
+////                int _ID=channel[ID].flag*CONNECTMAXNUMS;
+////                int channelID=ID+_ID;
+////                if (i==channelID) {
+////                    if (channel[ID].videoState) {
+////                        [channel[ID] operationZKVideo:JVN_CMD_VIDEO];
+////                        channel[ID].videoState=FALSE;
+////                        // NSLog(@"run hahha vieo stop....................");
+////                    }
+////                }
+////                flag=1;
+////                break;
+////            }
+////        }
+////    }
+//    
+////    if (0==flag) {
+////        if(channel[channelID]!=nil){
+////            if (!channel[channelID].videoState) {
+////                [channel[channelID] operationZKVideo:JVN_CMD_VIDEOPAUSE];
+////                channel[channelID].videoState=TRUE;
+////                // NSLog(@"run hahha vieo stop....................%d",channelID);
+////            }
+////        }
+////    }
+//    
+//    [pool release];
+//    
+//}
 
 #pragma mark 最下面的操作按钮控制方法
 -(void)smallBtnTouchUpInside:(UIButton*)sender{
     //sender.selected=TRUE;
-    
-}
-
-#define RGB_SMALLITEM_UN_R  180.0
-#define RGB_SMALLITEM_UN_G  180.0
-#define RGB_SMALLITEM_UN_B  184.0
-#define RGB_SMALLITEM_R 40.0
-#define RGB_SMALLITEM_G 156.0
-#define RGB_SMALLITEM_B 255.0
-
-#define SMALLBTNFLAGVALUE 100
-#define RGBVALUE 255.0
-
-#pragma mark 设置默认的小功能按钮的背景样式
--(void)unSelectSmallButtonStyle:(UIButton*)unSelectedButton{
-    
-}
-
--(void)selectSmallButtonStyle:(UIButton*)selectedButton{
-
-}
-
--(void)unSelectBigButtonStyle:(UIButton*)selectedButton{
-    UIImage *bigImage=[UIImage imageNamed:[_amUnSelectedImageNameListData objectAtIndex:selectedButton.tag-SMALLBTNFLAGVALUE]];
-    UIImage *_bigItemImage=[UIImage imageNamed:@"operation_bigItemBtnBg.png"];
-    [selectedButton setBackgroundImage:_bigItemImage forState:UIControlStateNormal];
-    [selectedButton setImage:bigImage forState:UIControlStateNormal];
-    
-    
-}
-
--(void)selectBigButtonStyle:(UIButton*)selectedButton{
-    UIImage *bigImage=[UIImage imageNamed:[_amSelectedImageNameListData objectAtIndex:selectedButton.tag-SMALLBTNFLAGVALUE]];
-    UIImage *_bigItemImage=[UIImage imageNamed:@"operation_bigItemBtnBg.png"];
-    [selectedButton setBackgroundImage:_bigItemImage forState:UIControlStateNormal];
-    [selectedButton setImage:bigImage forState:UIControlStateNormal];
-}
-
-
-
-
-#pragma mark 保存本地抓拍的图片
--(void)saveLocalChannelPhoto{
-//    if (_isCapState) {
-//        
-//        return;
-//    }
-//    
-//    int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//    
-//    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
-//        
-//        if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                [OperationSet showText:NSLocalizedString(@"pictureLibraynoAutor", nil) andPraent:self andTime:1 andYset:150];
-//                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
-//                
-//                
-//                // NSLog(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
-//            });
-//            
-//        }else{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [OperationSet showText:NSLocalizedString(@"picturelibrayError", nil) andPraent:self andTime:1 andYset:150];
-//                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
-//                //   NSLog(@"相册访问失败.");
-//            });
-//            
-//            
-//            
-//        }
-//        
-//    };
-//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//    NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
-//    [library enumerateGroupsWithTypes:groupTypes usingBlock:nil failureBlock:failureblock];
-//    
-//    [library writeImageDataToSavedPhotosAlbum:channel[channelID].ImageData metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
-//        if (error) {
-//        } else {
-//            _isCapState=YES;
-//            UIImageView *imgView=capImageView;
-//            [self.view bringSubviewToFront:imgView];
-//            UIImage *image = [UIImage imageWithData:(NSData *)channel[channelID].ImageData];
-//            [imgView setImage:image];
-//            [capImageView setHidden:NO];
-//            [UIView beginAnimations:@"superView" context:nil];
-//            [UIView setAnimationDuration:0.4f];
-//            imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., _bSmallCaptureBtn.frame.size.width, _bSmallCaptureBtn.frame.size.height);
-//            [UIView commitAnimations];
-//            [self performSelector:@selector(capAnimations) withObject:nil afterDelay:0.3f];
-//            
-//        }
-//    }];
-//    [library release];
-    
     
 }
 
@@ -1176,8 +771,6 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -1203,9 +796,6 @@ bool _isConnectdevcieOpenDecoder;
             [alertView release];
             bStateModifyDeviceInfo=YES;
         }
-        
-        
-        
     }
     
 }
@@ -1250,175 +840,6 @@ bool _isConnectdevcieOpenDecoder;
     }
 }
 
-
--(void)openglRefresh:(id)sender{
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    
-//    CallBackMsg *callBackMsg= (CallBackMsg *)sender;
-//    
-//    if (1==channel[callBackMsg.channelID].changeDecodeFlag) {
-//        [pool release];
-//        return;
-//    }
-//    
-//    int _ID=channel[callBackMsg.channelID].flag*CONNECTMAXNUMS;
-//    int channelID=callBackMsg.channelID+_ID+WINDOWSFLAG;
-//    JVChannel *selectChannel=channel[callBackMsg.channelID];
-//    monitorConnectionSingleImageView *imgView=(monitorConnectionSingleImageView*)[self.view viewWithTag:channelID];
-//    int decoderWidth=channel[callBackMsg.channelID].bmWidth;
-//    int decoderHeight=channel[callBackMsg.channelID].bmHeight;
-//    
-//    if (selectChannel._iWaitICountPic>0) {
-//        
-//        selectChannel._iWaitICountPic--;
-//    }else{
-//        
-//        if([imgView getActivity]){
-//            
-//            [imgView stopActivity:@""];
-//        }
-//        
-//        [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:decoderWidth decoderFrameHeight:decoderHeight];
-//        
-//        if (channel[callBackMsg.channelID].ImageData==nil||channel[callBackMsg.channelID].ImageData==NULL)  {
-//            
-//            int ver=[[[UIDevice currentDevice] systemVersion] intValue];
-//            yuv_rgb(callBackMsg.channelID,(unsigned int*)(capImageBuffer[0]+66),ver);
-//            CreateBitmap((unsigned char *)capImageBuffer[0],channel[callBackMsg.channelID].bmWidth,channel[callBackMsg.channelID].bmHeight,ver);
-//            NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[callBackMsg.channelID].bmWidth*channel[callBackMsg.channelID].bmHeight*2+66];
-//            channel[callBackMsg.channelID].ImageData=d;
-//            [channel[callBackMsg.channelID] stopTimer];
-//            
-//        }
-//        
-//    }
-//    
-//    
-//    [NSThread detachNewThreadSelector:@selector(StopOtherWindowsVideoData:) toTarget:self withObject:[NSString stringWithFormat:@"%d",callBackMsg.channelID]];
-//    [pool release];
-    
-    
-}
-
--(void)openglPlayBackRefresh:(id)sender{
-    
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    
-//    CallBackMsg *callBackMsg= (CallBackMsg *)sender;
-//    
-//    if (1==channel[callBackMsg.channelID].changeDecodeFlag) {
-//        [pool release];
-//        return;
-//    }
-//    
-//    int _ID=channel[callBackMsg.channelID].flag*CONNECTMAXNUMS;
-//    int channelID=callBackMsg.channelID+_ID+WINDOWSFLAG;
-//    JVChannel *selectChannel=channel[callBackMsg.channelID];
-//    monitorConnectionSingleImageView *imgView=(monitorConnectionSingleImageView*)[self.view viewWithTag:channelID];
-//    int decoderWidth=channel[callBackMsg.channelID].bmPlayVideoWidth;
-//    int decoderHeight=channel[callBackMsg.channelID].bmPlayVideoHeight;
-//    if([imgView getActivity]){
-//        
-//        [imgView stopActivity:@""];
-//    }
-//    if (selectChannel._iWaitICountPic>0) {
-//        
-//        selectChannel._iWaitICountPic--;
-//    }else{
-//        
-//        
-//        [imgView setImageBuffer:(char*)imageBufferY[0] imageBufferU:(char*)imageBufferU[0] imageBufferV:(char*)imageBufferV[0] decoderFrameWidth:decoderWidth decoderFrameHeight:decoderHeight];
-//        
-//        if (channel[callBackMsg.channelID].ImageData==nil||channel[callBackMsg.channelID].ImageData==NULL)  {
-//            
-//            int ver=[[[UIDevice currentDevice] systemVersion] intValue];
-//            yuv_rgb(callBackMsg.channelID,(unsigned int*)(capImageBuffer[0]+66),ver);
-//            CreateBitmap((unsigned char *)capImageBuffer[0],channel[callBackMsg.channelID].bmWidth,channel[callBackMsg.channelID].bmHeight,ver);
-//            NSData *d=[NSData dataWithBytes:capImageBuffer[0] length:channel[callBackMsg.channelID].bmWidth*channel[callBackMsg.channelID].bmHeight*2+66];
-//            channel[callBackMsg.channelID].ImageData=d;
-//            [channel[callBackMsg.channelID] stopTimer];
-//            
-//        }
-//        
-//    }
-//    
-//    
-//    [NSThread detachNewThreadSelector:@selector(StopOtherWindowsVideoData:) toTarget:self withObject:[NSString stringWithFormat:@"%d",callBackMsg.channelID]];
-//    [pool release];
-    
-    
-}
-
-
-#pragma mark ----------－图像刷新方法
--(void) refreshImgView:(id)sender{
-//    if (1==unAllLinkFlag) {
-//        return;
-//    }
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//    CallBackMsg *callBackMsg= (CallBackMsg *)sender;
-//    if (1==channel[callBackMsg.channelID].changeDecodeFlag) {
-//        [pool release];
-//        return;
-//    }
-//    
-//    int _ID=channel[callBackMsg.channelID].flag*CONNECTMAXNUMS;
-//    int channelID=callBackMsg.channelID+_ID+WINDOWSFLAG;
-//    
-//    monitorConnectionSingleImageView *imgView=(monitorConnectionSingleImageView*)[self.view viewWithTag:channelID];
-//    if([imgView getActivity]){
-//        
-//        [imgView stopActivity:@""];
-//    }
-//    
-//    UIImage *image = [UIImage imageWithData:(NSData *)callBackMsg.param];
-//    
-//    if(channel[callBackMsg.channelID].ImageData==nil||channel[callBackMsg.channelID].ImageData==NULL){
-//        channel[callBackMsg.channelID].ImageData=callBackMsg.param;
-//        [channel[callBackMsg.channelID] stopTimer];
-//        
-//    }else{
-//        ///[channel[callBackMsg.channelID].ImageData release];
-//        channel[callBackMsg.channelID].ImageData=callBackMsg.param;
-//        
-//    }
-//    
-//    if (channel[callBackMsg.channelID]==nil) {
-//        //[NSThread detachNewThreadSelector:@selector(disConnectChannel:) toTarget:self withObject:[NSString stringWithFormat:@"%d",callBackMsg.channelID+1]];
-//        [imgView setImage:nil];
-//    }else {
-//        if (image!=nil) {
-//            [imgView setImage:image];
-//        }
-//    }
-//    memset(imageBuffer[0], 0, sizeof(imageBuffer[0]));
-//    [NSThread detachNewThreadSelector:@selector(StopOtherWindowsVideoData:) toTarget:self withObject:[NSString stringWithFormat:@"%d",callBackMsg.channelID]];
-//    [pool release];
-    
-    
-}
-
-#pragma mark 控制云台的操作
--(void)ytCTL:(int)type goOn:(int)goOnFlag{
-	int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-	//if (channel[channelID]!=nil) {
-    //[channel[channelID] ytCTL:type goOn:goOnFlag];
-	//}
-    
-    unsigned char data[4]={0};
-	memcpy(&data[0],&type,4);
-    
-//	JVC_SendData(1, JVN_CMD_YTCTRL, (unsigned char *)data, 4);
-    
-    
-}
-
 #pragma mark 前往设置界面
 -(void)gotoSettingView{
     
@@ -1441,88 +862,12 @@ bool _isConnectdevcieOpenDecoder;
     [timer invalidate];
 }
 
-#pragma mark 停止本地录像和音频监听、语音对讲
--(void)stopSetting:(int)nLocalChannel{
-    
-//    if (self._isTalk) {
-//        
-//        self._isTalk=FALSE;
-//        [self performSelectorOnMainThread:@selector(unSelectSmallButtonStyle:) withObject:_bSmallTalkBtn waitUntilDone:YES];
-//        [_audioRecordControler stopRecord];
-////        [channel[nLocalChannel] operationZKVideo:JVN_CMD_CHATSTOP];
-//        while (TRUE) {
-//            
-//            if (channel[nLocalChannel]._isUseDecodeSound) {
-//                
-//                if (!channel[nLocalChannel]._isStartingSound) {
-//                    
-//                    JAD_DecodeClose(0);
-//                    
-//                    channel[nLocalChannel]._isUseDecodeSound=FALSE;
-//                    break;
-//                }
-//                usleep(200);
-//            }else{
-//                break;
-//            }
-//        }
-//        [_openALBufferSound stopSound];
-//        [_openALBufferSound cleanUpOpenALMath];
-//        
-//        
-//    }
-//    if (self._isLocalVideo) {
-//        
-//        //[self operationPlayVideo:_bSmallVideoBtn];
-//        [self performSelectorOnMainThread:@selector(operationPlayVideo:) withObject:_bSmallVideoBtn waitUntilDone:YES];
-//    }
-//    if (self._issound) {
-//        
-//        self._issound=FALSE;
-//        
-//        if (!iPhone5) {
-//            
-//            //[self unSelectBigButtonStyle:_bSoundBtn];
-//            [self performSelectorOnMainThread:@selector(unSelectBigButtonStyle:) withObject:_bSoundBtn waitUntilDone:YES];
-//            
-//        }else{
-//            
-//            [self performSelectorOnMainThread:@selector(updateBigOperationView) withObject:nil waitUntilDone:YES];
-//            
-//        }
-//        
-//        while (TRUE) {
-//            
-//            if (channel[nLocalChannel]._isUseDecodeSound) {
-//                
-//                if (!channel[nLocalChannel]._isStartingSound) {
-//                    
-//                    JAD_DecodeClose(0);
-//                    channel[nLocalChannel]._isUseDecodeSound = FALSE;
-//                    break;
-//                }
-//                usleep(200);
-//            }else{
-//                break;
-//            }
-//        }
-//        
-//        [_openALBufferSound stopSound];
-//        [_openALBufferSound cleanUpOpenALMath];
-//        
-//    }
-}
 
 -(void)updateBigOperationView{
     
     //    operationBigView._isPlaySound=FALSE;
     //    [operationBigView.tableView reloadData];
 }
-
-
-
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
@@ -1608,16 +953,6 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
--(void)sendPlayBackSEEK:(int)frameNumber{
-    
-//    int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//    if (channel[channelID]!=nil) {
-//        
-//        channel[channelID].isWaitIFrame=YES;
-//        [channel[channelID] playBackVideoOperation:frameNumber];
-//    }
-//    
-}
 
 
 #pragma mark 判断当前是否存在一些特殊功能的开启《音频监听、远程回放等功能》
@@ -1646,12 +981,6 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
--(void)responseZkOperation:(int)channelID{
-    
-    
-    
-    
-}
 
 
 -(void)requestDeviceRemoteData:(NSString*)channelID{
@@ -1720,7 +1049,7 @@ bool _isConnectdevcieOpenDecoder;
  */
 - (void)modifyDeviceInfoCallBack
 {
-    [self connectSingleScrollChannel:iModifyIndex selectedChannel:iModifyIndex];
+    //[self connectSingleScrollChannel:iModifyIndex selectedChannel:iModifyIndex];
     
 }
 
@@ -1735,11 +1064,11 @@ bool _isConnectdevcieOpenDecoder;
         
         // [self gotoShowSpltWindow];
         
-        if (_splitWindows>1) {
-            
-            int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-            [self stopSetting:channelID];
-        }
+//        if (_splitWindows>1) {
+//            
+//            int channelID=[self returnChannelID:self._iSelectedChannelIndex];
+//            [self stopSetting:channelID];
+//        }
         
         if (self.delegate != nil && [self.delegate respondsToSelector:@selector(splitViewWindow:)]) {
             
@@ -1800,26 +1129,6 @@ bool _isConnectdevcieOpenDecoder;
 #pragma mark 保存图片
 -(void)smallCaptureTouchUpInside:(UIButton*)button{
     
-    //    int ID=[self returnChannelID:self._iSelectedChannelIndex];
-    //
-    //
-    //    if (channel[ID]!=nil) {
-    //
-    //        if(channel[ID].isStandDecoder){
-    //
-    //            if (![self isCheckCurrentSingleViewGlViewHidden]) {
-    //
-    //                channel[ID]._iCapturePic=TRUE;
-    //            }
-    //
-    //        }else if (channel[ID].ImageData!=nil){
-    //
-    //            [self saveLocalChannelPhoto];
-    //
-    //        }
-    //    }
-    
-    
     /**
      *  保存照片失败的事件
      */
@@ -1830,16 +1139,15 @@ bool _isConnectdevcieOpenDecoder;
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
-                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
                 
                 // NSLog(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
             });
             
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
                 
-                [self unSelectSmallButtonStyle:_bSmallCaptureBtn];
                 //   NSLog(@"相册访问失败.");
             });
             
@@ -2038,7 +1346,7 @@ bool _isConnectdevcieOpenDecoder;
      */
     if ([[JVCOperationMiddleView  shareInstance] getAudioBtnState]) {
         
-        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:nil];
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
@@ -2050,7 +1358,7 @@ bool _isConnectdevcieOpenDecoder;
         if (!bState) {
             
             [openAlObj initOpenAL];
-            [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:nil];
+            [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
             
             [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
             
@@ -2103,10 +1411,6 @@ bool _isConnectdevcieOpenDecoder;
         [ystNetworkHelperObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:JVN_REQ_CHECK remoteOperationCommandData:(char *)[dateStr UTF8String] nRequestCount:4];
         
         [dateStr release];
-        
-        
-        
-        
     });
 }
 
@@ -2196,19 +1500,16 @@ bool _isConnectdevcieOpenDecoder;
         ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
             
             if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil)];
-                    
-                    [self unSelectSmallButtonStyle:button];
                 });
                 
             }else{
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil)];
-                    
-                    //   NSLog(@"相册访问失败.");
-                    [self unSelectSmallButtonStyle:button];
                 });
                 
             }
@@ -2251,7 +1552,6 @@ bool _isConnectdevcieOpenDecoder;
     }
 }
 
-
 /**
  *  停止音频监听
  */
@@ -2264,7 +1564,6 @@ bool _isConnectdevcieOpenDecoder;
         [[JVCOperationMiddleView shareInstance] setButtonSunSelect];
         
     }
-    
 }
 
 #pragma mark  语音对讲的回调
@@ -2345,7 +1644,3 @@ bool _isConnectdevcieOpenDecoder;
 }
 
 @end
-
-
-
-

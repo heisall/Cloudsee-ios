@@ -11,6 +11,8 @@
 
 @implementation JVCDeviceListWithChannelListTitleView
 
+@synthesize nChannelValueWithIndex;
+
 static const CGFloat kTitleWithFontSize  = 14.0f;
 static const CGFloat kTitleWithHeight    = 24.0f;
 
