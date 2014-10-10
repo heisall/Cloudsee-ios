@@ -22,9 +22,9 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
     int                nIndex ;
     UITableView       *deviceListTableView;
     UIImageView       *dropImageView;
-    
     NSMutableArray    *titles;
     JVCTopToolBarView *toolBarView;         //顶部工具条
+    UIView            *operationView;
 }
 
 @property (nonatomic,assign) int nIndex;
@@ -33,6 +33,16 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
  *  初始化功能区域按钮
  */
 -(void)initWithOperationView;
+
+/**
+ *  清除顶部滚动条
+ */
+-(void)clearToolView;
+
+/**
+ *  初始化顶部的布局
+ */
+-(void)initWithTopToolView;
 
 /**
  *  动画借结束后处理逻辑

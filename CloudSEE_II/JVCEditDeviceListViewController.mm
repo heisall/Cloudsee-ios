@@ -54,6 +54,24 @@ static const int  kInitWithLayoutColumnCount           = 3;
     return self;
 }
 
+
+#pragma mark 父类的可见和不可见清除控件和加载控件的处理模块
+
+-(void)initLayoutWithViewWillAppear {
+
+    [titles removeAllObjects];
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+    [self initWithTopToolView];
+    
+}
+
+-(void)deallocWithViewDidDisappear {
+
+    [self clearToolView];
+    self.nIndex = 0;
+    
+}
+
 /**
  *  初始化加载视图RGB集合数据
  */
@@ -90,6 +108,10 @@ static const int  kInitWithLayoutColumnCount           = 3;
  */
 -(void)initWithOperationView {
     
+    [super initWithOperationView];
+    
+    DDLogVerbose(@"%s----View=%@",__FUNCTION__,self.view);
+    
     UIImage *viewBgImage =[UIImage imageNamed:@"edi_bg.png"];
     
     JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
@@ -103,7 +125,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         
         [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         
-        position.origin.y = position.origin.y + toolBarView.frame.origin.y + toolBarView.frame.size.height;
+        //position.origin.y = position.origin.y + toolBarView.frame.origin.y + toolBarView.frame.size.height;
         
         UIColor *backgroundColor = [rgbHelper rgbColorForKey:[mArrayColors objectAtIndex:i]];
         
@@ -139,7 +161,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         //设置Tag标志
         bgView.tag  = JVCEditDeviceListViewControllerClickType_beganIndex + i + 1;
         
-        [self.view addSubview:bgView];
+        [operationView addSubview:bgView];
         [bgView release];
     }
 }
@@ -250,7 +272,6 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [mArrayIconNames release];
     [mArrayColors release];
     [mArrayIconTitles release];
-    [titles release];
     [super dealloc];
 }
 
