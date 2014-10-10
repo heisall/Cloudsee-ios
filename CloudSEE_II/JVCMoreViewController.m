@@ -19,6 +19,8 @@
 //登录
 #import "JVCLoginViewController.h"
 
+#import "JVCDataBaseHelper.h"
+
 static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
 static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
@@ -249,6 +251,9 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
                 [self presentModalViewController:navLoginVC animated:YES];
                 [loginVC release];
                 [navLoginVC release];
+                
+                //并且把秘密置换成功
+                [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
                 
             }else{//失败
             

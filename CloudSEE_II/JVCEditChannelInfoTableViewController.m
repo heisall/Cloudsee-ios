@@ -14,7 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
-
+#import "JVCPredicateHelper.h"
 
 @interface JVCEditChannelInfoTableViewController ()
 {
@@ -44,9 +44,9 @@ static const    int     kChannelTextFieldTag     = 201;//textfieldTAG
 static const    int     kAddChannelCount         = 4;//通道添加的个数
 static const    int     kAddChannelSuccesss      = 0;//通道添加成功的返回值
 static const    int     kSeperate                = 10;//间隔
-static const    int     kTextFieldOff_y          = 50;//text的y坐标
+static const    int     kTextFieldOff_y          = 40;//text的y坐标
 static const    int     kTextFieldHeight         = 50;//text的高度
-static const    int     kTextFieldborderWidth    = 2;//text的边框
+static const    int     kTextFieldborderWidth    = 1;//text的边框
 static const    int     kTextFieldLeftViewWith   = 60;//左侧lable的宽度
 static const    NSTimeInterval  kAmimationTimer  = 0.75;//动画时间
 static const    int     kTextFieldSeperate       = 30;//间隔
@@ -103,7 +103,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTextFieldLeftViewWith, kTextFieldHeight)];
     labelLeft.backgroundColor = [UIColor clearColor];
-    labelLeft.textAlignment = UITextAlignmentRight;
+    labelLeft.textAlignment = UITextAlignmentCenter;
     labelLeft.text = @"昵称:";
     channelNickNameField.leftViewMode = UITextFieldViewModeAlways;
     channelNickNameField.leftView = labelLeft;
@@ -338,36 +338,45 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 - (void)editChannelNickName
 {
  
-    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    int resultPredicate = [[JVCPredicateHelper shareInstance] predicateChannelNickName:channelNickNameField.text];
     
-     int result =  [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceChannelNickName:channelModel.strDeviceYstNumber channelNickName:channelNickNameField.text  channelValue:channelModel.nChannelValue];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    if (kAddChannelSuccesss == resultPredicate) {//成功
+        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
-
-            if (kAddChannelSuccesss == result) {//成功
+            int result =  [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceChannelNickName:channelModel.strDeviceYstNumber channelNickName:channelNickNameField.text  channelValue:channelModel.nChannelValue];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+                [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
                 
-                channelModel.strNickName = channelNickNameField.text;
-                
-                //转过去
-                [self tranfromanimation];
-                //跟新
-                [self updateTableview];
-                
-            }else{
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
-                
-            }
+                if (kAddChannelSuccesss == result) {//成功
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+                    
+                    channelModel.strNickName = channelNickNameField.text;
+                    
+                    //转过去
+                    [self tranfromanimation];
+                    //跟新
+                    [self updateTableview];
+                    
+                }else{
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+                    
+                }
+            });
+            
+            
+            
         });
 
+    }else{
         
-    
-    });
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"昵称不合法"];
+
+    }
 }
 
 #pragma mark 删除和添加设备之后的刷新方法

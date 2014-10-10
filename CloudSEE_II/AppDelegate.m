@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "JVCLoginViewController.h"
-#import "JVCAccountHelper.h"
 #import "JVCSystemUtility.h"
 #import "JVCRGBHelper.h"
 #import "AHReach.h"
@@ -22,6 +21,8 @@
 #import "GlView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+
+#import "JVCKeepOnlineHelp.h"
 
 
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
@@ -104,6 +105,8 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
  */
 -(void)initWithTabarViewControllers{
     
+    [self startUserKeepOnline];
+
     /**
      *	我的设备模块
      */
@@ -155,6 +158,8 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     }
     
     [rootViewController release];
+    
+    
 }
 
 /**
@@ -162,13 +167,17 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
  */
 -(void)UpdateTabarViewControllers{
     
+    [self startUserKeepOnline];
+    
     UITabBarController *tabbar =(UITabBarController *)self.window.rootViewController;
     
     [tabbar setSelectedIndex:kTableBarDefaultSelectIndex];
     
+    
     //清理数据
     [[JVCDeviceSourceHelper shareDeviceSourceHelper] removeAllDeviceObject];
     [[JVCChannelScourseHelper shareChannelScourseHelper]removeAllchannelsObject];
+    
 }
 
 
@@ -299,6 +308,45 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
         [glView release];
     }
 
+}
+
+/**
+ *  注册推送协议
+ */
+- (void)resignNotificationTypes
+{
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSString *tokenStr = [[[NSString stringWithFormat:@"%@", deviceToken]
+                      stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
+                     stringByReplacingOccurrencesOfString:@" " withString:@""];
+    DDLogVerbose(@"tokenStr==%@",tokenStr);
+    kkToken = kkToken;
+}
+/**
+ *  启心跳
+ */
+-(void)startUserKeepOnline
+{
+    [[JVCKeepOnlineHelp shareKeepOnline] startKeepOnline];
+}
+
+/**
+ *  presentLoginViewController
+ */
+- (void)presentLoginViewController
+{
+    JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
+    UINavigationController *navLoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    [self.window.rootViewController presentModalViewController:navLoginVC animated:YES];
+    [loginVC release];
+    [navLoginVC release];
+    
 }
 
 /**

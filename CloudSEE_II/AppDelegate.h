@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JVCQRCoderViewController.h"
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "JVCAccountHelper.h"
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate,JVCAccountDelegate>
 {
     NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
     
@@ -29,4 +31,9 @@
  *  重新登录后，初始化TabarViewControllers
  */
 -(void)UpdateTabarViewControllers;
+
+/**
+ *  presentLoginViewController
+ */
+- (void)presentLoginViewController;
 @end

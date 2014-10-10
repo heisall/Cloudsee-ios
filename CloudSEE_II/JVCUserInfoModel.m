@@ -10,9 +10,9 @@
 
 @implementation JVCUserInfoModel
 
-@dynamic userName,passWord;
+@synthesize  userName,passWord;
 
-@synthesize loginTimer;
+@synthesize loginTimer,bAutoLoginState;
 
 - (void)dealloc
 {

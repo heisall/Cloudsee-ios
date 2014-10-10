@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7263C3C19E783D3003C22DE /* JVCKeepOnlineHelp.m */; };
+		A7263C4119E7C5A6003C22DE /* log_Down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7263C4019E7C5A6003C22DE /* log_Down@2x.png */; };
+		A7263C4319E7C726003C22DE /* log_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7263C4219E7C726003C22DE /* log_select@2x.png */; };
+		A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7263C4519E7C792003C22DE /* JVCDropDownView.m */; };
 		A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */; };
 		A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5D19D3A88B00760695 /* JVCResultTipsHelper.m */; };
 		A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B6019D3B85600760695 /* JVCDeviceHelper.mm */; };
@@ -361,6 +365,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A7263C3B19E783D3003C22DE /* JVCKeepOnlineHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCKeepOnlineHelp.h; sourceTree = "<group>"; };
+		A7263C3C19E783D3003C22DE /* JVCKeepOnlineHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCKeepOnlineHelp.m; sourceTree = "<group>"; };
+		A7263C4019E7C5A6003C22DE /* log_Down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_Down@2x.png"; sourceTree = "<group>"; };
+		A7263C4219E7C726003C22DE /* log_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_select@2x.png"; sourceTree = "<group>"; };
+		A7263C4419E7C792003C22DE /* JVCDropDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDropDownView.h; sourceTree = "<group>"; };
+		A7263C4519E7C792003C22DE /* JVCDropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDropDownView.m; sourceTree = "<group>"; };
 		A72B4B5919D39E4500760695 /* JVCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceModel.h; sourceTree = "<group>"; };
 		A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceModel.m; sourceTree = "<group>"; };
 		A72B4B5C19D3A88B00760695 /* JVCResultTipsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCResultTipsHelper.h; sourceTree = "<group>"; };
@@ -881,6 +891,8 @@
 				A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */,
 				A7FAF5B719D11C4000B3F395 /* JVCAccountPredicateMaths.h */,
 				A7FAF5B819D11C4000B3F395 /* JVCAccountPredicateMaths.m */,
+				A7263C4419E7C792003C22DE /* JVCDropDownView.h */,
+				A7263C4519E7C792003C22DE /* JVCDropDownView.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -897,6 +909,8 @@
 		A7F4250519D0FF8000D96475 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				A7263C4219E7C726003C22DE /* log_select@2x.png */,
+				A7263C4019E7C5A6003C22DE /* log_Down@2x.png */,
 				A7F4346619DA44A800E7ECA1 /* log_pw@2x.png */,
 				A7F4346719DA44A800E7ECA1 /* log_user@2x.png */,
 				A7F4250219D0FD8600D96475 /* log_bg_iphone5.png */,
@@ -1324,6 +1338,8 @@
 				A72B4B5D19D3A88B00760695 /* JVCResultTipsHelper.m */,
 				A7F5EF7E19D2F453009B797A /* JVCPredicateHelper.h */,
 				A7F5EF7F19D2F453009B797A /* JVCPredicateHelper.m */,
+				A7263C3B19E783D3003C22DE /* JVCKeepOnlineHelp.h */,
+				A7263C3C19E783D3003C22DE /* JVCKeepOnlineHelp.m */,
 			);
 			name = accountHelper;
 			sourceTree = "<group>";
@@ -1745,6 +1761,7 @@
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
 				A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
+				A7263C4319E7C726003C22DE /* log_select@2x.png in Resources */,
 				AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */,
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
 				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
@@ -1760,6 +1777,7 @@
 				A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
 				A7F4429E19E7649B00519A4B /* add_normal@2x.png in Resources */,
+				A7263C4119E7C5A6003C22DE /* log_Down@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,6 +1872,7 @@
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,
+				A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */,
 				A7F5EF3E19D2621B009B797A /* UIView+MJExtension.m in Sources */,
 				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				ADA22D5919DA613E0092F8B9 /* DDTTYLogger.m in Sources */,
@@ -1871,6 +1890,7 @@
 				AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */,
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
+				A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */,
 				A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,

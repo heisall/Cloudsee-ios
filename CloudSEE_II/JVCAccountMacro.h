@@ -138,5 +138,16 @@ enum VALIDATIONUSERNAMETYPE{
     VALIDATIONUSERNAMETYPE_EMAIL_E = -5,//邮箱格式不正确
 };
 
+static const int  LOGINRUSULT_SUCCESS = 0;
+
+static const int  USERTYPE_NEW = 119;//新账号
+
+static const int  USERTYPE_OLD = 118;//老账号
+
+static const int RESERT_USER_AND_PASSWORD =  -16;  //重置用户名和密码
+
+static const int RESERT_PASSWORD    =  -17;             //重置密码
+
+static const int KlogoOffSet_y    =  80;             //logo的开始问题
 
 #endif

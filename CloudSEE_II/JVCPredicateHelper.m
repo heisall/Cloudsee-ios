@@ -570,6 +570,28 @@ static JVCPredicateHelper *_shareInstance = nil;
     
 }
 
+/**
+ *  判断昵称是否合法
+ *
+ *  @param nickName 昵称
+ *
+ *  @return 0 成功  其他失败
+ */
+- (int)predicateChannelNickName:(NSString *)nickName
+{
+    if ([self predicateBlankString:nickName]) {
+        
+        return MODIFY_DEVIE_NICK_NIL;
+        
+    }else if(![self predicateDeviceNickName:nickName])
+    {
+        
+        return MODIFY_DEVIE_NICK_ERROR;
+        
+    }
+    return MODIFY_DEVIE_SUCCESS;
+}
+
 
 
 @end

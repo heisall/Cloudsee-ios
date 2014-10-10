@@ -17,6 +17,8 @@ static const NSString * USERINFO_PW         =  @"password";//密码
 static const NSString * USERINFO_TIMER      =   @"timer";//最后一次登录时间
 static const NSString * USERINFO_AutoLogin  =  @"AutoLogin";//自动登录
 static const NSString * USERINFO_Gesture    =   @"Gesture";//手势密码
+static const NSString * USERINFO_StrToken    =   @"Token";//手势密码
+
 
 @interface JVCUserInfoManager ()
 {
@@ -31,6 +33,7 @@ static const NSString * USERINFO_Gesture    =   @"Gesture";//手势密码
 @implementation JVCUserInfoManager
 @synthesize strUserName,strLastLoginTimer,strPassword;
 @synthesize bAutoLoginState,bGestureState;
+@synthesize strToken;
 
 static JVCUserInfoManager *shanreInstance = nil;
 
@@ -96,6 +99,14 @@ static JVCUserInfoManager *shanreInstance = nil;
     return (!str)?@"":str;
 }
 
+- (NSString *)strToken {
+    
+    NSString *str = [_dirUserInfo objectForKey:USERINFO_StrToken];
+    
+    return (!str)?@"":str;
+}
+
+
 - (BOOL)bAutoLoginState {
     
     NSNumber *str = [_dirUserInfo objectForKey:USERINFO_AutoLogin];
@@ -109,6 +120,8 @@ static JVCUserInfoManager *shanreInstance = nil;
     
     return str.boolValue;
 }
+
+
 
 - (void)setStrUserName:(NSString *)value {
     
@@ -124,6 +137,13 @@ static JVCUserInfoManager *shanreInstance = nil;
     
     [_dirUserInfo setObject:value forKey:USERINFO_TIMER];
 }
+
+- (void)setStrToken:(NSString *)value {
+    
+    [_dirUserInfo setObject:value forKey:USERINFO_StrToken];
+}
+
+
 
 - (void)setBAutoLoginState:(BOOL)value {
     

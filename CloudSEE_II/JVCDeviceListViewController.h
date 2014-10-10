@@ -24,4 +24,7 @@ typedef enum {
 
 @interface JVCDeviceListViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate>
 
+#pragma mark 获取设备
+- (void)getDeviceList;
+
 @end

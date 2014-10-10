@@ -17,12 +17,14 @@
     
     double loginTimer;          //登录时间
     
+    BOOL    bAutoLoginState;    //自动登录标志
+    
 }
 
 @property(nonatomic,retain) NSString *userName;
 @property(nonatomic,retain) NSString *passWord;
 
-
-@property(nonatomic,assign) double loginTimer;;
+@property(nonatomic,assign) double loginTimer;
+@property(nonatomic,assign)  BOOL  bAutoLoginState;
 
 @end

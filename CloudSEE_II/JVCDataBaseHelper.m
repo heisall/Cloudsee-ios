@@ -74,49 +74,6 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 }
 
 
-/**
- *  保存用户名密码
- *
- *  @param userName 用户名
- *  @param passWord 密码
- */
-- (void)saveUserInfoWithUserName:(NSString *)userName passWord:(NSString *)passWord
-{
-    //获取文件路径，如果存在，直接往字典里面写，保存起来，如果不存在创建一个字典，把用户的数据放到这个数组中，保存起来
-    
-    NSString *sqlName = (NSString *)FMDB_USERINF;
-    
-    NSString *path = [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:sqlName];
-    
-    //判断有没有这个数据库
-    if (![[NSFileManager defaultManager]fileExistsAtPath:path]) {//没有这个数据库
-        
-        userInfoSqlite = [FMDatabase databaseWithPath:path];
-        
-        if ([userInfoSqlite open]) {//打开数据库
-            
-            NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLES USERINFOTABLE(ID INTEGER PRIMARY KEY AUTOINCREAMENT,USERNAME TEXT, PASSWORD TEXT,LOGINTIMER DOUBLE)"];
-            
-            BOOL result = [userInfoSqlite executeUpdate:sqlCreateTable];
-            
-            if (!result) {
-                NSLog(@"error when createing da");
-            }else
-            {
-                NSLog(@"success to createing ");
-            }
-        }
-        
-        [userInfoSqlite close];
-        
-    }else{
-        
-        userInfoSqlite = [FMDatabase databaseWithPath:path];
-        
-    }
-    
-}
-
 
 /**
  *  设置常量为用户名密码
@@ -152,6 +109,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     NSString *path = [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:sqlName];
     
+    
     //判断有没有这个数据库
     if (![[NSFileManager defaultManager]fileExistsAtPath:path]) {//没有这个数据库
         
@@ -159,7 +117,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         if ([userInfoSqlite open]) {//打开数据库
             
-            NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS USERINFOTABLE(ID INTEGER PRIMARY KEY,USERNAME TEXT, PASSWORD TEXT,LOGINTIMER DOUBLE)"];
+            NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS USERINFOTABLE(ID INTEGER PRIMARY KEY,USERNAME TEXT, PASSWORD TEXT,LOGINTIMER DOUBLE,AUTOLOGINSTATE BOOL)"];
             
             BOOL result = [userInfoSqlite executeUpdate:sqlCreateTable];
             
@@ -178,6 +136,8 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     }else{
         
         userInfoSqlite = [FMDatabase databaseWithPath:path];
+        
+        [userInfoSqlite retain];
         
     }
     
@@ -209,7 +169,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
                     [self insertUserInfoWithUserName:userName passWord:passWord];
                     
                     
-                }else{//数据库中又，直接更新时间，以及密码
+                }else{//数据库中有，直接更新时间，以及密码
                     
                     [self updateUserPasswordInfoWithUserName:userName modifyPassWord:passWord];
                     
@@ -235,7 +195,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         //转化
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER)VALUES('%@','%@','%f')",userName,passWord,[self getCurrenttime]];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,[self getCurrenttime],kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -262,7 +222,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET 'PASSWORD'='%@' WHERE 'USERNAME' = '%@'",passWord,userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET PASSWORD='%@',AUTOLOGINSTATE='%d' WHERE USERNAME = '%@'",passWord,kLoginStateON,userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -287,7 +247,36 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET 'LOGINTIMER'='%f' WHERE 'USERNAME' = '%@'",[self getCurrenttime],userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET LOGINTIMER='%f' WHERE USERNAME = '%@'",[self getCurrenttime],userName];
+        
+        BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
+        
+        if (!result) {
+            
+            NSLog(@"%s_更新数据错误",__FUNCTION__);
+            
+        }else{
+            
+            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            
+        }
+        
+        [userInfoSqlite close];
+    }
+    
+}
+
+/**
+ *  根据用户名修改自动登录状态
+ *
+ *  @param userName 用户名
+ *  @param autoLoginState  登录状态
+ */
+- (void)updateUserAutoLoginStateWithUserName:(NSString *)userName   loginState:(BOOL )autoLoginState
+{
+    if ([userInfoSqlite open]) {
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET AUTOLOGINSTATE='%d' WHERE USERNAME = '%@'",autoLoginState,userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
@@ -315,7 +304,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE 'USERNAME' = '%@'",userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE USERNAME = '%@'",userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
@@ -361,14 +350,17 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             
             double strLogintimer = [rsSet doubleForColumn:@"LOGINTIMER"];
             
+            BOOL autoLoginState =  [rsSet boolForColumn:@"AUTOLOGINSTATE"];
+            
             JVCUserInfoModel *userModel = [[JVCUserInfoModel alloc] init];
             userModel.userName = strUserName;
             userModel.passWord = strPassWord;
             userModel.loginTimer = strLogintimer;
+            userModel.bAutoLoginState = autoLoginState;
             
             [userArray addObject:userModel];
             
-            NSLog(@"userModel.loginTimer=%lf===",userModel.loginTimer);
+            DDLogInfo(@"用户信息==%@==%@==%d===%lf",userModel.passWord,userModel.userName,userModel.bAutoLoginState,userModel.loginTimer);
             
             [userModel release];
         }
@@ -376,5 +368,10 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     return userArray;
 }
 
-
+- (void)dealloc
+{
+    [userInfoSqlite release];
+    
+    [super dealloc];
+}
 @end

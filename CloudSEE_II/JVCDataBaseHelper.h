@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+static int      const  kLoginStateON    = 1;      //数据库打开自动登录
+static int      const  kLoginStateOFF   = 0;      //关闭自动登录
+
 @interface JVCDataBaseHelper : NSObject
 
 /**
@@ -36,4 +39,19 @@
  *  @return 用户数组
  */
 - (NSMutableArray *)getAllUsers;
+
+/**
+ *  根据用户名修改自动登录状态
+ *
+ *  @param userName 用户名
+ *  @param autoLoginState  登录状态
+ */
+- (void)updateUserAutoLoginStateWithUserName:(NSString *)userName   loginState:(BOOL )autoLoginState;
+
+/**
+ *  根据用户名删除账号信息
+ *
+ *  @param userName 用户名
+ */
+- (void)deleteUserInfoWithUserName:(NSString *)userName;
 @end

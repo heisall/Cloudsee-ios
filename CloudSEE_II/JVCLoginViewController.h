@@ -8,7 +8,8 @@
 
 #import "JVCRegisterViewController.h"
 #import "JVCBaseWithGeneralViewController.h"
+#import "JVCDropDownView.h"
 
-@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate>
+@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate,DropDownViewDelegate>
 
 @end

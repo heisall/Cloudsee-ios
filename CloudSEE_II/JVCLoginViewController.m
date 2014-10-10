@@ -16,6 +16,7 @@
 #import "JVCResultTipsHelper.h"
 #import "JVCDataBaseHelper.h"
 #import "JVCRGBHelper.h"
+#import "JVCUserInfoModel.h"
 
 enum LOGINBTNTYPE
 {
@@ -35,17 +36,7 @@ enum LOGINVIEWTAG
     LOGINVIEWTAG_Line       = 106,//账号下面横杆的tag
 };
 
-static const int  LOGINRUSULT_SUCCESS = 0;
 
-static const int  USERTYPE_NEW = 119;//新账号
-
-static const int  USERTYPE_OLD = 118;//老账号
-
-static const int RESERT_USER_AND_PASSWORD =  -16;  //重置用户名和密码
-
-static const int RESERT_PASSWORD    =  -17;             //重置密码
-
-static const int KlogoOffSet_y    =  80;             //logo的开始问题
 
 
 
@@ -60,12 +51,24 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
      */
     UITextField *textFieldPW;
     
+    JVCDropDownView *dropDownView;//下拉view
+    
 
 }
 
 @end
 
 @implementation JVCLoginViewController
+
+static const double KAfterDalayTimer = 0.3;//延迟0.3秒登录
+
+static const NSTimeInterval KAmationTimer = 0.5;//动画时间
+
+static const int KDropDownViewHeight = 3*44;//下拉view的高度
+
+#define ANIMATIONTIME  0.5  //动画时间
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -105,11 +108,22 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
 {
     [super viewDidAppear:animated];
     
-    textFieldUser.text  =  [[NSUserDefaults standardUserDefaults] objectForKey:@"USER"];
-    textFieldPW.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"PassWord"];
+   NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
     
+    if (userArray.count != 0) {//排序好了，第一个就是最后一次登录的用户
+        
+        JVCUserInfoModel *modeluse = [userArray objectAtIndex:0];
+        
+        textFieldUser.text  = modeluse.userName;
+        if (modeluse.bAutoLoginState) {
+            
+            textFieldPW.text =  modeluse.passWord;
+            
+            //太快延迟0.3秒
+            //[self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+        }
+    }
 }
-
 
 - (void)viewDidLoad
 {
@@ -118,7 +132,7 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+ 
     
     /**
      *  注册所有的
@@ -184,16 +198,16 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
     textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUser];
     
-    //    /**
-    //     *  三角，当用户多时，显示出来
-    //     */
-    //    UIImage *imgBtnTriangel = [UIImage imageNamed:@"log_Down.png"];
-    //    UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width, imgBtnTriangel.size.height);
-    //    [btnDown setBackgroundImage:imgBtnTriangel forState:UIControlStateNormal];
-    //    btnDown.tag = LOGINVIEWTAG_Down;
-    //    [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:btnDown];
+    /**
+     *  三角，当用户多时，显示出来
+     */
+    UIImage *imgBtnTriangel = [UIImage imageNamed:@"log_Down.png"];
+    UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width*2, imgBtnTriangel.size.height*2);
+    [btnDown setImage:imgBtnTriangel forState:UIControlStateNormal];
+    btnDown.tag = LOGINVIEWTAG_Down;
+    [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnDown];
     
     /**
      *  密码
@@ -274,21 +288,17 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
         /**
          *  下拉view视图
          */
-//        customDownView= [[customDropDownView alloc] initWithFrame:CGRectMake(imageviewInPutLine.frame.origin.x, imageviewInPutLine.frame.origin.y, imageviewInPutLine.frame.size.width, 0)];
-//        [self.view addSubview:customDownView];
-//        customDownView.dropDownDelegate = self;
-//        [self.view bringSubviewToFront:customDownView];
-//    
-//        [[UserInfoManager shareUserInfoManager] createUserInfoTable];
-//    
-//        [[UserInfoManager shareUserInfoManager]  insertUserInfoWithUserName:@"123456" passWord:@"123"];
-
+        dropDownView= [[JVCDropDownView alloc] initWithFrame:CGRectMake(imageviewInPutLine.frame.origin.x, imageviewInPutLine.frame.origin.y, imageviewInPutLine.frame.size.width, 0)];
+        [self.view addSubview:dropDownView];
+        dropDownView.dropDownDelegate = self;
+        [self.view bringSubviewToFront:dropDownView];
 }
 
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
-    //正则判断用户名、密码是否合法
+    
+        //正则判断用户名、密码是否合法
     int result = [[JVCAccountPredicateMaths shareAccontPredicateMaths] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
     
     if (LOGINRESULT_SUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
@@ -416,7 +426,13 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
                 
-                //[[JVCDataBaseHelper shareDataBaseHelper] writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
+                kkUserName = textFieldUser.text;
+                kkPassword = textFieldPW.text;
+                
+                JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+                [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
+                
+        
                 //如果是present出来的，就让他dismiss掉，如果不是直接切换
                 if (self.presentingViewController !=nil) {
                     
@@ -464,6 +480,7 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
 #pragma mark 切换主视图的root
 - (void)changeWindowRootViewController
 {
+    
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate initWithTabarViewControllers];
@@ -475,6 +492,67 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate UpdateTabarViewControllers];
+}
+
+#pragma mark 点击用户右侧的箭头的标志
+/**
+ *  按下三角的提示
+ */
+- (void)clickDropDownView
+{
+    UIImageView *imageView = (UIImageView *)[self.view viewWithTag:LOGINVIEWTAG_Line];
+    
+    
+    [UIView animateWithDuration:KAmationTimer    animations:^{
+        
+        CGRect frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, imageView.frame.size.width, 0);
+        
+        if (dropDownView.frame.size.height==0) {
+            
+            frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, imageView.frame.size.width, KDropDownViewHeight);
+        }
+        
+        [dropDownView showDropDownViewWithFrame:frame selectUserName:textFieldUser.text];
+        
+        
+    }];
+}
+
+/**
+ *  删除到没有账号了，用通知试图把弹出的试图收起来
+ */
+- (void)deleteLastAccountCallBack:(int)type
+{
+    switch (type) {
+        case deleteType_SelectUser:
+        {
+            textFieldUser.text  = @"";
+            textFieldPW.text    = @"";
+        }
+            break;
+        case deleteType_DeleteAll:
+        {
+            [self clickDropDownView];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/**
+ *  选中账号
+ *
+ *  @param index 选中账号的索引
+ */
+- (void)didSelectAccountWithIndex:(JVCUserInfoModel *)model
+{
+    textFieldUser.text  = model.userName;
+    textFieldPW.text    = model.passWord;
+    
+    [self clickDropDownView];
+
 }
 
 #pragma mark
@@ -491,6 +569,10 @@ static const int KlogoOffSet_y    =  80;             //logo的开始问题
 
 -(void)resiginTextFields
 {
+    if (dropDownView.frame.size.height>0) {
+        [self clickDropDownView];
+    }
+    
     [textFieldUser resignFirstResponder];
     [textFieldPW resignFirstResponder];
 }

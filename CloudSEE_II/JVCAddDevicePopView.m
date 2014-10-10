@@ -20,7 +20,7 @@ static const float  kOff_x              =   10.f;//距离左侧10
 static const float  kImageSize          =   35.f;//添加图片增加
 static const float  kOff_x_leftMin      =   5.f;//左间隔最小5
 static const float  koff_x_right_Min    =   315.f;//右间隔最小5
-static const float  kItemSizeAdd        =   10.f;//item 都要加40
+static const float  kItemSizeAdd        =   30.f;//item 都要加40
 
 
 @interface   JVCAddDevicePopView()<UITableViewDataSource, UITableViewDelegate>
@@ -50,9 +50,17 @@ static const float  kItemSizeAdd        =   10.f;//item 都要加40
             
             self.borderColor = viewboardColor;
         }
+        self.layer.cornerRadius = 15.0;
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         
+        
+//        NSString *pathStr = [UIImage imageBundlePath:@"add_popbg.png"];
+//        UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:pathStr];
+//        // Initialization code
+//        self.backgroundColor = [UIColor colorWithPatternImage:imagebg];;
+//        [imagebg release];
+//        
     }
     return self;
 }
@@ -168,7 +176,7 @@ static const float  kItemSizeAdd        =   10.f;//item 都要加40
     rect.origin.x = SPACE;
     rect.origin.y = kArrowHeight + SPACE;
     rect.size.width -= SPACE * 2;
-    rect.size.height -= (SPACE - kArrowHeight);
+   // rect.size.height -= (SPACE - kArrowHeight);
     
     tableViewItems = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
     tableViewItems.delegate = self;
@@ -297,6 +305,8 @@ static const float  kItemSizeAdd        =   10.f;//item 都要加40
     
     [popoverPath closePath];
     [popoverPath stroke];
+    
+
 }
 
 - (void)dealloc

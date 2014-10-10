@@ -165,4 +165,13 @@ enum MODIFY_DEVICE_TYPE
                             andUserName:(NSString *)userName
                             andPassWord:(NSString *)passWord;
 
+/**
+ *  判断昵称是否合法
+ *
+ *  @param nickName 昵称
+ *
+ *  @return 0 成功  其他失败
+ */
+- (int)predicateChannelNickName:(NSString *)nickName;
+
 @end
