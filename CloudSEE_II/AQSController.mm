@@ -17,7 +17,6 @@
 
 	CFStringRef	  recordFilePath;
     AQRecorder    *recorder;
-	//AQPlayer   *player;
     BOOL          isRecoderState;
 }
 
@@ -42,6 +41,7 @@ static AQSController *_AQSController = nil;
         if (_AQSController == nil) {
             
             _AQSController = [[self alloc] init ];
+            [_AQSController awakeFromNib];
             
         }
         
@@ -93,26 +93,11 @@ char *OSTypeToStr(char *buf, OSType t)
 	[description release];	
 }
 
-//#pragma mark Playback routines
-//
-//-(void)stopPlayQueue
-//{
-//	player->StopQueue();
-//}
-//
-//-(void)pausePlayQueue
-//{
-//	player->PauseQueue();
-//	playbackWasPaused = YES;
-//}
-
 - (void)stopRecord
 {
     if (isRecoderState) {
         
         recorder->StopRecord();
-        
-        //player->DisposeQueue(true);
         
         if (errorState) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", (int)errorState);
         
@@ -127,30 +112,8 @@ char *OSTypeToStr(char *buf, OSType t)
         }
         
         isRecoderState = FALSE;
-
     }
-	
 }
-
-//- (void)replay
-//{
-//	if (player->IsRunning())
-//	{
-//		if (playbackWasPaused) {
-//			OSStatus result = player->StartQueue(true);
-//			if (result == noErr)
-//				[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
-//		}
-//		else
-//			[self stopPlayQueue];
-//	}
-//	else
-//	{		
-//		OSStatus result = player->StartQueue(false);
-//		if (result == noErr)
-//			[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:self];
-//	}
-//}
 
 - (void)record:(int)cacheBufSize mChannelBit:(int)mchannelBit
 {
@@ -191,17 +154,10 @@ void interruptionListener(	void *	inClientData,
             
 			[THIS stopRecord];
 		}
-//		else if (THIS->player->IsRunning()) {
-//			//the queue will stop itself on an interruption, we just need to update the UI
-//			[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueStopped" object:THIS];
-//            THIS->playbackWasInterrupted = YES;
-//		}
 	}
 	else if (inInterruptionState == kAudioSessionEndInterruption)
 	{
-		// we were playing back when we were interrupted, so reset and resume now
-		//THIS->player->StartQueue(true);
-//		[[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueResumed" object:THIS];
+        
 	}
 }
 
@@ -210,48 +166,25 @@ void propListener(	void *                  inClientData,
 					UInt32                  inDataSize,
 					const void *            inData)
 {
-    //AQSController *THIS = (AQSController*)inClientData;
-    
+
     if (inID == kAudioSessionProperty_AudioRouteChange)
     {
-        CFDictionaryRef routeDictionary = (CFDictionaryRef)inData;          
-        //CFShow(routeDictionary);
+        CFDictionaryRef routeDictionary = (CFDictionaryRef)inData;
+        
         CFNumberRef reason = (CFNumberRef)CFDictionaryGetValue(routeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_Reason));
         SInt32 reasonVal;
         CFNumberGetValue(reason, kCFNumberSInt32Type, &reasonVal);
         
-        if (reasonVal != kAudioSessionRouteChangeReason_CategoryChange)
-        {
-            
-            if (reasonVal == kAudioSessionRouteChangeReason_OldDeviceUnavailable)
-            {           
-//                if (THIS->player->IsRunning()) {
-//                    
-//                    [THIS pausePlayQueue];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"playbackQueueStopped" object:THIS];
-//                }       
-            }
-            
-        }
-    }
-    else if (inID == kAudioSessionProperty_AudioInputAvailable)
-    {
-        if (inDataSize == sizeof(UInt32)) {
-            
-            //UInt32 isAvailable = *(UInt32*)inData;
-        }
     }
 }
 				
 #pragma mark Initialization routines
 - (void)awakeFromNib
 {
-    // Allocate our singleton instance for the recorder & player object
-    
+
 	recorder = new AQRecorder();
     
     recorder->RegisterAQSController(self);
-	//player = new AQPlayer();
     
     errorState = AudioSessionInitialize(NULL, NULL, interruptionListener, self);
     if (errorState) printf("ERROR INITIALIZING AUDIO SESSION! %d\n", (int)errorState);
@@ -268,19 +201,15 @@ void propListener(	void *                  inClientData,
 		UInt32 inputAvailable = 0;
 		UInt32 size = sizeof(inputAvailable);
 
-        // we do not want to allow recording if input is not available
 		errorState = AudioSessionGetProperty(kAudioSessionProperty_AudioInputAvailable, &size, &inputAvailable);
 		if (errorState) printf("ERROR GETTING INPUT AVAILABILITY! %d\n", (int)errorState);
         
-//        // we also need to listen to see if input availability changes
         errorState = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioInputAvailable, propListener, self);
         if (errorState) printf("ERROR ADDING AUDIO SESSION PROP LISTENER! %d\n", (int)errorState);
  
         errorState = AudioSessionSetActive(true); 
 		if (errorState) printf("AudioSessionSetActive (true) failed");
-    
     }
-    
 }
 
 /**
@@ -294,10 +223,8 @@ void propListener(	void *                  inClientData,
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(receiveAudioDataCallBack:audioDataSize:)]) {
         
         [self.delegate receiveAudioDataCallBack:audioData audioDataSize:audioDataSize];
-        
     }
 }
-
 
 #pragma mark Cleanup
 - (void)dealloc

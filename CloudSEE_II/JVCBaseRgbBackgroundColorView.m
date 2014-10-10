@@ -34,7 +34,6 @@
             self.layer.cornerRadius  = cornerRadius;
             self.layer.borderWidth   = 0.0;
             self.layer.borderColor   = [UIColor clearColor].CGColor;
-            self.layer.masksToBounds = YES;
         }
     }
     return self;

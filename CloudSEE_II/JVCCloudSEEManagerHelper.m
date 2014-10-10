@@ -114,7 +114,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.nRemotePort,self.strUserName,self.strPassWord);
     
-    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[@"" UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],self.nYstNumber, (char *)[self.strYstGroup UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMO_UDP);
+    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[@"" UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],self.nYstNumber, (char *)[self.strYstGroup UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP);
 }
 
 /**
@@ -124,7 +124,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,remoIP=%@,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.strRemoteIP,self.nRemotePort,self.strUserName,self.strPassWord);
     
-    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[self.strRemoteIP UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],-1, (char *)[@"" UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMO_UDP);
+    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[self.strRemoteIP UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],-1, (char *)[@"" UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP);
 }
 
 /**
@@ -292,9 +292,9 @@ char          pcmBuffer[1024] ={0};
     
     [captureOutImageData retain];
     
-    if (self.jvConnectDelegate != nil && [self.jvConnectDelegate respondsToSelector:@selector(JVConnectChannelCaptureImageData:)]) {
+    if (self.jvConnectDelegate != nil && [self.jvConnectDelegate respondsToSelector:@selector(JVCCloudSEEManagerHelperCaptureImageData:)]) {
         
-        [self.jvConnectDelegate JVConnectChannelCaptureImageData:captureOutImageData];
+        [self.jvConnectDelegate JVCCloudSEEManagerHelperCaptureImageData:captureOutImageData];
     }
     
     [captureOutImageData release];
@@ -421,7 +421,7 @@ char          pcmBuffer[1024] ={0};
     
     if (isConvertStatus) {
         
-        if (self.jvConnectDelegate !=nil && [self.jvConnectDelegate respondsToSelector:@selector(JVConnectChannelAudioDataCallBack:audioDataSize:audioDataType:)]) {
+        if (self.jvConnectDelegate !=nil && [self.jvConnectDelegate respondsToSelector:@selector(JVCCloudSEEManagerHelperAudioDataCallBack:audioDataSize:audioDataType:)]) {
             
             if (self.isVoiceIntercom) {
                 
@@ -433,19 +433,19 @@ char          pcmBuffer[1024] ={0};
                         
                         for (int i=0; i<3; i++) {
                             
-                            [self.jvConnectDelegate JVConnectChannelAudioDataCallBack:(char *)(pcmBuffer+i*320) audioDataSize:decoderAudioFrame->nSize/3 audioDataType:isSoundType];
+                            [self.jvConnectDelegate JVCCloudSEEManagerHelperAudioDataCallBack:(char *)(pcmBuffer+i*320) audioDataSize:decoderAudioFrame->nSize/3 audioDataType:isSoundType];
                         }
                     }
                         break;
                     default:{
                         
-                        [self.jvConnectDelegate JVConnectChannelAudioDataCallBack:(char *)pcmBuffer audioDataSize:decoderAudioFrame->nSize audioDataType:isSoundType];
+                        [self.jvConnectDelegate JVCCloudSEEManagerHelperAudioDataCallBack:(char *)pcmBuffer audioDataSize:decoderAudioFrame->nSize audioDataType:isSoundType];
                     }
                         break;
                 }
             }else{
                 
-                [self.jvConnectDelegate JVConnectChannelAudioDataCallBack:(char *)pcmBuffer audioDataSize:decoderAudioFrame->nSize audioDataType:isSoundType];
+                [self.jvConnectDelegate JVCCloudSEEManagerHelperAudioDataCallBack:(char *)pcmBuffer audioDataSize:decoderAudioFrame->nSize audioDataType:isSoundType];
             }
         }
     }

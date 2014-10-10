@@ -31,7 +31,7 @@
  *
  *  @param captureOutImageData 抓拍的图片数据
  */
--(void)JVConnectChannelCaptureImageData:(NSData *)captureOutImageData;
+-(void)JVCCloudSEEManagerHelperCaptureImageData:(NSData *)captureOutImageData;
 
 /**
  *  音频解码后的回调
@@ -40,7 +40,7 @@
  *  @param audioDataSize 音频解码的数据大小
  *  @param audioDataType 音频解码的数据类别
  */
--(void)JVConnectChannelAudioDataCallBack:(char *)audioData audioDataSize:(int)audioDataSize audioDataType:(BOOL)audioDataType;
+-(void)JVCCloudSEEManagerHelperAudioDataCallBack:(char *)audioData audioDataSize:(int)audioDataSize audioDataType:(BOOL)audioDataType;
 
 @end
 

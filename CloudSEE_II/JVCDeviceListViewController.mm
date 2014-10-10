@@ -22,6 +22,7 @@
 #import "AppDelegate.h"
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCQRAddDeviceViewController.h"
+
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
@@ -36,7 +37,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 {
     UITableView             *_tableView;
     NSMutableArray          *_arrayColorList; //存放颜色数据的数组
-    JVCDeviceListDeviceVIew *tempView;        //单个设备视图的模板类
 }
 
 @end
@@ -55,25 +55,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         [moreItem release];
         
         self.title = self.tabBarItem.title;
-        
-        JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
-        
-        UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
-        UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
-        
-        CGRect position;
-        position.size.width  = deviceImage.size.width;
-        position.size.height = deviceImage.size.height;
-        
-        tempView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:[UIColor clearColor] cornerRadius:kTableViewIconImageViewCornerRadius];
-        
-        UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:kTableViewIconImageViewBorderColorAlpha];
-        
-        if (borderColor) {
-            
-            [tempView initWithLayoutView:iconDeviceImage borderColor:borderColor];
-        }
-        
     }
     return self;
 }
@@ -344,6 +325,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
                     JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
                     
                     UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
+                    UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
                     
                     CGRect position;
                     position.size.width  = deviceImage.size.width;
@@ -355,16 +337,16 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
                     
                     if (deviceDeviceViewColor) {
                         
-                        JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)[[JVCAppHelper shareJVCAppHelper] duplicate:tempView];
-                        deviceView.backgroundColor = deviceDeviceViewColor;
+                        JVCDeviceListDeviceVIew *deviceView = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:[UIColor blueColor] cornerRadius:kTableViewIconImageViewCornerRadius];                        deviceView.backgroundColor = deviceDeviceViewColor;
                         deviceView.frame           = position;
                         deviceView.tag             = index + kTableViewSingleDeviceViewBeginTag;
                         
                         UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
+                        UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:kTableViewIconImageViewBorderColorAlpha];
                         
-                        if (titleGontColor) {
+                        if (titleGontColor && borderColor) {
                             
-                            [deviceView initWithTitleView:titleGontColor];
+                            [deviceView initWithLayoutView:iconDeviceImage titleFontColor:titleGontColor borderColor:borderColor];
                         }
                         
                         [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
@@ -574,10 +556,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     
     [_tableView release];
     _tableView = nil;
-    
-    [tempView release];
-    tempView = nil;
-    
     
     [super dealloc];
 }

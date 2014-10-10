@@ -36,6 +36,12 @@ static const CGFloat kTitleWithFontSize                 = 18.0f;
     return self;
 }
 
+-(void)dealloc{
+
+
+    [super dealloc];
+}
+
 /**
  *  初始化单个设备视图
  */

@@ -21,7 +21,9 @@
 #import<AssetsLibrary/AssetsLibrary.h>
 
 static const int  STARTHEIGHTITEM =  40;
-static const NSString * BUNDLENAMEBottom  = @"customBottomView_cloudsee.bundle";//bundle的名称
+static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
+static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
+static const NSString * kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
 
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
 
@@ -333,6 +335,8 @@ bool _isConnectdevcieOpenDecoder;
     [self initOperationControllerMiddleViewwithFrame:frame];
     
     skinSelect = 0;
+    
+    [_managerVideo splitViewWindow:9];
                                                     
     
 }
@@ -521,32 +525,6 @@ bool _isConnectdevcieOpenDecoder;
     
 }
 
-
-#pragma mark -----------------断开指定通道的连接
--(void)disConnectChannel:(NSString*)channelID{
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    int channelValue=[channelID intValue]-1;
-    NSLog(@"run dis 001 %d",channelValue);
-	JVC_DisConnect(channelValue+1);
-    NSLog(@"run dis 002 %d",channelValue);
-	[pool release];
-}
-
--(void)gotoUnAllLink:(NSTimer*)timer{
-    
-    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-    
-	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
-        
-    }
-    
-    [timer invalidate];
-    timer=nil;
-    [self performSelectorOnMainThread:@selector(closeAlterViewAllDic) withObject:nil waitUntilDone:NO];
-    [pool release];
-    
-}
 -(void)closeAlterViewAllDic{
     
     
@@ -582,21 +560,19 @@ bool _isConnectdevcieOpenDecoder;
 #pragma mark 保存本地录像的文件
 - (void)saveLocalVideo:(NSString*)urlString{
     
-    NSLog(@"urlString==%@",urlString);
-    
-    if (urlString ==nil) {
-        return;
-    }
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library writeVideoAtPathToSavedPhotosAlbum:[NSURL fileURLWithPath:urlString]
-                                completionBlock:^(NSURL *assetURL, NSError *error) {
-                                    if (error) {
-                                        NSLog(@"error");
-                                    } else {
+    if (urlString) {
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeVideoAtPathToSavedPhotosAlbum:[NSURL fileURLWithPath:urlString]
+                                    completionBlock:^(NSURL *assetURL, NSError *error) {
                                         
-                                    }
-                                }];
-    [library release];
+                                        if (error) {
+                                            
+                                            DDLogVerbose(@"%s----save video error!",__FUNCTION__);
+                                        }
+                                    }];
+        [library release];;
+    }
 }
 
 #pragma mark 播放事件
@@ -1254,6 +1230,8 @@ bool _isConnectdevcieOpenDecoder;
  */
 -(void)OpenAudioCollectionCallBack:(int)nAudioBit nAudioCollectionDataSize:(int)nAudioCollectionDataSize{
     
+    
+    DDLogVerbose(@"%s-----callBack",__FUNCTION__);
     AQSController *aqsControllerObj = [AQSController shareAQSControllerobjInstance];
     
     aqsControllerObj.delegate       = self;
@@ -1311,7 +1289,6 @@ bool _isConnectdevcieOpenDecoder;
             
         case TYPEBUTTONCLI_SOUND:{
             
-//            ystNetWorkHelper *ystNetworkObj = [ystNetWorkHelper shareystNetWorkHelperobjInstance];
             JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             ystNetworkObj.ystNWADelegate    =  self;
             [self audioButtonClick:NO];
@@ -1520,14 +1497,14 @@ bool _isConnectdevcieOpenDecoder;
             
             NSString *documentPaths = NSTemporaryDirectory();
             
-            NSString *filePath = [documentPaths stringByAppendingPathComponent:@"LocalValue"];
+            NSString *filePath = [documentPaths stringByAppendingPathComponent:(NSString *)kRecoedVideoFileName];
             
             if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
                 [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:nil];
             }
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setDateFormat:@"YYYYMMddHHmmssSSSS"];
-            NSString *videoPath =[NSString stringWithFormat:@"%@/%@.mp4",filePath,[df stringFromDate:[NSDate date]]];
+            NSString *videoPath =[NSString stringWithFormat:@"%@/%@%@",filePath,[df stringFromDate:[NSDate date]],kRecoedVideoFileFormat];
             [df release];
             
             [_strSaveVideoPath  release];
@@ -1535,7 +1512,7 @@ bool _isConnectdevcieOpenDecoder;
             
             _strSaveVideoPath = [videoPath retain];
             
-          //  [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:videoPath];
+           [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
             
         };
         
@@ -1546,8 +1523,7 @@ bool _isConnectdevcieOpenDecoder;
         
     }else{
         
-        //        [[ystNetWorkHelper shareystNetWorkHelperobjInstance] runLocalVideoReturnUILocalVideo:_managerVideo.nSelectedChannelIndex+1 saveLocalVideoPath:_strSaveVideoPath];
-        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] stopRecordVideo:_managerVideo.nSelectedChannelIndex+1];
         [self saveLocalVideo:_strSaveVideoPath];
     }
 }

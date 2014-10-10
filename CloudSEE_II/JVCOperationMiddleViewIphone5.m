@@ -7,6 +7,7 @@
 //
 
 #import "JVCOperationMiddleViewIphone5.h"
+
 static const int kMiddleIphone5ImageSeperateCount =2;//图片的名称用点分割之后，得到的数组个数，后面要给他追加@2x
 static const int  OFF_X  =  20;                      //距离左边距的距离
 static const int OPERATIONBIGITEM  = 20.0;           //距离
@@ -233,14 +234,5 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
     [_arrayList addObject:@"playBackBigBtn.png"];
     
 }
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 @end

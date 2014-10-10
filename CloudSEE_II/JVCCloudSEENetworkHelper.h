@@ -125,6 +125,16 @@
 + (JVCCloudSEENetworkHelper *)shareJVCCloudSEENetworkHelper;
 
 /**
+ *  网络获取设备的通道数
+ *
+ *  @param ystNumber 云视通号
+ *  @param nTimeOut  请求超时时间
+ *
+ *  @return 设备的通道数
+ */
+-(int)WanGetWithChannelCount:(NSString *)ystNumber nTimeOut:(int)nTimeOut;
+
+/**
  *  检测当前窗口连接是否已存在
  *
  *  @param nLocalChannel nLocalChannel description

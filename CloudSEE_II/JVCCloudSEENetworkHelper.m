@@ -122,7 +122,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
             jvcCloudSEENetworkHelper = [[self alloc] init ];
             
             JVC_RegisterCallBack(ConnectMessageCallBack,VideoDataCallBack,RemoteplaybackSearchCallBack,VoiceIntercomCallBack,TextChatDataCallBack,NULL,RemotePlaybackDataCallBack);
-            
         }
         
         return jvcCloudSEENetworkHelper;
@@ -145,6 +144,33 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     }
     
     return nil;
+}
+
+/**
+ *  网络获取设备的通道数
+ *
+ *  @param ystNumber 云视通号
+ *  @param nTimeOut  请求超时时间
+ *
+ *  @return 设备的通道数
+ */
+-(int)WanGetWithChannelCount:(NSString *)ystNumber nTimeOut:(int)nTimeOut{
+    
+    int i;
+    
+    for (i=0; i<ystNumber.length; i++) {
+        
+        unsigned char c=[ystNumber characterAtIndex:i];
+        if (c<='9' && c>='0') {
+            
+            break;
+        }
+    }
+    
+    NSString *sGroup=[ystNumber substringToIndex:i];
+    NSString *iYstNum=[ystNumber substringFromIndex:i];
+    
+    return JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],nTimeOut);
 }
 
 /**
@@ -1488,20 +1514,5 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         [jvcCloudSEENetworkHelper.ystNWADelegate playVideoSoundCallBackMath:(char *)audioData soundBufferSize:audioDataSize soundBufferType:audioDataType];
     }
 }
-
-#pragma mark 抓拍的回调  杨虎  2014-10-8
-/**
- *  抓拍图片
- *
- *  @param captureOutImageData 抓拍的图片数据
- */
--(void)JVConnectChannelCaptureImageData:(NSData *)captureOutImageData
-{
-    if(self.ystNWRODelegate !=nil && [self.ystNWRODelegate respondsToSelector:@selector(captureImageCallBack:)])
-    {
-        [self.ystNWRODelegate captureImageCallBack:captureOutImageData];
-    }
-}
-
 
 @end

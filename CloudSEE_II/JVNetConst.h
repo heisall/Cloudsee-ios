@@ -106,11 +106,12 @@
 #define JVN_LANGUAGE_ENGLISH 1
 #define JVN_LANGUAGE_CHINESE 2
 
-#define TYPE_PC_UDP     1//连接类型 UDP 支持UDP收发完整数据
-#define TYPE_PC_TCP     2//连接类型 TCP 支持TCP收发完整数据
-#define TYPE_MO_TCP     3//连接类型 TCP 支持TCP收发简单数据,普通视频帧等不再发送，只能采用专用接口收发数据(适用于手机监控)
-#define TYPE_MO_UDP     4//连接类型 TCP 支持TCP收发简单数据,普通视频帧等不再发送，只能采用专用接口收发数据(适用于手机监控)
-#define TYPE_3GMO_UDP    5//连接类型 3GUDP
+#define TYPE_PC_UDP       1//连接类型 UDP 支持UDP收发完整数据
+#define TYPE_PC_TCP       2//连接类型 TCP 支持TCP收发完整数据
+#define TYPE_MO_TCP       3//连接类型 TCP 支持TCP收发简单数据,普通视频帧等不再发送，只能采用专用接口收发数据(适用于手机监控)
+#define TYPE_MO_UDP       4//连接类型 TCP 支持TCP收发简单数据,普通视频帧等不再发送，只能采用专用接口收发数据(适用于手机监控)
+#define TYPE_3GMO_UDP     5//连接类型 3GUDP
+#define TYPE_3GMOHOME_UDP 6//连接类型 3GUDP
 
 /*云台控制类型*/
 #define JVN_YTCTRL_U     1//上

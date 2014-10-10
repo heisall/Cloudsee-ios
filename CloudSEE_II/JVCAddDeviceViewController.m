@@ -14,48 +14,40 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCAPConfigPreparaViewController.h"
+#import "JVCCloudSEENetworkHelper.h"
 
 
 
 static const int    ADDPREDICATE_SUCCESS        = 0;
-static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
-static const int    SEPERATE                    = 20;//控件之间的距离，纵向
-static const int    ADDDEVICE_RESULT_SUCCESS    = 0;//成功
-static const int    DEFAULTCHANNELCOUNT         = 4;//莫仍的通道数
-static const int    DEFAULRESIGNTFONTSIZE       = 14;//默认的字体大小
-static const int    DEFAULTLABELWITH            = 70;//textfield的lefitwiew对应的label的宽度
-static const int    kADDDEVICESLIDEHEIGIT       = 100;//向上滑动的高度
+static const int    TESTORIIGIN_Y               = 30;  //距离navicationbar的距离
+static const int    SEPERATE                    = 20;  //控件之间的距离，纵向
+static const int    ADDDEVICE_RESULT_SUCCESS    = 0;   //成功
+static const int    DEFAULTCHANNELCOUNT         = 4;   //莫仍的通道数
+static const int    DEFAULRESIGNTFONTSIZE       = 14;  //默认的字体大小
+static const int    DEFAULTLABELWITH            = 70;  //textfield的lefitwiew对应的label的宽度
+static const int    kADDDEVICESLIDEHEIGIT       = 100; //向上滑动的高度
 static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
-
-
-
-
+static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务器获取通道数的超时时间
 
 @interface JVCAddDeviceViewController ()
 {
     UITextField *textFieldYST;//云视通
-    
     UITextField *textFieldUserName;//用户名
-    
     UITextField *textFieldPassWord;//密码
     
     UIButton *btnSave;//保存按钮
-    
     UIButton *btnAdvace;//高级按钮
-    
     UIButton *btnAP;//Ap按钮
-    
-    BOOL isShowUSerAndPW;//旋转的标志
-    
-    CGRect rectRectFrame;//原始的数据
-
-
+    BOOL   isShowUSerAndPW;//旋转的标志
+    CGRect rectRectFrame;  //原始的数据
 }
 
 @end
 
 @implementation JVCAddDeviceViewController
 @synthesize addDeviceDelegate;
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -391,32 +383,15 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
  */
 - (void)getDeviceChannelNums:(NSString *)ystNumber
 {
-    int i;
-    
-    for (i=0; i<ystNumber.length; i++) {
-        
-        unsigned char c=[ystNumber characterAtIndex:i];
-        if (c<='9' && c>='0') {
-            
-            break;
-        }
-    }
-    
-    NSString *sGroup=[ystNumber substringToIndex:i];
-    NSString *iYstNum=[ystNumber substringFromIndex:i];
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //从服务器获取设备的通道数
-       //int channelCount =JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],5);
-        int channelCount = 4;
+        
+        int channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
         
-        if (channelCount<=0) {
-            
-            channelCount=DEFAULTCHANNELCOUNT;
-        }
+        channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -426,7 +401,6 @@ static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
         });
         
     });
-
 }
 
 /**
