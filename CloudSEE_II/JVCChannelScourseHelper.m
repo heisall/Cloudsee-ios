@@ -103,7 +103,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 
         JVCChannelModel *channelModel = (JVCChannelModel *)[channelArray objectAtIndex:i];
         
-        if ([channelModel.strDeviceYstNumber isEqualToString:ystNumber]) {
+        if ([channelModel.strDeviceYstNumber.uppercaseString isEqualToString:ystNumber.uppercaseString]) {
             
             [channnleValues addObject:[NSNumber numberWithInt:channelModel.nChannelValue]];
         }
@@ -125,12 +125,15 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelMdicInfo]) {
         
         [deviceYstNumber retain];
+        [channelMdicInfo retain];
         
         DDLogVerbose(@"deviceModel=%@",deviceYstNumber);
         
         [self convertChannelDictionToModelList:channelMdicInfo deviceYstNumber:deviceYstNumber];
         
         [deviceYstNumber release];
+        [channelMdicInfo release];
+
     }
 }
 
@@ -143,6 +146,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
  */
 -( void)convertChannelDictionToModelList:(NSDictionary *)channelInfoMDic deviceYstNumber:(NSString *)deviceYstNumber
 {
+    [channelInfoMDic retain];
+    
     id channelInfoId=[channelInfoMDic objectForKey:DEVICE_CHANNEL_JSON_LIST];
     
     if ([channelInfoId isKindOfClass:[NSArray class]]) {
@@ -160,6 +165,40 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             [channelModel release];
         }
     }
+    [channelInfoMDic release];
+
+}
+
+/**
+ *  删除一个设备下面的所有的通道
+ *
+ *  @param ystNumber 云视通号
+ */
+-(void)deleteChannelsWithDeviceYstNumber:(NSString *)ystNumber{
+    
+    NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
+    
+    for (int i = 0; i < channelArray.count; i++) {
+        
+        JVCChannelModel *channelModel = (JVCChannelModel *)[channelArray objectAtIndex:i];
+                
+        if ([channelModel.strDeviceYstNumber.uppercaseString isEqualToString:ystNumber.uppercaseString]) {
+            
+            [channnleValues addObject:channelModel];
+        }
+    }
+    
+    [channelArray removeObjectsInArray:channnleValues];
+    
+}
+
+/**
+ * 删除设备下面一个的通道
+ *
+ */
+-(void)deleteSingleChannelWithDeviceYstNumber:(JVCChannelModel *)channelModelDelete{
+    
+    [channelArray removeObject:channelModelDelete];
 }
 
 /**
@@ -175,7 +214,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
         
         JVCChannelModel *channelModel = (JVCChannelModel *)[channelArray objectAtIndex:i];
         
-        if ([channelModel.strDeviceYstNumber isEqualToString:ystNumber]) {
+        if ([channelModel.strDeviceYstNumber.uppercaseString isEqualToString:ystNumber.uppercaseString]) {
             
             [channnleValues addObject:channelModel];
         }
@@ -183,5 +222,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     return channnleValues;
 }
+
 
 @end

@@ -503,6 +503,72 @@ static JVCPredicateHelper *_shareInstance = nil;
     
 }
 
+/**
+ *  修改设备昵称、用户名、密码的时候，判断一下相应的字段是否合法
+ *
+ *  @param nickName 昵称
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *  @return 相应的返回值
+ */
+- (int)modifyDevicePredicatWithNickName:(NSString *)nickName
+                            andUserName:(NSString *)userName
+                            andPassWord:(NSString *)passWord
+{
+    if ([self predicateBlankString:nickName]) {
+        
+        return MODIFY_DEVIE_NICK_NIL;
+        
+    }else if(![self predicateDeviceNickName:nickName])
+    {
+        
+        return MODIFY_DEVIE_NICK_ERROR;
+        
+    }else if ([self predicateBlankString:userName])
+    {
+        
+        return MODIFY_DEVIE_USER_NIL;
+        
+    }else if(![self predicateDeviceName:userName])
+    {
+        return MODIFY_DEVIE_USER_ERROR;
+        
+    }else if(![self predicateAddDevicePassWord:passWord])
+    {
+        return MODIFY_DEVIE_PASSWORD_ERROR;
+    }
+    
+    return MODIFY_DEVIE_SUCCESS;
+}
+
+/**
+ *  判断昵称是否合法
+ *
+ *  @param strNickName 昵称
+ *
+ *  @return  yes 合法  no：不合法
+ */
+- (BOOL)predicateDeviceNickName:(NSString *)strNickName
+{
+    
+    BOOL result=TRUE;
+    
+    NSString *regex = @"^[a-zA-Z0-9_.()\\u4E00-\\u9FA5-\\+]+$";
+    
+    if (![self judgeLegalWithPredicateString:regex andCompareString:strNickName]) {
+        
+        return FALSE;
+    }
+    
+    if (strlen([strNickName UTF8String])>20) {
+        
+        return FALSE;
+    }
+    
+    return result;
+    
+}
 
 
 

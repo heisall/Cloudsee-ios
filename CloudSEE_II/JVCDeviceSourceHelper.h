@@ -94,4 +94,18 @@ enum ADDDEVICE_TYPE
  *  @return 云通号的sourceModel
  */
 -(JVCDeviceModel *)getDeviceModelByYstNumber:(NSString *)ystNumber;
+
+
+/**
+ *  根据设备model删除设备
+ *
+ *  @param model 设备model
+ */
+- (void)deleteDevieWithModel:(JVCDeviceModel *)model;
+/**
+ *  根据设备model删除设备
+ *
+ *  @param model 设备model
+ */
+- (void)deleteDevieWithYstNum:(NSString *)ystNum;
 @end

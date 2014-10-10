@@ -11,6 +11,8 @@
 #import "JVCAppHelper.h"
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceSourceHelper.h"
+#import "JVCChannelScourseHelper.h"
+#import "JVCEditChannelInfoTableViewController.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -187,7 +189,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         }
             break;
         case JVCEditDeviceListViewControllerClickType_deviceManager:{
-            
+            [self editDeviceInfo];
         }
             break;
         case JVCEditDeviceListViewControllerClickType_linkModel:{
@@ -195,7 +197,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         }
             break;
         case JVCEditDeviceListViewControllerClickType_channelManage:{
-            
+            [self editChannelsInfo];
         }
             break;
         case JVCEditDeviceListViewControllerClickType_play:{
@@ -211,6 +213,37 @@ static const int  kInitWithLayoutColumnCount           = 3;
         default:
             break;
     }
+}
+
+
+#pragma mark 设备管理
+//设备管理点击事件
+- (void)editDeviceInfo
+{
+    JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
+    JVCEditDeviceInfoViewController *editDeviceInfVC = [[JVCEditDeviceInfoViewController alloc] init];
+    editDeviceInfVC.deviceModel = model;
+    editDeviceInfVC.deleteDelegate = self;
+    [self.navigationController pushViewController:editDeviceInfVC animated:YES];
+    [editDeviceInfVC release];
+}
+
+/**
+ *  删除设备的回调
+ */
+- (void)deleteDeviceInfoCallBack
+{
+    DDLogVerbose(@"%s",__FUNCTION__);
+}
+
+#pragma 通道管理
+- (void)editChannelsInfo
+{
+    JVCEditChannelInfoTableViewController *editChannelVC = [[JVCEditChannelInfoTableViewController alloc] init];
+    editChannelVC.YstNum = [self currentYstTitles];
+    editChannelVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:editChannelVC animated:YES];
+    [editChannelVC release];
 }
 
 -(void)dealloc{
@@ -229,6 +262,18 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [self initWithIconImageNameListArray];
     [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     [super viewDidLoad];
+    
 }
+
+/**
+ *  返回当前选中的云视通号
+ *
+ *  @return 当前选中的云视通号
+ */
+- (NSString *)currentYstTitles
+{
+    return [titles objectAtIndex:self.nIndex];
+}
+
 
 @end

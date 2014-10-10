@@ -197,6 +197,34 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 }
 
 /**
+ *  根据设备model删除设备
+ *
+ *  @param model 设备model
+*/
+- (void)deleteDevieWithModel:(JVCDeviceModel *)model
+{
+    [deviceArray removeObject:model];
+}
+/**
+ *  根据设备model删除设备
+ *
+ *  @param model 设备model
+ */
+- (void)deleteDevieWithYstNum:(NSString *)ystNum
+{
+    for (int i=0; i<deviceArray.count; i++) {
+        
+        JVCDeviceModel *tSouceModel = [deviceArray objectAtIndex:i];
+        
+        if([tSouceModel.yunShiTongNum.uppercaseString isEqualToString:ystNum.uppercaseString])
+        {
+            [deviceArray removeObject:tSouceModel];
+            break;
+        }
+    }
+}
+
+/**
  *  根据云通号获取sourceModel
  *
  *  @param ystNumber 云通号

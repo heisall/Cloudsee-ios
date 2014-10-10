@@ -9,7 +9,7 @@
 #import "JVCResultTipsHelper.h"
 #import "JVCAccountMacro.h"
 #import "JVCAlertHelper.h"
-
+#import "JVCPredicateHelper.h"
 @implementation JVCResultTipsHelper
 
 static JVCResultTipsHelper *shareResultTipsHelper = nil;
@@ -157,6 +157,39 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
             break;
     }
     
+}
+
+
+/**
+ *  修改设备的用户名、密码、昵称的返回值显示信息
+ */
+- (void)showModifyDeviceInfoResult:(int)result
+{
+    switch (result) {
+        case MODIFY_DEVIE_NICK_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"MODIFY_DEVIE_NICK_NIL") ];
+            break;
+            
+        case MODIFY_DEVIE_NICK_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"MODIFY_DEVIE_NICK_ERROR") ];
+            break;
+        case MODIFY_DEVIE_USER_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"MODIFY_DEVIE_USER_NIL") ];
+            break;
+        case MODIFY_DEVIE_PASSWORD_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"MODIFY_DEVIE_PASSWORD_NIL") ];
+            break;
+        case MODIFY_DEVIE_USER_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"DEVICE_USERNAME_ERROR") ];
+            break;
+            
+        case MODIFY_DEVIE_PASSWORD_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"DEVICE_PASSWORLD_ERROR") ];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
