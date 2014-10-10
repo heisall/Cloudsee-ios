@@ -38,6 +38,13 @@ enum CONNECTALLDEVICE{
 
 -(void)initWithLayout;
 -(void)_playVideoCilck:(int)windowsIndex selectedChannel:(int)selectedChannel;
+/**
+ *  切割窗口的处理函数
+ *
+ *  @param singeShowViewNumber 一个视图窗口同时显示监控窗口的数量
+ */
+-(void)splitViewWindow:(int)singeShowViewNumber;
+
 -(void)changeContenView;
 -(BOOL)returnPlayBackViewState;
 -(void)setScrollviewByIndex:(NSInteger)Index;

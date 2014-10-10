@@ -15,16 +15,10 @@
  *  设置设备列表的单个设备的图标
  *
  *  @param iconImage       图标
+ *  @param titleFontColor  标签的字体颜色
  *  @param borderColor     边框颜色
  */
--(void)initWithLayoutView:(UIImage *)iconImage borderColor:(UIColor *)borderColor;
-
-/**
- *  初始化标签视图
- *
- *  @param titleFontColor 标签的字体颜色
- */
--(void)initWithTitleView:(UIColor *)titleFontColor;
+-(void)initWithLayoutView:(UIImage *)iconImage titleFontColor:(UIColor *)titleFontColor borderColor:(UIColor *)borderColor;
 
 /**
  *  设置设备的名称、状态、WI-FI 信息

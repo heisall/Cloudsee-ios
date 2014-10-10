@@ -23,6 +23,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     if (self) {
         
         titles = [[NSMutableArray alloc] initWithCapacity:10];
+        
     }
     return self;
 }
@@ -101,6 +102,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
                 
             } completion:^(BOOL finished){
                 
+                [deviceListTableView reloadData];
             }];
             
         }else {
@@ -111,10 +113,6 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
                 deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
                 recognizer.view.transform =  CGAffineTransformIdentity;
                 
-                
-            }completion:^(BOOL finished){
-                
-                [deviceListTableView reloadData];
                 
             }];
         }
@@ -273,7 +271,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     cell.contentView.backgroundColor = [UIColor clearColor];
     
-    [cell initWithLayoutView:@"A3678900000"];
+    [cell initWithLayoutView:[titles objectAtIndex:indexPath.row]];
     
     [cell setViewSelectedView:indexPath.row == nIndex];
     
@@ -285,7 +283,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (nIndex != indexPath.row) {
-        
+
         nIndex = indexPath.row;
     }
     
@@ -318,10 +316,15 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     [UIView animateWithDuration:kDropListViewAnimationEnd animations:^{
         
+        
         self.view.backgroundColor = [UIColor clearColor];
         deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
         dropImageView.transform   =  CGAffineTransformIdentity;
         [toolBarView setSelectedTopItemAtIndex:nIndex];
+        
+    } completion:^(BOOL finished) {
+        
+        [deviceListTableView reloadData];
         
     }];
 }

@@ -21,7 +21,6 @@
 
     NSMutableArray                        *titleColors;                //存放标签RGB颜色集合
     UIScrollView                          *titlelableScoollView;       //存放通道的滚动视图
-    JVCDeviceListWithChannelListTitleView *tempChannelTitleView;       //单个通道视图的模板
 }
 
 @end
@@ -44,16 +43,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
         self.title  = @"选择通道";
         [self initWithTitleColors];
-        
-        UIImage *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
-        
-        CGRect position;
-        
-        position.size.width  = channelOperationViewBgImage.size.width;
-        position.size.height = channelOperationViewBgImage.size.height;
-        
-        tempChannelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:[UIColor clearColor] cornerRadius:kTitleViewWithRadius];
-        
     }
     
     return self;
@@ -71,7 +60,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 -(void)dealloc{
 
     [titleColors release];
-    [tempChannelTitleView release];
     [super dealloc];
 }
 
@@ -126,6 +114,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     NSMutableArray *titleViews                  = [[NSMutableArray alloc] initWithCapacity:10];
     CGFloat         totalHeight                 = 0.0;
     CGFloat         spacingY                    = 0.0;
+    UIImage        *channelOperationViewBgImage = [UIImage imageNamed:@"dev_channelList_button_bg.png"];
     
     if (skyColor) {
         
@@ -133,8 +122,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             CGRect position;
             
-            position.size.width  = tempChannelTitleView.size.width;
-            position.size.height = tempChannelTitleView.size.height;
+            position.size.width  = channelOperationViewBgImage.size.width;
+            position.size.height = channelOperationViewBgImage.size.height;
             
             [appHelper viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithChannelViewColumnCount viewIndex:i+1];
             
@@ -164,8 +153,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             
             int channelValue  = [[channelValues objectAtIndex:i] intValue];
             
-            JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)[appHelper duplicate:tempChannelTitleView];
-
+            JVCDeviceListWithChannelListTitleView *channelTitleView = [[JVCDeviceListWithChannelListTitleView alloc] initWithFrame:position backgroundColor:[UIColor clearColor] cornerRadius:kTitleViewWithRadius];
+            
             channelTitleView.backgroundColor          = titleViewBgColor;
             channelTitleView.frame                    = position;
             channelTitleView.nChannelValueWithIndex   = i;

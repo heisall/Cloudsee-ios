@@ -412,12 +412,10 @@ BOOL isAllLinkRun;
 	} else if (self.imageViewNums==9){
         
         lieSize=3;
+        
     }else if (self.imageViewNums==16){
         
         lieSize=4;
-    }else if (self.imageViewNums==25){
-        
-        lieSize=5;
     }
     
     _image_w=_totalWidth/lieSize;
@@ -578,7 +576,6 @@ BOOL isAllLinkRun;
     //[_operationController sendPlayBackSEEK:nFrameValue];
 }
 
-#pragma mark operationView Delegate
 
 /**
  *  切割窗口的处理函数
@@ -612,9 +609,7 @@ BOOL isAllLinkRun;
     [singleView connectResultShowInfo:connectCallBackInfo connectResultType:connectResultType];
     
     [connectCallBackInfo release];
-    
 }
-
 
 /**
  *  根据所选显示视频的窗口的编号连接通道集合中指定索引的通道对象
@@ -680,8 +675,6 @@ BOOL isAllLinkRun;
     [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
     
 }
-
-
 
 /**
  *  音频监听回调

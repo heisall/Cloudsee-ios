@@ -23,7 +23,6 @@
     JVCOperationMiddleViewIphone5 *operationBigView;
 }
 
-
 @end
 
 @implementation JVCOperationControllerIphone5
@@ -31,8 +30,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -40,13 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /**
@@ -96,7 +94,7 @@
 -(void)audioButtonClick:(BOOL)bState{
     
     OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-    JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    JVCCloudSEENetworkHelper   *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
@@ -131,7 +129,6 @@
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
         
     }
-    
 }
 
 @end
