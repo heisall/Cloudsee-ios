@@ -195,8 +195,8 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 {
     CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
     NSArray *titles = @[@"添加设备", @"扫一扫", @"添加无线设备",@"局域网扫描", @"声波配置"];
-//    NSArray *images = @[@"28b.png", @"28b.png", @"28b.png"];
-    JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:nil];
+    NSArray *images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
+    JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
     pop.popDelegate = self;
     [pop show];
     [pop release];

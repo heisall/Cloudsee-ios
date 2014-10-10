@@ -20,7 +20,7 @@ static const float  kOff_x              =   10.f;//距离左侧10
 static const float  kImageSize          =   35.f;//添加图片增加
 static const float  kOff_x_leftMin      =   5.f;//左间隔最小5
 static const float  koff_x_right_Min    =   315.f;//右间隔最小5
-static const float  kItemSizeAdd        =   40.f;//item 都要加40
+static const float  kItemSizeAdd        =   10.f;//item 都要加40
 
 
 @interface   JVCAddDevicePopView()<UITableViewDataSource, UITableViewDelegate>
@@ -221,6 +221,7 @@ static const float  kItemSizeAdd        =   40.f;//item 都要加40
     cell.textLabel.text = [titleArray objectAtIndex:indexPath.row];
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= IOS7) {
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
