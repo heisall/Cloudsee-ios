@@ -26,7 +26,7 @@
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
-static const int             kTableViewCellNormalCellHeight          = 120 ; //正常cell的高度
+static const int             kTableViewCellNormalCellHeight          = 10 ; //cell减去图片高度的间距
 static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ; //动画延迟时间
@@ -55,20 +55,42 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
+        self.navigationController.navigationBar.hidden = NO;
+        
+        //初始化颜色数组
+        _arrayColorList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroDeviceListBlue,kJVCRGBColorMacroDeviceListSkyBlue,kJVCRGBColorMacroDeviceListGreen,kJVCRGBColorMacroDeviceListYellow,nil];
     }
     return self;
+}
+
+
+-(void)initLayoutWithViewWillAppear {
+
+    DDLogVerbose(@"%s------YES",__FUNCTION__);
+    [_tableView reloadData];
+
+}
+
+-(void)deallocWithViewDidDisappear {
+    
+    for (UITableViewCell *cell  in _tableView.visibleCells) {
+        
+        for (UIView *v in cell.contentView.subviews) {
+            
+            [v removeFromSuperview];
+            v = nil;
+        }
+        
+        [cell removeFromSuperview];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBar.hidden = NO;
-    
-    //初始化颜色数组
-    _arrayColorList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroPurple,kJVCRGBColorMacroGreen,kJVCRGBColorMacroOrange,nil];
-    
+    DDLogVerbose(@"%s",__FUNCTION__);
     
     /**
      *  初始化tableview
@@ -93,7 +115,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [self setupRefresh];
     
     [self getDeviceList];
-    
 }
 
 /**
@@ -101,7 +122,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 */
 - (void)setupRefresh
 {
-    
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     [_tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
     //自动下拉刷新
@@ -111,14 +131,11 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     _tableView.headerPullToRefreshText = @"下拉可以刷新";
     _tableView.headerReleaseToRefreshText = @"松开马上刷新";
     _tableView.headerRefreshingText = @"正在刷新中";
-    
 }
 
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-  
-    
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
@@ -162,11 +179,9 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 - (void)AddDevice
 {
     JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
-    addDeviceVC.hidesBottomBarWhenPushed = YES;
     addDeviceVC.addDeviceDelegate = self;
     [self.navigationController pushViewController:addDeviceVC animated:YES];
     [addDeviceVC release];
-    
 }
 
 /**
@@ -182,6 +197,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [pop show];
     [pop release];
 }
+
 /**
  *  二维码扫描
  */
@@ -203,10 +219,8 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
         [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
         [qrAddDeviceVC release];
-//        [controller dismissModalViewControllerAnimated:NO];
     }];
 }
-
 
 /**
  *  添加无线设备
@@ -217,7 +231,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [self.navigationController pushViewController:configViewController animated:YES];
     [configViewController release];
 }
-
 
 #pragma mark  tableView 的方法
 
@@ -251,7 +264,10 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         
         return self.view.height - kTableViewCellAdeviceHeigit;
     }
-    return kTableViewCellNormalCellHeight;
+    
+    UIImage *deviceImage     = [UIImage imageNamed:@"dev_device_bg.png"];
+    
+    return kTableViewCellNormalCellHeight + deviceImage.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -385,7 +401,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
     JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
-    deviceChannelList.hidesBottomBarWhenPushed                    = YES;
+    //deviceChannelList.hidesBottomBarWhenPushed                    = YES;
     deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
     [self.navigationController pushViewController:deviceChannelList animated:YES];
     [deviceChannelList release];

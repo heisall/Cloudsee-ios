@@ -221,8 +221,8 @@
 		A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
 		A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
 		A7FA43D719E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
-		A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */; };
-		A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */; };
+		A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */; };
+		A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */; };
 		A7FA43DA19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */; };
 		A7FA43DB19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */; };
 		A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D119E3CC3C00F7A8A4 /* JVCOperationController.m */; };
@@ -555,7 +555,7 @@
 		A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomOperationBottomView.h; sourceTree = "<group>"; };
 		A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomOperationBottomView.m; sourceTree = "<group>"; };
 		A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCManagePalyVideoComtroller.h; sourceTree = "<group>"; };
-		A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCManagePalyVideoComtroller.m; sourceTree = "<group>"; };
+		A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCManagePalyVideoComtroller.mm; sourceTree = "<group>"; };
 		A7FA43CE19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMonitorConnectionSingleImageView.h; sourceTree = "<group>"; };
 		A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMonitorConnectionSingleImageView.m; sourceTree = "<group>"; };
 		A7FA43D019E3CC3C00F7A8A4 /* JVCOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationController.h; sourceTree = "<group>"; };
@@ -916,7 +916,7 @@
 				A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */,
 				A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */,
 				A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */,
-				A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m */,
+				A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */,
 				A7FA43CE19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.h */,
 				A7FA43CF19E3CC3C00F7A8A4 /* JVCMonitorConnectionSingleImageView.m */,
 				A7FA43D019E3CC3C00F7A8A4 /* JVCOperationController.h */,
@@ -1827,7 +1827,7 @@
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
-				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */,
+				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
 				A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
@@ -2006,7 +2006,7 @@
 				A7F5557219D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				A7FAF5BA19D11C4000B3F395 /* JVCAccountPredicateMaths.m in Sources */,
 				A7F5EF7819D2DC18009B797A /* JVCAlertHelper.m in Sources */,
-				A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.m in Sources */,
+				A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
 				A7F5E25119D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

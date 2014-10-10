@@ -25,7 +25,7 @@ float min_offset;
     
     if (self) {
         
-	    self.backgroundColor=[UIColor blackColor];
+	    self.backgroundColor=[UIColor clearColor];
 		sing_y=self.frame.origin.y;
 		sing_x=self.frame.origin.x;
         _amConnectInfoList=[[NSMutableArray alloc] initWithCapacity:10];
@@ -107,7 +107,7 @@ float min_offset;
 	[connectInfoTV release];
     [connectInfoTV setHidden:YES];
     
-    UIImage *_playImage=[UIImage imageNamed:@"play.png"];
+    UIImage *_playImage = [UIImage imageWithContentsOfFile:[UIImage getBundleImagePath:@"play.png" bundleName:@"customBottomView_cloudsee.bundle"]];
     
     UIButton *_bPlayVideoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     _bPlayVideoBtn.frame=CGRectMake((self.frame.size.width-_playImage.size.width)/2.0, (self.frame.size.height-_playImage.size.height)/2, _playImage.size.width, _playImage.size.height);
@@ -386,7 +386,7 @@ float min_offset;
     
     
     
-    NSMutableString *_imageNameString=[[NSMutableString alloc] initWithCapacity:10];
+   // NSMutableString *_imageNameString=[[NSMutableString alloc] initWithCapacity:10];
     
     //    managePalyVideoComtroller *_managePlay=(managePalyVideoComtroller*)f_view;
     //
@@ -398,13 +398,13 @@ float min_offset;
     //        [_imageNameString appendFormat:@"%@",@"play.png"];
     //    }
     
-    UIImage *_playImageBg=[UIImage imageNamed:_imageNameString];
+    //UIImage *_playImageBg=[UIImage imageNamed:_imageNameString];
     
-    [_imageNameString release];
+    //[_imageNameString release];
     
-    UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
-    [_bPlayVideoBtn setImage:_playImageBg forState:UIControlStateNormal];
-    _bPlayVideoBtn.frame= CGRectMake((self.frame.size.width-_playImageBg.size.width)/2.0, (self.frame.size.height-_playImageBg.size.height)/2, _playImageBg.size.width, _playImageBg.size.height);
+    //UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
+    //[_bPlayVideoBtn setImage:_playImageBg forState:UIControlStateNormal];
+    //_bPlayVideoBtn.frame= CGRectMake((self.frame.size.width-_playImageBg.size.width)/2.0, (self.frame.size.height-_playImageBg.size.height)/2, _playImageBg.size.width, _playImageBg.size.height);
     
     UILabel *connectInfoTV=(UILabel*)[self viewWithTag:106];
 	connectInfoTV.frame=CGRectMake(10.0, activity.frame.origin.y+activity.frame.size.height, self.frame.size.width-20.0, 16.0);
@@ -497,6 +497,12 @@ float min_offset;
             //            UISlider *slider=(UISlider*)[self viewWithTag:107];
             //            [slider setHidden:YES];
             //        }
+            UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
+            
+            if (!_bPlayVideoBtn.hidden) {
+                
+                [_bPlayVideoBtn setHidden:YES];
+            }
             
             [self._glView decoder:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
             

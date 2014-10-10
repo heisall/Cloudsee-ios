@@ -26,7 +26,11 @@ static NSString const *  kJVCRGBColorMacroEditToolBarDropButtonBackgroundColor  
 static NSString const *  kJVCRGBColorMacroEditDropListViewCellTitleFontUnselectedColor  = @"editDropListViewCellTitleFontUnselectedColor";
 
 //设备列表
-static NSString const *  kJVCRGBColorMacroWhite        = @"white";
+static NSString const *  kJVCRGBColorMacroDeviceListBlue         = @"DeviceListBlue";
+static NSString const *  kJVCRGBColorMacroDeviceListSkyBlue      = @"DeviceListSkyBlue";
+static NSString const *  kJVCRGBColorMacroDeviceListYellow       = @"DeviceListYellow";
+static NSString const *  kJVCRGBColorMacroDeviceListGreen        = @"DeviceListGreen";
+static NSString const *  kJVCRGBColorMacroWhite                  = @"white";
 static NSString const *  kJVCRGBColorMacroDeviceListLabelGray    = @"DeviceLabelGray";
 
 //TabarViewController

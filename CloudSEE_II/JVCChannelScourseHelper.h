@@ -43,6 +43,16 @@
 -(void)channelInfoMDicConvertChannelModelToMArrayPoint:(NSDictionary *)channelMdicInfo deviceYstNumber:(NSString *)deviceYstNumber;
 
 /**
+ *  根据设备的云视通号和单个设备通道数组的索引号返回一个通道实体
+ *
+ *  @param index     通道索引号
+ *  @param ystNumber 云视通号
+ *
+ *  @return 通道实体
+ */
+-(JVCChannelModel *)channelModelAtIndex:(int)index withDeviceYstNumber:(NSString *)ystNumber;
+
+/**
  *  根据云视通号返回一个设备的所有通道集合
  *
  *  @return 一个设备的所有通道集合

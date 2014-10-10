@@ -10,4 +10,14 @@
 
 @interface JVCBaseGeneralTableViewController : UITableViewController
 
+/**
+ *  视图可见时加载的view
+ */
+- (void)initLayoutWithViewWillAppear;
+
+/**
+ *  视图不可见时释放的View
+ */
+-(void)deallocWithViewDidDisappear;
+
 @end

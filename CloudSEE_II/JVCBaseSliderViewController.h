@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 
-@interface JVCBaseSliderViewController : UIViewController
+@interface JVCBaseSliderViewController : JVCBaseWithGeneralViewController
 
-- (void)BackClick;
 
 @end
