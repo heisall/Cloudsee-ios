@@ -111,6 +111,7 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
      *	我的设备模块
      */
     JVCDeviceListViewController *deviceListController = [[JVCDeviceListViewController alloc] init];
+    deviceListController.hidesBottomBarWhenPushed     = FALSE;
     UINavigationController      *deviceNav            = [[UINavigationController alloc] initWithRootViewController:deviceListController];
     [deviceListController release];
     
@@ -118,6 +119,7 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
      *	报警消息模块
      */
     JVCAlarmMessageViewController *alarmMessageViewController = [[JVCAlarmMessageViewController alloc] init];
+    alarmMessageViewController.hidesBottomBarWhenPushed       = FALSE;
     UINavigationController        *alarmMessageViewNav        =[[UINavigationController alloc] initWithRootViewController:alarmMessageViewController];
     
     [alarmMessageViewController release];
@@ -125,7 +127,8 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     /**
      *	设备管理模块
      */
-    JVCEditDeviceListViewController *editDeviceViewController =[[JVCEditDeviceListViewController alloc] init];
+    JVCEditDeviceListViewController *editDeviceViewController = [[JVCEditDeviceListViewController alloc] init];
+    editDeviceViewController.hidesBottomBarWhenPushed         = FALSE;
     UINavigationController          *editDeviceNav            = [[UINavigationController alloc] initWithRootViewController:editDeviceViewController];
     
     [editDeviceViewController release];
@@ -133,8 +136,9 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     /**
      *	更多模块
      */
-    JVCMoreViewController  *moreViewController = [[JVCMoreViewController alloc] init];
-    UINavigationController *moreNav            = [[UINavigationController alloc] initWithRootViewController:moreViewController];
+    JVCMoreViewController  *moreViewController  = [[JVCMoreViewController alloc] init];
+    moreViewController.hidesBottomBarWhenPushed = FALSE;
+    UINavigationController *moreNav             = [[UINavigationController alloc] initWithRootViewController:moreViewController];
     [moreViewController release];
     
     

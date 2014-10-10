@@ -21,22 +21,25 @@ enum CONNECTALLDEVICE{
 
 @interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,YstNetWorkHelpOperationDelegate>
 {
-    UIScrollView            *WheelShowListView;
-    NSMutableArray          *amChannelListData;
     JVCOperationController  *_operationController;
     int                     imageViewNums;            //ScorllView每页视图显示的窗体个数
     int                     _iCurrentPage;
     int                     _iBigNumbers;
     int                     nSelectedChannelIndex;
+    NSString               *strSelectedDeviceYstNumber;
 }
 
-@property (nonatomic,retain) NSMutableArray *amChannelListData;
+@property (nonatomic,retain) NSMutableArray         *amChannelListData;
 @property (nonatomic,assign) JVCOperationController *_operationController;
-@property (nonatomic,assign) UIScrollView *WheelShowListView;
-@property (nonatomic,assign) int imageViewNums,_iCurrentPage,_iBigNumbers;
-@property (nonatomic,assign) int nSelectedChannelIndex;
+@property (nonatomic,assign) int                     imageViewNums,_iCurrentPage,_iBigNumbers;
+@property (nonatomic,assign) int                     nSelectedChannelIndex;
+@property (nonatomic,assign) NSString               *strSelectedDeviceYstNumber;
 
+/**
+ *  初始化视频播放的窗口布局
+ */
 -(void)initWithLayout;
+
 -(void)_playVideoCilck:(int)windowsIndex selectedChannel:(int)selectedChannel;
 /**
  *  切割窗口的处理函数

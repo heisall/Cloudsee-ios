@@ -223,6 +223,28 @@ static JVCRGBHelper *jvcRGBHelper = nil;
  */
 -(void)initDeviceListViewRgbColors{
     
+    
+    JVCRGBModel *blue  = [[JVCRGBModel alloc] init]; //蓝色
+    blue.r = 56.0f;
+    blue.g = 143.0f;
+    blue.b = 229.0f;
+    
+    JVCRGBModel *skyBlue  = [[JVCRGBModel alloc] init]; //天蓝色
+    skyBlue.r = 19.0f;
+    skyBlue.g = 197.0f;
+    skyBlue.b = 206.0f;
+    
+    JVCRGBModel *green  = [[JVCRGBModel alloc] init]; //绿色
+    green.r = 131.0f;
+    green.g = 201.0f;
+    green.b = 20.0f;
+    
+    JVCRGBModel *yellow  = [[JVCRGBModel alloc] init]; //黄色
+    yellow.r = 243.0f;
+    yellow.g = 182.0f;
+    yellow.b = 19.0f;
+    
+    
     JVCRGBModel *white  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
     white.r = 255.0f;
     white.g = 255.0f;
@@ -233,9 +255,17 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     labTextClolr.g = 133.0f;
     labTextClolr.b = 147.0f;
     
+    [mdicRgbModelList setObject:blue         forKey:kJVCRGBColorMacroDeviceListBlue];
+    [mdicRgbModelList setObject:skyBlue      forKey:kJVCRGBColorMacroDeviceListSkyBlue];
+    [mdicRgbModelList setObject:green        forKey:kJVCRGBColorMacroDeviceListGreen];
+    [mdicRgbModelList setObject:yellow       forKey:kJVCRGBColorMacroDeviceListYellow];
     [mdicRgbModelList setObject:labTextClolr forKey:kJVCRGBColorMacroDeviceListLabelGray];
-    [mdicRgbModelList setObject:white forKey:kJVCRGBColorMacroWhite];
+    [mdicRgbModelList setObject:white        forKey:kJVCRGBColorMacroWhite];
     
+    [blue release];
+    [skyBlue release];
+    [yellow release];
+    [green release];
     [white release];
     [labTextClolr release];
 }

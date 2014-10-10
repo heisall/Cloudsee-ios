@@ -12,11 +12,20 @@
 #import "OpenALBufferViewcontroller.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCAppHelper.h"
+
+@interface JVCManagePalyVideoComtroller () {
+
+    UIScrollView            *WheelShowListView;
+}
+
+@end
 
 @implementation JVCManagePalyVideoComtroller
 
-@synthesize amChannelListData,_operationController,WheelShowListView,imageViewNums;
+@synthesize amChannelListData,_operationController,imageViewNums;
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
+@synthesize strSelectedDeviceYstNumber;
 
 static const int  kPlayViewDefaultMaxValue = 4;
 
@@ -29,7 +38,8 @@ BOOL isAllLinkRun;
     
     if (self) {
         
-        self._iBigNumbers = kPlayViewDefaultMaxValue;
+        self._iBigNumbers    = kPlayViewDefaultMaxValue;
+        self.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
@@ -39,73 +49,31 @@ BOOL isAllLinkRun;
  */
 -(void)initWithLayout{
     
-    JVCCloudSEENetworkHelper *ystNetWorkHelperObj=[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    
-    //[ystNetWorkHelperObj registerCallBack];
-    
+    JVCCloudSEENetworkHelper *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    int channelCount                              = [self channelCountAtSelectedYstNumber];
     ystNetWorkHelperObj.ystNWHDelegate   =self;
     
-    float _totalWidth=self.frame.size.width;
-    float _totalHeight=self.frame.size.height;
-    
-    float _image_w=0.0;
-    float _image_h=0.0;
-    
-    int lieSize=1;
-	if (self.imageViewNums == 4) {
-		lieSize=2;
-	} else if (self.imageViewNums == 9){
-        lieSize=3;
-    }
-    _image_w=_totalWidth/lieSize;
-    _image_h=_totalHeight/lieSize;
-    
-    WheelShowListView= [[UIScrollView alloc] init];
+    WheelShowListView       = [[UIScrollView alloc] init];
+    WheelShowListView.frame = CGRectMake(0.0,0.0, self.frame.size.width, self.frame.size.height);
 	WheelShowListView.directionalLockEnabled = YES;
 	WheelShowListView.pagingEnabled = YES;
 	WheelShowListView.showsVerticalScrollIndicator=NO;
 	WheelShowListView.showsHorizontalScrollIndicator=YES;
 	WheelShowListView.bounces=NO;
-    WheelShowListView.clipsToBounds=YES;
-	WheelShowListView.frame=CGRectMake(0.0,0.0, self.frame.size.width, self.frame.size.height);
 	WheelShowListView.delegate = self;
-    
 	WheelShowListView.backgroundColor=[UIColor clearColor];
-    
-	int count=[amChannelListData count];
-    
-    int pageNums=count/self.imageViewNums;
-    
-	if (count%self.imageViewNums!=0) {
-		pageNums=pageNums+1;
-	}
-    
-	CGSize newSize = CGSizeMake(self.frame.size.width*pageNums,self.frame.size.height);
-	[WheelShowListView setContentSize:newSize];
 	[self addSubview:WheelShowListView];
 	[WheelShowListView release];
-	
-	
-	[UIView beginAnimations:@"View" context:nil];
-    [UIView setAnimationDuration:0.5];
     
-	for (int i=0;i<[amChannelListData count]+1 ; i++) {
-		
-		int flag=i;
+    int ncolumnCount = sqrt(self.imageViewNums);
+    
+    CGFloat imageViewHeight = self.frame.size.height / ncolumnCount;
+    CGFloat imageViewWidth  = self.frame.size.width  / ncolumnCount;
+    
+	for (int i = 0;i < channelCount ; i++) {
         
-        int pageValue=flag/self.imageViewNums;
-        int pageNum=flag%self.imageViewNums;
-        
-        int row=(pageNum+1)/lieSize;
-		int lie=(pageNum+1)%lieSize;
-		if ((pageNum+1)%lieSize!=0) {
-			row=(pageNum+1)/lieSize+1;
-		}else {
-			lie=lieSize;
-		}
-        
-		JVCMonitorConnectionSingleImageView *singleVideoShow=[[JVCMonitorConnectionSingleImageView alloc]initWithFrame:CGRectMake(self.frame.size.width*pageValue+ _image_w*(lie-1),_image_h*(row-1), _image_w,_image_h)];
-        
+		JVCMonitorConnectionSingleImageView *singleVideoShow = [[JVCMonitorConnectionSingleImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, imageViewWidth, imageViewHeight)];
+      
         singleVideoShow.layer.borderWidth=1.0;
         [singleVideoShow unSelectUIView];
         singleVideoShow.singleViewType=1;
@@ -113,12 +81,6 @@ BOOL isAllLinkRun;
         singleVideoShow.ystNetWorkHelpOperationDelegate=self;
 		[singleVideoShow initWithView];
 		singleVideoShow.tag=KWINDOWSFLAG+i;
-        
-        if (i==[self.amChannelListData count]) {
-            
-            [singleVideoShow getGlViewMaxmodel];
-            [singleVideoShow setHidden:YES];
-        }
         
         UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingelTabFrom_FOUR:)];
 		singleRecognizer.numberOfTapsRequired = 1; // 单击
@@ -133,15 +95,11 @@ BOOL isAllLinkRun;
 		[singleRecognizer release];
 		[doubleRecognizer release];
         
-        
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedOncell:)];
         
         [singleVideoShow addGestureRecognizer:longPress];
-        
         longPress.allowableMovement = NO;
-        
         longPress.minimumPressDuration = 0.5;
-        
         [longPress release];
         
         
@@ -172,15 +130,7 @@ BOOL isAllLinkRun;
         
     }
     
-    [UIView commitAnimations];
-    
-    CGPoint position = CGPointMake(self.bounds.size.width*self.nSelectedChannelIndex,0);
-    
-    self._iCurrentPage=self.nSelectedChannelIndex;
-    
-	[WheelShowListView setContentOffset:position animated:NO];
-    
-    [self connectVideoByLocalChannelID:KWINDOWSFLAG+self._iCurrentPage];
+    [self changeContenView];
     
 }
 
@@ -217,33 +167,33 @@ BOOL isAllLinkRun;
 
 -(void)longPressedOncell:(id)sender{
     
-    if (self.frame.size.height>=300.0||[_operationController returnIsplayBackVideo]) {
-        return;
-    }
-    
-    if ([(UILongPressGestureRecognizer *)sender state] == UIGestureRecognizerStateBegan) {
-        JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)((UILongPressGestureRecognizer *)sender).view;
-        if (![singleView getActivity]) {
-            
-            for (int i=0; i<[amChannelListData count]; i++) {
-                JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
-                // NSLog(@"value=%d",self.tag);
-                //NSLog(@"imgView=%@",imgView );
-                if (singleView.tag!=imgView.tag) {
-                    [imgView unSelectUIView];
-                }else {
-                    if (self.imageViewNums==1) {
-                        [imgView unSelectUIView];
-                    }else{
-                        
-                        [imgView selectUIView];
-                    }
-                    _operationController._iSelectedChannelIndex=i;
-                }
-            }
-            //[_operationController gotoDeviceShowChannels];
-        }
-    }
+//    if (self.frame.size.height>=300.0||[_operationController returnIsplayBackVideo]) {
+//        return;
+//    }
+//    
+//    if ([(UILongPressGestureRecognizer *)sender state] == UIGestureRecognizerStateBegan) {
+//        JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)((UILongPressGestureRecognizer *)sender).view;
+//        if (![singleView getActivity]) {
+//            
+//            for (int i=0; i<[amChannelListData count]; i++) {
+//                JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
+//                // NSLog(@"value=%d",self.tag);
+//                //NSLog(@"imgView=%@",imgView );
+//                if (singleView.tag!=imgView.tag) {
+//                    [imgView unSelectUIView];
+//                }else {
+//                    if (self.imageViewNums==1) {
+//                        [imgView unSelectUIView];
+//                    }else{
+//                        
+//                        [imgView selectUIView];
+//                    }
+//                    _operationController._iSelectedChannelIndex=i;
+//                }
+//            }
+//            //[_operationController gotoDeviceShowChannels];
+//        }
+//    }
 }
 
 /**
@@ -379,81 +329,69 @@ BOOL isAllLinkRun;
     [super dealloc];
 }
 
+
+/**
+ *  返回当前选择设备的通道个数
+ *
+ *  @return 当前选择设备的通道个数
+ */
+- (int)channelCountAtSelectedYstNumber {
+
+    JVCChannelScourseHelper  *channelHelper       = [JVCChannelScourseHelper shareChannelScourseHelper];
+    return [channelHelper channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber].count;
+}
+
 /**
  *  改变窗体布局
  */
 -(void)changeContenView{
     
+   
+    int channelCount              = [self channelCountAtSelectedYstNumber];
+    JVCAppHelper *apphelper       = [JVCAppHelper shareJVCAppHelper];
+
     WheelShowListView.frame=CGRectMake(0.0,0.0, self.frame.size.width, self.frame.size.height);
-    [WheelShowListView setBackgroundColor:[UIColor clearColor]];
     
-    int count=[self.amChannelListData count];
-    int pageNums=count/self.imageViewNums;
+    int count    = channelCount;
     
-	if (count%self.imageViewNums!=0) {
+    int pageNums = count/self.imageViewNums;
+    
+	if (count%self.imageViewNums != 0) {
         
-		pageNums=pageNums+1;
+		pageNums = pageNums+1;
 	}
     
 	CGSize newSize = CGSizeMake(self.frame.size.width*pageNums,self.frame.size.height);
 	[WheelShowListView setContentSize:newSize];
     
-    float _totalWidth=self.frame.size.width;
-    float _totalHeight=self.frame.size.height;
+    CGFloat  totalWidth      = self.frame.size.width;
+    CGFloat  totalHeight     = self.frame.size.height;
+    int      ncolumnCount    = sqrt(self.imageViewNums);
+    CGFloat  imageViewHeight = totalHeight/ncolumnCount;
+    CGFloat  imageViewWidth  = totalWidth/ncolumnCount;
     
-    float _image_w=0.0;
-    float _image_h=0.0;
-    
-    int lieSize=1;
-    
-	if (self.imageViewNums==4) {
+	for (int i=0;i < count ; i++) {
         
-		lieSize=2;
-	} else if (self.imageViewNums==9){
+        int pageIndex = i / self.imageViewNums;
+        int index     = i % self.imageViewNums;
         
-        lieSize=3;
+        CGRect rect;
+        rect.size.width  = imageViewWidth ;
+        rect.size.height = imageViewHeight;
         
-    }else if (self.imageViewNums==16){
+        [apphelper viewInThePositionOfTheSuperView:totalWidth viewCGRect:rect nColumnCount:ncolumnCount viewIndex:index+1];
         
-        lieSize=4;
-    }
-    
-    _image_w=_totalWidth/lieSize;
-    _image_h=_totalHeight/lieSize;
-    
-	for (int i=0;i<[self.amChannelListData count]+1 ; i++) {
-        
-        int flag=i;
-        
-        int pageValue=flag/self.imageViewNums;
-        int pageNum=flag%self.imageViewNums;
-        
-        int row=(pageNum+1)/lieSize;
-		int lie=(pageNum+1)%lieSize;
-        
-		if ((pageNum+1)%lieSize!=0) {
-            
-			row=(pageNum+1)/lieSize+1;
-		}else {
-            
-			lie=lieSize;
-		}
+        rect.origin.x += totalWidth * pageIndex;
         
         JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
-		singleVideoShow.frame=CGRectMake(self.frame.size.width*pageValue+ _image_w*(lie-1),_image_h*(row-1), _image_w,_image_h);
+		singleVideoShow.frame = rect;
         [singleVideoShow updateChangeView];
         [singleVideoShow unSelectUIView];
-        
-        if (i==[self.amChannelListData count]) {
-            
-            [singleVideoShow setHidden:YES];
-        }
-        
 	}
     
-    int positionIndex=self.nSelectedChannelIndex;
+    int positionIndex  = self.nSelectedChannelIndex;
     
-    self._iCurrentPage=positionIndex;
+    self._iCurrentPage = positionIndex;
     
     //    if (self.imageViewNums>4) {
     //
@@ -466,19 +404,22 @@ BOOL isAllLinkRun;
     //        [_operationController channelAllWaitI];
     //    }
     
-    if (self.imageViewNums!=1) {
+    if (self.imageViewNums !=1 ) {
         
         JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+self.nSelectedChannelIndex];
         
         [singleVideoShow selectUIView];
-        positionIndex=positionIndex/self.imageViewNums;
-        self._iCurrentPage=positionIndex;
+        
+        positionIndex      = positionIndex/self.imageViewNums;
+        self._iCurrentPage =positionIndex;
         
         //[self connectSingleDevicesAllChannel];
     }
     
     CGPoint position = CGPointMake(self.bounds.size.width*positionIndex,0);
 	[WheelShowListView setContentOffset:position animated:NO];
+    
+    [self connectSingleDevicesAllChannel];
     
     //[NSThread detachNewThreadSelector:@selector(openCurrentSingleWindowsVideoData) toTarget:self withObject:nil];
     
@@ -505,13 +446,12 @@ BOOL isAllLinkRun;
     
     nAllLinkFlag   = CONNECTALLDEVICE_Run;
     
-    int endIndex   = (self._iCurrentPage+1)*self.imageViewNums;
-    int startIndex = self._iCurrentPage*self.imageViewNums;
+    int endIndex   = (self._iCurrentPage + 1) * self.imageViewNums;
+    int startIndex =  self._iCurrentPage      * self.imageViewNums;
+    int maxCount   = [self channelCountAtSelectedYstNumber];
     
-    if ( endIndex   >= [self.amChannelListData count] ) {
-        
-        endIndex   =[self.amChannelListData count];
-    }
+    endIndex =  endIndex >= maxCount ? maxCount : endIndex;
+    
     DDLogVerbose(@"%s----startIndex=%d----endIndex=%d",__FUNCTION__,startIndex,endIndex);
     
     for (int i = startIndex; i < endIndex; i++) {
@@ -529,7 +469,6 @@ BOOL isAllLinkRun;
         if (i!=endIndex-1){
             
             usleep(CONNECTINTERVAL);
-            
         }
     }
     
@@ -621,14 +560,22 @@ BOOL isAllLinkRun;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int                                  channelID           = nlocalChannelID - WINDOWSFLAG;
-        JVCChannelModel                      *channelModel       = (JVCChannelModel *)[self.amChannelListData objectAtIndex:channelID];
+        
+        JVCChannelScourseHelper             *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
+        NSMutableArray                      *channels            = [channelSourceObj channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
+        int                                  channelID           = nlocalChannelID - WINDOWSFLAG + 1;
+       
         JVCMonitorConnectionSingleImageView *singleView          = (JVCMonitorConnectionSingleImageView *) [self viewWithTag:nlocalChannelID];
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:nlocalChannelID];
-        JVCDeviceModel                      *deviceModel         = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:channelModel.strDeviceYstNumber];
-       
-        NSString                         *connectInfo         = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
+        BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:channelID];
+        JVCDeviceModel                      *deviceModel         = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
+        
+        int                                  channelIndex        = nlocalChannelID - WINDOWSFLAG;
+        
+        [channels retain];
+        
+        JVCChannelModel                 *channelModel        = (JVCChannelModel *)[channels objectAtIndex:channelIndex];
+        NSString                        *connectInfo         = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
     
         //DDLogVerbose(@"%s--connectDeviceModel-%@",__FUNCTION__,deviceModel.description);
     
@@ -639,13 +586,15 @@ BOOL isAllLinkRun;
             
             if (deviceModel.linkType) {
                 
-                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID+1 nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION];
+                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION];
                
             }else{
                 
-                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID+1 nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION];
+                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION];
             }
         }
+        
+        [channels release];
         
     });
 }

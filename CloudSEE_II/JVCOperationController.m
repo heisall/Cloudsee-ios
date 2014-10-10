@@ -59,7 +59,8 @@ bool selectState_audio ;
 @end
 
 @implementation JVCOperationController
-@synthesize _aDeviceChannelListData,_iSelectedChannelIndex,_iViewState;
+@synthesize _iSelectedChannelIndex,strSelectedDeviceYstNumber;
+@synthesize _iViewState;
 @synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack;
 @synthesize _playBackVideoDataArray,_playBackDateString;
 @synthesize showSingeleDeviceLongTap;
@@ -68,6 +69,7 @@ bool selectState_audio ;
 JVCCustomOperationBottomView *_operationItemSmallBg;
 
 static const int  JVCOPERATIONCONNECTMAXNUMS  = 16;//
+static const int  kDefaultShowWidnowCount     = 1 ;
 
 
 int unAllLinkFlag;
@@ -99,7 +101,14 @@ bool _isConnectdevcieOpenDecoder;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
     if (self) {
+        
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            
+        }
         
     }
     return self;
@@ -108,6 +117,7 @@ bool _isConnectdevcieOpenDecoder;
 -(void)dealloc{
     
     [_strSaveVideoPath release];
+    [strSelectedDeviceYstNumber release];
     
     [_managerVideo removeFromSuperview];
     [_managerVideo release];
@@ -131,10 +141,6 @@ bool _isConnectdevcieOpenDecoder;
     [_amUnSelectedImageNameListData release];
     _amUnSelectedImageNameListData=nil;
     
-    
-    [_aDeviceChannelListData release];
-    _aDeviceChannelListData=nil;
-    
     [scrollview release];
     DDLogVerbose(@"%s----",__FUNCTION__);
     [super dealloc];
@@ -152,17 +158,17 @@ bool _isConnectdevcieOpenDecoder;
     
     if (!_isPlayBackVideo) {
         
-        if ([self._aDeviceChannelListData count]<=1) {
-            
-            [_splitViewBtn setHidden:YES];
-            [_splitViewCon setHidden:YES];
-            
-        }else{
-            
-            [_splitViewBtn setHidden:NO];
-            [_splitViewCon setHidden:NO];
-            
-        }
+//        if ([self._aDeviceChannelListData count]<=1) {
+//            
+//            [_splitViewBtn setHidden:YES];
+//            [_splitViewCon setHidden:YES];
+//            
+//        }else{
+//            
+//            [_splitViewBtn setHidden:NO];
+//            [_splitViewCon setHidden:NO];
+//            
+//        }
         
         if (self.navigationController.navigationBarHidden) {
             self.navigationController.navigationBarHidden = NO;
@@ -201,7 +207,7 @@ bool _isConnectdevcieOpenDecoder;
     
     if (IOS_VERSION>=IOS7) {
         
-        self.automaticallyAdjustsScrollViewInsets =NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
     self._issound=FALSE;//音频监听
@@ -249,19 +255,19 @@ bool _isConnectdevcieOpenDecoder;
     /**
      *  播放窗体
      */
-    _managerVideo                       = [[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
-    _managerVideo.tag                   = 100;
-    _managerVideo.amChannelListData     = self._aDeviceChannelListData;
-    _managerVideo._operationController  = self;
-    _managerVideo.nSelectedChannelIndex = self._iSelectedChannelIndex;
-    _managerVideo.imageViewNums         = 1;
+    _managerVideo                            = [[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
+    _managerVideo.tag                        = 100;
+    _managerVideo.strSelectedDeviceYstNumber = self.strSelectedDeviceYstNumber;
+    _managerVideo._operationController       = self;
+    _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
+    _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
     [_managerVideo setUserInteractionEnabled:YES];
-    _managerVideo.backgroundColor       =[UIColor blackColor];
     [self.view addSubview:_managerVideo];
+     [_managerVideo initWithLayout];
     
-    [_managerVideo initWithLayout];
+ 
     
-   // self.delegate = _managerVideo;
+   //self.delegate = _managerVideo;
     
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
@@ -320,10 +326,10 @@ bool _isConnectdevcieOpenDecoder;
     [_splitViewBtn addTarget:self action:@selector(gotoShowSpltWindow) forControlEvents:UIControlEventTouchUpInside];
     [_splitViewBtn setBackgroundImage:_splitShow forState:UIControlStateNormal];
     [self.navigationController.navigationBar addSubview:_splitViewBtn];
-    if ([self._aDeviceChannelListData count]<=1) {
-        [_splitViewBgClick setHidden:YES];
-        [_splitViewBtn setHidden:YES];
-    }
+//    if ([self._aDeviceChannelListData count]<=1) {
+//        [_splitViewBgClick setHidden:YES];
+//        [_splitViewBtn setHidden:YES];
+//    }
     
     /**
      *  中间的语音对讲、云台、远程回放按钮
@@ -336,7 +342,7 @@ bool _isConnectdevcieOpenDecoder;
     
     skinSelect = 0;
     
-    [_managerVideo splitViewWindow:9];
+    //[_managerVideo splitViewWindow:9];
                                                     
     
 }
@@ -391,21 +397,22 @@ bool _isConnectdevcieOpenDecoder;
 -(NSMutableArray*)getSplitWindowMaxNumbers{
     
     NSMutableArray *_windowListData=[NSMutableArray arrayWithCapacity:10];
-    if ([self._aDeviceChannelListData count]<=4) {
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-        
-    }else if([self._aDeviceChannelListData count]<=9){
-        
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
-        
-    }else {
-        
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
-        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"sixteen-Screen", nil)]];
-        
-    }
+    
+//    if ([self._aDeviceChannelListData count]<=4) {
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+//        
+//    }else if([self._aDeviceChannelListData count]<=9){
+//        
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
+//        
+//    }else {
+//        
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
+//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"sixteen-Screen", nil)]];
+//        
+//    }
     
     return _windowListData;
     
@@ -784,7 +791,7 @@ bool _isConnectdevcieOpenDecoder;
             [alertView dismissWithClickedButtonIndex:0 animated:YES];
         }else{///区分本地跟账号
             
-            JVCDeviceModel *model=[self._aDeviceChannelListData objectAtIndex:iModifyIndex];
+           // JVCDeviceModel *model=[self._aDeviceChannelListData objectAtIndex:iModifyIndex];
             
             /**
              *  根据通道的云视通号，获取设备的云视通号
@@ -1036,22 +1043,22 @@ bool _isConnectdevcieOpenDecoder;
 #pragma mark 切换窗口的布局
 -(void)changeSplitView:(int)_splitWindows{
     
-    if ([self._aDeviceChannelListData count]>1) {
-        
-        // [self gotoShowSpltWindow];
-        
-//        if (_splitWindows>1) {
+//    if ([self._aDeviceChannelListData count]>1) {
+//        
+//        // [self gotoShowSpltWindow];
+//        
+////        if (_splitWindows>1) {
+////            
+////            int channelID=[self returnChannelID:self._iSelectedChannelIndex];
+////            [self stopSetting:channelID];
+////        }
+//        
+//        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(splitViewWindow:)]) {
 //            
-//            int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//            [self stopSetting:channelID];
+//            [self.delegate splitViewWindow:_splitWindows];
 //        }
-        
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(splitViewWindow:)]) {
-            
-            [self.delegate splitViewWindow:_splitWindows];
-        }
-        
-    }
+//        
+//    }
     
 }
 

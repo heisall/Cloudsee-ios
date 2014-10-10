@@ -28,8 +28,8 @@
 
 @interface JVCOperationController : UIViewController<customBottomDelegate,CustomCoverViewDelegate>
 {
-    NSMutableArray *_aDeviceChannelListData;        //存放
-    int             _iSelectedChannelIndex;
+    int             _iSelectedChannelIndex;         //选择当前设备的通道索引
+    NSString       *strSelectedDeviceYstNumber;     //选择的设备的云视通号
     UIAlertView    *wheelAlterInfo;
     NSMutableArray *_amUnSelectedImageNameListData;
     NSMutableArray *_amSelectedImageNameListData;
@@ -50,8 +50,8 @@
     JVCManagePalyVideoComtroller  *_managerVideo;
 }
 
-@property (nonatomic,retain) NSMutableArray *_aDeviceChannelListData;
 @property (nonatomic,assign) int             _iSelectedChannelIndex;
+@property (nonatomic,retain) NSString        *strSelectedDeviceYstNumber;     //选择的设备的云视通号
 @property (nonatomic,assign) bool            _issound,_isTalk,_isLocalVideo,_isPlayBack;
 @property (nonatomic,assign) int             _iViewState;
 @property (nonatomic,retain) NSMutableString *_playBackDateString;

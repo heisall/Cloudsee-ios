@@ -18,14 +18,14 @@
 
 
 
-static const int    ADDPREDICATE_SUCCESS        = 0;
-static const int    TESTORIIGIN_Y               = 30;  //距离navicationbar的距离
-static const int    SEPERATE                    = 20;  //控件之间的距离，纵向
-static const int    ADDDEVICE_RESULT_SUCCESS    = 0;   //成功
-static const int    DEFAULTCHANNELCOUNT         = 4;   //莫仍的通道数
-static const int    DEFAULRESIGNTFONTSIZE       = 14;  //默认的字体大小
-static const int    DEFAULTLABELWITH            = 70;  //textfield的lefitwiew对应的label的宽度
-static const int    kADDDEVICESLIDEHEIGIT       = 100; //向上滑动的高度
+static const int     ADDPREDICATE_SUCCESS        = 0;
+static const int     TESTORIIGIN_Y               = 30;  //距离navicationbar的距离
+static const int     SEPERATE                    = 20;  //控件之间的距离，纵向
+static const int     ADDDEVICE_RESULT_SUCCESS    = 0;   //成功
+static const int     DEFAULTCHANNELCOUNT         = 4;   //莫仍的通道数
+static const int     DEFAULRESIGNTFONTSIZE       = 14;  //默认的字体大小
+static const int     DEFAULTLABELWITH            = 70;  //textfield的lefitwiew对应的label的宽度
+static const CGFloat kADDDEVICESLIDEHEIGIT       = 100.0f; //向上滑动的高度
 static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务器获取通道数的超时时间
 
@@ -101,7 +101,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     labelRight.backgroundColor = [UIColor clearColor];
     textFieldYST.rightViewMode = UITextFieldViewModeAlways;
     textFieldYST.rightView = labelRight;
-    [textFieldYST becomeFirstResponder];
+   // [textFieldYST becomeFirstResponder];
     [labelRight release];
     
     //用户名
@@ -508,8 +508,9 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
 - (void)addDeviceSlideDown
 {
     [UIView animateWithDuration:kADDDEVICEANIMATION animations:^{
-        DDLogVerbose(@"%@",NSStringFromCGRect(rectRectFrame));
-        self.view.frame = rectRectFrame;
+        
+       self.view.frame = CGRectMake(0, 0.0, self.view.width, self.view.height);
+        
     }];
 }
 

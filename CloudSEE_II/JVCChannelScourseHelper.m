@@ -138,6 +138,36 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 }
 
 /**
+ *  根据设备的云视通号和单个设备通道数组的索引号返回一个通道实体
+ *
+ *  @param index     通道索引号
+ *  @param ystNumber 云视通号
+ *
+ *  @return 通道实体
+ */
+-(JVCChannelModel *)channelModelAtIndex:(int)index withDeviceYstNumber:(NSString *)ystNumber {
+    
+    JVCChannelModel *channelModel =  [[JVCChannelModel alloc] init];
+
+    NSMutableArray *channels = [self channelModelWithDeviceYstNumber:ystNumber];
+    
+    [channels retain];
+    
+    if (index < channels.count  && index >= 0) {
+        
+        JVCChannelModel *findModel = [channelArray objectAtIndex:index];
+        
+        channelModel.strDeviceYstNumber = findModel.strDeviceYstNumber;
+        channelModel.strNickName        = findModel.strNickName;
+        channelModel.nChannelValue      = findModel.nChannelValue;
+    }
+    
+    [channels release];
+
+    return [channelModel autorelease];
+}
+
+/**
  *  将获取的通道信息转换成通道数组
  *
  *  @param channelInfoMDic   获取的通道信息数据

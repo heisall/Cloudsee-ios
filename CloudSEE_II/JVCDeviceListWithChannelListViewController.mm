@@ -30,7 +30,7 @@
 static const int      kInitWithChannelViewColumnCount = 4;
 static const CGFloat  kConnectAllButtonWithHeight     = 48.0f;
 static const CGFloat  kConnectAllButtonWithWidth      = 280.0f;
-static const CGFloat  kConnectAllButtonWithBottom     = 30.0f;
+static const CGFloat  kConnectAllButtonWithBottom     = 25.0f;
 static const CGFloat  kConnectAllButtonWithTop        = 15.0f;
 static const CGFloat  kConnectAllButtonWithRadius     = 4.0f;
 static const CGFloat  kTitleViewWithRadius            = 5.0f;
@@ -210,6 +210,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithConnectAllButton{
     
+    DDLogVerbose(@"%s---channleListView=%@",__FUNCTION__,self.view);
     JVCRGBHelper *rgbHelper       =  [JVCRGBHelper shareJVCRGBHelper];
     
     UIColor      *connectBtnColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
@@ -276,8 +277,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
     }
     
-    tOPVC._aDeviceChannelListData = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
-    tOPVC._iSelectedChannelIndex  = indexWithChannels;
+    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC._iSelectedChannelIndex     = indexWithChannels;
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
 }

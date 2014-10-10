@@ -204,7 +204,6 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
         
         JVCMoreUserSettingViewController *moreUserSettingVC = [[JVCMoreUserSettingViewController alloc] init] ;
         [self.navigationController pushViewController:moreUserSettingVC animated:YES];
-        moreUserSettingVC.hidesBottomBarWhenPushed = YES;
         [moreUserSettingVC release];
     }
     
@@ -214,7 +213,6 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
             
             JVCApHelpViewController *apHelper = [[JVCApHelpViewController alloc] init] ;
             [self.navigationController pushViewController:apHelper animated:YES];
-            apHelper.hidesBottomBarWhenPushed = YES;
             [apHelper release];
         }
     }else if(indexPath.section == 3)
