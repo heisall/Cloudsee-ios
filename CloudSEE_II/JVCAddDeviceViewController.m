@@ -101,7 +101,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     labelRight.backgroundColor = [UIColor clearColor];
     textFieldYST.rightViewMode = UITextFieldViewModeAlways;
     textFieldYST.rightView = labelRight;
-   // [textFieldYST becomeFirstResponder];
+    [textFieldYST becomeFirstResponder];
     [labelRight release];
     
     //用户名
