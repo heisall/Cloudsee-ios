@@ -1,13 +1,13 @@
 //
 //  JVCMoreViewController.h
-//  JVCEditDevice
+//  CloudSEE_II
 //
-//  Created by chenzhenyang on 14-9-24.
-//  Copyright (c) 2014年 chenzhenyang. All rights reserved.
+//  Created by Yanghu on 10/10/14.
+//  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import "JVCBaseWithGeneralViewController.h"
+#import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCMoreViewController : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource>
+@interface JVCMoreViewController : JVCBaseGeneralTableViewController
 
 @end

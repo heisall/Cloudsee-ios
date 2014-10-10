@@ -115,6 +115,8 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         userInfoSqlite = [FMDatabase databaseWithPath:path];
         
+        [userInfoSqlite retain];
+        
         if ([userInfoSqlite open]) {//打开数据库
             
             NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS USERINFOTABLE(ID INTEGER PRIMARY KEY,USERNAME TEXT, PASSWORD TEXT,LOGINTIMER DOUBLE,AUTOLOGINSTATE BOOL)"];
@@ -368,6 +370,17 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     return userArray;
 }
 
+/**
+ *  登录的账号个数
+ *
+ *  @return 账号个数
+ */
+- (int)usersHasLoginCount
+{
+    NSArray *arrayCount =[self getAllUsers];
+    
+    return arrayCount.count;
+}
 - (void)dealloc
 {
     [userInfoSqlite release];

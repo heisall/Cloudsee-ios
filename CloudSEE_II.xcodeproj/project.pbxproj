@@ -11,6 +11,8 @@
 		A7263C4119E7C5A6003C22DE /* log_Down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7263C4019E7C5A6003C22DE /* log_Down@2x.png */; };
 		A7263C4319E7C726003C22DE /* log_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7263C4219E7C726003C22DE /* log_select@2x.png */; };
 		A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7263C4519E7C792003C22DE /* JVCDropDownView.m */; };
+		A7263C4919E7F921003C22DE /* JVCDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7263C4819E7F921003C22DE /* JVCDeviceListViewController.mm */; };
+		A7263C4C19E7FB91003C22DE /* JVCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7263C4B19E7FB91003C22DE /* JVCMoreViewController.m */; };
 		A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */; };
 		A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5D19D3A88B00760695 /* JVCResultTipsHelper.m */; };
 		A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B6019D3B85600760695 /* JVCDeviceHelper.mm */; };
@@ -180,8 +182,6 @@
 		A7F5E26219D4464C00609BC3 /* JVCUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */; };
 		A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F5EF1719D257D0009B797A /* Localizable.strings */; };
 		A7F5EF1519D257D0009B797A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F5EF1719D257D0009B797A /* Localizable.strings */; };
-		A7F5EF1C19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */; };
-		A7F5EF1D19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */; };
 		A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F5EF2019D2621B009B797A /* MJRefresh.bundle */; };
 		A7F5EF3119D2621B009B797A /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F5EF2019D2621B009B797A /* MJRefresh.bundle */; };
 		A7F5EF3219D2621B009B797A /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF2319D2621B009B797A /* MJRefreshBaseView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -279,7 +279,6 @@
 		AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5419D2B31000AA6D73 /* JVCRGBHelper.m */; };
 		AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */; };
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
-		AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */; };
 		AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */; };
 		AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */; };
 		AD2BDB7319D2BC6A00AA6D73 /* tab_message_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */; };
@@ -371,6 +370,10 @@
 		A7263C4219E7C726003C22DE /* log_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_select@2x.png"; sourceTree = "<group>"; };
 		A7263C4419E7C792003C22DE /* JVCDropDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDropDownView.h; sourceTree = "<group>"; };
 		A7263C4519E7C792003C22DE /* JVCDropDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDropDownView.m; sourceTree = "<group>"; };
+		A7263C4719E7F921003C22DE /* JVCDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListViewController.h; sourceTree = "<group>"; };
+		A7263C4819E7F921003C22DE /* JVCDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCDeviceListViewController.mm; sourceTree = "<group>"; };
+		A7263C4A19E7FB91003C22DE /* JVCMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreViewController.h; sourceTree = "<group>"; };
+		A7263C4B19E7FB91003C22DE /* JVCMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreViewController.m; sourceTree = "<group>"; };
 		A72B4B5919D39E4500760695 /* JVCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceModel.h; sourceTree = "<group>"; };
 		A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceModel.m; sourceTree = "<group>"; };
 		A72B4B5C19D3A88B00760695 /* JVCResultTipsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCResultTipsHelper.h; sourceTree = "<group>"; };
@@ -525,8 +528,6 @@
 		A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCUserInfoModel.m; sourceTree = "<group>"; };
 		A7F5EF1619D257D0009B797A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7F5EF1819D257D1009B797A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A7F5EF1A19D25C21009B797A /* JVCDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListViewController.h; sourceTree = "<group>"; };
-		A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCDeviceListViewController.mm; sourceTree = "<group>"; };
 		A7F5EF2019D2621B009B797A /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		A7F5EF2119D2621B009B797A /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		A7F5EF2219D2621B009B797A /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -633,8 +634,6 @@
 		AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCEditDeviceOperationView.m; sourceTree = "<group>"; };
 		AD2BDB5D19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmMessageViewController.h; sourceTree = "<group>"; };
 		AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmMessageViewController.m; sourceTree = "<group>"; };
-		AD2BDB6019D2BBF500AA6D73 /* JVCMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreViewController.h; sourceTree = "<group>"; };
-		AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreViewController.m; sourceTree = "<group>"; };
 		AD2BDB6819D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_select@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6A19D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_deviceManager_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB6B19D2BC6A00AA6D73 /* tab_message_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_message_select@2x.png"; sourceTree = "<group>"; };
@@ -834,8 +833,8 @@
 		A72B4B7019D3FDB200760695 /* more */ = {
 			isa = PBXGroup;
 			children = (
-				AD2BDB6019D2BBF500AA6D73 /* JVCMoreViewController.h */,
-				AD2BDB6119D2BBF500AA6D73 /* JVCMoreViewController.m */,
+				A7263C4A19E7FB91003C22DE /* JVCMoreViewController.h */,
+				A7263C4B19E7FB91003C22DE /* JVCMoreViewController.m */,
 				A72B4B7219D3FDE500760695 /* JVCMoreUserCell.h */,
 				A72B4B7319D3FDE500760695 /* JVCMoreUserCell.m */,
 				A7F5013019D501A500AA78F0 /* JVCMoreContentCell.h */,
@@ -1066,8 +1065,8 @@
 				A7F5EF4219D26A09009B797A /* JVCDeviceListAdvertCell.m */,
 				AD2BDB2C19D291B300AA6D73 /* JVCDeviceListDeviceVIew.h */,
 				AD2BDB2D19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m */,
-				A7F5EF1A19D25C21009B797A /* JVCDeviceListViewController.h */,
-				A7F5EF1B19D25C21009B797A /* JVCDeviceListViewController.mm */,
+				A7263C4719E7F921003C22DE /* JVCDeviceListViewController.h */,
+				A7263C4819E7F921003C22DE /* JVCDeviceListViewController.mm */,
 				AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */,
 				AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */,
 				AD1673BB19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.h */,
@@ -1892,7 +1891,6 @@
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
-				AD2BDB6219D2BBF500AA6D73 /* JVCMoreViewController.m in Sources */,
 				A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,
 				ADA22D5E19DA78310092F8B9 /* JVCQueueHelper.mm in Sources */,
 				AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */,
@@ -1911,6 +1909,7 @@
 				ADA22D3419DA5D990092F8B9 /* data_queue.mm in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7F5EF3219D2621B009B797A /* MJRefreshBaseView.m in Sources */,
+				A7263C4919E7F921003C22DE /* JVCDeviceListViewController.mm in Sources */,
 				A7F5EF3419D2621B009B797A /* MJRefreshConst.m in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
@@ -1940,10 +1939,10 @@
 				A7F5017119D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				A72B4B7419D3FDE500760695 /* JVCMoreUserCell.m in Sources */,
 				AD2BDB2019D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m in Sources */,
-				A7F5EF1C19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */,
 				A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */,
 				A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
+				A7263C4C19E7FB91003C22DE /* JVCMoreViewController.m in Sources */,
 				ADA22D7519DA816C0092F8B9 /* JVCPlaySoundHelper.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,
@@ -1999,7 +1998,6 @@
 				A7F5EF4419D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				A7FA43DD19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				A7F0042419D45C030028533E /* AHReach.m in Sources */,
-				A7F5EF1D19D25C21009B797A /* JVCDeviceListViewController.mm in Sources */,
 				A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */,
 				A7FA43E119E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */,
 				A7F5557419D90FB10009F75C /* SPLockScreen.m in Sources */,

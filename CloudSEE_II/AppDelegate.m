@@ -24,6 +24,12 @@
 
 #import "JVCKeepOnlineHelp.h"
 
+@interface AppDelegate ()
+{
+    JVCDeviceListViewController *deviceListController; //设备管理界面
+}
+
+@end
 
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
@@ -110,7 +116,7 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     /**
      *	我的设备模块
      */
-    JVCDeviceListViewController *deviceListController = [[JVCDeviceListViewController alloc] init];
+    deviceListController = [[JVCDeviceListViewController alloc] init];
     deviceListController.hidesBottomBarWhenPushed     = FALSE;
     UINavigationController      *deviceNav            = [[UINavigationController alloc] initWithRootViewController:deviceListController];
     [deviceListController release];
@@ -163,7 +169,6 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     
     [rootViewController release];
     
-    
 }
 
 /**
@@ -177,10 +182,11 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     
     [tabbar setSelectedIndex:kTableBarDefaultSelectIndex];
     
-    
     //清理数据
     [[JVCDeviceSourceHelper shareDeviceSourceHelper] removeAllDeviceObject];
     [[JVCChannelScourseHelper shareChannelScourseHelper]removeAllchannelsObject];
+    
+    [deviceListController getDeviceList];
     
 }
 

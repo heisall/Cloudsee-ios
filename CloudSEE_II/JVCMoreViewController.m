@@ -1,9 +1,9 @@
 //
 //  JVCMoreViewController.m
-//  JVCEditDevice
-//  更多界面
-//  Created by chenzhenyang on 14-9-24.
-//  Copyright (c) 2014年 chenzhenyang. All rights reserved.
+//  CloudSEE_II
+//
+//  Created by Yanghu on 10/10/14.
+//  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
 #import "JVCMoreViewController.h"
@@ -21,15 +21,8 @@
 
 #import "JVCDataBaseHelper.h"
 
-static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
-static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
-static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
-static const int KUserLoginOutState_Success= 0;   //账号注册成功
-
 @interface JVCMoreViewController ()
 {
-    UITableView *_tableView;
-    
     NSMutableArray *arrayList;
 }
 
@@ -37,9 +30,14 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 
 @implementation JVCMoreViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell高度
+static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
+static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
+static const int KUserLoginOutState_Success= 0;   //账号注册成功
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     
     if (self) {
         
@@ -49,7 +47,9 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
     }
+    
     return self;
 }
 
@@ -57,19 +57,12 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    
     
     //初始化arrayList
     arrayList = [[NSMutableArray alloc] initWithCapacity:10];
     [arrayList addObjectsFromArray:[[JVCMoreSettingHelper shareDataBaseHelper]getMoreSettingList]];
-    
-    //初始化tableview
-    _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
 
@@ -86,7 +79,7 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  
+    
     return arrayList.count;
 }
 
@@ -125,7 +118,7 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
         return 1;
         
     }
-
+    
     NSMutableArray *array = [arrayList objectAtIndex:section];
     
     return array.count;
@@ -174,21 +167,21 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
         
         NSMutableArray *arraySection = [arrayList objectAtIndex:indexPath.section];
         JVCMoreSettingModel *cellModel = [arraySection objectAtIndex:indexPath.row];
-       
+        
         if (!cellModel.bBtnState) {//正常显示
             
             [cell initContentCells:cellModel];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+            
         }else{//按钮显示
-        
-        UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
-        UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
-        [btnLoginOut addTarget:self action:@selector(userLoginOut) forControlEvents:UIControlEventTouchUpInside];
-        [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
-        [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
-        [cell.contentView addSubview:btnLoginOut];
+            
+            UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
+            UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
+            btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
+            [btnLoginOut addTarget:self action:@selector(userLoginOut) forControlEvents:UIControlEventTouchUpInside];
+            [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
+            [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
+            [cell.contentView addSubview:btnLoginOut];
             
             
         }
@@ -237,11 +230,11 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
         int reuslt = 0 ;// [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-
+            
             DDLogVerbose(@"注销收到的返回值=%d",reuslt);
             
             [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
-
+            
             if (KUserLoginOutState_Success == reuslt) {//成功,弹出注册界面
                 
                 JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
@@ -254,7 +247,7 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
                 [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
                 
             }else{//失败
-            
+                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"注销失败"];
             }
         });
@@ -269,24 +262,10 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 
 - (void)dealloc
 {
-    [_tableView release];
-    _tableView = nil;
-    
     [arrayList release];
     arrayList = nil;
     
     [super dealloc];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

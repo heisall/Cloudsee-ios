@@ -120,7 +120,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             textFieldPW.text =  modeluse.passWord;
             
             //太快延迟0.3秒
-            //[self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
         }
     }
 }
@@ -201,13 +201,18 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     /**
      *  三角，当用户多时，显示出来
      */
-    UIImage *imgBtnTriangel = [UIImage imageNamed:@"log_Down.png"];
-    UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width*2, imgBtnTriangel.size.height*2);
-    [btnDown setImage:imgBtnTriangel forState:UIControlStateNormal];
-    btnDown.tag = LOGINVIEWTAG_Down;
-    [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnDown];
+    if ([JVCDataBaseHelper shareDataBaseHelper].usersHasLoginCount >0) {
+        
+        UIImage *imgBtnTriangel = [UIImage imageNamed:@"log_Down.png"];
+        UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width*2, imgBtnTriangel.size.height*2);
+        [btnDown setImage:imgBtnTriangel forState:UIControlStateNormal];
+        btnDown.tag = LOGINVIEWTAG_Down;
+        [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btnDown];
+        
+    }
+    
     
     /**
      *  密码

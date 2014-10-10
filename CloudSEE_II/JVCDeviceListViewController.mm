@@ -2,7 +2,7 @@
 //  JVCDeviceListViewController.m
 //  CloudSEE_II
 //
-//  Created by Yanghu on 9/24/14.
+//  Created by Yanghu on 10/10/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
@@ -35,7 +35,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 
 @interface JVCDeviceListViewController ()
 {
-    UITableView             *_tableView;
     NSMutableArray          *_arrayColorList; //存放颜色数据的数组
 }
 
@@ -43,11 +42,13 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 
 @implementation JVCDeviceListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
+    
     if (self) {
-        // Custom initialization
         
         UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_device_unselect.png"]];
@@ -60,46 +61,18 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         
         //初始化颜色数组
         _arrayColorList = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroDeviceListBlue,kJVCRGBColorMacroDeviceListSkyBlue,kJVCRGBColorMacroDeviceListGreen,kJVCRGBColorMacroDeviceListYellow,nil];
+        
     }
+    
     return self;
 }
 
-
--(void)initLayoutWithViewWillAppear {
-
-    DDLogVerbose(@"%s------YES",__FUNCTION__);
-    [_tableView reloadData];
-
-}
-
--(void)deallocWithViewDidDisappear {
-    
-    for (UITableViewCell *cell  in _tableView.visibleCells) {
-        
-        for (UIView *v in cell.contentView.subviews) {
-            
-            [v removeFromSuperview];
-            v = nil;
-        }
-        
-        [cell removeFromSuperview];
-    }
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     DDLogVerbose(@"%s",__FUNCTION__);
-    
-    /**
-     *  初始化tableview
-     */
-    _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:_tableView];
     
     //添加按钮
     UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
@@ -113,24 +86,25 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     
     //添加下拉刷新
     [self setupRefresh];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self getDeviceList];
 }
 
 /**
-*  集成刷新控件
-*/
+ *  集成刷新控件
+ */
 - (void)setupRefresh
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [_tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
+    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
     //自动下拉刷新
     //[_tableView headerBeginRefreshing];
-
+    
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    _tableView.headerPullToRefreshText = @"下拉可以刷新";
-    _tableView.headerReleaseToRefreshText = @"松开马上刷新";
-    _tableView.headerRefreshingText = @"正在刷新中";
+    self.tableView.headerPullToRefreshText = @"下拉可以刷新";
+    self.tableView.headerReleaseToRefreshText = @"松开马上刷新";
+    self.tableView.headerRefreshingText = @"正在刷新中";
 }
 
 #pragma mark 开始进入刷新状态
@@ -138,9 +112,9 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 {
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
+        
         // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        [_tableView headerEndRefreshing];
+        [self.tableView headerEndRefreshing];
     });
 }
 /**
@@ -207,7 +181,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     delegateApp.QRViewController.delegate = self;
     [self.navigationController presentModalViewController:delegateApp.QRViewController animated:YES];
     [delegateApp.QRViewController startScan];
-
+    
 }
 
 #pragma mark 二维码扫描的回调
@@ -249,7 +223,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         
         return 1;
     }
-
+    
     return  [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count%kTableViewCellInViewColumnCount == 0 ?  [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount: [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount+1;
 }
 
@@ -285,7 +259,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         [cell initCellContent];
         
         return cell;
@@ -295,7 +269,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//加载没有设备cell
             
             static NSString *cellIdentify = @"cellIndetifyNodevice";
-
+            
             JVCDeviceListNoDevieCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
             
             if (cell == nil) {
@@ -310,7 +284,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
             return cell;
             
         }else{
-        
+            
             static NSString *cellIdentify = @"cellIndetifyNormal";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
@@ -371,7 +345,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
                         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectDeviceToPlay:)];
                         [deviceView addGestureRecognizer:gesture];
                         [gesture release];
-
+                        
                         [cell.contentView addSubview:deviceView];
                     }
                 }
@@ -406,68 +380,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [self.navigationController pushViewController:deviceChannelList animated:YES];
     [deviceChannelList release];
     
-//    DDLogInfo(@"==%s==gesture.view.tag=%d",__FUNCTION__,gesture.view.tag);
-//    
-//    JVCDeviceListDeviceVIew *deviceView = (JVCDeviceListDeviceVIew *)gesture.view;
-//    
-//    JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray] objectAtIndex:gesture.view.tag];
-//    
-//    UIView *viewContent = [[UIView alloc] initWithFrame:self.view.frame];
-//    
-//    CGRect rectOldFram = [deviceView.superview convertRect:deviceView.frame toView:_tableView];
-//    CGRect position;
-//    position.size.width = deviceView.width;
-//    position.size.height = deviceView.height;
-//    position.origin.x = rectOldFram.origin.x;//(self.view.width  - deviceView.width)/2.0;
-//    position.origin.y =rectOldFram.origin.y;// (self.view.height -  deviceView.height)/2.0;
-//
-//    JVCDeviceListDeviceVIew *deviceViewNew = [[JVCDeviceListDeviceVIew alloc] initWithFrame:position backgroundColor:deviceView.backgroundColor cornerRadius:6.0f];
-//    
-//    JVCRGBHelper *rgbHelper  = [JVCRGBHelper shareJVCRGBHelper];
-//
-//    UIColor *borderColor    = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite alpha:0.3];
-//    UIColor *titleGontColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
-//    
-//    UIImage *iconDeviceImage = [UIImage imageNamed:@"dev_device_default_icon.png"];
-//
-//    if (borderColor) {
-//        
-//        [deviceViewNew initWithLayoutView:iconDeviceImage borderColor:borderColor titleFontColor:titleGontColor];
-//        [deviceViewNew setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
-//    }
-//    
-//    [viewContent addSubview:deviceViewNew];
-//    [self.view addSubview:viewContent];
-//    [deviceViewNew release];
-//    
-//  
-//    [UIView animateWithDuration:kAnimationDuratin animations:^{
-//    
-//        CGRect position;
-//        position.size.width = deviceView.width;
-//        position.size.height = deviceView.height;
-//        position.origin.x = (self.view.width  - deviceView.width)/2.0;;
-//        position.origin.y =(self.view.height -  deviceView.height)/2.0;;
-//        
-//        deviceViewNew.frame = position;
-//        
-//        viewContent.transform = CGAffineTransformMakeScale(5.0, 5.0);
-//        viewContent.alpha     = 0.0;
-//
-//    
-//    } completion:^(BOOL finish){
-//    
-//        [UIView animateWithDuration:kAnimationDuratin animations:^{
-//            
-//            viewContent.transform = CGAffineTransformMakeScale(5.0, 5.0);
-//            viewContent.alpha     = 0.0;
-//            
-//        } completion:^(BOOL finish){
-//            
-//            [viewContent removeFromSuperview];
-//            
-//        }];
-//    }];
 }
 
 #pragma mark 获取设备
@@ -476,34 +388,34 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
+        
         NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
+            
             
             if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
                 
                 //把从服务器获取到的数据存放到数组中
-               [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
                 //必须刷新
-                [_tableView reloadData];
+                [self.tableView reloadData];
                 
                 //获取设备通道
                 
                 [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
                 
             }else{//空
-            
+                
                 
                 [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
-
+                
             }
             
         });
-
+        
     });
 }
 
@@ -544,7 +456,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
  */
 - (void)addDeviceSuccessCallBack
 {
-    [_tableView reloadData];
+    [self.tableView reloadData];
 }
 
 #pragma mark  点击设备的回调
@@ -570,10 +482,19 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [_arrayColorList release];
     _arrayColorList = nil;
     
-    [_tableView release];
-    _tableView = nil;
-    
     [super dealloc];
 }
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

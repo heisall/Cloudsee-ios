@@ -131,7 +131,7 @@ UIAlertView *alertView;
 {
     DDLogVerbose(@"保存在线的返回值=%d",keepOnlineType);
     
-   // [self performSelectorOnMainThread:@selector(dealWithKeepOnResult:) withObject:[NSNumber numberWithInt:keepOnlineType] waitUntilDone:NO ];
+    [self performSelectorOnMainThread:@selector(dealWithKeepOnResult:) withObject:[NSNumber numberWithInt:keepOnlineType] waitUntilDone:NO ];
 
 }
 

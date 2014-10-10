@@ -54,4 +54,11 @@ static int      const  kLoginStateOFF   = 0;      //关闭自动登录
  *  @param userName 用户名
  */
 - (void)deleteUserInfoWithUserName:(NSString *)userName;
+
+/**
+ *  登录的账号个数
+ *
+ *  @return 账号个数
+ */
+- (int)usersHasLoginCount;
 @end
