@@ -82,10 +82,11 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithOperationView {
     
+    [super initWithOperationView];
     if (!titlelableScoollView) {
         
         titlelableScoollView = [[UIScrollView alloc] init];
-        [self.view addSubview:titlelableScoollView];
+        [operationView addSubview:titlelableScoollView];
         [titlelableScoollView release];
     }
 }
@@ -174,7 +175,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         scrollRect.size.width  = self.view.frame.size.width;
         scrollRect.size.height = self.view.frame.size.height - toolBarView.frame.size.height - kConnectAllButtonWithBottom - kConnectAllButtonWithTop - kConnectAllButtonWithHeight;
         scrollRect.origin.x    = 0.0f;
-        scrollRect.origin.y    = toolBarView.frame.origin.y + toolBarView.frame.size.height;
+        scrollRect.origin.y    = 0.0;
         
         titlelableScoollView.frame                          = scrollRect;
         titlelableScoollView.directionalLockEnabled         =  NO;
@@ -185,7 +186,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
         CGSize newSize = CGSizeMake(self.view.frame.size.width,totalHeight);
         [titlelableScoollView setContentSize:newSize];
-        
         
         for (JVCDeviceListWithChannelListTitleView *channelTitleView in titleViews) {
             
@@ -224,8 +224,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     imageViewRect.size.width  = kConnectAllButtonWithWidth;
     imageViewRect.size.height = kConnectAllButtonWithHeight;
-    imageViewRect.origin.x    = (self.view.frame.size.width - kConnectAllButtonWithWidth) / 2.0;
-    imageViewRect.origin.y    = self.view.frame.size.height - kConnectAllButtonWithHeight - kConnectAllButtonWithBottom;
+    imageViewRect.origin.x    = (operationView.frame.size.width - kConnectAllButtonWithWidth) / 2.0;
+    imageViewRect.origin.y    = operationView.frame.size.height - kConnectAllButtonWithHeight - kConnectAllButtonWithBottom;
     
     
     JVCBaseRgbBackgroundColorView *connectBtnImageView = [[JVCBaseRgbBackgroundColorView alloc] initWithFrame:imageViewRect backgroundColor:connectBtnColor cornerRadius:kConnectAllButtonWithRadius];
@@ -242,13 +242,10 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     if (titleColor) {
         
         [connectButton setTitleColor:titleColor forState:UIControlStateNormal];
-        
     }
     
     [connectButton setTitle:@"全连" forState:UIControlStateNormal];
-    
-    [self.view addSubview:connectButton];
-    
+    [operationView addSubview:connectButton];
     [connectBtnImageView release];
 
 }

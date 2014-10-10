@@ -29,10 +29,10 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 }
 
 /**
- *  初始化顶部的布局
+ *  清除顶部滚动条
  */
--(void)initWithTopToolView{
-    
+-(void)clearToolView {
+
     if (toolBarView) {
         
         for (UIView *v in toolBarView.subviews) {
@@ -48,6 +48,13 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
         
         [dropImageView removeFromSuperview];
     }
+
+}
+
+/**
+ *  初始化顶部的布局
+ */
+-(void)initWithTopToolView{
     
     
     CGRect toolViewRect = CGRectMake(0.0, 0.0f, self.view.frame.size.width, 0.0);
@@ -125,8 +132,21 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
  */
 -(void)initWithOperationView{
     
+    operationView = [[UIView alloc] init];
     
+    CGRect rect;
     
+    rect.origin.x    = 0.0;
+    rect.origin.y    = toolBarView.frame.origin.y + toolBarView.frame.size.height;
+    rect.size.width  = self.view.frame.size.width;
+    rect.size.height = self.view.frame.size.height - toolBarView.frame.origin.y - toolBarView.frame.size.height;
+    
+    operationView.frame = rect;
+    
+    operationView.backgroundColor = [UIColor clearColor];
+    
+    [self.view addSubview:operationView];
+    [operationView release];
 }
 
 /**
@@ -201,7 +221,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     if (changeStatus) {
         
-        [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft?kCATransitionFromRight:kCATransitionFromLeft];
+        [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:operationView exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft?kCATransitionFromRight:kCATransitionFromLeft];
         
         [self animationEndCallBack];
     }
@@ -222,7 +242,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     DDLogVerbose(@"%s----%d",__FUNCTION__,index);
     
-    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:self.view exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:index > nIndex ? kCATransitionFromLeft : kCATransitionFromRight];
+    [[JVCAnimationHelper shareJVCAnimationHelper] startWithAnimation:operationView exchangeSubviewAtIndex:0 withSubviewAtIndex:0 duration:kViewWithAnimationSwipe animationType:kJVCAnimationMacroCube animationSubType:index > nIndex ? kCATransitionFromLeft : kCATransitionFromRight];
     
     nIndex = index;
     
