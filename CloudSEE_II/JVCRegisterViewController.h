@@ -8,6 +8,8 @@
 
 //#import <UIKit/UIKit.h>
 #import "JVCBaseSliderViewController.h"
+#import "JVCBindingEmailViewController.h"
+
 @protocol RegisterUserDelegate <NSObject>
 
 /**
@@ -16,7 +18,7 @@
 - (void)registerUserSuccessCallBack;
 
 @end
-@interface JVCRegisterViewController : JVCBaseSliderViewController<UITextFieldDelegate>
+@interface JVCRegisterViewController : JVCBaseSliderViewController<UITextFieldDelegate,FinishAndSkipBindingEmailDelegate>
 {
     id<RegisterUserDelegate> resignDelegate;
 }

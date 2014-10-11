@@ -233,7 +233,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if (![self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_LENGTH_E;
+        return VALIDATIONUSERNAMETYPE_LENGTH_E+KPredicateUserNameLegateAddNum;
     }
     
     
@@ -244,7 +244,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     {
         if ([self predicateUserNameISLegalPhome:accountName]) {
             
-            return VALIDATIONUSERNAMETYPE_S;
+            return VALIDATIONUSERNAMETYPE_S+KPredicateUserNameLegateAddNum;
         }
     }
     
@@ -259,7 +259,7 @@ static JVCPredicateHelper *_shareInstance = nil;
             
         }else{
             
-            return VALIDATIONUSERNAMETYPE_EMAIL_E;
+            return VALIDATIONUSERNAMETYPE_EMAIL_E+KPredicateUserNameLegateAddNum;
         }
     }
     
@@ -267,7 +267,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if ([self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_NUMBER_E;
+        return VALIDATIONUSERNAMETYPE_NUMBER_E+KPredicateUserNameLegateAddNum;
     }
     
     
@@ -275,7 +275,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if (![self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_OTHER_E;
+        return VALIDATIONUSERNAMETYPE_OTHER_E+KPredicateUserNameLegateAddNum;
     }
     
     return VALIDATIONUSERNAMETYPE_S;
@@ -592,6 +592,24 @@ static JVCPredicateHelper *_shareInstance = nil;
     return MODIFY_DEVIE_SUCCESS;
 }
 
-
+/**
+ *  判断邮箱是否合法
+ *
+ *  @param email 邮箱
+ *
+ *  @return 相应的用户名
+ */
+- (int)predicateEmailLegal:(NSString *)email
+{
+    if (![self predicateEMAILIslegal:email]) {
+        
+        return LOGINRESULT_EMAIL_ERROR;
+        
+    }
+    /**
+     *  合法
+     */
+    return LOGINRESULT_SUCCESS;
+}
 
 @end

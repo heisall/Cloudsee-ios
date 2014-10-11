@@ -93,7 +93,6 @@ static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackChannel  = @"remoteC
 static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackDate     = @"time";           //远程回放检索出文件的日期
 static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackDisk     = @"disk";           //远程回放检索出文件存放的磁盘
 
-
 #define REQUESTTIMEOUTSECOND  0.5
 
 #define AP_WIFI_USERNAME @"wifiUserName"

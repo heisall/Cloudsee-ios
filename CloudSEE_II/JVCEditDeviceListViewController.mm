@@ -13,6 +13,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCEditChannelInfoTableViewController.h"
+#import "JVCLickTypeViewController.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -215,7 +216,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         }
             break;
         case JVCEditDeviceListViewControllerClickType_linkModel:{
-            
+            [self editDeviceLinkType];
         }
             break;
         case JVCEditDeviceListViewControllerClickType_channelManage:{
@@ -248,6 +249,18 @@ static const int  kInitWithLayoutColumnCount           = 3;
     editDeviceInfVC.deleteDelegate = self;
     [self.navigationController pushViewController:editDeviceInfVC animated:YES];
     [editDeviceInfVC release];
+}
+
+/**
+ *  连接模式
+ */
+- (void)editDeviceLinkType
+{
+    JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
+    JVCLickTypeViewController *deviceLinkType = [[JVCLickTypeViewController alloc] init];
+    deviceLinkType.deviceModel = model;
+    [self.navigationController pushViewController:deviceLinkType animated:YES];
+    [deviceLinkType release];
 }
 
 /**

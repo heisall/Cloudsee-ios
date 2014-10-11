@@ -12,6 +12,8 @@
 #import "JVCAccountMacro.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCRGBHelper.h"
+#import "JVCDataBaseHelper.h"
+#import "JVCPredicateHelper.h"
 
 static const int ORIGIN_Y  = 40;//第一个textfield距离顶端的距离
 
@@ -421,12 +423,45 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
         kkUserName = textFieldUser.text;
         kkPassword = textFieldPassWord.text;
         
-        if (resignDelegate !=nil && [resignDelegate  respondsToSelector:@selector(registerUserSuccessCallBack)]) {
+        JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+        [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPassWord.text];
+        
+        if ([[ JVCPredicateHelper shareInstance] predicateEmailLegal:kkUserName] == PREDICATESECCESS) {//邮箱注册
             
-            [resignDelegate registerUserSuccessCallBack];
+            [self callResignDelegateMaths];
+            
+            [self.navigationController popViewControllerAnimated:NO];
+
+            
+        }else{//不是邮箱注册，跳转到绑定界面，但是要先登录
+        
+            [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
+
+                    if (LOGINRESULT_SUCCESS == resultnewType) {//成功
+        
+                        [self initBindViewController];
+                        
+                    }else{//不成功，不用跳转到绑定界面，直接登录就行
+                        
+                        [self callResignDelegateMaths];
+
+                        [self.navigationController popViewControllerAnimated:NO];
+
+                    }
+                    
+                });
+            });
+
         }
         
-        [self.navigationController popViewControllerAnimated:NO];
         
     }else{//失败
     
@@ -435,6 +470,34 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     }
 }
 
+/**
+ *  跳转到绑定界面
+ */
+- (void)initBindViewController
+{
+    JVCBindingEmailViewController *bindVC = [[JVCBindingEmailViewController alloc] init];
+    bindVC.delegateEmail = self;
+    [self.navigationController pushViewController:bindVC animated:YES];
+    [bindVC release];
+    
+}
+/**
+ *  绑定邮箱的回调、完成或者跳过的回调
+ */
+- (void)FinishAndSkipBindingEmailCallback
+{
+    [self callResignDelegateMaths];
+}
+
+- (void)callResignDelegateMaths
+{
+    if (resignDelegate !=nil && [resignDelegate  respondsToSelector:@selector(registerUserSuccessCallBack)]) {
+        
+        [resignDelegate registerUserSuccessCallBack];
+    }
+
+}
+#pragma mark 新账号登录
 
 
 #pragma mark 界面向上滑动

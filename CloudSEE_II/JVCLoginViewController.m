@@ -363,14 +363,17 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
             if (RESERT_USER_AND_PASSWORD == resultOldType) {//重置用户名和密码
 
-            
+                [self modifyUnLegalUserAndPw];
+                
             }else if(RESERT_PASSWORD == resultOldType)//重置密码的，再后台自动重置
             {
                 [self modifyPassWordInbackGround];
             
-            }else if(LOGINRUSULT_SUCCESS == resultOldType)//登录成功，一般这个不会出现，因为既然是老用户了，就会由这些问题
+            }else if(LOGINRUSULT_SUCCESS == resultOldType)//登录成功，一般这个不会出现，因为既然是老用户了，就不会有这些问题
             {
             
                 
@@ -411,6 +414,19 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     });
 }
 
+- (void)modifyUnLegalUserAndPw
+{
+    JVCModifyUnLegalViewController *modifyVC = [[JVCModifyUnLegalViewController alloc] init];
+    modifyVC.delegate = self;
+    [self.navigationController pushViewController:modifyVC animated:YES];
+    [modifyVC release];
+}
+
+- (void)modifyUserAndPWSuccessCallBack
+{
+    [self modifyPassWordInbackGround];
+}
+
 #pragma mark 新账号登录
 /**
  *  新账号登录
@@ -426,6 +442,8 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
             if (LOGINRESULT_SUCCESS == resultnewType) {//成功
                 
                 [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
@@ -471,8 +489,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
      */
     textFieldUser.text  = kkUserName;
     textFieldPW.text    = kkPassword;
-    [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
-    [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
 
     DDLogInfo(@"=%@=%@==%@=USER=%@",kkUserName,kkPassword,textFieldUser.text,[[NSUserDefaults standardUserDefaults] objectForKey:@"USER"]);
     

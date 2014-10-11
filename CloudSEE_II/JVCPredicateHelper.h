@@ -174,4 +174,13 @@ enum MODIFY_DEVICE_TYPE
  */
 - (int)predicateChannelNickName:(NSString *)nickName;
 
+/**
+ *  判断邮箱是否合法
+ *
+ *  @param email 邮箱
+ *
+ *  @return 相应的用户名
+ */
+- (int)predicateEmailLegal:(NSString *)email;
+
 @end

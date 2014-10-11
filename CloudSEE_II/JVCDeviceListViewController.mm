@@ -89,6 +89,11 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //è
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self getDeviceList];
+    
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:self.view.frame];
+    imageview.image = [UIImage imageNamed:@"NoDevice.png"];
+    [self.view addSubview:imageview];
+    [imageview release];
 }
 
 /**
