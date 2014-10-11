@@ -83,9 +83,6 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
         
          self.window.backgroundColor = viewDefaultColor;
     }
-   
-
-
     
     //设置导航
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];

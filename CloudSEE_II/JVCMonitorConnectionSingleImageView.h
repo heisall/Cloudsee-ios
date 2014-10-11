@@ -84,10 +84,6 @@
  */
 -(void)getGlViewmodel;
 
-/**
- *	获得最后的视频窗口对应的GLView对象
- */
--(void)getGlViewMaxmodel;
 
 /**
  *  执行显示连接的通道的信息

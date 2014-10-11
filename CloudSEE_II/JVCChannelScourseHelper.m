@@ -195,8 +195,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             [channelModel release];
         }
     }
+    
     [channelInfoMDic release];
-
 }
 
 /**

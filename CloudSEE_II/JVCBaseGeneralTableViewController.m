@@ -76,7 +76,6 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
         
         [self deallocWithViewDidDisappear];
     }
-    DDLogVerbose(@"%s---*************--",__FUNCTION__);
 }
 
 /**

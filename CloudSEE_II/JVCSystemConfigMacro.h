@@ -25,7 +25,7 @@ static const int  kOPENGLMAXCOUNT = 17;//opengl数量
 
 static const int  KWINDOWSFLAG  = 1000;//tag
 
-static const int OPENGLMAXCOUNT  = 17;//opengl显示最大值
+static const int OPENGLMAXCOUNT  = 16;//opengl显示最大值
 
 static const NSString *DefaultUserName = @"abc";//默认用户名
 static const NSString *DefaultPassWord = @"123";      //默认密码
