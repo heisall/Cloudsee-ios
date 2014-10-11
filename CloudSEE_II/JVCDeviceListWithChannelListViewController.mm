@@ -234,6 +234,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     UIButton *connectButton       = [UIButton buttonWithType:UIButtonTypeCustom];
     connectButton.frame           = imageViewRect;
     [connectButton setBackgroundImage:connectBtnImage forState:UIControlStateNormal];
+    [connectButton addTarget:self action:@selector(connectAllWithSelectedDevice) forControlEvents:UIControlEventTouchUpInside];
     connectButton.backgroundColor = [UIColor clearColor];
     connectButton.clipsToBounds   = YES;
     
@@ -251,6 +252,14 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 }
 
 /**
+ *  当前选择设备的全连事件
+ */
+-(void)connectAllWithSelectedDevice{
+    
+    [self gotoPlayViewController:kJVCChannelScourseHelperAllConnectFlag];
+}
+
+/**
  *  选中通道的事件
  *
  *  @param gesture 手势
@@ -261,6 +270,17 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)(gesture.view);
     
     int indexWithChannels =  channelTitleView.nChannelValueWithIndex;
+    
+    [self gotoPlayViewController:indexWithChannels];
+}
+
+/**
+ *  前往视频播放界面
+ *
+ *  @param index 当前选择的通道索引
+ */
+-(void)gotoPlayViewController:(int)index {
+    
     
     JVCOperationController *tOPVC;
     
@@ -275,9 +295,12 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     }
     
     tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
-    tOPVC._iSelectedChannelIndex     = indexWithChannels;
+    tOPVC._iSelectedChannelIndex     = index;
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
+
+
+
 }
 
 - (void)didReceiveMemoryWarning

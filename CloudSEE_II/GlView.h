@@ -10,14 +10,10 @@
 
 @interface GlView : NSObject{
 
-    id _kxMoveDecoder;
-    id _kxMoveGLView;
-    id _yuvFrame;
+    id _kxOpenGLView;
 }
 
-@property(nonatomic,retain) id _kxMoveGLView;
-@property(nonatomic,retain) id _kxMoveDecoder;
-@property(nonatomic,retain) id _yuvFrame;
+@property(nonatomic,retain) id _kxOpenGLView;
 
 
 /**
@@ -44,8 +40,25 @@
 /**
  *	屏幕旋转之后更新画布
  *
- *	@param	decoderFrameWidth	更新的高
- *	@param	decoderFrameHeight	更新的宽
+ *	@param	displayFrameWidth	更新画布的高
+ *	@param	displayFrameHeight	更新画布的宽
  */
--(void)updateDecoderFrame:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight;
+-(void)updateDecoderFrame:(int)displayFrameWidth displayFrameHeight:(int)displayFrameHeight;
+
+
+/**
+ *  隐藏OpenGL画布
+ */
+-(void)hiddenWithOpenGLView;
+
+/**
+ *  显示OpenGL画布
+ */
+-(void)showWithOpenGLView;
+
+/**
+ *  清除画布
+ *
+ */
+- (void)clearVideo;
 @end

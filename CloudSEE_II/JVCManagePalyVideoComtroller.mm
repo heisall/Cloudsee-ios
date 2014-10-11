@@ -130,8 +130,49 @@ BOOL isAllLinkRun;
         
     }
     
+    [self isConnectAllStatus];
+    
     [self changeContenView];
     
+}
+
+/**
+ *  判断当前界面是否为全连状态
+ */
+-(void)isConnectAllStatus{
+    
+    int count = [self channelCountAtSelectedYstNumber];
+    
+    if (self.nSelectedChannelIndex == kJVCChannelScourseHelperAllConnectFlag) {
+        
+        
+        if (count >1 && count <=4 ) {
+            
+            self.imageViewNums = 4;
+            
+        }else if (count >4 && count <=9 ){
+        
+            self.imageViewNums = 9;
+            
+        }else if (count >9 && count <= 16) {
+        
+            self.imageViewNums = 16;
+            
+        }else if ( count > 0 && count <=1) {
+            
+            self.imageViewNums = 1;
+            
+        }else if (count > 16 ){
+        
+            self.imageViewNums = 16 ;
+            
+        }else {
+        
+            self.imageViewNums = 1;
+        }
+        
+        self.nSelectedChannelIndex = 0 ;
+    }
 }
 
 - (void)setScrollviewByIndex:(NSInteger)Index

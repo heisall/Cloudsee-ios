@@ -107,7 +107,7 @@ float min_offset;
 	[connectInfoTV release];
     [connectInfoTV setHidden:YES];
     
-    UIImage *_playImage = [UIImage imageWithContentsOfFile:[UIImage getBundleImagePath:@"play.png" bundleName:@"customBottomView_cloudsee.bundle"]];
+    UIImage *_playImage = [UIImage imageNamed:@"play_1.png"];
     
     UIButton *_bPlayVideoBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     _bPlayVideoBtn.frame=CGRectMake((self.frame.size.width-_playImage.size.width)/2.0, (self.frame.size.height-_playImage.size.height)/2, _playImage.size.width, _playImage.size.height);
@@ -136,7 +136,6 @@ float min_offset;
     
 }
 
-
 /**
  *	获得当前的视频窗口对应的GLView对象
  *
@@ -150,26 +149,9 @@ float min_offset;
     UIScrollView   *allImageScrollView = (UIScrollView*)[self viewWithTag:109];
     self._glView =(GlView*)[delegate._amOpenGLViewListData objectAtIndex:openGLViewFlag];
     
-    [allImageScrollView addSubview:self._glView._kxMoveGLView];
-    [self._glView updateDecoderFrame:self.bounds.size.width decoderFrameHeight:self.bounds.size.height];
-    [self._glView._kxMoveGLView setHidden:YES];
-    
-}
-
-/**
- *	获得最后的视频窗口对应的GLView对象
- *
- */
--(void)getGlViewMaxmodel{
-    
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    
-    UIScrollView   *allImageScrollView = (UIScrollView*)[self viewWithTag:109];
-    self._glView =(GlView*)[delegate._amOpenGLViewListData lastObject];
-    
-    [allImageScrollView addSubview:self._glView._kxMoveGLView];
-    [self._glView updateDecoderFrame:self.bounds.size.width decoderFrameHeight:self.bounds.size.height];
-    [self._glView._kxMoveGLView setHidden:YES];
+    [allImageScrollView addSubview:self._glView._kxOpenGLView];
+    [self._glView updateDecoderFrame:self.bounds.size.width displayFrameHeight:self.bounds.size.height];
+    [self._glView hiddenWithOpenGLView];
 }
 
 
@@ -235,7 +217,6 @@ float min_offset;
             [scrollView setZoomScale:1.0];
             
 		}
-        
     }
 }
 
@@ -270,9 +251,7 @@ float min_offset;
 			[recognizer.view setTransform:newTransform];
             recognizer.view.frame=CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height);
             //_managePlay.WheelShowListView.scrollEnabled=YES;
-            
 		}
-        
     }
     
     lastScale=[recognizer scale];
@@ -367,7 +346,7 @@ float min_offset;
     UIImageView *imgView =(UIImageView*)[self viewWithTag:101];
 	imgView.frame=CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height);
     
-    [self._glView updateDecoderFrame:self.bounds.size.width decoderFrameHeight:self.bounds.size.height];
+    [self._glView updateDecoderFrame:self.frame.size.width displayFrameHeight:self.frame.size.height];
     
     CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?
     (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
@@ -386,42 +365,31 @@ float min_offset;
     
     
     
-   // NSMutableString *_imageNameString=[[NSMutableString alloc] initWithCapacity:10];
+    NSMutableString *_imageNameString=[[NSMutableString alloc] initWithCapacity:10];
     
-    //    managePalyVideoComtroller *_managePlay=(managePalyVideoComtroller*)f_view;
-    //
-    //    if (_managePlay.imageViewNums>1) {
-    //
-    //        [_imageNameString appendFormat:@"play_%d.png",_managePlay.imageViewNums];
-    //    }else{
-    //
-    //        [_imageNameString appendFormat:@"%@",@"play.png"];
-    //    }
+    UIView *superView = [self superview];
+    int imageViewNums = superView.frame.size.width / self.frame.size.width;
+    [_imageNameString appendFormat:@"play_%d.png",imageViewNums];
+    UIImage *_playImageBg=[UIImage imageNamed:_imageNameString];
+    [_imageNameString release];
     
-    //UIImage *_playImageBg=[UIImage imageNamed:_imageNameString];
-    
-    //[_imageNameString release];
-    
-    //UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
-    //[_bPlayVideoBtn setImage:_playImageBg forState:UIControlStateNormal];
-    //_bPlayVideoBtn.frame= CGRectMake((self.frame.size.width-_playImageBg.size.width)/2.0, (self.frame.size.height-_playImageBg.size.height)/2, _playImageBg.size.width, _playImageBg.size.height);
+    UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
+    [_bPlayVideoBtn setImage:_playImageBg forState:UIControlStateNormal];
+    _bPlayVideoBtn.frame= CGRectMake((self.frame.size.width-_playImageBg.size.width)/2.0, (self.frame.size.height-_playImageBg.size.height)/2, _playImageBg.size.width, _playImageBg.size.height);
     
     UILabel *connectInfoTV=(UILabel*)[self viewWithTag:106];
 	connectInfoTV.frame=CGRectMake(10.0, activity.frame.origin.y+activity.frame.size.height, self.frame.size.width-20.0, 16.0);
     
     UISlider *slider=(UISlider*)[self viewWithTag:107];
     slider.frame=CGRectMake(10.0, self.frame.size.height-25.0,self.frame.size.width-20.0, 20.0);
-    
 }
 
 -(void)hiddenSlider{
-    
-    
+
     UISlider *slider=(UISlider*)[self viewWithTag:107];
     [slider setValue:0.0];
     [slider setMaximumValue:0.0];
     [slider setHidden:YES];
-    
 }
 
 -(void)setImage:(UIImage*)image{
@@ -478,10 +446,10 @@ float min_offset;
             [slider setValue:0.0];
             [slider setMaximumValue:0.0];
             [slider setHidden:YES];
-            if (![self._glView._kxMoveGLView isHidden]) {
-                [self._glView._kxMoveGLView setHidden:YES];
-                [self bringSubviewToFront:imgView];
-            }
+            
+            [self._glView hiddenWithOpenGLView];
+            [self bringSubviewToFront:imgView];
+            
             
         }else {
             
@@ -506,10 +474,7 @@ float min_offset;
             
             [self._glView decoder:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
             
-            if ([self._glView._kxMoveGLView isHidden]) {
-                [self._glView._kxMoveGLView setHidden:NO];
-                [self bringSubviewToFront:self._glView._kxMoveGLView];
-            }
+            [self._glView showWithOpenGLView];
             
             disFlag=YES;
             
@@ -518,11 +483,7 @@ float min_offset;
     });
     
     //    managePalyVideoComtroller *_managePlay=(managePalyVideoComtroller*)f_view;
-    
-	
 }
-
-
 
 /**
  *  开始连接
@@ -537,7 +498,6 @@ float min_offset;
     [self runSetConnectDeviceInfo:connectChannelInfo];
     
     [self performSelectorOnMainThread:@selector(startActivityShow) withObject:nil waitUntilDone:YES];
-    
 }
 
 /**
@@ -817,10 +777,9 @@ float min_offset;
     [slider setValue:0.0];
     [slider setMaximumValue:0.0];
     [slider setHidden:YES];
-    if (![self._glView._kxMoveGLView isHidden]) {
-        [self._glView._kxMoveGLView setHidden:YES];
-        [self bringSubviewToFront:imgView];
-    }
+    [self._glView hiddenWithOpenGLView];
+    [self bringSubviewToFront:imgView];
+    
 }
 
 

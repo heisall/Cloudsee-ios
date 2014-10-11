@@ -960,7 +960,7 @@ bool _isConnectdevcieOpenDecoder;
     
      JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
     
-    return [singleView._glView._kxMoveGLView isHidden];
+    return [(UIView *)singleView._glView isHidden];
     
 }
 

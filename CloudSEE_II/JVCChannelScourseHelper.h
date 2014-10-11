@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "JVCChannelModel.h"
 
+static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
+
 @interface JVCChannelScourseHelper : NSObject
 
 /**
