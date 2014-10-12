@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import "JVCBaseWithGeneralViewController.h"
+#import "JVCBaseSliderViewController.h"
 
-@interface JVCMorEditPassWordViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
+@interface JVCMorEditPassWordViewController : JVCBaseSliderViewController<UITextFieldDelegate>
 
 @end

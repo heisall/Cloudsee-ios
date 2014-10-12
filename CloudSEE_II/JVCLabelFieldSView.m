@@ -23,7 +23,7 @@
 static const float KLabelOriginX    = 20;//距离左侧的距离
 static const float KLabelOriginY    = 30;//距离顶端的距离
 static const float KLabelWith       = 60;//距离顶端的距离
-static const float KSpan            = 30;//label之间的距离
+static const float KSpan            = 20;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 
 - (id)initWithFrame:(CGRect)frame
@@ -46,7 +46,7 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
     
     CGRect frameTextFildButton ;
     
-    for (int i=0; i<arrayTextFields.count; i++) {
+    for (int i=0; i<arrayLabelTitiles.count; i++) {
         
         UILabel *label = nil;
         
@@ -81,6 +81,7 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
     btnClick = [UIButton buttonWithType:UIButtonTypeCustom];
     btnClick.frame = CGRectMake(frameTextFildButton.origin.x, frameTextFildButton.origin.y+frameTextFildButton.size.height+KSpan, frameTextFildButton.size.width, imagebtn.size.height);
     [btnClick setTitle:@"完成" forState:UIControlStateNormal];
+    [btnClick setBackgroundImage:imagebtn forState:UIControlStateNormal];
     [btnClick addTarget:self action:@selector(editBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnClick];
     [image release];

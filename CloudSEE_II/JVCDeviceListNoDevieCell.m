@@ -10,9 +10,14 @@
 #import "JVCRGBColorMacro.h"
 #import "JVCRGBHelper.h"
 
-static const int kNodeviceLabelHeigt = 40;//lab的高度
+static const int kLabelHeigt = 30;//lab的高度
+static const int kLabelOriginX = 40;//距离左侧的距离
+static const int kLabelOriginY = 10;//距离上侧的距离
+static const int kSpan         = 20;//间距
 
 @implementation JVCDeviceListNoDevieCell
+@synthesize addDelegate;
+static const int kTag         = 100;//tag
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,27 +40,76 @@ static const int kNodeviceLabelHeigt = 40;//lab的高度
  */
 - (void)initContentCellWithHeigint:(CGFloat)frameHeight
 {
-    //暂无图片
-    NSString *imageName = [UIImage imageBundlePath:@"dev_nodevBg.png"];
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageName];
-    UIImageView *imageViewNoDevice = [[UIImageView alloc] initWithFrame:CGRectMake((self.width - image.size.width)/2.0, (frameHeight - image.size.height-kNodeviceLabelHeigt)/2.0, image.size.width, image.size.height)];
-    imageViewNoDevice.image  = image;
-    [self.contentView addSubview:imageViewNoDevice];
-    [imageViewNoDevice release];
-    [image release];
-    //提示
-    UILabel *labelNodevie = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewNoDevice.bottom, self.width, kNodeviceLabelHeigt)];
-    labelNodevie.backgroundColor = [UIColor clearColor];
-    labelNodevie.numberOfLines = 0;
-    labelNodevie.textAlignment = UITextAlignmentCenter;
-    labelNodevie.lineBreakMode = UILineBreakModeWordWrap;
-    UIColor *labColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroDeviceListLabelGray];
-    if (labColor) {
-        labelNodevie.textColor = labColor;
+    NSString *devWlanPath = [UIImage imageBundlePath:@"no_devWlan.png"];
+    UIImage *imageWlan = [[UIImage alloc] initWithContentsOfFile:devWlanPath];
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, kLabelOriginY, imageWlan.size.width, kLabelHeigt)];
+    labelTitle.backgroundColor = [UIColor clearColor];
+    labelTitle.text = @"无线设备";
+    [self.contentView addSubview:labelTitle];
+    [labelTitle release];
+    
+    //无线设备图片
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(labelTitle.left, labelTitle.bottom+kSpan, labelTitle.width, imageWlan.size.height)];
+    imageview.image = imageWlan;
+    [self.contentView addSubview:imageview];
+    [imageview release];
+    
+    JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    UIColor *btnColorBlue  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBlue];
+    
+    NSString *devWlanBtnPath = [UIImage imageBundlePath:@"no_devBtn.png"];
+    UIImage *imageBtnWlan = [[UIImage alloc] initWithContentsOfFile:devWlanBtnPath];
+    
+    //按钮
+    UIButton *btnWlan = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnWlan.frame = CGRectMake(imageview.left, imageview.bottom+kSpan, imageBtnWlan.size.width, imageBtnWlan.size.height);
+    [btnWlan setTitle:@"无线设备" forState:UIControlStateNormal];
+    btnWlan.tag = kTag;
+    [btnWlan addTarget:self action:@selector(addDeviceClickWithType:) forControlEvents:UIControlEventTouchUpInside];
+    if (btnColorBlue) {
+        [btnWlan setTitleColor:btnColorBlue forState:UIControlStateNormal];
     }
-    labelNodevie.text = @"点我添加设备";
-    [self.contentView addSubview:labelNodevie];
-    [labelNodevie release];
+    [btnWlan setBackgroundImage:imageBtnWlan forState:UIControlStateNormal];
+    [self.contentView addSubview:btnWlan];
+    
+    //有限设备
+    UILabel *labelWire = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, btnWlan.bottom+kSpan, imageWlan.size.width, kLabelHeigt)];
+    labelWire.backgroundColor = [UIColor clearColor];
+    labelWire.text = @"有限设备";
+    [self.contentView addSubview:labelWire];
+    [labelWire release];
+
+    //有限设备图片
+    NSString *devWlanwirePath = [UIImage imageBundlePath:@"no_devWire.png"];
+    UIImage *imageWireWlan = [[UIImage alloc] initWithContentsOfFile:devWlanwirePath];
+    UIImageView *imageviewWire = [[UIImageView alloc] initWithFrame:CGRectMake(labelWire.left, labelWire.bottom+kSpan, labelTitle.width, imageWireWlan.size.height)];
+    imageviewWire.image = imageWireWlan;
+    [self.contentView addSubview:imageviewWire];
+    [imageviewWire release];
+    
+    //按钮
+    UIButton *btnWireWlan = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnWireWlan.frame = CGRectMake(imageviewWire.left, imageviewWire.bottom+kSpan, imageBtnWlan.size.width, imageBtnWlan.size.height);
+    [btnWireWlan setTitle:@"有限设备" forState:UIControlStateNormal];
+    if (btnColorBlue) {
+        [btnWireWlan setTitleColor:btnColorBlue forState:UIControlStateNormal];
+    }
+    btnWireWlan.tag = 1+kTag;
+    [btnWireWlan addTarget:self action:@selector(addDeviceClickWithType:) forControlEvents:UIControlEventTouchUpInside];
+    [btnWireWlan setBackgroundImage:imageBtnWlan forState:UIControlStateNormal];
+    [self.contentView addSubview:btnWireWlan];
+    
+    [imageBtnWlan release];
+    [imageWlan release];
+    [imageWireWlan release];
+}
+
+- (void)addDeviceClickWithType:(UIButton *)btn
+{
+    if (addDelegate !=nil && [addDelegate respondsToSelector:@selector(addDeviceTypeCallback:)]) {
+        
+        [addDelegate addDeviceTypeCallback:btn.tag-kTag];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

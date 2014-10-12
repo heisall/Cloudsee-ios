@@ -10,6 +10,8 @@
 #import "JVCPredicateHelper.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCAccountHelper.h"
+#import "JVCDataBaseHelper.h"
+#import "AppDelegate.h"
 
 /**
  *  textFeild 的类型
@@ -71,7 +73,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor grayColor];
+    self.title = @"修改密码";
     
     [self initControll];
     
@@ -115,7 +117,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     /**
      *  用户名
      */
-    UIImage *tImage = [UIImage imageNamed:@"inputTextbg.png"];
+    UIImage *tImage = [UIImage imageNamed:@"mor_edtPW.png"];
     UITextField  * _textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake(20, 20+textFieldType*(tImage.size.height+TEXTFIELD_SEPERATE), tImage.size.width, tImage.size.height) ];
     _textFieldUserName.delegate = self;
     _textFieldUserName.borderStyle = UITextBorderStyleNone;
@@ -176,34 +178,31 @@ static const int kPredicateSuccess   = 0;//正则校验成功
         
         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//            int  result =[[JVCAccountHelper sharedJVCAccountHelper] ModifyUserPassword:_textFieldOldPassWord.text newPassWord:_textFieldNewPassWord.text];
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//                if (result == kPredicateSuccess) {//成功
-//                    
-//                    [OperationSet saveUserName:[[OperationSet getUserDic] objectForKey:USERINFO_NAME] andPassWord:_textFieldNewPassWord.text  andState:NO];
-//                    
-//                    //[[AccountAlertObject shareAccountAlertInstance] showAlertWithStringText:LOCALANGER(@"Modify_Pw_success")];
-//                    
-//                    // [self.navigationController popViewControllerAnimated:YES ];
-//                    
-//                    [self loginOutInModifyUserPassWord];
-//                    
-//                }else{//失败
-//                    
-//                    [[AccountAlertObject shareAccountAlertInstance]  showAlertWithStringText:LOCALANGER(@"Modify_PW_fail")];
-//                }
-//
-//            });
-//        
-//        });
-//        
-//        [[AccountMethods shareAccountMathsInstance]ModifyUserPassWordWithOldPassWord:_textFieldOldPassWord.text andNewPassWord:_textFieldNewPassWord.text];
-//        [AccountMethods shareAccountMathsInstance].modifyDelegate = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+            int  result =[[JVCAccountHelper sharedJVCAccountHelper] ModifyUserPassword:_textFieldOldPassWord.text newPassWord:_textFieldNewPassWord.text];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+                if (result == kPredicateSuccess) {//成功
+                    
+                    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
+                    
+                    AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    
+                    [delegateApp presentLoginViewController];
+                    
+                }else{//失败
+                    
+                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"Modify_PW_fail")];
+                }
+
+            });
+        
+        });
+                
     }else{//正则判断失败
         
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result ];
@@ -234,8 +233,11 @@ static const int kPredicateSuccess   = 0;//正则校验成功
 
 - (void)editPwdSlideDown
 {
-    
+    [UIView animateWithDuration:KANIMATIN_DURARTION animations:^{
+        
     self.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+
+    }];
     
 }
 

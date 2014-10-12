@@ -205,6 +205,10 @@ static const int  kInitWithLayoutColumnCount           = 3;
  */
 -(void)opeartionClick:(int)type{
     
+    if (titles.count<=0) {
+        return;
+    }
+    
     switch (type)
     {
         case JVCEditDeviceListViewControllerClickType_remoteSetup:{
@@ -263,6 +267,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [deviceLinkType release];
 }
 
+
 /**
  *  删除设备的回调
  */
@@ -305,6 +310,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
  */
 - (NSString *)currentYstTitles
 {
+
     return [titles objectAtIndex:self.nIndex];
 }
 

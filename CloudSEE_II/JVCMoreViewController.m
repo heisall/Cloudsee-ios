@@ -21,6 +21,8 @@
 
 #import "JVCDataBaseHelper.h"
 
+#import "JVCMorEditPassWordViewController.h"
+
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -207,6 +209,11 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
             JVCApHelpViewController *apHelper = [[JVCApHelpViewController alloc] init] ;
             [self.navigationController pushViewController:apHelper animated:YES];
             [apHelper release];
+        }else if(indexPath.row == 1)
+        {
+            JVCMorEditPassWordViewController *editVC = [[JVCMorEditPassWordViewController alloc] init];
+            [self.navigationController pushViewController:editVC animated:YES];
+            [editVC release];
         }
     }else if(indexPath.section == 3)
     {

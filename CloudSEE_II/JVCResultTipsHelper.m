@@ -98,6 +98,14 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"login_pw_equal")];
             
             break;
+        case LINKTYPE_IP_ERROR:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_IP_ERROR")];
+            
+            break;
+        case LINKTYPE_PORT_ERROR:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PORT_ERROR")];
+            
+            break;
         case VALIDATIONUSERNAMETYPE_LENGTH_E+100:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_LENGTH_E")];
             

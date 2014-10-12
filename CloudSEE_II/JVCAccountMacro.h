@@ -120,7 +120,9 @@ enum  loginResut
     LOGINRESULT_EMAIL_ERROR,//邮箱不合法
     LOGINRESULT_NOT_EQUAL_USER_PASSWORD,//用户保存密码与用户输入的不一致
     LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD,//用户保存密码与用户输入的不一致
-    
+    LINKTYPE_IP_ERROR,                      //域名不合法
+    LINKTYPE_PORT_ERROR,                    //ip不合法
+
 };
 
 /**

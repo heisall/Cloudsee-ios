@@ -17,7 +17,7 @@
 #import "JVCDataBaseHelper.h"
 #import "JVCRGBHelper.h"
 #import "JVCUserInfoModel.h"
-
+#import "JVCPredicateHelper.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -304,7 +304,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 {
     
         //正则判断用户名、密码是否合法
-    int result = [[JVCAccountPredicateMaths shareAccontPredicateMaths] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
+    int result = [[JVCPredicateHelper shareInstance] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
     
     if (LOGINRESULT_SUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
         

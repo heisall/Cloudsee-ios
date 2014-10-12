@@ -612,4 +612,112 @@ static JVCPredicateHelper *_shareInstance = nil;
     return LOGINRESULT_SUCCESS;
 }
 
+/**
+ *  判断用户名、密码是否合法
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法
+ *  @return 返回相应的数值
+ */
+- (int)loginPredicateUserName:(NSString *)userName  andPassWord:(NSString *)passWord
+{
+    /**
+     *  判断用户名是否为空
+     */
+    if ([[JVCPredicateHelper shareInstance] predicateBlankString:userName]) {
+        
+        return LOGINRESULT_USERNAME_NIL;
+    }
+    /**
+     *  判断用户名是否合法
+     */
+    //    if (![PredicateObject predicateLegalUserName:userName]) {
+    //
+    //        return LOGINRESULT_USERNAME_ERROR;
+    //    }
+    /**
+     *  判断密码是否为空
+     */
+    if ([[JVCPredicateHelper shareInstance] predicateBlankString:passWord]) {
+        
+        return LOGINRESULT_PASSWORLD_NIL;
+    }
+    /**
+     *  判断密码是否合法
+     */
+    //    if (![PredicateObject predicateLegalPassWorld:passWord]) {
+    //
+    //        return LOGINRESULT_PASSWORLD_ERROR;
+    //    }
+    
+    /**
+     *  合法
+     */
+    return LOGINRESULT_SUCCESS;
+    
+}
+
+/**
+ *  判断ip、端口号、用户名、密码是否合法 
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法
+ *  @return 返回相应的数值
+ */
+- (int)PredicateLinkTypeUserName:(NSString *)userName  PassWord:(NSString *)passWord  Ip:(NSString *)Ip  port:(NSString *)port
+{
+    int result = [self loginPredicateUserName:userName andPassWord:passWord];
+    
+    if (result !=LOGINRESULT_SUCCESS ) {
+        
+        return result;
+    }
+    if (![self isIP:Ip]&& ![self isSuitYuMinglegal:Ip]) {
+        
+        return LINKTYPE_IP_ERROR;
+    }
+    
+    if (port.intValue<0) {
+        
+        return LINKTYPE_PORT_ERROR;
+    }
+    /**
+     *  合法
+     */
+    return LOGINRESULT_SUCCESS;
+    
+}
+
+//判断是不是正确的Ip
+-(BOOL)isIP:(NSString *)str
+{
+    NSString *IPRegex = @"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+    NSPredicate *IpPreDicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", IPRegex];
+    return [IpPreDicate evaluateWithObject:str];
+    
+}
+
+/**
+ *  是否是合法的域名
+ *
+ *  @param string 域名
+ *
+ *  @return yes 是合法的  no 不是合法的
+ */
+- (BOOL)isSuitYuMinglegal:(NSString *)string
+{
+    NSString *emailRegex = @"[a-zA-Z0-9.]{1,100}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    NSLog(@"%@",[emailTest evaluateWithObject:string]?@"true":@"false");
+    return [emailTest evaluateWithObject:string];
+    
+}
+
 @end

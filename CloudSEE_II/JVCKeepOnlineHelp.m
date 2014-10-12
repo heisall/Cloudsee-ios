@@ -283,9 +283,8 @@ UIAlertView *alertView;
         }
     }else
     {//退出
-//        if (delegate&&[delegate respondsToSelector:@selector(alertClickCancelCallBack)]) {
-//            [delegate alertClickCancelCallBack];
-//        }
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate presentLoginViewController];
         
     }
 }

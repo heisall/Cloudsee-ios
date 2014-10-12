@@ -26,6 +26,8 @@
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
+static const int             kTableViewCellNODevice                  = 600;//广告条的高度
+
 static const int             kTableViewCellNormalCellHeight          = 10 ; //cell减去图片高度的间距
 static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
@@ -90,10 +92,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     
     [self getDeviceList];
     
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:self.view.frame];
-    imageview.image = [UIImage imageNamed:@"NoDevice.png"];
-    [self.view addSubview:imageview];
-    [imageview release];
+   
 }
 
 /**
@@ -215,25 +214,31 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {
+        
+        return 1;
+    }
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     if (section == 0) {
         
         return 1;
     }
-    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备，显示没有设备cell
-        
-        return 1;
-    }
-    
+   
     return  [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count%kTableViewCellInViewColumnCount == 0 ?  [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount: [[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count/kTableViewCellInViewColumnCount+1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  
+    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备，显示没有设备cell
+        
+        return kTableViewCellNODevice;
+    }
     if (indexPath.section == 0) {
         
         return kTableViewCellAdeviceHeigit;
@@ -254,23 +259,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     
     if (indexPath.section == 0) {//新品展示图片
         
-        static NSString *cellAdverIdentify = @"cellAdevetIndetify";
-        
-        JVCDeviceListAdvertCell *cell = [tableView dequeueReusableCellWithIdentifier:cellAdverIdentify];
-        
-        if (cell == nil) {
-            
-            cell = [[[JVCDeviceListAdvertCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellAdverIdentify] autorelease];
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        [cell initCellContent];
-        
-        return cell;
-        
-    }else{
-        
         if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//加载没有设备cell
             
             static NSString *cellIdentify = @"cellIndetifyNodevice";
@@ -285,11 +273,29 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             [cell initContentCellWithHeigint:self.view.height - kTableViewCellAdeviceHeigit];
-            
+            cell.addDelegate = self;
             return cell;
-            
         }else{
             
+            static NSString *cellAdverIdentify = @"cellAdevetIndetify";
+            
+            JVCDeviceListAdvertCell *cell = [tableView dequeueReusableCellWithIdentifier:cellAdverIdentify];
+            
+            if (cell == nil) {
+                
+                cell = [[[JVCDeviceListAdvertCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellAdverIdentify] autorelease];
+            }
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [cell initCellContent];
+            
+            return cell;
+        
+        }
+        
+    }else{
+        
             static NSString *cellIdentify = @"cellIndetifyNormal";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
@@ -361,7 +367,6 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
             
             return cell;
         }
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -425,6 +430,17 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 }
 
 /**
+ *  当设备数量为0时的处理方法
+ */
+-(void)addHelpWhenDeviceCountZero
+{
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:self.view.frame];
+    imageview.image = [UIImage imageNamed:@"NoDevice.png"];
+    [self.view addSubview:imageview];
+    [imageview release];
+}
+
+/**
  *  获取通道
  */
 - (void)getAllChannelsWithDeviceList:(NSArray *)deviceListData
@@ -464,6 +480,23 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [self.tableView reloadData];
 }
 
+#pragma mark 没有设备的时候，点击无线添加和有线添加按钮事件的回调
+/**
+ *  选中设备类型
+ */
+- (void)addDeviceTypeCallback:(int)linkType
+{
+    switch (linkType) {
+        case DEVICECLICKTYpe_Wire:
+            [self AddWlanDevice];
+            break;
+        case DEVICECLICKTYpe_WireLess:
+            [self AddDevice];
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark  点击设备的回调
 /**
  *  选中要播放的设备的回调

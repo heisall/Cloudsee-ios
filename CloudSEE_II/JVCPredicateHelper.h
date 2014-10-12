@@ -183,4 +183,25 @@ enum MODIFY_DEVICE_TYPE
  */
 - (int)predicateEmailLegal:(NSString *)email;
 
+/**
+ *  判断用户名、密码是否合法
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法
+ *  @return 返回相应的数值
+ */
+- (int)loginPredicateUserName:(NSString *)userName  andPassWord:(NSString *)passWord;
+
+/**
+ *  判断ip、端口号、用户名、密码是否合法
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *0登录成功、1：用户名为空、2：密码为空、3：用户名不合法、4：密码不合法
+ *  @return 返回相应的数值
+ */
+- (int)PredicateLinkTypeUserName:(NSString *)userName  PassWord:(NSString *)passWord  Ip:(NSString *)Ip  port:(NSString *)port;
 @end

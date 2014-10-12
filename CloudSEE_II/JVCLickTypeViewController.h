@@ -7,8 +7,10 @@
 //
 
 #import "JVCBaseSliderViewController.h"
+#import "JVCLabelFieldSView.h"
+
 @class JVCDeviceModel;
-@interface JVCLickTypeViewController : JVCBaseSliderViewController
+@interface JVCLickTypeViewController : JVCBaseSliderViewController<UITextFieldDelegate,JVCLabelFieldSViewDelegate>
 {
     JVCDeviceModel *deviceModel;
 }

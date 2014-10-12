@@ -30,6 +30,7 @@
 		A72B4B7419D3FDE500760695 /* JVCMoreUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B7319D3FDE500760695 /* JVCMoreUserCell.m */; };
 		A72B4B7519D3FDE500760695 /* JVCMoreUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B7319D3FDE500760695 /* JVCMoreUserCell.m */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
+		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
 		A7F0042319D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042419D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
@@ -168,6 +169,9 @@
 		A7F5558219D9498C0009F75C /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5558119D9498C0009F75C /* nav_back@2x.png */; };
 		A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5558F19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m */; };
 		A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5559319D97E760009F75C /* UITabBarController+Rotation_IOS6.m */; };
+		A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */; };
+		A7F5D78719EA2F6600396AD9 /* no_devWlan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78519EA2F6600396AD9 /* no_devWlan@2x.png */; };
+		A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
@@ -411,6 +415,7 @@
 		A72B4B7219D3FDE500760695 /* JVCMoreUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreUserCell.h; sourceTree = "<group>"; };
 		A72B4B7319D3FDE500760695 /* JVCMoreUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreUserCell.m; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
+		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
 		A7F0042119D45C030028533E /* AHReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHReach.h; sourceTree = "<group>"; };
 		A7F0042219D45C030028533E /* AHReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReach.m; sourceTree = "<group>"; };
 		A7F0042519D45DC70028533E /* JVCConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConfigModel.h; sourceTree = "<group>"; };
@@ -530,6 +535,9 @@
 		A7F5558F19D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Rotation_IOS6.m"; sourceTree = "<group>"; };
 		A7F5559219D97E760009F75C /* UITabBarController+Rotation_IOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+Rotation_IOS6.h"; sourceTree = "<group>"; };
 		A7F5559319D97E760009F75C /* UITabBarController+Rotation_IOS6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+Rotation_IOS6.m"; sourceTree = "<group>"; };
+		A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devWire@2x.png"; sourceTree = "<group>"; };
+		A7F5D78519EA2F6600396AD9 /* no_devWlan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devWlan@2x.png"; sourceTree = "<group>"; };
+		A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devBtn@2x.png"; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
 		A7F5E23F19D43F6E00609BC3 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		A7F5E24019D43F6E00609BC3 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -847,6 +855,7 @@
 		A72B4B6C19D3F99C00760695 /* JVCMore */ = {
 			isa = PBXGroup;
 			children = (
+				A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */,
 				A7F5557D19D9361B0009F75C /* mor_editPwdBtnBg@2x.png */,
 				A7F5555D19D906970009F75C /* mor_cellSigleBg@2x.png */,
 				A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */,
@@ -1164,6 +1173,9 @@
 		A7F5EF4A19D26D67009B797A /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
+				A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */,
+				A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */,
+				A7F5D78519EA2F6600396AD9 /* no_devWlan@2x.png */,
 				A7FB594A19E91796005E2E6D /* NoDevice@2x.png */,
 				A7F4429819E7649B00519A4B /* add_normal@2x.png */,
 				A7F4429919E7649B00519A4B /* add_popbg@2x.png */,
@@ -1773,6 +1785,7 @@
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
+				A7F5D78719EA2F6600396AD9 /* no_devWlan@2x.png in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F486A419E6256700C10B2B /* QdContentbg@2x.png in Resources */,
 				A7263C5619E8108D003C22DE /* con_line@2x.png in Resources */,
@@ -1795,6 +1808,7 @@
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
 				A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */,
 				A7F5558219D9498C0009F75C /* nav_back@2x.png in Resources */,
+				A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */,
 				A7F442A319E7649B00519A4B /* add_wlan@2x.png in Resources */,
 				AD2BDB1519D28F0600AA6D73 /* edi_linkModel@2x.png in Resources */,
 				AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */,
@@ -1809,6 +1823,7 @@
 				AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */,
 				A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */,
+				A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */,
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
@@ -1822,6 +1837,7 @@
 				AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */,
 				A7F4250319D0FD8600D96475 /* log_bg_iphone5.png in Resources */,
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
+				A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */,
 				AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */,
 				A7F5013519D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
