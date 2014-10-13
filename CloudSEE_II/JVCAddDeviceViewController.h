@@ -45,4 +45,10 @@ enum DEVICEBIND
  *  设置云视通textfield的文本,二维码扫描的时候用到
  */
 - (void)YstTextFieldTextL:(NSString *)yunNum;
+
+/**
+ *  添加设备，即先把设备绑定到自己的账号中，然后获取设备的详细信息
+ *
+ */
+- (void)addDeviceToAccount:(NSString *)ystNum  deviceUserName:(NSString *) name  passWord:(NSString *)passWord;
 @end

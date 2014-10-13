@@ -9,6 +9,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLocalDeviceDateBaseHelp.h"
 
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
@@ -352,6 +353,16 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     }
     
     return cacheModel;
+}
+
+/**
+ *  获取本地数据库中设备列表
+ */
+- (void)getLocalDeviceList
+{
+   NSArray *arrayLocalDevice = [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] getAllLocalDeviceList];
+    [deviceArray removeAllObjects];
+    [deviceArray addObjectsFromArray:arrayLocalDevice];
 }
 
 @end

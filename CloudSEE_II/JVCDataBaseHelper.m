@@ -11,7 +11,7 @@
 #import "CommonFunc.h"
 #import "JVCUserInfoModel.h"
 #import "JVCSystemUtility.h"
-
+#import "JVCSystemConfigMacro.h"
 /**
  *  账号信息
  */
@@ -21,7 +21,6 @@
 //
 //static  NSString const* USERINFO_TIMER      =   @"timer";//最后一次登录时间
 
-static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的名称
 
 @interface JVCDataBaseHelper ()
 {

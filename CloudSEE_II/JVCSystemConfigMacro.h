@@ -38,6 +38,7 @@ static const  int KTextFieldLeftLabelViewWith   =  10;//textfield 左侧label的
 
 static const  int KDevicePassWordMaxLength   =  16;//设备密码最大长度
 static const  int KDeviceUserNameMaxLength   =  16;//设备密码最大长度
+static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的名称
 
 
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]

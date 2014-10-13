@@ -120,6 +120,15 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
     }
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (self.navigationController.viewControllers.count == NavicationViewControllersCountINTableView) {//不是顶级试图
+        
+        self.navigationItem.hidesBackButton = YES;
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -288,7 +288,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                 
             }else{//开始添加
                 
-                [self  addDeviceToAccount];
+                [self  addDeviceToAccount:textFieldYST.text deviceUserName:textFieldUserName.text passWord:textFieldUserName.text];
             }
         
     }else{
@@ -302,13 +302,13 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
  *  添加设备，即先把设备绑定到自己的账号中，然后获取设备的详细信息
  *
  */
-- (void)addDeviceToAccount
+- (void)addDeviceToAccount:(NSString *)ystNum  deviceUserName:(NSString *) name  passWord:(NSString *)passWord
 {
     [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text userName:textFieldUserName.text password:textFieldPassWord.text];
+        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text userName:textFieldUserName.text password:textFieldUserName.text];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

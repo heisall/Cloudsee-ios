@@ -24,6 +24,8 @@
 #import "JVCQRAddDeviceViewController.h"
 #import "JVCDeviceMacro.h"
 
+#import "JVCLocalAddDeviceViewController.h"
+
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
@@ -157,10 +159,16 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
  */
 - (void)AddDevice
 {
-    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
     addDeviceVC.addDeviceDelegate = self;
     [self.navigationController pushViewController:addDeviceVC animated:YES];
     [addDeviceVC release];
+    return;
+    
+//    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+//    addDeviceVC.addDeviceDelegate = self;
+//    [self.navigationController pushViewController:addDeviceVC animated:YES];
+//    [addDeviceVC release];
 }
 
 /**
@@ -396,6 +404,11 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 #pragma mark 获取设备
 - (void)getDeviceList
 {
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
+    [self.tableView reloadData];
+
+    return;
+    
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

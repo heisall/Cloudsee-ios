@@ -9,6 +9,7 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCSystemUtility.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLocalChannelDateBaseHelp.h"
 
 @interface JVCChannelScourseHelper ()
 {
@@ -252,6 +253,12 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     return channnleValues;
 }
+
+
+//- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  AddChannelArray:(NSArray)
+//{
+//    
+//}
 
 
 @end

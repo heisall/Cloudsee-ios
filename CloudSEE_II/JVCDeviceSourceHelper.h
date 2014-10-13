@@ -141,4 +141,10 @@ enum ADDDEVICE_TYPE
  */
 -(JVCLocalCacheModel *)deviceModelWithYstNumberConvertLocalCacheModel:(NSString *)ystNumber;
 
+#pragma mark 本地
+/**
+ *  获取本地数据库中设备列表
+ */
+- (void)getLocalDeviceList;
+
 @end
