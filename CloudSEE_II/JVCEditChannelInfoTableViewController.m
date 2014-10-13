@@ -242,7 +242,6 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 {
     if (bShowEditChannelNickNameValue) {
         [self tranfromanimation];
-        return;
     }
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];

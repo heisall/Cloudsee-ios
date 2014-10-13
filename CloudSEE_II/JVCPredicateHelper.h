@@ -214,4 +214,7 @@ enum MODIFY_DEVICE_TYPE
  *  @return 返回相应的数值
  */
 - (int)PredicateLinkTypeUserName:(NSString *)userName  PassWord:(NSString *)passWord  Ip:(NSString *)Ip  port:(NSString *)port;
+
+//判断是不是正确的Ip
+-(BOOL)isIP:(NSString *)str;
 @end

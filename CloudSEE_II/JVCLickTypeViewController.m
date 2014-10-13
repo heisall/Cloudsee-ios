@@ -310,6 +310,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         
     }else//修改改的是ip
     {
+        
+        
         int result = [[JVCPredicateHelper shareInstance] PredicateLinkTypeUserName:textFieldIPName.text PassWord:textFieldIPPassWord.text Ip:textFieldIP.text port:textFieldPort.text];
         if (KLinkTypeSUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
             
@@ -405,6 +407,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     deviceModel.userName = textFieldYstName.text;
     deviceModel.passWord = textFieldYstPassWord.text;
     
+    deviceModel.linkType = CONNECTTYPE_YST;
     textFieldIPName.text = deviceModel.userName;
     textFieldIPPassWord.text = deviceModel.passWord;
 }
@@ -418,6 +421,10 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     deviceModel.port = textFieldPort.text;
     deviceModel.userName = textFieldYstName.text;
     deviceModel.passWord = textFieldYstPassWord.text;
+    
+    deviceModel.linkType = CONNECTTYPE_IP;
+    textFieldIPName.text = deviceModel.userName;
+    textFieldIPPassWord.text = deviceModel.passWord;
 }
 
 - (void)dealloc
