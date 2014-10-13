@@ -25,6 +25,13 @@
     NSTimer               *updataBufferTimer;
 }
 
+enum playSoundType {
+
+
+    playSoundType_8k8B   = 0,
+    playSoundType_8k16B  = 1,
+    playSoundType_16k16B = 2,
+};
 @property (nonatomic,assign) ALCcontext *mContext;
 @property (nonatomic,assign) ALCdevice *mDevice;
 @property (nonatomic,retain) NSMutableDictionary* soundDictionary;
@@ -45,11 +52,11 @@
 /**
  *  播放音频
  *
- *  @param data      音频数据
- *  @param dataSize  音频数据的大小
- *  @param monoValue 音频数据的类型 YES:8k16Bit NO:8k8bit
+ *  @param data          音频数据
+ *  @param dataSize      音频数据的大小
+ *  @param playSoundType 音频数据的类型 
  */
-- (void)openAudioFromQueue:(short*)data dataSize:(UInt32)dataSize monoValue:(BOOL)monoValue;
+- (void)openAudioFromQueue:(short*)data dataSize:(UInt32)dataSize playSoundType:(int)playSoundType;
 
 /**
  *  停止播放
@@ -60,5 +67,17 @@
  *  清除缓存声音
  */
 -(void)cleanUpOpenALMath;
+
+/**
+ *  清除缓存声音的方法
+ */
+-(void)clear;
+
+/**
+ *  获取当前OpenAL是否在播放声音
+ *
+ *  @return 0x1014 播放结束
+ */
+-(int)checkOpenAlStatus;
 
 @end

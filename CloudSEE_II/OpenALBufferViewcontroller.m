@@ -150,7 +150,7 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
  *  @param dataSize  音频数据的大小
  *  @param monoValue 音频数据的类型 YES:8k16Bit NO:8k8bit
  */
-- (void)openAudioFromQueue:(short*)data dataSize:(UInt32)dataSize monoValue:(BOOL)monoValue
+- (void)openAudioFromQueue:(short*)data dataSize:(UInt32)dataSize playSoundType:(int)playSoundType
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -161,13 +161,31 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
     alGenBuffers(1, &bufferID);
     NSData * tmpData = [NSData dataWithBytes:data length:dataSize];
     
-    if (!monoValue) {
+    
+    switch (playSoundType) {
+            
+        case playSoundType_8k8B:{
+            
+             alBufferData(bufferID, AL_FORMAT_MONO8, (short*)[tmpData bytes], (ALsizei)[tmpData length], 8000);
         
-        alBufferData(bufferID, AL_FORMAT_MONO8, (short*)[tmpData bytes], (ALsizei)[tmpData length], 8000);
-        
-    }else{
-        
-        alBufferData(bufferID, AL_FORMAT_MONO16, (short*)[tmpData bytes], (ALsizei)[tmpData length], 8000);
+        }
+            
+            break;
+        case playSoundType_8k16B:{
+            
+            alBufferData(bufferID, AL_FORMAT_MONO16, (short*)[tmpData bytes], (ALsizei)[tmpData length], 8000);
+        }
+            
+            break;
+        case playSoundType_16k16B:{
+            
+             alBufferData(bufferID, AL_FORMAT_MONO16, (short*)[tmpData bytes], (ALsizei)[tmpData length], 16000);
+        }
+            
+            break;
+            
+        default:
+            break;
     }
     
     alSourceQueueBuffers(outSourceID, 1, &bufferID);
@@ -193,7 +211,6 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
         alSourcePlay(outSourceID);
     }
     
- 
 }
 
 /**
@@ -283,17 +300,43 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
 
 -(void)cleanUpOpenAL
 {
-    //    while(processed--)
-    //    {
-    //        alSourceUnqueueBuffers(outSourceID, 1, &buff);
-    //        alDeleteBuffers(1, &buff);
-    //    }
     [updataBufferTimer invalidate];
     updataBufferTimer = nil;
     alDeleteSources(1, &outSourceID);
     alDeleteBuffers(1, &buff);
     alcDestroyContext(mContext);
     alcCloseDevice(mDevice);
+}
+
+/**
+ *  获取当前OpenAL是否在播放声音
+ *
+ *  @return 0x1014 播放结束
+ */
+-(int)checkOpenAlStatus{
+    
+    
+    ALint stateVaue;
+    
+    alGetSourcei(outSourceID, AL_SOURCE_STATE, &stateVaue);
+    
+    return stateVaue;
+}
+
+/**
+ *  清除缓存声音的方法
+ */
+-(void)clear{
+    
+    ALint  processed = 0;
+    alGetSourcei(outSourceID , AL_BUFFERS_PROCESSED ,&processed);
+    
+    while(processed--)
+    {
+        alSourceUnqueueBuffers(outSourceID, 1, &buff);
+        alDeleteBuffers(1, &buff);
+    }
+    
 }
 
 - (void)viewDidLoad

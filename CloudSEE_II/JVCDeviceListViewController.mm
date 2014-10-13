@@ -23,6 +23,7 @@
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCQRAddDeviceViewController.h"
 #import "JVCDeviceMacro.h"
+#import "JVCVoiceencInputSSIDWithPasswordViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
@@ -142,13 +143,30 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         case AddDevicePopType_ScanADDDevice:
             
             break;
-        case AddDevicePopType_VloceAddDevice:
+        case AddDevicePopType_VloceAddDevice:{
+        
+            [self beginVoiceencConfig];
+        
+        }
             
             break;
             
         default:
             break;
     }
+}
+
+#pragma mark 开始声波配置 
+
+/**
+ *  开始声波配置
+ */
+-(void)beginVoiceencConfig{
+    
+    JVCVoiceencInputSSIDWithPasswordViewController *jvcVoiceencViewcontroller = [[JVCVoiceencInputSSIDWithPasswordViewController alloc] init];
+    [self.navigationController pushViewController:jvcVoiceencViewcontroller animated:YES];
+    
+    [jvcVoiceencViewcontroller release];
 }
 
 #pragma mark 跳转到添加设备界面
