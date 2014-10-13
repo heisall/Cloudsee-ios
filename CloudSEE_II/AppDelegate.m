@@ -295,15 +295,15 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
  */
 - (void)initYSTSDK
 {
-//    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-//    NSString *path=[paths objectAtIndex:0];
-//    
-//    JVC_InitSDK(9200, (char *)[path UTF8String]);
-//    JVD04_InitSDK();
-//    JVD05_InitSDK();
-//    InitDecode(); //板卡语音解码
-//    InitEncode(); //板卡语音编解]
-//    JVC_EnableHelp(TRUE,3);  //手机端是3
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path=[paths objectAtIndex:0];
+    
+    JVC_InitSDK(9200, (char *)[path UTF8String]);
+    JVD04_InitSDK();
+    JVD05_InitSDK();
+    InitDecode(); //板卡语音解码
+    InitEncode(); //板卡语音编解]
+    JVC_EnableHelp(TRUE,3);  //手机端是3
 }
 
 /**
