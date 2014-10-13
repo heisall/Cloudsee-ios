@@ -296,6 +296,22 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         }
         [self.view addSubview:btnResig];
     
+    /**
+     *  本地
+     */
+    UIButton *btnLocal = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnLocal.frame = CGRectMake(btnDemo.left, btnDemo.bottom+20 , imgDemoAndResign.size.width, imgDemoAndResign.size.height);
+    [btnLocal setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [btnLocal setTitle:@"本地登录" forState:UIControlStateNormal];
+    [btnLocal addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
+    btnLocal.tag = LOGINVIEWTAG_Resign;
+    if (btnColor) {
+        
+        btnLocal.titleLabel.textColor = btnColor;
+    }
+    [self.view addSubview:btnLocal];
+
+    
     
         /**
          *  下拉view视图

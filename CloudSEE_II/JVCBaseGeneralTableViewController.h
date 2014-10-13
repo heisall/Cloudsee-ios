@@ -22,4 +22,8 @@
 
 - (void)BackClick;
 
+/**
+ *  下拉刷新事件
+ */
+- (void)headerRereshingData;
 @end

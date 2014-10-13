@@ -18,6 +18,7 @@ static const NSString * USERINFO_TIMER      =   @"timer";//最后一次登录时
 static const NSString * USERINFO_AutoLogin  =  @"AutoLogin";//自动登录
 static const NSString * USERINFO_Gesture    =   @"Gesture";//手势密码
 static const NSString * USERINFO_StrToken    =   @"Token";//手势密码
+static const NSString * USERINFO_AlarmState  =   @"userAlarmState";//用户报警状态
 
 
 @interface JVCUserInfoManager ()
@@ -121,6 +122,14 @@ static JVCUserInfoManager *shanreInstance = nil;
     return str.boolValue;
 }
 
+- (int)iUserAlarmState
+{
+    NSNumber *str = [_dirUserInfo objectForKey:USERINFO_AlarmState];
+    
+    return str.intValue;
+
+}
+
 
 
 - (void)setStrUserName:(NSString *)value {
@@ -144,7 +153,6 @@ static JVCUserInfoManager *shanreInstance = nil;
 }
 
 
-
 - (void)setBAutoLoginState:(BOOL)value {
     
     
@@ -156,6 +164,10 @@ static JVCUserInfoManager *shanreInstance = nil;
     [_dirUserInfo setObject:[NSNumber numberWithBool:value] forKey:USERINFO_Gesture];
 }
 
+- (void)setIUserAlarmState:(int)value {
+    
+    [_dirUserInfo setObject:[NSNumber numberWithInt:value] forKey:USERINFO_AlarmState];
+}
 /**
  *  保存用户名密码
  *

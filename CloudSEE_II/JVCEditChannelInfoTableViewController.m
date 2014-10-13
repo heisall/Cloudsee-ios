@@ -29,6 +29,7 @@
     
     UITextField *channelNickNameField;
     
+    
 }
 
 @end
@@ -209,7 +210,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 {
     channelModel =  [arrayChannelsList objectAtIndex:indexPath.row];
     channelNickNameField.text = channelModel.strNickName ;
-
+    [self.tableView setContentOffset:CGPointZero];
     [self tranfromanimation];
 }
 
@@ -225,10 +226,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         modifyChannelNickNameView.hidden = NO;
         [self.view bringSubviewToFront:modifyChannelNickNameView];
         [self.view bringSubviewToFront:channelNickNameField];
+        self.tableView.scrollEnabled = NO;
         [channelNickNameField becomeFirstResponder];
     }else{
         
         modifyChannelNickNameView.hidden = YES;
+        [self.tableView scrollToRowAtIndexPath:self.tableView.indexPathForSelectedRow atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        self.tableView.scrollEnabled = YES;
+
         [channelNickNameField resignFirstResponder];
     }
 

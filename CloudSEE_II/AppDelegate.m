@@ -342,7 +342,7 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
                       stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
                      stringByReplacingOccurrencesOfString:@" " withString:@""];
     DDLogVerbose(@"tokenStr==%@",tokenStr);
-    kkToken = kkToken;
+    kkToken = tokenStr;
 }
 /**
  *  启心跳
@@ -350,8 +350,29 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 -(void)startUserKeepOnline
 {
     [[JVCKeepOnlineHelp shareKeepOnline] startKeepOnline];
+    
 }
 
+- (void)getUserAlarmState
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        kkAlarmState = [[JVCAccountHelper sharedJVCAccountHelper]getAlarmStateInt];
+        DDLogVerbose(@"%s===%d",__FUNCTION__,kkAlarmState);
+        
+        int  getAlarmState = kkAlarmState==1?0:1;
+                
+        if (getAlarmState == 0) {
+            
+            [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+        }else{
+            
+            [[JVCAccountHelper sharedJVCAccountHelper] CancelServerPushToken:kkToken];
+            
+        }
+    });
+   
+}
 /**
  *  presentLoginViewController
  */

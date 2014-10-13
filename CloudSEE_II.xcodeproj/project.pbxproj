@@ -146,6 +146,15 @@
 		A7F5017219D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017019D5521E00AA78F0 /* JVCDeviceSourceHelper.m */; };
 		A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */; };
 		A7F5017A19D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */; };
+		A7F51E6719EBAFF60052F878 /* JVCAlarmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F51E6619EBAFF60052F878 /* JVCAlarmModel.m */; };
+		A7F51E6E19EBB4920052F878 /* JVCAlarmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F51E6D19EBB4920052F878 /* JVCAlarmCell.m */; };
+		A7F51E7119EBB64B0052F878 /* arm_cellbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7019EBB64B0052F878 /* arm_cellbg@2x.png */; };
+		A7F51E7319EBB7250052F878 /* arm_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7219EBB7250052F878 /* arm_def@2x.png */; };
+		A7F51E7519EBBAA50052F878 /* arm_exc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7419EBBAA50052F878 /* arm_exc@2x.png */; };
+		A7F51E7819EBC0F30052F878 /* arm_new_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7619EBC0F30052F878 /* arm_new_ch@2x.png */; };
+		A7F51E7919EBC0F30052F878 /* arm_new_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7719EBC0F30052F878 /* arm_new_en@2x.png */; };
+		A7F51E7C19EBC39E0052F878 /* arm_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7A19EBC39E0052F878 /* arm_hor@2x.png */; };
+		A7F51E7D19EBC39E0052F878 /* arm_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F51E7B19EBC39E0052F878 /* arm_nor@2x.png */; };
 		A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */; };
 		A7F5555419D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */; };
 		A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */; };
@@ -513,6 +522,18 @@
 		A7F5017019D5521E00AA78F0 /* JVCDeviceSourceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceSourceHelper.m; sourceTree = "<group>"; };
 		A7F5017719D5AA3800AA78F0 /* JVCChannelScourseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCChannelScourseHelper.h; sourceTree = "<group>"; };
 		A7F5017819D5AA3800AA78F0 /* JVCChannelScourseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCChannelScourseHelper.m; sourceTree = "<group>"; };
+		A7F51E6519EBAFF60052F878 /* JVCAlarmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmModel.h; sourceTree = "<group>"; };
+		A7F51E6619EBAFF60052F878 /* JVCAlarmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmModel.m; sourceTree = "<group>"; };
+		A7F51E6C19EBB4920052F878 /* JVCAlarmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmCell.h; sourceTree = "<group>"; };
+		A7F51E6D19EBB4920052F878 /* JVCAlarmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmCell.m; sourceTree = "<group>"; };
+		A7F51E7019EBB64B0052F878 /* arm_cellbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_cellbg@2x.png"; sourceTree = "<group>"; };
+		A7F51E7219EBB7250052F878 /* arm_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_def@2x.png"; sourceTree = "<group>"; };
+		A7F51E7419EBBAA50052F878 /* arm_exc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_exc@2x.png"; sourceTree = "<group>"; };
+		A7F51E7619EBC0F30052F878 /* arm_new_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_new_ch@2x.png"; sourceTree = "<group>"; };
+		A7F51E7719EBC0F30052F878 /* arm_new_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_new_en@2x.png"; sourceTree = "<group>"; };
+		A7F51E7A19EBC39E0052F878 /* arm_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_hor@2x.png"; sourceTree = "<group>"; };
+		A7F51E7B19EBC39E0052F878 /* arm_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_nor@2x.png"; sourceTree = "<group>"; };
+		A7F51E7E19EBC6720052F878 /* JVCAlarmMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JVCAlarmMacro.h; sourceTree = "<group>"; };
 		A7F5555219D8FC9F0009F75C /* mor_IconItuns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconItuns@2x.png"; sourceTree = "<group>"; };
 		A7F5555519D8FEA50009F75C /* JVCMoreUserSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMoreUserSettingViewController.h; sourceTree = "<group>"; };
 		A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMoreUserSettingViewController.m; sourceTree = "<group>"; };
@@ -1032,6 +1053,27 @@
 			name = Icon;
 			sourceTree = "<group>";
 		};
+		A7F51E6B19EBB3DA0052F878 /* alarmHelper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = alarmHelper;
+			sourceTree = "<group>";
+		};
+		A7F51E6F19EBB5FE0052F878 /* alarm */ = {
+			isa = PBXGroup;
+			children = (
+				A7F51E7A19EBC39E0052F878 /* arm_hor@2x.png */,
+				A7F51E7B19EBC39E0052F878 /* arm_nor@2x.png */,
+				A7F51E7619EBC0F30052F878 /* arm_new_ch@2x.png */,
+				A7F51E7719EBC0F30052F878 /* arm_new_en@2x.png */,
+				A7F51E7419EBBAA50052F878 /* arm_exc@2x.png */,
+				A7F51E7219EBB7250052F878 /* arm_def@2x.png */,
+				A7F51E7019EBB64B0052F878 /* arm_cellbg@2x.png */,
+			);
+			name = alarm;
+			sourceTree = "<group>";
+		};
 		A7F5556019D90F9B0009F75C /* GestureSecreat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1301,13 +1343,15 @@
 			name = editDeviceViewController;
 			sourceTree = "<group>";
 		};
-		AD2BDB5C19D2BBBF00AA6D73 /* other */ = {
+		AD2BDB5C19D2BBBF00AA6D73 /* alarm */ = {
 			isa = PBXGroup;
 			children = (
 				AD2BDB5D19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.h */,
 				AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */,
+				A7F51E6C19EBB4920052F878 /* JVCAlarmCell.h */,
+				A7F51E6D19EBB4920052F878 /* JVCAlarmCell.m */,
 			);
-			name = other;
+			name = alarm;
 			sourceTree = "<group>";
 		};
 		AD2BDB6619D2BC4500AA6D73 /* tabarImages */ = {
@@ -1536,8 +1580,8 @@
 				A72B4B5919D39E4500760695 /* JVCDeviceModel.h */,
 				A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */,
 				A7F5E25F19D4464C00609BC3 /* JVCUserInfoModel.h */,
-				A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */,
 				A7F0042519D45DC70028533E /* JVCConfigModel.h */,
+				A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */,
 				A7F0042619D45DC70028533E /* JVCConfigModel.m */,
 				A7F5012C19D4F9F800AA78F0 /* JVCMoreSettingModel.h */,
 				A7F5012D19D4F9F800AA78F0 /* JVCMoreSettingModel.m */,
@@ -1545,6 +1589,8 @@
 				A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */,
 				AD3BDC0919E54637001B16D7 /* JVCChannelModel.h */,
 				AD3BDC0A19E54637001B16D7 /* JVCChannelModel.m */,
+				A7F51E6519EBAFF60052F878 /* JVCAlarmModel.h */,
+				A7F51E6619EBAFF60052F878 /* JVCAlarmModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1569,6 +1615,7 @@
 				A72B4B6719D3BB4E00760695 /* JVCDeviceMacro.h */,
 				ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */,
 				ADA22D6519DA7C190092F8B9 /* JVCCloudSEENetworkMacro.h */,
+				A7F51E7E19EBC6720052F878 /* JVCAlarmMacro.h */,
 			);
 			name = Macro;
 			sourceTree = "<group>";
@@ -1616,7 +1663,7 @@
 			children = (
 				A7F4347619DA9E7600E7ECA1 /* operation */,
 				A72B4B7019D3FDB200760695 /* more */,
-				AD2BDB5C19D2BBBF00AA6D73 /* other */,
+				AD2BDB5C19D2BBBF00AA6D73 /* alarm */,
 				AD2BDB2219D2914600AA6D73 /* editDeviceViewController */,
 				A7F5EF1919D25A4E009B797A /* DeviceList */,
 				A7F424E819D0FB1F00D96475 /* Account */,
@@ -1627,6 +1674,7 @@
 		ADA77C2819D0282F003EE7A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7F51E6F19EBB5FE0052F878 /* alarm */,
 				A7F4869819E6254D00C10B2B /* QRScan */,
 				A7F4055A19E50D4A0070945F /* operation */,
 				A7F5558019D949770009F75C /* navicationBar */,
@@ -1644,6 +1692,7 @@
 		ADA77C2919D02844003EE7A1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				A7F51E6B19EBB3DA0052F878 /* alarmHelper */,
 				ADA22D9319DA96F30092F8B9 /* audio */,
 				ADA22D6F19DA7E5B0092F8B9 /* accountHelper */,
 				ADA22D6E19DA7E200092F8B9 /* appHelper */,
@@ -1759,6 +1808,7 @@
 				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
+				A7F51E7919EBC0F30052F878 /* arm_new_en@2x.png in Resources */,
 				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
 				A7F7178319D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */,
 				A7F442A119E7649B00519A4B /* add_scan@2x.png in Resources */,
@@ -1788,6 +1838,7 @@
 				A7F5D78719EA2F6600396AD9 /* no_devWlan@2x.png in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F486A419E6256700C10B2B /* QdContentbg@2x.png in Resources */,
+				A7F51E7119EBB64B0052F878 /* arm_cellbg@2x.png in Resources */,
 				A7263C5619E8108D003C22DE /* con_line@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7FB595019E91C12005E2E6D /* bin_btn@2x.png in Resources */,
@@ -1811,6 +1862,7 @@
 				A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */,
 				A7F442A319E7649B00519A4B /* add_wlan@2x.png in Resources */,
 				AD2BDB1519D28F0600AA6D73 /* edi_linkModel@2x.png in Resources */,
+				A7F51E7D19EBC39E0052F878 /* arm_nor@2x.png in Resources */,
 				AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */,
 				AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */,
 				AD1673BF19D8277A0021CD1B /* dev_channelList_button_bg@2x.png in Resources */,
@@ -1819,10 +1871,12 @@
 				AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */,
 				A7F424FA19D0FD7500D96475 /* log_btn@2x.png in Resources */,
 				A7F6EFB319D7993100FFE02D /* devAdv_default_1@2x.png in Resources */,
+				A7F51E7519EBBAA50052F878 /* arm_exc@2x.png in Resources */,
 				AD2BDB1719D28F0600AA6D73 /* edi_RemoteSetup@2x.png in Resources */,
 				AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */,
 				A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */,
+				A7F51E7819EBC0F30052F878 /* arm_new_ch@2x.png in Resources */,
 				A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */,
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
@@ -1832,6 +1886,7 @@
 				AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */,
 				A7F5016419D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
 				AD2BDB7419D2BC6A00AA6D73 /* tab_message_unselect@2x.png in Resources */,
+				A7F51E7319EBB7250052F878 /* arm_def@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,
 				AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */,
@@ -1839,6 +1894,7 @@
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
 				A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */,
 				AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */,
+				A7F51E7C19EBC39E0052F878 /* arm_hor@2x.png in Resources */,
 				A7F5013519D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
@@ -1951,6 +2007,7 @@
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
 				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
+				A7F51E6719EBAFF60052F878 /* JVCAlarmModel.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
@@ -2009,6 +2066,7 @@
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F4347519DA883500E7ECA1 /* UIImage+BundlePath.m in Sources */,
 				A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */,
+				A7F51E6E19EBB4920052F878 /* JVCAlarmCell.m in Sources */,
 				A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
 				A7F0042319D45C030028533E /* AHReach.m in Sources */,
 				A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */,

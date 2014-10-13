@@ -21,6 +21,12 @@ enum PushMessage
     RECIVE_PUSH_MESSAGE = 4602,
 };
 
+@interface JVCKeepOnlineHelp ()
+{
+    int iUserAlarmState;
+}
+
+@end
 @implementation JVCKeepOnlineHelp
 
 static JVCKeepOnlineHelp *_shareInstance = nil;
@@ -28,9 +34,6 @@ static JVCKeepOnlineHelp *_shareInstance = nil;
 static const int KEEPONLINE_SUCCESS = 0;//保持在线的正确结果
 static const int KMAX_ERROR_COUNT   = 4;//最大提掉线次数
 static const int KTAGADDNUM         = 1000;//tag最大值
-
-
-
 
 int _iErrorNUm = 0;//保持在线的统计次数
 NSTimer *timerCuntDown;//倒计时的
@@ -82,8 +85,22 @@ UIAlertView *alertView;
         
         [JVCAccountHelper sharedJVCAccountHelper].delegate = self;
         
+        /**
+         *  上传报警信息
+         */
+        [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+
     });
     
+}
+
+- (void)getAccountAlarmState
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+         iUserAlarmState = [[JVCAccountHelper sharedJVCAccountHelper] getAlarmStateInt];
+        
+    });
 }
 
 /**
@@ -180,7 +197,7 @@ UIAlertView *alertView;
  */
 -(void)serverPushCallBack:(int)message_type serverPushData:(NSData *)serverPushData
 {
-    
+    NSLog(@"帐号服务器的长连接的回调 （包含实时报警、赶人下线、TCP断开=");
 }
 
 /**

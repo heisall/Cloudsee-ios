@@ -216,7 +216,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     YStLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, KHeadViewHeigin+imageSlide.size.height, self.view.width, self.view.height)];
     YStLinkView.delegate = self;
-    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通",@"用户名",@"密码",nil]  ];
+    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通号",@"用户名",@"密码",nil]  ];
     
     [self.view addSubview:YStLinkView];
     

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 chenzhenyang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCAlarmMessageViewController : UIViewController
+@interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController
 
 @end

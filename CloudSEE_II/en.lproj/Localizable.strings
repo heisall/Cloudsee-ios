@@ -23,3 +23,6 @@
 
 //添加设备
 "add_apConfig"="add_ApConfig_en.png";
+
+//报警界面新
+"JVCArm_New"="arm_new_en.png";

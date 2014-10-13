@@ -522,6 +522,31 @@ onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
     
 }
 
+/**
+ *	激活token
+ *
+ *	@param	device_id	设备的唯一标识
+ *
+ *	@return	成功返回0
+ */
+-(int)activeServerPushToken:(NSString *)device_id{
+    
+    return SetCurrentAlarmFlag_C(ALARM_ON,[device_id UTF8String]);
+}
+
+/**
+ *	取消token
+ *
+ *	@param	device_id	设备的唯一标识
+ *
+ *	@return	成功返回0
+ */
+-(int)CancelServerPushToken:(NSString *)device_id{
+    
+    
+    return SetCurrentAlarmFlag_C(ALARM_OFF,[device_id UTF8String]);
+    
+}
 
 
 

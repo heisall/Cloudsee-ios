@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSString *strToken;//
 @property (nonatomic, assign) BOOL bAutoLoginState;
 @property (nonatomic, assign) BOOL bGestureState;
-
+@property (nonatomic, assign) int  iUserAlarmState;
 /**
  *  单例
  *
@@ -35,6 +35,7 @@
 #define kkLoginState    [JVCUserInfoManager shareUserInfoManager].bAutoLoginState
 #define kkGustureStgate [JVCUserInfoManager shareUserInfoManager].bGestureState
 #define kkToken         [JVCUserInfoManager shareUserInfoManager].strToken
+#define kkAlarmState    [JVCUserInfoManager shareUserInfoManager].iUserAlarmState
 
 /**
  *  获取用户名

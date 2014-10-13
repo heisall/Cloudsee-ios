@@ -302,4 +302,13 @@ enum DEVICEONLINESTATE
  */
 - (NSDictionary *)getDeviceOnlineAndBindingStateInfoWithGuid:(NSString *)deviceGuidStr;
 
+/**
+ *	获取报警信息的列表
+ *
+ *	@param	startIndexValue	从哪一条开始
+ *
+ *	@return	返回JK_ALARM_LISTCOUNT个
+ */
+-(id)getAccountByDeviceAlarmList:(int)startIndexValue;
+
 @end

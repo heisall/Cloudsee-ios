@@ -10,6 +10,7 @@
 #import "JSONKit.h"
 #import "JVCDeviceMacro.h"
 #import "JVCAccountInterface.h"
+#import "JVCAlarmMacro.h"
 
 
 
@@ -79,9 +80,10 @@ char outTextBuffer[1280*720*3];
     
     memset(outTextBuffer, 0, sizeof(outTextBuffer));
     
-    int resultValue=GetResponseByRequestDeviceShortConnectionServer_C((const char *)[requstJosnStr UTF8String],outTextBuffer);
+//    int resultValue=GetResponseByRequestDeviceShortConnectionServer_C((const char *)[requstJosnStr UTF8String],outTextBuffer);
     
-    
+    int resultValue=GetResponseByRequestShortConnectionServer_C(2,(const char *)[requstJosnStr UTF8String],outTextBuffer);
+
     if (resultValue!=DEVICESERVICERESPONSE_SUCCESS){
         
         return nil;
@@ -1202,6 +1204,58 @@ char outTextBuffer[1280*720*3];
     return resultMDic;
     
 }
+
+/**
+ *	获取报警信息的列表
+ *
+ *	@param	startIndexValue	从哪一条开始
+ *
+ *	@return	返回JK_ALARM_LISTCOUNT个
+ */
+-(id)getAccountByDeviceAlarmList:(int)startIndexValue{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:MID_REQUEST_ALARMHISTORY] forKey:JK_ALARM_MID];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:JK_ALARM_LISTCOUNT] forKey:JK_ALARM_SEARCHCOUNT];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue] forKey:JK_ALARM_SEARCHINDEX];
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    NSLog(@"parseStr=%@",parseStr);
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    NSLog(@"resultID=%@",resultID);
+    return resultID;
+   // return [self ConvertAlarmlistToModelListData:resultID];
+}
+
+
+
+/**
+ *	获取一条报警视频信息的视频
+ *
+ *	@param	alarmGuid	报警信息的GUID
+ *
+ *	@return	一条报警信息的视频信息
+ */
+-(id)getSingleAlarmVideoInfo:(NSString *)alarmGuid{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:MID_REQUEST_ALARMVIDEOURL] forKey:JK_ALARM_MID];
+    [requestInfoMDict setValue:alarmGuid forKey:JK_ALARM_GUID];
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    [requestInfoMDict release];
+    
+    return [self getResponseByRequestBusinessServer:parseStr];
+}
+
 
 
 @end

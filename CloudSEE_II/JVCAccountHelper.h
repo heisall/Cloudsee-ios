@@ -206,4 +206,22 @@
  */
 - (int)intiAccountSDKWithIsLocalCheck:(BOOL )state;
 
+/**
+ *	激活token
+ *
+ *	@param	device_id	设备的唯一标识
+ *
+ *	@return	成功返回0
+ */
+-(int)activeServerPushToken:(NSString *)device_id;
+
+/**
+ *	取消token
+ *
+ *	@param	device_id	设备的唯一标识
+ *
+ *	@return	成功返回0
+ */
+-(int)CancelServerPushToken:(NSString *)device_id;
+
 @end
