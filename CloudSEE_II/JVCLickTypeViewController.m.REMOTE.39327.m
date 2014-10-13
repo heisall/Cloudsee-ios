@@ -216,7 +216,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     YStLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, KHeadViewHeigin+imageSlide.size.height, self.view.width, self.view.height)];
     YStLinkView.delegate = self;
-    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通号",@"用户名",@"密码",nil]  ];
+    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通",@"用户名",@"密码",nil]  ];
     
     [self.view addSubview:YStLinkView];
     
@@ -354,7 +354,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 
         }else{
         
-             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text];
+             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text ];
+
         }
       
         
@@ -377,10 +378,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)ModifyDeviceLinkYSTTypeResult:(int)result
 {
-    DDLogInfo(@"修改设备连接类型收到的返回值=%d",result);
     
+    DDLogInfo(@"修改设备连接类型收到的返回值=%d",result);
     if ( KLinkTypeSUCCESS == result) {//成功
-        
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Modify_LinkType_success")];
         
         if (IPLinkView.hidden == YES) {//云视通的保存数据方法
@@ -392,8 +392,6 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
             [self saveIpLinkTypeDate];
             
         }
-        
-        deviceModel.isCustomLinkModel = deviceModel.linkType == CONNECTTYPE_YST ? FALSE : TRUE;
         
     }else{
         
@@ -518,8 +516,6 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         
     }];
 }
-
-
 
 -(void)resiginLinkTypeTextFields
 {

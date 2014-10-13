@@ -15,6 +15,7 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCResultTipsHelper.h"
 
 
@@ -316,6 +317,8 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
             
             if (ADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
                 
+                
+                
                 [self getNewAddDeviceInfo];
                 
             }else{//失败
@@ -355,6 +358,12 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                   JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text];
                     
                     [tempMode retain];
+                    
+                    NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
+                    
+                    [newModelList addObject:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelWithYstNumberConvertLocalCacheModel:tempMode.yunShiTongNum]];
+                    
+                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
                     
                     //从云视通服务器获取设备的通道数
                     [self getDeviceChannelNums:textFieldYST.text];
@@ -420,8 +429,6 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         //把通道数添加到服务器
       int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:textFieldYST.text addChannelCount:channelNum];
 
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (ADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
@@ -436,11 +443,9 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                 [self getChannelsDetailInfo];
             }
 
-            
         });
         
     });
-
 }
 
 /**
