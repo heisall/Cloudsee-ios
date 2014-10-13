@@ -151,6 +151,16 @@ enum MODIFY_DEVICE_TYPE
               EnsurePassWord:(NSString *)enSurePassWord
                UserSavePassWord:(NSString *)userSavePassWord;
 
+/**
+ *  检测注册用户名、密码是否合法
+ *
+ *  @param userName       用户名
+ *  @param passWord       密码
+ *
+ *  @return 返回相应的枚举字段
+ */
+- (int)predicatUserName:(NSString *)userName
+               PassWord:(NSString *)passWord;
 
 /**
  *  修改设备昵称、用户名、密码的时候，判断一下相应的字段是否合法
@@ -204,4 +214,7 @@ enum MODIFY_DEVICE_TYPE
  *  @return 返回相应的数值
  */
 - (int)PredicateLinkTypeUserName:(NSString *)userName  PassWord:(NSString *)passWord  Ip:(NSString *)Ip  port:(NSString *)port;
+
+//判断是不是正确的Ip
+-(BOOL)isIP:(NSString *)str;
 @end

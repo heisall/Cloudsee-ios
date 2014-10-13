@@ -32,6 +32,13 @@ static const NSString *DefaultPassWord = @"123";      //默认密码
 
 static  const int KPredicateUserNameLegateAddNum            = 100;//正则校验用户名合法时返回值添加100
 
+static const  int KUserNameMaxLength   =  28;//用户名最大长度
+static const  int KPassWordMaxLength   =  20;//密码最大长度
+static const  int KTextFieldLeftLabelViewWith   =  10;//textfield 左侧label的宽度
+
+static const  int KDevicePassWordMaxLength   =  16;//设备密码最大长度
+static const  int KDeviceUserNameMaxLength   =  16;//设备密码最大长度
+
 
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 

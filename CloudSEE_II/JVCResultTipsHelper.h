@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+static const int KAddTag  = 100;//判断用户的时候的返回值是负数，给他加100处理
 
 @interface JVCResultTipsHelper : NSObject
 
@@ -36,4 +37,11 @@
  *  修改设备的用户名、密码、昵称的返回值显示信息
  */
 - (void)showModifyDeviceInfoResult:(int)result;
+
+/**
+ *  添加设备界面、根据正则的返回值处理提示
+ *
+ *  @param result 正则的返回值
+ */
+- (void)showAddDevicePredicateAlert:(int )result;
 @end

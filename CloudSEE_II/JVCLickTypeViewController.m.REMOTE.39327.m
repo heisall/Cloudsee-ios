@@ -378,10 +378,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)ModifyDeviceLinkYSTTypeResult:(int)result
 {
-    DDLogInfo(@"修改设备连接类型收到的返回值=%d",result);
     
+    DDLogInfo(@"修改设备连接类型收到的返回值=%d",result);
     if ( KLinkTypeSUCCESS == result) {//成功
-        
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Modify_LinkType_success")];
         
         if (IPLinkView.hidden == YES) {//云视通的保存数据方法
@@ -517,8 +516,6 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         
     }];
 }
-
-
 
 -(void)resiginLinkTypeTextFields
 {

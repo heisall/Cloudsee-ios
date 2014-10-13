@@ -37,6 +37,14 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 
 - (void)initViewWithTitlesArray:(NSArray *)titleArray
 {
+    self.userInteractionEnabled =YES;
+    
+    UIControl *control = [[UIControl alloc] initWithFrame:self.bounds];
+    NSLog(@"%@==%@",NSStringFromCGRect(control.frame),NSStringFromCGRect(self.bounds));
+    [control addTarget:self action:@selector(backGroundClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:control];
+    [control release];
+    
     textFieldAllocArray = [[NSMutableArray alloc] init];
     
     arrayLabelTitiles = [titleArray retain];
@@ -65,6 +73,7 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
         textField.backgroundColor = [UIColor colorWithPatternImage:image];
         textField.leftViewMode = UITextFieldViewModeAlways;
         textField.keyboardType = UIKeyboardTypeASCIICapable;
+        textField.returnKeyType = UIReturnKeyDone;
         textField.leftView = labelLeftView;
         [labelLeftView release];
         [self addSubview:textField];
@@ -95,6 +104,13 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 {
     if (delegate !=nil && [delegate respondsToSelector:@selector(JVCLabelFieldBtnClickCallBack)]) {
         [delegate JVCLabelFieldBtnClickCallBack];
+    }
+}
+
+- (void)backGroundClick
+{
+    if (delegate !=nil && [delegate respondsToSelector:@selector(touchUpInsiderBackGroundCallBack)]) {
+        [delegate touchUpInsiderBackGroundCallBack];
     }
 }
 

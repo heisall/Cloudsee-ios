@@ -106,23 +106,23 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PORT_ERROR")];
             
             break;
-        case VALIDATIONUSERNAMETYPE_LENGTH_E+100:
+        case VALIDATIONUSERNAMETYPE_LENGTH_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_LENGTH_E")];
             
             break;
-        case VALIDATIONUSERNAMETYPE_NUMBER_E+100:
+        case VALIDATIONUSERNAMETYPE_NUMBER_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_NUMBER_E")];
             
             break;
-        case VALIDATIONUSERNAMETYPE_OTHER_E+100:
+        case VALIDATIONUSERNAMETYPE_OTHER_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_OTHER_E")];
             
             break;
             
-        case VALIDATIONUSERNAMETYPE_PHONE_E+100:
+        case VALIDATIONUSERNAMETYPE_PHONE_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_login_resign_PhoneNum_error")];
             break;
-        case VALIDATIONUSERNAMETYPE_EMAIL_E+100:
+        case VALIDATIONUSERNAMETYPE_EMAIL_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_email_error")];
             break;
             
@@ -199,6 +199,45 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
             break;
     }
 }
+
+/**
+ *  添加设备界面、根据正则的返回值处理提示
+ *
+ *  @param result 正则的返回值
+ */
+- (void)showAddDevicePredicateAlert:(int )result
+{
+    switch (result) {
+        case ADDDEVICE_YST_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"yunshitongNIl", nil)];
+            break;
+            
+        case ADDDEVICE_YST_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"nolegalYushitongadd", nil)];
+            break;
+            
+        case ADDDEVICE_USER_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"UserNameNil", nil)];
+            break;
+            
+        case ADDDEVICE_USER_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"DEVICE_USERNAME_ERROR", nil)];
+            break;
+            
+        case ADDDEVICE_PASSWORD_NIL://现在不能用
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"LOGINRESULT_PASSWORLD_NIL", nil)];
+            break;
+            
+        case ADDDEVICE_PASSWORD_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"DEVICE_PASSWORLD_ERROR", nil)];
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
 
 
 @end

@@ -89,7 +89,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     //账号信息
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
-    modelUser.itemName = @"账号信息";
+    modelUser.itemName = @"修改密码";
     modelUser.iconImageName = @"mor_IconUser.png";
     modelUser.bBtnState = NO;
     [FistSectionArray addObject:modelUser];

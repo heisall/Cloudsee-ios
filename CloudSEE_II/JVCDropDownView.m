@@ -22,7 +22,7 @@
 @implementation JVCDropDownView
 @synthesize dropDownDelegate;
 static const int KOrigin_X  = 1;//距离左边的距离10
-static const int KLabelWith = 100;//label的宽度
+static const int KLabelWith = 200;//label的宽度
 static const int KSeperate  = 10;//间距5
 
 

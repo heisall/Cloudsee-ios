@@ -75,7 +75,7 @@ static const int kTag         = 100;//tag
     //有限设备
     UILabel *labelWire = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, btnWlan.bottom+kSpan, imageWlan.size.width, kLabelHeigt)];
     labelWire.backgroundColor = [UIColor clearColor];
-    labelWire.text = @"有限设备";
+    labelWire.text = @"有线设备";
     [self.contentView addSubview:labelWire];
     [labelWire release];
 
@@ -90,7 +90,7 @@ static const int kTag         = 100;//tag
     //按钮
     UIButton *btnWireWlan = [UIButton buttonWithType:UIButtonTypeCustom];
     btnWireWlan.frame = CGRectMake(imageviewWire.left, imageviewWire.bottom+kSpan, imageBtnWlan.size.width, imageBtnWlan.size.height);
-    [btnWireWlan setTitle:@"有限设备" forState:UIControlStateNormal];
+    [btnWireWlan setTitle:@"有线设备" forState:UIControlStateNormal];
     if (btnColorBlue) {
         [btnWireWlan setTitleColor:btnColorBlue forState:UIControlStateNormal];
     }

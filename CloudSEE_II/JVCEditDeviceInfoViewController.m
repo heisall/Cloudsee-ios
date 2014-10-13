@@ -83,6 +83,8 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     labelLeft.textAlignment = UITextAlignmentRight;
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     deviceNickNameField.leftViewMode = UITextFieldViewModeAlways;
+    deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
+    deviceNickNameField.returnKeyType = UIReturnKeyDone;
     deviceNickNameField.leftView = labelLeft;
     [labelLeft release];
     UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
@@ -102,6 +104,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     }
     devieUserName.text = (NSString *)DefaultUserName;
     devieUserName.keyboardType = UIKeyboardTypeASCIICapable;
+    devieUserName.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:devieUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
@@ -112,6 +115,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     labelNameLeft.textAlignment = UITextAlignmentRight;
     labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     devieUserName.leftViewMode = UITextFieldViewModeAlways;
+    devieUserName.returnKeyType = UIReturnKeyDone;
     devieUserName.leftView = labelNameLeft;
     [labelNameLeft release];
     UILabel *labelUserRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
@@ -126,6 +130,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     devicePassWord.background = imgTextFieldBG;
     devicePassWord.textAlignment = UITextAlignmentRight;
     devicePassWord.keyboardType = UIKeyboardTypeASCIICapable;
+    devicePassWord.returnKeyType = UIReturnKeyDone;
     devicePassWord.delegate = self;
     devicePassWord.text = (NSString *)DefaultPassWord;
     
@@ -188,6 +193,17 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     if (textField == devicePassWord) {
         [self editDeviceSlideUp];
     }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if (textField == devicePassWord) {
+        
+        [self editDeviceSlideDown];
+    }
+    return YES;
 }
 
 #pragma mark 删除设备的事件

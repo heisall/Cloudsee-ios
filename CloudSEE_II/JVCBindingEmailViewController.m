@@ -103,12 +103,14 @@ static const int  KSUCCESS          = 0;//成功
     _textFieldEmail = [[UITextField alloc] initWithFrame:CGRectMake(labelEmail.right+KLabelSpan, labelEmail.top, image.size.width, image.size.height) ];
     _textFieldEmail.delegate = self;
     _textFieldEmail.borderStyle = UITextBorderStyleNone;
+    _textFieldEmail.returnKeyType = UIReturnKeyDone;
     _textFieldEmail.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     _textFieldEmail.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     UILabel *lableLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabeLeftViewWith, _textFieldEmail.height)];
     lableLeft.backgroundColor = [UIColor clearColor];
     _textFieldEmail.leftViewMode = UITextFieldViewModeAlways;
     _textFieldEmail.leftView = lableLeft;
+    _textFieldEmail.keyboardType = UIKeyboardTypeASCIICapable;
     [_textFieldEmail becomeFirstResponder];
     [lableLeft release];
     [_textFieldEmail setBackground:image];
@@ -117,7 +119,7 @@ static const int  KSUCCESS          = 0;//成功
         _textFieldEmail.textColor = labColorGray;
         
     }
-    _textFieldEmail.autocorrectionType = NO;
+    _textFieldEmail.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.view addSubview:_textFieldEmail];
     
     [image release];
@@ -146,7 +148,7 @@ static const int  KSUCCESS          = 0;//成功
     NSString *_strTitle = LOCALANGER(@"DeviceModifyViewController_binding");
     
     CGSize _size = [_strTitle sizeWithFont:[UIFont systemFontOfSize:KSYSTEM_FONT] constrainedToSize:CGSizeMake(self.view.width -imageViewAlert.frame.size.width - 2*KLabelOriginX , 300) lineBreakMode:NSLineBreakByWordWrapping];
-    UILabel *_lblAlert = [[UILabel alloc] initWithFrame:CGRectMake(imageViewAlert.frame.origin.x+imageViewAlert.frame.size.width, imageViewAlert.frame.origin.y,_textFieldEmail.frame.size.width -imageViewAlert.frame.size.width-imageViewAlert.frame.size.width , _size.height)];
+    UILabel *_lblAlert = [[UILabel alloc] initWithFrame:CGRectMake(imageViewAlert.frame.origin.x+imageViewAlert.frame.size.width, imageViewAlert.frame.origin.y,self.view.frame.size.width -imageViewAlert.right , _size.height)];
     
     _lblAlert.numberOfLines = 0;
     _lblAlert.lineBreakMode = UILineBreakModeWordWrap;
@@ -187,10 +189,16 @@ static const int  KSUCCESS          = 0;//成功
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (range.location>=KEmailMAXNum) {
+    if (range.location>=KUserNameMaxLength) {
         
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
     return YES;
 }
 
@@ -224,6 +232,8 @@ static const int  KSUCCESS          = 0;//成功
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
+        
+        [_textFieldEmail becomeFirstResponder];
     }
     
 }
@@ -235,7 +245,8 @@ static const int  KSUCCESS          = 0;//成功
         [self finishBindingEmail];
         
     }else{
-        
+        [_textFieldEmail becomeFirstResponder];
+
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"绑定邮箱失败，请重新绑定"];
     }
 }

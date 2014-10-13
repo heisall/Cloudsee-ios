@@ -12,6 +12,7 @@
 #import "JVCAccountMacro.h"
 #import "JVCRGBHelper.h"
 #import "JVCAccountHelper.h"
+#import "JVCDataBaseHelper.h"
 @interface JVCModifyUnLegalViewController ()
 {
     
@@ -34,7 +35,7 @@ static const float KLabelWith       = 60;//距离顶端的距离
 static const float KSpan            = 20;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
-
+static const int   KlabelFont       = 14;//labbel的字体大小
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,6 +54,9 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     
     self.navigationController.navigationBarHidden = NO;
     
+    JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    
     NSString *strImage = [UIImage imageBundlePath:@"con_fieldUnSec.png"];
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:strImage];
     
@@ -61,6 +65,9 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     LabelTitleUser.backgroundColor = [UIColor clearColor];
     LabelTitleUser.textAlignment = UITextAlignmentLeft;
     [self.view addSubview:LabelTitleUser];
+    if (labColor) {
+        LabelTitleUser.textColor = labColor;
+    }
     [LabelTitleUser release];
     
     UILabel *labelLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelFieldSpan, image.size.height)];
@@ -69,11 +76,22 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     userTextField.backgroundColor = [UIColor colorWithPatternImage:image];
     userTextField.leftViewMode = UITextFieldViewModeAlways;
     userTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    userTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    userTextField.returnKeyType = UIReturnKeyDone;
+    if (labColor) {
+        userTextField.textColor = labColor;
+    }
     userTextField.leftView = labelLeftView;
     [labelLeftView release];
     [self.view addSubview:userTextField];
     
+
+    
     userLabel = [[UILabel alloc] initWithFrame:CGRectMake(KLabelOriginX, userTextField.bottom, self.view.width - 2*KLabelOriginX, KSpan)];
+    userLabel.font = [UIFont systemFontOfSize:KlabelFont];
+    if (labColor) {
+        userTextField.textColor = labColor;
+    }
     userLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:userLabel];
     
@@ -82,6 +100,9 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     LabelTitlePW.backgroundColor = [UIColor clearColor];
     LabelTitlePW.textAlignment = UITextAlignmentLeft;
     [self.view addSubview:LabelTitlePW];
+    if (labColor) {
+        LabelTitlePW.textColor = labColor;
+    }
     [LabelTitlePW release];
     
     UILabel *labelLeftViewPW = [[UILabel alloc] initWithFrame:CGRectMake(0,0, KLabelLeftWith, image.size.height)];
@@ -90,11 +111,13 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     passWordField.backgroundColor = [UIColor colorWithPatternImage:image];
     passWordField.leftViewMode = UITextFieldViewModeAlways;
     passWordField.keyboardType = UIKeyboardTypeASCIICapable;
+    passWordField.returnKeyType = UIReturnKeyDone;
     passWordField.leftView = labelLeftViewPW;
     [labelLeftViewPW release];
     [self.view addSubview:passWordField];
 
     passWordLabel = [[UILabel alloc] initWithFrame:CGRectMake(KLabelOriginX, LabelTitlePW.top, self.view.width - 2*KLabelOriginX, KSpan)];
+    passWordLabel.font = [UIFont systemFontOfSize:KlabelFont];
     passWordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passWordLabel];
     
@@ -120,14 +143,14 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
  */
 - (void)modifyUnlegatUserInfo
 {
-    int resultValue = [[JVCPredicateHelper shareInstance] predicateUserNameIslegal:userTextField.text];
+    int resultValue = [[JVCPredicateHelper shareInstance] predicatUserName:userTextField.text PassWord:passWordField.text];
     if (resultValue == kSuccessModifyUserLegat) {//合法
         
         [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            int exitResult = [[JVCAccountHelper sharedJVCAccountHelper] IsUserExist:userTextField.text];
+            int exitResult = [[JVCAccountHelper sharedJVCAccountHelper] ResetUserNameAndPassword:userTextField.text newPassword:passWordField.text];
             
             DDLogInfo(@"再这里就行了修改，回头要去掉==exitResult= 0;");
             
@@ -202,6 +225,23 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == userTextField) {
+        
+        if(range.location>=KUserNameMaxLength)
+            
+            return NO;
+    }else{
+        
+        if (range.location>=KPassWordMaxLength) {
+            
+            return NO;
+        }
+    }
+    return YES;
+}
+
 /**
  *  判断用户名是否被注册过
  */
@@ -226,6 +266,13 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
 /**
  *  根据返回的数据处理结果
  *
@@ -233,35 +280,22 @@ static const float KLabelLeftWith   = 10;//textfield左侧的leftview宽度
  */
 - (void)handleJudgeUserNameHsaResignResult:(int )tType
 {
-    if (tType == USER_HAS_EXIST) {
-        
-        [self setUserLabelRed:userLabel];
-        
-        userLabel.text = LOCALANGER(@"home_login_resign_user_exit");
-        
-    }else if(tType == USER_NOT_EXIST){
-        
-        [self setUserLabelBlue:userLabel];
-        userLabel.text = LOCALANGER(@"home_login_resign_user_noFound");
-        
-    }else if(tType == PHONE_NUM_ERROR){
-        
-        [self setUserLabelRed:userLabel];
-        userLabel.text = LOCALANGER(@"home_login_resign_PhoneNum_error");
-    }
-    
-    if (tType != USER_NOT_EXIST) {
-        
-        [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:tType];
-
-    }else{
+    if (tType == SUCCESS) {//成功
         [self modifyUnLegalUserInfoSeccess];
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
     }
-    
 }
 
 - (void)modifyUnLegalUserInfoSeccess
 {
+    JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+    [fmdbHelp writeUserInfoToDataBaseWithUserName:userTextField.text passWord:passWordField.text];
+    
+    kkUserName = userTextField.text;
+    kkPassword = passWordField.text;
+    
     if(delegate !=nil && [delegate respondsToSelector:@selector(modifyUserAndPWSuccessCallBack)])
     {
         [delegate modifyUserAndPWSuccessCallBack];

@@ -188,6 +188,15 @@ static  const   int      KSetHelpMaxCount    = 10;
     [[JVCDeviceSourceHelper shareDeviceSourceHelper] removeAllDeviceObject];
     [[JVCChannelScourseHelper shareChannelScourseHelper]removeAllchannelsObject];
     
+    for (id idControler in tabbar.viewControllers) {
+        
+        if ([idControler isKindOfClass:[UINavigationController class]]) {
+            
+            UINavigationController *navController = (UINavigationController *)idControler;
+            [navController popToRootViewControllerAnimated:NO];
+        }
+    }
+    
     [deviceListController getDeviceList];
     
 }

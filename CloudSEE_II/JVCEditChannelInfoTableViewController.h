@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import "JVCBaseWithGeneralViewController.h"
+#import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCEditChannelInfoTableViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface JVCEditChannelInfoTableViewController : JVCBaseGeneralTableViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     NSString *YstNum;
 }
