@@ -190,6 +190,10 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     [imageViewUser release];
     //输入框
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake(imageViewUser.frame.origin.x+10+imageViewUser.frame.size.width, imageViewUser.frame.origin.y, imageviewInPutLine.frame.size.width - imageViewUser.frame.size.width-50, imageViewUser.frame.size.height+5)];
+    textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
+    textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
+    textFieldUser.returnKeyType = UIReturnKeyDone;
+    textFieldUser.delegate = self;
     textFieldUser.placeholder = @"用户名";
     if (labColor) {
         
@@ -231,6 +235,9 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     //输入框
     textFieldPW = [[UITextField alloc] initWithFrame:CGRectMake(imageViewPW.frame.origin.x+10+imageViewPW.frame.size.width, imageViewPW.frame.origin.y, imageviewInPutLinePW.frame.size.width - imageViewPW.frame.size.width-30, imageViewPW.frame.size.height+5)];
     textFieldPW.placeholder = @"密码";
+    textFieldPW.delegate = self;
+    textFieldPW.returnKeyType = UIReturnKeyDone;
+    textFieldPW.keyboardType = UIKeyboardTypeASCIICapable;
     textFieldPW.keyboardType = UIKeyboardTypeASCIICapable;
     if (labColor) {
         
@@ -422,9 +429,15 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     [modifyVC release];
 }
 
+/**
+ *  修改非法用户名密码的回调函数
+ */
 - (void)modifyUserAndPWSuccessCallBack
 {
-    [self modifyPassWordInbackGround];
+    textFieldUser.text = kkUserName;
+    textFieldPW.text   = kkPassword;
+    
+    [self clickTologin];
 }
 
 #pragma mark 新账号登录
@@ -574,6 +587,15 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     
     [self clickDropDownView];
 
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    [self clickDropDownView];
+
+    return YES;
 }
 
 #pragma mark

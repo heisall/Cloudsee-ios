@@ -15,6 +15,7 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "JVCResultTipsHelper.h"
 
 
 
@@ -81,6 +82,8 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     textFieldYST = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, TESTORIIGIN_Y, imgTextFieldBG.size.width, imgTextFieldBG.size.height)];
     textFieldYST.background = imgTextFieldBG;
     textFieldYST.textAlignment = UITextAlignmentRight;
+    textFieldYST.returnKeyType = UIReturnKeyDone;
+    textFieldYST.delegate = self;
     if (textColor) {
         textFieldYST.textColor = textColor;
     }
@@ -107,6 +110,8 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     //用户名
     textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldYST.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
     textFieldUserName.background = imgTextFieldBG;
+    textFieldUserName.delegate = self;
+    textFieldUserName.returnKeyType = UIReturnKeyDone;
     textFieldUserName.textAlignment = UITextAlignmentRight;
     if (textColor) {
         textFieldUserName.textColor = textColor;
@@ -138,6 +143,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     textFieldPassWord.textAlignment = UITextAlignmentRight;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     textFieldPassWord.delegate = self;
+    textFieldPassWord.returnKeyType = UIReturnKeyDone;
     textFieldPassWord.text = (NSString *)DefaultPassWord;
 
     if (textColor) {
@@ -261,34 +267,34 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
  */
 - (void)saveDevice
 {
-    int result = [[JVCPredicateHelper shareInstance]addDeviceToAccountPredicateYSTNUM:textFieldYST.text ];
+    int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:textFieldYST.text andUserName:textFieldUserName.text andPassWord:textFieldPassWord.text];
     
-    if (ADDPREDICATE_SUCCESS == result) {//成功
-        
-        [self resignADDDeviceTextFields];
-        
-        //判断是否超过最大值以及数据表中是否有这个设备
-        int result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:textFieldYST.text];
-
-        if (ADDDEVICE_HAS_EXIST == result) {//存在
+    if (ADDPREDICATE_SUCCESS == result) {
             
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备列表中已存在"];
-
-        }else if(ADDDEVICE_MAX_MUX == result)//超过最大值
-        {
+            [self resignADDDeviceTextFields];
+            
+            //判断是否超过最大值以及数据表中是否有这个设备
+            int result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:textFieldYST.text];
+            
+            if (ADDDEVICE_HAS_EXIST == result) {//存在
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备列表中已存在"];
+                
+            }else if(ADDDEVICE_MAX_MUX == result)//超过最大值
+            {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大值"];
+                
+            }else{//开始添加
+                
+                [self  addDeviceToAccount];
+            }
         
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大值"];
-
-        }else{//开始添加
+    }else{
         
-            [self  addDeviceToAccount];
-        }
-
-        
-    }else
-    {
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"云视通不合法"];
+        [[JVCResultTipsHelper shareResultTipsHelper]showAddDevicePredicateAlert:result];
     }
+    
 }
 
 /**
@@ -489,6 +495,29 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         
         [self addDeviceSlideUp];
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == textFieldUserName) {
+        
+        if(range.location>=KDeviceUserNameMaxLength)
+            
+            return NO;
+    }else{
+        
+        if (range.location>=KDevicePassWordMaxLength) {
+            
+            return NO;
+        }
+    }
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self addDeviceSlideDown];
+    return YES;
 }
 
 /**

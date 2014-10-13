@@ -8,6 +8,6 @@
 
 #import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCMoreViewController : JVCBaseGeneralTableViewController
+@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate>
 
 @end

@@ -11,6 +11,6 @@
 #import "JVCDropDownView.h"
 #import "JVCModifyUnLegalViewController.h"
 
-@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate,DropDownViewDelegate,modifyUnlegalUserAndPassWordDelegate>
+@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate,DropDownViewDelegate,modifyUnlegalUserAndPassWordDelegate,UITextFieldDelegate>
 
 @end

@@ -17,6 +17,11 @@
  */
 - (void)JVCLabelFieldBtnClickCallBack;
 
+/**
+ *  背景被按下的回调
+ */
+- (void)touchUpInsiderBackGroundCallBack;
+
 @end
 
 @interface JVCLabelFieldSView : UIView

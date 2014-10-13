@@ -12,6 +12,8 @@
 #import "JVCAccountHelper.h"
 #import "JVCDataBaseHelper.h"
 #import "AppDelegate.h"
+#import "JVCRGBHelper.h"
+#import "JVCRGBColorMacro.h"
 
 /**
  *  textFeild 的类型
@@ -124,9 +126,19 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     _textFieldUserName.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     _textFieldUserName.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [_textFieldUserName setBackground:tImage];
-    _textFieldUserName.autocorrectionType = NO;
+    _textFieldUserName.returnKeyType = UIReturnKeyDone;
+    _textFieldUserName.autocorrectionType = UITextAutocorrectionTypeNo;
     _textFieldUserName.textAlignment = UITextAlignmentLeft;
     _textFieldUserName.secureTextEntry = YES;
+    UIColor *grayClor =[[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    if (grayClor) {
+        _textFieldUserName.textColor = grayClor;
+    }
+    UILabel *labelLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KTextFieldLeftLabelViewWith, _textFieldUserName.height)];
+    _textFieldUserName.leftViewMode = UITextFieldViewModeAlways;
+    _textFieldUserName.leftView = labelLeftView;
+    [labelLeftView release];
+    
     NSString *strTitle = nil;
     switch (textFieldType) {
         case TEXTFIELDTYPE_OLDPASSWORD:
@@ -184,7 +196,6 @@ static const int kPredicateSuccess   = 0;//正则校验成功
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
                 if (result == kPredicateSuccess) {//成功
                     
@@ -194,8 +205,13 @@ static const int kPredicateSuccess   = 0;//正则校验成功
                     
                     [delegateApp presentLoginViewController];
                     
-                }else{//失败
+                    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
+                    [self loginOutUser];
+                    
+                }else{//失败
+                    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
                     [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"Modify_PW_fail")];
                 }
 
@@ -207,6 +223,35 @@ static const int kPredicateSuccess   = 0;//正则校验成功
         
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result ];
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+        
+    if (range.location>=KPassWordMaxLength) {
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self editPwdSlideDown];
+    return YES;
+}
+/**
+ *  注销用户
+ */
+- (void)loginOutUser
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
+        
+    });
 }
 
 #pragma textfield的delegate

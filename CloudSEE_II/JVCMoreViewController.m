@@ -22,7 +22,8 @@
 #import "JVCDataBaseHelper.h"
 
 #import "JVCMorEditPassWordViewController.h"
-
+#import "AppDelegate.h"
+#import "JVCKeepOnlineHelp.h"
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -36,6 +37,7 @@ static const int CELLHEIGHT_USERHEADER = 120;//账号名称以及头像的cell�
 static const int CELLHEIGHT_CONTENTH = 44;   //里面内容的cell高度
 static const int CELLHEIGHT_HEADSECTION = 20;   //section的高度
 static const int KUserLoginOutState_Success= 0;   //账号注册成功
+static const int kAlertTag          = 200;   //alert的tag
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -180,7 +182,7 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
             UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
             UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
             btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
-            [btnLoginOut addTarget:self action:@selector(userLoginOut) forControlEvents:UIControlEventTouchUpInside];
+            [btnLoginOut addTarget:self action:@selector(showUserLoginOutAlert) forControlEvents:UIControlEventTouchUpInside];
             [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
             [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
             [cell.contentView addSubview:btnLoginOut];
@@ -197,9 +199,9 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 {
     if (indexPath.section == 0) {//账号信息
         
-        JVCMoreUserSettingViewController *moreUserSettingVC = [[JVCMoreUserSettingViewController alloc] init] ;
-        [self.navigationController pushViewController:moreUserSettingVC animated:YES];
-        [moreUserSettingVC release];
+//        JVCMoreUserSettingViewController *moreUserSettingVC = [[JVCMoreUserSettingViewController alloc] init] ;
+//        [self.navigationController pushViewController:moreUserSettingVC animated:YES];
+//        [moreUserSettingVC release];
     }
     
     if (indexPath.section == 1 ) {//
@@ -226,6 +228,29 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
 }
 
 /**
+ *  显示用户注销的的alert
+ */
+- (void)showUserLoginOutAlert
+{
+    UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"确定要注销吗？" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertUser show];
+    alertUser.tag = kAlertTag;
+    alertUser.delegate = self;
+    [alertUser release];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == kAlertTag) {
+        
+        if (buttonIndex == 0) {//确定
+            
+            [self userLoginOut];
+            
+        }
+    }
+}
+
+/**
  *  账号注销
  */
 - (void)userLoginOut
@@ -234,22 +259,20 @@ static const int KUserLoginOutState_Success= 0;   //账号注册成功
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int reuslt = 0 ;// [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
+        int reuslt =  [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             DDLogVerbose(@"注销收到的返回值=%d",reuslt);
             
-            [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
             
             if (KUserLoginOutState_Success == reuslt) {//成功,弹出注册界面
                 
-                JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
-                UINavigationController *navLoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
-                [self presentModalViewController:navLoginVC animated:YES];
-                [loginVC release];
-                [navLoginVC release];
+                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [delegate presentLoginViewController];
                 
+                [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
+
                 //并且把秘密置换成功
                 [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
                 

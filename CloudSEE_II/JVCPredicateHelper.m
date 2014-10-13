@@ -233,7 +233,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if (![self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_LENGTH_E+KPredicateUserNameLegateAddNum;
+        return VALIDATIONUSERNAMETYPE_LENGTH_E;
     }
     
     
@@ -244,7 +244,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     {
         if ([self predicateUserNameISLegalPhome:accountName]) {
             
-            return VALIDATIONUSERNAMETYPE_S+KPredicateUserNameLegateAddNum;
+            return VALIDATIONUSERNAMETYPE_S;
         }
     }
     
@@ -259,7 +259,7 @@ static JVCPredicateHelper *_shareInstance = nil;
             
         }else{
             
-            return VALIDATIONUSERNAMETYPE_EMAIL_E+KPredicateUserNameLegateAddNum;
+            return VALIDATIONUSERNAMETYPE_EMAIL_E;
         }
     }
     
@@ -267,7 +267,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if ([self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_NUMBER_E+KPredicateUserNameLegateAddNum;
+        return VALIDATIONUSERNAMETYPE_NUMBER_E;
     }
     
     
@@ -275,7 +275,7 @@ static JVCPredicateHelper *_shareInstance = nil;
     
     if (![self judgeLegalWithPredicateString:regex andCompareString:accountName]) {
         
-        return VALIDATIONUSERNAMETYPE_OTHER_E+KPredicateUserNameLegateAddNum;
+        return VALIDATIONUSERNAMETYPE_OTHER_E;
     }
     
     return VALIDATIONUSERNAMETYPE_S;
@@ -342,6 +342,56 @@ static JVCPredicateHelper *_shareInstance = nil;
     return [self judgeLegalWithPredicateString:regex andCompareString:emailStr];
     
 }
+
+/**
+ *  检测注册用户名、密码是否合法
+ *
+ *  @param userName       用户名
+ *  @param passWord       密码
+ *
+ *  @return 返回相应的枚举字段
+ */
+- (int)predicatUserName:(NSString *)userName
+               PassWord:(NSString *)passWord
+{
+    
+    /**
+     *  判断用户名是否为空
+     */
+    if ([self predicateBlankString:userName]) {
+        
+        return LOGINRESULT_USERNAME_NIL;
+    }
+    /**
+     *  判断用户名是否合法
+     */
+    if ([self predicateUserNameIslegal:userName] != VALIDATIONUSERNAMETYPE_S) {
+        
+        return [self predicateUserNameIslegal:userName]+100;
+    }
+    /**
+     *  判断密码是否为空
+     */
+    if ([self predicateBlankString:passWord]) {
+        
+        return LOGINRESULT_PASSWORLD_NIL;
+    }
+    /**
+     *  判断密码是否合法
+     */
+    if (![self PredicateResignPasswordIslegal:passWord]) {
+        
+        return LOGINRESULT_PASSWORLD_ERROR;
+    }
+    /**
+     *  合法
+     */
+    return LOGINRESULT_SUCCESS;
+    
+    
+}
+
+
 
 /**
  *  检测注册用户名、密码、确认密码、邮箱是否合法

@@ -31,6 +31,8 @@ static const int RESIGNFONT  = 14;//font 的大小
 
 static const int PREDICATESECCESS  = 0 ;//正则校验成功
 
+static const int KLabelWith  = 10 ;//label的宽度
+
 @interface JVCRegisterViewController ()
 {
     /**
@@ -121,8 +123,6 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     
     [control release];
     
-
-    
     /**
      *  设置标题
      */
@@ -132,14 +132,19 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     
     //用户名
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake((self.view.frame.size.width - imgTextFieldBg.size.width)/2.0, ORIGIN_Y, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
-    
     textFieldUser.borderStyle = UITextBorderStyleNone;
-    
     textFieldUser.delegate = self;
-    
+    textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
     [textFieldUser setBackground:imgTextFieldBg];
-    
+    textFieldUser.returnKeyType = UIReturnKeyDone;
+    textFieldUser.placeholder = NSLocalizedString(@"InputUserName", nil);
+    textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUser];
+    UILabel *userLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelWith, textFieldUser.height)];
+    userLeftView.backgroundColor = [UIColor clearColor];
+    textFieldUser.leftViewMode = UITextFieldViewModeAlways;
+    textFieldUser.leftView = userLeftView;
+    [userLeftView release];
     
     //用户名提示
     labUser = [[UILabel alloc] initWithFrame:CGRectMake(textFieldUser.left, textFieldUser.bottom, textFieldUser.width, SEPERATE)];
@@ -149,16 +154,19 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     
     //密码
     textFieldPassWord = [[UITextField alloc] initWithFrame:CGRectMake(textFieldUser.frame.origin.x, textFieldUser.bottom+SEPERATE, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
-    
     textFieldPassWord.borderStyle = UITextBorderStyleNone;
-    
     textFieldPassWord.delegate = self;
-    
     textFieldPassWord.secureTextEntry = YES;
-    
+    textFieldPassWord.placeholder = @"密码";
+    textFieldPassWord.returnKeyType = UIReturnKeyDone;
+    textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     [textFieldPassWord setBackground:imgTextFieldBg];
-    
     [self.view addSubview:textFieldPassWord];
+    UILabel *pwLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelWith, textFieldUser.height)];
+    pwLeftView.backgroundColor = [UIColor clearColor];
+    textFieldPassWord.leftViewMode = UITextFieldViewModeAlways;
+    textFieldPassWord.leftView = pwLeftView;
+    [pwLeftView release];
     
     //密码的提示
     labPassWord = [[UILabel alloc] initWithFrame:CGRectMake(textFieldPassWord.left, textFieldPassWord.bottom, textFieldUser.width, SEPERATE)];
@@ -168,16 +176,19 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
     
     //确认密码
     textFieldEnSurePassWord = [[UITextField alloc] initWithFrame:CGRectMake(textFieldPassWord.left, textFieldPassWord.bottom+SEPERATE, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
-    
     textFieldEnSurePassWord.delegate = self;
-    
     textFieldEnSurePassWord.borderStyle = UITextBorderStyleNone;
-    
     textFieldEnSurePassWord.secureTextEntry = YES;
-    
+    textFieldEnSurePassWord.placeholder = @"确认密码";
+    textFieldEnSurePassWord.returnKeyType = UIReturnKeyDone;
+    textFieldEnSurePassWord.leftViewMode = UITextFieldViewModeAlways;
     [textFieldEnSurePassWord setBackground:imgTextFieldBg];
-    
     [self.view addSubview:textFieldEnSurePassWord];
+    UILabel *pwEnLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelWith, textFieldUser.height)];
+    pwEnLeftView.backgroundColor = [UIColor clearColor];
+    textFieldEnSurePassWord.leftViewMode = UITextFieldViewModeAlways;
+    textFieldEnSurePassWord.leftView = pwEnLeftView;
+    [pwEnLeftView release];
     
     //密码的提示
     labEnPassWord = [[UILabel alloc] initWithFrame:CGRectMake(textFieldPassWord.left, textFieldEnSurePassWord.bottom, textFieldUser.width, SEPERATE)];
@@ -245,7 +256,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
                     break;
             }
             
-            [self setUserLabelRed];
+            [self setLabelRed:labUser];
             labUser.text =_strTitle;
             
         }else{//校验通过
@@ -259,7 +270,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
         BOOL bStatePassWord = [[JVCPredicateHelper shareInstance] PredicateResignPasswordIslegal:textFieldPassWord.text];
     
         if (!bStatePassWord) {//失败
-            
+            [self setLabelRed:labPassWord];
             labPassWord.text = LOCALANGER(@"loginResign_passWord_error");//LOGINRESULT_PASSWORLD_ERROR
 
         }else{
@@ -271,6 +282,7 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
             
             if(![textFieldPassWord.text isEqualToString:textFieldEnSurePassWord.text]) {
                 
+                [self setLabelRed:labEnPassWord];
                 labEnPassWord.text =LOCALANGER(@"PasswordNoEqual");
             }
             
@@ -287,15 +299,18 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
         if([[JVCPredicateHelper shareInstance] PredicateResignPasswordIslegal:textFieldPassWord.text]) {
             
             if (![textFieldEnSurePassWord.text isEqualToString:textFieldPassWord.text]) {
-                
+                [self setLabelRed:labEnPassWord];
+
                 labEnPassWord.text =LOCALANGER(@"PasswordNoEqual");
+                return;
             }
         }
         
         BOOL resutl = [[JVCPredicateHelper shareInstance] PredicateResignPasswordIslegal:textFieldEnSurePassWord.text];
         
         if (!resutl) {
-            
+            [self setLabelRed:labEnPassWord];
+
             labEnPassWord.text = LOCALANGER(@"loginResign_passWord_error");
             
         }else{
@@ -304,6 +319,30 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
         
         }
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == textFieldUser) {
+        
+        if(range.location>=KUserNameMaxLength)
+            
+            return NO;
+    }else{
+    
+        if (range.location>=KPassWordMaxLength) {
+            
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self slideDown];
+    return YES;
 }
 
 /**
@@ -335,17 +374,17 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
 {
         if (tType == USER_HAS_EXIST) {
             
-            [self setUserLabelRed];
+            [self setLabelRed:labUser];
 
             labUser.text = LOCALANGER(@"home_login_resign_user_exit");
             
         }else if(tType == USER_NOT_EXIST){
             
-            [self setUserLabelBlue];
+            [self setUserLabelBlue:labUser];
             labUser.text = LOCALANGER(@"home_login_resign_user_noFound");
         }else if(tType == PHONE_NUM_ERROR){
             
-            [self setUserLabelRed];
+            [self setLabelRed:labUser];
             labUser.text = LOCALANGER(@"home_login_resign_PhoneNum_error");
         }
     
@@ -525,24 +564,24 @@ static const int PREDICATESECCESS  = 0 ;//正则校验成功
 }
 
 #pragma mark 设置lable的颜色值为红色
-- (void)setUserLabelRed
+- (void)setLabelRed:(UILabel *)label
 {
     UIColor *redColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroRed];
     
     if (redColor) {
         
-        labUser.textColor = redColor;
+        label.textColor = redColor;
     }
 }
 
 #pragma mark 设置lable的颜色值为蓝色
-- (void)setUserLabelBlue
+- (void)setUserLabelBlue:(UILabel *)label
 {
     UIColor *redColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroBlue];
     
     if (redColor) {
         
-        labUser.textColor = redColor;
+        label.textColor = redColor;
     }
 }
 

@@ -20,4 +20,6 @@
  */
 -(void)deallocWithViewDidDisappear;
 
+- (void)BackClick;
+
 @end

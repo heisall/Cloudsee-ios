@@ -281,6 +281,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
 {
     JVCEditChannelInfoTableViewController *editChannelVC = [[JVCEditChannelInfoTableViewController alloc] init];
     editChannelVC.YstNum = [self currentYstTitles];
+    editChannelVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:editChannelVC animated:YES];
     [editChannelVC release];
 }

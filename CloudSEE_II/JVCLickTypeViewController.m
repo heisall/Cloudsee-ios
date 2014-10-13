@@ -88,6 +88,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         YStLinkView.hidden = NO;
 
     }
+    
+    self.title = @"连接模式";
 }
 
 /**
@@ -179,6 +181,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     [self.view addSubview:IPLinkView];
     
+    
     //ip
     textFieldIP = [IPLinkView textFieldWithIndex:0];
     textFieldIP.text = deviceModel.ip;
@@ -186,6 +189,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     //ip端口
     textFieldPort = [IPLinkView textFieldWithIndex:1];
     textFieldPort.text = deviceModel.port;
+    textFieldPort.text = @"9101";
+    textFieldPort.keyboardType = UIKeyboardTypeNumberPad;
     textFieldPort.delegate = self;
     //ip用户名
     textFieldIPName = [IPLinkView textFieldWithIndex:2];
@@ -194,6 +199,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     //ip 密码
     textFieldIPPassWord = [IPLinkView textFieldWithIndex:3];
     textFieldIPPassWord.text = deviceModel.passWord;
+    textFieldIPPassWord.secureTextEntry = YES;
     textFieldIPPassWord.delegate = self;
 
     IPLinkView.hidden = YES;
@@ -217,6 +223,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     //云视通
     textFieldYst = [YStLinkView textFieldWithIndex:0];
     textFieldYst.text = deviceModel.yunShiTongNum;
+    textFieldYst.backgroundColor = [UIColor lightGrayColor];
     textFieldYst.enabled = NO;
     textFieldYst.delegate = self;
     //云视通用户名
@@ -226,6 +233,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     //云视通密码
     textFieldYstPassWord = [YStLinkView textFieldWithIndex:2];
     textFieldYstPassWord.text = deviceModel.passWord;
+    textFieldYstPassWord.secureTextEntry = YES;
     textFieldYstPassWord.delegate = self;
     [imageSlide release];
 }
@@ -245,12 +253,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     [UIView animateWithDuration:KLinkTypeAnimationTimer animations:^{
     
         CGRect frame = imageViewSlide.frame;
-        DDLogVerbose(@"%@===%@",NSStringFromCGRect(frame),NSStringFromCGRect(imageViewSlide.frame));
         frame.origin.x = btn.frame.origin.x;
         imageViewSlide.frame =frame;
-        DDLogVerbose(@"[0000=%@===%@",NSStringFromCGRect(frame),NSStringFromCGRect(imageViewSlide.frame));
-
-        btn.transform = CGAffineTransformMakeScale(1.3, 1.3);
+        
     }];
     
     CATransition  *animation = [CATransition animation];
@@ -324,12 +329,33 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
 }
 
+/**
+ *  背景被按下的回调
+ */
+- (void)touchUpInsiderBackGroundCallBack
+{
+    [self resiginLinkTypeTextFields];
+    
+    [self slideDownLinkType];
+}
+
 - (void)modiyDeviceLinkModelToServer:(int)linkType
 {
+ 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        int result = -1;
         
-        int result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:@"" port:@"" ];
+        if (linkType == CONNECTTYPE_YST) {
+            
+           result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:@"" port:@"" ];
+
+        }else{
+        
+             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text ];
+
+        }
+      
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -388,7 +414,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)saveIpLinkTypeDate
 {
-
+    deviceModel.ip = textFieldIP.text;
+    deviceModel.port = textFieldPort.text;
     deviceModel.userName = textFieldYstName.text;
     deviceModel.passWord = textFieldYstPassWord.text;
 }
@@ -435,7 +462,11 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     if( textField == textFieldIPName ||textField == textFieldIPPassWord)
     {
-        [self slideDownLinkType];
+        if (self.view.top >0) {
+            
+            [self slideDownLinkType];
+
+        }
     }
     if (!iphone5) {
         if( textField == textFieldYstPassWord )
@@ -444,6 +475,16 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         }
     }
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    [self slideDownLinkType];
+    
+    return YES;
+}
+
 
 #pragma mark 界面向上滑动
 /**
@@ -469,6 +510,23 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     }];
 }
 
+-(void)resiginLinkTypeTextFields
+{
+    [textFieldIP resignFirstResponder];
+    //ip端口
+    [textFieldPort resignFirstResponder];
+    //ip用户名
+    [textFieldIPName resignFirstResponder];
+    //ip 密码
+    [textFieldIPPassWord resignFirstResponder];
+    //云视通
+    [textFieldYst resignFirstResponder];
+    //云视通用户名
+    [textFieldYstName resignFirstResponder];
+    //云视通密码
+    [textFieldYstPassWord resignFirstResponder];
+
+}
 
 /*
 #pragma mark - Navigation

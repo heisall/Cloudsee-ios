@@ -10,7 +10,7 @@
 #import "JVCConfigModel.h"
 #import "JVCAccountHelper.h"
 #import "JVCAccountMacro.h"
-
+#import "JVCDataBaseHelper.h"
 #import "AppDelegate.h"
 
 enum PushMessage
@@ -77,8 +77,8 @@ UIAlertView *alertView;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
         
         BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
-        
-        [[JVCAccountHelper sharedJVCAccountHelper] keepOnline:kkToken languageType:resultLanguage];
+        DDLogVerbose(@"result=%d",!resultLanguage);
+        [[JVCAccountHelper sharedJVCAccountHelper] keepOnline:kkToken languageType:!resultLanguage];
         
         [JVCAccountHelper sharedJVCAccountHelper].delegate = self;
         
@@ -114,8 +114,9 @@ UIAlertView *alertView;
         
         if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
             
-            [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
+         int result =   [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
             
+            DDLogVerbose(@"-%s-%d",__FUNCTION__,result);
         }
         
     });
@@ -277,16 +278,24 @@ UIAlertView *alertView;
             
         }else{//退出
             
-            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            [delegate presentLoginViewController];
-            
+            [self keepOnLineErrorToPresentLoginViewController];
         }
     }else
     {//退出
-        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate presentLoginViewController];
+        [self keepOnLineErrorToPresentLoginViewController];
         
     }
+}
+
+/**
+ *  保持在线失败后，跳转到登入界面
+ */
+- (void)keepOnLineErrorToPresentLoginViewController
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate presentLoginViewController];
+    //并且把秘密置换成功
+    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
 }
 
 - (void)loginInWithOffLine
@@ -294,8 +303,6 @@ UIAlertView *alertView;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         
-        //判断用户的强度，119是用户的新密码加密规则，调用UserLogin接口登陆118是用户的老密码加密规则调用OldUserLogin接口登陆
-        NSLog(@"kkUserName==%@",kkUserName);
         int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:kkUserName ];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -340,13 +347,9 @@ UIAlertView *alertView;
             {
                 [self modifyPassWordInbackGround];
                 
-            }else if(LOGINRUSULT_SUCCESS == resultOldType)//登录成功，一般这个不会出现，因为既然是老用户了，就会由这些问题
+            }else
             {
-                
-                
-                
-            }else{
-                
+                [self keepOnLineErrorToPresentLoginViewController];
             }
         });
     });
@@ -406,8 +409,8 @@ UIAlertView *alertView;
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"登录失败"];
                 //跳转到登录界面
-                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate presentLoginViewController];
+                [self keepOnLineErrorToPresentLoginViewController];
+
             }
             
         });
