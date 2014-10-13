@@ -354,8 +354,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 
         }else{
         
-             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text ];
-
+             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text];
         }
       
         
@@ -393,6 +392,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
             [self saveIpLinkTypeDate];
             
         }
+        
+        deviceModel.isCustomLinkModel = deviceModel.linkType == CONNECTTYPE_YST ? FALSE : TRUE;
         
     }else{
         
