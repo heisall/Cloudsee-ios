@@ -10,7 +10,6 @@
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
 
-
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
 @interface JVCDeviceSourceHelper ()
@@ -247,6 +246,112 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     }
     
     return nil;
+}
+
+/**
+ *  还原设备的在线信息，把所有的在线信息置为离线
+ */
+-(void)restoreDeviceListOnlineStatusInfo{
+    
+    for (int i=0; i<deviceArray.count; i++) {
+        
+        JVCDeviceModel *model= (JVCDeviceModel *)[deviceArray objectAtIndex:i];
+        
+        if (!model.isCustomLinkModel) {
+            
+            model.linkType =CONNECTTYPE_YST;
+            model.ip       = @"";
+            model.port     = @"";
+        }
+    }
+}
+
+/**
+ *  将广播获取到的设备更新到通道集合中
+ *
+ *  @param updateLanModelList 广播获取到的设备集合
+ */
+-(void)updateLanModelToChannelListData:(NSArray *)updateLanModelList{
+    
+    [updateLanModelList retain];
+    
+    for (int i=0; i<updateLanModelList.count; i++) {
+        
+        JVCDeviceModel *deviceModel=(JVCDeviceModel *)[updateLanModelList objectAtIndex:i];
+        
+        DDLogVerbose(@"%s=%@_wifiState=%d,IP=%@,port=%@",__FUNCTION__,deviceModel.yunShiTongNum,deviceModel.hasWifi,deviceModel.ip,deviceModel.port);
+        
+        for (JVCDeviceModel *model in deviceArray) {
+            
+            if ([model.yunShiTongNum.uppercaseString isEqualToString:deviceModel.yunShiTongNum.uppercaseString]) {
+                
+                if (!model.isCustomLinkModel) {
+                    
+                    model.ip=deviceModel.ip;
+                    model.port=deviceModel.port;
+                    model.linkType=deviceModel.linkType;
+                }
+            }
+        }
+    }
+    
+    [updateLanModelList release];
+}
+
+
+#pragma mark ---  本地缓存处理模块
+
+/**
+ *  把sourceModel转换成CacheModel集合
+ *
+ *  @param deviceMArray sourceModel数组
+ *
+ *  @return CacheModel集合
+ */
+-(NSMutableArray *)deviceModelListConvertLocalCacheModel{
+    
+    
+    NSMutableArray *cacheDeviceListData=[NSMutableArray arrayWithCapacity:10];
+    
+    
+    for (JVCDeviceModel *model in deviceArray) {
+        
+        JVCLocalCacheModel *cacheModel = [[JVCLocalCacheModel alloc] init];
+        
+        cacheModel.strYstNumber        = model.yunShiTongNum;
+        cacheModel.strUserName         = model.userName;
+        cacheModel.strPassWord         = model.passWord;
+        
+        [cacheDeviceListData addObject:cacheModel];
+        [cacheModel release];
+    }
+    
+    return cacheDeviceListData;
+}
+
+/**
+ *  根据云视通号获取缓存的实体Model
+ *
+ *  @param ystNumber 设备的云视通号
+ *
+ *  @return 缓存的实体Model
+ */
+-(JVCLocalCacheModel *)deviceModelWithYstNumberConvertLocalCacheModel:(NSString *)ystNumber {
+    
+    
+    JVCLocalCacheModel *cacheModel = [[[JVCLocalCacheModel alloc] init] autorelease];
+    
+    for (JVCDeviceModel *model in deviceArray) {
+        
+        if ([model.yunShiTongNum isEqualToString:ystNumber]) {
+            
+            cacheModel.strYstNumber        = model.yunShiTongNum;
+            cacheModel.strUserName         = model.userName;
+            cacheModel.strPassWord         = model.passWord;
+        }
+    }
+    
+    return cacheModel;
 }
 
 @end

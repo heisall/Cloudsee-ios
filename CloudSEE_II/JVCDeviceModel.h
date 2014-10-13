@@ -18,10 +18,11 @@
     NSString *ip;               //ip
 	NSString *port;             //端口号
     
-    int onLineState;            //1 在线   0：不在线
-    int hasWifi;                //0：没有wifi   1：有WiFi
-    int useWifi;                //0  没有用WiFi  1 ：使用WiFi
-    int linkType;               //设备连接模式  0 云视通连接  1：ip连接
+    int  onLineState;            //1 在线   0：不在线
+    int  hasWifi;                //0：没有wifi   1：有WiFi
+    int  useWifi;                //0  没有用WiFi  1 ：使用WiFi
+    int  linkType;               //设备连接模式  0 云视通连接  1：ip连接
+    BOOL isCustomLinkModel;      //连接模式 //YES 客户定制IP连接 NO：非定制
 }
 
 @property(nonatomic,retain) NSString *userName;
@@ -31,10 +32,11 @@
 @property(nonatomic,retain) NSString *ip;
 @property(nonatomic,retain) NSString *port;
 
-@property(nonatomic,assign) int linkType;
-@property(nonatomic,assign) int onLineState;
-@property(nonatomic,assign) int hasWifi;
-@property(nonatomic,assign) int useWifi;
+@property(nonatomic,assign) int  linkType;
+@property(nonatomic,assign) int  onLineState;
+@property(nonatomic,assign) int  hasWifi;
+@property(nonatomic,assign) int  useWifi;
+@property(nonatomic,assign) BOOL isCustomLinkModel;
 
 /**
  *  初始化

@@ -307,6 +307,9 @@
 		AD3BDC1219E8B2E9001B16D7 /* play_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDC0E19E8B2E9001B16D7 /* play_4@2x.png */; };
 		AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDC0F19E8B2E9001B16D7 /* play_1@2x.png */; };
 		AD3BDC2119E8BE7C001B16D7 /* libGlView_v2.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDC2019E8BE7C001B16D7 /* libGlView_v2.0.0.a */; };
+		AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */; };
+		AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7819EB75D3001B16D7 /* JVCLanScanDeviceModel.m */; };
+		AD3BDC7C19EB7C92001B16D7 /* JVCLocalCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -688,6 +691,12 @@
 		AD3BDC0F19E8B2E9001B16D7 /* play_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_1@2x.png"; sourceTree = "<group>"; };
 		AD3BDC1F19E8BD00001B16D7 /* GlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlView.h; sourceTree = "<group>"; };
 		AD3BDC2019E8BE7C001B16D7 /* libGlView_v2.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGlView_v2.0.0.a; sourceTree = "<group>"; };
+		AD3BDC7419EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLANScanWithSetHelpYSTNOHelper.h; sourceTree = "<group>"; };
+		AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLANScanWithSetHelpYSTNOHelper.m; sourceTree = "<group>"; };
+		AD3BDC7719EB75D3001B16D7 /* JVCLanScanDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLanScanDeviceModel.h; sourceTree = "<group>"; };
+		AD3BDC7819EB75D3001B16D7 /* JVCLanScanDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLanScanDeviceModel.m; sourceTree = "<group>"; };
+		AD3BDC7A19EB7C92001B16D7 /* JVCLocalCacheModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalCacheModel.h; sourceTree = "<group>"; };
+		AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalCacheModel.m; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1361,6 +1370,8 @@
 				ADA22D8019DA85260092F8B9 /* JVCCloudSEEManagerHelper.m */,
 				ADA22D8219DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.h */,
 				ADA22D8319DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m */,
+				AD3BDC7419EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.h */,
+				AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */,
 			);
 			name = CloudSEENetworkHelper;
 			sourceTree = "<group>";
@@ -1545,6 +1556,10 @@
 				A7F5555A19D9009A0009F75C /* JVCMoreUserSettingModel.m */,
 				AD3BDC0919E54637001B16D7 /* JVCChannelModel.h */,
 				AD3BDC0A19E54637001B16D7 /* JVCChannelModel.m */,
+				AD3BDC7719EB75D3001B16D7 /* JVCLanScanDeviceModel.h */,
+				AD3BDC7819EB75D3001B16D7 /* JVCLanScanDeviceModel.m */,
+				AD3BDC7A19EB7C92001B16D7 /* JVCLocalCacheModel.h */,
+				AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1950,6 +1965,7 @@
 				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
 				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
+				AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */,
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
@@ -1994,6 +2010,7 @@
 				AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */,
 				A7F5EF3819D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
 				ADA22D3419DA5D990092F8B9 /* data_queue.mm in Sources */,
+				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
 				A7F5EF3219D2621B009B797A /* MJRefreshBaseView.m in Sources */,
@@ -2014,6 +2031,7 @@
 				A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */,
 				A7F5011019D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */,
 				AD2BDB1D19D28FAF00AA6D73 /* JVCRGBModel.m in Sources */,
+				AD3BDC7C19EB7C92001B16D7 /* JVCLocalCacheModel.m in Sources */,
 				A7F5EF3A19D2621B009B797A /* UIScrollView+MJExtension.m in Sources */,
 				ADA22D6419DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m in Sources */,
 				ADA22D5819DA613E0092F8B9 /* DDLog.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JVCDeviceModel.h"
+#import "JVCLocalCacheModel.h"
 
 @class JVCDeviceModel;
 
@@ -102,10 +103,42 @@ enum ADDDEVICE_TYPE
  *  @param model 设备model
  */
 - (void)deleteDevieWithModel:(JVCDeviceModel *)model;
+
 /**
  *  根据设备model删除设备
  *
  *  @param model 设备model
  */
 - (void)deleteDevieWithYstNum:(NSString *)ystNum;
+
+/**
+ *  还原设备的在线信息，把所有的在线信息置为离线
+ */
+-(void)restoreDeviceListOnlineStatusInfo;
+
+/**
+ *  将广播获取到的设备更新到通道集合中
+ *
+ *  @param updateLanModelList 广播获取到的设备集合
+ */
+-(void)updateLanModelToChannelListData:(NSArray *)updateLanModelList;
+
+/**
+ *  把sourceModel转换成CacheModel集合
+ *
+ *  @param deviceMArray sourceModel数组
+ *
+ *  @return CacheModel集合
+ */
+-(NSMutableArray *)deviceModelListConvertLocalCacheModel;
+
+/**
+ *  根据云视通号获取缓存的实体Model
+ *
+ *  @param ystNumber 设备的云视通号
+ *
+ *  @return 缓存的实体Model
+ */
+-(JVCLocalCacheModel *)deviceModelWithYstNumberConvertLocalCacheModel:(NSString *)ystNumber;
+
 @end

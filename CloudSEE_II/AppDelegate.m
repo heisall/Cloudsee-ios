@@ -21,6 +21,7 @@
 #import "GlView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCLANScanWithSetHelpYSTNOHelper.h"
 
 #import "JVCKeepOnlineHelp.h"
 
@@ -36,6 +37,10 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
 @synthesize QRViewController;
+
+static NSString const *kAPPLocalCaheKey = @"localDeviceListData";
+static  const   int      KSetHelpMaxCount    = 10;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     /**
@@ -212,7 +217,11 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count > 0 ) {
+        
+        [self saveCacheDevicesData];
+    }
 }
 
 
@@ -367,6 +376,53 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
     
 }
 
+/**
+ *	缓存前一次登录帐号的历史数据
+ */
+-(void)saveCacheDevicesData{
+    
+    NSMutableArray *cacheModelList = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel];
+    
+    [cacheModelList retain];
+    
+    NSMutableArray *saveCacheDeviceListData=[[NSMutableArray alloc] initWithCapacity:10];
+    
+    for (int i=0; i<cacheModelList.count; i++) {
+        
+        if (i < KSetHelpMaxCount) {
+            
+            [saveCacheDeviceListData addObject:[cacheModelList objectAtIndex:i]];
+            
+        }else{
+            
+            break;
+        }
+    }
+    
+    [cacheModelList release];
+    
+    NSData *cacheDeviceData=[NSKeyedArchiver archivedDataWithRootObject:saveCacheDeviceListData];
+    
+    [saveCacheDeviceListData release];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:cacheDeviceData forKey:(NSString *)kAPPLocalCaheKey];
+    
+    
+}
+
+#pragma mark 绑定小助手功能
+
+/**
+ *	获取前一次登录帐号的历史数据并开始小助手连接
+ */
+-(void)startCacheDevicesHelp{
+    
+    NSData *cacheDatas=[[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPLocalCaheKey];
+    
+    NSArray *devicesListData=[NSKeyedUnarchiver unarchiveObjectWithData:cacheDatas];
+    
+    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:devicesListData];
+}
 
 - (void)dealloc
 {

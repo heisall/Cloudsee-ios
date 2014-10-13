@@ -350,9 +350,10 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)ModifyDeviceLinkYSTTypeResult:(int)result
 {
-    
     DDLogInfo(@"修改设备连接类型收到的返回值=%d",result);
+    
     if ( KLinkTypeSUCCESS == result) {//成功
+        
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Modify_LinkType_success")];
         
         if (IPLinkView.hidden == YES) {//云视通的保存数据方法
@@ -468,17 +469,5 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         
     }];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

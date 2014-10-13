@@ -22,6 +22,7 @@
 #import "AppDelegate.h"
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCQRAddDeviceViewController.h"
+#import "JVCDeviceMacro.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
@@ -413,6 +414,10 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
                 //必须刷新
                 [self.tableView reloadData];
                 
+                [self StartLANSerchAllDevice];
+                
+                [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel]];
+                
                 //获取设备通道
                 
                 [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
@@ -480,6 +485,86 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     [self.tableView reloadData];
 }
 
+
+
+#pragma mark ------------------------ 广播刷新设备的接口
+
+#pragma mark --- 局域网广播轮询方法
+-(void)StartLANSerchAllDevice {
+    
+    
+//    if (NETLINTYEPE_3G==[SystemSetingObject shareInstance]._netLinkType) {
+//        
+//        [self getAccountDeviceInfo];
+//        
+//        return;
+//    }
+    
+    //还原设备的在线信息
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] restoreDeviceListOnlineStatusInfo];
+    
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
+    
+    [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
+    
+}
+
+/**
+ *  局域网扫描之后的回调
+ *
+ *  @param SerachLANAllDeviceList 扫描出来的所有设备
+ */
+-(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:(NSMutableArray *)SerachLANAllDeviceList {
+
+    [SerachLANAllDeviceList  retain];
+    
+    DDLogVerbose(@"%s----scanDeviceList=%@",__FUNCTION__,SerachLANAllDeviceList);
+    
+     NSArray *lanModelDeviceList=[self LANModelListConvertToSourceModel:SerachLANAllDeviceList];
+    
+    [lanModelDeviceList retain];
+    
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLanModelToChannelListData:lanModelDeviceList];
+    
+    [lanModelDeviceList release];
+    
+    [SerachLANAllDeviceList release];
+}
+
+/**
+ *  把广播到的设备实体转换成sourceModel
+ *
+ *  @param lanModelList 广播到的设备集合
+ *
+ *  @return 广播到的设备集合（存放的sourceModel集合）
+ */
+-(NSArray *)LANModelListConvertToSourceModel:(NSMutableArray *)lanModelList{
+    
+    NSMutableArray *lanDeviceList=[NSMutableArray arrayWithCapacity:10];
+    
+    for (int i=0; i<lanModelList.count; i++) {
+        
+        JVCLanScanDeviceModel *lanModel=(JVCLanScanDeviceModel *)[lanModelList objectAtIndex:i];
+        
+        JVCDeviceModel *devieNewModel=[[JVCDeviceModel alloc] init];
+        
+        devieNewModel.yunShiTongNum = lanModel.strYstNumber;
+        devieNewModel.nickName      = lanModel.strYstNumber;
+        devieNewModel.onLineState   = DEVICESTATUS_ONLINE;
+        devieNewModel.hasWifi       = lanModel.iNetMod;
+        devieNewModel.linkType      = CONNECTTYPE_IP;
+        devieNewModel.ip            = lanModel.strDeviceIP;
+        devieNewModel.port          = lanModel.strDevicePort;
+    
+        [lanDeviceList addObject:devieNewModel];
+        
+        [devieNewModel release];
+    }
+    
+    return lanDeviceList;
+}
+
 #pragma mark 没有设备的时候，点击无线添加和有线添加按钮事件的回调
 /**
  *  选中设备类型
@@ -497,23 +582,11 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
             break;
     }
 }
-#pragma mark  点击设备的回调
-/**
- *  选中要播放的设备的回调
- *
- *  @param selectIndex 选中的播放设备号
- */
-- (void)selectDeviceToPlayWithIndex:(int)selectIndex
-{
-    DDLogInfo(@"===%s===%d",__FUNCTION__,selectIndex);
-}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 - (void)dealloc
 {
@@ -522,17 +595,5 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     
     [super dealloc];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
