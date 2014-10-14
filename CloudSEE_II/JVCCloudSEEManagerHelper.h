@@ -65,6 +65,9 @@
     BOOL                   isDisplayVideo;      //是否已经显示过图像 YES:显示过
     int                    nSystemVersion;      //当前手机的操作系统版本
     
+    BOOL                   isOnlyIState;        //是否是只发I帧状态 YES:是
+    BOOL                   isVideoPause;        //视频是否暂停过    YES:是
+    
     JVCVideoDecoderHelper                   * decodeModelObj;      //解码器属性类
     JVCRemotePlayBackWithVideoDecoderHelper * playBackDecoderObj;  //远程回放解码器属性类
     JVCQueueHelper                          * jvcQueueHelper;      //缓存队列对象
@@ -93,6 +96,8 @@
 @property (nonatomic,assign) int                      nConnectStartCode;
 @property (nonatomic,assign) BOOL                     isDisplayVideo;
 @property (nonatomic,assign) int                      nSystemVersion;
+@property (nonatomic,assign) BOOL                     isOnlyIState;
+@property (nonatomic,assign) BOOL                     isVideoPause;
 @property (nonatomic,retain) JVCVideoDecoderHelper                     * decodeModelObj;
 @property (nonatomic,retain) JVCRemotePlayBackWithVideoDecoderHelper   * playBackDecoderObj;
 @property (nonatomic,retain) JVCQueueHelper                            * jvcQueueHelper;

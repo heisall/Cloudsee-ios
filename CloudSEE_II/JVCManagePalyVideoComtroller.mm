@@ -27,7 +27,8 @@
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
 @synthesize strSelectedDeviceYstNumber;
 
-static const int  kPlayViewDefaultMaxValue = 4;
+static const int  kPlayViewDefaultMaxValue            = 4;
+static const int  kPlayVideoWithFullFramCriticalValue = 4;
 
 int  nAllLinkFlag;
 BOOL isAllLinkRun;
@@ -65,7 +66,12 @@ BOOL isAllLinkRun;
 	[self addSubview:WheelShowListView];
 	[WheelShowListView release];
     
-    int ncolumnCount = sqrt(self.imageViewNums);
+    int ncolumnCount  = sqrt(self.imageViewNums);
+    
+    if (ncolumnCount >= 1) {
+        
+        self._iBigNumbers = 1;
+    }
     
     CGFloat imageViewHeight = self.frame.size.height / ncolumnCount;
     CGFloat imageViewWidth  = self.frame.size.width  / ncolumnCount;
@@ -246,15 +252,17 @@ BOOL isAllLinkRun;
     
     UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
     
-    if ([_operationController returnOperationState]||[self.amChannelListData count]<=1) {
+    int channelsCount = [self channelCountAtSelectedYstNumber];
+    
+    if ([_operationController returnOperationState]|| channelsCount <= 1) {
         
         return;
     }
     
-    int _views=self.imageViewNums;
-    self.imageViewNums=self._iBigNumbers;
-    self._iBigNumbers=_views;
-    self.nSelectedChannelIndex=viewimage.view.tag-WINDOWSFLAG;
+    int _views                 = self.imageViewNums;
+    self.imageViewNums         = self._iBigNumbers;
+    self._iBigNumbers          = _views;
+    self.nSelectedChannelIndex =viewimage.view.tag-WINDOWSFLAG;
     [self changeContenView];
 }
 
@@ -283,7 +291,9 @@ BOOL isAllLinkRun;
         return;
     }
     
-    for (int i=0; i<[amChannelListData count]; i++) {
+    int channelsCount = [self channelCountAtSelectedYstNumber];
+    
+    for (int i=0; i< channelsCount ; i++) {
         
         JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
         
@@ -306,6 +316,8 @@ BOOL isAllLinkRun;
     
 	int index=fabs(scrollView.contentOffset.x)/scrollView.frame.size.width;
     
+    int channsCount = [self channelCountAtSelectedYstNumber];
+    
     self._iCurrentPage=index;
     
     if (self.imageViewNums==1) {
@@ -314,21 +326,18 @@ BOOL isAllLinkRun;
             
             //[_operationController stopSetting:_operationController._iSelectedChannelIndex];
         }
-        
+    
         self.nSelectedChannelIndex=index;
-        
-        DDLogVerbose(@"%s---%d",__FUNCTION__,self.nSelectedChannelIndex);
-        [self connectVideoByLocalChannelID:self.nSelectedChannelIndex+WINDOWSFLAG];
         
     }else {
         
-        self.nSelectedChannelIndex=index*self.imageViewNums;
+        self.nSelectedChannelIndex = index *self.imageViewNums;
         
-        for (int i=0; i<[amChannelListData count]+1; i++) {
+        for (int i=0; i < channsCount; i++) {
             
             JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
             
-            if (_operationController._iSelectedChannelIndex!=i) {
+            if (self.nSelectedChannelIndex != i) {
                 
                 [imgView unSelectUIView];
                 
@@ -337,12 +346,11 @@ BOOL isAllLinkRun;
                 [imgView selectUIView];
             }
         }
-        
-        //[self connectSingleDevicesAllChannel];
-        
     }
     
-    // [NSThread detachNewThreadSelector:@selector(openCurrentSingleWindowsVideoData) toTarget:self withObject:nil];
+    [self connectSingleDevicesAllChannel];
+    
+    [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
 
 
@@ -434,17 +442,6 @@ BOOL isAllLinkRun;
     
     self._iCurrentPage = positionIndex;
     
-    //    if (self.imageViewNums>4) {
-    //
-    //        _operationController._isConnectdevcieType=true;
-    //
-    //    }else{
-    //
-    //        _operationController._isConnectdevcieType=FALSE;
-    //
-    //        [_operationController channelAllWaitI];
-    //    }
-    
     if (self.imageViewNums !=1 ) {
         
         JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+self.nSelectedChannelIndex];
@@ -453,8 +450,6 @@ BOOL isAllLinkRun;
         
         positionIndex      = positionIndex/self.imageViewNums;
         self._iCurrentPage =positionIndex;
-        
-        //[self connectSingleDevicesAllChannel];
     }
     
     CGPoint position = CGPointMake(self.bounds.size.width*positionIndex,0);
@@ -462,8 +457,7 @@ BOOL isAllLinkRun;
     
     [self connectSingleDevicesAllChannel];
     
-    //[NSThread detachNewThreadSelector:@selector(openCurrentSingleWindowsVideoData) toTarget:self withObject:nil];
-    
+    [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
 }
 
@@ -664,6 +658,42 @@ BOOL isAllLinkRun;
     
     [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
     
+    [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
+    
+}
+
+/**
+ *  停止视频和开启播放的回调
+ */
+-(void)stopVideoOrFrame {
+    
+     JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    /**
+     *  视频只发I帧处理
+     */
+    [ystNetWorkHelperObj RemoteOperationSendDataToDeviceWithfullOrOnlyIFrame:self.imageViewNums > kPlayVideoWithFullFramCriticalValue];
+    
+     int channelCount  = [self channelCountAtSelectedYstNumber];  //返回当前的窗体个数
+    
+    int endIndex   = (self._iCurrentPage + 1) * self.imageViewNums;
+    int startIndex =  self._iCurrentPage      * self.imageViewNums;
+    
+    for (int i=0;i < channelCount ; i++) {
+        
+        
+        JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
+        
+        if (i >= startIndex && i < endIndex) {
+            
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEO];
+            
+        }else {
+            
+             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
+        
+        }
+	}
 }
 
 /**

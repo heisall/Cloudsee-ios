@@ -24,9 +24,11 @@
 @interface JVCQueueHelper : NSObject{
     
     id<JVCQueueHelperDelegate> jvcQueueHelperDelegate;
+    BOOL                       isOnlyIFrame;
 }
 
 @property (nonatomic,assign) id<JVCQueueHelperDelegate> jvcQueueHelperDelegate;
+@property (nonatomic,assign) BOOL                       isOnlyIFrame;
 
 /**
  *   初始化缓存队列对象

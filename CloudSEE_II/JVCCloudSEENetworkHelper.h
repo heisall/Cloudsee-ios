@@ -286,4 +286,13 @@
  */
 -(void)RemoteNewSetWiFINetwork:(int)nLocalChannel strSSIDName:(NSString *)strSSIDName strSSIDPassWord:(NSString *)strSSIDPassWord nWifiAuth:(int)nWifiAuth nWifiEncrypt:(int)nWifiEncrypt;
 
+#pragma mark ------ 满帧和全帧的切换 针对所有视频所有视频
+
+/**
+ *  远程控制指令 发送所有连接的 全帧和I的切换
+ *
+ *  @param isOnltIFrame YES:只发I帧
+ */
+-(void)RemoteOperationSendDataToDeviceWithfullOrOnlyIFrame:(BOOL)isOnltIFrame;
+
 @end

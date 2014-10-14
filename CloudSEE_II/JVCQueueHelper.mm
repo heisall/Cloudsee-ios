@@ -1,7 +1,7 @@
 //
 //  JVCQueueHelper.m
 //  CloudSEE
-//
+//  视频数据的缓冲队列
 //  Created by chenzhenyang on 14-9-9.
 //  Copyright (c) 2014年 miaofaqiang. All rights reserved.
 //
@@ -45,12 +45,15 @@ typedef struct queueServiceUtilityClassParam
 @implementation JVCQueueHelper
 
 @synthesize jvcQueueHelperDelegate;
+@synthesize isOnlyIFrame;
 
 queueServiceUtilityClassParam  *param;
 
 static const int  KFrameQueueMinCriticalValue = 2;                  //缓存帧的加快播放临界值最小
 static const int  KFrameQueueMaxCriticalValue = 5;                  //缓存帧的加快播放临界值最大
-static NSString * const kVideoQueueSemNameDefaultHead  = @"video";  //远程回放检索出文件的日期
+static NSString * const kVideoQueueSemNameDefaultHead  = @"video";  //队列的名称前缀
+static const int  KOnlyIFrameWithFps                   = 1;         //启用关键帧播放的帧速率 每秒1帧
+
 
 
 
@@ -152,6 +155,7 @@ long long currentMillisSec() {
     
 }
 
+
 /**
  *  启动出队线程（消费者）
  */
@@ -200,21 +204,25 @@ long long currentMillisSec() {
                 
                 queue_fps = param->video_frame_fps + queueFrameCount;
                 
-                //[self Lock];
+                [self Lock];
                 param->video_frame_fps = queue_fps;
-               // [self Unlock];
+                [self Unlock];
                 //DDLogInfo(@"%s---countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
             }
             
         }else{
             
-            queue_fps   = nDefaultFrameFps;
+            if (isFastPlay) {
+                
+                queue_fps   = nDefaultFrameFps;
+                
+                [self Lock];
+                param->video_frame_fps = queue_fps;
+                [self Unlock];
+                isFastPlay  = FALSE;
+            }
             
-           //[self Lock];
-            param->video_frame_fps = queue_fps;
-            //[self Unlock];
-             //DDLogInfo(@"%s---002 countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
-            isFastPlay  = FALSE;
+            //DDLogInfo(@"%s---002 countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
         }
         
         int full_delay = 1000 / queue_fps;
@@ -255,9 +263,12 @@ long long currentMillisSec() {
                 [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
             }
             
-            needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
-            msleep(needDelay);
-            timeStamp = currentMillisSec();
+            if (! self.isOnlyIFrame) {
+                
+                needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
+                msleep(needDelay);
+                timeStamp = currentMillisSec();
+            }
         }
         
         free(frameBuffer->buf);

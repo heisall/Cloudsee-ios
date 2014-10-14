@@ -9,7 +9,7 @@
 #ifndef CloudSEE_II_JVCCloudSEENetworkMacro_h
 #define CloudSEE_II_JVCCloudSEENetworkMacro_h
 
-#define CONNECTMAXNUMS 4
+#define CONNECTMAXNUMS 16
 
 enum CONNECTRESULTTYPE{
     
