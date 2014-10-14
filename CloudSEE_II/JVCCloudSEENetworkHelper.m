@@ -1018,6 +1018,7 @@ void RemoteplaybackSearchCallBack(int nLocalChannel,char *pBuffer, int nSize) {
     
     JVCCloudSEEManagerHelper  *currentChannelObj           = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
+    DDLogCVerbose(@"%s################################",__FUNCTION__);
     if (currentChannelObj == nil) {
         
         return;

@@ -173,6 +173,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)remoteSendDataToDevice:(int)nJvChannelID remoteOperationType:(int)remoteOperationType remoteOperationCommandData:(char *)remoteOperationCommandData {
     
+    DDLogVerbose(@"%s----dataSize=%ld",__FUNCTION__,strlen(remoteOperationCommandData));
     JVC_SendData(nJvChannelID, remoteOperationType, (unsigned char *)remoteOperationCommandData, strlen(remoteOperationCommandData));
     
 }

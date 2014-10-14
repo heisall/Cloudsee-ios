@@ -335,14 +335,14 @@
 		AD3BDCA119EBFA2C001B16D7 /* voi_show_pw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA019EBFA2C001B16D7 /* voi_show_pw@2x.png */; };
 		AD3BDCA319EBFA34001B16D7 /* voi_txt_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA219EBFA34001B16D7 /* voi_txt_bg@2x.png */; };
 		AD3BDCA519EBFA3F001B16D7 /* voi_wifi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA419EBFA3F001B16D7 /* voi_wifi@2x.png */; };
-		AD3BDCA819EBFEB2001B16D7 /* voi_sendBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA719EBFEB2001B16D7 /* voi_sendBtn@2x.png */; };
 		AD3BDCAA19EBFEBD001B16D7 /* voi_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA919EBFEBD001B16D7 /* voi_next@2x.png */; };
 		AD3BDCAD19EBFEFF001B16D7 /* JVCVoiceencViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDCAC19EBFEFF001B16D7 /* JVCVoiceencViewController.m */; };
 		AD3BDCAF19EC0379001B16D7 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCAE19EC0379001B16D7 /* libtransSing.a */; };
-		AD3BDCB419EC0546001B16D7 /* sca_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCB119EC0546001B16D7 /* sca_bg@2x.png */; };
 		AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */; };
 		AD3BDCB619EC0546001B16D7 /* sca_ani@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */; };
 		AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDCB819EC055D001B16D7 /* JVCScanNewDeviceViewController.m */; };
+		AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCBA19ED09F4001B16D7 /* sca_bg@2x.png */; };
+		AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCBC19ED0AD5001B16D7 /* voi_sendBtn@2x.png */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -770,16 +770,16 @@
 		AD3BDCA019EBFA2C001B16D7 /* voi_show_pw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_show_pw@2x.png"; sourceTree = "<group>"; };
 		AD3BDCA219EBFA34001B16D7 /* voi_txt_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_txt_bg@2x.png"; sourceTree = "<group>"; };
 		AD3BDCA419EBFA3F001B16D7 /* voi_wifi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_wifi@2x.png"; sourceTree = "<group>"; };
-		AD3BDCA719EBFEB2001B16D7 /* voi_sendBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_sendBtn@2x.png"; sourceTree = "<group>"; };
 		AD3BDCA919EBFEBD001B16D7 /* voi_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_next@2x.png"; sourceTree = "<group>"; };
 		AD3BDCAB19EBFEFF001B16D7 /* JVCVoiceencViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencViewController.h; sourceTree = "<group>"; };
 		AD3BDCAC19EBFEFF001B16D7 /* JVCVoiceencViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencViewController.m; sourceTree = "<group>"; };
 		AD3BDCAE19EC0379001B16D7 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
-		AD3BDCB119EC0546001B16D7 /* sca_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_bg@2x.png"; sourceTree = "<group>"; };
 		AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_log@2x.png"; sourceTree = "<group>"; };
 		AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_ani@2x.png"; sourceTree = "<group>"; };
 		AD3BDCB719EC055D001B16D7 /* JVCScanNewDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCScanNewDeviceViewController.h; sourceTree = "<group>"; };
 		AD3BDCB819EC055D001B16D7 /* JVCScanNewDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCScanNewDeviceViewController.m; sourceTree = "<group>"; };
+		AD3BDCBA19ED09F4001B16D7 /* sca_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_bg@2x.png"; sourceTree = "<group>"; };
+		AD3BDCBC19ED0AD5001B16D7 /* voi_sendBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_sendBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1529,7 +1529,7 @@
 			isa = PBXGroup;
 			children = (
 				AD3BDCA919EBFEBD001B16D7 /* voi_next@2x.png */,
-				AD3BDCA719EBFEB2001B16D7 /* voi_sendBtn@2x.png */,
+				AD3BDCBC19ED0AD5001B16D7 /* voi_sendBtn@2x.png */,
 			);
 			name = sendVoic;
 			sourceTree = "<group>";
@@ -1537,9 +1537,9 @@
 		AD3BDCB019EC053A001B16D7 /* scanf */ = {
 			isa = PBXGroup;
 			children = (
-				AD3BDCB119EC0546001B16D7 /* sca_bg@2x.png */,
 				AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */,
 				AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */,
+				AD3BDCBA19ED09F4001B16D7 /* sca_bg@2x.png */,
 			);
 			name = scanf;
 			sourceTree = "<group>";
@@ -1987,6 +1987,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */,
 				AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */,
 				A7F4059019E50DD20070945F /* customMiddleView_cloudsee.bundle in Resources */,
 				A7FB594B19E91796005E2E6D /* NoDevice@2x.png in Resources */,
@@ -1995,6 +1996,7 @@
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
+				AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				A7F51E7919EBC0F30052F878 /* arm_new_en@2x.png in Resources */,
 				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
@@ -2013,7 +2015,6 @@
 				AD3BDC1019E8B2E9001B16D7 /* play_2@2x.png in Resources */,
 				A7F4058C19E50DB80070945F /* YTOperation.bundle in Resources */,
 				A7F4346819DA44A800E7ECA1 /* log_pw@2x.png in Resources */,
-				AD3BDCA819EBFEB2001B16D7 /* voi_sendBtn@2x.png in Resources */,
 				AD916BD019D510C200B925A2 /* tab_device_select@2x.png in Resources */,
 				AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */,
 				AD3BDCA119EBFA2C001B16D7 /* voi_show_pw@2x.png in Resources */,
@@ -2070,7 +2071,6 @@
 				A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */,
 				A7F51E7819EBC0F30052F878 /* arm_new_ch@2x.png in Resources */,
-				AD3BDCB419EC0546001B16D7 /* sca_bg@2x.png in Resources */,
 				A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */,
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				AD3BDC9F19EBFA25001B16D7 /* voi_input_next@2x.png in Resources */,
