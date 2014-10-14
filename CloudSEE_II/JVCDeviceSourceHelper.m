@@ -10,6 +10,7 @@
 #import "JVCHandleDeviceMaths.h"
 #import "JVCDeviceMacro.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCDeviceMacro.h"
 
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
@@ -365,4 +366,26 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     [deviceArray addObjectsFromArray:arrayLocalDevice];
 }
 
+/**
+ *  根据用户名密码云视通号添加设备
+ *
+ *  @param ystNum   云视通号
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)addLocalDeviceInfo:(NSString *)ystNum  deviceUserName:(NSString *)userName  devicePassWord:(NSString *)passWord
+{
+    JVCDeviceModel *model = [[JVCDeviceModel alloc] initDeviceWithYstNum:ystNum
+                                                                nickName:ystNum
+                                                          deviceUserName:userName
+                                                          devicePassWord:passWord
+                                                                deviceIP:@""
+                                                              devicePort:@""
+                                                       deviceOnlineState:1
+                                                          deviceLinkType:CONNECTTYPE_YST
+                                                           deviceHasWifi:1
+                                                devicebICustomLinckModel:NO];
+    [deviceArray insertObject:model atIndex:0];
+    [model release];
+}
 @end

@@ -217,20 +217,22 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
             NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
             BOOL bISCUSTOMLINKMODEL=  [rsSet boolForColumn:@"ISCUSTOMLINKMODEL"];
             
-            JVCDeviceModel *deviceModel = [[JVCDeviceModel alloc] init];
-            deviceModel.yunShiTongNum =strDeviceYST;
-            deviceModel.userName = strUserName;
-            deviceModel.passWord = strPassWord;
-            deviceModel.nickName = strNickName;
-            deviceModel.ip = strIP;
-            deviceModel.port = strPort;
-            deviceModel.linkType = iLintType;
-            deviceModel.onLineState =  DEVICEONLINESTATE_ONLINE;
-            deviceModel.isCustomLinkModel = bISCUSTOMLINKMODEL;
+            JVCDeviceModel *deviceModel = [[JVCDeviceModel alloc]initDeviceWithYstNum:strDeviceYST
+                                                                             nickName:strNickName
+                                                                       deviceUserName:strUserName
+                                                                       devicePassWord:strPassWord
+                                                                             deviceIP:strIP
+                                                                           devicePort:strPort
+                                                                    deviceOnlineState:1
+                                                                       deviceLinkType:iLintType
+                                                                        deviceHasWifi:1
+                                                             devicebICustomLinckModel:bISCUSTOMLINKMODEL];
             [userArray addObject:deviceModel];
             
             [deviceModel release];
         }
+        [localDeviceSqlite close];
+
     }
     return userArray;
 }

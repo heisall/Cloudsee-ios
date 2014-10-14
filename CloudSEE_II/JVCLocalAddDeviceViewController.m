@@ -8,6 +8,8 @@
 
 #import "JVCLocalAddDeviceViewController.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCChannelScourseHelper.h"
+#import "JVCDeviceSourceHelper.h"
 
 @interface JVCLocalAddDeviceViewController ()
 
@@ -36,7 +38,16 @@
  */
 - (void)addDeviceToAccount:(NSString *)ystNum  deviceUserName:(NSString *) name  passWord:(NSString *)passWord
 {
+    /**
+     *  添加设备
+     */
     [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:name passWord:passWord];
+    //设备添加到设备数组中
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
+                                                         deviceUserName:name
+                                                         devicePassWord:passWord];
+    //添加通道
+    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:ystNum];
 }
 
 - (void)didReceiveMemoryWarning

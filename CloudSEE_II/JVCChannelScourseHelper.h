@@ -74,4 +74,10 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
  */
 -(void)deleteSingleChannelWithDeviceYstNumber:(JVCChannelModel *)channelModelDelete;
 
+/**
+ *  本地添加通道
+ *
+ *  @param ystNum 云视通号
+ */
+- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum;
 @end

@@ -49,5 +49,27 @@ static NSString const *kDeviceChannelNumber = @"dcn";    //通道名称
     return self;
 }
 
+/**
+ *  初始化通道实体
+ *
+ *  @param ystNum     云视通
+ *  @param nickName   昵称
+ *  @param channelNum 通道号
+ *
+ *  @return 通道实体
+ */
+-(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum {
+    
+    if (self = [super init]) {
+        
+        self.strNickName           = nickName;
+        
+        self.strDeviceYstNumber   = ystNum;
+        
+        self.nChannelValue    = channelNum;
+    }
+    
+    return self;
+}
 
 @end

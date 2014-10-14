@@ -11,9 +11,7 @@
 
 #import "JVCSystemConfigMacro.h"
 #import "FMDatabase.h"
-#import "JVCDeviceModel.h"
-#import "CommonFunc.h"
-
+#import "JVCChannelModel.h"
 
 @interface JVCLocalChannelDateBaseHelp ()
 {
@@ -181,6 +179,70 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
     }
     return NO;
     
+}
+
+/**
+ *  获取所有的本地通道列表
+ *
+ *  @return 设备列表数组
+ */
+- (NSMutableArray *)getAllChannnelList
+{
+    NSMutableArray *channelArray = [[[NSMutableArray alloc] init] autorelease];
+    
+    if ([localChannelSqlite open]) {
+        
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM CHANNELINFOTABLE"];
+        
+        FMResultSet *rsSet = [localChannelSqlite executeQuery:sqlStr];
+        
+        while ([rsSet next]) {
+            
+            NSString *strDeviceYST= [rsSet stringForColumn:@"DEVICEYSTNUM"];
+            int iChananelNum = [rsSet intForColumn:@"CHANNELNUM"];
+            NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
+            
+            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum];
+            
+            [channelArray addObject:channeModel];
+            
+            [channeModel release];
+        }
+        [localChannelSqlite close];
+    }
+    return channelArray;
+}
+
+/**
+ *  获取单个通道的列表
+ *
+ *  @return 设备列表数组
+ */
+- (NSMutableArray *)getSingleChannnelListWithYstNum:(NSString *)ystNum
+{
+    NSMutableArray *channelArray = [[[NSMutableArray alloc] init] autorelease];
+    
+    if ([localChannelSqlite open]) {
+        
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM CHANNELINFOTABLE WHERE DEVICEYSTNUM = '%@'",ystNum];
+        
+        FMResultSet *rsSet = [localChannelSqlite executeQuery:sqlStr];
+        
+        while ([rsSet next]) {
+            
+            NSString *strDeviceYST= [rsSet stringForColumn:@"DEVICEYSTNUM"];
+            int iChananelNum = [rsSet intForColumn:@"CHANNELNUM"];
+            NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
+            
+            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum];
+            
+            [channelArray addObject:channeModel];
+            
+            [channeModel release];
+        }
+        [localChannelSqlite close];
+    }
+    return channelArray;
 }
 
 

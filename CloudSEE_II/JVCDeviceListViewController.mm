@@ -23,6 +23,7 @@
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCQRAddDeviceViewController.h"
 #import "JVCDeviceMacro.h"
+#import "JVCVoiceencInputSSIDWithPasswordViewController.h"
 
 #import "JVCLocalAddDeviceViewController.h"
 
@@ -144,7 +145,11 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
         case AddDevicePopType_ScanADDDevice:
             
             break;
-        case AddDevicePopType_VloceAddDevice:
+        case AddDevicePopType_VloceAddDevice:{
+        
+            [self beginVoiceencConfig];
+        
+        }
             
             break;
             
@@ -153,22 +158,35 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     }
 }
 
+#pragma mark 开始声波配置 
+
+/**
+ *  开始声波配置
+ */
+-(void)beginVoiceencConfig{
+    
+    JVCVoiceencInputSSIDWithPasswordViewController *jvcVoiceencViewcontroller = [[JVCVoiceencInputSSIDWithPasswordViewController alloc] init];
+    [self.navigationController pushViewController:jvcVoiceencViewcontroller animated:YES];
+    
+    [jvcVoiceencViewcontroller release];
+}
+
 #pragma mark 跳转到添加设备界面
 /**
  *  跳转到添加设备界面
  */
 - (void)AddDevice
 {
-    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
-    addDeviceVC.addDeviceDelegate = self;
-    [self.navigationController pushViewController:addDeviceVC animated:YES];
-    [addDeviceVC release];
-    return;
-    
-//    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+//    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
 //    addDeviceVC.addDeviceDelegate = self;
 //    [self.navigationController pushViewController:addDeviceVC animated:YES];
 //    [addDeviceVC release];
+//    return;
+    
+    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+    addDeviceVC.addDeviceDelegate = self;
+    [self.navigationController pushViewController:addDeviceVC animated:YES];
+    [addDeviceVC release];
 }
 
 /**
@@ -404,10 +422,10 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 #pragma mark 获取设备
 - (void)getDeviceList
 {
-    [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
-    [self.tableView reloadData];
-
-    return;
+//    [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
+//    [self.tableView reloadData];
+//
+//    return;
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     

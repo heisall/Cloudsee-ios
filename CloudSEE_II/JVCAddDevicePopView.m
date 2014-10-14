@@ -51,16 +51,8 @@ static const float  kItemSizeAdd        =   30.f;//item 都要加40
             self.borderColor = viewboardColor;
         }
         self.layer.cornerRadius = 15.0;
-        // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        
-        
-//        NSString *pathStr = [UIImage imageBundlePath:@"add_popbg.png"];
-//        UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:pathStr];
-//        // Initialization code
-//        self.backgroundColor = [UIColor colorWithPatternImage:imagebg];;
-//        [imagebg release];
-//        
+    
     }
     return self;
 }
@@ -176,7 +168,6 @@ static const float  kItemSizeAdd        =   30.f;//item 都要加40
     rect.origin.x = SPACE;
     rect.origin.y = kArrowHeight + SPACE;
     rect.size.width -= SPACE * 2;
-   // rect.size.height -= (SPACE - kArrowHeight);
     
     tableViewItems = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
     tableViewItems.delegate = self;

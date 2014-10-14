@@ -147,4 +147,13 @@ enum ADDDEVICE_TYPE
  */
 - (void)getLocalDeviceList;
 
+/**
+ *  根据用户名密码云视通号添加设备
+ *
+ *  @param ystNum   云视通号
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)addLocalDeviceInfo:(NSString *)ystNum  deviceUserName:(NSString *)userName  devicePassWord:(NSString *)passWord;
+
 @end

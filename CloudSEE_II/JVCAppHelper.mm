@@ -9,13 +9,14 @@
 #import "JVCAppHelper.h"
 #import "JVCAccountHelper.h"
 #import "JVCSystemUtility.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 
 @implementation JVCAppHelper
 
 static JVCAppHelper *jvcAppHelper = nil;
 
-//static NSString const *KImageWithType = @"png";
+static NSString const  *kSSIDWithKeyValue   = @"SSID"; //获取当前手机连接无线网络的SSID
 
 /**
  *  单例
@@ -93,6 +94,31 @@ static JVCAppHelper *jvcAppHelper = nil;
     NSData *tempArchive = [NSKeyedArchiver archivedDataWithRootObject:templateView];
     
     return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+}
+
+/**
+ *  获取当前Wifi的SSid （需要引入#import <SystemConfiguration/CaptiveNetwork.h>）
+ *
+ *  @return 当前手机连接的热点
+ */
+-(NSString *)currentPhoneConnectWithWifiSSID {
+    
+    
+    NSString *ssid = nil;
+    
+    NSArray *ifs = (id)CNCopySupportedInterfaces();
+    
+    for (NSString *ifnam in ifs) {
+        
+        NSDictionary *info = (id)CNCopyCurrentNetworkInfo((CFStringRef)ifnam);
+        
+        if (info[kSSIDWithKeyValue]) {
+            
+            ssid = info[kSSIDWithKeyValue];
+        }
+    }
+    
+    return ssid;
 }
 
 @end

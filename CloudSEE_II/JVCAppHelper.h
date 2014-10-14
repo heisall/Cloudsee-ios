@@ -37,4 +37,12 @@
 -(UIView *)duplicate:(UIView *)templateView;
 
 
+/**
+ *  获取当前Wifi的SSid （需要引入#import <SystemConfiguration/CaptiveNetwork.h>）
+ *
+ *  @return 当前手机连接的热点
+ */
+-(NSString *)currentPhoneConnectWithWifiSSID;
+
+
 @end

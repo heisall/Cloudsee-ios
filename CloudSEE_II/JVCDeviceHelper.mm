@@ -80,9 +80,9 @@ char outTextBuffer[1280*720*3];
     
     memset(outTextBuffer, 0, sizeof(outTextBuffer));
     
-//    int resultValue=GetResponseByRequestDeviceShortConnectionServer_C((const char *)[requstJosnStr UTF8String],outTextBuffer);
+    int resultValue=GetResponseByRequestDeviceShortConnectionServer_C((const char *)[requstJosnStr UTF8String],outTextBuffer);
     
-    int resultValue=GetResponseByRequestShortConnectionServer_C(2,(const char *)[requstJosnStr UTF8String],outTextBuffer);
+//    int resultValue=GetResponseByRequestShortConnectionServer_C(2,(const char *)[requstJosnStr UTF8String],outTextBuffer);
 
     if (resultValue!=DEVICESERVICERESPONSE_SUCCESS){
         

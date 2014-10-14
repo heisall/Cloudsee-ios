@@ -10,6 +10,7 @@
 #import "JVCSystemUtility.h"
 #import "JVCDeviceMacro.h"
 #import "JVCLocalChannelDateBaseHelp.h"
+#import "JVCSystemConfigMacro.h"
 
 @interface JVCChannelScourseHelper ()
 {
@@ -254,11 +255,58 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     return channnleValues;
 }
 
-
-//- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  AddChannelArray:(NSArray)
-//{
-//    
-//}
+/**
+ *  本地添加通道
+ *
+ *  @param ystNum 云视通号
+ */
+- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  
+{
+    NSMutableArray *addArray = [[NSMutableArray alloc] init];
+    
+    for (int i=0;i<KDeviceMaxChannelNUM;i++) {
+        
+        [addArray addObject:[NSString stringWithFormat:@"%d",i]];
+    }
+    
+    NSArray *arrayChannel = [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] getSingleChannnelListWithYstNum:ystNum];
+    
+    NSMutableArray *arrayRemove = [[NSMutableArray alloc] init];
+    
+    for (JVCChannelModel *model in arrayChannel) {
+        
+        for (int i=0; i<addArray.count; i++) {
+            NSString *value = [addArray objectAtIndex:i];
+            if (model.nChannelValue == value.intValue) {
+                
+                [arrayRemove addObject:value];
+            }
+        }
+        
+    }
+    
+    [addArray removeObjectsInArray:arrayRemove];
+    
+    int subNum = KLocalAddDeviceMaxNUM;
+ 
+    if (addArray.count<=KLocalAddDeviceMaxNUM) {
+        
+        subNum = addArray.count;
+    }
+    
+    NSRange range = NSMakeRange(0, subNum);
+    NSArray *insertArray = [addArray subarrayWithRange:range];
+    
+    for (NSString *channelSortNum in insertArray) {
+        
+        [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] addLocalChannelToDataBase:ystNum nickName:[NSString stringWithFormat:@"%@_%@",ystNum,channelSortNum] ChannelSortNum:channelSortNum.intValue];
+    }
+    
+    [addArray release];
+    
+    [arrayRemove release];
+    
+}
 
 
 @end

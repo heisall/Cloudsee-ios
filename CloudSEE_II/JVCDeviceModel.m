@@ -95,4 +95,53 @@
     return self;
 }
 
+
+/**
+ *  初始化设备
+ *
+ *  @param ystNum          云视通号
+ *  @param deviceNickName  昵称
+ *  @param deviceUserName  用户名
+ *  @param devicePassWord  密码
+ *  @param deviceIp        设备ip
+ *  @param devicePort      设备端口号
+ *  @param onlineState     在线状态
+ *  @param linkType        连接模式
+ *  @param hasWifiValue    wifi
+ *  @param DeviceLickModel 用户修改状态
+ *
+ *  @return 设备对象
+ */
+- (id)initDeviceWithYstNum:(NSString *)ystNum
+                  nickName:(NSString *)deviceNickName
+            deviceUserName:(NSString *)deviceUserName
+            devicePassWord:(NSString *)devicePassWord
+                  deviceIP:(NSString *)deviceIp
+                devicePort:(NSString *)devicePort
+         deviceOnlineState:(int)onlineState
+            deviceLinkType:(int)linkType
+             deviceHasWifi:(int)hasWifiValue
+  devicebICustomLinckModel:(BOOL)DeviceLickModel
+{
+    self = [super init];
+    
+    if (self !=nil) {
+        
+        self.yunShiTongNum  = ystNum;
+        self.nickName       = deviceNickName;
+        self.userName       = deviceUserName;
+        self.passWord       = devicePassWord;
+        self.onLineState    = onlineState;
+        self.hasWifi        = hasWifiValue;
+        self.ip             = deviceIp;
+        self.port           = devicePort;
+        self.onLineState    = DEVICESTATUS_ONLINE;
+        self.hasWifi        = DEVICESTATUS_OFFLINE;
+        self.linkType       = CONNECTTYPE_YST;
+        self.isCustomLinkModel = DeviceLickModel;
+    }
+    
+    return self;
+}
+
 @end
