@@ -177,16 +177,19 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //è
  */
 - (void)AddDevice
 {
-    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
-    addDeviceVC.addDeviceDelegate = self;
-    [self.navigationController pushViewController:addDeviceVC animated:YES];
-    [addDeviceVC release];
-    return;
-    
-//    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
-//    addDeviceVC.addDeviceDelegate = self;
-//    [self.navigationController pushViewController:addDeviceVC animated:YES];
-//    [addDeviceVC release];
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
+        
+        JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
+        addDeviceVC.addDeviceDelegate = self;
+        [self.navigationController pushViewController:addDeviceVC animated:YES];
+        [addDeviceVC release];
+    }else{
+        
+        JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+        addDeviceVC.addDeviceDelegate = self;
+        [self.navigationController pushViewController:addDeviceVC animated:YES];
+        [addDeviceVC release];
+    }
 }
 
 /**

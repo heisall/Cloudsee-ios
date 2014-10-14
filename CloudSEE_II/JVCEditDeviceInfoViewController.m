@@ -118,6 +118,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     devieUserName.leftViewMode = UITextFieldViewModeAlways;
     devieUserName.returnKeyType = UIReturnKeyDone;
+    devieUserName.delegate = self;
     devieUserName.leftView = labelNameLeft;
     [labelNameLeft release];
     UILabel *labelUserRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
@@ -238,7 +239,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
         
         [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
         
-        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"delete_Success", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"delete_Success", nil)];
         
         if ([[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count == 0) {//判断设备列表中是否还有设备，如果没有
             

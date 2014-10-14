@@ -76,9 +76,10 @@
 {
     
     [[JVCChannelScourseHelper shareChannelScourseHelper]deleteLocalChannelWithId:channelModelDelete.iLocalIdNum];
-   BOOL result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteLocalDeviceInfo:channelModel.strDeviceYstNumber];
-    
-    [self handleDeleteChannelResult:!result deleteModel:channelModelDelete];
+    BOOL result =[[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteLocalDeviceInfo:channelModelDelete.strDeviceYstNumber];
+        
+    [self handleDeleteDeviceWithNoChannel:!result channelModel:channelModelDelete];
+
 }
 
 /**

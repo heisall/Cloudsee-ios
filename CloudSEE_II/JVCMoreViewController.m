@@ -215,7 +215,7 @@ static const int kAlertTag          = 200;   //alert的tag
             [apHelper release];
         }else if(indexPath.row == 1)
         {
-            if ([JVCConfigModel shareInstance]._bISLocalLoginIn != TYPELOGINTYPE_LOCAL) {//本地登录
+            if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"本地模式暂停使用"];
                 

@@ -346,7 +346,8 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
-    
+    [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
+
         //正则判断用户名、密码是否合法
     int result = [[JVCPredicateHelper shareInstance] loginPredicateUserName:textFieldUser.text andPassWord:textFieldPW.text];
     
