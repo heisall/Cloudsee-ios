@@ -586,7 +586,12 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                     //偏移带帧头的数据和视频数据的大小以及获取当前的帧类型
                     [jvcCloudSEENetworkHelper videoDataInExistStartCode:&pBuffer isFrameOStartCode:JVCVideoDecoderHelperObj.isExistStartCode nbufferSize:&nSize nBufferType:&bufferType];
                     
+                    
+                        
                     [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType == JVN_DATA_B];
+                    
+                
+                    
                     
                     //DDLogCInfo(@"%s---video",__FUNCTION__);
                     
@@ -720,7 +725,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
     
     if (currentChannelObj == nil) {
         
-        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
+       // DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
         
         return;
     }
@@ -732,7 +737,22 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             return;
         }
             break;
+        case JVN_CMD_VIDEOPAUSE:
+        case JVN_CMD_VIDEO:{
             
+            BOOL isSendPlayVideoStatus = remoteOperationCommand == JVN_CMD_VIDEOPAUSE ; //YES 暂停
+            
+            BOOL isRemoteSend          = currentChannelObj.isVideoPause == isSendPlayVideoStatus; //如果已经是暂停状态就不发送了
+            
+            if (isRemoteSend) {
+                
+                return;
+            }
+            
+            currentChannelObj.isVideoPause = isSendPlayVideoStatus;
+            
+        }
+            break;
         default:
             break;
     }
@@ -1512,6 +1532,37 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWADelegate respondsToSelector:@selector(playVideoSoundCallBackMath:soundBufferSize:soundBufferType:)]) {
         
         [jvcCloudSEENetworkHelper.ystNWADelegate playVideoSoundCallBackMath:(char *)audioData soundBufferSize:audioDataSize soundBufferType:audioDataType];
+    }
+}
+
+#pragma mark ------ 满帧和全帧的切换 针对所有视频所有视频
+
+/**
+ *  远程控制指令 发送所有连接的 全帧和I的切换
+ *
+ *  @param isOnltIFrame YES:只发I帧
+ */
+-(void)RemoteOperationSendDataToDeviceWithfullOrOnlyIFrame:(BOOL)isOnltIFrame{
+    
+    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
+    
+    for (int i = 0 ; i< CONNECTMAXNUMS; i++) {
+        
+        JVCCloudSEEManagerHelper *CloudSEEManagerHelperObj = jvChannel[i];
+        
+        if (CloudSEEManagerHelperObj != nil) {
+            
+            
+            BOOL checkSendFrameStatus =CloudSEEManagerHelperObj.isOnlyIState == isOnltIFrame;
+            
+            if (! checkSendFrameStatus) {
+                
+                [ystRemoteOperationHelperObj RemoteOperationSendDataToDevice:CloudSEEManagerHelperObj.nLocalChannel remoteOperationCommand:isOnltIFrame == YES ? JVN_CMD_ONLYI : JVN_CMD_FULL];
+                
+                CloudSEEManagerHelperObj.isOnlyIState                = isOnltIFrame;
+                CloudSEEManagerHelperObj.jvcQueueHelper.isOnlyIFrame = isOnltIFrame;
+            }
+        }
     }
 }
 

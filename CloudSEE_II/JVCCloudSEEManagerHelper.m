@@ -30,6 +30,7 @@
 @synthesize isPlaybackVideo,playBackDecoderObj,nConnectStartCode;
 @synthesize isDisplayVideo,jvcQueueHelper,jvConnectDelegate,nSystemVersion;
 @synthesize jvcPlaySound,jvcAudioQueueHelper,jvcVoiceIntercomHelper;
+@synthesize isOnlyIState,isVideoPause;
 @synthesize jvcRecodVideoHelper;
 
 char          pcmBuffer[1024] ={0};
@@ -190,6 +191,11 @@ char          pcmBuffer[1024] ={0};
  *  @param isVideoDataBFrame 视频是否是B帧
  */
 -(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame{
+    
+    if (self.isOnlyIState && !isVideoDataIFrame) {
+        
+        return;
+    }
     
     [self.jvcQueueHelper offer:videoData nSize:nVideoDataSize is_i_frame:isVideoDataIFrame is_b_frame:isVideoDataBFrame];
 }
