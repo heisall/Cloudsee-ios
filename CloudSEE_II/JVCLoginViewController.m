@@ -508,7 +508,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             }else{
             
                 [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultnewType];
-
             }
             
         });
@@ -556,7 +555,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 #pragma mark 切换主视图的root
 - (void)changeWindowRootViewController
 {
-    [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
 
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     

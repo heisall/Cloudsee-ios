@@ -321,6 +321,9 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                 
                 [self getNewAddDeviceInfo];
                 
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+
+                
             }else{//失败
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加失败")];
@@ -368,6 +371,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                     //从云视通服务器获取设备的通道数
                     [self getDeviceChannelNums:textFieldYST.text];
                     [tempMode release];
+
                     
                 }else{
                     
