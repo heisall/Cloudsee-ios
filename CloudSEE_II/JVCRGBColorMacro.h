@@ -53,6 +53,12 @@ static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListMediumYellow 
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListGrassGreen   = @"deviceListWithChannelListGrassGreen";
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListWarmOrange   = @"deviceListWithChannelListWarmOrange";
 
+//demo界面的问题
+static NSString const *  kDemoLineColor   = @"kDemoLineColor";
+static NSString const *  kDemoTitle       = @"kDemoTitleColor";
+static NSString const *  kDemoTimer       = @"kDemoTimerColor";
+
+
 //所有试图的背景
 static NSString const *  kJVCRGBColorMacroViewControllerBackGround       = @"ViewControllerBackGroundColor";
 

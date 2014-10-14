@@ -19,9 +19,9 @@
 }
 
 
-@property(nonatomic,retain)NSString *YstNum;//通道数组
+@property(nonatomic,retain)NSString *YstNum;//云视通号
 @property(nonatomic,retain) JVCChannelModel *channelModel;
-@property(nonatomic,retain)    NSMutableArray *arrayChannelsList;//通道数组
+@property(nonatomic,retain) NSMutableArray *arrayChannelsList;//通道数组
 
 /**
  *  修改通道昵称的方法

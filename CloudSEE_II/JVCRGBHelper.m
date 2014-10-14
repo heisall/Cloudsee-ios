@@ -43,6 +43,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initViewControllerRGBColors];
         [self initAddDeviceTextColor];
         [self initAddDevicePopViewRGBColors];
+        [self initDemoViewRgbColors];
     }
     
     return self;
@@ -366,6 +367,33 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     
 }
 
+#pragma mark 初始化demo模块的颜色值
+- (void)initDemoViewRgbColors
+{
+    JVCRGBModel *demoLine = [[JVCRGBModel alloc] init];
+    demoLine.r = 188.0f;
+    demoLine.g = 188.0f;
+    demoLine.b = 188.0f;
+    
+    JVCRGBModel *loginTitle  = [[JVCRGBModel alloc] init];
+    loginTitle.r = 125.0f;
+    loginTitle.g = 125.0f;
+    loginTitle.b = 125.0f;
+    
+    JVCRGBModel *loginTimer  = [[JVCRGBModel alloc] init];
+    loginTimer.r = 171.0f;
+    loginTimer.g = 171.0f;
+    loginTimer.b = 171.0f;
+    
+    [mdicRgbModelList setObject:demoLine forKey:kDemoLineColor];
+    [mdicRgbModelList setObject:loginTitle forKey:kDemoTitle];
+    [mdicRgbModelList setObject:loginTimer forKey:kDemoTimer];
+
+    [demoLine release];
+    [loginTitle release];
+    [loginTimer release];
+    
+}
 
 /**
  *  初始化添加设备界面的RGB集合

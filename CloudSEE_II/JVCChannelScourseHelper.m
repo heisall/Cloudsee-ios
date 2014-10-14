@@ -99,6 +99,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
  */
 -(NSMutableArray *)channelValuesWithDeviceYstNumber:(NSString *)ystNumber{
     
+    [ystNumber retain];
+    
     NSMutableArray *channnleValues = [NSMutableArray arrayWithCapacity:10];
     
     for (int i = 0; i < channelArray.count; i++) {
@@ -110,7 +112,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             [channnleValues addObject:[NSNumber numberWithInt:channelModel.nChannelValue]];
         }
     }
-
+    [ystNumber release];
+    
     return channnleValues;
 }
 

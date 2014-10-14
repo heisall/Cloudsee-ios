@@ -34,6 +34,7 @@
 		A72DCD2C19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A72DCD2B19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
+		A7DFB28E19ED26DD002D9BF9 /* dem_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DFB28D19ED26DD002D9BF9 /* dem_def@2x.png */; };
 		A7F0042319D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042419D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
@@ -247,6 +248,10 @@
 		A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */; };
 		A7F9E03E19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */; };
 		A7F9E04119ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */; };
+		A7F9E04419ED0CD000C1D69C /* JVCDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04319ED0CD000C1D69C /* JVCDemoViewController.m */; };
+		A7F9E04719ED0E9600C1D69C /* TableViewControllerdd.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04619ED0E9600C1D69C /* TableViewControllerdd.m */; };
+		A7F9E04A19ED0FB700C1D69C /* JVCDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04919ED0FB700C1D69C /* JVCDefaultViewController.m */; };
+		A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04C19ED1A5A00C1D69C /* JVCDemoCell.m */; };
 		A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
 		A7FA43D719E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
 		A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */; };
@@ -453,6 +458,7 @@
 		A72DCD2B19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalChannelDateBaseHelp.m; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
+		A7DFB28D19ED26DD002D9BF9 /* dem_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dem_def@2x.png"; sourceTree = "<group>"; };
 		A7F0042119D45C030028533E /* AHReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHReach.h; sourceTree = "<group>"; };
 		A7F0042219D45C030028533E /* AHReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReach.m; sourceTree = "<group>"; };
 		A7F0042519D45DC70028533E /* JVCConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConfigModel.h; sourceTree = "<group>"; };
@@ -647,6 +653,14 @@
 		A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalLickTypeViewController.m; sourceTree = "<group>"; };
 		A7F9E03F19ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalEditChannelInfoTableViewController.h; sourceTree = "<group>"; };
 		A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalEditChannelInfoTableViewController.m; sourceTree = "<group>"; };
+		A7F9E04219ED0CD000C1D69C /* JVCDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDemoViewController.h; sourceTree = "<group>"; };
+		A7F9E04319ED0CD000C1D69C /* JVCDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDemoViewController.m; sourceTree = "<group>"; };
+		A7F9E04519ED0E9600C1D69C /* TableViewControllerdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewControllerdd.h; sourceTree = "<group>"; };
+		A7F9E04619ED0E9600C1D69C /* TableViewControllerdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewControllerdd.m; sourceTree = "<group>"; };
+		A7F9E04819ED0FB700C1D69C /* JVCDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDefaultViewController.h; sourceTree = "<group>"; };
+		A7F9E04919ED0FB700C1D69C /* JVCDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDefaultViewController.m; sourceTree = "<group>"; };
+		A7F9E04B19ED1A5A00C1D69C /* JVCDemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDemoCell.h; sourceTree = "<group>"; };
+		A7F9E04C19ED1A5A00C1D69C /* JVCDemoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDemoCell.m; sourceTree = "<group>"; };
 		A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomOperationBottomView.h; sourceTree = "<group>"; };
 		A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomOperationBottomView.m; sourceTree = "<group>"; };
 		A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCManagePalyVideoComtroller.h; sourceTree = "<group>"; };
@@ -993,6 +1007,14 @@
 			name = localHelp;
 			sourceTree = "<group>";
 		};
+		A7DFB28619ED1D78002D9BF9 /* demo */ = {
+			isa = PBXGroup;
+			children = (
+				A7DFB28D19ED26DD002D9BF9 /* dem_def@2x.png */,
+			);
+			name = demo;
+			sourceTree = "<group>";
+		};
 		A7F0042019D45BE40028533E /* AHReach */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,6 +1066,12 @@
 				A7FB594819E900F7005E2E6D /* JVCModifyUnLegalViewController.m */,
 				A7FB594C19E919DB005E2E6D /* JVCBindingEmailViewController.h */,
 				A7FB594D19E919DB005E2E6D /* JVCBindingEmailViewController.m */,
+				A7F9E04219ED0CD000C1D69C /* JVCDemoViewController.h */,
+				A7F9E04319ED0CD000C1D69C /* JVCDemoViewController.m */,
+				A7F9E04519ED0E9600C1D69C /* TableViewControllerdd.h */,
+				A7F9E04619ED0E9600C1D69C /* TableViewControllerdd.m */,
+				A7F9E04B19ED1A5A00C1D69C /* JVCDemoCell.h */,
+				A7F9E04C19ED1A5A00C1D69C /* JVCDemoCell.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -1051,6 +1079,7 @@
 		A7F424EC19D0FCAE00D96475 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				A7DFB28619ED1D78002D9BF9 /* demo */,
 				A7FAF5AB19D10F0200B3F395 /* resister */,
 				A7F4250519D0FF8000D96475 /* login */,
 			);
@@ -1753,6 +1782,8 @@
 			children = (
 				ADA77C0219D0250E003EE7A1 /* AppDelegate.h */,
 				ADA77C0319D0250E003EE7A1 /* AppDelegate.m */,
+				A7F9E04819ED0FB700C1D69C /* JVCDefaultViewController.h */,
+				A7F9E04919ED0FB700C1D69C /* JVCDefaultViewController.m */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -2003,6 +2034,7 @@
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7FB595019E91C12005E2E6D /* bin_btn@2x.png in Resources */,
 				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
+				A7DFB28E19ED26DD002D9BF9 /* dem_def@2x.png in Resources */,
 				AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
 				A7F5014919D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
@@ -2150,6 +2182,7 @@
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
+				A7F9E04A19ED0FB700C1D69C /* JVCDefaultViewController.m in Sources */,
 				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
 				A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
@@ -2167,6 +2200,7 @@
 				ADA22D4819DA611D0092F8B9 /* DDContextFilterLogFormatter.m in Sources */,
 				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
+				A7F9E04419ED0CD000C1D69C /* JVCDemoViewController.m in Sources */,
 				ADA22D6B19DA7CC30092F8B9 /* JVCRecordVideoHelper.m in Sources */,
 				ADA22DA519DA97B50092F8B9 /* OpenALBufferViewcontroller.m in Sources */,
 				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
@@ -2175,6 +2209,8 @@
 				AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */,
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
 				A7F51E6719EBAFF60052F878 /* JVCAlarmModel.m in Sources */,
+				A7F9E04719ED0E9600C1D69C /* TableViewControllerdd.m in Sources */,
+				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,

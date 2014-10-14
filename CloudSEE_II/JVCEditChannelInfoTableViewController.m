@@ -158,7 +158,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     [channelModel release];
     [channelNickNameField release];
     [modifyChannelNickNameView release];
-    [self.YstNum release];
+    [YstNum release];
     [arrayChannelsList release];
     
     [super dealloc];
@@ -215,7 +215,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    channelModel =  [arrayChannelsList objectAtIndex:indexPath.row];
+    self.channelModel =  [arrayChannelsList objectAtIndex:indexPath.row];
     channelNickNameField.text = channelModel.strNickName ;
     [self.tableView setContentOffset:CGPointZero];
     [self tranfromanimation];

@@ -71,5 +71,8 @@
  */
 -(void)alertToastOnWindowWithText:(NSString *)textString  delayTime:(int)timerDelay;
 
-
+/**
+ *  判断网路状态,里面带有return
+ */
+- (void)predicateNetWorkState;
 @end

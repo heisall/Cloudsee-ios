@@ -7,7 +7,7 @@
 //
 
 #import "JVCAlertHelper.h"
-
+#import "JVCConfigModel.h"
 #import "MBProgressHUD.h"
 
 static  const    int    HUDTAG                  =   10000;//HUd的tag
@@ -190,5 +190,18 @@ static JVCAlertHelper *shareAlertHelper = nil;
     hud.tag = HUDTAG;
 	
     [hud hide:YES afterDelay:timerDelay];
+}
+
+/**
+ *  判断网路状态
+ */
+- (void)predicateNetWorkState
+{
+    if ( [JVCConfigModel shareInstance]._netLinkType == NETLINTYEPE_NONET) {
+        
+        [self alertToastWithKeyWindowWithMessage:@"没有网路，请查看网络"];
+    }
+    
+    return;
 }
 @end

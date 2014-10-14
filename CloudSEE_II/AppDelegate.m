@@ -22,7 +22,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
-
+#import "JVCDefaultViewController.h"
 #import "JVCKeepOnlineHelp.h"
 
 @interface AppDelegate ()
@@ -33,6 +33,7 @@
 @end
 
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
+static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
@@ -89,23 +90,33 @@ static  const   int      KSetHelpMaxCount    = 10;
          self.window.backgroundColor = viewDefaultColor;
     }
     
+    
+    JVCDefaultViewController *defaultVC = [[JVCDefaultViewController alloc] init];
+    self.window.rootViewController =  defaultVC;
+    [defaultVC release];
+    
+    [self  performSelector:@selector(changeDefaultController) withObject:nil afterDelay:KAfterDelayTimer];
+
+    [self.window makeKeyAndVisible];
+    
+    //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
+    [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = -1;
+    
+    //初始化sdk
+    [self initAHReachSetting];
+    
+    return YES;
+}
+
+- (void)changeDefaultController
+{
     //设置导航
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
     UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = rootNav;
     [loginVC release];
     [rootNav release];
-    
-    [self.window makeKeyAndVisible];
-    
-    //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
-    [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = -1;
-    
-    
-    //初始化sdk
-    [self initAHReachSetting];
-    
-    return YES;
+
 }
 
 /**

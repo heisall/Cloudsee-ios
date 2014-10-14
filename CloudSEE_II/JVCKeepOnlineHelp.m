@@ -198,6 +198,19 @@ UIAlertView *alertView;
 -(void)serverPushCallBack:(int)message_type serverPushData:(NSData *)serverPushData
 {
     NSLog(@"帐号服务器的长连接的回调 （包含实时报警、赶人下线、TCP断开=");
+    
+    switch (message_type) {
+        case NOTIFY_OFFLINE:
+        case PTCP_ERROR:
+        case PTCP_CLOSED:
+            [self performSelectorOnMainThread:@selector(dealWithKeepOnResult:) withObject:[NSNumber numberWithInt:message_type] waitUntilDone:NO ];
+
+            break;
+            
+         case RECIVE_PUSH_MESSAGE://报警的
+        default:
+            break;
+    }
 }
 
 /**

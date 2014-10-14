@@ -20,6 +20,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCConfigModel.h"
 #import "JVCSystemConfigMacro.h"
+#import "JVCDemoViewController.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -276,10 +277,11 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         UIButton *btnDemo = [UIButton buttonWithType:UIButtonTypeCustom];
         btnDemo.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x, imgViewDemoAndResign.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
         [btnDemo setTitle:@"演示点" forState:UIControlStateNormal];
+    [btnDemo addTarget:self  action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
         btnDemo.tag = LOGINVIEWTAG_Demo;
         if (btnColor) {
             
-            btnDemo.titleLabel.textColor = btnColor;
+            [btnDemo setTitleColor:btnColor forState:UIControlStateNormal];
         }
         [self.view addSubview:btnDemo];
         /**
@@ -292,7 +294,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         btnResig.tag = LOGINVIEWTAG_Resign;
         if (btnColor) {
             
-            btnResig.titleLabel.textColor = btnColor;
+            [btnResig setTitleColor:btnColor forState:UIControlStateNormal];
         }
         [self.view addSubview:btnResig];
     
@@ -314,8 +316,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     [btnLocal addTarget:self action:@selector(localLogin) forControlEvents:UIControlEventTouchUpInside];
     btnLocal.tag = LOGINVIEWTAG_Local;
     if (btnColor) {
-        
-        btnLocal.titleLabel.textColor = btnColor;
+        [btnLocal setTitleColor:btnColor forState:UIControlStateNormal];
     }
     [self.view addSubview:btnLocal];
     /**
@@ -328,24 +329,24 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     btnPW.tag = LOGINVIEWTAG_Resign;
     if (btnColor) {
         
-        btnPW.titleLabel.textColor = btnColor;
+        [btnPW setTitleColor:btnColor forState:UIControlStateNormal];
     }
     [self.view addSubview:btnPW];
     
-    
-    
-        /**
-         *  下拉view视图
-         */
-        dropDownView= [[JVCDropDownView alloc] initWithFrame:CGRectMake(imageviewInPutLine.frame.origin.x, imageviewInPutLine.frame.origin.y, imageviewInPutLine.frame.size.width, 0)];
-        [self.view addSubview:dropDownView];
-        dropDownView.dropDownDelegate = self;
-        [self.view bringSubviewToFront:dropDownView];
+    /**
+     *  下拉view视图
+     */
+    dropDownView= [[JVCDropDownView alloc] initWithFrame:CGRectMake(imageviewInPutLine.frame.origin.x, imageviewInPutLine.frame.origin.y, imageviewInPutLine.frame.size.width, 0)];
+    [self.view addSubview:dropDownView];
+    dropDownView.dropDownDelegate = self;
+    [self.view bringSubviewToFront:dropDownView];
 }
 
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
+    [[JVCAlertHelper shareAlertHelper]predicateNetWorkState];
+    
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
 
         //正则判断用户名、密码是否合法
@@ -563,6 +564,16 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 }
 
 /**
+ *  点击演示点
+ */
+- (void)demoPointClick
+{
+    JVCDemoViewController *DemoVC = [[JVCDemoViewController alloc] init];
+    [self.navigationController pushViewController:DemoVC animated:YES];
+    [DemoVC release];
+}
+
+/**
  *  本地登录
  */
 - (void)localLogin
@@ -666,11 +677,14 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
  */
 - (void)registerClick
 {
+    [[JVCAlertHelper shareAlertHelper]predicateNetWorkState];
+    
     JVCRegisterViewController *resignVC = [[JVCRegisterViewController alloc] init];
     resignVC.resignDelegate = self;
     [self.navigationController pushViewController:resignVC animated:YES];
     [resignVC release];
 }
+
 
 -(void)resiginTextFields
 {
