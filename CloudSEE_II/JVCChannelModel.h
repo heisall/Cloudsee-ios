@@ -13,12 +13,14 @@
     NSString  *strDeviceYstNumber;
     NSString  *strNickName;
     int       nChannelValue;
+    
+    int       iLocalIdNum;//数据库中id字段
 }
 
 @property (nonatomic,retain) NSString  *strDeviceYstNumber;
 @property (nonatomic,retain) NSString  *strNickName;
 @property (nonatomic,assign) int       nChannelValue;
-
+@property (nonatomic,assign) int       iLocalIdNum;
 /**
  *  根据网络通道信息的字典转换成通道Model
  *
@@ -38,5 +40,5 @@
  *
  *  @return 通道实体
  */
--(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum;
+-(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum idNum:(int)idNum ;
 @end

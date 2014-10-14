@@ -11,7 +11,7 @@
 @implementation JVCChannelModel
 
 @synthesize strDeviceYstNumber,strNickName,nChannelValue;
-
+@synthesize iLocalIdNum;
 
 static NSString const *kDeviceChannelName   = @"dcname"; //通道名称
 static NSString const *kDeviceChannelNumber = @"dcn";    //通道名称
@@ -58,15 +58,17 @@ static NSString const *kDeviceChannelNumber = @"dcn";    //通道名称
  *
  *  @return 通道实体
  */
--(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum {
+-(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum idNum:(int)idNum {
     
     if (self = [super init]) {
         
-        self.strNickName           = nickName;
+        self.strNickName            = nickName;
         
-        self.strDeviceYstNumber   = ystNum;
+        self.strDeviceYstNumber     = ystNum;
         
-        self.nChannelValue    = channelNum;
+        self.nChannelValue          = channelNum;
+        
+        self.iLocalIdNum            = idNum;
     }
     
     return self;

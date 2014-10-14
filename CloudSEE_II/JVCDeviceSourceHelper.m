@@ -388,4 +388,44 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
     [deviceArray insertObject:model atIndex:0];
     [model release];
 }
+
+/**
+ *  删除本地设备
+ *
+ *  @param ystNum 云视通号
+ */
+- (BOOL)deleteLocalDeviceInfo:(NSString *)ystNum
+{
+   return  [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] deleteLocalDeviceFromDataBase:ystNum];
+}
+
+/**
+ *  修改本地设备昵称用户名密码
+ */
+-(BOOL)updateLocalDeviceNickNameWithYst:(NSString *)ystNUm
+                    NickName:(NSString *)nickName
+                  deviceName:(NSString *)deviceName
+                    passWord:(NSString *)passWord
+           iscustomLinkModel:(BOOL)linkModel
+
+{
+    return  [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] updateLocalDeviceNickName:ystNUm NickName:nickName deviceName:deviceName passWord:passWord iscustomLinkModel:linkModel];
+
+    
+}
+
+/**
+ *  修改设备的ip 端口号 用户名  密码
+ */
+-(BOOL)updateLocalDeviceLickInfoWithYst:(NSString *)ystNUm
+                         deviceName:(NSString *)deviceName
+                           passWord:(NSString *)passWord
+                  iscustomLinkModel:(BOOL)linkModel
+                               port:(NSString*)port
+                                 ip:(NSString *)ip
+{
+    return [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] updateLocalDeviceLickInfoWithYst:ystNUm deviceName:deviceName passWord:passWord iscustomLinkModel:linkModel port:port ip:ip
+            ];
+}
+
 @end

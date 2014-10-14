@@ -98,14 +98,6 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"login_pw_equal")];
             
             break;
-        case LINKTYPE_IP_ERROR:
-            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_IP_ERROR")];
-            
-            break;
-        case LINKTYPE_PORT_ERROR:
-            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PORT_ERROR")];
-            
-            break;
         case VALIDATIONUSERNAMETYPE_LENGTH_E+KAddTag:
             [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_LENGTH_E")];
             
@@ -238,6 +230,50 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
     
 }
 
+/**
+ *  连接模式界面修改
+ *
+ *  @param result 相应的返回值
+ */
+- (void)showModifyDevieLinkModelError:(int )result
+{
+    switch (result) {
+            
+        case LINKMODEL_USER_NIL:
+            [ [JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_USER_NIL")];
+            break;
+        case LINKMODEL_USER_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_USER_ERROR")];
+            break;
+        case LINKMODEL_PASSWORD_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PASSWORD_NIL")];
+            break;
+        case LINKMODEL_PASSWORD_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PASSWORD_ERROR")];
+            break;
+            
+        case LINKMODEL_IP_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_IP_NIL")];
+            break;
+        case LINKMODEL_IP_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_IP_ERROR")];
+            break;
+            
+        case LINKMODEL_PORT_NIL:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PORT_NIL")];
+            break;
+        case LINKMODEL_PORT_ERROR:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"LINKMODEL_PORT_ERROR")];
+            break;
+            
+            
+        default:
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"%@%d",LOCALANGER(@"LINKMODEL_UNKONWN_ERROR"),result]];
+            
+            break;
+    }
+    
+}
 
 
 @end

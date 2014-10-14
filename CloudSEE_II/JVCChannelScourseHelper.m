@@ -252,11 +252,16 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
         }
     }
     
-    return channnleValues;
+    NSSortDescriptor *sorter = [NSSortDescriptor sortDescriptorWithKey:@"nChannelValue" ascending:YES];
+    NSArray *sortArray = [channnleValues sortedArrayUsingDescriptors:[NSArray arrayWithObject:sorter]];
+    
+    NSMutableArray *arrayReturn = [[NSMutableArray alloc] init];
+    [arrayReturn addObjectsFromArray:sortArray];
+    return [arrayReturn autorelease];
 }
 
 /**
- *  本地添加通道
+ *  本地添加通道,并且把本地通道放到数组中
  *
  *  @param ystNum 云视通号
  */
@@ -306,7 +311,67 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     [arrayRemove release];
     
+   NSMutableArray *channelSingleArray = [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]getSingleChannnelListWithYstNum:ystNum];
+    
+    NSMutableArray *arrayInsertIn = [[NSMutableArray alloc] init];
+    
+    for (JVCChannelModel *channelInsertmodel in channelSingleArray) {
+        
+        for (JVCChannelModel *channelHasmodel in channelArray) {
+        
+            if ([channelInsertmodel.strDeviceYstNumber isEqualToString:channelHasmodel.strDeviceYstNumber] &&channelInsertmodel.nChannelValue == channelHasmodel.nChannelValue) {
+              
+                [arrayInsertIn addObject:channelInsertmodel];
+                
+            }
+        }
+    }
+    [channelSingleArray removeObjectsInArray:arrayInsertIn];
+    
+    if (channelSingleArray.count >0) {
+        
+        [channelArray addObjectsFromArray:channelSingleArray];
+    }
+    
+    [arrayInsertIn release];
+    
 }
 
+/**
+ *  获取本地通道所有列表
+ */
+- (void)getAllLocalChannelsList
+{
+  NSMutableArray *arrChannel =  [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]getAllChannnelList];
+    
+    [channelArray removeAllObjects];
+    
+    [channelArray addObjectsFromArray:arrChannel];
+}
+
+/**
+ *  修改通道昵称
+ *
+ *  @param nickName   通道昵称
+ *  @param channelIDNum 通道号
+ *
+ *  @return 成功失败  yes 成功
+ */
+- (BOOL)editLocalChannelNickName:(NSString *)nickName  channelIDNum:(int)channelIDNum
+{
+   return  [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] updateLocalChannelInfoWithId:channelIDNum NickName:nickName];
+}
+
+/**
+ *  根据id删除设备
+ *
+ *  @param idNum idnum
+ *
+ *  @return yes 成功
+ */
+- (BOOL)deleteLocalChannelWithId:(int)idNum
+{
+  return   [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]deleteLocalChannelWithIdNUm:idNum];
+}
 
 @end

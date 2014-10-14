@@ -29,10 +29,7 @@ typedef enum {
     UIButton *btnIP;
     
     UIButton *btnYst;
-    
-    JVCLabelFieldSView *YStLinkView;
-    
-    JVCLabelFieldSView *IPLinkView;
+
 
     
     UITextField *textFieldYst;
@@ -48,6 +45,8 @@ typedef enum {
 @end
 
 @implementation JVCLickTypeViewController
+@synthesize YStLinkView;
+@synthesize IPLinkView;
 @synthesize deviceModel;
 static const int KHeadViewHeigin    = 44;//head头的高度
 static const NSTimeInterval   KLinkTypeAnimationTimer  = 0.5;//动画时间
@@ -293,11 +292,10 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     if (IPLinkView.hidden == YES) {//修改的是云视通
         
-        int result = [[JVCPredicateHelper shareInstance] loginPredicateUserName:textFieldYstName.text andPassWord:textFieldYstPassWord.text];
+        int result = [[JVCPredicateHelper shareInstance] predicateModifyLinkModelYSTWithName:textFieldYstName.text andPassWord:textFieldYstPassWord.text];
         
         if (KLinkTypeSUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
             
-            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
             
             [self modiyDeviceLinkModelToServer:CONNECTTYPE_YST];
             
@@ -305,31 +303,26 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         }else{//正则校验失败，提示相应的错误
             
             
-            [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
+            [[JVCResultTipsHelper shareResultTipsHelper] showModifyDevieLinkModelError:result];
         }
         
     }else//修改改的是ip
     {
         
-        
+        NSLog(@"textFieldIPPassWord.text= %@",textFieldIPPassWord.text);
         int result = [[JVCPredicateHelper shareInstance] PredicateLinkTypeUserName:textFieldIPName.text PassWord:textFieldIPPassWord.text Ip:textFieldIP.text port:textFieldPort.text];
         if (KLinkTypeSUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
             
-            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
             
             [self modiyDeviceLinkModelToServer:CONNECTTYPE_IP];
             
-            
         }else{//正则校验失败，提示相应的错误
             
-            
-            [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
+            [[JVCResultTipsHelper shareResultTipsHelper] showModifyDevieLinkModelError:result];
         }
-
-        
     }
-    
 }
+
 
 /**
  *  背景被按下的回调
@@ -341,9 +334,15 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     [self slideDownLinkType];
 }
 
+/**
+ *  处理按钮按下保存事件的返回值
+ *
+ *  @param linkType 返回值
+ */
 - (void)modiyDeviceLinkModelToServer:(int)linkType
 {
- 
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         int result = -1;
@@ -431,6 +430,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 
 - (void)dealloc
 {
+    [YStLinkView release];
+    [IPLinkView release];
+    
     [deviceModel release];
     
     [imageViewSlide release];

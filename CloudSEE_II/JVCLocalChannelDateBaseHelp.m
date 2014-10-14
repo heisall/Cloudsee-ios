@@ -138,12 +138,40 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
         if (!result) {
             
             NSLog(@"%s_删除数据错误",__FUNCTION__);
-            return YES;
+            return NO;
             
         }else{
             
             NSLog(@"%s_删除数据成功",__FUNCTION__);
+            return YES;
+            
+        }
+        [localChannelSqlite close];
+    }
+    return NO;
+}
+
+/**
+ *  删除通道
+ */
+-(BOOL)deleteLocalChannelWithIdNUm:(int)idNUm
+{
+    
+    if ([localChannelSqlite open]) {
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  CHANNELINFOTABLE  WHERE ID = '%d'",idNUm];
+        
+        BOOL result  = [localChannelSqlite executeUpdate:sqlInser];
+        
+        if (!result) {
+            
+            NSLog(@"%s_删除数据错误",__FUNCTION__);
             return NO;
+            
+        }else{
+            
+            NSLog(@"%s_删除数据成功",__FUNCTION__);
+            return YES;
             
         }
         [localChannelSqlite close];
@@ -154,8 +182,8 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
 /**
  *  更新通道
  */
--(BOOL)updateLocalChannelInfo:(NSString *)ystNUm
-                    NickName:(NSString *)nickName
+-(BOOL)updateLocalChannelInfoWithId:(int)idNum
+                           NickName:(NSString *)nickName;
 
 
 {
@@ -163,7 +191,7 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
     if ([localChannelSqlite open]) {
         
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  CHANNELINFOTABLE SET NICKNAME='%@' WHERE DEVICEYSTNUM = '%@'",nickName,ystNUm];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  CHANNELINFOTABLE SET NICKNAME='%@' WHERE CHANNELNUM = '%d'",nickName,idNum];
         
         BOOL result  = [localChannelSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -201,8 +229,9 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
             NSString *strDeviceYST= [rsSet stringForColumn:@"DEVICEYSTNUM"];
             int iChananelNum = [rsSet intForColumn:@"CHANNELNUM"];
             NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
+            int iIDNUm = [rsSet intForColumn:@"ID"];
             
-            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum];
+            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum idNum:iIDNUm] ;
             
             [channelArray addObject:channeModel];
             
@@ -224,7 +253,7 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
     
     if ([localChannelSqlite open]) {
         
-        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM CHANNELINFOTABLE WHERE DEVICEYSTNUM = '%@'",ystNum];
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM CHANNELINFOTABLE WHERE DEVICEYSTNUM = '%@' ORDER BY CHANNELNUM ASC",ystNum];
         
         FMResultSet *rsSet = [localChannelSqlite executeQuery:sqlStr];
         
@@ -233,8 +262,9 @@ static JVCLocalChannelDateBaseHelp *shareLocalChannelDataBaseHelper = nil;
             NSString *strDeviceYST= [rsSet stringForColumn:@"DEVICEYSTNUM"];
             int iChananelNum = [rsSet intForColumn:@"CHANNELNUM"];
             NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
+            int iIDNUm = [rsSet intForColumn:@"ID"];
             
-            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum];
+            JVCChannelModel *channeModel = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:iChananelNum idNum:iIDNUm];
             
             [channelArray addObject:channeModel];
             

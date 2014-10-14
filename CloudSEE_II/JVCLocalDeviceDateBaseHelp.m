@@ -133,19 +133,19 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     
     if ([localDeviceSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  DEVICEINFOTABLE  WHERE USERNAME = '%@'",ystNUm];
+        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  DEVICEINFOTABLE  WHERE DEVICEYSTNUM = '%@'",ystNUm];
         
         BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
         
         if (!result) {
             
             NSLog(@"%s_删除数据错误",__FUNCTION__);
-            return YES;
+            return NO;
             
         }else{
             
             NSLog(@"%s_删除数据成功",__FUNCTION__);
-            return NO;
+            return YES;
             
         }
         [localDeviceSqlite close];
@@ -154,7 +154,7 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
 }
 
 /**
- *  删除设备
+ *  修改设备
  */
 -(BOOL)updateLocalDeviceInfo:(NSString *)ystNUm
                     NickName:(NSString *)nickName
@@ -172,6 +172,80 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
         passWord = [CommonFunc  base64StringFromText:passWord];
         
         NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  DEVICEINFOTABLE SET USERNAME = '%@',PASSWORD ='%@',LINKTYPE ='%d',IP='%@',PORT='%@',NICKNAME='%@',ISCUSTOMLINKMODEL='%d' WHERE DEVICEYSTNUM = '%@'",deviceName,passWord,linkType,ip,port,nickName,linkModel,ystNUm];
+        
+        BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_跟新数据错误",__FUNCTION__);
+            return NO;
+        }else{
+            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            return YES;
+            
+        }
+        [localDeviceSqlite close];
+    }
+    return NO;
+
+}
+
+/**
+ *  修改昵称、用户名、密码
+ */
+-(BOOL)updateLocalDeviceNickName :(NSString *)ystNUm
+                    NickName:(NSString *)nickName
+                  deviceName:(NSString *)deviceName
+                    passWord:(NSString *)passWord
+           iscustomLinkModel:(BOOL)linkModel
+
+{
+    
+    if ([localDeviceSqlite open]) {
+        
+        passWord = [CommonFunc  base64StringFromText:passWord];
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  DEVICEINFOTABLE SET USERNAME = '%@',PASSWORD ='%@',NICKNAME='%@',ISCUSTOMLINKMODEL='%d' WHERE DEVICEYSTNUM = '%@'",deviceName,passWord,nickName,linkModel,ystNUm];
+        
+        BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_跟新数据错误",__FUNCTION__);
+            return NO;
+        }else{
+            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            return YES;
+            
+        }
+        [localDeviceSqlite close];
+    }
+    return NO;
+    
+}
+
+/**
+ *  修改设备ip 端口号 用户名 密码
+ *
+ *  @param ystNUm                云视通号
+ *  @param deviceName            用户名
+ *  @param passWord              密码
+ *  @param linkModel             是否被用户修改
+ *  @param port                  端口号
+ *  @ip                          ip
+*  @return 是否正确
+ */
+-(BOOL)updateLocalDeviceLickInfoWithYst:(NSString *)ystNUm
+                             deviceName:(NSString *)deviceName
+                               passWord:(NSString *)passWord
+                      iscustomLinkModel:(BOOL)linkModel
+                                   port:(NSString*)port
+                                     ip:(NSString *)ip
+{
+
+    if ([localDeviceSqlite open]) {
+        
+        passWord = [CommonFunc  base64StringFromText:passWord];
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  DEVICEINFOTABLE SET USERNAME = '%@',PASSWORD ='%@',IP='%@',PORT='%@',ISCUSTOMLINKMODEL='%d' WHERE DEVICEYSTNUM = '%@'",deviceName,passWord,ip,port,linkModel,ystNUm];
         
         BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
         if (!result) {

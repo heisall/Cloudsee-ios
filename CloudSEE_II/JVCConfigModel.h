@@ -32,7 +32,7 @@ enum ACCOUNTTYPEWATCH
 @interface JVCConfigModel : NSObject
 {
     /**
-     *  是否本地登录  1：非账号登录（本地登录以及演示点登录）  0：账号登录
+     *  是否本地登录  1：账号登录（本地登录以及演示点登录）  其他：账号登录
      */
     int _bISLocalLoginIn;
     

@@ -31,8 +31,9 @@
 /**
  *  更新通道
  */
--(BOOL)updateLocalChannelInfo:(NSString *)ystNUm
-                     NickName:(NSString *)nickName;
+-(BOOL)updateLocalChannelInfoWithId:(int)idNum
+                           NickName:(NSString *)nickName;
+
 
 /**
  *  获取所有的本地通道列表
@@ -47,6 +48,11 @@
  *  @return 设备列表数组
  */
 - (NSMutableArray *)getSingleChannnelListWithYstNum:(NSString *)ystNum;
+
+/**
+ *  删除通道
+ */
+-(BOOL)deleteLocalChannelWithIdNUm:(int)idNUm;
 
 
 @end

@@ -13,6 +13,20 @@
 @interface JVCLickTypeViewController : JVCBaseSliderViewController<UITextFieldDelegate,JVCLabelFieldSViewDelegate>
 {
     JVCDeviceModel *deviceModel;
+    
+    
+    JVCLabelFieldSView *YStLinkView;
+    
+    JVCLabelFieldSView *IPLinkView;
 }
 @property(nonatomic,retain)JVCDeviceModel *deviceModel;
+@property(nonatomic,retain) JVCLabelFieldSView *YStLinkView;
+@property(nonatomic,retain)JVCLabelFieldSView *IPLinkView;
+
+/**
+ *  处理按钮按下保存事件的返回值
+ *
+ *  @param linkType 返回值
+ */
+- (void)modiyDeviceLinkModelToServer:(int)linkType;
 @end

@@ -156,4 +156,32 @@ enum ADDDEVICE_TYPE
  */
 - (void)addLocalDeviceInfo:(NSString *)ystNum  deviceUserName:(NSString *)userName  devicePassWord:(NSString *)passWord;
 
+/**
+ *  删除本地设备
+ *
+ *  @param ystNum 云视通号
+ */
+- (BOOL)deleteLocalDeviceInfo:(NSString *)ystNum;
+
+
+
+/**
+ *  修改本地设备昵称用户名密码
+ */
+-(BOOL)updateLocalDeviceNickNameWithYst:(NSString *)ystNUm
+                               NickName:(NSString *)nickName
+                             deviceName:(NSString *)deviceName
+                               passWord:(NSString *)passWord
+                      iscustomLinkModel:(BOOL)linkModel;
+
+/**
+ *  修改设备的ip 端口号 用户名  密码
+ */
+-(BOOL)updateLocalDeviceLickInfoWithYst:(NSString *)ystNUm
+                             deviceName:(NSString *)deviceName
+                               passWord:(NSString *)passWord
+                      iscustomLinkModel:(BOOL)linkModel
+                                   port:(NSString*)port
+                                     ip:(NSString *)ip;
+
 @end

@@ -217,4 +217,14 @@ enum MODIFY_DEVICE_TYPE
 
 //判断是不是正确的Ip
 -(BOOL)isIP:(NSString *)str;
+
+/**
+ *  正则判断用户名、密码是否合法
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *  @return 相应的返回字段
+ */
+- (int)predicateModifyLinkModelYSTWithName:(NSString *)userName andPassWord:(NSString *)passWord;
 @end

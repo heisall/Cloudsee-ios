@@ -336,7 +336,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     if ([userInfoSqlite open]) {
         
-        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM USERINFOTABLE ORDER BY LOGINTIMER DESC"];
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM USERINFOTABLE ORDER BY LOGINTIMER ASC"];
         
         FMResultSet *rsSet = [userInfoSqlite executeQuery:sqlStr];
         

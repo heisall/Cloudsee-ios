@@ -24,6 +24,8 @@
 #import "JVCMorEditPassWordViewController.h"
 #import "AppDelegate.h"
 #import "JVCKeepOnlineHelp.h"
+#import "JVCSystemConfigMacro.h"
+#import "JVCConfigModel.h"
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -213,10 +215,17 @@ static const int kAlertTag          = 200;   //alert的tag
             [apHelper release];
         }else if(indexPath.row == 1)
         {
-            JVCMorEditPassWordViewController *editVC = [[JVCMorEditPassWordViewController alloc] init];
-            [self.navigationController pushViewController:editVC animated:YES];
-            [editVC release];
-        }
+            if ([JVCConfigModel shareInstance]._bISLocalLoginIn != TYPELOGINTYPE_LOCAL) {//本地登录
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"本地模式暂停使用"];
+                
+            }else{
+                JVCMorEditPassWordViewController *editVC = [[JVCMorEditPassWordViewController alloc] init];
+                [self.navigationController pushViewController:editVC animated:YES];
+                [editVC release];
+
+            }
+                   }
     }else if(indexPath.section == 3)
     {
         if (indexPath.row == 0) {//打开评论
@@ -255,33 +264,41 @@ static const int kAlertTag          = 200;   //alert的tag
  */
 - (void)userLoginOut
 {
-    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
         
-        int reuslt =  [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate presentLoginViewController];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            DDLogVerbose(@"注销收到的返回值=%d",reuslt);
+            int reuslt =  [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
             
-            
-            if (KUserLoginOutState_Success == reuslt) {//成功,弹出注册界面
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                [delegate presentLoginViewController];
+                DDLogVerbose(@"注销收到的返回值=%d",reuslt);
                 
-                [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
-
-                //并且把秘密置换成功
-                [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
                 
-            }else{//失败
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"注销失败"];
-            }
+                if (KUserLoginOutState_Success == reuslt) {//成功,弹出注册界面
+                    
+                    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    [delegate presentLoginViewController];
+                    
+                    [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
+                    
+                    //并且把秘密置换成功
+                    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
+                    
+                }else{//失败
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"注销失败"];
+                }
+            });
         });
-    });
+    }
 }
 
 - (void)didReceiveMemoryWarning

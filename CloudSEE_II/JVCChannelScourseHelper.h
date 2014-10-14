@@ -75,9 +75,32 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
 -(void)deleteSingleChannelWithDeviceYstNumber:(JVCChannelModel *)channelModelDelete;
 
 /**
- *  本地添加通道
+ *  本地添加通道,并且把本地通道放到数组中
  *
  *  @param ystNum 云视通号
  */
 - (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum;
+
+/**
+ *  获取本地通道所有列表
+ */
+- (void)getAllLocalChannelsList;
+
+/**
+ *  修改通道昵称
+ *
+ *  @param nickName   通道昵称
+ *  @param channelIDNum 通道号
+ *
+ *  @return 成功失败  yes 成功
+ */
+- (BOOL)editLocalChannelNickName:(NSString *)nickName  channelIDNum:(int)channelIDNum;
+/**
+ *  根据id删除设备
+ *
+ *  @param idNum idnum
+ *
+ *  @return yes 成功
+ */
+- (BOOL)deleteLocalChannelWithId:(int)idNum;
 @end

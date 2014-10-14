@@ -120,9 +120,21 @@ enum  loginResut
     LOGINRESULT_EMAIL_ERROR,//邮箱不合法
     LOGINRESULT_NOT_EQUAL_USER_PASSWORD,//用户保存密码与用户输入的不一致
     LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD,//用户保存密码与用户输入的不一致
-    LINKTYPE_IP_ERROR,                      //域名不合法
-    LINKTYPE_PORT_ERROR,                    //ip不合法
 
+};
+
+enum MODIFYLINKMODELTYPE
+{
+    LINKMODEL_SUCCESS = 0,
+    LINKMODEL_USER_NIL ,//用户名为空
+    LINKMODEL_USER_ERROR ,//用户名格式不合法
+    LINKMODEL_PASSWORD_NIL ,//密码为空
+    LINKMODEL_PASSWORD_ERROR ,//密码格式不合法
+    LINKMODEL_IP_NIL ,//ip为空
+    LINKMODEL_IP_ERROR ,//ip格式不合法
+    LINKMODEL_PORT_NIL ,//PORT为空
+    LINKMODEL_PORT_ERROR ,//port格式不合法
+    
 };
 
 /**

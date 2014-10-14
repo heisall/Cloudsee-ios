@@ -72,6 +72,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     if (textColor) {
         deviceNickNameField.textColor = textColor;
     }
+    deviceNickNameField.delegate = self;
     deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:deviceNickNameField];
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
@@ -85,6 +86,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     deviceNickNameField.leftViewMode = UITextFieldViewModeAlways;
     deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     deviceNickNameField.returnKeyType = UIReturnKeyDone;
+    deviceNickNameField.delegate = self;
     deviceNickNameField.leftView = labelLeft;
     [labelLeft release];
     UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
@@ -218,37 +220,46 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
         
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            if (DEVICE_SUCCESSS == result ) {//成功后，把数据从本地列表中删除,返回
-                
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
-                
-                [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"delete_Success", nil)];
-                
-                if ([[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count == 0) {//判断设备列表中是否还有设备，如果没有
-                    
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-
-                }else{
-                
-                    [self.navigationController popViewControllerAnimated:YES];
-
-                }
-                
-                if (deleteDelegate !=nil && [deleteDelegate respondsToSelector:@selector(deleteDeviceInfoCallBack)]) {//删除设备的回调
-                    [deleteDelegate deleteDeviceInfoCallBack];
-                }
-                
-            }else{//失败
-            
-                [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"delete_Failt", nil)];
-
-            }
+            [self handeleDeleteDeviceRusult:result];
         });
     
     });
     
 }
 
+/**
+ *  处理设备删除返回值的方法
+ *
+ *  @param result 返回值
+ */
+- (void)handeleDeleteDeviceRusult:(int )result
+{
+    if (DEVICE_SUCCESSS == result ) {//成功后，把数据从本地列表中删除,返回
+        
+        [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
+        
+        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"delete_Success", nil)];
+        
+        if ([[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count == 0) {//判断设备列表中是否还有设备，如果没有
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        }else{
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+        
+        if (deleteDelegate !=nil && [deleteDelegate respondsToSelector:@selector(deleteDeviceInfoCallBack)]) {//删除设备的回调
+            [deleteDelegate deleteDeviceInfoCallBack];
+        }
+        
+    }else{//失败
+        
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"delete_Failt", nil)];
+        
+    }
+}
 /**
  *  保存设备信息
  */
@@ -257,46 +268,62 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     int reslutPredicat = [[JVCPredicateHelper shareInstance] modifyDevicePredicatWithNickName:deviceNickNameField.text andUserName:devieUserName.text andPassWord:devicePassWord.text];
     
     if (MODIFY_DEVIE_SUCCESS == reslutPredicat) {//成功
-        
-        [[JVCAlertHelper shareAlertHelper ]alertShowToastOnWindow];
-        //调用修改方法
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-            int result =   [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceConnectInfo:deviceModel.yunShiTongNum userName:devieUserName.text password:devicePassWord.text nickName:deviceNickNameField.text ];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-            
-                [[JVCAlertHelper shareAlertHelper ]alertHidenToastOnWindow];
-
-                if (DEVICE_SUCCESSS == result) {//修改成功
-                    
-                    deviceModel.nickName = deviceNickNameField.text;
-                    deviceModel.userName = devieUserName.text;
-                    deviceModel.passWord =  devicePassWord.text;
-
-                    [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_Success", nil)];
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
-  
-                    
-                }else{//修改不成功
-                    
-                    [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_failt", nil)];
-
-
-                }
-            
-            });
-        
-        });
-        
-
+    
+        [self editDeviceInfoPredicateSuccess:deviceNickNameField.text userName:devieUserName.text passWord:devicePassWord.text  ];
         
     }else{//失败
         
         [[JVCResultTipsHelper shareResultTipsHelper]showModifyDeviceInfoResult:reslutPredicat];
     }
 
+}
+
+/**
+ *  正则判断成功后，调用修改方法
+ */
+- (void)editDeviceInfoPredicateSuccess:(NSString *)nickName  userName:(NSString *)userName  passWord:(NSString *)password
+{
+    [[JVCAlertHelper shareAlertHelper ]alertShowToastOnWindow];
+    //调用修改方法
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        int result =   [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceConnectInfo:deviceModel.yunShiTongNum userName:devieUserName.text password:devicePassWord.text nickName:deviceNickNameField.text ];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[JVCAlertHelper shareAlertHelper ]alertHidenToastOnWindow];
+            
+            [self handelModifyDeviceInfoResult:result];
+            
+        });
+        
+    });
+}
+
+/**
+ *  处理修改设备信息返回值的方法
+ *
+ *  @param result 返回值
+ */
+- (void)handelModifyDeviceInfoResult:(int )result
+{
+    if (DEVICE_SUCCESSS == result) {//修改成功
+        
+        deviceModel.nickName = deviceNickNameField.text;
+        deviceModel.userName = devieUserName.text;
+        deviceModel.passWord =  devicePassWord.text;
+        
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_Success", nil)];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        
+    }else{//修改不成功
+        
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_failt", nil)];
+        
+        
+    }
 }
 
 /**

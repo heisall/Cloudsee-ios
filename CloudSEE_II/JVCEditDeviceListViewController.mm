@@ -14,7 +14,10 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCEditChannelInfoTableViewController.h"
 #import "JVCLickTypeViewController.h"
-
+#import "JVCConfigModel.h"
+#import "JVCLocalEditDeviceInfoViewController.h"
+#import "JVCLocalLickTypeViewController.h"
+#import "JVCLocalEditChannelInfoTableViewController.h"
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -248,11 +251,23 @@ static const int  kInitWithLayoutColumnCount           = 3;
 - (void)editDeviceInfo
 {
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
-    JVCEditDeviceInfoViewController *editDeviceInfVC = [[JVCEditDeviceInfoViewController alloc] init];
-    editDeviceInfVC.deviceModel = model;
-    editDeviceInfVC.deleteDelegate = self;
-    [self.navigationController pushViewController:editDeviceInfVC animated:YES];
-    [editDeviceInfVC release];
+
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
+        
+        JVCLocalEditDeviceInfoViewController *editDeviceInfVC = [[JVCLocalEditDeviceInfoViewController alloc] init];
+        editDeviceInfVC.deviceModel = model;
+        editDeviceInfVC.deleteDelegate = self;
+        [self.navigationController pushViewController:editDeviceInfVC animated:YES];
+        [editDeviceInfVC release];
+        
+    }else{
+    
+        JVCEditDeviceInfoViewController *editDeviceInfVC = [[JVCEditDeviceInfoViewController alloc] init];
+        editDeviceInfVC.deviceModel = model;
+        editDeviceInfVC.deleteDelegate = self;
+        [self.navigationController pushViewController:editDeviceInfVC animated:YES];
+        [editDeviceInfVC release];
+    }
 }
 
 /**
@@ -261,10 +276,22 @@ static const int  kInitWithLayoutColumnCount           = 3;
 - (void)editDeviceLinkType
 {
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
-    JVCLickTypeViewController *deviceLinkType = [[JVCLickTypeViewController alloc] init];
-    deviceLinkType.deviceModel = model;
-    [self.navigationController pushViewController:deviceLinkType animated:YES];
-    [deviceLinkType release];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
+        
+        JVCLocalLickTypeViewController *deviceLinkType = [[JVCLocalLickTypeViewController alloc] init];
+        deviceLinkType.deviceModel = model;
+        [self.navigationController pushViewController:deviceLinkType animated:YES];
+        [deviceLinkType release];
+
+    }else{
+    
+        JVCLickTypeViewController *deviceLinkType = [[JVCLickTypeViewController alloc] init];
+        deviceLinkType.deviceModel = model;
+        [self.navigationController pushViewController:deviceLinkType animated:YES];
+        [deviceLinkType release];
+
+    }
 }
 
 
@@ -279,11 +306,26 @@ static const int  kInitWithLayoutColumnCount           = 3;
 #pragma 通道管理
 - (void)editChannelsInfo
 {
-    JVCEditChannelInfoTableViewController *editChannelVC = [[JVCEditChannelInfoTableViewController alloc] init];
-    editChannelVC.YstNum = [self currentYstTitles];
-    editChannelVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:editChannelVC animated:YES];
-    [editChannelVC release];
+     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
+         
+         JVCLocalEditChannelInfoTableViewController *editChannelVC = [[JVCLocalEditChannelInfoTableViewController alloc] init];
+         
+         editChannelVC.YstNum = [self currentYstTitles];
+         [editChannelVC initChannelist];
+         editChannelVC.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:editChannelVC animated:YES];
+         [editChannelVC release];
+
+     }else{
+         
+         JVCEditChannelInfoTableViewController *editChannelVC = [[JVCEditChannelInfoTableViewController alloc] init];
+         
+         editChannelVC.YstNum = [self currentYstTitles];
+         [editChannelVC initChannelist];
+         editChannelVC.hidesBottomBarWhenPushed = YES;
+         [self.navigationController pushViewController:editChannelVC animated:YES];
+         [editChannelVC release];
+     }
 }
 
 -(void)dealloc{

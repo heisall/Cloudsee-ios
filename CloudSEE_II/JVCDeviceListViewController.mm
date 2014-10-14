@@ -24,7 +24,7 @@
 #import "JVCQRAddDeviceViewController.h"
 #import "JVCDeviceMacro.h"
 #import "JVCVoiceencInputSSIDWithPasswordViewController.h"
-
+#import "JVCConfigModel.h"
 #import "JVCLocalAddDeviceViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
@@ -177,16 +177,16 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
  */
 - (void)AddDevice
 {
-//    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
-//    addDeviceVC.addDeviceDelegate = self;
-//    [self.navigationController pushViewController:addDeviceVC animated:YES];
-//    [addDeviceVC release];
-//    return;
-    
-    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+    JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
     addDeviceVC.addDeviceDelegate = self;
     [self.navigationController pushViewController:addDeviceVC animated:YES];
     [addDeviceVC release];
+    return;
+    
+//    JVCAddDeviceViewController *addDeviceVC = [[JVCAddDeviceViewController alloc] init];
+//    addDeviceVC.addDeviceDelegate = self;
+//    [self.navigationController pushViewController:addDeviceVC animated:YES];
+//    [addDeviceVC release];
 }
 
 /**
@@ -422,47 +422,55 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 #pragma mark 获取设备
 - (void)getDeviceList
 {
-//    [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
-//    [self.tableView reloadData];
-//
-//    return;
     
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
+        
+        /**
+         *  获取本地通设备列表
+         */
+        [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
+        [self.tableView reloadData];
+        /**
+         *  获取本地通道列表
+         */
+        [[JVCChannelScourseHelper shareChannelScourseHelper] getAllLocalChannelsList];
+
+        
+    }else{
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         
-        NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             
-            
-            if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                //把从服务器获取到的数据存放到数组中
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
-                //必须刷新
-                [self.tableView reloadData];
-                
-                [self StartLANSerchAllDevice];
-                
-                [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel]];
-                
-                //获取设备通道
-                
-                [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
-                
-            }else{//空
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
                 
-                [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
-                
-            }
-            
+                if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
+                    
+                    //把从服务器获取到的数据存放到数组中
+                    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
+                    //必须刷新
+                    [self.tableView reloadData];
+                    
+                    [self StartLANSerchAllDevice];
+                    
+                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel]];
+                    
+                    //获取设备通道
+                    [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
+                    
+                }else{//空
+                    
+                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
+                    
+                }
+            });
         });
-        
-    });
+    }
 }
 
 /**

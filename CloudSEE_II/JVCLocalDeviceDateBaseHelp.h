@@ -46,6 +46,31 @@
  */
 - (NSMutableArray *)getAllLocalDeviceList;
 
+/**
+ *  修改昵称、用户名、密码
+ */
+-(BOOL)updateLocalDeviceNickName :(NSString *)ystNUm
+                         NickName:(NSString *)nickName
+                       deviceName:(NSString *)deviceName
+                         passWord:(NSString *)passWord
+                iscustomLinkModel:(BOOL)linkModel;
 
+/**
+ *  修改设备ip 端口号 用户名 密码
+ *
+ *  @param ystNUm                云视通号
+ *  @param deviceName            用户名
+ *  @param passWord              密码
+ *  @param linkModel             是否被用户修改
+ *  @param port                  端口号
+ *  @ip                          ip
+ *  @return 是否正确
+ */
+-(BOOL)updateLocalDeviceLickInfoWithYst:(NSString *)ystNUm
+                             deviceName:(NSString *)deviceName
+                               passWord:(NSString *)passWord
+                      iscustomLinkModel:(BOOL)linkModel
+                                   port:(NSString*)port
+                                     ip:(NSString *)ip;
 
 @end

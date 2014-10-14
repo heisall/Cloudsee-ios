@@ -244,6 +244,9 @@
 		A7F7178419D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */; };
 		A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
 		A7F7178719D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */; };
+		A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */; };
+		A7F9E03E19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */; };
+		A7F9E04119ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */; };
 		A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
 		A7FA43D719E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */; };
 		A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43CD19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm */; };
@@ -638,6 +641,12 @@
 		A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_ch@2x.png"; sourceTree = "<group>"; };
 		A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig_en@2x.png"; sourceTree = "<group>"; };
 		A7F7178519D8345E008DB1C5 /* add_ApConfig@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_ApConfig@2x.png"; sourceTree = "<group>"; };
+		A7F9E03919ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalEditDeviceInfoViewController.h; sourceTree = "<group>"; };
+		A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalEditDeviceInfoViewController.m; sourceTree = "<group>"; };
+		A7F9E03C19ECBE2400C1D69C /* JVCLocalLickTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalLickTypeViewController.h; sourceTree = "<group>"; };
+		A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalLickTypeViewController.m; sourceTree = "<group>"; };
+		A7F9E03F19ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalEditChannelInfoTableViewController.h; sourceTree = "<group>"; };
+		A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalEditChannelInfoTableViewController.m; sourceTree = "<group>"; };
 		A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomOperationBottomView.h; sourceTree = "<group>"; };
 		A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomOperationBottomView.m; sourceTree = "<group>"; };
 		A7FA43CC19E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCManagePalyVideoComtroller.h; sourceTree = "<group>"; };
@@ -1323,6 +1332,19 @@
 			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		A7F9E03819ECB35D00C1D69C /* local */ = {
+			isa = PBXGroup;
+			children = (
+				A7F9E03919ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.h */,
+				A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */,
+				A7F9E03C19ECBE2400C1D69C /* JVCLocalLickTypeViewController.h */,
+				A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */,
+				A7F9E03F19ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.h */,
+				A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */,
+			);
+			name = local;
+			sourceTree = "<group>";
+		};
 		A7FAF5AB19D10F0200B3F395 /* resister */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,6 +1413,7 @@
 		AD2BDB2219D2914600AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A7F9E03819ECB35D00C1D69C /* local */,
 				AD916BD119D543B400B925A2 /* JVCEditViewControllerDropListViewCell.h */,
 				AD916BD219D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m */,
 				AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */,
@@ -2226,9 +2249,11 @@
 				ADA22D5819DA613E0092F8B9 /* DDLog.m in Sources */,
 				AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */,
 				A7F424EB19D0FB5400D96475 /* JVCLoginViewController.m in Sources */,
+				A7F9E04119ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m in Sources */,
 				A7F405A219E563620070945F /* JVCQRCoderViewController.mm in Sources */,
 				ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */,
 				ADA22D8119DA85260092F8B9 /* JVCCloudSEEManagerHelper.m in Sources */,
+				A7F9E03E19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m in Sources */,
 				ADA22D1D19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m in Sources */,
 				A72DCD2C19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m in Sources */,
 				AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */,
@@ -2254,6 +2279,7 @@
 				A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */,
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
+				A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7F5557319D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,

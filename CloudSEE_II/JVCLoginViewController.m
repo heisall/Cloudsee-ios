@@ -18,6 +18,8 @@
 #import "JVCRGBHelper.h"
 #import "JVCUserInfoModel.h"
 #import "JVCPredicateHelper.h"
+#import "JVCConfigModel.h"
+#import "JVCSystemConfigMacro.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -273,7 +275,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
          */
         UIButton *btnDemo = [UIButton buttonWithType:UIButtonTypeCustom];
         btnDemo.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x, imgViewDemoAndResign.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-        [btnDemo setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [btnDemo setTitle:@"演示点" forState:UIControlStateNormal];
         btnDemo.tag = LOGINVIEWTAG_Demo;
         if (btnColor) {
@@ -286,7 +287,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
          */
         UIButton *btnResig = [UIButton buttonWithType:UIButtonTypeCustom];
         btnResig.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x+btnDemo.frame.size.width, imgViewDemoAndResign.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-        [btnResig setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [btnResig setTitle:@"注册" forState:UIControlStateNormal];
         [btnResig addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
         btnResig.tag = LOGINVIEWTAG_Resign;
@@ -299,18 +299,39 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     /**
      *  本地
      */
+
+    UIImageView *imgViewLocalAndGetPw = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewDemoAndResign.left, imgViewDemoAndResign.bottom+20, imgDemoAndResign.size.width, imgDemoAndResign.size.height)];
+    imgViewLocalAndGetPw.image = imgDemoAndResign;
+    [self.view addSubview:imgViewLocalAndGetPw];
+    [imgViewLocalAndGetPw release];
+    
+    /**
+     *  本地登录
+     */
     UIButton *btnLocal = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLocal.frame = CGRectMake(btnDemo.left, btnDemo.bottom+20 , imgDemoAndResign.size.width, imgDemoAndResign.size.height);
-    [btnLocal setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    btnLocal.frame = CGRectMake(imgViewLocalAndGetPw.frame.origin.x, imgViewLocalAndGetPw.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
     [btnLocal setTitle:@"本地登录" forState:UIControlStateNormal];
-    [btnLocal addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
-    btnLocal.tag = LOGINVIEWTAG_Resign;
+    [btnLocal addTarget:self action:@selector(localLogin) forControlEvents:UIControlEventTouchUpInside];
+    btnLocal.tag = LOGINVIEWTAG_Local;
     if (btnColor) {
         
         btnLocal.titleLabel.textColor = btnColor;
     }
     [self.view addSubview:btnLocal];
-
+    /**
+     *  注册
+     */
+    UIButton *btnPW = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnPW.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x+btnDemo.frame.size.width, imgViewLocalAndGetPw.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
+    [btnPW setTitle:@"找回密码" forState:UIControlStateNormal];
+    [btnPW addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
+    btnPW.tag = LOGINVIEWTAG_Resign;
+    if (btnColor) {
+        
+        btnPW.titleLabel.textColor = btnColor;
+    }
+    [self.view addSubview:btnPW];
+    
     
     
         /**
@@ -400,7 +421,6 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             {
             
                 
-                
             }else{
             
                 [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultOldType];
@@ -475,27 +495,15 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 
             if (LOGINRESULT_SUCCESS == resultnewType) {//成功
                 
-                [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"USER"];
-                [[NSUserDefaults standardUserDefaults] setObject:textFieldPW.text forKey:@"PassWord"];
-                
+                [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
+
                 kkUserName = textFieldUser.text;
                 kkPassword = textFieldPW.text;
                 
                 JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
                 [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
                 
-        
-                //如果是present出来的，就让他dismiss掉，如果不是直接切换
-                if (self.presentingViewController !=nil) {
-                    
-                    [self dismissModalViewControllerAnimated:YES];
-                    
-                    [self updaeeRootViewController];
-                    
-                }else{
-                    
-                    [self changeWindowRootViewController];
-                }
+                [self loginInSuccessToChangeRootController];
             
             }else{
             
@@ -505,6 +513,24 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             
         });
     });
+}
+
+/**
+ *  登录成功后切换rootcontroller
+ */
+- (void)loginInSuccessToChangeRootController
+{
+    //如果是present出来的，就让他dismiss掉，如果不是直接切换
+    if (self.presentingViewController !=nil) {
+        
+        [self dismissModalViewControllerAnimated:YES];
+        
+        [self updaeeRootViewController];
+        
+    }else{
+        
+        [self changeWindowRootViewController];
+    }
 }
 
 #pragma mark 注册成功之后的回调函数
@@ -530,10 +556,31 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 #pragma mark 切换主视图的root
 - (void)changeWindowRootViewController
 {
-    
+    [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
+
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate initWithTabarViewControllers];
+}
+
+/**
+ *  本地登录
+ */
+- (void)localLogin
+{
+    [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_LOCAL;
+    //如果是present出来的，就让他dismiss掉，如果不是直接切换
+    if (self.presentingViewController !=nil) {
+        
+        [self dismissModalViewControllerAnimated:YES];
+        
+        [self updaeeRootViewController];
+        
+    }else{
+        
+        [self changeWindowRootViewController];
+    }
+
 }
 
 #pragma mark 用户注销登录后的方法

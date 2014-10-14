@@ -48,6 +48,7 @@
                                                          devicePassWord:passWord];
     //添加通道
     [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:ystNum];
+    
 }
 
 - (void)didReceiveMemoryWarning

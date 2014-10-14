@@ -25,6 +25,7 @@ static const float KLabelOriginY    = 30;//距离顶端的距离
 static const float KLabelWith       = 60;//距离顶端的距离
 static const float KSpan            = 20;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
+static const int   KLabelFont       = 14;//label的字体大小
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -63,10 +64,12 @@ static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
         label.text = [arrayLabelTitiles objectAtIndex:i];
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = UITextAlignmentLeft;
+        label.font = [UIFont systemFontOfSize:KLabelFont];
         [self addSubview:label];
         [label release];
         
         UILabel *labelLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelFieldSpan, image.size.height)];
+        
         labelLeftView.backgroundColor = [UIColor clearColor];
         UITextField *textField ;// [arrayTextFields objectAtIndex:i];
         textField = [[UITextField alloc] initWithFrame:CGRectMake(label.right+KLabelFieldSpan, label.top, image.size.width, image.size.height)];

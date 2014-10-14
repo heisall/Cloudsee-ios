@@ -720,7 +720,7 @@ static JVCPredicateHelper *_shareInstance = nil;
  */
 - (int)PredicateLinkTypeUserName:(NSString *)userName  PassWord:(NSString *)passWord  Ip:(NSString *)Ip  port:(NSString *)port
 {
-    int result = [self loginPredicateUserName:userName andPassWord:passWord];
+    int result = [self predicateModifyLinkModelYSTWithName:userName andPassWord:passWord];
     
     if (result !=LOGINRESULT_SUCCESS ) {
         
@@ -728,12 +728,12 @@ static JVCPredicateHelper *_shareInstance = nil;
     }
     if (![self isIP:Ip]&& ![self isSuitYuMinglegal:Ip]) {
         
-        return LINKTYPE_IP_ERROR;
+        return LINKMODEL_IP_ERROR;
     }
     
     if (port.intValue<0) {
         
-        return LINKTYPE_PORT_ERROR;
+        return LINKMODEL_PORT_ERROR;
     }
     /**
      *  合法
@@ -741,6 +741,32 @@ static JVCPredicateHelper *_shareInstance = nil;
     return LOGINRESULT_SUCCESS;
     
 }
+
+/**
+ *  正则判断用户名、密码是否合法
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *
+ *  @return 相应的返回字段
+ */
+- (int)predicateModifyLinkModelYSTWithName:(NSString *)userName andPassWord:(NSString *)passWord
+{
+    if([self predicateBlankString:userName])
+    {
+        return LINKMODEL_USER_NIL;
+        
+    }else if(![self predicateDeviceName:userName])
+    {
+        return LINKMODEL_USER_ERROR;
+        
+    }else  if(![self predicateAddDevicePassWord:passWord])
+    {
+        return LINKMODEL_PASSWORD_ERROR;
+    }
+    return LINKMODEL_SUCCESS;
+}
+
 
 //判断是不是正确的Ip
 -(BOOL)isIP:(NSString *)str

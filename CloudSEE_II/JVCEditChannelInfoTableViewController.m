@@ -19,11 +19,8 @@
 
 @interface JVCEditChannelInfoTableViewController ()
 {
-    NSMutableArray *arrayChannelsList;//通道数组
     
     UIView *modifyChannelNickNameView;
-    
-    JVCChannelModel *channelModel;
     
     BOOL bShowEditChannelNickNameValue;//是否显示编辑昵称界面
     
@@ -36,7 +33,8 @@
 
 @implementation JVCEditChannelInfoTableViewController
 @synthesize YstNum;
-
+@synthesize arrayChannelsList;
+@synthesize channelModel;
 static const    int     kOffSet_x                = 25;//左边距
 static const    int     KChannelTextFieldFont    = 16;//字体大小
 static const    int     kChannelTextFieldWith    = 200;//textfield的宽度
@@ -62,6 +60,18 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     return self;
 }
 
+/**
+ *  初始化channellist
+ */
+- (void)initChannelist
+{
+    NSMutableArray *arrTemp = [[NSMutableArray alloc] initWithCapacity:10];
+    self.arrayChannelsList = arrTemp;
+    NSMutableArray *array =  [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.YstNum];
+    [self.arrayChannelsList addObjectsFromArray:array];
+    [arrTemp release];
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad
 {
@@ -70,11 +80,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     
     self.title = @"通道管理";
     
-    arrayChannelsList = [[NSMutableArray alloc] initWithCapacity:10];
-    NSMutableArray *array =  [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.YstNum];
-    [arrayChannelsList addObjectsFromArray:array];
-    
-    [self.tableView reloadData];
+ 
     
     //添加按钮
     UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
@@ -149,6 +155,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 
 - (void)dealloc
 {
+    [channelModel release];
     [channelNickNameField release];
     [modifyChannelNickNameView release];
     [self.YstNum release];
@@ -249,6 +256,15 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         [self tranfromanimation];
     }
     
+    [self addDeviceChannlesMaths];
+    
+}
+
+/**
+ *  添加通道方法
+ */
+- (void)addDeviceChannlesMaths
+{
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -256,6 +272,8 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         int result = [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:YstNum addChannelCount:kAddChannelCount];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
             if (kAddChannelSuccesss == result) {
                 
@@ -271,6 +289,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         });
         
     });
+
 }
 
 /**
@@ -337,25 +356,37 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                if (kAddChannelSuccesss == reuslt) {//成功
-                    
-                    [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:deleteChannelModel];
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除成功"];
-                    
-                    //跟新
-                    [self updateTableview];
-                    
-                }else{
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
-                    
-                }
+                [self handleDeleteChannelResult:reuslt deleteModel:deleteChannelModel];
             });
             
         });
 
     }
     
+}
+
+/**
+ *  删除通道处理结果
+ *
+ *  @param reuslt       类型
+ *  @param channelModel 通道model
+ */
+- (void)handleDeleteChannelResult:(int)reuslt  deleteModel:(JVCChannelModel *)channelModelDelete
+{
+    if (kAddChannelSuccesss == reuslt) {//成功
+        
+        [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除成功"];
+        
+        //跟新
+        [self updateTableview];
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+        
+    }
+
 }
 
 /**
@@ -373,21 +404,33 @@ static const    int     kTextFieldSeperate       = 30;//间隔
                     
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
-                    if (kAddChannelSuccesss == result ) {//成功后，把数据从本地列表中删除,返回
-                        JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:channelModelDelete.strDeviceYstNumber];
-                        [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
-                        //删除通道
-                        [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
-                            [self.navigationController popViewControllerAnimated:YES];
-                        
-                    }else{//失败
-                        
-                        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"删除失败", nil)];
-                        
-                    }
+                    [self handleDeleteDeviceWithNoChannel:result channelModel:channelModelDelete];
                 });
                 
             });
+}
+
+/**
+ *  当设备下面只有一个通道的时候，直接删除设备
+ *
+ *  @param result             删除返回值
+ *  @param channelModelDelete 通道
+ */
+- (void)handleDeleteDeviceWithNoChannel:(int)result   channelModel:(JVCChannelModel *)channelModelDelete
+{
+    if (kAddChannelSuccesss == result ) {//成功后，把数据从本地列表中删除,返回
+        JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:channelModelDelete.strDeviceYstNumber];
+        [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
+        //删除通道
+        [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }else{//失败
+        
+        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"删除失败", nil)];
+        
+    }
+
 }
 
 /**
@@ -399,36 +442,8 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     int resultPredicate = [[JVCPredicateHelper shareInstance] predicateChannelNickName:channelNickNameField.text];
     
     if (kAddChannelSuccesss == resultPredicate) {//成功
-        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            int result =  [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceChannelNickName:channelModel.strDeviceYstNumber channelNickName:channelNickNameField.text  channelValue:channelModel.nChannelValue];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
-                
-                if (kAddChannelSuccesss == result) {//成功
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
-                    
-                    channelModel.strNickName = channelNickNameField.text;
-                    //转过去
-                    [self tranfromanimation];
-                    //跟新
-                    [self updateTableview];
-                    
-                }else{
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
-                    
-                }
-            });
-            
-            
-            
-        });
-
+        
+        [self handlePredicatChannelNickNameSuccess:channelNickNameField.text];
     }else{
         
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"昵称不合法"];
@@ -436,6 +451,51 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     }
 }
 
+/**
+ *  修改通道昵称的方法
+ */
+- (void)handlePredicatChannelNickNameSuccess:(NSString *)channelName
+{
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        int result =  [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceChannelNickName:channelModel.strDeviceYstNumber channelNickName:channelNickNameField.text  channelValue:channelModel.nChannelValue];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self handleEdicteNickNameSuccessResult:result];
+            
+            [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];
+            
+            
+        });
+    });
+}
+
+/**
+ *  编辑昵称成功
+ */
+-(void)handleEdicteNickNameSuccessResult:(int)result
+{
+    
+    if (kAddChannelSuccesss == result) {//成功
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+        
+        channelModel.strNickName = channelNickNameField.text;
+        //转过去
+        [self tranfromanimation];
+        //跟新
+        [self updateTableview];
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+        
+    }
+
+    
+
+}
 #pragma mark 删除和添加设备之后的刷新方法
 - (void)updateTableview
 {
