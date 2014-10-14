@@ -268,6 +268,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
  */
 - (void)saveDevice
 {
+    DDLogVerbose(@"%s---pw=%@",__FUNCTION__,textFieldPassWord.text);
     int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:textFieldYST.text andUserName:textFieldUserName.text andPassWord:textFieldPassWord.text];
     
     if (ADDPREDICATE_SUCCESS == result) {
@@ -308,7 +309,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text userName:textFieldUserName.text password:textFieldUserName.text];
+        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text userName:textFieldUserName.text password:textFieldPassWord.text];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

@@ -98,6 +98,8 @@ UIView *_splitViewBgClick;
 JVCCustomCoverView *_splitViewCon;
 bool _isConnectdevcieOpenDecoder;
 
+char remoteSendSearchFileBuffer[29] = {0};
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -1198,7 +1200,6 @@ bool _isConnectdevcieOpenDecoder;
 - (void)captureImageCallBack:(NSData *)imageData {
     
     [imageData retain];
-    DDLogInfo(@"captureImageCallBack");
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     
@@ -1219,7 +1220,6 @@ bool _isConnectdevcieOpenDecoder;
                 [UIView commitAnimations];
                 [imageData release];
                 
-                //                [self performSelector:@selector(capAnimations) withObject:nil afterDelay:0.3f];
                 [self capAnimations];
                 
             });
@@ -1342,6 +1342,7 @@ bool _isConnectdevcieOpenDecoder;
         if (!bState) {
             
             [openAlObj initOpenAL];
+            
             [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
             
             [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
@@ -1368,9 +1369,8 @@ bool _isConnectdevcieOpenDecoder;
  */
 -(void)playBackSendPlayVideoDate:(NSDate*)date{
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_TARGET_QUEUE_DEFAULT, 0), ^{
-        
         NSDateFormatter *formatter    = [[NSDateFormatter alloc] init];
         
         [formatter setTimeStyle:NSDateFormatterMediumStyle];
@@ -1383,19 +1383,27 @@ bool _isConnectdevcieOpenDecoder;
         int               month       = [comps month];
         int               day         = [comps day];
         
-        NSString         *dateStr     = [[NSString alloc] initWithFormat:@"%04d%02d%02d000000%04d%02d%02d000000",year, month, day,year, month, day];
+        DDLogVerbose(@"%d  %d    %d",year,month,day);
+        
+        NSString    *dateStr     = [[NSString alloc] initWithFormat:@"%04d%02d%02d000000%04d%02d%02d000000",year, month, day,year, month, day];
         
         [formatter  release];
         [calendar  release];
         
+        //远程回放请求
+        memset(&remoteSendSearchFileBuffer, 0, sizeof(remoteSendSearchFileBuffer));
+        sprintf(remoteSendSearchFileBuffer, [dateStr UTF8String], sizeof(remoteSendSearchFileBuffer));
+        
         JVCCloudSEENetworkHelper  *ystNetworkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
-        ystNetworkHelperObj.ystNWRODelegate    = self;
+        ystNetworkHelperObj.ystNWRPVDelegate           = self;
         
-        [ystNetworkHelperObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:JVN_REQ_CHECK remoteOperationCommandData:(char *)[dateStr UTF8String] nRequestCount:4];
+        [ystNetworkHelperObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:JVN_REQ_CHECK remoteOperationCommandData:remoteSendSearchFileBuffer nRequestCount:4];
         
         [dateStr release];
+    
     });
+    
 }
 
 /**
@@ -1408,7 +1416,7 @@ bool _isConnectdevcieOpenDecoder;
     
     DDLogVerbose(@"%s----list=%@",__FUNCTION__,playbackSearchFileListMArray);
     
-    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:[playbackSearchFileListMArray objectAtIndex:0] requestPlayBackFileDate:[NSDate date] requestPlayBackFileIndex:0];
+   // [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:[playbackSearchFileListMArray objectAtIndex:0] requestPlayBackFileDate:[NSDate date] requestPlayBackFileIndex:0];
     
 }
 
@@ -1557,48 +1565,60 @@ bool _isConnectdevcieOpenDecoder;
  */
 -(void)VoiceInterComCallBack:(int)VoiceInterState
 {
-    return;
-    DDLogInfo(@"音频对讲的回调=%s===%d",__FUNCTION__,VoiceInterState);
-    /**
-     *  使选中的button变成莫仍
-     */
-    [[JVCCustomOperationBottomView shareInstance] setAllButtonUnselect];
-    
-    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
-    
     switch (VoiceInterState) {
             
         case VoiceInterStateType_Succeed:{
-            //打开语音对讲
-            [self performSelectorOnMainThread:@selector(OpenChatVoice) withObject:self waitUntilDone:NO];
+            
+            [self performSelectorOnMainThread:@selector(OpenChatVoiceIntercom) withObject:self waitUntilDone:NO];
             
         }
             break;
-//        case VoiceInterStateType_Stop:{
-//            
-//            [aqControllerobj stopRecord];
-//        }
+        case VoiceInterStateType_End:{
             
+            [self performSelectorOnMainThread:@selector(closeChatVoiceIntercom) withObject:self waitUntilDone:NO];
+            
+            
+        }
             break;
             
         default:
             break;
     }
-    NSLog(@"%s===语音对讲的回调=%d",__FUNCTION__,VoiceInterState);
 }
 
 /**
  *  打开语音对讲
  */
-- (void)OpenChatVoice
+- (void)OpenChatVoiceIntercom
 {
     //判断是否开启音频监听、如果打开关闭音频监听
-    [self audioButtonClick:YES];
+    [self stopAudioMonitor];
+    
+    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    [openAlObj initOpenAL];
     
     /**
      *  选中对讲button
      */
-    [[JVCCustomOperationBottomView shareInstance] setbuttonSelectStateWithIndex:1 andSkinType:skinSelect];
+    //[[CustomOperationBottomView shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
+}
+
+/**
+ *  关闭音频监听
+ */
+- (void)closeChatVoiceIntercom
+{
+    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
+    
+    [openAlObj stopSound];
+    [openAlObj cleanUpOpenALMath];
+    
+    [aqControllerobj stopRecord];
+    aqControllerobj.delegate = nil;
+    
+    //[[CustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+    
 }
 
 #pragma mark ystNetWorkHelper 
