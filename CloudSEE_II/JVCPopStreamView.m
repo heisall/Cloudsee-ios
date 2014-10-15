@@ -10,7 +10,7 @@
 
 @implementation JVCPopStreamView
 @synthesize delegateStream;
-
+static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -98,8 +98,7 @@
  */
 - (void)dismissStream
 {
-    [UIView animateWithDuration:0.3f animations:^{
-        
+    [UIView animateWithDuration:kAnimationTimer animations:^{
         
         CGRect frame = self.frame;
         frame.size.height = 0;

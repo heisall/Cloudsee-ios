@@ -55,6 +55,11 @@ bool selectState_audio ;
      *  音频监听、云台、远程回调的中间view
      */
     JVCOperationMiddleViewIphone5 *operationBigView;
+    
+    /**
+     *  码流切换
+     */
+    JVCPopStreamView *streamView;
 }
 
 @end
@@ -1057,11 +1062,16 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)showChangeStreamView:(UIButton *)btn
 {
-    JVCPopStreamView *straemView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
-    straemView.delegateStream = self;
-    [self.view addSubview:straemView];
-    [straemView show];
-    [straemView release];
+    if (streamView) {
+        
+        [streamView dismissStream];
+        streamView = nil;
+    }
+    streamView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
+    streamView.delegateStream = self;
+    [self.view addSubview:streamView];
+    [streamView show];
+    [streamView release];
     
     
 }
