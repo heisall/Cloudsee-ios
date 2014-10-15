@@ -8,9 +8,14 @@
 
 #import "JVCScanNewDeviceViewController.h"
 
+
 @interface JVCScanNewDeviceViewController () {
     
-    UIView      *backGroud;
+    UIView       *backGroud;
+    NSTimer      *scanfTimer;
+    UIImageView  *scanfNewDevice;
+    CGFloat       scanfNewDevice_x;
+    CGFloat       scanfNewDevice_y;
 }
 
 @end
@@ -23,16 +28,38 @@ static const    CFTimeInterval  kScanfAnimationWithKeepTime          = 120.0f; /
 static const    CGFloat         kBackButtonWithTop                   = 20.0f;
 static const    CGFloat         kBackButtonWithLeft                  = 15.0f;
 static NSString const          *kRotationAnimationKeyName            = @"scanRotation";
+static const    CGFloat         kNewDeviceImageViewWithRadius        = 100.0f;
+
+static const    NSTimeInterval kScanfTimerInterval                   = 5.0f;
+static const    CGFloat         kNewDeviceImageViewWithMinScale      = 0.1f;
+static const    CGFloat         kNewDeviceImageViewWithMinAlpha      = 0.1f;
+static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
+        
     }
     return self;
 }
 
+/**
+ *  获取一个范围内的随机数 [from,to），包括from，不包括to
+ *
+ *  @param from 最小边界值
+ *  @param to   最大边界值
+ *
+ *  @return 随机数
+ */
+ -(int)getRandomNumber:(int)from to:(int)to
+ 
+{
+    
+    return (int)(from + (arc4random()%(to-from + 1)));
+    
+}
 
 -(void)initLayoutWithViewWillAppear {
 
@@ -41,10 +68,7 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
 
 -(void)deallocWithViewDidDisappear {
 
-    if ([backGroud.layer animationForKey:(NSString *)kRotationAnimationKeyName]) {
-        
-        [backGroud.layer removeAnimationForKey:(NSString *)kRotationAnimationKeyName];
-    }
+   
 }
 
 - (void)viewDidLoad
@@ -52,12 +76,16 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = YES;
     [super viewDidLoad];
-    UIImage *bgImage            = [UIImage imageNamed:@"sca_bg.png"];
-    UIImageView *bgImageView    = [[UIImageView alloc] init];
-    bgImageView.frame           = CGRectMake(0.0, 0.0, bgImage.size.width, self.view.frame.size.height);
-    bgImageView.image           = bgImage;
-    bgImageView.backgroundColor = [UIColor clearColor];
+    
+    scanfNewDevice_x = (self.view.frame.size.width  - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
+    scanfNewDevice_y = (self.view.frame.size.height - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
+
+    
+    UIImageView *bgImageView    = [self imageViewWithImageName:@"sca_bg.png"];
+    
+    [bgImageView retain];
     [self.view addSubview:bgImageView];
+    [bgImageView release];
     
     NSString *path= nil;
     
@@ -82,7 +110,7 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
     
     UIImage *scanImage = [UIImage imageNamed:@"sca_ani.png"];
     
-    CGFloat kScanfBgWithRadius = scanImage.size.width + 80;
+    CGFloat kScanfBgWithRadius = scanImage.size.width ;
     
     backGroud                  = [[UIView alloc] init];
     backGroud.backgroundColor  = [UIColor clearColor];
@@ -113,17 +141,86 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
     
     [self performSelector:@selector(scanDeviceMath) withObject:nil afterDelay:kScanfWithDurationBeginAnimationTime];
     
+    scanfNewDevice = [self imageViewWithImageName:@"sca_device.png"];
+    
+    [scanfNewDevice retain];
+    
+    CGRect rectDevice    = scanfNewDevice.frame;
+    rectDevice.origin.x  = scanfNewDevice_x ;
+    rectDevice.origin.y  = scanfNewDevice_y ;
+    scanfNewDevice.frame = rectDevice;
+    
+    [self.view addSubview:scanfNewDevice];
+    
+    DDLogVerbose(@"%@",scanfNewDevice);
+    scanfNewDevice.alpha = kNewDeviceImageViewWithMinAlpha;
+    scanfNewDevice.transform = CGAffineTransformMakeScale(kNewDeviceImageViewWithMinScale, kNewDeviceImageViewWithMinScale);
+    [scanfNewDevice release];
+    
+    scanfTimer = [NSTimer scheduledTimerWithTimeInterval:kScanfTimerInterval
+                                                           target:self
+                                                        selector:@selector(scanfDeviceList)
+                                                         userInfo:nil
+                                                          repeats:YES];
+    
+    [scanfTimer fire];
+    
+}
+
+/**
+ *  局域网扫描设备
+ */
+-(void)scanfDeviceList {
+   
+    DDLogVerbose(@"%s-----",__FUNCTION__);
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
+    
+    [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
+    
+    
+}
+
+/**
+ *  返回的所有广播搜到的设备
+ *
+ *  @param SerachLANAllDeviceList 返回的设备数组
+ */
+-(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:(NSMutableArray *)SerachLANAllDeviceList{
+
+    [SerachLANAllDeviceList retain];
+    
+    if (SerachLANAllDeviceList.count > 0) {
+        
+        [self stopScanfDeviceTimer];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            CGFloat x  = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
+            CGFloat y = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
+            
+            CGRect rectDevice    = scanfNewDevice.frame;
+            rectDevice.origin.x  = scanfNewDevice_x + x;
+            rectDevice.origin.y  = scanfNewDevice_y + y;
+            scanfNewDevice.frame = rectDevice;
+            
+            [UIView animateWithDuration:kNewDeviceWithanimateWithDuration animations:^{
+                
+                scanfNewDevice.alpha     = 1.0f;
+                scanfNewDevice.transform = CGAffineTransformIdentity;
+
+            }];
+        });
+    }
+    
+  
+    [SerachLANAllDeviceList release];
 }
 
 /**
  *  返回上一级
  */
 -(void)popClick{
-    
-    if ([backGroud.layer animationForKey:(NSString *)kRotationAnimationKeyName]) {
-        
-        [backGroud.layer removeAnimationForKey:(NSString *)kRotationAnimationKeyName];
-    }
     
     [self gotoBack];
 }
@@ -149,11 +246,30 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
  */
 -(void)gotoBack{
 
+    [self stopScanfDeviceTimer];
+    
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
+
     self.navigationController.navigationBarHidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;
     
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
+/**
+ *  停止扫描设备
+ */
+-(void)stopScanfDeviceTimer{
+    
+    if (scanfTimer != nil) {
+        
+        if ([scanfTimer isValid]) {
+            
+            [scanfTimer invalidate];
+            scanfTimer = nil;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -73,6 +73,14 @@
  */
 -(void)captureImageCallBack:(NSData *)imageData;
 
+/**
+ *  获取当前连接通道的码流参数
+ *
+ *  @param nLocalChannel 本地连接通道编号
+ *  @param frameType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
+ */
+-(void)deviceWithFrameStatus:(int)nLocalChannel withFrameType:(int)frameType;
+
 @end
 
 @protocol ystNetWorkHelpRemotePlaybackVideoDelegate <NSObject>

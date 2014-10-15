@@ -157,6 +157,24 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
     }
 }
 
+/**
+ *  根据图片大小返回一个UImageView
+ *
+ *  @param imageName 图片的名称
+ *
+ *  @return 返回一个图片大小的ImageView
+ */
+-(UIImageView *)imageViewWithImageName:(NSString *)imageName{
+    
+    UIImage *image              = [UIImage imageNamed:imageName];
+    
+    UIImageView *imageView      = [[UIImageView alloc] initWithImage:image];
+    imageView.image             = image;
+    imageView.backgroundColor   = [UIColor clearColor];
+    
+    return [imageView autorelease];
+}
+
 - (void)BackClick
 {
     [self.navigationController popViewControllerAnimated:YES];
