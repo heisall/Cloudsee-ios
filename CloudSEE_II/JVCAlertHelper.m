@@ -12,7 +12,7 @@
 
 static  const    int    HUDTAG                  =   10000;//HUd的tag
 
-static  const   NSTimeInterval TIMERDURATION    = 2;//让toast自动消失的时间
+static  const   NSTimeInterval TIMERDURATION    = 1;//让toast自动消失的时间
 
 @interface JVCAlertHelper ()
 {

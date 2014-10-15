@@ -80,10 +80,10 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *FistSectionArray = [[NSMutableArray alloc] init];
     //帮助界面
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
-    modelHelp.itemName = @"帮助界面";
+    modelHelp.itemName = @"观看模式";
     modelHelp.iconImageName = @"mor_IconHelp.png";
-    modelHelp.bNewState = YES;
-    modelHelp.bBtnState = NO;
+    modelHelp.bNewState = NO;
+    modelHelp.bBtnState = MoreSettingCellType_Switch;
     [FistSectionArray addObject:modelHelp];
     [modelHelp release];
     
@@ -91,16 +91,16 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
     modelUser.itemName = @"修改密码";
     modelUser.iconImageName = @"mor_IconUser.png";
-    modelUser.bBtnState = NO;
+    modelUser.bBtnState = MoreSettingCellType_Switch;
     [FistSectionArray addObject:modelUser];
     [modelUser release];
     
     //功能设置
     JVCMoreSettingModel *modelFunction = [[JVCMoreSettingModel alloc] init];
-    modelFunction.itemName = @"功能设置";
+    modelFunction.itemName = @"报警";
     modelFunction.iconImageName = @"mor_IconFun.png";
     modelFunction.bBtnState = NO;
-    modelFunction.bNewState = YES;
+    modelFunction.bNewState = MoreSettingCellType_Switch;
     [FistSectionArray addObject:modelFunction];
     [modelFunction release];
     
@@ -114,11 +114,21 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *secondSectionArray = [[NSMutableArray alloc] init];
     //摇一摇加设备
     JVCMoreSettingModel *modeShark = [[JVCMoreSettingModel alloc] init];
-    modeShark.itemName = @"摇一摇加设备";
+    modeShark.itemName = @"检测更新";
     modeShark.iconImageName = @"mor_IconShark.png";
     modeShark.bBtnState = NO;
+    modeShark.bNewState = YES;
     [secondSectionArray addObject:modeShark];
     [modeShark release];
+    
+    //关于我们
+    JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
+    modelHelpSwitch.itemName = @"帮助";
+    modelHelpSwitch.iconImageName = @"mor_IconAbout.png";
+    modelHelpSwitch.bBtnState = MoreSettingCellType_Switch;
+    [secondSectionArray addObject:modelHelpSwitch];
+    [modelHelpSwitch release];
+
     
     //关于我们
     JVCMoreSettingModel *modelAbout = [[JVCMoreSettingModel alloc] init];
@@ -149,6 +159,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     modelItuns.itemName = @"评论";
     modelItuns.iconImageName = @"mor_IconItuns.png";
     modelItuns.bBtnState = NO;
+    
     [thirdSectionArray addObject:modelItuns];
     [modelItuns release];
     

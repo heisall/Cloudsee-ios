@@ -38,6 +38,7 @@ static const float  kItemSizeAdd        =   30.f;//item 都要加40
 @end
 @implementation JVCAddDevicePopView
 @synthesize popDelegate;
+static const NSTimeInterval  kAimationTimer        =   0.2f;//item 都要加40
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -146,12 +147,16 @@ static const float  kItemSizeAdd        =   30.f;//item 都要加40
         return;
     }
     
-    [UIView animateWithDuration:0.3f animations:^{
+    [UIView animateWithDuration:kAimationTimer animations:^{
         self.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
         self.alpha = 0.f;
-    } completion:^(BOOL finished) {
-        [handerView removeFromSuperview];
-    }];
+        
+        if (handerView !=nil) {
+            [handerView removeFromSuperview];
+
+        }
+
+    } ];
     
 }
 

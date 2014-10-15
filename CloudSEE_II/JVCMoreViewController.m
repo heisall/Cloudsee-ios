@@ -10,7 +10,6 @@
 #import "JVCMoreUserCell.h"
 #import "JVCMoreSettingHelper.h"
 #import "JVCMoreSettingModel.h"
-#import "JVCMoreContentCell.h"
 //账号
 #import "JVCAccountHelper.h"
 //tableview的选中事件
@@ -173,11 +172,10 @@ static const int kAlertTag          = 200;   //alert的tag
         
         NSMutableArray *arraySection = [arrayList objectAtIndex:indexPath.section];
         JVCMoreSettingModel *cellModel = [arraySection objectAtIndex:indexPath.row];
-        
-        if (!cellModel.bBtnState) {//正常显示
+        cell.delegateSwitch = self;
+        if (cellModel.bBtnState !=MoreSettingCellType_Btn ) {//正常显示
             
             [cell initContentCells:cellModel];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
         }else{//按钮显示
             
@@ -299,6 +297,16 @@ static const int kAlertTag          = 200;   //alert的tag
             });
         });
     }
+}
+
+/**
+ *  修改switch按钮的回调方法
+ *
+ *  @param state 开关状态
+ */
+- (void)modifySwitchState:(BOOL)state
+{
+    NSLog(@"_%s==%d",__FUNCTION__,state);
 }
 
 - (void)didReceiveMemoryWarning

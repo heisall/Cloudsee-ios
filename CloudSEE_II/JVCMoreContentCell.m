@@ -19,8 +19,11 @@ static const int  moreContentCellTextFont  = 14;//字体大小
 
 static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
-@implementation JVCMoreContentCell
+static const int  KSwitchSubWitch= 79;//减去switch的宽度
 
+
+@implementation JVCMoreContentCell
+@synthesize delegateSwitch;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -60,9 +63,10 @@ static const int  moreContentRight= 40;//new 的位置距离右边的位置
     [self.contentView addSubview:labelTitle];
     [labelTitle release];
     
+    NSString *imageNewPath = [UIImage imageBundlePath:@"mor_cellnew.png"];
+    UIImage *imgIconNew = [[UIImage alloc] initWithContentsOfFile:imageNewPath];
     if (model.bNewState) {//有新便签
         
-        UIImage *imgIconNew = [UIImage imageNamed:@"mor_cellnew.png"];
         UIImageView *newImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width , (self.height - imgIconNew.size.height)/2.0, imgIconNew.size.width, imgIconNew.size.height)];
         newImageView.image = imgIconNew;
         [self.contentView addSubview:newImageView];
@@ -70,13 +74,41 @@ static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
     }
     
-//    //横线
-//    UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.width- imgLine.size.width)/2.0, self.height - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
-//    lineImageView.image = imgLine;
-//    [self.contentView addSubview:lineImageView];
-//    [lineImageView release];
-
+    UISwitch *switchCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
+    [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
+    [self.contentView addSubview:switchCell];
+    [switchCell release];
     
+    self.accessoryType = UITableViewCellAccessoryNone;
+    switchCell.hidden = YES;
+    switch (model.bBtnState) {
+
+        case MoreSettingCellType_Switch:
+            switchCell.hidden = NO;
+            break;
+            
+        case MoreSettingCellType_index:
+            self.accessoryType = UITableViewCellAccessoryCheckmark;
+            break;
+            
+        default:
+            self.accessoryType = UITableViewCellAccessoryNone;
+            break;
+    }
+    [imgIconNew release];
+}
+
+/**
+ *  switch value数值发生变化之后得到的
+ *
+ *  @param switchOn 传入的switch
+ */
+- (void)changeSwitchState:(UISwitch *)switchOn
+{
+    if (delegateSwitch !=nil && [delegateSwitch respondsToSelector:@selector(modifySwitchState:)]) {
+        
+        [delegateSwitch modifySwitchState:switchOn.on];
+    }
 }
 
 - (void)awakeFromNib

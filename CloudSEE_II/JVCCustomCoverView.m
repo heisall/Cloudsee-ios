@@ -10,7 +10,7 @@
 
 static NSString const * BUNDLENAME     =  @"CustomCoverView.bundle";//遮罩的图片
 
-static int      const   STARTHEIGHT    = 40;                           //开始位置
+static int      const   STARTHEIGHT    = 64;                           //开始位置
 
 static double   const TIMERDURATION    = 0.5;// 动画时间
 
@@ -148,7 +148,7 @@ static JVCCustomCoverView *_shareInstance = nil;
         [_topItemView setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_topItemView setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [_topItemView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        UIImage *imghov=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat: @"SplitItemBg_%d.png",skinType]]];
+        UIImage *imghov=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat: @"SplitItemBg.png"]]];
         [_topItemView setBackgroundImage:imghov forState:UIControlStateHighlighted];
         [_topItemView setBackgroundImage:imghov forState:UIControlStateSelected];
         UIImage *imgNor=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat: @"unSplitItemBg.png"]]];

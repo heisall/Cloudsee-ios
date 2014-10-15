@@ -20,6 +20,7 @@
 #import "GlView.h"
 #import<AssetsLibrary/AssetsLibrary.h>
 #import "JVCRemoteVideoPlayBackVControler.h"
+#import "JVCChannelScourseHelper.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -57,9 +58,11 @@ bool selectState_audio ;
     JVCOperationMiddleViewIphone5 *operationBigView;
     
     /**
-     *  码流切换
+     *  遮罩的view
      */
-    JVCPopStreamView *streamView;
+    JVCCustomCoverView *_splitViewCon;
+
+    
 }
 
 @end
@@ -101,7 +104,6 @@ int connectAllFlag;
 //splitWindowView *splitWindow;
 UIButton *_splitViewBtn;
 UIView *_splitViewBgClick;
-JVCCustomCoverView *_splitViewCon;
 bool _isConnectdevcieOpenDecoder;
 
 char remoteSendSearchFileBuffer[29] = {0};
@@ -156,7 +158,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    [_splitViewBtn setHidden:YES];
+//    [_splitViewBtn setHidden:YES];
     [_splitViewCon setHidden:YES];
     
 }
@@ -294,17 +296,13 @@ char remoteSendSearchFileBuffer[29] = {0};
         _x= 225;
     }
     
-    UIImage *_splitShow=[UIImage imageNamed:@"splitScreenBtn.png"];
+    UIImage *_splitShow=[UIImage imageNamed:@"play_dwn.png"];
     _splitViewBtn.frame=CGRectMake(_x, (self.navigationController.navigationBar.frame.size.height-_splitShow.size.height-5.0)/2.0+3.0, _splitShow.size.width-5.0, _splitShow.size.height-2.0);
-    // NSLog(@"_splitConBtn=%@",_splitViewBtn);
     [_splitViewBtn setShowsTouchWhenHighlighted:YES];
     [_splitViewBtn addTarget:self action:@selector(gotoShowSpltWindow) forControlEvents:UIControlEventTouchUpInside];
     [_splitViewBtn setBackgroundImage:_splitShow forState:UIControlStateNormal];
     [self.navigationController.navigationBar addSubview:_splitViewBtn];
-//    if ([self._aDeviceChannelListData count]<=1) {
-//        [_splitViewBgClick setHidden:YES];
-//        [_splitViewBtn setHidden:YES];
-//    }
+
     
     /**
      *  中间的语音对讲、云台、远程回放按钮
@@ -354,6 +352,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)gotoShowSpltWindow{
     
+    //开启音频监听或者对讲获取录像的时候，这个功能是不能用的
+    if ([self getOperationViewstate]) {
+        
+        return;
+    }
+    
     NSMutableArray *_splitItems=[[NSMutableArray alloc] initWithCapacity:10];
     
     [_splitItems addObjectsFromArray:[self getSplitWindowMaxNumbers]];
@@ -361,37 +365,67 @@ char remoteSendSearchFileBuffer[29] = {0};
     _splitViewCon= [JVCCustomCoverView shareInstance];
     [self.view.window addSubview:_splitViewCon];
     
-    _splitViewCon.frame = CGRectMake(0, _splitViewBtn.frame.origin.y, self.view.frame.size.width, 0.0);
+    _splitViewCon.frame = CGRectMake(0,0, self.view.frame.size.width, 0.0);
     _splitViewCon.CustomCoverDelegate=self;
     [_splitViewCon updateConverViewWithTitleArray:_splitItems skinType:skinSelect];
     [_splitItems release];
+
     
 }
+
+/**
+ *  判断是否支持多屏，（开启音频监听||开启云台||开启对讲||开启录像的时候，不让多屏)
+ */
+- (BOOL)getOperationViewstate
+{
+    //云台的
+    BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
+    
+    //音频监听
+    BOOL bStateAudio  =  [[JVCOperationMiddleView  shareInstance] getAudioBtnState];
+    
+    //对讲的状态
+    UIButton *btnTalk  =  [[JVCCustomOperationBottomView  shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    BOOL bStateTalk   =  btnTalk.selected;
+    
+    //录像的状态
+    UIButton *btnVideo  =  [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    BOOL bStateVideo   =  btnVideo.selected;
+    
+    if (bStateYTView || bStateAudio || bStateTalk || bStateVideo ) {
+        
+        return YES;
+    }
+    return NO;
+}
+
 
 #pragma mark 返回当前的屏幕显示的模式
 -(NSMutableArray*)getSplitWindowMaxNumbers{
     
     NSMutableArray *_windowListData=[NSMutableArray arrayWithCapacity:10];
-    
-//    if ([self._aDeviceChannelListData count]<=4) {
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-//        
-//    }else if([self._aDeviceChannelListData count]<=9){
-//        
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
-//        
-//    }else {
-//        
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
-//        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"sixteen-Screen", nil)]];
-//        
-//    }
+    NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
+    if ([channelListArray count]<=4) {
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+        
+    }else if([channelListArray count]<=9){
+        
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
+        
+    }else {
+        
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
+        [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"sixteen-Screen", nil)]];
+        
+    }
     
     return _windowListData;
     
 }
+
+
 
 #pragma mark 返回上一级
 -(void)BackClick{
@@ -847,7 +881,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (IsRotateFrom) {
         
         self.navigationController.navigationBarHidden = NO;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320.0, 320*0.75);
+        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
         
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
@@ -856,15 +890,11 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        float _width=480.0;
-        if (iphone5) {
-            _width=568.0;
-        }
         if (_splitViewCon.frame.size.height>0) {
             [self gotoShowSpltWindow];
         }
         self.navigationController.navigationBarHidden = YES;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, _width, 300.0);
+        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, self.view.height , self.view.width);
         
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
@@ -985,22 +1015,25 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark 切换窗口的布局
 -(void)changeSplitView:(int)_splitWindows{
     
-//    if ([self._aDeviceChannelListData count]>1) {
-//        
-//        // [self gotoShowSpltWindow];
-//        
-////        if (_splitWindows>1) {
-////            
-////            int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-////            [self stopSetting:channelID];
-////        }
-//        
+    NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
+
+    if ([channelListArray count]>1) {
+        
+        if (_splitWindows>1) {
+            
+            [self closeAudioAndTalkAndVideoFuction];
+        }
+        
 //        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(splitViewWindow:)]) {
 //            
 //            [self.delegate splitViewWindow:_splitWindows];
 //        }
-//        
-//    }
+        
+        _managerVideo._iBigNumbers = 1;
+        _managerVideo.imageViewNums = _splitWindows;
+        [_managerVideo changeContenView];
+        
+    }
     
 }
 
@@ -1062,12 +1095,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)showChangeStreamView:(UIButton *)btn
 {
-    if (streamView) {
-        
-        [streamView dismissStream];
-        streamView = nil;
-    }
-    streamView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
+   
+   JVCPopStreamView * streamView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
     streamView.delegateStream = self;
     [self.view addSubview:streamView];
     [streamView show];
@@ -1694,7 +1723,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [self gotoShowSpltWindow];
     }else{
         
-        [self changeSplitView:(screanNum+2)*(screanNum+2)];
+        [self changeSplitView:pow((screanNum+2),2)];
         
     }
 }

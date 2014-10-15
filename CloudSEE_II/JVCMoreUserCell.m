@@ -46,8 +46,6 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
         [cotentView removeFromSuperview];
     }
     
-    //背景
-    self.backgroundColor = SETCOLOR(243, 243, 243);
     
     //头像
     UIImage *imgMoreUser= [UIImage imageNamed:@"mor_user.png"];

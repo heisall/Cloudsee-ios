@@ -7,7 +7,8 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+#import "JVCMoreContentCell.h"
 
-@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate>
+@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate,JVCMoreCellSwitchDelegate>
 
 @end

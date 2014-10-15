@@ -48,7 +48,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
 
 @implementation JVCDeviceListViewController
 
-
+static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -84,7 +84,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
     UIButton *RightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, imageRight.size.width, imageRight.size.height)];
     [RightBtn setImage:imageRight forState:UIControlStateNormal];
-    [RightBtn addTarget:self action:@selector(popAddDeviceItems) forControlEvents:UIControlEventTouchUpInside];
+    [RightBtn addTarget:self action:@selector(showAddDevicePopView:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:RightBtn];
     self.navigationItem.rightBarButtonItem=rightBarBtn;
     [RightBtn release];
@@ -192,6 +192,16 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //�
     }
 }
 
+/**
+ *  防止时间被多次点击
+ *
+ *  @param sender btn
+ */
+- (void)showAddDevicePopView:(UIButton *)sender
+{
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(popAddDeviceItems) object:sender];
+    [self performSelector:@selector(popAddDeviceItems) withObject:nil afterDelay:kAimationAfterDalay];
+}
 /**
  *  弹出添加设备选项
  */

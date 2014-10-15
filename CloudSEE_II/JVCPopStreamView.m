@@ -8,6 +8,13 @@
 
 #import "JVCPopStreamView.h"
 
+@interface JVCPopStreamView ()
+{
+    UIButton *btnBG;
+}
+
+@end
+
 @implementation JVCPopStreamView
 @synthesize delegateStream;
 static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
@@ -25,13 +32,14 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
     if (self) {
         self.clipsToBounds = YES;
         // Initialization code  25 165; 269 96
+        
         UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
 
         UIImage *btnSelectImage = [UIImage imageNamed:@"str_btnSec.png"];
         
         [btn.superview.superview addSubview:self];
         
-        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - tInputImage.size.width-5, btn.superview.superview.frame.size.height -49, tInputImage.size.width, tInputImage.size.height);
+        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - tInputImage.size.width-5, btn.superview.superview.frame.size.height -49, tInputImage.size.width, 0);
         
         UIImageView *imageBG = [[UIImageView alloc] initWithImage:tInputImage];
         imageBG.frame = CGRectMake(0,0, tInputImage.size.width, tInputImage.size.height);
@@ -68,13 +76,23 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
 
 - (void)show
 {
+    btnBG = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnBG.frame = [UIScreen mainScreen].bounds;
+    [btnBG addTarget:self action:@selector(dismissStream) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    [window addSubview:btnBG];
+
     UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    CGRect FrameEnd = self.frame;
-    FrameEnd.origin.y =FrameEnd.origin.y - tInputImage.size.height;
-    self.frame = FrameEnd;
-    [UIView commitAnimations];
+    [UIView animateWithDuration:kAnimationTimer animations:^{
+    
+        CGRect FrameEnd = self.frame;
+        FrameEnd.origin.y =FrameEnd.origin.y - tInputImage.size.height;
+        FrameEnd.size.height = tInputImage.size.height;
+        self.frame = FrameEnd;
+    }];
+ 
 
 }
 
@@ -107,6 +125,8 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
     } completion:^(BOOL finished) {
         
         [self removeFromSuperview];
+        
+        [btnBG removeFromSuperview];
 
     }];
 

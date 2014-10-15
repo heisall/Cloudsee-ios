@@ -252,6 +252,8 @@
 		A7F8DE3419EE4770006CE984 /* JVCPopStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F8DE3319EE4770006CE984 /* JVCPopStreamView.m */; };
 		A7F8DE3719EE49D9006CE984 /* str_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F8DE3519EE49D9006CE984 /* str_bg@2x.png */; };
 		A7F8DE3819EE49D9006CE984 /* str_btnSec@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F8DE3619EE49D9006CE984 /* str_btnSec@2x.png */; };
+		A7F8DE3A19EE702E006CE984 /* play_dwn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F8DE3919EE702E006CE984 /* play_dwn@2x.png */; };
+		A7F8DE3C19EE7619006CE984 /* CustomCoverView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F8DE3B19EE7619006CE984 /* CustomCoverView.bundle */; };
 		A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */; };
 		A7F9E03E19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E03D19ECBE2400C1D69C /* JVCLocalLickTypeViewController.m */; };
 		A7F9E04119ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9E04019ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m */; };
@@ -667,6 +669,8 @@
 		A7F8DE3319EE4770006CE984 /* JVCPopStreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPopStreamView.m; sourceTree = "<group>"; };
 		A7F8DE3519EE49D9006CE984 /* str_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "str_bg@2x.png"; sourceTree = "<group>"; };
 		A7F8DE3619EE49D9006CE984 /* str_btnSec@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "str_btnSec@2x.png"; sourceTree = "<group>"; };
+		A7F8DE3919EE702E006CE984 /* play_dwn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_dwn@2x.png"; sourceTree = "<group>"; };
+		A7F8DE3B19EE7619006CE984 /* CustomCoverView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CustomCoverView.bundle; sourceTree = "<group>"; };
 		A7F9E03919ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalEditDeviceInfoViewController.h; sourceTree = "<group>"; };
 		A7F9E03A19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalEditDeviceInfoViewController.m; sourceTree = "<group>"; };
 		A7F9E03C19ECBE2400C1D69C /* JVCLocalLickTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocalLickTypeViewController.h; sourceTree = "<group>"; };
@@ -1051,6 +1055,7 @@
 		A7F4055A19E50D4A0070945F /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				A7F8DE3B19EE7619006CE984 /* CustomCoverView.bundle */,
 				A7F8DE3519EE49D9006CE984 /* str_bg@2x.png */,
 				A7F8DE3619EE49D9006CE984 /* str_btnSec@2x.png */,
 				A7F8DE3019EE1C77006CE984 /* rem_bg@2x.png */,
@@ -1058,6 +1063,7 @@
 				A7F4058F19E50DD20070945F /* customMiddleView_cloudsee.bundle */,
 				AD3BDC0C19E8B2E9001B16D7 /* play_2@2x.png */,
 				AD3BDC0D19E8B2E9001B16D7 /* play_3@2x.png */,
+				A7F8DE3919EE702E006CE984 /* play_dwn@2x.png */,
 				AD3BDC0E19E8B2E9001B16D7 /* play_4@2x.png */,
 				AD3BDC0F19E8B2E9001B16D7 /* play_1@2x.png */,
 				A7F4058D19E50DCA0070945F /* OperationMiddleViewIphone5.bundle */,
@@ -2152,6 +2158,8 @@
 				AD916BCE19D510BE00B925A2 /* tab_device_unselect@2x.png in Resources */,
 				AD2BDB1419D28F0600AA6D73 /* edi_deviceManger@2x.png in Resources */,
 				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
+				A7F8DE3A19EE702E006CE984 /* play_dwn@2x.png in Resources */,
+				A7F8DE3C19EE7619006CE984 /* CustomCoverView.bundle in Resources */,
 				A7F8DE3719EE49D9006CE984 /* str_bg@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
 				A7F486B519E6835600C10B2B /* edi_camer@2x.png in Resources */,

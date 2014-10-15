@@ -8,17 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+enum
+{
+    MoreSettingCellType_NO      =   0,//什么也没有的
+    MoreSettingCellType_Btn     =   1,//按钮的
+    MoreSettingCellType_Switch  =   2,//开关的
+    MoreSettingCellType_index   =   3,//开关的
+
+};
+
 @interface JVCMoreSettingModel : NSObject
 {
     
     NSString *iconImageName;    //应用的图标
-    
     NSString *itemName;         //item的名称
-    
     BOOL bNewState;             //是否显示新品 yes 显示  no不显示
-    
-    BOOL bBtnState;             //是否显示bug yes btn  no正常cell
-
+    int bBtnState;             //是否显示bug yes btn  no正常cell
     
 }
 
@@ -26,6 +31,6 @@
 @property(nonatomic,retain) NSString *itemName;
 
 @property(nonatomic,assign) BOOL bNewState;
-@property(nonatomic,assign) BOOL bBtnState;
+@property(nonatomic,assign) int bBtnState;
 
 @end
