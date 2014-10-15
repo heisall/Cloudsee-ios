@@ -112,6 +112,7 @@ enum TextChatType {
     TextChatType_ApList        = 1003,  //AP热点
     TextChatType_ApSetResult   = 1004,  //配置AP的返回值
     TextChatType_NetWorkInfo   = 1005,  //网络参数信息
+    TextChatType_setStream     = 1006,  //设置码流信息
     
 };
 
@@ -134,6 +135,8 @@ typedef struct AudioFrame//音频数据结构
     int	iIndex;//音频数据序号
     char cb[12];//音频数据？
 } AudioFrame;
+
+static NSString const *kDeviceFrameFlagKey    =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 
 
 #endif

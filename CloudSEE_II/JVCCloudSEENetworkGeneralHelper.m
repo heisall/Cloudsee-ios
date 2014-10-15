@@ -9,7 +9,6 @@
 #import "JVCCloudSEENetworkGeneralHelper.h"
 #import "JVNetConst.h"
 #import "JVCCloudSEENetworkHelper.h"
-#import "JVCCloudSEENetworkMacro.h"
 
 @implementation JVCCloudSEENetworkGeneralHelper
 static JVCCloudSEENetworkGeneralHelper *jvcCloudSEENetworkGeneralHelper = nil;

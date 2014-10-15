@@ -10,7 +10,6 @@
 #import "OpenALBufferViewcontroller.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCManagePalyVideoComtroller.h"
-#import "JVCCloudSEENetworkMacro.h"
 #import "JVCOperationMiddleView.h"
 //#import "managePalyVideoComtroller.h"
 

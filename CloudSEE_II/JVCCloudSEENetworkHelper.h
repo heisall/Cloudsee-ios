@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JVCCloudSEEManagerHelper.h"
+#import "JVCCloudSEENetworkMacro.h"
 
 @protocol ystNetWorkHelpDelegate <NSObject>
 
@@ -34,6 +35,21 @@
  *  @param nPlayBackFrametotalNumber 远程回放的总帧数
  */
 -(void)H264VideoDataCallBackMath:(int)nLocalChannel imageBufferY:(char *)imageBufferY imageBufferU:(char *)imageBufferU imageBufferV:(char *)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber;
+
+/**
+ *  开始请求文本聊天的回调
+ *
+ *  @param nLocalChannel 本地显示窗口的编号
+ */
+-(void)RequestTextChatCallback:(int)nLocalChannel;
+
+/**
+ *  文本聊天请求的结果回调
+ *
+ *  @param nLocalChannel 本地本地显示窗口的编号
+ *  @param nStatus       文本聊天的状态
+ */
+-(void)RequestTextChatStatusCallBack:(int)nLocalChannel withStatus:(int)nStatus;
 
 @end
 
@@ -77,9 +93,9 @@
  *  获取当前连接通道的码流参数
  *
  *  @param nLocalChannel 本地连接通道编号
- *  @param frameType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
+ *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withFrameType:(int)frameType;
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType;
 
 @end
 
@@ -98,6 +114,7 @@
 @end
 
 @protocol ystNetWorkHelpTextDataDelegate <NSObject>
+
 
 /**
  *  文本聊天返回的回调

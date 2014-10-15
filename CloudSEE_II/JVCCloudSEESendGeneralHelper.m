@@ -103,6 +103,10 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             
             [self RemoteGetApOldsetResult:nJvChannelID];
         }
+        case TextChatType_setStream:{
+        
+            [self RemoteWithDeviceSetFrameParam:nJvChannelID withStreamType:remoteOperationCommand];
+        }
             break;
         default:
             break;
@@ -147,6 +151,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)RemoteOperationSendDataToDevice:(int)nJvChannelID remoteOperationCommand:(int)remoteOperationCommand {
     
+    DDLogCVerbose(@"%s------remoteOperationCommand=%d",__FUNCTION__,remoteOperationCommand);
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 0);
     
 }
@@ -238,6 +243,25 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     g_stPacket.nPacketID	   = RC_GETPARAM;
     *((int*)g_stPacket.acData) = 1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
+}
+
+/**
+ *	改变主控画质
+ *
+ *	@param	nStreamType	1:高清 2:标清 3:流畅
+ */
+-(void)RemoteWithDeviceSetFrameParam:(int)nJvChannelID  withStreamType:(int)nStreamType{
+    
+    PAC	m_stPacket;
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+
+    sprintf(acBuffer, "%s=%d;",[kDeviceFrameFlagKey UTF8String],nStreamType);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
 
 /**

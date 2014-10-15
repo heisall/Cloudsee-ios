@@ -49,7 +49,7 @@
     int              skinSelect;
     
     id <operationControllerDelegate> delegate;
-    JVCManagePalyVideoComtroller  *_managerVideo;
+    JVCManagePalyVideoComtroller     *_managerVideo;
 }
 
 @property (nonatomic,assign) int             _iSelectedChannelIndex;

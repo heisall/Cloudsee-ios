@@ -57,7 +57,7 @@
     BOOL                   linkModel;           //YES:IP直连 NO:YST
     int                    nConnectDeviceType;  //连接的设备类型
     BOOL                   isRunDisconnect;     //是否断开标志 YES:断开连接，不解码 NO:正常连接
-    int                    nShowWindowID;       //连接显示的窗口编号-1用于回调处理
+    int                    nShowWindowID;       //连接显示的窗口编号 -1用于回调处理
     BOOL                   isAudioListening;    //是否在音频监听   YES：正在音频监听
     BOOL                   isVoiceIntercom;     //YES:正在语音对讲 NO:未开启
     BOOL                   isPlaybackVideo;     //YES:正在远程回放

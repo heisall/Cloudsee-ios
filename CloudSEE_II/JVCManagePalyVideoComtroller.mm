@@ -13,6 +13,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCAppHelper.h"
+#import "JVCCloudSEENetworkMacro.h"
 
 @interface JVCManagePalyVideoComtroller () {
 
@@ -25,7 +26,7 @@
 
 @synthesize amChannelListData,_operationController,imageViewNums;
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
-@synthesize strSelectedDeviceYstNumber;
+@synthesize strSelectedDeviceYstNumber,delegate;
 
 static const int  kPlayViewDefaultMaxValue            = 4;
 static const int  kPlayVideoWithFullFramCriticalValue = 4;
@@ -295,7 +296,7 @@ BOOL isAllLinkRun;
     
     for (int i=0; i< channelsCount ; i++) {
         
-        JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
+        JVCMonitorConnectionSingleImageView *imgView = [self singleViewAtIndex:i];
         
         if (viewimage.view.tag!=imgView.tag) {
             
@@ -335,7 +336,7 @@ BOOL isAllLinkRun;
         
         for (int i=0; i < channsCount; i++) {
             
-            JVCMonitorConnectionSingleImageView *imgView=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
+            JVCMonitorConnectionSingleImageView *imgView = [self singleViewAtIndex:i];
             
             if (self.nSelectedChannelIndex != i) {
                 
@@ -349,6 +350,10 @@ BOOL isAllLinkRun;
     }
     
     [self connectSingleDevicesAllChannel];
+    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    
+    [self refreshStreamType:singleView.nStreamType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -388,6 +393,19 @@ BOOL isAllLinkRun;
 
     JVCChannelScourseHelper  *channelHelper       = [JVCChannelScourseHelper shareChannelScourseHelper];
     return [channelHelper channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber].count;
+}
+
+/**
+ *  获取指定索引的单个视图窗口
+ *
+ *  @param index 索引
+ *
+ *  @return 单个视图窗口
+ */
+-(JVCMonitorConnectionSingleImageView *)singleViewAtIndex:(int)index {
+    
+     return (JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+index];
+
 }
 
 /**
@@ -432,7 +450,7 @@ BOOL isAllLinkRun;
         
         rect.origin.x += totalWidth * pageIndex;
         
-        JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
+        JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:i];
 		singleVideoShow.frame = rect;
         [singleVideoShow updateChangeView];
         [singleVideoShow unSelectUIView];
@@ -444,7 +462,7 @@ BOOL isAllLinkRun;
     
     if (self.imageViewNums !=1 ) {
         
-        JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+self.nSelectedChannelIndex];
+        JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
         
         [singleVideoShow selectUIView];
         
@@ -456,6 +474,10 @@ BOOL isAllLinkRun;
 	[WheelShowListView setContentOffset:position animated:NO];
     
     [self connectSingleDevicesAllChannel];
+    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    
+    [self refreshStreamType:singleView.nStreamType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
@@ -537,6 +559,7 @@ BOOL isAllLinkRun;
 
 
 
+
 #pragma mark monitorConnectionSingleImageView delegate
 
 -(void)connectVideoCallBack:(int)nShowWindowID{
@@ -578,8 +601,8 @@ BOOL isAllLinkRun;
     
     [connectCallBackInfo retain];
     
-    JVCMonitorConnectionSingleImageView *singleView = (JVCMonitorConnectionSingleImageView *)[self viewWithTag:WINDOWSFLAG+nlocalChannel-1];
-    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nlocalChannel-1];
+
     [singleView connectResultShowInfo:connectCallBackInfo connectResultType:connectResultType];
     
     [connectCallBackInfo release];
@@ -600,7 +623,10 @@ BOOL isAllLinkRun;
         NSMutableArray                      *channels            = [channelSourceObj channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
         int                                  channelID           = nlocalChannelID - WINDOWSFLAG + 1;
        
-        JVCMonitorConnectionSingleImageView *singleView          = (JVCMonitorConnectionSingleImageView *) [self viewWithTag:nlocalChannelID];
+        JVCMonitorConnectionSingleImageView *singleView          = [self singleViewAtIndex:nlocalChannelID - WINDOWSFLAG];
+        
+        DDLogCVerbose(@"%s---%@",__FUNCTION__,singleView);
+        
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:channelID];
         JVCDeviceModel                      *deviceModel         = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
@@ -654,7 +680,7 @@ BOOL isAllLinkRun;
               decoderFrameHeight:(int)decoderFrameHeight
        nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
-    JVCMonitorConnectionSingleImageView *singleView = (JVCMonitorConnectionSingleImageView *)[self viewWithTag:WINDOWSFLAG+nLocalChannel-1];
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
     [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
     
@@ -663,9 +689,92 @@ BOOL isAllLinkRun;
 }
 
 /**
+ *  视频来O帧之后请求文本聊天
+ *
+ *  @param nLocalChannel 本地显示的通道编号 需减去1
+ */
+-(void)RequestTextChatCallback:(int)nLocalChannel {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        if (singleView.nStreamType == VideoStreamType_Default) {
+            
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
+            
+               DDLogCVerbose(@"%s-------**********************************",__FUNCTION__);
+        }else {
+            
+             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
+        }
+
+    });
+}
+
+/**
+ *  文本聊天请求的结果回调
+ *
+ *  @param nLocalChannel 本地本地显示窗口的编号
+ *  @param nStatus       文本聊天的状态
+ */
+-(void)RequestTextChatStatusCallBack:(int)nLocalChannel withStatus:(int)nStatus{
+
+    if (nStatus == JVN_RSP_TEXTACCEPT) {
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWRODelegate                      = self;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
+            
+        });
+    }
+}
+
+/**
+ *  获取当前连接通道的码流参数
+ *
+ *  @param nLocalChannel 本地连接通道编号
+ *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
+ */
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType{
+    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
+    
+    singleView.nStreamType                          = nStreamType;
+    
+    if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
+    
+        [self refreshStreamType:nStreamType];
+    }
+    
+    DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
+
+}
+
+/**
+ *  刷新当前码流参数信息
+ *
+ *  @param nStreamType 码流类型
+ */
+-(void)refreshStreamType:(int)nStreamType{
+
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:)]) {
+    
+        [self.delegate changeCurrentVidedoStreamType:nStreamType];
+    }
+}
+
+/**
  *  停止视频和开启播放的回调
  */
 -(void)stopVideoOrFrame {
+    
     
      JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
@@ -680,9 +789,6 @@ BOOL isAllLinkRun;
     int startIndex =  self._iCurrentPage      * self.imageViewNums;
     
     for (int i=0;i < channelCount ; i++) {
-        
-        
-        JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+i];
         
         if (i >= startIndex && i < endIndex) {
             

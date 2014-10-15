@@ -10,7 +10,6 @@
 #import "JVCCloudSEENetworkInterface.h"
 #import "JVNetConst.h"
 #import "JVCCloudSEENetworkGeneralHelper.h"
-#import "JVCCloudSEENetworkMacro.h"
 #import "JVCCloudSEESendGeneralHelper.h"
 #import "JVCVideoDecoderHelper.h"
 #import "JVCRemotePlayBackWithVideoDecoderHelper.h"
@@ -102,8 +101,6 @@ char          encodeLocalRecordeData[1024]  = {0}; //语音对讲编码后的数
 char          remotePlaybackBuffer[64*1024] = {0}; //存放远程回放数据原始值
 BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请求的标志位 TRUE  :跳出
 BOOL          isRequestRunFlag;                    //远程请求用于正在请求的标志位 FALSE :执行结束
-
-static NSString const *kDeviceFrameFlagKey    =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 
 JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
 
@@ -539,6 +536,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             currentChannelObj.nConnectStartCode  =  startCode;
             
+            
             if (width != JVCVideoDecoderHelperObj.nVideoWidth || height != JVCVideoDecoderHelperObj.nVideoHeight) {
                 
                 /**
@@ -561,6 +559,11 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 [currentChannelObj resetVideoDecoderParam];
             }
             [currentChannelObj startPopVideoDataThread];
+            
+            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:)]) {
+                
+                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1];
+            }
         }
             break;
         case JVN_DATA_I:
@@ -814,7 +817,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_NetWorkInfo:
         case TextChatType_paraInfo:
         case TextChatType_ApList:
-        case TextChatType_ApSetResult:{
+        case TextChatType_ApSetResult:
+        case TextChatType_setStream:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1252,14 +1256,16 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
 		memcpy(&stpacket, pBuffer, nSize);
 	}
     
+    DDLogCVerbose(@"%s----***************^^^^^^^^^^",__FUNCTION__);
     switch(uchType)
     {
         case JVN_RSP_TEXTACCEPT:
         case JVN_CMD_TEXTSTOP:{
             
-            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+            DDLogCVerbose(@"%s-------**********************************",__FUNCTION__);
+            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatStatusCallBack:withStatus:)]) {
                 
-                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:uchType objYstNetWorkHelpSendData:nil];
+                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatStatusCallBack:currentChannelObj.nShowWindowID+1 withStatus:uchType];
             }
         }
             break;
@@ -1339,7 +1345,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withFrameType:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
@@ -1347,9 +1353,9 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
-                                    int frameType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    int nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
                                     
-                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID withFrameType:frameType];
+                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType];
                                 }
                                 
                                 [params release];
@@ -1384,7 +1390,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_ApSetResult objYstNetWorkHelpSendData:strSetApResult];
                             }
                         }
-                        
                     }
                     
                 }

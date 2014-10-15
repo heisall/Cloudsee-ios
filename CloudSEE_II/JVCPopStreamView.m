@@ -22,7 +22,9 @@
 
 - (id)initStreamView:(UIButton *)btn  andSelectindex:(NSInteger)index {
     self = [super init];
+    
     if (self) {
+        
         self.clipsToBounds = YES;
         // Initialization code  25 165; 269 96
         UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
@@ -47,10 +49,11 @@
             index=[arrayTitle count]-1;
         }
         for (int i = 0; i<[arrayTitle count]; i++) {
+            
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:[arrayTitle objectAtIndex:i ] forState:UIControlStateNormal];
             btn.frame = CGRectMake((imageBG.frame.size.width - btnSelectImage.size.width)/2.0, i*height+5, btnSelectImage.size.width, btnSelectImage.size.height);
-            if (i == index) {
+            if (i +1 == index) {
                 [btn setBackgroundImage:btnSelectImage forState:UIControlStateNormal];
             }
             
