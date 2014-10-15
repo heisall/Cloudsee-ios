@@ -46,13 +46,15 @@
     GlView         *_glView;
 
     id<YstNetWorkHelpOperationDelegate> ystNetWorkHelpOperationDelegate;
+    int             nStreamType;     //当前显示窗口的码流类型
 }
 
-@property (nonatomic,assign) int singleViewType,wheelShowType;
-@property (nonatomic,assign) BOOL _isPlayBackState;
-@property (nonatomic,assign) BOOL _isConnectType;
+@property (nonatomic,assign) int      singleViewType,wheelShowType;
+@property (nonatomic,assign) BOOL    _isPlayBackState;
+@property (nonatomic,assign) BOOL    _isConnectType;
 @property (nonatomic,retain) GlView *_glView;
 @property (nonatomic,assign) id<YstNetWorkHelpOperationDelegate> ystNetWorkHelpOperationDelegate;
+@property (nonatomic,assign) int     nStreamType;     //当前显示窗口的码流类型
 
 -(void)initWithView;
 #pragma mark UIView中的UIImageView的选中与未选中边框颜色处理

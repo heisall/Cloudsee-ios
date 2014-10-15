@@ -11,6 +11,23 @@
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCMonitorConnectionSingleImageView.h"
 
+@protocol JVCManagePalyVideoComtrollerDelegate <NSObject>
+
+/**
+ *  视频连接失败的回调函数
+ */
+- (void)connectVideoFailCallBack;
+
+
+/**
+ *  改变当前视频窗口下方码流的显示文本
+ *
+ *  @param nStreamType 码流类型
+ */
+-(void)changeCurrentVidedoStreamType:(int)nStreamType;
+
+@end
+
 enum CONNECTALLDEVICE{
     
     CONNECTALLDEVICE_Run = 1, //正在全连接
@@ -19,7 +36,7 @@ enum CONNECTALLDEVICE{
     
 };
 
-@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,YstNetWorkHelpOperationDelegate>
+@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,YstNetWorkHelpOperationDelegate,ystNetWorkHelpRemoteOperationDelegate>
 {
     JVCOperationController  *_operationController;
     int                     imageViewNums;            //ScorllView每页视图显示的窗体个数
@@ -27,6 +44,8 @@ enum CONNECTALLDEVICE{
     int                     _iBigNumbers;
     int                     nSelectedChannelIndex;
     NSString               *strSelectedDeviceYstNumber;
+    
+    id<JVCManagePalyVideoComtrollerDelegate> delegate;
 }
 
 @property (nonatomic,retain) NSMutableArray         *amChannelListData;
@@ -34,6 +53,8 @@ enum CONNECTALLDEVICE{
 @property (nonatomic,assign) int                     imageViewNums,_iCurrentPage,_iBigNumbers;
 @property (nonatomic,assign) int                     nSelectedChannelIndex;
 @property (nonatomic,assign) NSString               *strSelectedDeviceYstNumber;
+
+@property (nonatomic,assign) id<JVCManagePalyVideoComtrollerDelegate> delegate;
 
 /**
  *  初始化视频播放的窗口布局

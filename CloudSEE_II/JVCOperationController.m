@@ -13,14 +13,12 @@
 #import "JVCRemoteVideoPlayBackVControler.h"
 #import "JVCOperationMiddleView.h"
 #import "JVCCloudSEENetworkHelper.h"
-#import "JVCCloudSEENetworkMacro.h"
 #import "JVCCustomYTOView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVNetConst.h"
 #import "GlView.h"
 #import<AssetsLibrary/AssetsLibrary.h>
 #import "JVCRemoteVideoPlayBackVControler.h"
-#import "JVCChannelScourseHelper.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -63,6 +61,7 @@ bool selectState_audio ;
     JVCCustomCoverView *_splitViewCon;
 
     
+    int nCurrentStreamType;
 }
 
 @end
@@ -240,6 +239,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     _managerVideo.tag                        = 100;
     _managerVideo.strSelectedDeviceYstNumber = self.strSelectedDeviceYstNumber;
     _managerVideo._operationController       = self;
+    _managerVideo.delegate                   = self;
     _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
     _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
     [_managerVideo setUserInteractionEnabled:YES];
@@ -318,6 +318,32 @@ char remoteSendSearchFileBuffer[29] = {0};
     //[_managerVideo splitViewWindow:9];
                                                     
     
+}
+
+#pragma mark -------------- JVCManagePalyVideoComtroller delegate
+/**
+ *  视频连接失败的回调函数
+ */
+- (void)connectVideoFailCallBack{
+
+  [self closeAudioAndTalkAndVideoFuction];
+
+}
+
+/**
+ *  改变当前视频窗口下方码流的显示文本
+ *
+ *  @param nStreamType 码流类型
+ */
+-(void)changeCurrentVidedoStreamType:(int)nStreamType{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        nCurrentStreamType = nStreamType;
+        
+        [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
+    
+    });
 }
 
 /**
@@ -1037,7 +1063,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-#pragma mark －－－－－－－－－－－－－－语音对讲、抓拍、本地录像、更多处理模块
+#pragma mark －－－－－－－－－－－－－－语音对讲、抓拍、本地录像、码流切换模块
 
 /**
  *  bottom按钮按下的事件回调
@@ -1095,14 +1121,11 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)showChangeStreamView:(UIButton *)btn
 {
-   
-   JVCPopStreamView * streamView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
-    streamView.delegateStream = self;
-    [self.view addSubview:streamView];
-    [streamView show];
-    [streamView release];
-    
-    
+      JVCPopStreamView *straemView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType];
+    straemView.delegateStream = self;
+    [self.view addSubview:straemView];
+    [straemView show];
+    [straemView release];
 }
 
 /**
@@ -1112,9 +1135,12 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)changeStreamViewCallBack:(int)index
 {
-    DDLogVerbose(@"_%s_%d",__FUNCTION__,index);
-    
-    [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:index];
+    if (nCurrentStreamType != index) {
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index];
+    }
+  
+    //[[JVCCustomOperationBottomView shareInstance] setVideoStreamState:index];
 
 }
 
