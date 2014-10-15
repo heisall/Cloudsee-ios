@@ -86,6 +86,6 @@
  *
  *  @param bState YES:(对讲模式下)  NO：音频监听模式下
  */
--(void)audioButtonClick:(BOOL)bState;
+-(void)audioButtonClick;
 
 @end
