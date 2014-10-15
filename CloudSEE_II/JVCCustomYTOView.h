@@ -66,4 +66,11 @@ static const double  FULLHEIGHT = 320.0;
  */
 -(void)HidenYTOperationView;
 
+/**
+ *  获取是否显示云台
+ *
+ *  yes  云台显示   no：云台隐藏
+ */
+- (BOOL)getYTViewShowState;
+
 @end

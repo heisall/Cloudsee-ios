@@ -9,29 +9,60 @@
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCOperationController.h"
 
+@protocol RemotePlayBackVideodelegate <NSObject>
+//
+//[[ystNetWorkHelper shareystNetWorkHelperobjInstance] RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:[playbackSearchFileListMArray objectAtIndex:0] requestPlayBackFileDate:[NSDate date] requestPlayBackFileIndex:0];
+
+/**
+ *  远程回调选中的一行的回调
+ *
+ *  @param dicInfo 字典数据（时间）
+ *  @param date    时间（选中的哪天数）
+ *  @param index   选中返回数据的哪一行（具体的时间，小时：分钟：秒）
+ */
+- (void)remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:(NSMutableDictionary *)dicInfo  requestPlayBackFileDate:(NSDate *)date  requestPlayBackFileIndex:(int )index;
+
+/**
+ *  获取选中日期的回调
+ *
+ *  @param date 传入的日期
+ */
+- (void)remoteGetPlayBackDateWithSelectDate:(NSDate *)date;
+
+@end
+
 @interface JVCRemoteVideoPlayBackVControler : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>{
-@private UITableView *myTable;//表格对象
-    BOOL  isFirstAddSheet ;// sheet是否第一次加载
-    UILabel *selectTimeLabel;//日期
-    NSMutableArray *nultArray ;
-    JVCOperationController *_operationController;
-    int _is_iSelectedRow;
-    NSMutableString *_dateString;
-    BOOL _isSendState;
+    /**
+     *  存放数据的数组
+     */
+    NSMutableArray *arrayDateList;
+    
+    /**
+     *  存放当前选中的indexrow.row
+     */
+    int  iSelectRow;
+    
+    id<RemotePlayBackVideodelegate> remoteDelegat;
     
     
 }
-@property(nonatomic,retain)NSMutableString *_dateString;
-@property (nonatomic,retain) IBOutlet UITableView *myTable;
-@property(nonatomic,retain)NSMutableArray *nultArray;
-@property (nonatomic,retain) UIButton *_btnSearch;
-@property (nonatomic ,retain) UILabel *selectTimeLabel;
-@property int _is_iSelectedRow;
-@property BOOL _isSendState;
-@property(nonatomic,assign) JVCOperationController *_operationController;
+@property(nonatomic,retain)NSMutableArray *arrayDateList;
+@property(nonatomic,assign)id<RemotePlayBackVideodelegate> remoteDelegat;
+@property(nonatomic,assign)int  iSelectRow;
+/**
+ *  tableview刷新
+ */
+- (void)tableViewReloadDate;
 
+/**
+ *  返回到上一层
+ */
 -(void)gotoBack;
 
+/**
+ *  单例
+ */
++ (JVCRemoteVideoPlayBackVControler *)shareInstance;
 
 
 @end

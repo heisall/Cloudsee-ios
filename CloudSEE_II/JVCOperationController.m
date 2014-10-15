@@ -19,6 +19,7 @@
 #import "JVNetConst.h"
 #import "GlView.h"
 #import<AssetsLibrary/AssetsLibrary.h>
+#import "JVCRemoteVideoPlayBackVControler.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -1072,12 +1073,18 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)customBottomPressCallback:(NSUInteger )buttonPress
 {
     /**
-     *  判断画面是否显示出来
+     *  是否有画面
      */
-    if (![self judgeOpenVideoPlaying]) {
+    if (![self judgeOpenVideoPlaying] ) {
         
         return;
+        
     }
+    
+    /**
+     *  是否多屏，多屏的时候，变成单屏
+     */
+    [self changeManagePalyVideoComtrollerViewsToSingeView];
     
     UIButton *btn = [_operationItemSmallBg getButtonWithIndex:buttonPress];
     
@@ -1278,6 +1285,20 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 /**
+ *  iphone5、5s中间的那块音频监听 云台 远程回放
+ *
+ *  @param clickBtnType 选则那个按钮
+ */
+-  (void)operationMiddleIphone5BtnCallBack:(int)clickBtnType
+{
+    DDLogInfo(@"%s====%d",__FUNCTION__,clickBtnType);
+    
+    
+    [self MiddleBtnClickWithIndex:clickBtnType];
+    
+}
+
+/**
  * 按下事件的执行方法
  *
  *  @param index btn的index
@@ -1285,20 +1306,43 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)MiddleBtnClickWithIndex:(int )index
 {
     /**
-     *  判断画面是否显示出来
+     *  是否有画面
      */
     if (![self judgeOpenVideoPlaying]) {
         
         return;
+        
     }
+    
+    /**
+     *  是否多屏，多屏的时候，变成单屏
+     */
+    [self changeManagePalyVideoComtrollerViewsToSingeView];
     
     switch (index) {
             
         case TYPEBUTTONCLI_SOUND:{
             
+            /**
+             *  判断是否开启语音对讲,开启直接返回
+             */
+            UIButton *btnTalk = [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+            
+            if (btnTalk.selected) {
+                
+                return;
+            }
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
+            
             JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             ystNetworkObj.ystNWADelegate    =  self;
-            [self audioButtonClick:NO];
+            [self audioButtonClick];
             
         }
             break;
@@ -1313,14 +1357,16 @@ char remoteSendSearchFileBuffer[29] = {0};
         default:
             break;
     }
+
 }
+
 
 /**
  *  音频监听功能（关闭）
  *
  *  @param bState YES:(对讲模式下)  NO：音频监听模式下
  */
--(void)audioButtonClick:(BOOL)bState{
+-(void)audioButtonClick{
     
     OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -1328,6 +1374,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
+    
     if ([[JVCOperationMiddleView  shareInstance] getAudioBtnState]) {
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
@@ -1339,17 +1386,13 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        if (!bState) {
-            
-            [openAlObj initOpenAL];
-            
-            [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
-            
-            [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
-            
-            [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
-            
-        }
+        [openAlObj initOpenAL];
+        
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+        
+        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
+        
+        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
     }
 }
 
@@ -1358,7 +1401,25 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)remotePlaybackClick {
     
-    [self playBackSendPlayVideoDate:[NSDate date]];
+    if (_isPlayBackVideo) {
+        
+        JVCRemoteVideoPlayBackVControler  *remoteVideoPlayBackVControler=[JVCRemoteVideoPlayBackVControler shareInstance];
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionReveal;
+        transition.subtype = kCATransitionFromTop;
+        transition.delegate = self;
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        self.navigationController.navigationBarHidden = NO;
+        [self.navigationController pushViewController:remoteVideoPlayBackVControler animated:NO];
+        [remoteVideoPlayBackVControler tableViewReloadDate];
+        
+    }else{
+        
+        [self playBackSendPlayVideoDate:[NSDate date]];
+        
+    }
     
 }
 
@@ -1417,8 +1478,57 @@ char remoteSendSearchFileBuffer[29] = {0};
     DDLogVerbose(@"%s----list=%@",__FUNCTION__,playbackSearchFileListMArray);
     
    // [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:[playbackSearchFileListMArray objectAtIndex:0] requestPlayBackFileDate:[NSDate date] requestPlayBackFileIndex:0];
+    [self performSelectorOnMainThread:@selector(popRemoteVideoPlayBackVControlerWithData:) withObject:playbackSearchFileListMArray waitUntilDone:NO];
+
     
 }
+
+/**
+ *  跳转到远程回放的列表界面，供用户选择要播放的远程回放列表
+ *
+ *  @param arrayList 远程回放列表
+ */
+- (void)popRemoteVideoPlayBackVControlerWithData:(NSMutableArray *)arrayList
+{
+    [arrayList retain];
+    
+    id viewController = [self.navigationController.viewControllers lastObject];
+    
+    if (![viewController isKindOfClass:[JVCRemoteVideoPlayBackVControler  class]]) {
+        
+        JVCRemoteVideoPlayBackVControler *remoteVideoPlayBackVControler=[JVCRemoteVideoPlayBackVControler shareInstance];
+        remoteVideoPlayBackVControler.iSelectRow = -1;
+        [remoteVideoPlayBackVControler.arrayDateList removeAllObjects];
+        remoteVideoPlayBackVControler.remoteDelegat = self;
+        [remoteVideoPlayBackVControler.arrayDateList addObjectsFromArray:arrayList];
+        [remoteVideoPlayBackVControler tableViewReloadDate];
+        
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionReveal;
+        transition.subtype = kCATransitionFromTop;
+        transition.delegate = self;
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        self.navigationController.navigationBarHidden = NO;
+        [self.navigationController pushViewController:remoteVideoPlayBackVControler animated:NO];
+        
+        
+    }else{
+        
+        //远程回放界面，可能点击音频监听以及录像按钮，所以要关闭
+        [self closeAudioAndTalkAndVideoFuction];
+        
+        JVCRemoteVideoPlayBackVControler *remoteVideoPlayBackVControler=(JVCRemoteVideoPlayBackVControler  *)viewController;
+        [remoteVideoPlayBackVControler.arrayDateList removeAllObjects];
+        [remoteVideoPlayBackVControler.arrayDateList addObjectsFromArray:arrayList];
+        [remoteVideoPlayBackVControler tableViewReloadDate];
+    }
+    
+    [arrayList release];
+    
+}
+
 
 #pragma mark 云台操作的回调
 
@@ -1460,7 +1570,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)closeAudioAndTalkAndVideoFuction
 {
-    
     /**
      *  关闭录像
      */
@@ -1479,6 +1588,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  关闭对讲
      */
+    [self closeChatVoiceIntercom];
 }
 
 #pragma mark 开启本地录像
@@ -1548,13 +1658,32 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)stopAudioMonitor
 {
+//    if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
+//        
+//        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
+//        
+//        [[JVCOperationMiddleView shareInstance] setButtonSunSelect];
+//        
+//        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+//        ystNetworkObj.ystNWADelegate    =  self;
+//        [self audioButtonClick];
+//        
+//    }
+    
     if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
         
-        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
+        JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        ystNetworkObj.ystNWADelegate = nil;
+        OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
         
-        [[JVCOperationMiddleView shareInstance] setButtonSunSelect];
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+        
+        [openAlObj stopSound];
+        
+        [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
         
     }
+
 }
 
 #pragma mark  语音对讲的回调
@@ -1600,7 +1729,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  选中对讲button
      */
-    //[[CustomOperationBottomView shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
+    [[JVCCustomOperationBottomView  shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
 }
 
 /**
@@ -1617,7 +1746,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [aqControllerobj stopRecord];
     aqControllerobj.delegate = nil;
     
-    //[[CustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+    [[JVCCustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
     
 }
 
@@ -1644,6 +1773,20 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (BOOL)judgeOpenVideoPlaying
 {
     return [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] checknLocalChannelExistConnect:_managerVideo.nSelectedChannelIndex+1];
+}
+
+#pragma mark 是否多屏，多屏的时候，变成单屏
+/**
+ *  是否多屏，多屏的时候，变成单屏
+ */
+- (void)changeManagePalyVideoComtrollerViewsToSingeView
+{
+    
+    if (_managerVideo.imageViewNums>1) {
+        _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
+        _managerVideo.imageViewNums=1;
+        [_managerVideo changeContenView];
+    }
 }
 
 @end

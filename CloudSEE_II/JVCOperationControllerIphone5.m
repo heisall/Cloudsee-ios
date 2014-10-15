@@ -86,49 +86,135 @@
     
 }
 
+///**
+// *  音频监听功能（关闭）
+// *
+// *  @param bState YES:(对讲模式下)  NO：音频监听模式下
+// */
+//-(void)audioButtonClick:(BOOL)bState{
+//    
+//    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+//    JVCCloudSEENetworkHelper   *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+//    
+//    /**
+//     *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
+//     */
+//    if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
+//        
+//        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+//        
+//        [openAlObj stopSound];
+//        [openAlObj cleanUpOpenALMath];
+//        
+//        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
+//        
+//    }else{
+//        
+//        [openAlObj initOpenAL];
+//        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+//        
+//        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
+//    }
+//}
+
 /**
  *  音频监听功能（关闭）
  *
  *  @param bState YES:(对讲模式下)  NO：音频监听模式下
  */
--(void)audioButtonClick:(BOOL)bState{
+-(void)audioButtonClick{
+    
     
     OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-    JVCCloudSEENetworkHelper   *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
     if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
         
-        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+
+            
+        });
+        
         
         [openAlObj stopSound];
-        [openAlObj cleanUpOpenALMath];
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
         
     }else{
         
         [openAlObj initOpenAL];
-        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+
+        });
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
     }
 }
+
+
+///**
+// *  停止音频监听
+// */
+//- (void)stopAudioMonitor
+//{
+//    if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
+//        
+//        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
+//        
+//        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
+//        
+//    }
+//}
 
 /**
  *  停止音频监听
  */
 - (void)stopAudioMonitor
 {
+    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    
     if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
         
-        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
+        [openAlObj stopSound];
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
         
     }
+    
+}
+
+/**
+ *  判断是否支持多屏，（开启音频监听||开启云台||开启对讲||开启录像的时候，不让多屏)
+ */
+- (BOOL)getOperationViewstate
+{
+    //云台的
+    BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
+    
+    //音频监听
+    BOOL bStateAudio  =  [[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState];
+    
+    //对讲的状态
+    UIButton *btnTalk  =  [[JVCCustomOperationBottomView  shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    BOOL bStateTalk   =  btnTalk.selected;
+    
+    //录像的状态
+    UIButton *btnVideo  =  [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    BOOL bStateVideo   =  btnVideo.selected;
+    
+    if (bStateYTView || bStateAudio || bStateTalk || bStateVideo ) {
+        
+        return YES;
+    }
+    return NO;
 }
 
 @end

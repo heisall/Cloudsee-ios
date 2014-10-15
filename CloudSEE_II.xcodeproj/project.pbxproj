@@ -35,10 +35,13 @@
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
 		A7DFB28E19ED26DD002D9BF9 /* dem_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7DFB28D19ED26DD002D9BF9 /* dem_def@2x.png */; };
+		A7DFB29219ED5DB4002D9BF9 /* JVCOperationMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DFB29119ED5DB4002D9BF9 /* JVCOperationMiddleView.m */; };
 		A7F0042319D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042419D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
 		A7F0042819D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
+		A7F137C019EDF07800502ED3 /* JVCPlaybackBean.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F137BE19EDF07800502ED3 /* JVCPlaybackBean.m */; };
+		A7F137C119EDF07800502ED3 /* JVCPlaybackBean.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F137BF19EDF07800502ED3 /* JVCPlaybackBean.xib */; };
 		A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */; };
 		A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058919E50DAB0070945F /* customBottomView_cloudsee.bundle */; };
 		A7F4058C19E50DB80070945F /* YTOperation.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A7F4058B19E50DB80070945F /* YTOperation.bundle */; };
@@ -266,8 +269,6 @@
 		A7FA43E119E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */; };
 		A7FA43E419E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */; };
 		A7FA43E519E3D90200F7A8A4 /* JVCCustomCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */; };
-		A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */; };
-		A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */; };
 		A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */; };
 		A7FA43F319E4140700F7A8A4 /* JVCCustomYTOView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */; };
 		A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF5A919D108DB00B3F395 /* JVCRegisterViewController.m */; };
@@ -459,10 +460,14 @@
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
 		A7DFB28D19ED26DD002D9BF9 /* dem_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dem_def@2x.png"; sourceTree = "<group>"; };
+		A7DFB29119ED5DB4002D9BF9 /* JVCOperationMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationMiddleView.m; sourceTree = "<group>"; };
 		A7F0042119D45C030028533E /* AHReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHReach.h; sourceTree = "<group>"; };
 		A7F0042219D45C030028533E /* AHReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReach.m; sourceTree = "<group>"; };
 		A7F0042519D45DC70028533E /* JVCConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConfigModel.h; sourceTree = "<group>"; };
 		A7F0042619D45DC70028533E /* JVCConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConfigModel.m; sourceTree = "<group>"; };
+		A7F137BD19EDF07800502ED3 /* JVCPlaybackBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPlaybackBean.h; sourceTree = "<group>"; };
+		A7F137BE19EDF07800502ED3 /* JVCPlaybackBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPlaybackBean.m; sourceTree = "<group>"; };
+		A7F137BF19EDF07800502ED3 /* JVCPlaybackBean.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JVCPlaybackBean.xib; sourceTree = "<group>"; };
 		A7F4055619E4C67E0070945F /* JVCOperationControllerIphone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationControllerIphone5.h; sourceTree = "<group>"; };
 		A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationControllerIphone5.m; sourceTree = "<group>"; };
 		A7F4058919E50DAB0070945F /* customBottomView_cloudsee.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = customBottomView_cloudsee.bundle; sourceTree = "<group>"; };
@@ -675,10 +680,7 @@
 		A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCRemoteVideoPlayBackVControler.m; sourceTree = "<group>"; };
 		A7FA43E219E3D90200F7A8A4 /* JVCCustomCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomCoverView.h; sourceTree = "<group>"; };
 		A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomCoverView.m; sourceTree = "<group>"; };
-		A7FA43E919E3E69200F7A8A4 /* JVCPlaybackBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPlaybackBean.h; sourceTree = "<group>"; };
-		A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPlaybackBean.m; sourceTree = "<group>"; };
 		A7FA43EC19E3E8C000F7A8A4 /* JVCOperationMiddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationMiddleView.h; sourceTree = "<group>"; };
-		A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationMiddleView.m; sourceTree = "<group>"; };
 		A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A7FA43F119E4140700F7A8A4 /* JVCCustomYTOView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomYTOView.h; sourceTree = "<group>"; };
 		A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomYTOView.m; sourceTree = "<group>"; };
@@ -1121,14 +1123,15 @@
 				A7FA43D519E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m */,
 				A7FA43E219E3D90200F7A8A4 /* JVCCustomCoverView.h */,
 				A7FA43E319E3D90200F7A8A4 /* JVCCustomCoverView.m */,
-				A7FA43E919E3E69200F7A8A4 /* JVCPlaybackBean.h */,
-				A7FA43EA19E3E69200F7A8A4 /* JVCPlaybackBean.m */,
 				A7FA43EC19E3E8C000F7A8A4 /* JVCOperationMiddleView.h */,
-				A7FA43ED19E3E8C000F7A8A4 /* JVCOperationMiddleView.m */,
+				A7DFB29119ED5DB4002D9BF9 /* JVCOperationMiddleView.m */,
 				A7FA43F119E4140700F7A8A4 /* JVCCustomYTOView.h */,
 				A7FA43F219E4140700F7A8A4 /* JVCCustomYTOView.m */,
 				A7F4055619E4C67E0070945F /* JVCOperationControllerIphone5.h */,
 				A7F4055719E4C67E0070945F /* JVCOperationControllerIphone5.m */,
+				A7F137BD19EDF07800502ED3 /* JVCPlaybackBean.h */,
+				A7F137BE19EDF07800502ED3 /* JVCPlaybackBean.m */,
+				A7F137BF19EDF07800502ED3 /* JVCPlaybackBean.xib */,
 			);
 			name = operation;
 			sourceTree = "<group>";
@@ -2087,6 +2090,7 @@
 				AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */,
 				A7F4250319D0FD8600D96475 /* log_bg_iphone5.png in Resources */,
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
+				A7F137C119EDF07800502ED3 /* JVCPlaybackBean.xib in Resources */,
 				A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */,
 				AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */,
 				A7F51E7C19EBC39E0052F878 /* arm_hor@2x.png in Resources */,
@@ -2180,11 +2184,9 @@
 			files = (
 				ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */,
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
-				A7FA43EE19E3E8C000F7A8A4 /* JVCOperationMiddleView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
 				A7F9E04A19ED0FB700C1D69C /* JVCDefaultViewController.m in Sources */,
 				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
-				A7FA43EB19E3E69200F7A8A4 /* JVCPlaybackBean.m in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
 				A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */,
@@ -2266,6 +2268,7 @@
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
 				ADA22D2E19DA5C8F0092F8B9 /* JVCAudioCodecInterface.mm in Sources */,
 				A72DCD2919EBF99600C9A1ED /* JVCLocalDeviceDateBaseHelp.m in Sources */,
+				A7F137C019EDF07800502ED3 /* JVCPlaybackBean.m in Sources */,
 				A7F4250C19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
 				A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */,
 				AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */,
@@ -2321,6 +2324,7 @@
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A7F5E25219D43F6E00609BC3 /* FMDatabasePool.m in Sources */,
 				ADA22D6119DA78380092F8B9 /* JVCAudioQueueHelper.mm in Sources */,
+				A7DFB29219ED5DB4002D9BF9 /* JVCOperationMiddleView.m in Sources */,
 				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */,
 				A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */,
@@ -2508,6 +2512,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CloudSEE_II",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = armv7;
@@ -2528,6 +2533,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/CloudSEE_II",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = armv7;

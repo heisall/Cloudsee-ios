@@ -69,6 +69,11 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray skinType:(int )skinType
 {
+    for (UIView *viewContent in self.subviews) {
+        
+        [viewContent removeFromSuperview];
+    }
+    
     CGFloat height = self.frame.size.height/titleArray.count;
     
     for (int i = 0;i<titleArray.count;i++) {
@@ -90,12 +95,13 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, i*height, self.frame.size.width, height)];
         
         
-        UIImage *image = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_arrayList objectAtIndex:i]]];
+        UIImage *image = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_arrayList objectAtIndex:i]]];
+        NSLog(@"%@==%@",[self getBundleImagePaht:[_arrayList objectAtIndex:i]],image);
         UIImage *imageHover = image;
         //只有第一个按钮有选中状态
         if (i == 0) {
             
-            imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[NSString stringWithFormat:@"audioBigListennerSelectedBtn.png"]]];
+            imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn_%d.png",skinType]]];
             
         }
         
@@ -133,7 +139,7 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         [contentView  addSubview:_titleInfo];
         [_titleInfo release];
         
-        UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePath:@"boderBigLine.png"]];
+        UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"boderBigLine.png"]];
         UIImageView *_boderImageView=[[UIImageView alloc] init];
         _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
         [_boderImageView setImage:boderImage];
@@ -161,7 +167,7 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
 - (void)setAudioBtnSelectWithSkin
 {
     
-    UIImage *imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[NSString stringWithFormat:@"audioBigListennerSelectedBtn.png"]]];
+    UIImage *imageHover = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[NSString stringWithFormat:@"audioBigListennerSelectedBtn.png"]]];
     //[btnAudio setBackgroundImage:imageHover forState:UIControlStateHighlighted];
     [btnAudio setBackgroundImage:imageHover forState:UIControlStateSelected];
     [btnAudio setSelected:YES];
@@ -181,21 +187,12 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
  *
  *	@return	返回指定指定图片名的图片
  */
--(NSString *)getBundleImagePath:(NSString *)ImageName{
+-(NSString *)getBundleImagePaht:(NSString *)ImageName{
     
     NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:bundleOperationMiddleViewIphone5];
     
-    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path=[main_image_dir_path stringByAppendingPathComponent:ImageName];
     
-    NSArray *array = [ImageName componentsSeparatedByString:@"."];
-    
-    if (kMiddleIphone5ImageSeperateCount == array.count ) {
-
-        NSString *imageName = [array objectAtIndex:0];
-        imageName  = [imageName stringByAppendingString:@"@2x."];
-        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
-        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
-    }
     return image_path;
 }
 

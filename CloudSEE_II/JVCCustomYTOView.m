@@ -25,6 +25,9 @@ static const int kImageImageSeperateCount = 2;//图片分割的数组大小
     
     BOOL  isAuto;
     
+    //云台是否显示出来
+    BOOL bShowYTView;  //yes 云台显示出来   no：没有
+    
 }
 
 @end
@@ -439,6 +442,8 @@ static JVCCustomYTOView *_shareInstance = nil;
  */
 -(void)showYTOperationView{
     
+    bShowYTView = YES;
+
     [self setHidden:NO];
     CATransition *transition = [CATransition animation];
     transition.duration = 0.5;
@@ -455,6 +460,8 @@ static JVCCustomYTOView *_shareInstance = nil;
  */
 -(void)HidenYTOperationView{
     
+    bShowYTView = NO;
+
     CATransition *transition = [CATransition animation];
     transition.duration = 0.5;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -466,5 +473,14 @@ static JVCCustomYTOView *_shareInstance = nil;
     
 }
 
+/**
+ *  获取是否显示云台
+ *
+ *  yes  云台显示   no：云台隐藏
+ */
+- (BOOL)getYTViewShowState
+{
+    return bShowYTView;
+}
 
 @end
