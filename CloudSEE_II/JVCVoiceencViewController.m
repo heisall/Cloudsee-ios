@@ -10,6 +10,7 @@
 #import "JVCVoiceencInteface.h"
 #import "OpenALBufferViewcontroller.h"
 #import "JVCScanNewDeviceViewController.h"
+#import "JVCVoiceencHelpViewController.h"
 
 @interface JVCVoiceencViewController (){
     
@@ -23,21 +24,22 @@
 
 @synthesize strSSID,strPassword;
 
-static const  int              kDefaultSamplerate            = 16000;
-static const  int              kDefaultSignalCount           = 40; //信号的数量值越大越好 建议40
-static const  int              kVoiceencSettingCount         = 3;
-static const  CGFloat          kSendButtonWithTop            = 150.0f;
-static const  CGFloat          kScanfBgWithRadius            = 52.0f;
-static const  CFTimeInterval   kAnimatinDuration             = 1.0f;
-static NSString const         *kAnimatinDurationKey          = @"pulse";
+static const  int              kDefaultSamplerate                       = 16000;
+static const  int              kDefaultSignalCount                      = 40; //信号的数量值越大越好 建议40
+static const  int              kVoiceencSettingCount                    = 3;
+static const  CGFloat          kSendButtonWithTop                       = 150.0f;
+static const  CGFloat          kScanfBgWithRadius                       = 52.0f;
+static const  CFTimeInterval   kAnimatinDuration                        = 1.0f;
+static NSString const         *kAnimatinDurationKey                     = @"pulse";
 
-static const  CGFloat          kNetButtonWithSendButtonTop   = 90.0f;
+static const  CGFloat          kNetButtonWithSendButtonTop              = 100.0f;
 
-static const    CGFloat   kTitleLableFontSize             = 14.0;
-static const    CGFloat   kTitleLableFontHeight           = kTitleLableFontSize + 4.0;
-static const    CGFloat   kTitleLableWithBgViewTop        = 30.0;
+static const    CGFloat        kTitleLableFontSize                      = 14.0;
+static const    CGFloat        kTitleLableFontHeight                    = kTitleLableFontSize + 4.0;
+static const    CGFloat        kTitleLableWithBgViewTop                 = 30.0;
+static const    CGFloat        kVoiceencHelpButtonWithSendButtonBottom  = 80.0;
 
-char encodeInputAudio[kDefaultSamplerate ] = {0};
+char encodeInputAudio[kDefaultSamplerate ]   = {0};
 char encodeOutAudio[kDefaultSamplerate *2]   = {0};
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,6 +79,23 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [sendButton addGestureRecognizer:singleCilck];
     [singleCilck release];
     
+    UIImage *helpeImage            =  [UIImage imageNamed:@"voi_help_btn.png"];
+    
+    UIButton *helperButton         = [UIButton buttonWithType:UIButtonTypeCustom];
+    helperButton.backgroundColor   = [UIColor clearColor];
+    [helperButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    
+    CGRect rectHelprButton ;
+    
+    rectHelprButton.size      = helpeImage.size;
+    rectHelprButton.origin.y  = sendButton.frame.origin.y - kVoiceencHelpButtonWithSendButtonBottom - helpeImage.size.height;
+    rectHelprButton.origin.x  = ( self.view.frame.size.width - helpeImage.size.width ) / 2.0;
+    helperButton.frame             = rectHelprButton;
+    [helperButton setBackgroundImage:helpeImage forState:UIControlStateNormal];
+    [helperButton addTarget:self action:@selector(gotoHelpeViewController) forControlEvents:UIControlEventTouchUpInside];
+    [helperButton setTitle:@"观看操作演示" forState:UIControlStateNormal];
+    [self.view addSubview:helperButton];
+    
     backGroud          = [[UIView alloc] init];
     backGroud.backgroundColor  = [UIColor colorWithRed:0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0];
     backGroud.frame            = CGRectMake(sendButton.frame.size.width/2.0 + sendButton.frame.origin.x - kScanfBgWithRadius, sendButton.frame.origin.y + sendButton.frame.size.height/2.0 - kScanfBgWithRadius, kScanfBgWithRadius*2, kScanfBgWithRadius*2);
@@ -113,6 +132,18 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [button setTitle:@"下一步" forState:UIControlStateNormal];
     [self.view addSubview:button];
     
+}
+
+/**
+ *  前往声波配置帮助视图
+ */
+-(void)gotoHelpeViewController{
+    
+    JVCVoiceencHelpViewController *vocHelper = [[JVCVoiceencHelpViewController alloc] init];
+    
+    [self.navigationController pushViewController:vocHelper animated:YES];
+    
+    [vocHelper release];
 }
 
 /**
