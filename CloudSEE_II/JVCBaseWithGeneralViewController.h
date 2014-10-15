@@ -25,4 +25,13 @@
  */
 - (void)BackClick;
 
+/**
+ *  根据图片大小返回一个UImageView
+ *
+ *  @param imageName 图片的名称
+ *
+ *  @return 返回一个图片大小的ImageView
+ */
+-(UIImageView *)imageViewWithImageName:(NSString *)imageName;
+
 @end

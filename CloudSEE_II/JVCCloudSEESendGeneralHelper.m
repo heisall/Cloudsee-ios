@@ -96,7 +96,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             break;
         case TextChatType_paraInfo:{
             
-            [self RemoteDeviceSettingInfo:nJvChannelID];
+            [self RemoteWithDeviceGetFrameParam:nJvChannelID];
         }
             break;
         case  TextChatType_ApSetResult:{
@@ -211,24 +211,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 }
 
 /**
- *  获取设备的配置信息
- *
- *  @param nJvChannelID 本地连接的通道号
- */
--(void)RemoteDeviceSettingInfo:(int)nJvChannelID{
-    
-    PAC	g_stPacket;
-    
-    memset(&g_stPacket, 0, sizeof(PAC));
-    g_stPacket.nPacketType	= RC_LOADDLG;
-    g_stPacket.nPacketID	= RC_GETPARAM;
-    *((int*)g_stPacket.acData) =1;
-    
-    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
-    
-}
-
-/**
  *  获取设备附近的网络热点信息
  *
  *  @param nJvChannelID 本地连接的通道号
@@ -241,6 +223,20 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     g_stPacket.nPacketCount	= RC_EX_NETWORK;//IPCAM_NETWORK;
     *((int*)g_stPacket.acData) =EX_WIFI_AP;
     
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
+}
+
+/**
+ *  获取设备的码流信息
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ */
+-(void)RemoteWithDeviceGetFrameParam:(int)nJvChannelID {
+    
+    PAC	g_stPacket;
+    g_stPacket.nPacketType	   = RC_LOADDLG; //0x05
+    g_stPacket.nPacketID	   = RC_GETPARAM;
+    *((int*)g_stPacket.acData) = 1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
 }
 

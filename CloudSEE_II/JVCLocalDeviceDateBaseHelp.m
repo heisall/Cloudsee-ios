@@ -96,6 +96,7 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     [localDeviceSqlite close];
     
     
+    
 }
 
 /**

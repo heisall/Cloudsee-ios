@@ -87,4 +87,11 @@
  */
 -(void)RemoteNewSetWiFINetwork:(int)nJvChannelID strSSIDName:(NSString *)strSSIDName strSSIDPassWord:(NSString *)strSSIDPassWord nWifiAuth:(int)nWifiAuth nWifiEncrypt:(int)nWifiEncrypt;
 
+/**
+ *  获取设备的码流信息
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ */
+-(void)RemoteWithDeviceGetFrameParam:(int)nJvChannelID;
+
 @end

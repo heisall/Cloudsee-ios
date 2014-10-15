@@ -14,7 +14,16 @@
 
 @implementation JVCVoiceencHelpViewController
 
-static const CGFloat KGesturesViewWithTop = 150.0f;
+static const CGFloat KGesturesViewWithTop                      = 130.0f;
+static const CGFloat KDeviceImageViewWithGesturesViewWithLeft  = 22.0f;
+static const CGFloat KDeviceImageViewWithGesturesViewWithTop   = 100.0f;
+static const CGFloat KTitleViewWithGesturesViewBottom          = 75.0f;
+static const CGFloat KTitleViewWithSuperViewLeft               = 10.0f;
+static const CGFloat KTitleTvWithFontSize                      = 14.0f;
+static const CGFloat KTitleTvWithLineHeight                    = KTitleTvWithFontSize + 6.0;
+static const int     KTitleTvWithNumberOfLines                 = 2;
+static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,33 +56,41 @@ static const CGFloat KGesturesViewWithTop = 150.0f;
     [dev retain];
     
     CGRect rectDevice   = dev.frame;
-    rectDevice.origin.x = ges.frame.size.width + ges.frame.origin.x;
-    rectDevice.origin.y = ges.frame.origin.y;
+    rectDevice.origin.x = ges.frame.size.width + ges.frame.origin.x - KDeviceImageViewWithGesturesViewWithLeft;
+    rectDevice.origin.y = ges.frame.origin.y + KDeviceImageViewWithGesturesViewWithTop;
+    dev.frame           = rectDevice;
     
     [self.view addSubview:dev];
+    
     [dev release];
     
+    UIImageView *titleView = [self imageViewWithImageName:@"voi_help_txtbg.png"];
+    
+    [titleView retain];
+    
+    CGRect rectTitle       = titleView.frame;
+    rectTitle.origin.y     = ges.frame.origin.y - KTitleViewWithGesturesViewBottom;
+    rectTitle.origin.x     = 50.0f;
+    titleView.frame        = rectTitle;
+    
+    UILabel *titleLbl        = [[UILabel alloc] init];
+    titleLbl.backgroundColor = [UIColor clearColor];
+    titleLbl.textColor       = [UIColor whiteColor];
+    titleLbl.textAlignment   = NSTextAlignmentLeft;
+    titleLbl.numberOfLines   = 1;
+    titleLbl.font            = [UIFont systemFontOfSize:KTitleTvWithFontSize];
+    titleLbl.numberOfLines   = KTitleTvWithNumberOfLines;
+    titleLbl.frame           = CGRectMake( KTitleViewWithSuperViewLeft,KTitleTvWithSuperViewTop , titleView.frame.size.width - KTitleViewWithSuperViewLeft * 2,KTitleTvWithLineHeight * KTitleTvWithNumberOfLines);
+    titleLbl.text            = @"请将手机靠近设备，点击声波发送按钮，配置设备";
+    [titleView addSubview:titleLbl];
+    [titleLbl release];
+    
+    [self.view addSubview:titleView];
+    
+    [titleView release];
     
     [ges release];
 
-}
-
-/**
- *  根据图片大小返回一个UImageView
- *
- *  @param imageName 图片的名称
- *
- *  @return 返回一个图片大小的ImageView
- */
--(UIImageView *)imageViewWithImageName:(NSString *)imageName{
-
-    UIImage *image              = [UIImage imageNamed:imageName];
-    
-    UIImageView *imageView      = [[UIImageView alloc] initWithImage:image];
-    imageView.image             = image;
-    imageView.backgroundColor   = [UIColor clearColor];
-    
-    return [imageView autorelease];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +98,5 @@ static const CGFloat KGesturesViewWithTop = 150.0f;
     [super didReceiveMemoryWarning];
     
 }
-
 
 @end

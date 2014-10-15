@@ -103,6 +103,8 @@ char          remotePlaybackBuffer[64*1024] = {0}; //存放远程回放数据原
 BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请求的标志位 TRUE  :跳出
 BOOL          isRequestRunFlag;                    //远程请求用于正在请求的标志位 FALSE :执行结束
 
+static NSString const *kDeviceFrameFlagKey    =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
+
 JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
 
 
@@ -524,9 +526,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 [pool release];
                 return;
             }
-            
-            //NSLog(@"%s----VideoDataCallBack O_frmame",__FUNCTION__);
-            
+    
             int startCode   = -1;
             int width       = -1;
             int height      = -1;
@@ -1239,9 +1239,10 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
  */
 void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, int nSize){
     
-    NSAutoreleasePool                    *pool                  = [[NSAutoreleasePool alloc] init];
+    NSAutoreleasePool                    *pool             = [[NSAutoreleasePool alloc] init];
     
     JVCCloudSEENetworkGeneralHelper *ystNetworkHelperCMObj = [JVCCloudSEENetworkGeneralHelper shareJVCCloudSEENetworkGeneralHelper];
+       JVCCloudSEEManagerHelper     *currentChannelObj     = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
     PAC stpacket={0};
     
@@ -1293,19 +1294,16 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     break;
             }
             
-            //start stpacket.nPacketType
             switch (stpacket.nPacketType) {
                     
                 case RC_LOADDLG:{
                     
-                    //start stpacket.nPacketID
                     switch (stpacket.nPacketID) {
                             
                         case RC_SNAPSLIST:{
                             
                             if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                                 
-                                DDLogCVerbose(@"%s-----buffer3=%s",__FUNCTION__, stpacket.acData+n);
                                 NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                                 
                                 [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n]];
@@ -1338,6 +1336,23 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 [strDevice release];
                                 [networkInfoMDic release];
+                                
+                            }
+                            
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withFrameType:)]) {
+                                
+                                NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
+                                
+                                [params retain];
+                                
+                                if ([params objectForKey:kDeviceFrameFlagKey]) {
+                                    
+                                    int frameType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    
+                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID withFrameType:frameType];
+                                }
+                                
+                                [params release];
                                 
                             }
                         }
