@@ -274,7 +274,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     for (int i=0;i<KDeviceMaxChannelNUM;i++) {
         
-        [addArray addObject:[NSString stringWithFormat:@"%d",i]];
+        [addArray addObject:[NSString stringWithFormat:@"%d",i+1]];
     }
     
     NSArray *arrayChannel = [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] getSingleChannnelListWithYstNum:ystNum];

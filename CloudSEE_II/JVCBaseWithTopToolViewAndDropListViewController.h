@@ -12,8 +12,8 @@
 #import "JVCEditViewControllerDropListViewCell.h"
 
 static const CGFloat        kDropTableViewHeight                 = 46.0f;  //下拉设备列表的Cell高度
-static const NSTimeInterval kOperationViewAnimationScaleBig      = 0.7;    //功能按钮点击变大的延时时间
-static const NSTimeInterval kOperationViewAnimationScaleRestore  = 0.5;    //功能按钮点击变大后恢复的延时时间
+static const NSTimeInterval kOperationViewAnimationScaleBig      = 0.5;    //功能按钮点击变大的延时时间
+static const NSTimeInterval kOperationViewAnimationScaleRestore  = 0.3;    //功能按钮点击变大后恢复的延时时间
 static const NSTimeInterval kDropListViewAnimationBegin          = 0.8;    //下拉视图下拉的延时时间
 static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下拉视图收回的延时时间
 

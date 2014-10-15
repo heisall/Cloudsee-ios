@@ -41,7 +41,7 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
         
         [btn.superview.superview addSubview:self];
         
-        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - tInputImage.size.width-5, btn.superview.superview.frame.size.height -49, tInputImage.size.width, 0);
+        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - tInputImage.size.width-5,[UIScreen mainScreen].bounds.size.height - 49  , tInputImage.size.width, 0);
         
         UIImageView *imageBG = [[UIImageView alloc] initWithImage:tInputImage];
         imageBG.frame = CGRectMake(0,0, tInputImage.size.width, tInputImage.size.height);
@@ -52,7 +52,7 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
         
         NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"HD", nil),NSLocalizedString(@"SD", nil),NSLocalizedString(@"Fluent", nil), nil];
         
-        if (index>=[arrayTitle count]) {
+        if (index>[arrayTitle count]) {
             
             index=[arrayTitle count]-1;
         }
@@ -86,6 +86,8 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
     [window addSubview:btnBG];
+    
+    [btnBG addSubview:self];
 
     UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
     [UIView animateWithDuration:kAnimationTimer animations:^{

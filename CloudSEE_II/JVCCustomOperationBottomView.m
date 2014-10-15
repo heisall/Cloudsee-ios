@@ -200,7 +200,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"smallCaptureSelectedBtn.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"megaphoneSelected.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected.png"]];
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"moreSelected.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"streamSelected.png"]];
 }
 
 /**
@@ -215,7 +215,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"smallCaptureUnselectedBtn.png"]];
     [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"megaphoneUnselected.png"]];
     [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"videoUnselected.png"]];
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"moreUnselected.png"]];
+    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"streamUnselected.png"]];
 }
 
 /**

@@ -19,7 +19,7 @@
 #import "GlView.h"
 #import<AssetsLibrary/AssetsLibrary.h>
 #import "JVCRemoteVideoPlayBackVControler.h"
-
+#import "JVCChannelScourseHelper.h"
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
 static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
@@ -1065,6 +1065,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 #pragma mark －－－－－－－－－－－－－－语音对讲、抓拍、本地录像、码流切换模块
 
+#pragma mark 底部按钮按下事件
 /**
  *  bottom按钮按下的事件回调
  */
@@ -1963,7 +1964,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (BOOL)judgeOpenVideoPlaying
 {
-    return [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] checknLocalChannelExistConnect:_managerVideo.nSelectedChannelIndex+1];
+    return [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] checknLocalChannelIsDisplayVideo:_managerVideo.nSelectedChannelIndex+1];
 }
 
 #pragma mark 是否多屏，多屏的时候，变成单屏
