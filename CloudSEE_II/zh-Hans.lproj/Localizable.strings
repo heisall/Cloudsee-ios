@@ -228,7 +228,7 @@
 "Capture"="  抓拍";
 "megaphone"="  对讲";
 "video"="  录像";
-"MoreOper"="  更多";
+"MoreOper"="  默认";
 "Audio"="音频监听";
 "PTZ Control"="云台控制";
 "Playback"="远程回放";
@@ -609,3 +609,18 @@
 
 //报警界面新
 "JVCArm_New"="arm_new_ch.png";
+
+//播放界面，底端
+"stream_0"="默认";
+"stream_3"="流畅";
+"stream_1"="高清";
+"stream_2"="标清";
+
+"HD"="高清";
+"SD"="标清";
+"Fluent"="流畅";
+
+"de_ch_1.png"="de_ch_1.png";
+"fl_ch_1.png"="fl_ch_1.png";
+"hd_ch_1.png"="hd_ch_1.png";
+"sd_ch_1.png"="sd_ch_1.png";

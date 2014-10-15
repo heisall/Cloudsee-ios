@@ -14,7 +14,9 @@
  UILabel *sizeLabel;//盘符
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *timeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *sizeLabel;
+@property (nonatomic, retain)  UILabel *timeLabel;
+@property (nonatomic, retain)  UILabel *sizeLabel;
+
+- (void)initCellContentViews ;
 
 @end

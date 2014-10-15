@@ -27,6 +27,15 @@ enum ButtomPressType
 };
 
 
+enum VideoStreamType
+{
+    VideoStreamType_Default=0,//默认
+    VideoStreamType_HD,        //高清
+    VideoStreamType_SD,        //标清
+    VideoStreamType_FL,         //流畅
+};
+
+
 @interface JVCCustomOperationBottomView : UIView
 {
     
@@ -94,6 +103,13 @@ enum ButtomPressType
  *  @param skinType 选中的皮肤颜色
  */
 - (void)resetSelectButtonsWithSkinType:(int )skinType;
+
+/**
+ *  设置码流
+ *
+ *  @param stremType 码流类型
+ */
+- (void)setVideoStreamState:(int)stremType;
 
 
 @end

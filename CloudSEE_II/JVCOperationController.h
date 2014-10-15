@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JVCBaseWithGeneralViewController.h"
 #import "JVCDeviceModel.h"
 #import "AQSController.h"
 #import "JVCCustomOperationBottomView.h"
 #import "JVCCustomCoverView.h"
+#import "JVCPopStreamView.h"
+
 
 @class JVCManagePalyVideoComtroller;
 
@@ -26,7 +28,7 @@
 @end
 
 
-@interface JVCOperationController : UIViewController<customBottomDelegate,CustomCoverViewDelegate>
+@interface JVCOperationController : JVCBaseWithGeneralViewController<customBottomDelegate,CustomCoverViewDelegate,JVCPopStreamViewDelegate>
 {
     int             _iSelectedChannelIndex;         //选择当前设备的通道索引
     NSString       *strSelectedDeviceYstNumber;     //选择的设备的云视通号
@@ -63,7 +65,7 @@
 -(void)unAllLink;
 -(void)ytoHidenClick;
 -(void)playSoundPressed;
--(void)gotoBack;
+-(void)BackClick;
 -(void)ytoClick:(UIButton*)button;
 -(void)changeRotateFromInterfaceOrientationFrame:(BOOL)IsRotateFrom;
 -(BOOL)returnIsplayBackVideo;

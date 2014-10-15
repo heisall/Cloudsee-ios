@@ -57,7 +57,7 @@
 /**
  *  返回到上一层
  */
--(void)gotoBack;
+-(void)BackClick;
 
 /**
  *  单例
