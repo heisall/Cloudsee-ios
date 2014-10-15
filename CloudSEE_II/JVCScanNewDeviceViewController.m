@@ -125,7 +125,7 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
         [backGroud.layer removeAnimationForKey:(NSString *)kRotationAnimationKeyName];
     }
     
-    [self gotoBack];
+    [self BackClick];
 }
 
 -(void)scanDeviceMath{
@@ -141,13 +141,13 @@ static NSString const          *kRotationAnimationKeyName            = @"scanRot
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
-    [self gotoBack];
+    [self BackClick];
 }
 
 /**
  *  返回事件
  */
--(void)gotoBack{
+-(void)BackClick{
 
     self.navigationController.navigationBarHidden = NO;
     [UIApplication sharedApplication].statusBarHidden = NO;

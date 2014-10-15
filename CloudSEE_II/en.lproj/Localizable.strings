@@ -26,3 +26,19 @@
 
 //报警界面新
 "JVCArm_New"="arm_new_en.png";
+
+//播放界面
+"stream"="  Quality  ";
+"stream_0"="Default";
+"stream_3"="Fluent";
+"stream_1"="HD";
+"stream_2"="SD";
+
+"HD"="HD";
+"SD"="SD";
+"Fluent"="Fluent";
+
+"de_ch_1.png"="de_en_1.png";
+"fl_ch_1.png"="fl_en_1.png";
+"hd_ch_1.png"="hd_en_1.png";
+"sd_ch_1.png"="sd_en_1.png";

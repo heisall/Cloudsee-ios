@@ -58,6 +58,9 @@ static NSString const *  kDemoLineColor   = @"kDemoLineColor";
 static NSString const *  kDemoTitle       = @"kDemoTitleColor";
 static NSString const *  kDemoTimer       = @"kDemoTimerColor";
 
+//远程回放cell的字体颜色
+static NSString const *  kPlayBackCellLabelColor = @"kPlayBackCellLabelColor";
+
 
 //所有试图的背景
 static NSString const *  kJVCRGBColorMacroViewControllerBackGround       = @"ViewControllerBackGroundColor";

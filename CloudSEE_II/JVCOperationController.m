@@ -181,17 +181,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-- (void) viewDidLayoutSubviews {
-    
-    if (IOS_VERSION>=IOS7) {
-        CGRect viewBounds = self.view.bounds;
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        viewBounds.origin.y = topBarOffset * -1;
-        self.view.bounds = viewBounds;
-    }
-    
-}
-
 /**
  *  解决状态栏显示问题
  */
@@ -208,10 +197,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     [super viewDidLoad];
     
-    if (IOS_VERSION>=IOS7) {
-        
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
     
     self._issound=FALSE;//音频监听
     self._isTalk=FALSE; //语音对讲
@@ -235,20 +220,6 @@ char remoteSendSearchFileBuffer[29] = {0};
             [url release];
 		}
     }
-    
-    
-    /**
-     *  返回按钮
-     */
-    UIImage *image = [UIImage imageNamed:@"nav_back.png"];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
-    [backBtn setImage:image forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(gotoBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    // backBarBtn.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem=backBarBtn;
-    [backBtn release];
-    [backBarBtn release];
     
     /**
      *  标题
@@ -289,12 +260,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
     
-    if (IOS_VERSION>=IOS7) {
-        frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height-[UIApplication sharedApplication].statusBarFrame.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
-    }else{
-        frameBottom = CGRectMake(0.0, self.view.frame.size.height-self.navigationController.navigationBar.bounds.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
-        
-    }
+    frameBottom = CGRectMake(0.0, self.view.frame.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
+    
     [_smallItemBgImage release];
     
     NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"MoreOper", nil), nil];
@@ -422,86 +389,53 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 #pragma mark 返回上一级
--(void)gotoBack{
+-(void)BackClick{
+    
+    //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
+    [self closeAudioAndTalkAndVideoFuction];
     
     if (_isPlayBackVideo) {
         
-//        _isPlayBackVideo=FALSE;
-//        
-//        int channelID=[self returnChannelID:self._iSelectedChannelIndex];
-//        
-//        [channel[channelID] operationZKVideo:JVN_CMD_PLAYSTOP];
-//        
-//        JVChannel *selectChannel= channel[channelID];
-//        
-//        if (selectChannel!=nil) {
-//            selectChannel.isWaitIFrame=FALSE;
-//            selectChannel.isLocalVideoWaitIFrame=FALSE;
-//            if (selectChannel.openDecoderFlag) {
-//                
-//                while (TRUE) {
-//                    
-//                    if (!selectChannel.UseDecoderFlag) {
-//                        
-//                        if(!selectChannel.isStandDecoder){
-//                            
-//                            JVD04_DecodeClose(channelID);
-//                            JVD04_DecodeOpen(selectChannel.bmPlayVideoWidth ,selectChannel.bmPlayVideoHeight,channelID);
-//                            
-//                        }else{
-//                            
-//                            JVD05_DecodeClose(channelID);
-//                            JVD05_DecodeOpen(channelID);
-//                            
-//                            
-//                        }
-//                        break;
-//                    }
-//                    //printf("run back playBackVideo\n");
-//                    usleep(200);
-//                }
-//            }
-//            
-//            
-//        }
-//        _isPlayBackVideo=FALSE;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [self showPlayBackVideo:_isPlayBackVideo];
-//            
-//        });
-//        
-//        [self stopSetting:channelID];
-//        selectChannel._iWaitICountPic=1;
-//        selectChannel._iWaitICount=1;
-//        [selectChannel operationZKVideo:JVN_CMD_VIDEO];
-//        
-//        
-//        return;
-    }
-    
-    NSMutableString *_sAltertitle=[NSMutableString stringWithCapacity:10];
-    
-    if (self._iViewState==0) {
-        [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Disconnecting nowPlease Wait", nil)];
+        _isPlayBackVideo=FALSE;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+            
+            [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
+            [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_RSP_PLAYOVER];
+            
+            [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_VIDEO];
+            
+        });
+        
+        
     }else{
-        [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Exiting NowPlease Wait", nil)];
+        
+        NSMutableString *_sAltertitle=[NSMutableString stringWithCapacity:10];
+        
+        if (self._iViewState==0) {
+            [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Disconnecting nowPlease Wait", nil)];
+        }else{
+            [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Exiting NowPlease Wait", nil)];
+        }
+        wheelAlterInfo=[[UIAlertView alloc] initWithTitle:_sAltertitle
+                                                  message:nil
+                                                 delegate:self
+                                        cancelButtonTitle:nil
+                                        otherButtonTitles:nil];
+        UIActivityIndicatorView *activity=[[UIActivityIndicatorView alloc] init];
+        [activity setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+        activity.frame=CGRectMake(125.0, 75.0, 30.0,30.0);
+        [activity startAnimating];
+        [wheelAlterInfo addSubview:activity];
+        [activity release];
+        [wheelAlterInfo show];
+        [wheelAlterInfo release];
+        unAllLinkFlag=1;
+        
+        [NSThread detachNewThreadSelector:@selector(unAllLink) toTarget:self withObject:nil];
     }
-    wheelAlterInfo=[[UIAlertView alloc] initWithTitle:_sAltertitle
-                                              message:nil
-                                             delegate:self
-                                    cancelButtonTitle:nil
-                                    otherButtonTitles:nil];
-    UIActivityIndicatorView *activity=[[UIActivityIndicatorView alloc] init];
-    [activity setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-    activity.frame=CGRectMake(125.0, 75.0, 30.0,30.0);
-    [activity startAnimating];
-    [wheelAlterInfo addSubview:activity];
-    [activity release];
-    [wheelAlterInfo show];
-    [wheelAlterInfo release];
-    
-    [NSThread detachNewThreadSelector:@selector(unAllLink) toTarget:self withObject:nil];
     
 }
 
@@ -1110,12 +1044,39 @@ char remoteSendSearchFileBuffer[29] = {0};
             break;
             
         case BUTTON_TYPE_MORE:
-            [self gotoSettingView];
+            [self showChangeStreamView:btn];
             break;
             
         default:
             break;
     }
+}
+
+/**
+ *  显示画质切换
+ */
+- (void)showChangeStreamView:(UIButton *)btn
+{
+    JVCPopStreamView *straemView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:VideoStreamType_SD];
+    straemView.delegateStream = self;
+    [self.view addSubview:straemView];
+    [straemView show];
+    [straemView release];
+    
+    
+}
+
+/**
+ *  切换码流的
+ *
+ *  @param index 选中的码流的index
+ */
+- (void)changeStreamViewCallBack:(int)index
+{
+    DDLogVerbose(@"_%s_%d",__FUNCTION__,index);
+    
+    [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:index];
+
 }
 
 #pragma mark 保存图片
@@ -1528,6 +1489,171 @@ char remoteSendSearchFileBuffer[29] = {0};
     [arrayList release];
     
 }
+/**
+ *  远程回调选中的一行的回调
+ *
+ *  @param dicInfo 字典数据（时间）
+ *  @param date    时间（选中的哪天数）
+ *  @param index   选中返回数据的哪一行（具体的时间，小时：分钟：秒）
+ */
+- (void)remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:(NSMutableDictionary *)dicInfo  requestPlayBackFileDate:(NSDate *)date  requestPlayBackFileIndex:(int )index
+{
+    
+    /**
+     *  关闭音频监听、对讲、录像的功能
+     */
+    [self closeAudioAndTalkAndVideoFuction];
+    
+    DDLogVerbose(@"%s----",__FUNCTION__);
+    
+    JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
+    
+    [ystNetworkObj RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:dicInfo requestPlayBackFileDate:date requestPlayBackFileIndex:index];
+    
+    id viewController = [self.navigationController.viewControllers lastObject];
+    
+    if ([viewController isKindOfClass:[JVCRemoteVideoPlayBackVControler class]]) {
+        
+        JVCRemoteVideoPlayBackVControler  *remoteVideoPlayBackVControler=(JVCRemoteVideoPlayBackVControler  *)viewController;
+        
+        [remoteVideoPlayBackVControler BackClick];
+    }
+    
+    /**
+     *  当前状态为远程回放状态
+     */
+    _isPlayBackVideo = YES;
+    
+    [_splitViewBgClick setHidden:YES];
+    [_splitViewBtn setHidden:YES];
+    self.navigationItem.title=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Play back", nil)];
+//    _managerVideo.WheelShowListView.scrollEnabled=NO;
+    [_bYTOBtn setEnabled:NO];
+    [_bSoundBtn setEnabled:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;
+    transition.subtype = kCATransitionFromBottom;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    
+    
+}
+/**
+ *  获取选中日期的回调
+ *
+ *  @param date 传入的日期
+ */
+- (void)remoteGetPlayBackDateWithSelectDate:(NSDate *)date;
+{
+    [self playBackSendPlayVideoDate:date];
+}
+
+/**
+ *  远程回放状态回调
+ *
+ *  @param remoteplaybackState
+ */
+-(void)remoteplaybackState:(int)remoteplaybackState
+{
+    DDLogInfo(@"%s====%d",__FUNCTION__,remoteplaybackState);
+    
+    switch (remoteplaybackState) {
+        case RemotePlayBackVideoStateType_End:
+        {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self showPlayBackVideo:NO ];
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Playback_Finish")];
+                
+            });
+            
+        }
+            break;
+        case RemotePlayBackVideoStateType_Stop:
+        case RemotePlayBackVideoStateType_Failed:
+        case RemotePlayBackVideoStateType_TimeOut:
+        {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                [self showPlayBackVideo:NO ];
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Playback_error")];
+                
+            });
+        }
+            break;
+            
+        case RemotePlayBackVideoStateType_Succeed:
+        {
+            JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
+            [_singView hiddenSlider];
+        }
+            break;
+            
+        default:
+            
+            break;
+    }
+    
+}
+
+#pragma mark 远程回放界面操作 NO关闭 YES是开启
+- (void)showPlayBackVideo:(bool)_isOpen{
+    
+    if (_isOpen) {
+        
+        if (_managerVideo.imageViewNums>1) {
+            _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
+            _managerVideo.imageViewNums=1;
+            [_managerVideo changeContenView];
+        }
+        [_splitViewBgClick setHidden:YES];
+        [_splitViewBtn setHidden:YES];
+        self.navigationItem.title=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Play back", nil)];
+//        _managerVideo.WheelShowListView.scrollEnabled=NO;
+        [_bYTOBtn setEnabled:NO];
+        [_bSoundBtn setEnabled:NO];
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionMoveIn;
+        transition.subtype = kCATransitionFromBottom;
+        transition.delegate = self;
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        
+        
+        
+    }else{
+        
+        _isPlayBackVideo = NO;
+        
+        [_splitViewBgClick setHidden:NO];
+        [_splitViewBtn setHidden:NO];
+//        _managerVideo.WheelShowListView.scrollEnabled=YES;
+        //NSLog(@"seleleindex=%d",self._iSelectedChannelIndex);
+        self.navigationItem.title=[NSString stringWithFormat:@"%@",NSLocalizedString(@"Video Display", nil)];
+        [_bYTOBtn setEnabled:YES];
+        [_bSoundBtn setEnabled:YES];
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1.5;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionMoveIn;
+        transition.subtype = kCATransitionFromTop;
+        transition.delegate = self;
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
+        [_singView hiddenSlider];
+    }
+}
+
 
 
 #pragma mark 云台操作的回调

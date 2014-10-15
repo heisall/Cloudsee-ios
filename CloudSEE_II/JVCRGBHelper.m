@@ -44,6 +44,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initAddDeviceTextColor];
         [self initAddDevicePopViewRGBColors];
         [self initDemoViewRgbColors];
+        [self initPlayBackCellLabelColor];
     }
     
     return self;
@@ -393,6 +394,22 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [loginTitle release];
     [loginTimer release];
     
+}
+
+/**
+ *  初始化远程回放的cell的事件
+ */
+- (void)initPlayBackCellLabelColor
+{
+    JVCRGBModel *playBackLabel  = [[JVCRGBModel alloc] init];
+    playBackLabel.r = 171.0f;
+    playBackLabel.g = 171.0f;
+    playBackLabel.b = 171.0f;
+    
+    [mdicRgbModelList setObject:playBackLabel forKey:kPlayBackCellLabelColor];
+    
+    [playBackLabel release];
+
 }
 
 /**

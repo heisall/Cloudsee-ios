@@ -7,6 +7,7 @@
 //
 
 #import "JVCRemoteVideoPlayBackVControler.h"
+#import "JVCPlaybackBean.h"
 
 @interface JVCRemoteVideoPlayBackVControler ()
 {
@@ -113,32 +114,7 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     strDateSelect = [[NSString alloc] init];
     
     self.iSelectRow = -1;
-    
-    self.view.backgroundColor = SETLABLERGBCOLOUR(240.0, 240.0, 240.0);
-    /**
-     *  支持ios7
-     */
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars = NO;
-        self.modalPresentationCapturesStatusBarAppearance = NO;
-    }
-    
-    /**
-     *  返回按钮
-     */
-    
-    UIImage *imgBGDown = [UIImage imageNamed:@"down_arrow.png"];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, imgBGDown.size.width, imgBGDown.size.height)];
-    [backBtn setImage:imgBGDown forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(gotoBack) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    backBarBtn.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem=backBarBtn;
-    [backBtn release];
-    [backBarBtn release];
+
     
     /**
      *  标题
@@ -148,7 +124,7 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     /**
      *  目前测试的时间
      */
-    UIImage *imageBtnBg = [UIImage imageNamed:@"downlist_bg.png"];
+    UIImage *imageBtnBg = [UIImage imageNamed:@"rem_bg.png"];
     UIButton *btnImgClick = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnImgClick setBackgroundImage:imageBtnBg forState:UIControlStateNormal];
     [btnImgClick addTarget:self action:@selector(showDatePicker) forControlEvents:UIControlEventTouchUpInside];
@@ -168,7 +144,7 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     
     //搜索按钮
     UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(230, 19, 70, 30)];
-    [searchBtn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_remote_search_%d.png",0] ]
+    [searchBtn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"rem_ser.png"] ]
                          forState:UIControlStateNormal];
     [searchBtn setTitleColor:SETLABLERGBCOLOUR(RGB_YUANCHENG_BTN_R, RGB_YUANCHENG_BTN_G, RGB_YUANCHENG_BTN_B) forState:UIControlStateNormal];
     [searchBtn setTitle:NSLocalizedString(@"Serach",nil) forState:UIControlStateNormal];
@@ -189,7 +165,7 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
 }
 
 #pragma mark 返回上级视图
--(void)gotoBack{
+-(void)BackClick{
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.5;
@@ -290,14 +266,14 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
 {
     static NSString *cellIndetify = @"CellIndentify";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndetify];
+    JVCPlaybackBean *cell = [tableView dequeueReusableCellWithIdentifier:cellIndetify];
     
     if (!cell) {
         
-//        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"playbackBean" owner:self options:nil];
-//		cell = [arr objectAtIndex:0];
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndetify] autorelease];
+        cell = [[[JVCPlaybackBean alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndetify] autorelease];
     }
+    
+    [cell initCellContentViews];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -305,45 +281,17 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     
     NSMutableDictionary * dic = [self.arrayDateList objectAtIndex:indexPath.row];
     
-//    cell.timeLabel.text = [dic valueForKey:@"time"];
-//    
-//    cell.timeLabel.textColor =SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
-//    cell.timeLabel.font = [UIFont systemFontOfSize:16];//设置v_headerLab的字体样式和大小
-//    
-//    cell.sizeLabel.text = [dic valueForKey:@"disk"];
-//    cell.sizeLabel.textColor = SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
-//    cell.sizeLabel.font = [UIFont systemFontOfSize:16];//设置v_headerLab的字体样式和大小
-//    
-//    
-//    if (self.iSelectRow == indexPath.row) {
-//        cell.timeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
-//        cell.sizeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
-//    }
+    cell.timeLabel.text = [dic valueForKey:@"time"];
     
-    cell.textLabel.text = [dic valueForKey:@"time"];
+    cell.sizeLabel.text = [dic valueForKey:@"disk"];
+    
     
     return cell;
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    
-//    if (self.iSelectRow != -1) {//之前选中的，要给置换回来
-//        
-//        playbackBean *cell = (playbackBean *)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.iSelectRow inSection:0]];
-//        
-//        cell.timeLabel.textColor =SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
-//        cell.sizeLabel.textColor = SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
-//    }else{//置换颜色
-//        
-//        playbackBean *cell = (playbackBean *)[_tableview cellForRowAtIndexPath:indexPath];
-//        cell.timeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
-//        cell.sizeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
-//    }
-//    
+{   
     self.iSelectRow = indexPath.row;
     
     NSMutableDictionary *dicInfo = [self.arrayDateList objectAtIndex:indexPath.row];

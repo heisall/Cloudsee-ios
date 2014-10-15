@@ -359,6 +359,23 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
 }
 
 /**
+ *  设置码流
+ *
+ *  @param stremType 码流类型
+ */
+- (void)setVideoStreamState:(int)stremType
+{
+    if (BUTTON_TYPE_MORE>_arrayButtons.count) {
+        return;
+    }
+    
+    UIButton *btn = [_arrayButtons objectAtIndex:BUTTON_TYPE_MORE];
+    NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",stremType];
+    [btn setTitle:NSLocalizedString(bundString, nil) forState:UIControlStateNormal];
+    
+}
+
+/**
  *  返回UIImage
  *
  *	@param	ImageName	图片的名字
