@@ -14,7 +14,12 @@
 #import "JVCVideoDecoderHelper.h"
 #import "JVCRemotePlayBackWithVideoDecoderHelper.h"
 
-@interface JVCCloudSEENetworkHelper ()
+@interface JVCCloudSEENetworkHelper () {
+
+
+    NSMutableString *remoteDownSavePath;
+
+}
 
 /**
  *  云视通连接的回调函数
@@ -82,6 +87,18 @@ void RemoteplaybackSearchCallBack(int nLocalChannel,char *pBuffer, int nSize);
  */
 void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *pBuffer, int nSize, int nWidth, int nHeight, int nTotalFrame);
 
+
+/**
+ *  远程下载文件接口
+ *
+ *  @param nLocalChannel 连接的本地通道号 从1开始
+ *  @param uchType       帧类型
+ *  @param pBuffer       下载数据
+ *  @param nSize         下载的大小
+ *  @param nFileLen
+ */
+void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuffer, int nSize, int nFileLen);
+
 @end
 
 
@@ -103,6 +120,9 @@ BOOL          isRequestRunFlag;                    //远程请求用于正在请
 
 static NSString const *kCheckHomeFlagKey = @"MobileCH";
 
+FILE *downloadHandle = NULL;
+
+
 JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
 
 
@@ -121,7 +141,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
             
             jvcCloudSEENetworkHelper = [[self alloc] init ];
             
-            JVC_RegisterCallBack(ConnectMessageCallBack,VideoDataCallBack,RemoteplaybackSearchCallBack,VoiceIntercomCallBack,TextChatDataCallBack,NULL,RemotePlaybackDataCallBack);
+            JVC_RegisterCallBack(ConnectMessageCallBack,VideoDataCallBack,RemoteplaybackSearchCallBack,VoiceIntercomCallBack,TextChatDataCallBack,RemoteDownLoadCallback,RemotePlaybackDataCallBack);
         }
         
         return jvcCloudSEENetworkHelper;
@@ -277,10 +297,11 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
  *  @param strUserName    连接设备通道的用户名
  *  @param strPassWord    连接设备通道的密码
  *  @param nSystemVersion 当前手机的操作系统版本
+ *  @param isConnectShowVideo 是否显示图像
  *
  *  @return 成功返回YES  重复连接返回NO
  */
--(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion{
+-(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo{
     
     
     JVCCloudSEEManagerHelper *currentChannelObj        = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
@@ -304,21 +325,21 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         [[JVCCloudSEENetworkGeneralHelper shareJVCCloudSEENetworkGeneralHelper] getYstGroupStrAndYstNumberByYstNumberString:strYstNumber.uppercaseString strYstgroup:&strYstGroup nYstNumber:&nYstNumber];
         
         
-        jvChannel [nJvchannelID]               = [[JVCCloudSEEManagerHelper alloc] init];
+        jvChannel [nJvchannelID]                = [[JVCCloudSEEManagerHelper alloc] init];
         
         JVCCloudSEEManagerHelper *newCurrentChannelObj = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
         
-        newCurrentChannelObj.jvConnectDelegate = self;
-        newCurrentChannelObj.nLocalChannel     = nJVCCloudSEEManagerHelper;
-        newCurrentChannelObj.nRemoteChannel    = nRemoteChannel;
-        newCurrentChannelObj.linkModel         = NO;
-        newCurrentChannelObj.strYstGroup       = strYstGroup;
-        newCurrentChannelObj.nYstNumber        = nYstNumber;
-        newCurrentChannelObj.strUserName       = strUserName;
-        newCurrentChannelObj.strPassWord       = strPassWord;
-        newCurrentChannelObj.nShowWindowID     = nLocalChannel -1;
-        newCurrentChannelObj.nSystemVersion    = nSystemVersion;
-        
+        newCurrentChannelObj.jvConnectDelegate   = self;
+        newCurrentChannelObj.nLocalChannel       = nJVCCloudSEEManagerHelper;
+        newCurrentChannelObj.nRemoteChannel      = nRemoteChannel;
+        newCurrentChannelObj.linkModel           = NO;
+        newCurrentChannelObj.strYstGroup         = strYstGroup;
+        newCurrentChannelObj.nYstNumber          = nYstNumber;
+        newCurrentChannelObj.strUserName         = strUserName;
+        newCurrentChannelObj.strPassWord         = strPassWord;
+        newCurrentChannelObj.nShowWindowID       = nLocalChannel -1;
+        newCurrentChannelObj.nSystemVersion      = nSystemVersion;
+         newCurrentChannelObj.isConnectShowVideo = isConnectShowVideo;
         [newCurrentChannelObj connectWork];
         
         return TRUE;
@@ -341,11 +362,12 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
  *  @param strRemoteIP    IP直连的IP地址
  *  @param nRemotePort    IP直连的端口号
  *  @param nSystemVersion 当前手机的操作系统版本
+ *  @param isConnectShowVideo 是否显示图像
  *
  *  @return  @return 成功返回YES  重复连接返回NO
  */
 -(BOOL)ipConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel  strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord strRemoteIP:(NSString *)strRemoteIP nRemotePort:(int)nRemotePort
-                   nSystemVersion:(int)nSystemVersion{
+                   nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo{
     
     
     JVCCloudSEEManagerHelper *currentChannelObj        = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
@@ -373,6 +395,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         newCurrentChannelObj.strPassWord        = strPassWord;
         newCurrentChannelObj.nShowWindowID      = nLocalChannel -1;
         newCurrentChannelObj.nSystemVersion     =nSystemVersion;
+        newCurrentChannelObj.isConnectShowVideo = isConnectShowVideo;
         
         [newCurrentChannelObj connectWork];
         
@@ -1600,6 +1623,128 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
             }
         }
     }
+}
+
+
+#pragma mark ----------------------------- 网络库远程下载接口
+/**
+ *  远程下载文件接口
+ *
+ *  @param nLocalChannel 连接的本地通道号 从1开始
+ *  @param uchType       帧类型
+ *  @param pBuffer       下载数据
+ *  @param nSize         下载的大小
+ *  @param nFileLen
+ */
+void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuffer, int nSize, int nFileLen)
+{
+      JVCCloudSEEManagerHelper  *currentChannelObj     = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
+    if (currentChannelObj == nil) {
+        
+        DDLogCVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
+    }
+    
+    switch (uchType) {
+            
+        case JVN_RSP_DOWNLOADOVER: //文件下载完毕
+        case JVN_CMD_DOWNLOADSTOP: //停止文件下载
+        case JVN_RSP_DOWNLOADE:    //文件下载失败
+        case JVN_RSP_DLTIMEOUT:{   //文件下载超时
+            
+            [jvcCloudSEENetworkHelper closeDownloadHandle:uchType];
+            
+        }
+            break;
+        case JVN_RSP_DOWNLOADDATA:{
+        
+            DDLogCVerbose(@"%s---dataSize=%d",__FUNCTION__,nSize);
+                [jvcCloudSEENetworkHelper openDownFileHandle:pBuffer withSaveBufferSize:nSize];
+            
+            
+            
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ *
+ */
+/**
+ *  打开文件写入流句柄并写入数据
+ *
+ *  @param buffer 写入的数据
+ *  @param nSize  写入数据的大小
+ */
+-(void)openDownFileHandle:(const char *)buffer withSaveBufferSize:(int)nSize{
+    
+    if (NULL == downloadHandle) {
+        
+        downloadHandle = fopen([remoteDownSavePath UTF8String], "ab+");
+    }
+    
+    flockfile(downloadHandle);
+    fwrite(buffer,1,nSize, downloadHandle);
+    fflush(downloadHandle);
+    funlockfile(downloadHandle);
+}
+
+/**
+ *  关闭文件写入流句柄
+ */
+-(void)closeDownloadHandle:(int)downloadStatus{
+
+    if (NULL != downloadHandle) {
+        
+        fclose(downloadHandle);
+        
+        downloadHandle = NULL;
+    }
+    
+    if (self.ystNWRPVDelegate != nil && [self.ystNWRPVDelegate respondsToSelector:@selector(remoteDownLoadCallBack:withDownloadSavePath:)]) {
+        
+        [jvcCloudSEENetworkHelper.ystNWRPVDelegate remoteDownLoadCallBack:downloadStatus withDownloadSavePath:remoteDownSavePath];
+    }
+
+}
+
+/**
+ *  远程下载命令
+ *
+ *  @param nLocalChannel 视频显示的窗口编号
+ *  @param downloadPath  视频下载的地址
+ *  @param SavePath      保存的路径
+ */
+-(void)RemoteDownloadFile:(int)nLocalChannel withDownLoadPath:(char *)downloadPath withSavePath:(NSString *)SavePath {
+    
+    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
+    JVCCloudSEEManagerHelper     *currentChannelObj           = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
+    if (currentChannelObj == nil) {
+        
+        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
+        
+        
+        return;
+    }
+    
+    if (remoteDownSavePath == nil) {
+        
+        remoteDownSavePath  = [[NSMutableString alloc] initWithCapacity:10];
+        
+    }else {
+    
+        [remoteDownSavePath deleteCharactersInRange:NSMakeRange(0, remoteDownSavePath.length)];
+    }
+    
+    [remoteDownSavePath appendString:SavePath];
+
+    [ystRemoteOperationHelperObj RemoteDownloadFile:currentChannelObj.nLocalChannel withDownloadPath:downloadPath];
+
 }
 
 @end

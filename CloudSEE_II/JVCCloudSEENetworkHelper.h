@@ -112,6 +112,21 @@
  */
 -(void)remoteplaybackSearchFileListInfoCallBack:(NSMutableArray *)playbackSearchFileListMArray;
 
+
+/**
+ *  远程下载文件的回调
+ *
+ *  @param downLoadStatus 下载的状态 
+ 
+      JVN_RSP_DOWNLOADOVER  //文件下载完毕
+      JVN_CMD_DOWNLOADSTOP  //停止文件下载
+      JVN_RSP_DOWNLOADE     //文件下载失败
+      JVN_RSP_DLTIMEOUT     //文件下载超时
+ 
+ *  @param path           下载保存的路径
+ */
+-(void)remoteDownLoadCallBack:(int)downLoadStatus withDownloadSavePath:(NSString *)savepath;
+
 @end
 
 @protocol ystNetWorkHelpTextDataDelegate <NSObject>
@@ -199,10 +214,11 @@ enum DEVICETALKMODEL {
  *  @param strUserName    连接设备通道的用户名
  *  @param strPassWord    连接设备通道的密码
  *  @param nSystemVersion 当前手机的操作系统版本
+ *  @param isConnectShowVideo 是否显示图像
  *
  *  @return 成功返回YES  重复连接返回NO
  */
--(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion;
+-(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo;
 
 /**
  *  IP连接视频的函数 (子线程调用)
@@ -213,11 +229,12 @@ enum DEVICETALKMODEL {
  *  @param strRemoteIP    IP直连的IP地址
  *  @param nRemotePort    IP直连的端口号
  *  @param nSystemVersion 当前手机的操作系统版本
+ *  @param isConnectShowVideo 是否显示图像
  *
  *  @return  @return 成功返回YES  重复连接返回NO
  */
 -(BOOL)ipConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel  strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord strRemoteIP:(NSString *)strRemoteIP nRemotePort:(int)nRemotePort
-                   nSystemVersion:(int)nSystemVersion;
+                   nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo;
 
 /**
  *  断开连接（子线程调用）
@@ -332,5 +349,14 @@ enum DEVICETALKMODEL {
  *  @param isOnltIFrame YES:只发I帧
  */
 -(void)RemoteOperationSendDataToDeviceWithfullOrOnlyIFrame:(BOOL)isOnltIFrame;
+
+/**
+ *  远程下载命令
+ *
+ *  @param nLocalChannel 视频显示的窗口编号
+ *  @param downloadPath  视频下载的地址
+ *  @param SavePath      保存的路径
+ */
+-(void)RemoteDownloadFile:(int)nLocalChannel withDownLoadPath:(char *)downloadPath  withSavePath:(NSString *)SavePath;
 
 @end

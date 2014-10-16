@@ -1003,6 +1003,25 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)customBottomPressCallback:(NSUInteger )buttonPress
 {
+    
+    DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
+    
+    //NSString *downUrl = @"./rec/00/20141011/A01135705.jpg";
+    NSString *downUrl = @"./rec/00/20141011/A01135705.mp4";
+    
+    NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
+    
+    NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:@"100901.mp4"];
+    
+    JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    cloudSEEObj.ystNWRPVDelegate          =  self;
+    
+    [cloudSEEObj RemoteDownloadFile:_managerVideo.nSelectedChannelIndex+1 withDownLoadPath:(char *)[downUrl UTF8String] withSavePath:pathAccount];
+    
+    return;
+    
     /**
      *  是否有画面
      */
@@ -1047,6 +1066,26 @@ char remoteSendSearchFileBuffer[29] = {0};
         default:
             break;
     }
+}
+
+/**
+ *  远程下载文件的回调
+ *
+ *  @param downLoadStatus 下载的状态
+ 
+ JVN_RSP_DOWNLOADOVER  //文件下载完毕
+ JVN_CMD_DOWNLOADSTOP  //停止文件下载
+ JVN_RSP_DOWNLOADE     //文件下载失败
+ JVN_RSP_DLTIMEOUT     //文件下载超时
+ 
+ *  @param path           下载保存的路径
+ */
+-(void)remoteDownLoadCallBack:(int)downLoadStatus withDownloadSavePath:(NSString *)savepath {
+
+    DDLogCVerbose(@"%s--------savePath=%@ status=%d",__FUNCTION__,savepath,downLoadStatus);
+
+
+
 }
 
 /**

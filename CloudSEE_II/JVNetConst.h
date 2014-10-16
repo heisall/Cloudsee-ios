@@ -26,8 +26,8 @@
 /*请求返回结果类型*/
 #define JVN_RSP_CHECKDATA   0x11//检索结果
 #define JVN_RSP_CHECKOVER   0x12//检索完成
-#define JVN_RSP_DOWNLOADDATA0x21//下载数据
-#define JVN_RSP_DOWNLOADOVER0x22//下载数据完成
+#define JVN_RSP_DOWNLOADDATA 0x21//下载数据
+#define JVN_RSP_DOWNLOADOVER 0x22//下载数据完成
 #define JVN_RSP_DOWNLOADE   0x23//下载数据失败
 #define JVN_RSP_PLAYDATA    0x31//回放数据
 #define JVN_RSP_PLAYOVER    0x32//回放完成
@@ -46,7 +46,7 @@
 #define JVN_RSP_DISCONN     0x7C//断开连接确认
 
 /*命令类型*/
-#define JVN_CMD_DOWNLOADSTOP0x24//停止下载数据
+#define JVN_CMD_DOWNLOADSTOP 0x24//停止下载数据
 #define JVN_CMD_PLAYUP      0x33//快进
 #define JVN_CMD_PLAYDOWN    0x34//慢放
 #define JVN_CMD_PLAYDEF     0x35//原速播放
