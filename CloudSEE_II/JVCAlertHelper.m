@@ -195,13 +195,14 @@ static JVCAlertHelper *shareAlertHelper = nil;
 /**
  *  判断网路状态
  */
-- (void)predicateNetWorkState
+- (BOOL)predicateNetWorkState
 {
     if ( [JVCConfigModel shareInstance]._netLinkType == NETLINTYEPE_NONET) {
         
         [self alertToastWithKeyWindowWithMessage:@"没有网路，请查看网络"];
+        
+        return NO;
     }
-    
-    return;
+    return YES;
 }
 @end

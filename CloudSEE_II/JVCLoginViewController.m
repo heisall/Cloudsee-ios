@@ -345,7 +345,10 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
-    [[JVCAlertHelper shareAlertHelper]predicateNetWorkState];
+    if (![[JVCAlertHelper shareAlertHelper]predicateNetWorkState]) {
+        
+        return;
+    };
     
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
 
@@ -683,7 +686,10 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
  */
 - (void)registerClick
 {
-    [[JVCAlertHelper shareAlertHelper]predicateNetWorkState];
+    if (![[JVCAlertHelper shareAlertHelper]predicateNetWorkState]) {
+        
+        return;
+    };
     
     JVCRegisterViewController *resignVC = [[JVCRegisterViewController alloc] init];
     resignVC.resignDelegate = self;

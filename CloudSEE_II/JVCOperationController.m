@@ -66,6 +66,9 @@ bool selectState_audio ;
     
     UIView *talkView;
     BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
+    
+    UIButton *_splitViewBtn;//导航条上面的箭头，用于选则是否分屏
+
 }
 
 @end
@@ -105,7 +108,6 @@ int _iPlayBackVideo;
 bool _isCapState;
 int connectAllFlag;
 //splitWindowView *splitWindow;
-UIButton *_splitViewBtn;
 UIView *_splitViewBgClick;
 bool _isConnectdevcieOpenDecoder;
 
@@ -161,7 +163,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-//    [_splitViewBtn setHidden:YES];
+    [_splitViewBtn setHidden:YES];
     [_splitViewCon setHidden:YES];
     
 }
@@ -170,18 +172,22 @@ char remoteSendSearchFileBuffer[29] = {0};
     [super viewWillAppear:animated];
     
     if (!_isPlayBackVideo) {
+        /**
+         *  获取当前设备的通道数组，一个不让显示
+         */
+        NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
         
-//        if ([ count]<=1) {
-//            
-//            [_splitViewBtn setHidden:YES];
-//            [_splitViewCon setHidden:YES];
-//            
-//        }else{
-//            
-//            [_splitViewBtn setHidden:NO];
-//            [_splitViewCon setHidden:NO];
-//            
-//        }
+        if ([channelListArray  count]<=1) {
+            
+            [_splitViewBtn setHidden:YES];
+            [_splitViewCon setHidden:YES];
+            
+        }else{
+            
+            [_splitViewBtn setHidden:NO];
+            [_splitViewCon setHidden:NO];
+            
+        }
         
         if (self.navigationController.navigationBarHidden) {
             self.navigationController.navigationBarHidden = NO;
@@ -191,17 +197,17 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-/**
- *  解决状态栏显示问题
- */
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if  (IOS_VERSION >=IOS7) {
-        
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        
-    }
-}
+///**
+// *  解决状态栏显示问题
+// */
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    if  (IOS_VERSION >=IOS7) {
+//        
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        
+//    }
+//}
 
 - (void)viewDidLoad
 {
@@ -249,11 +255,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_managerVideo setUserInteractionEnabled:YES];
     [self.view addSubview:_managerVideo];
      [_managerVideo initWithLayout];
-    
- 
-    
-   //self.delegate = _managerVideo;
-    
+
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
      */
@@ -261,8 +263,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     capImageView.frame=_managerVideo.frame;
     [self.view addSubview:capImageView];
     [capImageView setHidden:YES];
-    //[capImageView release];
-    
     
     /**
      *  抓拍、对讲、录像、更多按钮的view
@@ -270,9 +270,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     NSString *pathSamllImage = [UIImage getBundleImagePath:@"smallItem__Normal.png" bundleName:(NSString *)BUNDLENAMEBottom];
     UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
-    
     frameBottom = CGRectMake(0.0, self.view.frame.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
-    
     [_smallItemBgImage release];
     
     NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"MoreOper", nil), nil];
@@ -282,12 +280,11 @@ char remoteSendSearchFileBuffer[29] = {0};
      */
     _operationItemSmallBg =  [JVCCustomOperationBottomView shareInstance];
     [_operationItemSmallBg updateViewWithTitleArray:arrayTitle Frame:frameBottom SkinType:skinSelect];
-    //[[CustomOperationBottomView alloc] initWithTitleArray:arrayTitle andFrame:frame andSkinType:skinSelect];
     _operationItemSmallBg.BottomDelegate = self;
     [_operationItemSmallBg setBackgroundColor:[UIColor clearColor]];
     _operationItemSmallBg.tag=101;
     [self.view addSubview:_operationItemSmallBg];
-    
+
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
     
     DDLogCVerbose(@"%s---talkBtn=%@",__FUNCTION__,talkBtn);
@@ -324,12 +321,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     CGRect frame = CGRectMake(0.0, _managerVideo.frame.origin.y+_managerVideo.frame.size.height, self.view.frame.size.width, _operationItemSmallBg.frame.origin.y-_managerVideo.frame.size.height-_managerVideo.frame.origin.y);
     
-    
     [self initOperationControllerMiddleViewwithFrame:frame];
     
     skinSelect = 0;
-    
-    //[_managerVideo splitViewWindow:9];
     
 }
 
@@ -464,8 +458,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     dispatch_async(dispatch_get_main_queue(), ^{
     
-       
-        
         [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
     
     });
@@ -518,6 +510,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     _splitViewCon.frame = CGRectMake(0,0, self.view.frame.size.width, 0.0);
     _splitViewCon.CustomCoverDelegate=self;
+    _splitViewCon.hidden = NO;
     [_splitViewCon updateConverViewWithTitleArray:_splitItems skinType:skinSelect];
     [_splitItems release];
 
@@ -735,91 +728,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-/**
- *	窗口停止方法
- *
- *	@param	_channleIDStr	当前窗口的ID
- */
-//-(void)StopOtherWindowsVideoData:(NSString*)_channleIDStr{
-//    
-//    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-//    
-//    int start=_managerVideo._iCurrentPage*_managerVideo.imageViewNums;
-//    int end=(_managerVideo._iCurrentPage+1)*_managerVideo.imageViewNums;
-//    
-//    int flag=0;
-//    
-//    int channelID=[_channleIDStr intValue];
-//    
-////    for (int i=0; i<CONNECTMAXNUMS; i++) {
-////        
-////        
-////        int _ID=channel[i].flag*CONNECTMAXNUMS;
-////        
-////        int ID=i+_ID+WINDOWSFLAG;
-////        
-////        JVCCustomOperationBottomView  *imgView=(JVCCustomOperationBottomView*)[self.view viewWithTag:ID];
-////        BOOL checkResult=YES;
-////        if (imgView._glView._kxMoveGLView) {
-////            checkResult=[imgView._glView._kxMoveGLView isHidden];
-////        }
-////        if (channel[i]!=nil&&(channel[i].ImageData!=nil||!checkResult)) {
-////            
-////            
-////            if (_managerVideo.imageViewNums>4) {
-////                
-////                if (!channel[i]._isOnlyIState) {
-////                    
-////                    [channel[i] operationZKVideo_I:JVN_CMD_ONLYI];
-////                    channel[i]._isOnlyIState=YES;
-////                }
-////                
-////            }else{
-////                
-////                if (channel[i]._isOnlyIState) {
-////                    
-////                    [channel[i] operationZKVideo_I:JVN_CMD_FULL];
-////                    
-////                    channel[i]._isOnlyIState=FALSE;
-////                }
-////                
-////            }
-////        }
-////    }
-////    for (int i=start; i<end; i++) {
-////        
-////        int ID=i%CONNECTMAXNUMS;
-////        if (ID==channelID) {
-////            if (channel[ID]!=nil) {
-////                int _ID=channel[ID].flag*CONNECTMAXNUMS;
-////                int channelID=ID+_ID;
-////                if (i==channelID) {
-////                    if (channel[ID].videoState) {
-////                        [channel[ID] operationZKVideo:JVN_CMD_VIDEO];
-////                        channel[ID].videoState=FALSE;
-////                        // NSLog(@"run hahha vieo stop....................");
-////                    }
-////                }
-////                flag=1;
-////                break;
-////            }
-////        }
-////    }
-//    
-////    if (0==flag) {
-////        if(channel[channelID]!=nil){
-////            if (!channel[channelID].videoState) {
-////                [channel[channelID] operationZKVideo:JVN_CMD_VIDEOPAUSE];
-////                channel[channelID].videoState=TRUE;
-////                // NSLog(@"run hahha vieo stop....................%d",channelID);
-////            }
-////        }
-////    }
-//    
-//    [pool release];
-//    
-//}
-
 #pragma mark 最下面的操作按钮控制方法
 -(void)smallBtnTouchUpInside:(UIButton*)sender{
     //sender.selected=TRUE;
@@ -919,65 +827,11 @@ char remoteSendSearchFileBuffer[29] = {0};
             [alertView dismissWithClickedButtonIndex:0 animated:YES];
         }else{///区分本地跟账号
             
-           // JVCDeviceModel *model=[self._aDeviceChannelListData objectAtIndex:iModifyIndex];
-            
-            /**
-             *  根据通道的云视通号，获取设备的云视通号
-             */
-//            JVCDeviceModel *modelDevice =[[jvcdevice sharedDLCCObj]  getSouchModelByYstNum:model.yunShiTongNum];
-//            if ([JVCSystemUtility shareSystemUtilityInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
-//                
-//                LocalWlanChangeNameAndPw *modifyUserAndPassWord = [[LocalWlanChangeNameAndPw alloc] init];
-//                modifyUserAndPassWord.mModel =modelDevice;
-//                modifyUserAndPassWord.modifyDelegate = self;
-//                [self.navigationController pushViewController:modifyUserAndPassWord animated:YES];
-//                [modifyUserAndPassWord release];
-//                
-//            }else{
-//                
-//                WLanChangNameAndPW *modifyUserAndPassWord = [[WLanChangNameAndPW alloc] init];
-//                modifyUserAndPassWord.mModel =modelDevice;
-//                modifyUserAndPassWord.modifyDelegate = self;
-//                [self.navigationController pushViewController:modifyUserAndPassWord animated:YES];
-//                [modifyUserAndPassWord release];
-//                
-//            }
-            
         }
         
         bStateModifyDeviceInfo=NO ;
-        
-        
+    
     }
-}
-
-#pragma mark 前往设置界面
--(void)gotoSettingView{
-    
-    // [self changeViewWithSave];
-//    settingViewController *_setting=[[settingViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    [self.navigationController pushViewController:_setting animated:YES];
-//    [_setting release];
-    
-    
-}
-
-
-
--(void)changeBtnState:(NSTimer*)timer{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [_bSmallTalkBtn setEnabled:YES];
-    });
-    [timer invalidate];
-}
-
-
--(void)updateBigOperationView{
-    
-    //    operationBigView._isPlaySound=FALSE;
-    //    [operationBigView.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -1088,34 +942,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-
-
--(void)requestDeviceRemoteData:(NSString*)channelID{
-    
-    
-//    int chanID=[channelID intValue];
-//    if (channel[chanID]!=nil) {
-//        
-//        usleep(500*1000);
-//        [channel[chanID] getFrameRateInfo];
-//        
-//    }
-	
-}
-
--(void)getFrameRateInfo:(NSString*)channelID{
-    
-    
-//    int chanID=[channelID intValue];
-//    if (channel[chanID]!=nil&&channel[chanID].connectDeviceType==4) {
-//        
-//        usleep(500*1000);
-//        [channel[chanID] operationZKVideo:JVN_REQ_TEXT];
-//    }
-    
-    
-}
-
 /**
  *  设备与其他分控语音对讲的时候，本设备再对讲的话收到的返回值的提示
  */
@@ -1131,26 +957,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 //    }
 }
 
-/**
- *  播放界面的关闭,yes 正常情况下得点击取消帮助  no可能是旋转屏幕以及其他的操作
- */
-- (void)HelpImageViewCallBackInOperationPlay
-{
-    
-//    if (isShowHelper) {
-//        
-//        [_helpImageView.view removeFromSuperview];
-//        
-//        [_helpImageView  release];
-//        _helpImageView = nil;
-//        
-//        
-//        [OperationSet setAppInfoPish:@"yes" andKey:APP_Help_YT];
-//        isShowHelper = NO;
-//        
-//    }
-    
-}
 /**
  *  修改完之后的返回事件,连接视频的时候，用户名密码不正确，跳转到修改用户名密码界面，修改完成之后的回调
  */

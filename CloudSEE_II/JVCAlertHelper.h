@@ -74,5 +74,5 @@
 /**
  *  判断网路状态,里面带有return
  */
-- (void)predicateNetWorkState;
+- (BOOL)predicateNetWorkState;
 @end
