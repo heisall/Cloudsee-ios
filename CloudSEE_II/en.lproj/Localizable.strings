@@ -42,3 +42,6 @@
 "fl_ch_1.png"="fl_en_1.png";
 "hd_ch_1.png"="hd_en_1.png";
 "sd_ch_1.png"="sd_en_1.png";
+
+//远程回放
+"Playback_Finish"="Playback finish";

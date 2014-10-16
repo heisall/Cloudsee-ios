@@ -361,10 +361,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [self.view addSubview:_operationBigItemBg];
     
-    JVCCustomCoverView *ytoView = [JVCCustomCoverView shareInstance];
+    JVCCustomYTOView *ytoView = [JVCCustomYTOView shareInstance];
     ytoView.frame = CGRectMake(_operationBigItemBg.frame.origin.x,_operationBigItemBg.frame.origin.y,_operationBigItemBg.frame.size.width,_operationBigItemBg.frame.size.height);
     ytoView.tag=661;
-    ytoView.CustomCoverDelegate=self;
+    ytoView.delegateYTOperation=self;
     [self.view addSubview:ytoView];
     [ytoView setHidden:YES];
     
@@ -525,6 +525,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
     }
     [[JVCCustomYTOView shareInstance] showYTOperationView];
+    [self.view bringSubviewToFront: [JVCCustomYTOView shareInstance]];
     
 }
 
@@ -1575,6 +1576,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
+    
+    DDLogError(@"%s---date=%@",__FUNCTION__,date);
     
     [ystNetworkObj RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:dicInfo requestPlayBackFileDate:date requestPlayBackFileIndex:index];
     

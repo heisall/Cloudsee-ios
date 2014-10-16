@@ -432,7 +432,8 @@ float min_offset;
 }
 
 
--(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight{
+-(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
+    
     
     dispatch_sync(dispatch_get_main_queue(), ^{
         
@@ -448,34 +449,49 @@ float min_offset;
             [slider setMaximumValue:0.0];
             [slider setHidden:YES];
             
-            [self._glView hiddenWithOpenGLView];
-            [self bringSubviewToFront:imgView];
-            
+            if (![self._glView._kxOpenGLView isHidden]) {
+//                [self._glView._kxOpenGLView setHidden:YES];
+//                [self bringSubviewToFront:imgView];
+                [self._glView hiddenWithOpenGLView];
+                [self bringSubviewToFront:imgView];
+            }
             
         }else {
             
+            UISlider *slider=(UISlider*)[self viewWithTag:107];
             
-            //        if ([_managePlay returnPlayBackViewState]&&!self._isPlayBackState) {
-            //
-            //            UISlider *slider=(UISlider*)[self viewWithTag:107];
-            //            [slider setHidden:NO];
-            //            [slider setValue:slider.value+1];
-            //
-            //        }else{
-            //
-            //            UISlider *slider=(UISlider*)[self viewWithTag:107];
-            //            [slider setHidden:YES];
-            //        }
             UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
+            [_bPlayVideoBtn setHidden:YES];
             
-            if (!_bPlayVideoBtn.hidden) {
+            if (nPlayBackFrametotalNumber>0) {
                 
-                [_bPlayVideoBtn setHidden:YES];
+                UISlider *slider=(UISlider*)[self viewWithTag:107];
+                self._isPlayBackState=FALSE;
+                [slider setMaximumValue:nPlayBackFrametotalNumber];
+                
+                [slider setHidden:NO];
+                
+                //判断远程回放是否播放完成
+                if (slider.value == nPlayBackFrametotalNumber) {//完成，自动结束远程回放
+                    
+                    
+                }else{//没有完成
+                    
+                    [slider setValue:slider.value+1];
+                    
+                }
+                
+            }else{
+                
+                [slider setHidden:YES];
             }
             
             [self._glView decoder:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
             
-            [self._glView showWithOpenGLView];
+            if ([self._glView._kxOpenGLView isHidden]) {
+                [self._glView._kxOpenGLView setHidden:NO];
+                [self bringSubviewToFront:self._glView._kxOpenGLView];
+            }
             
             disFlag=YES;
             
