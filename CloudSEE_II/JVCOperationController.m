@@ -171,7 +171,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if (!_isPlayBackVideo) {
         
-//        if ([self._aDeviceChannelListData count]<=1) {
+//        if ([ count]<=1) {
 //            
 //            [_splitViewBtn setHidden:YES];
 //            [_splitViewCon setHidden:YES];
