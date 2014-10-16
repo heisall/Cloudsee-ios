@@ -13,6 +13,11 @@
 #import "JVCDeviceMacro.h"
 #import "JVCAlarmMacro.h"
 #import "JVCSignleAlarmDisplayView.h"
+#import "JVCDeviceModel.h"
+#import "JVCDeviceSourceHelper.h"
+#import "JVCCloudSEENetworkMacro.h"
+#import "JVCAlarmVideoPlayViewController.h"
+
 
 @interface JVCAlarmMessageViewController ()
 {
@@ -122,34 +127,25 @@ static const int KSUCCESS = 0;//成功
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.section];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.row];
     JVCAlarmCell *homecell = (JVCAlarmCell *)[tableView cellForRowAtIndexPath:indexPath];
     UIImageView *imageViewNew = (UIImageView *)[homecell.contentView viewWithTag:10005];
     [imageViewNew removeFromSuperview];
     
-//    if (!cellModel.iFlag) {
-//        
-//        if (reduceTabbarDelegate !=nil &&[reduceTabbarDelegate respondsToSelector:@selector(reduceTabbarCountCallBack)]) {
-//            
-//            [reduceTabbarDelegate reduceTabbarCountCallBack];
-//        }
-//        
-//    }
-//    cellModel.iFlag = YES;
+    JVCDeviceModel *DdvModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:cellModel.strYstNumber];
     
-    //    if (cellModel.strAlarmLocalPicURL) {
-    //        ShowAlertImageViewController *showImage = [[ShowAlertImageViewController alloc] init];
-    //        showImage._modelAlarm = cellModel;
-    //        showImage.hidesBottomBarWhenPushed = YES;
-    //        [delegate._popViewCon.navigationController pushViewController:showImage animated:YES];
-    //        [showImage release];
-    //
-    //    }else{
-    //        [OperationSet showText:LOCALANGER(@"home_no_picture") andPraent:self andTime:1 andYset:0];
-    //    }
-    //获取视频url
-//    [self getVideoUrlWithAlertModel:cellModel];
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+
+    ystNetWorkHelperObj.ystNWHDelegate = self;
     
+    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:1
+                                                                           nRemoteChannel:1 strYstNumber:@"S90252170"strUserName:@"admin" strPassWord:@"aaa" nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+   
+    
+//    connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:TRUE];
+
+//    -(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo;
+
     //弹出图片
     [self showJVHAlarmVideoWithModel:cellModel];
 
@@ -239,15 +235,79 @@ static const int KSUCCESS = 0;//成功
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+/**
+ *  连接的回调代理
+ *
+ *  @param connectCallBackInfo 返回的连接信息
+ *  @param nlocalChannel       本地通道连接从1开始
+ *  @param connectType         连接返回的类型
+ */
+-(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if (connectResultType == CONNECTRESULTTYPE_Succeed) {
+        
+        DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
+        
+        NSString *downUrl = @"./rec/00/20141011/A01135705.jpg";
+//        NSString *downUrl = @"./rec/00/20141016/A01202644.jpg";
+        
+        NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+        
+        NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
+        
+        NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:@"1009dds0ds1.jpg"];
+        
+        JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        cloudSEEObj.ystNWRPVDelegate          =  self;
+        
+        [cloudSEEObj RemoteDownloadFile:nlocalChannel withDownLoadPath:(char *)[downUrl UTF8String] withSavePath:pathAccount];
+        
+        
+    }else {
+    
+    }
+    
+    
 }
-*/
+
+
+/**
+ *  远程下载文件的回调
+ *
+ *  @param downLoadStatus 下载的状态
+ 
+ JVN_RSP_DOWNLOADOVER  //文件下载完毕
+ JVN_CMD_DOWNLOADSTOP  //停止文件下载
+ JVN_RSP_DOWNLOADE     //文件下载失败
+ JVN_RSP_DLTIMEOUT     //文件下载超时
+ 
+ *  @param path           下载保存的路径
+ */
+-(void)remoteDownLoadCallBack:(int)downLoadStatus withDownloadSavePath:(NSString *)savepath {
+    
+    DDLogCVerbose(@"%s--------savePath=%@ status=%d",__FUNCTION__,savepath,downLoadStatus);
+    
+    
+//    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow];
+//    [self playMovie:savepath];
+
+    [self performSelectorOnMainThread:@selector(playMovie:) withObject:savepath waitUntilDone:NO];
+//    cellModel.strAlarmLocalVideoUrl = savepath;
+
+}
+
+- (void)playMovie:(NSString *)filePath
+{
+    [filePath retain];
+    
+    JVCAlarmVideoPlayViewController *view = [[JVCAlarmVideoPlayViewController alloc] init];
+    view._StrViedoPlay = filePath;
+    
+   [self.navigationController pushViewController:view animated:YES];
+    
+    [filePath release];
+    
+    [view release];
+}
 
 @end

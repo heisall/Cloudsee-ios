@@ -7,7 +7,8 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+#import "JVCCloudSEENetworkHelper.h"
 
-@interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController
+@interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController <ystNetWorkHelpDelegate,ystNetWorkHelpRemotePlaybackVideoDelegate>
 
 @end

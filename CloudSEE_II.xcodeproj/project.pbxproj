@@ -295,6 +295,7 @@
 		A7FB234719EFD52400A3FC01 /* alarmBtnHover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234319EFD52400A3FC01 /* alarmBtnHover@2x.png */; };
 		A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234419EFD52400A3FC01 /* alarmBtnNormal@2x.png */; };
 		A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234519EFD52400A3FC01 /* alarmDefault@2x.png */; };
+		A7FB234C19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB234B19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m */; };
 		A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */; };
 		A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */; };
 		A7FB594919E900F7005E2E6D /* JVCModifyUnLegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB594819E900F7005E2E6D /* JVCModifyUnLegalViewController.m */; };
@@ -729,6 +730,8 @@
 		A7FB234319EFD52400A3FC01 /* alarmBtnHover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmBtnHover@2x.png"; sourceTree = "<group>"; };
 		A7FB234419EFD52400A3FC01 /* alarmBtnNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmBtnNormal@2x.png"; sourceTree = "<group>"; };
 		A7FB234519EFD52400A3FC01 /* alarmDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmDefault@2x.png"; sourceTree = "<group>"; };
+		A7FB234A19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmVideoPlayViewController.h; sourceTree = "<group>"; };
+		A7FB234B19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmVideoPlayViewController.m; sourceTree = "<group>"; };
 		A7FB594219E8C53F005E2E6D /* JVCLabelFieldSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLabelFieldSView.h; sourceTree = "<group>"; };
 		A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLabelFieldSView.m; sourceTree = "<group>"; };
 		A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con_Btn@2x.png"; sourceTree = "<group>"; };
@@ -1533,6 +1536,8 @@
 				A7F51E6D19EBB4920052F878 /* JVCAlarmCell.m */,
 				A7FB233F19EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.h */,
 				A7FB234019EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m */,
+				A7FB234A19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.h */,
+				A7FB234B19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m */,
 			);
 			name = alarm;
 			sourceTree = "<group>";
@@ -2280,6 +2285,7 @@
 				AD3BDCC019ED4F81001B16D7 /* JVCVoiceencHelpViewController.m in Sources */,
 				A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */,
 				A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
+				A7FB234C19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m in Sources */,
 				A7FA43DE19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */,
 				ADA22DFF19DAAE2A0092F8B9 /* AQRecorder.mm in Sources */,
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
