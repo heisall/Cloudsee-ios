@@ -37,7 +37,7 @@
 
 static  JVCRemoteVideoPlayBackVControler*shareInstance = nil;
 
-static NSString *KDateFormatFlag = @"yyyy-MM-dd";
+static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
 
 
 +(id)allocWithZone:(struct _NSZone *)zone
@@ -114,6 +114,26 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     strDateSelect = [[NSString alloc] init];
     
     self.iSelectRow = -1;
+    
+    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    //        NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSWeekdayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    //int week=0;
+
+    formatter.dateFormat = @"YYYY-MM-dd";
+    formatter.locale     = [NSLocale currentLocale];
+    NSDate *_date=[formatter dateFromString:@"2014-10-26"];
+
+    [formatter release];
+    
+    DDLogError(@"%s-----date01=%@",__FUNCTION__,_date);
 
     
     /**
@@ -212,15 +232,19 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
  */
 - (NSDate *)getFormateDateWtihString:(NSString *)dateString
 {
-    NSLog(@"dateString=%@",dateString);
+    //DDLogError(@"dateString=%@",dateString);
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-    formatter.dateFormat = KDateFormatFlag;
+    [formatter setDateFormat:KDateFormatFlag];
+    /**
+     *  解决时差相差8个小时的问题
+     */
+    NSTimeZone *localZone =[NSTimeZone systemTimeZone];
     NSDate  *timestamp = [formatter dateFromString:dateString];
-    
-    NSLog(@"转化后的数据=%@",[formatter stringFromDate:timestamp]);
+    NSUInteger interval =[localZone secondsFromGMTForDate:timestamp];
+    NSDate *date  = [timestamp dateByAddingTimeInterval:interval];
     [formatter release];
     
-    return timestamp;
+    return date;
 }
 
 /**
@@ -292,16 +316,44 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {   
+//    self.iSelectRow = indexPath.row;
+//    
+//    NSMutableDictionary *dicInfo = [self.arrayDateList objectAtIndex:indexPath.row];
+//    
+//    if (self.remoteDelegat != nil && [self.remoteDelegat respondsToSelector:@selector(remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:requestPlayBackFileDate:requestPlayBackFileIndex:)]) {
+//        
+//        [self.remoteDelegat remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:dicInfo
+//                                                           requestPlayBackFileDate:[self getFormateDateWtihString:selectTimeLabel.text] requestPlayBackFileIndex:indexPath.row];
+//    }
+    
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (self.iSelectRow != -1) {//之前选中的，要给置换回来
+        
+        JVCPlaybackBean *cell = (JVCPlaybackBean *)[_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.iSelectRow inSection:0]];
+        
+        cell.timeLabel.textColor =SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
+        cell.sizeLabel.textColor = SETLABLERGBCOLOUR(RGB_YUANCHENG_LABLE_R, RGB_YUANCHENG_LABLE_G, RGB_YUANCHENG_LABLE_B);//设置v_headerLab的字体颜色
+    }else{//置换颜色
+        
+        JVCPlaybackBean *cell = (JVCPlaybackBean *)[_tableview cellForRowAtIndexPath:indexPath];
+        cell.timeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
+        cell.sizeLabel.textColor= SETLABLERGBCOLOUR(31.0, 111.0,232.0);
+    }
+    
     self.iSelectRow = indexPath.row;
     
     NSMutableDictionary *dicInfo = [self.arrayDateList objectAtIndex:indexPath.row];
     
     if (self.remoteDelegat != nil && [self.remoteDelegat respondsToSelector:@selector(remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:requestPlayBackFileDate:requestPlayBackFileIndex:)]) {
         
+        
         [self.remoteDelegat remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:dicInfo
                                                            requestPlayBackFileDate:[self getFormateDateWtihString:selectTimeLabel.text] requestPlayBackFileIndex:indexPath.row];
     }
     
+
     
     
 }
@@ -356,6 +408,8 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
     datePicker.datePickerMode = UIDatePickerModeDate;
     [datePicker setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedString(@"NSLocalString", nil)] autorelease]];
     datePicker.tag = 101;
+    datePicker.locale  = [NSLocale currentLocale];
+    datePicker.calendar = [NSCalendar currentCalendar];
     [actionSheet addSubview:datePicker];
     [actionSheet showInView:self.view];
     // [actionSheet release];
@@ -373,8 +427,8 @@ static NSString *KDateFormatFlag = @"yyyy-MM-dd";
 		{
             UIDatePicker *datePicker0= (UIDatePicker *)[actionSheet viewWithTag:101];
             NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-            
-            formatter.dateFormat = @"yyyy-MM-dd";
+            formatter.timeZone = [NSTimeZone systemTimeZone];
+            formatter.dateFormat = KDateFormatFlag;
             
             NSString *timestamp = [formatter stringFromDate:datePicker0.date];
             selectTimeLabel.text = timestamp;

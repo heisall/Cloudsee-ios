@@ -453,6 +453,7 @@ static JVCCustomYTOView *_shareInstance = nil;
     transition.delegate = self;
     [self.layer addAnimation:transition forKey:nil];
     
+    
 }
 
 /**

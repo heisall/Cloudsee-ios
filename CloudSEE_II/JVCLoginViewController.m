@@ -413,10 +413,17 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             
             if (RESERT_USER_AND_PASSWORD == resultOldType) {//重置用户名和密码
 
+                JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+                [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
+                
                 [self modifyUnLegalUserAndPw];
+                
                 
             }else if(RESERT_PASSWORD == resultOldType)//重置密码的，再后台自动重置
             {
+                JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+                [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
+                
                 [self modifyPassWordInbackGround];
             
             }else if(LOGINRUSULT_SUCCESS == resultOldType)//登录成功，一般这个不会出现，因为既然是老用户了，就不会有这些问题
@@ -665,8 +672,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    
-    [self clickDropDownView];
+
 
     return YES;
 }
