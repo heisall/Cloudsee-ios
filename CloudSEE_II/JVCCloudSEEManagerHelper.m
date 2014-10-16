@@ -31,7 +31,7 @@
 @synthesize isDisplayVideo,jvcQueueHelper,jvConnectDelegate,nSystemVersion;
 @synthesize jvcPlaySound,jvcAudioQueueHelper,jvcVoiceIntercomHelper;
 @synthesize isOnlyIState,isVideoPause;
-@synthesize jvcRecodVideoHelper;
+@synthesize jvcRecodVideoHelper,isConnectShowVideo;
 
 char          pcmBuffer[1024] ={0};
 
@@ -88,6 +88,8 @@ char          pcmBuffer[1024] ={0};
         memset(jvcOutVideoFrame->decoder_u, 0, sizeof(jvcOutVideoFrame->decoder_u));
         memset(jvcOutVideoFrame->decoder_v, 0, sizeof(jvcOutVideoFrame->decoder_v));
         
+        self.isConnectShowVideo = TRUE;
+        
     }
     
     return self;
@@ -115,7 +117,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.nRemotePort,self.strUserName,self.strPassWord);
     
-    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[@"" UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],self.nYstNumber, (char *)[self.strYstGroup UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,TRUE);
+    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[@"" UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],self.nYstNumber, (char *)[self.strYstGroup UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,FALSE);
 }
 
 /**
@@ -125,7 +127,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,remoIP=%@,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.strRemoteIP,self.nRemotePort,self.strUserName,self.strPassWord);
     
-    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[self.strRemoteIP UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],-1, (char *)[@"" UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,TRUE);
+    JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[self.strRemoteIP UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],-1, (char *)[@"" UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,FALSE);
 }
 
 /**

@@ -286,6 +286,20 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 }
 
 /**
+ *  远程下载文件接口
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param path         下载的路径
+ */
+-(void)RemoteDownloadFile:(int)nJvChannelID withDownloadPath:(char *)path{
+
+
+    JVC_SendData(nJvChannelID,JVN_CMD_DOWNLOADSTOP, NULL, 0);
+    
+    JVC_SendData(nJvChannelID,JVN_REQ_DOWNLOAD, path, strlen(path));
+}
+
+/**
  *  设置设备的对讲模式
  *
  *  @param deviceTalkModelType 0:设备采集 不播放声音 1:设备播放声音，不采集声音

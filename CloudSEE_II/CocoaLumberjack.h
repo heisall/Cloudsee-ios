@@ -62,4 +62,4 @@
 #import "DDTTYLogger.h"
 #import "DDFileLogger.h"
 
-static const int ddLogLevel = LOG_LEVEL_ERROR;//LOG_FLAG_WARN
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;//LOG_FLAG_WARN
