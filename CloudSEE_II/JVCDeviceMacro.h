@@ -40,7 +40,11 @@ enum DEVICESERVICERESPONSE{
 #define JK_CLINET_SFD			"cfd"
 #define JK_CLINET_SFD_ID		"cfdid"
 
-#define JK_SESSION_ID			"sid"
+#define JK_SESSION_ID			"sid"、
+
+#define JK_ALARM_INDEX_START		"aistart"
+
+#define JK_ALARM_INDEX_STOP			"aistop"
 
 #define JK_USERNAME				"username"
 #define JK_PASSWORD				"password"
@@ -196,6 +200,7 @@ enum DEVICESERVICERESPONSE{
 
 #define DEVICE_ONLINE_STATUS         @"dsls"
 #define DEVICE_DEVICE_RELATION_NUM    @"drn"
+
 
 /**
  *  ap 的密码

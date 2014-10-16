@@ -10,6 +10,9 @@
 #import "JVCAlarmCell.h"
 #import "JVCAlarmModel.h"
 #import "JVCDeviceHelper.h"
+#import "JVCDeviceMacro.h"
+#import "JVCAlarmMacro.h"
+#import "JVCSignleAlarmDisplayView.h"
 
 @interface JVCAlarmMessageViewController ()
 {
@@ -19,7 +22,7 @@
 @end
 
 @implementation JVCAlarmMessageViewController
-
+static const int KSUCCESS = 0;//成功
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,7 +54,34 @@
  */
 - (void)headerRereshingData
 {
-    [[JVCDeviceHelper sharedDeviceLibrary]getAccountByDeviceAlarmList:0];
+    /**
+     *  放到异步线程里面
+     */
+   id result =  [[JVCDeviceHelper sharedDeviceLibrary]getAccountByDeviceAlarmList:0];
+    
+    if ([result isKindOfClass:[NSDictionary class]]) {//是字典类型的
+        
+        NSDictionary *resultDic = (NSDictionary *)result;
+        
+        if ([[resultDic objectForKey:DEVICE_JSON_RT] intValue ] == KSUCCESS) {//成功
+            
+            NSArray *arrayList = [resultDic objectForKey:JK_ALARM_INFO];
+            
+            for (NSDictionary *tdic in arrayList) {
+                
+                JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:tdic];
+                
+                [arrayAlarmList addObject:model];
+               // [model release];
+                
+            
+            }
+            [self.tableView reloadData];
+            
+        }else{
+            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"获取报警信息失败"];
+        }
+    }
     
     [self.tableView performSelector:@selector(headerEndRefreshing) withObject:nil afterDelay:1];
 
@@ -59,14 +89,10 @@
 
 #pragma mark tableview的
 #pragma mark - Table view data source
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 3;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;//arrayAlarmList.count;
+    return arrayAlarmList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,16 +111,48 @@
         
         cell = [[[JVCAlarmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
     }
-    JVCAlarmModel *modelcell = [[JVCAlarmModel alloc] init];
-    modelcell.bNewAlarmFlag = YES;
-    modelcell.iAlarmType =2;
-    modelcell.strALarmDeviceNickName = @"大门口";
+    JVCAlarmModel *modelcell = [arrayAlarmList objectAtIndex:indexPath.row];
     [cell initAlermCell:modelcell];
     [modelcell release];
 
     // Configure the cell...
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.section];
+    JVCAlarmCell *homecell = (JVCAlarmCell *)[tableView cellForRowAtIndexPath:indexPath];
+    UIImageView *imageViewNew = (UIImageView *)[homecell.contentView viewWithTag:10005];
+    [imageViewNew removeFromSuperview];
+    
+//    if (!cellModel.iFlag) {
+//        
+//        if (reduceTabbarDelegate !=nil &&[reduceTabbarDelegate respondsToSelector:@selector(reduceTabbarCountCallBack)]) {
+//            
+//            [reduceTabbarDelegate reduceTabbarCountCallBack];
+//        }
+//        
+//    }
+//    cellModel.iFlag = YES;
+    
+    //    if (cellModel.strAlarmLocalPicURL) {
+    //        ShowAlertImageViewController *showImage = [[ShowAlertImageViewController alloc] init];
+    //        showImage._modelAlarm = cellModel;
+    //        showImage.hidesBottomBarWhenPushed = YES;
+    //        [delegate._popViewCon.navigationController pushViewController:showImage animated:YES];
+    //        [showImage release];
+    //
+    //    }else{
+    //        [OperationSet showText:LOCALANGER(@"home_no_picture") andPraent:self andTime:1 andYset:0];
+    //    }
+    //获取视频url
+//    [self getVideoUrlWithAlertModel:cellModel];
+    
+    //弹出图片
+    [self showJVHAlarmVideoWithModel:cellModel];
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -133,6 +191,51 @@
     [arrayAlarmList release];
     
     [super dealloc];
+}
+
+
+- (void)showJVHAlarmVideoWithModel:(JVCAlarmModel *)model
+{
+    [model retain];
+    
+    JVCSignleAlarmDisplayView *alarmView = [[JVCSignleAlarmDisplayView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
+    alarmView.tag = 138354;
+    alarmView.tAlarmModel = model;
+    alarmView.palyVideoDelegate = self;
+    [alarmView initView];
+    
+    CABasicAnimation *forwardAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    forwardAnimation.duration = 1;
+    forwardAnimation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.5f :1.7f :0.6f :0.85f];
+    forwardAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+    forwardAnimation.toValue = [NSNumber numberWithFloat:1.0f];
+    
+    
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = [NSArray arrayWithObjects:forwardAnimation, nil];
+    animationGroup.delegate = self;
+    animationGroup.duration = forwardAnimation.duration + 1;
+    animationGroup.removedOnCompletion = NO;
+    animationGroup.fillMode = kCAFillModeForwards;
+    static NSString * const kAddAnimation = @"kAddAnimation";
+    
+    [self.view.window addSubview:alarmView];
+    [alarmView.layer addAnimation:animationGroup forKey:kAddAnimation];
+    
+    [alarmView showToastAlert];
+    
+    [alarmView release];
+    
+    [model release];
+ 
+}
+
+-(void)removeJVHAlarmShowView
+{
+    JVCSignleAlarmDisplayView *viewContent = (JVCSignleAlarmDisplayView *)[self.view.window viewWithTag:138354];
+    if (viewContent) {
+        [viewContent removeFromSuperview];
+    }
 }
 
 

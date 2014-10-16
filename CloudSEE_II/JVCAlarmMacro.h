@@ -8,7 +8,6 @@
 
 #define JK_ALARM_MID				@"mid"
 #define JK_ALARM_ACCOUNT			@"accountname"
-#define JK_ALARM_GUID				@"alarmguid"
 #define JK_ALARM_CLOUDNUM			@"cloudnum"
 #define JK_ALARM_CLOUDCHN			@"cloudchn"
 #define JK_ALARM_ALARMTYPE			@"alarmtype"
@@ -22,8 +21,39 @@
 #define JK_ALARM_LIST				@"list"
 #define JK_ALARM_CLOUDNAME			@"cloudname"
 
-static const int  JK_ALARM_LISTCOUNT =  4;//每次请求报警数据的个数
+// 设备报警
+#define JK_ALARM_GUID			@"aguid"
+#define JK_ALARM_SOLUTION		@"asln"
+#define JK_ALARM_MESSAGE_TYPE	@"amt"
+#define JK_ALARM_STATUS			@"astatus"
+#define JK_ALARM_TYPE			@"atype"
+#define JK_ALARM_PIC			@"apic"
+#define JK_ALARM_PIC_SIZE		@"apicsz"
+#define JK_ALARM_VIDEO			@"avd"
+#define JK_ALARM_VIDEO_SZIE		@"avdsz"
+#define JK_ALARM_MESSAGE		@"amsg"
+#define JK_ALARM_TIMESTAMP		@"ats"
 
+// 设备报警
+#define JK_ALARM_GUID			@"aguid"
+#define JK_ALARM_SOLUTION		@"asln"
+#define JK_ALARM_MESSAGE_TYPE	@"amt"
+#define JK_ALARM_STATUS			@"astatus"
+#define JK_ALARM_TYPE			@"atype"
+#define JK_ALARM_PIC			@"apic"
+#define JK_ALARM_PIC_SIZE		@"apicsz"
+#define JK_ALARM_VIDEO			@"avd"
+#define JK_ALARM_VIDEO_SZIE		@"avdsz"
+#define JK_ALARM_MESSAGE		@"amsg"
+#define JK_ALARM_TIMESTAMP		@"ats"
+#define JK_ALARM_INFO			@"ainfo"
+#define JK_ALARM_FTP_CHANNEL_NO	@"dcn"
+#define JK_ALARM_FTP_DEVICE_GUID @"dguid"
+#define JK_ALARM_DEVICE_NAME    @"dname"
+
+static const int  JK_ALARM_LISTCOUNT =  4;//每次请求报警数据的个数
+static const int  ALARM_INFO_PROCESS =  11;//新版报警字段
+static const int  GET_ALARM_INFO     =  6000;//新版
 
 /* 报警类型 */
 typedef enum alarmtype

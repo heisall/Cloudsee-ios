@@ -86,4 +86,18 @@
  */
 - (UIBarButtonItem *)navicationBarWithTouchEvent:(SEL)event  Target:(id)sender;
 
+/**
+ *  随机返回图片路径（基于时间截）
+ *
+ *  @return 路径
+ */
+- (NSString *)getRandomPicLocalPath;
+
+/**
+ *  随机返回图片路径（基于时间截）
+ *
+ *  @return 路径
+ */
+- (NSString *)getRandomVideoLocalPath;
+
 @end

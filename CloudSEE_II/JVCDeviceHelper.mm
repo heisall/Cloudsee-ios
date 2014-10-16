@@ -11,8 +11,7 @@
 #import "JVCDeviceMacro.h"
 #import "JVCAccountInterface.h"
 #import "JVCAlarmMacro.h"
-
-
+#import "JVCDeviceMacro.h"
 
 @implementation JVCDeviceHelper
 
@@ -82,8 +81,6 @@ char outTextBuffer[1280*720*3];
     
     int resultValue=GetResponseByRequestDeviceShortConnectionServer_C((const char *)[requstJosnStr UTF8String],outTextBuffer);
     
-//    int resultValue=GetResponseByRequestShortConnectionServer_C(2,(const char *)[requstJosnStr UTF8String],outTextBuffer);
-
     if (resultValue!=DEVICESERVICERESPONSE_SUCCESS){
         
         return nil;
@@ -1217,9 +1214,17 @@ char outTextBuffer[1280*720*3];
     //请求的参数集合
     NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
     
-    [requestInfoMDict setValue:[NSNumber numberWithInt:MID_REQUEST_ALARMHISTORY] forKey:JK_ALARM_MID];
-    [requestInfoMDict setValue:[NSNumber numberWithInt:JK_ALARM_LISTCOUNT] forKey:JK_ALARM_SEARCHCOUNT];
-    [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue] forKey:JK_ALARM_SEARCHINDEX];
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+
+    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_ALARM_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+
+
+    [requestInfoMDict setValue:[NSNumber numberWithInt:ALARM_INFO_PROCESS] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_ALARM_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+
+    [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue] forKey:CONVERTCHARTOSTRING(JK_ALARM_INDEX_START)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue+JK_ALARM_LISTCOUNT] forKey:CONVERTCHARTOSTRING(JK_ALARM_INDEX_STOP)];
     
     NSString *parseStr=[requestInfoMDict JSONString];
     

@@ -187,4 +187,40 @@ static JVCSystemUtility *shareInstance = nil;
     
 }
 
+/**
+ *  随机返回图片路径（基于时间截）
+ *
+ *  @return 路径
+ */
+- (NSString *)getRandomPicLocalPath
+{
+    NSString *appCachePaht = [self getAppTempPath];
+    
+    NSTimeInterval timerInterval = [[NSDate date] timeIntervalSince1970];
+    
+    NSString *picString = [NSString stringWithFormat:@"%lf.pic",timerInterval];
+    
+    [appCachePaht stringByAppendingPathComponent:picString];
+
+    return appCachePaht;
+}
+
+/**
+ *  随机返回图片路径（基于时间截）
+ *
+ *  @return 路径
+ */
+- (NSString *)getRandomVideoLocalPath
+{
+    NSString *appCachePaht = [self getAppTempPath];
+    
+    NSTimeInterval timerInterval = [[NSDate date] timeIntervalSince1970];
+    
+    NSString *picString = [NSString stringWithFormat:@"%lf.MP4",timerInterval];
+    
+    [appCachePaht stringByAppendingPathComponent:picString];
+    
+    return appCachePaht;
+}
+
 @end

@@ -46,14 +46,14 @@ static const int KLabelOriginX   = 10;//距离左边界的距离
     /**
      *  new
      */
-    if (model.bNewAlarmFlag) {
-        UIImage *imgNew = [UIImage imageNamed:LOCALANGER(@"JVCArm_New")];
-        UIImageView *imageViewNew = [[UIImageView alloc] initWithFrame:CGRectMake(ImageViewCellBg.left,ImageViewCellBg.top, imgNew.size.width, imgNew.size.height)];
-        imageViewNew.tag = 10005;
-        imageViewNew.image = imgNew;
-        [self.contentView addSubview:imageViewNew];
-        [imageViewNew release];
-    }
+//    if (model.bNewAlarmFlag) {
+//        UIImage *imgNew = [UIImage imageNamed:LOCALANGER(@"JVCArm_New")];
+//        UIImageView *imageViewNew = [[UIImageView alloc] initWithFrame:CGRectMake(ImageViewCellBg.left,ImageViewCellBg.top, imgNew.size.width, imgNew.size.height)];
+//        imageViewNew.tag = 10005;
+//        imageViewNew.image = imgNew;
+//        [self.contentView addSubview:imageViewNew];
+//        [imageViewNew release];
+//    }
     
     
     /**

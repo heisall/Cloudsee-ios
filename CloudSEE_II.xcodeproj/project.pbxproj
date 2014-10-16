@@ -289,6 +289,12 @@
 		A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADA77C1519D0250F003EE7A1 /* InfoPlist.strings */; };
 		A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
 		A7FAF60B19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */; };
+		A7FB233E19EFB64A00A3FC01 /* JVCAlarmHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB233D19EFB64A00A3FC01 /* JVCAlarmHelper.m */; };
+		A7FB234119EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB234019EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m */; };
+		A7FB234619EFD52400A3FC01 /* alarmBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234219EFD52400A3FC01 /* alarmBG@2x.png */; };
+		A7FB234719EFD52400A3FC01 /* alarmBtnHover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234319EFD52400A3FC01 /* alarmBtnHover@2x.png */; };
+		A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234419EFD52400A3FC01 /* alarmBtnNormal@2x.png */; };
+		A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB234519EFD52400A3FC01 /* alarmDefault@2x.png */; };
 		A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */; };
 		A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */; };
 		A7FB594919E900F7005E2E6D /* JVCModifyUnLegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB594819E900F7005E2E6D /* JVCModifyUnLegalViewController.m */; };
@@ -715,6 +721,14 @@
 		A7FAF60819D14FE200B3F395 /* JVCUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserInfoManager.h; sourceTree = "<group>"; };
 		A7FAF60919D14FE200B3F395 /* JVCUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCUserInfoManager.m; sourceTree = "<group>"; };
 		A7FAF60C19D1782600B3F395 /* JVCSystemConfigMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JVCSystemConfigMacro.h; sourceTree = "<group>"; };
+		A7FB233C19EFB64A00A3FC01 /* JVCAlarmHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmHelper.h; sourceTree = "<group>"; };
+		A7FB233D19EFB64A00A3FC01 /* JVCAlarmHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmHelper.m; sourceTree = "<group>"; };
+		A7FB233F19EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCSignleAlarmDisplayView.h; sourceTree = "<group>"; };
+		A7FB234019EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCSignleAlarmDisplayView.m; sourceTree = "<group>"; };
+		A7FB234219EFD52400A3FC01 /* alarmBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmBG@2x.png"; sourceTree = "<group>"; };
+		A7FB234319EFD52400A3FC01 /* alarmBtnHover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmBtnHover@2x.png"; sourceTree = "<group>"; };
+		A7FB234419EFD52400A3FC01 /* alarmBtnNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmBtnNormal@2x.png"; sourceTree = "<group>"; };
+		A7FB234519EFD52400A3FC01 /* alarmDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmDefault@2x.png"; sourceTree = "<group>"; };
 		A7FB594219E8C53F005E2E6D /* JVCLabelFieldSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLabelFieldSView.h; sourceTree = "<group>"; };
 		A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLabelFieldSView.m; sourceTree = "<group>"; };
 		A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con_Btn@2x.png"; sourceTree = "<group>"; };
@@ -1202,6 +1216,8 @@
 		A7F51E6B19EBB3DA0052F878 /* alarmHelper */ = {
 			isa = PBXGroup;
 			children = (
+				A7FB233C19EFB64A00A3FC01 /* JVCAlarmHelper.h */,
+				A7FB233D19EFB64A00A3FC01 /* JVCAlarmHelper.m */,
 			);
 			name = alarmHelper;
 			sourceTree = "<group>";
@@ -1209,6 +1225,10 @@
 		A7F51E6F19EBB5FE0052F878 /* alarm */ = {
 			isa = PBXGroup;
 			children = (
+				A7FB234219EFD52400A3FC01 /* alarmBG@2x.png */,
+				A7FB234319EFD52400A3FC01 /* alarmBtnHover@2x.png */,
+				A7FB234419EFD52400A3FC01 /* alarmBtnNormal@2x.png */,
+				A7FB234519EFD52400A3FC01 /* alarmDefault@2x.png */,
 				A7F51E7A19EBC39E0052F878 /* arm_hor@2x.png */,
 				A7F51E7B19EBC39E0052F878 /* arm_nor@2x.png */,
 				A7F51E7619EBC0F30052F878 /* arm_new_ch@2x.png */,
@@ -1511,6 +1531,8 @@
 				AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */,
 				A7F51E6C19EBB4920052F878 /* JVCAlarmCell.h */,
 				A7F51E6D19EBB4920052F878 /* JVCAlarmCell.m */,
+				A7FB233F19EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.h */,
+				A7FB234019EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m */,
 			);
 			name = alarm;
 			sourceTree = "<group>";
@@ -2043,6 +2065,7 @@
 			files = (
 				AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */,
 				AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */,
+				A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */,
 				A7F8DE2F19EE1C19006CE984 /* rem_ser@2x.png in Resources */,
 				A7F4059019E50DD20070945F /* customMiddleView_cloudsee.bundle in Resources */,
 				A7FB594B19E91796005E2E6D /* NoDevice@2x.png in Resources */,
@@ -2090,6 +2113,7 @@
 				A7F5D78719EA2F6600396AD9 /* no_devWlan@2x.png in Resources */,
 				A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */,
 				A7F486A419E6256700C10B2B /* QdContentbg@2x.png in Resources */,
+				A7FB234619EFD52400A3FC01 /* alarmBG@2x.png in Resources */,
 				A7F51E7119EBB64B0052F878 /* arm_cellbg@2x.png in Resources */,
 				A7263C5619E8108D003C22DE /* con_line@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
@@ -2139,6 +2163,7 @@
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
 				A7F5EF4F19D26D77009B797A /* devAdv_white@2x.png in Resources */,
+				A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */,
 				AD2BDB1319D28F0600AA6D73 /* edi_channelManager@2x.png in Resources */,
 				AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */,
 				A7F5016419D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
@@ -2164,6 +2189,7 @@
 				AD1673CB19D93BAA0021CD1B /* Default@2x.png in Resources */,
 				A7F8DE3A19EE702E006CE984 /* play_dwn@2x.png in Resources */,
 				A7F8DE3C19EE7619006CE984 /* CustomCoverView.bundle in Resources */,
+				A7FB234719EFD52400A3FC01 /* alarmBtnHover@2x.png in Resources */,
 				A7F8DE3719EE49D9006CE984 /* str_bg@2x.png in Resources */,
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
 				A7F486B519E6835600C10B2B /* edi_camer@2x.png in Resources */,
@@ -2287,6 +2313,7 @@
 				ADA22D5919DA613E0092F8B9 /* DDTTYLogger.m in Sources */,
 				AD3BDCAD19EBFEFF001B16D7 /* JVCVoiceencViewController.m in Sources */,
 				A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
+				A7FB233E19EFB64A00A3FC01 /* JVCAlarmHelper.m in Sources */,
 				AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */,
 				ADA22D4919DA611D0092F8B9 /* DDDispatchQueueLogFormatter.m in Sources */,
 				ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */,
@@ -2346,6 +2373,7 @@
 				A7F5011019D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */,
 				AD2BDB1D19D28FAF00AA6D73 /* JVCRGBModel.m in Sources */,
 				AD3BDC7C19EB7C92001B16D7 /* JVCLocalCacheModel.m in Sources */,
+				A7FB234119EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m in Sources */,
 				A7F5EF3A19D2621B009B797A /* UIScrollView+MJExtension.m in Sources */,
 				ADA22D6419DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m in Sources */,
 				ADA22D5819DA613E0092F8B9 /* DDLog.m in Sources */,
