@@ -463,12 +463,21 @@ char          pcmBuffer[1024] ={0};
  *   打开音频解码器
  */
 -(void)openVoiceIntercomDecoder{
-    
-    
-    [self.jvcAudioQueueHelper startAudioPopDataThread];
+
     
     [self.jvcVoiceIntercomHelper openAudioDecoder:self.nConnectDeviceType isExistStartCode:self.decodeModelObj.isExistStartCode];
     self.isVoiceIntercom = self.jvcVoiceIntercomHelper.isOpenDecoder;
+    
+    if (!self.jvcAudioQueueHelper) {
+        
+        JVCAudioQueueHelper *jvcAudioQueueObj         = [[JVCAudioQueueHelper alloc] init:self.nLocalChannel];
+        jvcAudioQueueObj.jvcAudioQueueHelperDelegate  = self;
+        self.jvcAudioQueueHelper                      = jvcAudioQueueObj;
+        [jvcAudioQueueObj release];
+    }
+
+    
+    [self performSelectorOnMainThread:@selector(popAudioDataThread) withObject:nil waitUntilDone:NO];
 }
 
 /**
@@ -506,7 +515,7 @@ char          pcmBuffer[1024] ={0};
     [self.jvcVoiceIntercomHelper closeAudioDecoder];
     self.isVoiceIntercom = self.jvcVoiceIntercomHelper.isOpenDecoder;
     
-    [self.jvcAudioQueueHelper exitPopDataThread];
+     [self.jvcAudioQueueHelper exitPopDataThread];
 }
 
 #pragma mark 录像处理模块

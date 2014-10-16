@@ -226,6 +226,19 @@ void propListener(	void *                  inClientData,
     }
 }
 
+/**
+ *  长按对讲函数
+ *
+ *  @param recordState YES:采集不发送 NO:采集发送
+ */
+- (void)changeRecordState:(BOOL)recordState {
+    
+    if (recorder) {
+        
+        recorder -> IsRecord = recordState;
+    }
+}
+
 #pragma mark Cleanup
 - (void)dealloc
 {

@@ -24,7 +24,14 @@
  *
  *  @param nStreamType 码流类型
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType;
+
+/**
+ *  改变当前视频窗口下方码流的显示文本 以及是否是家用的IPC(用于单双向语音对讲切换)
+ *
+ *  @param nStreamType 码流类型
+ *  @param isHomeIPC   是否是家用IPC
+ */
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC;
 
 @end
 

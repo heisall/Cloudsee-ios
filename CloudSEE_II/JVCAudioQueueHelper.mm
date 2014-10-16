@@ -98,6 +98,8 @@ static NSString const * kAudioQueueSemNameDefaultHead = @"audio";
     
     if (!bm_exit) {
         
+        DDLogCVerbose(@"%s-090909",__FUNCTION__);
+        
         [NSThread detachNewThreadSelector:@selector(popAudioDataCallBack) toTarget:self withObject:nil];
     }
 }

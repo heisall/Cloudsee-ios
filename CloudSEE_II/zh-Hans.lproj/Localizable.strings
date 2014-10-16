@@ -158,6 +158,10 @@
 
 //播放界面
 "PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
+//***语音对讲**
+"talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
+"talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";
+"talkStart"      = "亲，你现在可以和对方说话了";
 
 
 "DeviceList" = "设备列表";

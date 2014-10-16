@@ -53,4 +53,11 @@
  *  @param audioDataSize 采集的音频数据的大小
  */
 -(void)receiveAudioData:(char *)audioData audioDataSize:(long)audioDataSize;
+
+/**
+ *  长按对讲函数
+ *
+ *  @param recordState YES:采集不发送 NO:采集发送
+ */
+- (void)changeRecordState:(BOOL)recordState;
 @end

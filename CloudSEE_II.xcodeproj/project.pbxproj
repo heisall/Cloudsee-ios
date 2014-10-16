@@ -356,6 +356,8 @@
 		AD3BDCC719ED5ADD001B16D7 /* voi_help_ges@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCC619ED5ADD001B16D7 /* voi_help_ges@2x.png */; };
 		AD3BDCC919ED5AE3001B16D7 /* voi_help_dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */; };
 		AD3BDCCB19EE0EDD001B16D7 /* sca_device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */; };
+		AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */; };
+		AD3BDCCF19EF9110001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCCE19EF9110001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -368,7 +370,6 @@
 		AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD619D5445900B925A2 /* edi_drop_icon_unselect@2x.png */; };
 		AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BD719D5445900B925A2 /* edi_drop_line@2x.png */; };
 		ADA22D1D19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */; };
-		ADA22D1F19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D1E19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a */; };
 		ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */; };
 		ADA22D2319DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */; };
 		ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */; };
@@ -808,6 +809,8 @@
 		AD3BDCC619ED5ADD001B16D7 /* voi_help_ges@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_help_ges@2x.png"; sourceTree = "<group>"; };
 		AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_help_dev@2x.png"; sourceTree = "<group>"; };
 		AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device@2x.png"; sourceTree = "<group>"; };
+		AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_long_talk@2x.png"; sourceTree = "<group>"; };
+		AD3BDCCE19EF9110001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.6_2014_10_16.a; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -824,7 +827,6 @@
 		AD916BD719D5445900B925A2 /* edi_drop_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_drop_line@2x.png"; sourceTree = "<group>"; };
 		ADA22D1B19DA58240092F8B9 /* JVCCloudSEENetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCloudSEENetworkHelper.h; sourceTree = "<group>"; };
 		ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCloudSEENetworkHelper.m; sourceTree = "<group>"; };
-		ADA22D1E19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3_3_2014_7_10.a; sourceTree = "<group>"; };
 		ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJDEC055V1.0.3_2014_3_25.a; sourceTree = "<group>"; };
 		ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvdecoder_01_2013_1_16.a; sourceTree = "<group>"; };
 		ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMp4PKT_2013_9_10_2.a; sourceTree = "<group>"; };
@@ -933,7 +935,6 @@
 				A7F4059919E558040070945F /* AVFoundation.framework in Frameworks */,
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
-				ADA22D1F19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				A7F5E25A19D4424B00609BC3 /* libsqlite3.dylib in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
@@ -947,6 +948,7 @@
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
 				AD3BDC2119E8BE7C001B16D7 /* libGlView_v2.0.0.a in Frameworks */,
+				AD3BDCCF19EF9110001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1057,6 +1059,7 @@
 			children = (
 				A7F8DE3B19EE7619006CE984 /* CustomCoverView.bundle */,
 				A7F8DE3519EE49D9006CE984 /* str_bg@2x.png */,
+				AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */,
 				A7F8DE3619EE49D9006CE984 /* str_btnSec@2x.png */,
 				A7F8DE3019EE1C77006CE984 /* rem_bg@2x.png */,
 				A7F8DE2E19EE1C19006CE984 /* rem_ser@2x.png */,
@@ -1728,6 +1731,7 @@
 			isa = PBXGroup;
 			children = (
 				AD3BDCAE19EC0379001B16D7 /* libtransSing.a */,
+				AD3BDCCE19EF9110001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */,
 				AD3BDC2019E8BE7C001B16D7 /* libGlView_v2.0.0.a */,
 				A7F486B619E6AC4600C10B2B /* QuartzCore.framework */,
 				A7F4059E19E55A260070945F /* CoreMedia.framework */,
@@ -1741,7 +1745,6 @@
 				ADA22D7819DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a */,
 				ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */,
 				ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */,
-				ADA22D1E19DA59B80092F8B9 /* libjvnetsdkV2.0.76.3_3_2014_7_10.a */,
 				A7F5E25919D4424B00609BC3 /* libsqlite3.dylib */,
 				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
 				ADA77C3619D02C63003EE7A1 /* libuserAcount_v1.0.16_2014_7_30.a */,
@@ -2081,6 +2084,7 @@
 				A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A7263C5719E8108D003C22DE /* con_Slide@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
+				AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
 				A7F5D78719EA2F6600396AD9 /* no_devWlan@2x.png in Resources */,

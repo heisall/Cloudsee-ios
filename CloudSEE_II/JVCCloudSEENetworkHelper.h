@@ -90,12 +90,13 @@
 -(void)captureImageCallBack:(NSData *)imageData;
 
 /**
- *  获取当前连接通道的码流参数
+ *  获取当前连接通道的码流参数以及是否是家用IPC
  *
  *  @param nLocalChannel 本地连接通道编号
- *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
+ *  @param nStreamType   码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
+ *  @param isHomeIPC     YES是家用IPC
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType;
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC;
 
 @end
 
@@ -135,6 +136,18 @@
     id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
     id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
 }
+
+enum DEVICETYPE {
+    
+    DEVICETYPE_HOME  = 2,
+    
+};
+
+enum DEVICETALKMODEL {
+    
+    DEVICETALKMODEL_Talk   = 1, // 1:设备播放声音，不采集声音
+    DEVICETALKMODEL_Notalk = 0, // 0:设备采集 不播放声音
+};
 
 @property(nonatomic,assign)id <ystNetWorkHelpDelegate>                      ystNWHDelegate;
 @property(nonatomic,assign)id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;

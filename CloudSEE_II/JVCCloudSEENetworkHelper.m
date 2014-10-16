@@ -93,7 +93,6 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
 @synthesize ystNWRPVDelegate;
 @synthesize ystNWTDDelegate;
 
-#define       MOBILECHFLAG   @"MobileCH"
 
 char          ppszPCMBuf[640] ={0};
 
@@ -101,6 +100,8 @@ char          encodeLocalRecordeData[1024]  = {0}; //语音对讲编码后的数
 char          remotePlaybackBuffer[64*1024] = {0}; //存放远程回放数据原始值
 BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请求的标志位 TRUE  :跳出
 BOOL          isRequestRunFlag;                    //远程请求用于正在请求的标志位 FALSE :执行结束
+
+static NSString const *kCheckHomeFlagKey = @"MobileCH";
 
 JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
 
@@ -818,7 +819,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_paraInfo:
         case TextChatType_ApList:
         case TextChatType_ApSetResult:
-        case TextChatType_setStream:{
+        case TextChatType_setStream:
+        case TextChatType_setTalkModel:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1325,7 +1327,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                             if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                                 
-                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[MOBILECHFLAG UTF8String]]];
+                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
                                 int nMobileCh = MOBILECHDEFAULT;
                                 
@@ -1345,7 +1347,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
@@ -1353,14 +1355,27 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
-                                    int nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    int  nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
                                     
-                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType];
+                                    BOOL isHomeIPC   = FALSE;
+                                    
+                                    if ([params objectForKey:kCheckHomeFlagKey]) {
+                                        
+                                        int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
+                                        
+                                        if (nMobileCH == DEVICETYPE_HOME) {
+                                            
+                                            isHomeIPC = TRUE;
+                                        }
+                                    }
+                                    
+                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC];
                                 }
                                 
                                 [params release];
                                 
                             }
+                            
                         }
                             break;
                             

@@ -61,7 +61,11 @@ bool selectState_audio ;
     JVCCustomCoverView *_splitViewCon;
 
     
-    int nCurrentStreamType;
+    int  nCurrentStreamType;
+    BOOL isCurrentHomePC;
+    
+    UIView *talkView;
+    BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
 }
 
 @end
@@ -284,6 +288,16 @@ char remoteSendSearchFileBuffer[29] = {0};
     _operationItemSmallBg.tag=101;
     [self.view addSubview:_operationItemSmallBg];
     
+    UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+    
+    DDLogCVerbose(@"%s---talkBtn=%@",__FUNCTION__,talkBtn);
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
+    [talkBtn addGestureRecognizer:longPress];
+    longPress.allowableMovement = NO;
+    longPress.minimumPressDuration = 0.5;
+    [longPress release];
+    
     /**
      *  多窗口的时候，导航栏上面的三角按钮，用于选中4、9、16窗口
      */
@@ -316,8 +330,116 @@ char remoteSendSearchFileBuffer[29] = {0};
     skinSelect = 0;
     
     //[_managerVideo splitViewWindow:9];
-                                                    
     
+}
+
+/**
+ *  初始化长按对讲提示界面
+ */
+-(void)initTalkView {
+    
+    int width  = 200.0 ;
+    int height = 60.0 ;
+    
+    talkView = [[UIView alloc] init];
+    talkView.backgroundColor = [UIColor blackColor];
+    talkView.alpha = 0.8 ;
+    talkView.layer.cornerRadius = 5.0;
+    talkView.layer.borderWidth  = 1.0;
+    talkView.layer.borderColor  = [UIColor grayColor].CGColor;
+    talkView.frame = CGRectMake((self.view.frame.size.width - width)/2.0 , (self.view.frame.size.height - height)/2.0, width, height);
+    
+    
+    UIImage *image = [UIImage imageNamed:@"ope_long_talk.png"];
+    
+    UIImageView *talkImageIcon    = [[UIImageView alloc] init];
+    talkImageIcon.frame           = CGRectMake(15.0, (height-image.size.height)/2.0, image.size.width, image.size.height);
+    talkImageIcon.image           = image;
+    talkImageIcon.backgroundColor = [UIColor clearColor];
+    [talkView addSubview:talkImageIcon];
+    [talkImageIcon release];
+    
+    
+    UILabel *talkTitle=[[UILabel alloc] init];
+    talkTitle.frame=CGRectMake(talkImageIcon.frame.origin.x+talkImageIcon.frame.size.width+5.0, (height-40)/2,width - talkImageIcon.frame.origin.x-talkImageIcon.frame.size.width - 15.0, 40);
+    talkTitle.numberOfLines = 2;
+    talkTitle.lineBreakMode = UILineBreakModeWordWrap;
+    [talkTitle setTextColor:[UIColor blueColor]];
+    talkTitle.text=NSLocalizedString(@"talkStart", nil);
+    [talkTitle setTextColor:[UIColor whiteColor]];
+    talkTitle.font=[UIFont systemFontOfSize:14];
+    talkTitle.textAlignment=UITextAlignmentLeft;
+    [talkTitle setBackgroundColor:[UIColor clearColor]];
+    [talkView addSubview:talkTitle];
+    
+    [talkTitle release];
+    
+    [self.view addSubview:talkView];
+    
+    [talkView release];
+}
+
+/**
+ *  移除长按对讲界面
+ */
+-(void)RemoveTalkView {
+    
+    if (talkView != nil) {
+        
+        [talkView removeFromSuperview];
+        talkView = nil;
+    }
+}
+
+/**
+ *  长按说话
+ *
+ *  @param longGestureRecognizer 长按对象
+ */
+-(void)longPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer{
+    
+    JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
+    
+    DDLogCVerbose(@"%s-----talk",__FUNCTION__);
+    
+    if ([jvcCloudseeObj checknLocalChannelIsDisplayVideo:_managerVideo.nSelectedChannelIndex+1] && ! isCurrentHomePC) {
+        
+        return;
+    }
+    
+    if (![[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK].selected) {
+        
+        [self RemoveTalkView];
+        return;
+    }
+    
+    if ([longGestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
+        
+        [self initTalkView];
+        
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [aqCon changeRecordState:TRUE];
+        
+        isLongPressedStartTalk = TRUE;
+        
+        
+    }else if ([longGestureRecognizer state] == UIGestureRecognizerStateEnded){
+        
+        [self RemoveTalkView];
+        
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        
+         [aqCon changeRecordState:FALSE];
+        
+        isLongPressedStartTalk = FALSE;
+        
+    }
 }
 
 #pragma mark -------------- JVCManagePalyVideoComtroller delegate
@@ -335,11 +457,14 @@ char remoteSendSearchFileBuffer[29] = {0};
  *
  *  @param nStreamType 码流类型
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType{
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
+    
+    nCurrentStreamType = nStreamType;
+    isCurrentHomePC    = isHomeIPC;
     
     dispatch_async(dispatch_get_main_queue(), ^{
     
-        nCurrentStreamType = nStreamType;
+       
         
         [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
     
@@ -1201,22 +1326,16 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)chatRequest:(UIButton*)button{
     
     
-    
     JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     
     ystNetWorkObj.ystNWADelegate    = self;
     
     if (!button.selected) {
         
-        [openAlObj initOpenAL];
         [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_REQ_CHAT];
     }else {
         
         [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
-        
-        [openAlObj stopSound];
-        [openAlObj cleanUpOpenALMath];
         
         /**
          *  使选中的button变成默认
@@ -1279,6 +1398,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     aqsControllerObj.delegate       = self;
     
     [[AQSController shareAQSControllerobjInstance] record:nAudioCollectionDataSize mChannelBit:nAudioBit];
+    
+    [aqsControllerObj changeRecordState:!isCurrentHomePC]; //设置采集的模式
     
 }
 
@@ -1925,6 +2046,9 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  选中对讲button
      */
     [[JVCCustomOperationBottomView  shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
+    
+    
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
 }
 
 /**
