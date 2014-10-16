@@ -104,12 +104,15 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
 											 inPacketDesc, aqr->mRecordPacket, &inNumPackets, inBuffer->mAudioData),
 					   "AudioFileWritePackets failed");
             
-            AQSController *aqsControllerobj =aqr->mAqsControllerobj;
-    
-            [aqsControllerobj receiveAudioData:(char *)inBuffer->mAudioData audioDataSize:inBuffer->mAudioDataByteSize];
+            if (aqr->IsRecord) {
+                
+                AQSController *aqsControllerobj =aqr->mAqsControllerobj;
+                
+                [aqsControllerobj receiveAudioData:(char *)inBuffer->mAudioData audioDataSize:inBuffer->mAudioDataByteSize];
+                
+                aqr->mRecordPacket += inNumPackets;
             
-			aqr->mRecordPacket += inNumPackets;
-            
+            }
 		}
 		
 		if (aqr->IsRunning()){

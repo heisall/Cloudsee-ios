@@ -42,3 +42,8 @@
 "fl_ch_1.png"="fl_en_1.png";
 "hd_ch_1.png"="hd_en_1.png";
 "sd_ch_1.png"="sd_en_1.png";
+
+//***语音对讲**
+"talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
+"talkingOther"   = "Intercom function has started successfully, speak to him please.";
+"talkStart"      = "You can speak to the other now.";

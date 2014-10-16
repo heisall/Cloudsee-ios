@@ -286,6 +286,24 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 }
 
 /**
+ *  设置设备的对讲模式
+ *
+ *  @param deviceTalkModelType 0:设备采集 不播放声音 1:设备播放声音，不采集声音
+ */
+-(void)RemoteSetDeviceWithTalkModel:(int)nJvChannelID  withDeviceTalkModel:(int)nModelType{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_SETPARAM;
+    int nOffset=0;
+    char acBuffer[256]={0};
+    sprintf(acBuffer, "%s=%d;",[kDeviceTalkModelFlagKey UTF8String],nModelType);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
+
+/**
  *  设置有线网络
  *
  *  @param nJvChannelID      本地连接的通道号

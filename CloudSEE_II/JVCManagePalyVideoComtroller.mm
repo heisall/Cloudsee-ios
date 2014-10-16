@@ -353,7 +353,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -477,7 +477,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
@@ -742,15 +742,16 @@ BOOL isAllLinkRun;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
     singleView.nStreamType                          = nStreamType;
+    singleView.isHomeIPC                            = isHomeIPC;
     
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
-        [self refreshStreamType:nStreamType];
+        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC];
     }
     
     DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
@@ -762,11 +763,11 @@ BOOL isAllLinkRun;
  *
  *  @param nStreamType 码流类型
  */
--(void)refreshStreamType:(int)nStreamType{
+-(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
 
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:)]) {
     
-        [self.delegate changeCurrentVidedoStreamType:nStreamType];
+        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC];
     }
 }
 

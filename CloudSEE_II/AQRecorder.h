@@ -83,6 +83,9 @@ class AQRecorder
     
 		UInt64			startTime;
         void            RegisterAQSController(AQSController * aqsControllerobj);
+        
+        BOOL            IsRecord;  //是否采集
+
 				
 	private:
 		CFStringRef					mFileName;

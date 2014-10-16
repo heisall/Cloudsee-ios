@@ -15,7 +15,7 @@
 
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,ystNetWorkHelpOperationDelegate;
-@synthesize nStreamType;
+@synthesize nStreamType,isHomeIPC;
 
 int   _iConnectInfoIndex;
 float min_offset;
