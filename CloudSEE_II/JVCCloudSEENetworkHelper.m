@@ -775,6 +775,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         
         return;
     }
+    
     switch (remoteOperationCommand) {
             
         case JVN_RSP_PLAYOVER:{
@@ -790,7 +791,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             BOOL isRemoteSend          = currentChannelObj.isVideoPause == isSendPlayVideoStatus; //如果已经是暂停状态就不发送了
             
-            if (isRemoteSend) {
+            //注：当窗口每轮为最大16个 判断视频暂停和开始是当前窗口 currentChannelObj.nShowWindowID + 1 != nLocalChannel
+            
+            if (isRemoteSend || currentChannelObj.nShowWindowID + 1 != nLocalChannel) {
                 
                 return;
             }

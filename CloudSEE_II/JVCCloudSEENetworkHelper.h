@@ -12,7 +12,6 @@
 
 @protocol ystNetWorkHelpDelegate <NSObject>
 
-
 /**
  *  连接的回调代理
  *
@@ -21,7 +20,6 @@
  *  @param connectType         连接返回的类型
  */
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType;
-
 
 /**
  *  OpenGL显示的视频回调函数

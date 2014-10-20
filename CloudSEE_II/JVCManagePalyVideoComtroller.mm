@@ -20,6 +20,14 @@
     UIScrollView            *WheelShowListView;
 }
 
+enum showWindowNumberType{
+    
+    showWindowNumberType_One     = 1,
+    showWindowNumberType_Four    = 4 ,
+    showWindowNumberType_Nine    = 9 ,
+    showWindowNumberType_Sixteen = 16,
+};
+
 @end
 
 @implementation JVCManagePalyVideoComtroller
@@ -28,7 +36,7 @@
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
 @synthesize strSelectedDeviceYstNumber,delegate;
 
-static const int  kPlayViewDefaultMaxValue            = 4;
+static const int  kPlayViewDefaultMaxValue            = showWindowNumberType_Four;
 static const int  kPlayVideoWithFullFramCriticalValue = 4;
 
 int  nAllLinkFlag;
@@ -85,7 +93,7 @@ BOOL isAllLinkRun;
         [singleVideoShow unSelectUIView];
         singleVideoShow.singleViewType=1;
         singleVideoShow.wheelShowType=1;
-        singleVideoShow.ystNetWorkHelpOperationDelegate=self;
+        singleVideoShow.delegate =self;
 		[singleVideoShow initWithView];
 		singleVideoShow.tag=KWINDOWSFLAG+i;
         
@@ -134,13 +142,11 @@ BOOL isAllLinkRun;
         
         [WheelShowListView  addSubview:singleVideoShow];
         [singleVideoShow release];
-        
     }
     
     [self isConnectAllStatus];
     
     [self changeContenView];
-    
 }
 
 /**
@@ -152,30 +158,29 @@ BOOL isAllLinkRun;
     
     if (self.nSelectedChannelIndex == kJVCChannelScourseHelperAllConnectFlag) {
         
+        if (count > showWindowNumberType_One && count <= showWindowNumberType_Four ) {
+            
+            self.imageViewNums = showWindowNumberType_Four;
+            
+        }else if (count > showWindowNumberType_Four && count <= showWindowNumberType_Nine ){
         
-        if (count >1 && count <=4 ) {
+            self.imageViewNums = showWindowNumberType_Nine;
             
-            self.imageViewNums = 4;
-            
-        }else if (count >4 && count <=9 ){
+        }else if (count > showWindowNumberType_Nine && count <= showWindowNumberType_Sixteen) {
         
-            self.imageViewNums = 9;
+            self.imageViewNums = showWindowNumberType_Sixteen;
             
-        }else if (count >9 && count <= 16) {
+        }else if ( count > 0 && count <= showWindowNumberType_One) {
+            
+            self.imageViewNums = showWindowNumberType_One;
+            
+        }else if (count > showWindowNumberType_Sixteen ){
         
-            self.imageViewNums = 16;
-            
-        }else if ( count > 0 && count <=1) {
-            
-            self.imageViewNums = 1;
-            
-        }else if (count > 16 ){
-        
-            self.imageViewNums = 16 ;
+            self.imageViewNums = showWindowNumberType_Sixteen ;
             
         }else {
         
-            self.imageViewNums = 1;
+            self.imageViewNums = showWindowNumberType_One;
         }
         
         self.nSelectedChannelIndex = 0 ;
@@ -274,7 +279,7 @@ BOOL isAllLinkRun;
  */
 -(void)handleSingelTabFrom_FOUR:(id)sender{
     
-    if (1==self.imageViewNums) {
+    if (showWindowNumberType_One ==self.imageViewNums) {
         
         if ([_operationController returnIsplayBackVideo]) {
             
@@ -321,7 +326,7 @@ BOOL isAllLinkRun;
     
     self._iCurrentPage=index;
     
-    if (self.imageViewNums==1) {
+    if (self.imageViewNums == showWindowNumberType_One) {
         
         if (self.nSelectedChannelIndex!=index) {
             
@@ -405,7 +410,6 @@ BOOL isAllLinkRun;
 -(JVCMonitorConnectionSingleImageView *)singleViewAtIndex:(int)index {
     
      return (JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+index];
-
 }
 
 /**
@@ -413,7 +417,6 @@ BOOL isAllLinkRun;
  */
 -(void)changeContenView{
     
-   
     int channelCount              = [self channelCountAtSelectedYstNumber];
     JVCAppHelper *apphelper       = [JVCAppHelper shareJVCAppHelper];
 
@@ -460,7 +463,7 @@ BOOL isAllLinkRun;
     
     self._iCurrentPage = positionIndex;
     
-    if (self.imageViewNums !=1 ) {
+    if (self.imageViewNums != showWindowNumberType_One ) {
         
         JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
         
@@ -480,7 +483,6 @@ BOOL isAllLinkRun;
     [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
-    
 }
 
 #pragma mark 全连接处理
@@ -497,7 +499,6 @@ BOOL isAllLinkRun;
  *  全连函数
  */
 -(void)runConnectAllVideoByLocalChannelID{
-    
     
     [self CancelConnectAllVideoByLocalChannelID];
     
@@ -557,9 +558,6 @@ BOOL isAllLinkRun;
     }
 }
 
-
-
-
 #pragma mark monitorConnectionSingleImageView delegate
 
 -(void)connectVideoCallBack:(int)nShowWindowID{
@@ -567,12 +565,10 @@ BOOL isAllLinkRun;
     [self connectVideoByLocalChannelID:nShowWindowID];
 }
 
-
 -(void)fastforwardToFrameValue:(int)nFrameValue{
     
     //[_operationController sendPlayBackSEEK:nFrameValue];
 }
-
 
 /**
  *  切割窗口的处理函数
@@ -618,7 +614,6 @@ BOOL isAllLinkRun;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        
         JVCChannelScourseHelper             *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
         NSMutableArray                      *channels            = [channelSourceObj channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
         int                                  channelID           = nlocalChannelID - WINDOWSFLAG + 1;
@@ -635,10 +630,8 @@ BOOL isAllLinkRun;
         
         [channels retain];
         
-        JVCChannelModel                 *channelModel        = (JVCChannelModel *)[channels objectAtIndex:channelIndex];
-        NSString                        *connectInfo         = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
-    
-        //DDLogVerbose(@"%s--connectDeviceModel-%@",__FUNCTION__,deviceModel.description);
+        JVCChannelModel                 *channelModel            = (JVCChannelModel *)[channels objectAtIndex:channelIndex];
+        NSString                        *connectInfo             = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
     
         //重复连接
         if (!connectStatus) {
@@ -656,7 +649,6 @@ BOOL isAllLinkRun;
         }
         
         [channels release];
-        
     });
 }
 
@@ -670,8 +662,6 @@ BOOL isAllLinkRun;
  *  @param decoderFrameWidth  视频的宽
  *  @param decoderFrameHeight 视频的高
  */
-
-
 -(void)H264VideoDataCallBackMath:(int)nLocalChannel
                     imageBufferY:(char *)imageBufferY
                     imageBufferU:(char *)imageBufferU
@@ -706,7 +696,6 @@ BOOL isAllLinkRun;
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
             
-               DDLogCVerbose(@"%s-------**********************************",__FUNCTION__);
         }else {
             
              [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
@@ -777,7 +766,6 @@ BOOL isAllLinkRun;
  */
 -(void)stopVideoOrFrame {
     
-    
      JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     /**
@@ -789,8 +777,8 @@ BOOL isAllLinkRun;
     
     int endIndex   = (self._iCurrentPage + 1) * self.imageViewNums;
     int startIndex =  self._iCurrentPage      * self.imageViewNums;
-    
-    for (int i=0;i < channelCount ; i++) {
+
+    for (int i = 0;i < channelCount ; i++) {
         
         if (i >= startIndex && i < endIndex) {
             
@@ -798,8 +786,7 @@ BOOL isAllLinkRun;
             
         }else {
             
-             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
-        
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
         }
 	}
 }
@@ -813,9 +800,7 @@ BOOL isAllLinkRun;
  */
 -(void)playVideoSoundCallBackMath:(char *)soundBuffer soundBufferSize:(int)soundBufferSize soundBufferType:(BOOL)soundBufferType{
     
-    
     [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
-    
 }
 
 @end

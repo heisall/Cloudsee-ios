@@ -10,7 +10,7 @@
 
 @class GlView;
 
-@protocol YstNetWorkHelpOperationDelegate <NSObject>
+@protocol JVCMonitorConnectionSingleImageViewDelegate <NSObject>
 
 /**
  *  连接视频
@@ -45,7 +45,7 @@
     BOOL           _isConnectType;      // 判断该窗口的连接类型 FALSE:YST连接 TRUE:IP直连
     GlView         *_glView;
 
-    id<YstNetWorkHelpOperationDelegate> ystNetWorkHelpOperationDelegate;
+    id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
     int             nStreamType;     //当前显示窗口的码流类型
     BOOL            isHomeIPC;           //判断当前连接的视频是否是家用的IPC
 }
@@ -54,7 +54,7 @@
 @property (nonatomic,assign) BOOL    _isPlayBackState;
 @property (nonatomic,assign) BOOL    _isConnectType;
 @property (nonatomic,retain) GlView *_glView;
-@property (nonatomic,assign) id<YstNetWorkHelpOperationDelegate> ystNetWorkHelpOperationDelegate;
+@property (nonatomic,assign) id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
 @property (nonatomic,assign) int      nStreamType;     //当前显示窗口的码流类型
 @property (nonatomic,assign) BOOL     isHomeIPC;
 

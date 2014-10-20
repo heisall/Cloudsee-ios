@@ -30,6 +30,7 @@
     // Do any additional setup after loading the view.
     self.title = @"帮助界面";
     NSString *pathImage = [UIImage imageBundlePath:LOCALANGER(@"more_aphelp")];
+    
     UIImage  *iamgeAp  = [[UIImage alloc] initWithContentsOfFile:pathImage];
 
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];

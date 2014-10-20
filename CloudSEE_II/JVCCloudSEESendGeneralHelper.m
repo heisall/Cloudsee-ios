@@ -151,7 +151,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)RemoteOperationSendDataToDevice:(int)nJvChannelID remoteOperationCommand:(int)remoteOperationCommand {
     
-    DDLogCVerbose(@"%s------remoteOperationCommand=%d",__FUNCTION__,remoteOperationCommand);
+    DDLogCVerbose(@"%s--nJvChannelID =%d----remoteOperationCommand=%d",__FUNCTION__,nJvChannelID,remoteOperationCommand);
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 0);
     
 }

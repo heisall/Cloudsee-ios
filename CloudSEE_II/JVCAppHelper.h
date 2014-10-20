@@ -44,5 +44,11 @@
  */
 -(NSString *)currentPhoneConnectWithWifiSSID;
 
+/**
+ *  判断当前连接的设备的无线网络是否是家用设备的无线热点
+ *
+ *  @return YES：是 NO:否
+ */
+-(BOOL)currentPhoneConnectWithWifiSSIDIsHomeIPC;
 
 @end
