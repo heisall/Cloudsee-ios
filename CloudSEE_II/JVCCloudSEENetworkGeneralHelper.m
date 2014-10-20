@@ -390,6 +390,8 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     
+    DDLogVerbose(@"%s--data=%s",__FUNCTION__,pBuffer);
+    
     char name[32], para[128];
     
     while (true) {

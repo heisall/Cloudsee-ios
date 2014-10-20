@@ -48,3 +48,13 @@
 "talkStart"      = "You can speak to the other now.";
 //远程回放
 "Playback_Finish"="Playback finish";
+
+//ap配置流程
+"apSetting_new_device"         = "Find a new device";
+"apSetting_new_device_setting" = "Configure";
+"apSetting_new_device_sKip"    = "Skip";
+"apSetting_new_device_next"    = "Next";
+"new_d"                        = "new_e.png";
+"remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version ";
+"home_operation_talk"          = "This function is not available during two-way talk.";
+"setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";

@@ -273,8 +273,6 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [labTextClolr release];
 }
 
-
-
 /**
  *  初始化设备列表界面的RGB集合
  */
@@ -308,8 +306,6 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 
     [registerRed release];
     [registerBlue release];
-
-    
 }
 
 /**

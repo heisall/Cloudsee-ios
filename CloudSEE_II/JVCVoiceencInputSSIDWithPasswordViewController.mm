@@ -168,8 +168,6 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
         [self addTextFieldWithRightView:password withRightView:@"voi_hiden_pw.png"];
 
     }
-
-    
 }
 
 /**

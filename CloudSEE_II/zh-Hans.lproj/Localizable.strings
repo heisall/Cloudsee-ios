@@ -200,8 +200,6 @@
 "InputConnPointSure" = "请输入正确的通道数";
 
 
-
-
 "InsureNumNIl" = "请输入确认密码";
 "NoResin" = "注册不成功";
 "NoBond" = "绑定不成功";
@@ -631,3 +629,13 @@
 
 //远程回放
 "Playback_Finish"="远程回放结束";
+
+//ap配置流程
+"apSetting_new_device"         = "亲，发现一个新设备";
+"apSetting_new_device_setting" = "配置";
+"apSetting_new_device_sKip"    = "跳过";
+"apSetting_new_device_next"    = "下一步";
+"new_d"                        = "new_c.png";
+"remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
+"home_operation_talk"          = "该功能在语音对讲时暂停使用.";
+"setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";

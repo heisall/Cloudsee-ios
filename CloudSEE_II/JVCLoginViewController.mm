@@ -23,6 +23,11 @@
 #import "JVCDemoViewController.h"
 #import "JVCAlarmCurrentView.h"
 #import "JVCControlHelper.h"
+#import "JVCAppHelper.h"
+
+#import <AudioToolbox/AudioToolbox.h>
+#import "JVCApConfigPlayVideoViewController.h"
+
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -41,22 +46,18 @@ enum LOGINVIEWTAG
     LOGINVIEWTAG_Line       = 106,//账号下面横杆的tag
 };
 
-
-
-
-
 @interface JVCLoginViewController ()
 {
     /**
      *  用户名的textfield
      */
-    UITextField *textFieldUser ;
+    UITextField     *textFieldUser ;
     /**
      *  密码的textfield
      */
-    UITextField *textFieldPW;
-    
+    UITextField     *textFieldPW;
     JVCDropDownView *dropDownView;//下拉view
+    SystemSoundID    shake_sound_finish;
     
 
 }
@@ -65,11 +66,10 @@ enum LOGINVIEWTAG
 
 @implementation JVCLoginViewController
 
-static const double KAfterDalayTimer = 0.3;//延迟0.3秒登录
-
-static const NSTimeInterval KAmationTimer = 0.5;//动画时间
-
-static const int KDropDownViewHeight = 3*44;//下拉view的高度
+static const double         KAfterDalayTimer                     = 0.3;  //延迟0.3秒登录
+static const NSTimeInterval KAmationTimer                        = 0.5;  //动画时间
+static const int            KDropDownViewHeight                  = 3*44; //下拉view的高度
+static const NSTimeInterval KPushApConfigControllerWithDuration  = 0.5;  //动画时间
 
 static const int KSeperateSpan = 20;//控件之间的间隔
 
@@ -98,15 +98,11 @@ static const int KLineHeight = 1;//横线的高度
     return self;
 }
 
-
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
 
     [super viewWillAppear:animated];
-    
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -114,7 +110,7 @@ static const int KLineHeight = 1;//横线的高度
     
     [super viewDidAppear:animated];
     
-   NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+    NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
     
     if (userArray.count != 0) {//排序好了，第一个就是最后一次登录的用户
         
@@ -138,13 +134,6 @@ static const int KLineHeight = 1;//横线的高度
     self.navigationController.navigationBarHidden = YES;
 
     [super viewDidLoad];
-    // Do any additional setup after loading the view
-//    
-//    JVCAlarmCurrentView *viewalarm = [[JVCAlarmCurrentView alloc]initWithFrame:self.view.bounds];
-//    [viewalarm initCurrentAlarmView:nil];
-//    [self.view addSubview:viewalarm];
-//    [viewalarm release];
-//    return;
     
     /**
      *  注册所有的
@@ -227,9 +216,7 @@ static const int KLineHeight = 1;//横线的高度
         btnDown.tag = LOGINVIEWTAG_Down;
         [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btnDown];
-        
     }
-    
     
     /**
      *  密码
@@ -399,6 +386,80 @@ static const int KLineHeight = 1;//横线的高度
     [self.view addSubview:dropDownView];
     dropDownView.dropDownDelegate = self;
     [self.view bringSubviewToFront:dropDownView];
+    
+    if ([[JVCAppHelper shareJVCAppHelper] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+        
+        JVCAPConfigViewController *popApViewcontroller = [[JVCAPConfigViewController alloc] init];
+        
+        popApViewcontroller.delegate                    = self;
+        
+        CATransition *transition  = [CATransition animation];
+        transition.duration       = KPushApConfigControllerWithDuration;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type           = kCATransitionMoveIn;
+        transition.subtype        = kCATransitionFromTop;
+        transition.delegate       = self;
+        [self.view.layer addAnimation:transition forKey:nil];
+        [self.navigationController pushViewController:popApViewcontroller animated:NO];
+    }
+}
+
+/**
+ *  接收配置界面
+ *
+ *  @param buttonClickType 点击按钮的类别
+ */
+-(void)buttonClick:(int)buttonClickType{
+    
+    [self.navigationController popViewControllerAnimated:FALSE];
+    
+    if (buttonClickType == buttonClickType_Next) {
+    
+        [self playSound];
+        [self gotoApConfigPlayVideo];
+//        operationController *tOPVC    = [[operationController alloc] init];
+//        tOPVC._aDeviceChannelListData = devicelistData;
+//        tOPVC._iSelectedChannelIndex  = 0;
+//        tOPVC._amDeviceListData       = devicelistData;
+//        tOPVC._deviceModel            = newModel;
+//        tOPVC.isPlayModel             = TRUE;
+//        
+//        JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
+//        tOPVC._isConnectModel     =  delegate.isScreenMutable;
+//        
+//        [tOPVC initwithSoundClass:delegate._openALBufferSound aqsController:delegate._audioRecordControler];
+//        [self.navigationController pushViewController:tOPVC animated:YES];
+//        [tOPVC release];
+//        
+//        [newModel release];
+    }
+}
+
+/**
+ *  前往视频检测界面
+ */
+-(void)gotoApConfigPlayVideo{
+
+     self.navigationController.navigationBarHidden = NO;
+    JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
+    [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
+    [apConfigPlayVideo release];
+}
+
+/**
+ *  发现一个新设备，提示音
+ */
+-(void)playSound {
+    
+    NSString *path = [[NSBundle mainBundle ] pathForResource:@"shake_match_2" ofType:@"mp3"];
+    
+    if (path) {
+        
+        AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:path], &shake_sound_finish);
+    }
+    
+    AudioServicesPlayAlertSound(shake_sound_finish);
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 #pragma mark 按下登录按钮

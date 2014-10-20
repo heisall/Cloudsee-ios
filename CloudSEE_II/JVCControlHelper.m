@@ -209,6 +209,6 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     [image release];
     
     return [textField autorelease];
-
 }
+
 @end

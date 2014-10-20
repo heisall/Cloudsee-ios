@@ -14,7 +14,7 @@
 @implementation JVCMonitorConnectionSingleImageView
 
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
-@synthesize _isConnectType,_glView,ystNetWorkHelpOperationDelegate;
+@synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
 
 int   _iConnectInfoIndex;
@@ -145,7 +145,7 @@ float min_offset;
     
     AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     int singleViewFlag=self.tag-KWINDOWSFLAG;
-    int openGLViewFlag=singleViewFlag%(kOPENGLMAXCOUNT -1);
+    int openGLViewFlag=singleViewFlag%(OPENGLMAXCOUNT);
     
     UIScrollView   *allImageScrollView = (UIScrollView*)[self viewWithTag:109];
     self._glView =(GlView*)[delegate._amOpenGLViewListData objectAtIndex:openGLViewFlag];
@@ -686,20 +686,17 @@ float min_offset;
     }
     
     [connectResultInfo release];
-    
     [connectResultText release];
-    
 }
-
 
 /**
  *  视频播放的事件
  */
 -(void)playVideoCilck{
     
-    if (self.ystNetWorkHelpOperationDelegate != nil && [self.ystNetWorkHelpOperationDelegate respondsToSelector:@selector(connectVideoCallBack:)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(connectVideoCallBack:)]) {
         
-        [self.ystNetWorkHelpOperationDelegate connectVideoCallBack:self.tag];
+        [self.delegate connectVideoCallBack:self.tag];
     }
 }
 
@@ -717,12 +714,11 @@ float min_offset;
         frameNumber = 1;
     }
     
-    if (self.ystNetWorkHelpOperationDelegate != nil && [self.ystNetWorkHelpOperationDelegate respondsToSelector:@selector(fastforwardToFrameValue:)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(fastforwardToFrameValue:)]) {
         
-        [self.ystNetWorkHelpOperationDelegate fastforwardToFrameValue:frameNumber];
+        [self.delegate fastforwardToFrameValue:frameNumber];
     }
 }
-
 
 /**
  *  停止Activity旋转
@@ -736,9 +732,6 @@ float min_offset;
     [self performSelectorOnMainThread:@selector(stopActivity:) withObject:connectInfo waitUntilDone:YES];
     
     [connectInfo release];
-    
-    
-    
 }
 
 -(void)stopActivity:(NSString*)connectInfo{
@@ -780,7 +773,6 @@ float min_offset;
     
 }
 
-
 /**
  *  显示播放按钮
  */
@@ -798,9 +790,5 @@ float min_offset;
     [self bringSubviewToFront:imgView];
     
 }
-
-
-
-
 
 @end

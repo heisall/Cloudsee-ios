@@ -160,8 +160,6 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     [self.view addSubview:timeSelectLable];
     selectTimeLabel.text = [self getCurrentDate];
     
-    
-    
     //搜索按钮
     UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(230, 19, 70, 30)];
     [searchBtn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"rem_ser.png"] ]
