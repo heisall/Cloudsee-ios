@@ -172,11 +172,11 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     UIView *viewNoAlarm = (UIView *)[self.view viewWithTag:KNoAlarmTag];
     if (!viewNoAlarm) {
         
-        viewNoAlarm = [[UIView alloc] initWithFrame:self.view.frame];
+        viewNoAlarm = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         
         NSString    *pathNoAlarm    = [UIImage imageBundlePath:@"arm_no.png"];
         UIImage     *imageNo        = [[UIImage alloc] initWithContentsOfFile:pathNoAlarm];
-        UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.height -imageNo.size.height)/2.0 , (self.view.width -imageNo.size.width)/2.0, imageNo.size.width, imageNo.size.height)];
+        UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width -imageNo.size.width)/2.0 ,(self.view.height -imageNo.size.height)/2.0, imageNo.size.width, imageNo.size.height)];
         imageView.image             = imageNo;
         imageView.tag               = KNoAlarmTag;
         [viewNoAlarm addSubview:imageView];

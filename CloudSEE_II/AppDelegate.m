@@ -166,22 +166,29 @@ static  const   int      KSetHelpMaxCount    = 10;
     UITabBarController *rootViewController  = [[UITabBarController alloc] init];
     rootViewController.viewControllers      =  [NSArray arrayWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav, nil] ;
     
+    if (IOS_VERSION>=IOS7) {
+        
+        NSString *tabbarString = [UIImage imageBundlePath:@"tabbar_bg.png"];
+        UIImage *tabbarBgIamge = [[UIImage alloc] initWithContentsOfFile:tabbarString];
+        rootViewController.tabBar.backgroundImage = tabbarBgIamge;
+        rootViewController.tabBar.selectionIndicatorImage = tabbarBgIamge;
+        [tabbarBgIamge release];
+
+    }else{
+        
+        JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
+        UIColor *tabBarBackgroundColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
+        if (tabBarBackgroundColor) {
+    
+            rootViewController.tabBar.backgroundColor = tabBarBackgroundColor;
+        }
+    }
     self.window.rootViewController = rootViewController ;
     
     [deviceNav release];
     [alarmMessageViewNav release];
     [editDeviceNav release];
     [moreNav release];
-    
-    JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
-    
-    UIColor *tabBarBackgroundColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroTabarTitleFontColor];
-    
-    if (tabBarBackgroundColor) {
-        
-        rootViewController.tabBar.backgroundColor = tabBarBackgroundColor;
-    }
-    
     [rootViewController release];
     
 }

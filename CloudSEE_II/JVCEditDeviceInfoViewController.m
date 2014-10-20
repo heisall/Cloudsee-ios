@@ -73,7 +73,9 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     if (textColor) {
         deviceNickNameField.textColor = textColor;
     }
+    deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     deviceNickNameField.delegate = self;
+    deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:deviceNickNameField];
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
@@ -82,10 +84,11 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     if (textColor) {
         labelLeft.textColor = textColor;
     }
-    labelLeft.textAlignment = UITextAlignmentRight;
+    labelLeft.textAlignment = UITextAlignmentLeft;
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     deviceNickNameField.leftViewMode = UITextFieldViewModeAlways;
     deviceNickNameField.returnKeyType = UIReturnKeyDone;
+    
     deviceNickNameField.delegate = self;
     deviceNickNameField.leftView = labelLeft;
     [labelLeft release];
@@ -107,6 +110,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     devieUserName.text = (NSString *)DefaultUserName;
     devieUserName.keyboardType = UIKeyboardTypeASCIICapable;
     devieUserName.returnKeyType = UIReturnKeyDone;
+    devieUserName.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:devieUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
@@ -114,7 +118,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     if (textColor) {
         labelNameLeft.textColor = textColor;
     }
-    labelNameLeft.textAlignment = UITextAlignmentRight;
+    labelNameLeft.textAlignment = UITextAlignmentLeft;
     labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     devieUserName.leftViewMode = UITextFieldViewModeAlways;
     devieUserName.returnKeyType = UIReturnKeyDone;
@@ -134,6 +138,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     devicePassWord.textAlignment = UITextAlignmentRight;
     devicePassWord.keyboardType = UIKeyboardTypeASCIICapable;
     devicePassWord.returnKeyType = UIReturnKeyDone;
+    devicePassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     devicePassWord.delegate = self;
     devicePassWord.text = (NSString *)DefaultPassWord;
     
@@ -150,7 +155,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
         labelPassLeft.textColor = textColor;
     }
     labelPassLeft.text = @"密码";
-    labelPassLeft.textAlignment = UITextAlignmentRight;
+    labelPassLeft.textAlignment = UITextAlignmentLeft;
     labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     devicePassWord.leftViewMode = UITextFieldViewModeAlways;
     devicePassWord.leftView = labelPassLeft;

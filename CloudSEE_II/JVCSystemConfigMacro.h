@@ -43,6 +43,9 @@ static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的�
 static const  int KDeviceMaxChannelNUM      =  4;//设备通道最大值
 static const  int KLocalAddDeviceMaxNUM     =  4;//本地添加设备最大值
 
+static const  int KDeviceMaxChannelNUM_64      =  64;//添加通道的最大值64
+
+
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 #define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:1.0]

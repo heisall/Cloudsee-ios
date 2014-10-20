@@ -75,6 +75,7 @@ static const int   KLabelFont       = 14;//label的字体大小
         textField = [[UITextField alloc] initWithFrame:CGRectMake(label.right+KLabelFieldSpan, label.top, image.size.width, image.size.height)];
         textField.backgroundColor = [UIColor colorWithPatternImage:image];
         textField.leftViewMode = UITextFieldViewModeAlways;
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textField.keyboardType = UIKeyboardTypeASCIICapable;
         textField.returnKeyType = UIReturnKeyDone;
         textField.leftView = labelLeftView;

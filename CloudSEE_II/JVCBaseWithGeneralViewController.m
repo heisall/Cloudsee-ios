@@ -167,7 +167,7 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
             //减去状态栏的高度
             if (![UIApplication sharedApplication].statusBarHidden) {
                 
-                contentRect.size.height = contentRect.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+               // contentRect.size.height = contentRect.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
             }
             
             DDLogVerbose(@"中间去导航条的=%@",NSStringFromCGRect(contentRect));

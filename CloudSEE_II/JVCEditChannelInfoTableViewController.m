@@ -117,6 +117,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     labelLeft.text = @"昵称:";
     channelNickNameField.leftViewMode = UITextFieldViewModeAlways;
     channelNickNameField.leftView = labelLeft;
+    channelNickNameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     channelNickNameField.returnKeyType = UIReturnKeyDone;
     [modifyChannelNickNameView addSubview:channelNickNameField];
     [labelLeft release];
@@ -258,6 +259,12 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         [self tranfromanimation];
     }
     
+    if (arrayChannelsList.count>KDeviceMaxChannelNUM_64) {
+        
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"达到通道最大值，不能添加"];
+        return;
+    }
+    
     [self addDeviceChannlesMaths];
     
 }
@@ -271,7 +278,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int result = [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:YstNum addChannelCount:kAddChannelCount];
+        int addNum = KDeviceMaxChannelNUM_64 - arrayChannelsList.count;
+        
+        if (addNum>=kAddChannelCount) {
+            
+            addNum =kAddChannelCount;
+        }
+        
+        int result = [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:YstNum addChannelCount:addNum];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

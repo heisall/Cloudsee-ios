@@ -133,6 +133,7 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
 {
     [super viewDidLoad];
     
+    
     if (self.navigationController.viewControllers.count != NavicationViewControllersCountINTableView) {//不是顶级试图
         
         NSString *path= nil;

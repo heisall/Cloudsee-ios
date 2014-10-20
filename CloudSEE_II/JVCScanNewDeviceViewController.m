@@ -74,7 +74,6 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 - (void)viewDidLoad
 {
     self.navigationController.navigationBarHidden = YES;
-    [UIApplication sharedApplication].statusBarHidden = YES;
     [super viewDidLoad];
     
     scanfNewDevice_x = (self.view.frame.size.width  - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
@@ -252,8 +251,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
 
     self.navigationController.navigationBarHidden = NO;
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    
+
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

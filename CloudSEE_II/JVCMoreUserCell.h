@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+static const int        CELLHEIGHT_USERHEADER       = 120;//账号名称以及头像的cell高度
 
 @interface JVCMoreUserCell : UITableViewCell
 

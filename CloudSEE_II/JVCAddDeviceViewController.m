@@ -100,6 +100,8 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldYST.leftViewMode = UITextFieldViewModeAlways;
     textFieldYST.leftView = labelLeft;
+    textFieldYST.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
+
     [labelLeft release];
     UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
     labelRight.backgroundColor = [UIColor clearColor];
@@ -112,6 +114,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldYST.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
     textFieldUserName.background = imgTextFieldBG;
     textFieldUserName.delegate = self;
+    textFieldUserName.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldUserName.returnKeyType = UIReturnKeyDone;
     textFieldUserName.textAlignment = UITextAlignmentRight;
     if (textColor) {
@@ -141,6 +144,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     //密码
     textFieldPassWord = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldUserName.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
     textFieldPassWord.background = imgTextFieldBG;
+    textFieldPassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldPassWord.textAlignment = UITextAlignmentRight;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     textFieldPassWord.delegate = self;

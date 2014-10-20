@@ -166,6 +166,7 @@ static JVCControlHelper *shareJVCControlHelper = nil;
 
 
     }
+    btn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     return btn;
 }
 

@@ -84,6 +84,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     ssidTextField.text   = [[JVCAppHelper shareJVCAppHelper] currentPhoneConnectWithWifiSSID];
     ssidTextField.autocorrectionType     = UITextAutocorrectionTypeNo;
     ssidTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    ssidTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     ssidTextField.enabled                = FALSE;
     ssidTextField.borderStyle            = UITextBorderStyleNone;
     
@@ -100,6 +101,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     password.frame           = rectPassword;
     password.returnKeyType   = UIReturnKeyDone;
     password.borderStyle     = UITextBorderStyleNone;
+    password.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     password.delegate        = self;
     password.keyboardType = UIKeyboardTypeASCIICapable;
     [self addTextFieldWithRightView:password withRightView:@"voi_show_pw.png"];

@@ -46,8 +46,7 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
         [cotentView removeFromSuperview];
     }
     
-    
-    UIImageView *imageViewbg = [[UIImageView alloc] initWithFrame:self.bounds];//mor_usr_bg@2x.png
+    UIImageView *imageViewbg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, CELLHEIGHT_USERHEADER)];//mor_usr_bg@2x.png
     NSString *path = [UIImage imageBundlePath:@"mor_usr_bg.png"];
     UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:path];
     imageViewbg.image = imagebg;

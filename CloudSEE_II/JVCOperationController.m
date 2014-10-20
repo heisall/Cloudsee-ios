@@ -270,9 +270,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     NSString *pathSamllImage = [UIImage getBundleImagePath:@"smallItem__Normal.png" bundleName:(NSString *)BUNDLENAMEBottom];
     UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
+    DDLogVerbose(@" self.view.frame==%@",NSStringFromCGRect( self.view.frame));
     frameBottom = CGRectMake(0.0, self.view.frame.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
     [_smallItemBgImage release];
-    
+
     NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"MoreOper", nil), nil];
     
     /**
@@ -299,15 +300,16 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  多窗口的时候，导航栏上面的三角按钮，用于选中4、9、16窗口
      */
     _splitViewBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *_splitShow=[UIImage imageNamed:@"play_dwn.png"];
+
     float _x;
     if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        _x=203;
+        _x=190-_splitShow.size.width/2.0;
     }else
     {
-        _x= 225;
+        _x= 215-_splitShow.size.width/2.0;
     }
     
-    UIImage *_splitShow=[UIImage imageNamed:@"play_dwn.png"];
     _splitViewBtn.frame=CGRectMake(_x, (self.navigationController.navigationBar.frame.size.height-_splitShow.size.height-5.0)/2.0+3.0, _splitShow.size.width-5.0, _splitShow.size.height-2.0);
     [_splitViewBtn setShowsTouchWhenHighlighted:YES];
     [_splitViewBtn addTarget:self action:@selector(gotoShowSpltWindow) forControlEvents:UIControlEventTouchUpInside];

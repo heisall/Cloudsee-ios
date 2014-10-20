@@ -79,6 +79,12 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 {
     [super viewDidLoad];
     
+    UIColor *tabbarBackgroundColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
+    if (tabbarBackgroundColor) {
+        
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabbarBackgroundColor,UITextAttributeTextColor,nil] forState:UIControlStateHighlighted];
+        
+    }
     DDLogVerbose(@"%s",__FUNCTION__);
     
     //添加按钮

@@ -134,6 +134,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake((self.view.frame.size.width - imgTextFieldBg.size.width)/2.0, ORIGIN_Y, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
     textFieldUser.borderStyle = UITextBorderStyleNone;
     textFieldUser.delegate = self;
+    textFieldUser.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     [textFieldUser becomeFirstResponder];
     textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
     [textFieldUser setBackground:imgTextFieldBg];
@@ -157,6 +158,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldPassWord = [[UITextField alloc] initWithFrame:CGRectMake(textFieldUser.frame.origin.x, textFieldUser.bottom+SEPERATE, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
     textFieldPassWord.borderStyle = UITextBorderStyleNone;
     textFieldPassWord.delegate = self;
+    textFieldPassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldPassWord.secureTextEntry = YES;
     textFieldPassWord.placeholder = @"密码";
     textFieldPassWord.returnKeyType = UIReturnKeyDone;
@@ -180,6 +182,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldEnSurePassWord.delegate = self;
     textFieldEnSurePassWord.borderStyle = UITextBorderStyleNone;
     textFieldEnSurePassWord.secureTextEntry = YES;
+    textFieldEnSurePassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldEnSurePassWord.placeholder = @"确认密码";
     textFieldEnSurePassWord.returnKeyType = UIReturnKeyDone;
     textFieldEnSurePassWord.leftViewMode = UITextFieldViewModeAlways;
