@@ -15,12 +15,11 @@
 @synthesize strAlarmTime,strAlarmVideoUrl,strYstNumber,iAlarmType,iFlag,iAlarmPlanType;
 @synthesize iYstChannel,iAlarmLevel,strALarmDeviceNickName;
 @synthesize iAlarmTimer;
-@synthesize strAlarmLocalPicUrl;
 @synthesize isDownLoad;
+@synthesize bNewAlarm;
 
 -(void)dealloc{
-    
-    
+
     [strYstNumber release];
     [strAlarmVideoUrl release];
     [strAlarmPicUrl release];
@@ -51,7 +50,8 @@
         self.strAlarmGuid = [dic objectForKey:JK_ALARM_GUID];
         self.strAlarmPicUrl = [dic objectForKey:JK_ALARM_PIC];
         self.iAlarmPlanType = [[dic objectForKey:JK_ALARM_SOLUTION] intValue];
-        self.iAlarmTimer = [[dic objectForKey:JK_ALARM_TIMESTAMP] intValue];
+        self.strAlarmTime = [[JVCSystemUtility shareSystemUtilityInstance] getCurrentTimerFrom:[[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue]];
+        self.iAlarmTimer = [[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue];
         self.iAlarmType =  [[dic objectForKey:JK_ALARM_TYPE] intValue];
         self.strAlarmVideoUrl = [dic objectForKey:JK_ALARM_VIDEO];
         self.iYstChannel = [[dic objectForKey:JK_ALARM_FTP_CHANNEL_NO] intValue];
@@ -61,6 +61,8 @@
     }
     return self;
 }
+
+
 
 -(id)init{
     

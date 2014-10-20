@@ -40,7 +40,7 @@ static const  int KDevicePassWordMaxLength   =  16;//设备密码最大长度
 static const  int KDeviceUserNameMaxLength   =  16;//设备密码最大长度
 static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的名称
 
-static const  int KDeviceMaxChannelNUM      =  64;//设备通道最大值
+static const  int KDeviceMaxChannelNUM      =  4;//设备通道最大值
 static const  int KLocalAddDeviceMaxNUM     =  4;//本地添加设备最大值
 
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]

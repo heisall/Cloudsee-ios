@@ -134,6 +134,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake((self.view.frame.size.width - imgTextFieldBg.size.width)/2.0, ORIGIN_Y, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
     textFieldUser.borderStyle = UITextBorderStyleNone;
     textFieldUser.delegate = self;
+    [textFieldUser becomeFirstResponder];
     textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
     [textFieldUser setBackground:imgTextFieldBg];
     textFieldUser.returnKeyType = UIReturnKeyDone;

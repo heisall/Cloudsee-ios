@@ -79,7 +79,7 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     
     if ([localDeviceSqlite open]) {//打开数据库
         
-        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS DEVICEINFOTABLE(ID INTEGER PRIMARY KEY,DEVICEYSTNUM TEXT,USERNAME TEXT, PASSWORD TEXT,LINKTYPE INT,IP TEXT,PORT TEXT,NICKNAME TEXT,ISCUSTOMLINKMODEL BOOL)"];
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS DEVICEINFOTABLE(ID INTEGER PRIMARY KEY,DEVICEYSTNUM TEXT,USERNAME TEXT, PASSWORD TEXT,LINKTYPE INT,IP TEXT,PORT TEXT,NICKNAME TEXT,ISCUSTOMLINKMODEL BOOL,ISIPADD BOOL)"];
         
         BOOL result = [localDeviceSqlite executeUpdate:sqlCreateTable];
         
@@ -125,6 +125,34 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     }
     return NO;
 }
+
+/**
+ *  把ip数据插入到本地
+ */
+-(BOOL)addLocalIPDeviceToDataBase:(NSString *)ip  port:(NSString *)port  deviceName:(NSString *)name  passWord:(NSString *)passWord
+{
+    
+    if ([localDeviceSqlite open]) {
+        //转化
+        passWord = [CommonFunc  base64StringFromText:passWord];
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO DEVICEINFOTABLE(USERNAME,PASSWORD,LINKTYPE,IP,PORT,NICKNAME,ISCUSTOMLINKMODEL,DEVICEYSTNUM,ISIPADD)VALUES('%@','%@','%d','%@','%@','%@','%d','%@','%d')",name,passWord,1,ip,port,ip,1,ip,TYPE_Add_Device_IP_YES];
+        
+        BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_插入数据错误",__FUNCTION__);
+            return NO;
+        }else{
+            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            return YES;
+            
+        }
+        [localDeviceSqlite close];
+    }
+    return NO;
+}
+
 
 /**
  *  删除设备
@@ -291,6 +319,8 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
             NSString *strPort = [rsSet stringForColumn:@"PORT"];
             NSString *strNickName = [rsSet stringForColumn:@"NICKNAME"];
             BOOL bISCUSTOMLINKMODEL=  [rsSet boolForColumn:@"ISCUSTOMLINKMODEL"];
+            BOOL bIpAddState=  [rsSet boolForColumn:@"ISIPADD"];
+
             
             JVCDeviceModel *deviceModel = [[JVCDeviceModel alloc]initDeviceWithYstNum:strDeviceYST
                                                                              nickName:strNickName
@@ -301,7 +331,8 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
                                                                     deviceOnlineState:1
                                                                        deviceLinkType:iLintType
                                                                         deviceHasWifi:1
-                                                             devicebICustomLinckModel:bISCUSTOMLINKMODEL];
+                                                             devicebICustomLinckModel:bISCUSTOMLINKMODEL
+                                                                           ipAddState:bIpAddState];
             [userArray addObject:deviceModel];
             
             [deviceModel release];

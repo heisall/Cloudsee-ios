@@ -75,4 +75,20 @@
  *  判断网路状态,里面带有return
  */
 - (BOOL)predicateNetWorkState;
+
+/**
+ *  再keywindow上显示文字,主线程
+ *
+ *  @param message 显示的文字
+ */
+- (void)alertToastMainThreadOnWindow:(NSString *)message;
+
+/**
+ *  再keywindow上显示文字
+ *
+ *  @param message 显示的文字
+ *
+ *  @timer 消失时间
+ */
+- (void)alertToastWithMessage:(NSString *)message  andTimer:(NSTimeInterval )timer;
 @end

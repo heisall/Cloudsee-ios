@@ -24,6 +24,7 @@
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCDefaultViewController.h"
 #import "JVCKeepOnlineHelp.h"
+#import "UINavigationBar+JVCCustomNavBar.h"
 
 @interface AppDelegate ()
 {
@@ -44,6 +45,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     /**
      *  设置ddlog
      */

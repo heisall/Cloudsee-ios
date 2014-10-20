@@ -14,6 +14,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCResultTipsHelper.h"
+#import "JVCChannelScourseHelper.h"
 
 static const int    ADDPREDICATE_SUCCESS        = 0;
 static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
@@ -84,7 +85,6 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     labelLeft.textAlignment = UITextAlignmentRight;
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     deviceNickNameField.leftViewMode = UITextFieldViewModeAlways;
-    deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     deviceNickNameField.returnKeyType = UIReturnKeyDone;
     deviceNickNameField.delegate = self;
     deviceNickNameField.leftView = labelLeft;
@@ -237,6 +237,8 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
 {
     if (DEVICE_SUCCESSS == result ) {//成功后，把数据从本地列表中删除,返回
         
+        [[JVCChannelScourseHelper shareChannelScourseHelper]deleteChannelsWithDeviceYstNumber:deviceModel.yunShiTongNum];
+
         [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
         
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"delete_Success", nil)];

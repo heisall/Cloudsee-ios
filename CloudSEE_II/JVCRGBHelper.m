@@ -45,6 +45,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initAddDevicePopViewRGBColors];
         [self initDemoViewRgbColors];
         [self initPlayBackCellLabelColor];
+        [self initAlertCellLabelColor];
     }
     
     return self;
@@ -410,6 +411,22 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     
     [playBackLabel release];
 
+}
+
+/**
+ *  初始化远程回放的cell的事件
+ */
+- (void)initAlertCellLabelColor
+{
+    JVCRGBModel *alarmLabel  = [[JVCRGBModel alloc] init];
+    alarmLabel.r = 85.0f;
+    alarmLabel.g = 85.0f;
+    alarmLabel.b = 85.0f;
+    
+    [mdicRgbModelList setObject:alarmLabel forKey:kJVCRGBColorMacroAlertCellColor];
+    
+    [alarmLabel release];
+    
 }
 
 /**

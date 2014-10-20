@@ -377,4 +377,19 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
   return   [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]deleteLocalChannelWithIdNUm:idNum];
 }
 
+/**
+ *  根据云视通号，删除通道
+ *
+ *  @param ystNum 云视通号
+ *
+ *  @return 成功 yes 不成功 no
+ */
+- (BOOL)deleteLocalChannelsWithYStNum:(NSString *)ystNum
+{
+ 
+    
+    return   [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]deleteLocalChannelFromDataBase:ystNum];
+
+}
+
 @end

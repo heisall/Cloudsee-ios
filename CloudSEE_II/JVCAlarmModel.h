@@ -25,7 +25,6 @@ enum AlarmPlan
     int iAlarmLevel;                     //报警的级别
     NSString *strAlarmTime;             //报警的时间
     NSString *strAlarmPicUrl;           //报警图片的URL
-    NSString *strAlarmLocalPicUrl;       //报警图片的本地URL
 
     NSString *strAlarmVideoUrl;         //报警视频的URL
     NSString *strAlarmLocalVideoUrl;    //报警视频的本地URL
@@ -33,6 +32,9 @@ enum AlarmPlan
     NSString *strAlarmLocalPicURL;      //缓存本地报警图片的URL
     BOOL isDownLoad;                    //YES:正在加载图片和视频 NO:加载完成
     int iAlarmTimer;                    //时间截
+    int iAlarmType;                     //报警类别
+    BOOL bNewAlarm;                      //是否是新报警
+
 }
 
 @property(nonatomic,retain)NSString  *strAlarmGuid;
@@ -49,8 +51,9 @@ enum AlarmPlan
 @property(nonatomic,assign)BOOL iFlag;
 @property(nonatomic,retain)NSString  *strAlarmLocalPicURL;
 @property(nonatomic,retain)NSString  *strALarmDeviceNickName;
-@property(nonatomic,retain)NSString  *strAlarmLocalPicUrl;
 @property(nonatomic,assign)BOOL isDownLoad;
+@property(nonatomic,assign)BOOL bNewAlarm;
+
 
 /**
  *  根据字典初始化报警对象

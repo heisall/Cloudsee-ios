@@ -15,6 +15,7 @@
 @synthesize _iWatchType;
 @synthesize tempModelInsert;
 @synthesize _bInitAccountSDKSuccess;
+@synthesize _bNewVersion;
 static JVCConfigModel *_shareInstance = nil;
 /**
  *  单例

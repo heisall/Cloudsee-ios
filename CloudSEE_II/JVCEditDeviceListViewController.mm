@@ -277,6 +277,11 @@ static const int  kInitWithLayoutColumnCount           = 3;
 {
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
     
+    if (model.bIpOrDomainAdd) {
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备不支持此操作"];
+        return;
+    }
+    
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
         
         JVCLocalLickTypeViewController *deviceLinkType = [[JVCLocalLickTypeViewController alloc] init];

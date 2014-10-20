@@ -61,4 +61,5 @@ static int      const  kLoginStateOFF   = 0;      //关闭自动登录
  *  @return 账号个数
  */
 - (int)usersHasLoginCount;
+
 @end

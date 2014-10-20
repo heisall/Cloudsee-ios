@@ -93,6 +93,7 @@ char outTextBuffer[1280*720*3];
     
     NSData *responseData=[NSData dataWithBytes:outTextBuffer length:strlen(outTextBuffer)];
     
+    DDLogVerbose(@"__%s=================%@=======",__FUNCTION__,[responseData objectFromJSONData]);
     return [responseData objectFromJSONData];
     
 }
@@ -1216,13 +1217,11 @@ char outTextBuffer[1280*720*3];
     
     [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
 
-    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_ALARM_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:JK_ALARM_MESSAGE_TYPE_Get] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
 
 
     [requestInfoMDict setValue:[NSNumber numberWithInt:ALARM_INFO_PROCESS] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
     
-    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_ALARM_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
-
     [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue] forKey:CONVERTCHARTOSTRING(JK_ALARM_INDEX_START)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:startIndexValue+JK_ALARM_LISTCOUNT] forKey:CONVERTCHARTOSTRING(JK_ALARM_INDEX_STOP)];
     
@@ -1236,6 +1235,39 @@ char outTextBuffer[1280*720*3];
     NSLog(@"resultID=%@",resultID);
     return resultID;
    // return [self ConvertAlarmlistToModelListData:resultID];
+}
+
+
+/**
+ *	删除报警信息的列表
+ *
+ *	@param	deleteIndexValue 删除
+ *
+ *	@return	返回JK_ALARM_LISTCOUNT个
+ */
+-(id)deleteAlarmHorisyWithIndex:(NSString *)deleteDeviceGuid{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:ALARM_INFO_PROCESS] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:JK_ALARM_MESSAGE_TYPE_Delete] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    
+    [requestInfoMDict setValue:deleteDeviceGuid forKey:JK_ALARM_GUID];
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    NSLog(@"parseStr=%@",parseStr);
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    NSLog(@"resultID=%@",resultID);
+    return resultID;
+    // return [self ConvertAlarmlistToModelListData:resultID];
 }
 
 

@@ -80,6 +80,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     [self initControll];
     
     _textFieldOldPassWord = [self initTextFieldWithTextFieldType:TEXTFIELDTYPE_OLDPASSWORD];
+    [_textFieldOldPassWord becomeFirstResponder];
     _textFieldNewPassWord = [self initTextFieldWithTextFieldType:TEXTFIELDTYPE_NEWPASSWORD];
     _textFieldEnSurePassWord = [self initTextFieldWithTextFieldType:TEXTFIELDTYPE_ENSUREPASSWORD];
     
@@ -204,6 +205,8 @@ static const int kPredicateSuccess   = 0;//正则校验成功
                     AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     
                     [delegateApp presentLoginViewController];
+                    
+                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"修改密码成功,请重新登录")];
                     
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     

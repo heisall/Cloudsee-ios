@@ -384,7 +384,23 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
                                                        deviceOnlineState:1
                                                           deviceLinkType:CONNECTTYPE_YST
                                                            deviceHasWifi:1
-                                                devicebICustomLinckModel:NO];
+                                                devicebICustomLinckModel:NO
+                             ipAddState:TYPE_Add_Device_IP_NO];
+    [deviceArray insertObject:model atIndex:0];
+    [model release];
+}
+
+/**
+ *  根据用户名密码云视通号添加设备
+ *
+ *  @param Ip   ip
+ *  @param port   port
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)addLocalDeviceInfo:(NSString *)Ip  port:(NSString *)port  deviceUserName:(NSString *)userName  devicePassWord:(NSString *)passWord
+{
+    JVCDeviceModel *model = [[JVCDeviceModel alloc] initDeviceWithIP:Ip devicePort:port deviceUserName:userName devicePassWord:passWord];
     [deviceArray insertObject:model atIndex:0];
     [model release];
 }

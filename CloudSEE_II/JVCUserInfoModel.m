@@ -14,6 +14,7 @@
 
 @synthesize loginTimer,bAutoLoginState;
 
+
 - (void)dealloc
 {
     loginTimer = 0.0f;

@@ -72,4 +72,7 @@ static NSString const *  kJVCRGBColorMacroTextFontColor   = @"addDeviceTextColor
 static NSString const *  kJVCRGBColorMacroPopBoardColor   = @"PopBoardColor";
 static NSString const *  kJVCRGBColorMacroPopBgColor   = @"PopBgColor";
 
+static NSString const *  kJVCRGBColorMacroAlertCellColor    = @"AlertCellColor";//报警的文字大小
+
+
 #endif

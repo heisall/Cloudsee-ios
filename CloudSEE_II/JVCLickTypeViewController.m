@@ -183,12 +183,16 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     //ip
     textFieldIP = [IPLinkView textFieldWithIndex:0];
+    textFieldIP.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textFieldIP.text = deviceModel.ip;
     textFieldIP.delegate = self;
     //ip端口
     textFieldPort = [IPLinkView textFieldWithIndex:1];
-    textFieldPort.text = deviceModel.port;
-    textFieldPort.text = @"9101";
+    if (deviceModel.port.length>0) {
+        textFieldPort.text = deviceModel.port;
+    }else{
+        textFieldPort.text = @"9101";
+    }
     textFieldPort.keyboardType = UIKeyboardTypeNumberPad;
     textFieldPort.delegate = self;
     //ip用户名
@@ -353,7 +357,13 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 
         }else{
         
-             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldYstName.text password:textFieldYstPassWord.text ip:textFieldIP.text port:textFieldPort.text];
+            NSString *strIp = [[JVCSystemUtility shareSystemUtilityInstance] getIpOrNetHostString:textFieldIP.text];
+            
+            [strIp retain];
+            
+             result = [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceLinkModel:deviceModel.yunShiTongNum linkType:linkType userName:textFieldIPName.text password:textFieldIPPassWord.text ip:strIp port:textFieldPort.text];
+            
+            [strIp release];
         }
       
         
@@ -418,14 +428,22 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)saveIpLinkTypeDate
 {
-    deviceModel.ip = textFieldIP.text;
+    if ([[JVCPredicateHelper shareInstance] isIP:textFieldIP.text]) {//ip直接保存
+        
+        deviceModel.ip = textFieldIP.text;
+
+    }else{//域名，转化一下保存
+    
+        deviceModel.ip =[[JVCSystemUtility shareSystemUtilityInstance] getIpOrNetHostString: textFieldIP.text];
+
+    }
     deviceModel.port = textFieldPort.text;
-    deviceModel.userName = textFieldYstName.text;
-    deviceModel.passWord = textFieldYstPassWord.text;
+    deviceModel.userName = textFieldIPName.text;
+    deviceModel.passWord = textFieldIPPassWord.text;
     
     deviceModel.linkType = CONNECTTYPE_IP;
-    textFieldIPName.text = deviceModel.userName;
-    textFieldIPPassWord.text = deviceModel.passWord;
+    textFieldYstName.text = deviceModel.userName;
+    textFieldYstPassWord.text = deviceModel.passWord;
 }
 
 - (void)dealloc
@@ -540,6 +558,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     [textFieldYstPassWord resignFirstResponder];
 
 }
+
+
 
 /*
 #pragma mark - Navigation

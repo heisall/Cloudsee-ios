@@ -96,13 +96,15 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     modifyChannelNickNameView.backgroundColor = self.view.backgroundColor;
     modifyChannelNickNameView.hidden = YES;
     
-    UITapGestureRecognizer *gesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tranfromanimation)];
-    [modifyChannelNickNameView addGestureRecognizer:gesture];
-    [gesture release];
+    /**
+     *  点击回来的事件
+     */
+//    UITapGestureRecognizer *gesture =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tranfromanimation)];
+//    [modifyChannelNickNameView addGestureRecognizer:gesture];
+//    [gesture release];
     
     channelNickNameField = [[UITextField alloc] initWithFrame:CGRectMake(kOffSet_x, kTextFieldOff_y, self.view.width-2*kOffSet_x, kTextFieldHeight)];
     channelNickNameField.delegate = self;
-    channelNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     channelNickNameField.layer.borderWidth = kTextFieldborderWidth;
     UIColor *boardColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
     if (boardColor) {

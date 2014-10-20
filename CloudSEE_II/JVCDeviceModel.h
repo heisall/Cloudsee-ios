@@ -17,12 +17,15 @@
     NSString *yunShiTongNum;    //云视通号
     NSString *ip;               //ip
 	NSString *port;             //端口号
-    
+    NSString *domainName;       //域名
+
     int  onLineState;            //1 在线   0：不在线
     int  hasWifi;                //0：没有wifi   1：有WiFi
     int  useWifi;                //0  没有用WiFi  1 ：使用WiFi
     int  linkType;               //设备连接模式  0 云视通连接  1：ip连接
     BOOL isCustomLinkModel;      //连接模式 //YES 客户定制IP连接 NO：非定制
+    BOOL bIpOrDomainAdd;        //域名ip添加 //YES 域名ip NO：非域名ip
+
 }
 
 @property(nonatomic,retain) NSString *userName;
@@ -31,12 +34,14 @@
 @property(nonatomic,retain) NSString *yunShiTongNum;
 @property(nonatomic,retain) NSString *ip;
 @property(nonatomic,retain) NSString *port;
+@property(nonatomic,retain) NSString *domainName;       //域名
 
 @property(nonatomic,assign) int  linkType;
 @property(nonatomic,assign) int  onLineState;
 @property(nonatomic,assign) int  hasWifi;
 @property(nonatomic,assign) int  useWifi;
 @property(nonatomic,assign) BOOL isCustomLinkModel;
+@property(nonatomic,assign) BOOL bIpOrDomainAdd;   
 
 /**
  *  初始化
@@ -82,6 +87,20 @@
          deviceOnlineState:(int)onlineState
             deviceLinkType:(int)linkType
              deviceHasWifi:(int)hasWifiValue
-  devicebICustomLinckModel:(BOOL)DeviceLickModel;
+  devicebICustomLinckModel:(BOOL)DeviceLickModel
+                ipAddState:(BOOL)ipAddState;
+
+/**
+ *  初始化设备
+ *  @param deviceUserName  用户名
+ *  @param devicePassWord  密码
+ *  @param deviceIp        设备ip
+ *  @param devicePort      设备端口号
+ *  @return 设备对象
+ */
+- (id)initDeviceWithIP:(NSString *)deviceIp
+            devicePort:(NSString *)devicePort
+        deviceUserName:(NSString *)deviceUserName
+        devicePassWord:(NSString *)devicePassWord;
 
 @end

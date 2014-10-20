@@ -8,8 +8,14 @@
 
 #import "JVCAlarmCell.h"
 #import "JVCAlarmModel.h"
+#import "JVCControlHelper.h"
+#import "JVCRGBHelper.h"
+#import "JVCRGBColorMacro.h"
 @implementation JVCAlarmCell
 static const int KLabelOriginX   = 10;//距离左边界的距离
+static const int KLabelSpan      = 0;//labe之间的距离
+static const int KLabelSize      = 14;//labe字体大小
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -27,7 +33,12 @@ static const int KLabelOriginX   = 10;//距离左边界的距离
     /**
      *  背景
      */
-    NSString *imageCellBgPath = [UIImage imageBundlePath:@"arm_cellbg.png"] ;
+    NSString *imageCellBgPath = nil;
+    if (model.bNewAlarm) {
+        imageCellBgPath = [UIImage imageBundlePath:@"arm_new_cellbg.png"];
+    }else{
+        imageCellBgPath = [UIImage imageBundlePath:@"arm_cellbg.png"];
+    }
     UIImage *imageCellBg = [[UIImage alloc] initWithContentsOfFile:imageCellBgPath];
     UIImageView *ImageViewCellBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.width-imageCellBg.size.width)/2.0 , 0, imageCellBg.size.width, imageCellBg.size.height)];
     ImageViewCellBg.image = imageCellBg;
@@ -67,61 +78,43 @@ static const int KLabelOriginX   = 10;//距离左边界的距离
     [ImageViewCellalarm release];
     
     
+    UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroAlertCellColor];
     /**
-     *  文字
+     *  文字时间
      */
-    NSString *_strTemp =nil;
-    NSString *typeString =@"tejjlfjajf;ajf;ad"; //;[NSString stringWithFormat:@"home_alarm_%d",model.iAlarmType];
-    NSString *strNick = model.strALarmDeviceNickName ;
+    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:model.strAlarmTime];
+    [label retain];
+    label.font = [UIFont systemFontOfSize:KLabelSize];
+    if (color) {
+        label.textColor = color;
+    }
+    label.frame = CGRectMake(imgViewAlerm.frame.size.width+imgViewAlerm.frame.origin.x+10, imgViewAlerm.frame.origin.y, label.width, label.height);
+    [self.contentView addSubview:label];
+    [label release];
     
-    NSInteger maxLanguageCount  = 6;
-    BOOL _bLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
-    if (!_bLanguage) {
-        maxLanguageCount=15;
-    }else{
-        if (model.iAlarmType == 12) {
-            maxLanguageCount = 3;
-        }
-    }
-    if (strNick.length>maxLanguageCount) {
-        NSString *str = [strNick substringToIndex:maxLanguageCount];
-        strNick = [str stringByAppendingString:@"..."];
-    }
-    if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        _strTemp = [NSString stringWithFormat:@"%@%@",strNick,NSLocalizedString(typeString, nil)];
-    }else{
-        _strTemp = [NSString stringWithFormat:@"%@%@%@",NSLocalizedString(typeString, nil),NSLocalizedString(@"home_alarm_device", nil),strNick ];
+    /**
+     *  昵称
+     */
+    UILabel *labelNickName = [[JVCControlHelper shareJVCControlHelper] labelWithText:model.strALarmDeviceNickName];
+    [labelNickName retain];
+    if (color) {
+        labelNickName.textColor = color;
     }
     
-    
-    NSInteger lineBreakModeTemp;
-    if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        lineBreakModeTemp = UILineBreakModeWordWrap;
-        
-    }else{
-        lineBreakModeTemp = UILineBreakModeCharacterWrap;
-        
-    }
-    
-    CGSize consizeSize = [_strTemp sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake((ImageViewCellBg.width - 2*KLabelOriginX)/2.0, 100) lineBreakMode:lineBreakModeTemp];
-    consizeSize.height = MIN(consizeSize.height, 50);
-    UILabel *_labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(imgViewAlerm.frame.size.width+imgViewAlerm.frame.origin.x+10, imgViewAlerm.frame.origin.y, consizeSize.width, consizeSize.height)];
-    _labelTitle.backgroundColor = [UIColor clearColor];
-    _labelTitle.text = _strTemp;
-    [_labelTitle setTextColor:SETLABLERGBCOLOUR(85.0, 85.0, 85.0)];
-    _labelTitle.font =[UIFont systemFontOfSize:14];
-    _labelTitle.numberOfLines = 2;
-    _labelTitle.lineBreakMode = lineBreakModeTemp;
-    [self.contentView addSubview:_labelTitle];
-    [_labelTitle release];
+    labelNickName.font = [UIFont systemFontOfSize:KLabelSize];
+    labelNickName.frame = CGRectMake(label.left, label.bottom+KLabelSpan, labelNickName.width, labelNickName.height);
+    [self.contentView addSubview:labelNickName];
+    [labelNickName release];
     
     /**
      *  报警级别
      */
-    UILabel *labelALarmType = [[UILabel alloc] initWithFrame:CGRectMake(_labelTitle.frame.origin.x, _labelTitle.frame.origin.y+_labelTitle.frame.size.height+10, 80, 20)];
+    UILabel *labelALarmType = [[UILabel alloc] initWithFrame:CGRectMake(labelNickName.left, labelNickName.bottom+KLabelSpan, 80, 20)];
     labelALarmType.backgroundColor = [UIColor clearColor];
     labelALarmType.font = [UIFont systemFontOfSize:13];
-    [labelALarmType setTextColor:SETLABLERGBCOLOUR(85.0, 85.0, 85.0)];
+    if (color) {
+        labelALarmType.textColor = color;
+    }
     labelALarmType.text = @"报警级别";
     [self.contentView addSubview:labelALarmType];
     [labelALarmType release];

@@ -8,7 +8,10 @@
 
 #import "JVCBaseGeneralTableViewController.h"
 #import "JVCMoreContentCell.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#import "JVCURlRequestHelper.h"
+@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate,JVCMoreCellSwitchDelegate,MFMailComposeViewControllerDelegate,JVCURLRequestDelegate>
 
-@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate,JVCMoreCellSwitchDelegate>
 
 @end

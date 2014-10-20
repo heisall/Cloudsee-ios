@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+enum{
+
+    TYPE_Add_Device_IP_NO   = 0,//不是ip添加
+    TYPE_Add_Device_IP_YES  = 1,//是ip添加
+
+};
 @interface JVCLocalDeviceDateBaseHelp : NSObject
 
 /**
@@ -22,6 +28,10 @@
  */
 -(BOOL)addLocalDeviceToDataBase:(NSString *)ystNUm  deviceName:(NSString *)name  passWord:(NSString *)passWord;
 
+/**
+ *  把ip数据插入到本地
+ */
+-(BOOL)addLocalIPDeviceToDataBase:(NSString *)ip  port:(NSString *)port  deviceName:(NSString *)name  passWord:(NSString *)passWord;
 /**
  *  删除设备
  */

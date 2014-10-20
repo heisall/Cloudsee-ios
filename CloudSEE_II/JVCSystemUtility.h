@@ -100,4 +100,31 @@
  */
 - (NSString *)getRandomVideoLocalPath;
 
+/**
+ *  根据事件截，获取当前时间
+ *
+ *  @param timerCurrentInt 时间截
+ *
+ *  @return 时间
+ */
+- (NSString *)getCurrentTimerFrom:(int)timerCurrentInt;
+
+/**
+ *  根据域名获取ip
+ *
+ *  @param theHost 域名
+ *
+ *  @return 得到的ip
+ */
+-(NSString *)getIPAddressForHostString:(NSString *) theHost;
+
+/**
+ *  获取ip或域名的ip值
+ *
+ *  @param stringLocal 域名或ip
+ *
+ *  @return ip地址
+ */
+- (NSString *)getIpOrNetHostString:(NSString *)stringLocal;
+
 @end

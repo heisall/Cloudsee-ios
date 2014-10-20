@@ -190,6 +190,8 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     NSString *sGroup=[ystNumber substringToIndex:i];
     NSString *iYstNum=[ystNumber substringFromIndex:i];
     
+    NSLog(@"%d",JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],nTimeOut));
+    
     return JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],nTimeOut);
 }
 
@@ -204,6 +206,23 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     
     return (nLocalChannel -1) % CONNECTMAXNUMS;
     
+}
+
+/**
+ *  返回是否有当前通道的链接状态
+ *
+ *  @param nLocalChannel Channel号
+ *
+ *  @return yes 有  no 没有
+ */
+- (BOOL)returnCurrentLintState:(int)nLocalChannel
+{
+    JVCCloudSEEManagerHelper *currentChannelObj   = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
+
+    if (currentChannelObj !=nil) {
+        return YES;
+    }
+    return NO;
 }
 
 /**

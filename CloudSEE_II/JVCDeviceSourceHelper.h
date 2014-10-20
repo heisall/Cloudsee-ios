@@ -184,4 +184,17 @@ enum ADDDEVICE_TYPE
                                    port:(NSString*)port
                                      ip:(NSString *)ip;
 
+/**
+ *  根据用户名密码云视通号添加设备
+ *
+ *  @param Ip   ip
+ *  @param port   port
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)addLocalDeviceInfo:(NSString *)Ip
+                      port:(NSString *)port
+            deviceUserName:(NSString *)userName
+            devicePassWord:(NSString *)passWord;
+
 @end

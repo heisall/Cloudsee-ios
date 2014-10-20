@@ -53,8 +53,14 @@
 
 static const int  JK_ALARM_LISTCOUNT =  4;//每次请求报警数据的个数
 static const int  ALARM_INFO_PROCESS =  11;//新版报警字段
-static const int  GET_ALARM_INFO     =  6000;//新版
+enum {
+    JK_ALARM_MESSAGE_TYPE_Get   = 6000,//获取报警的
 
+    JK_ALARM_MESSAGE_TYPE_Delete = 6002,//删除报警的
+    
+    JK_ALARM_MESSAGE_TYPE_Clear = 6004,//清空报警的
+
+};
 /* 报警类型 */
 typedef enum alarmtype
 {

@@ -93,10 +93,14 @@ static JVCCustomYTOView *_shareInstance = nil;
     [_v addGestureRecognizer:singleRecognizer];
     [singleRecognizer release];
     
-    UIImage *_closeImage=[UIImage imageWithContentsOfFile:[self getBundleImagePath:@"ytoClose.png"]];
+    UIImage *_closeImage=[[UIImage alloc ]initWithContentsOfFile:[self getBundleImagePath:@"ytoClose.png"]];
+    UIImage *_closeImageHover=[[UIImage alloc ]initWithContentsOfFile:[self getBundleImagePath:@"ytoClose.png"]];
+
     UIButton *closeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     closeBtn.frame=CGRectMake([UIApplication sharedApplication].keyWindow.frame.size.width-_closeImage.size.width-15.0, 10.0+_iphonePadding, _closeImage.size.width*1.2, _closeImage.size.height*1.2);
     [closeBtn setBackgroundImage:_closeImage forState:UIControlStateNormal];
+    [closeBtn setBackgroundImage:_closeImageHover forState:UIControlStateHighlighted];
+
     closeBtn.showsTouchWhenHighlighted=YES;
     [closeBtn addTarget:self action:@selector(HidenYTOperationView) forControlEvents:UIControlEventTouchDown];
     [self addSubview:closeBtn];
@@ -105,7 +109,8 @@ static JVCCustomYTOView *_shareInstance = nil;
     [self addSubview:_v];
     [_v setUserInteractionEnabled:YES];
     [_v release];
-    
+    [_closeImage release];
+    [_closeImageHover release];
     if (JudgeIphone5) {
         _iphonePadding=40.0;
     }
@@ -115,10 +120,10 @@ static JVCCustomYTOView *_shareInstance = nil;
 	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoAutoBtn.png|2,2"]];
 	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoRightBtn.png|2,3"]];
 	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoDownBtn.png|3,1"]];
-	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoZoom+Btn.png|1,2"]];
-	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoZoom-Btn.png|1,3"]];
-	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoScale+Btn.png|3,2"]];
-	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoScale-Btn.png|3,3"]];
+	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoZoom+Btn.png|3,2"]];
+	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoZoom-Btn.png|3,3"]];
+	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoScale+Btn.png|1,2"]];
+	[imageNameList addObject:[NSString stringWithFormat:@"%@",@"ytoScale-Btn.png|1,3"]];
 	float padding=15.0;
 	float y_padding=10.0;
     float y_paddingSize=7.5;
@@ -137,7 +142,7 @@ static JVCCustomYTOView *_shareInstance = nil;
                 
 				//UIImage *image=[UIImage imageNamed:[array objectAtIndex:0]];
                 UIImage *image=[UIImage imageWithContentsOfFile:[self getBundleImagePath: [array objectAtIndex:0]]];
-                
+
 				UIButton *menuBtn=[UIButton buttonWithType:UIButtonTypeCustom];
                 
 				if (1==[[info objectAtIndex:0] intValue]) {
@@ -191,6 +196,17 @@ static JVCCustomYTOView *_shareInstance = nil;
 				}
                 
 				menuBtn.tag=i+100;
+                NSString *imageSelect = [array objectAtIndex:0];
+                NSArray *imageArray = [imageSelect componentsSeparatedByString:@"."];
+                if (imageArray.count == 2) {
+                    NSString *strImageSelect = [NSString stringWithFormat:@"%@_sec.%@",[imageArray objectAtIndex:0],[imageArray objectAtIndex:1]];
+                    
+                    NSString *imageselect = [self getBundleImagePath:strImageSelect];
+                    UIImage *secBtnImage = [[UIImage alloc] initWithContentsOfFile:imageselect ];
+                    [menuBtn setBackgroundImage:secBtnImage forState:UIControlStateHighlighted];
+                    
+                    [secBtnImage release];
+                }
 				[menuBtn setBackgroundImage:image forState:UIControlStateNormal];
 				[menuBtn addTarget:self action:@selector(upStartMenuClick:) forControlEvents:UIControlEventTouchDown];
 				[menuBtn addTarget:self action:@selector(upInMenuClickEnd:) forControlEvents:UIControlEventTouchUpInside];

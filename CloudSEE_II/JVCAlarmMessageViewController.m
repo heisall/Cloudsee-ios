@@ -17,17 +17,39 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCAlarmVideoPlayViewController.h"
+#import "JVNetConst.h"
+#import "JVCAlarmHelper.h"
+
+#import "MJRefreshFooterView.h"
+#import "UIScrollView+MJRefresh.h"
+enum {
+    DownLoadType_PIC    = 0,//图片的
+    DownLoadType_VIDEO  = 1,//视频的
+    
+};
 
 
 @interface JVCAlarmMessageViewController ()
 {
     NSMutableArray *arrayAlarmList;
+    
+    int iDownLoadType;//正在下载标识
+    
+    int nChannelLinkNum;//连接通道的标识
+    
+    int nAlarmOriginIndex ;//获取alarm起始的索引
+    
 }
 
 @end
 
 @implementation JVCAlarmMessageViewController
 static const int KSUCCESS = 0;//成功
+static const NSTimeInterval KTimerAfterDelay = 0.5;
+static const int KChannelNum = 1;//通道连接
+static const int KNoAlarmTag = 10003;//没有报警的view的tag
+static const int KNoAlarmLabelHeight = 50;//没有报警的view的tag
+static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,45 +73,140 @@ static const int KSUCCESS = 0;//成功
     
     arrayAlarmList  = [[NSMutableArray alloc] init];
     
+    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshingData)];
+
+    NSLog(@"=================%@",NSStringFromCGRect(self.view.frame));
+    [self addTableViewFootView];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView headerBeginRefreshing];
+
     
 }
 
+- (void)addTableViewFootView
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
+    //自动下拉刷新
+    //[_tableView headerBeginRefreshing];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    self.tableView.footerPullToRefreshText = @"上拉加载更多";
+    self.tableView.headerReleaseToRefreshText = @"松开马上加载";
+    self.tableView.headerRefreshingText = @"正在加载";
+    
+
+}
+
+
+- (void)footerRereshing
+{
+    [self getAlarmListDate];
+}
 /**
  *  下拉刷新事件
  */
 - (void)headerRereshingData
 {
-    /**
-     *  放到异步线程里面
-     */
-   id result =  [[JVCDeviceHelper sharedDeviceLibrary]getAccountByDeviceAlarmList:0];
+    //下拉
+    nAlarmOriginIndex = 0;
     
-    if ([result isKindOfClass:[NSDictionary class]]) {//是字典类型的
+  
+    
+    [self getAlarmListDate];
+}
+
+- (void)getAlarmListDate
+{
+  
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSDictionary *resultDic = (NSDictionary *)result;
+        NSArray *array = [[JVCAlarmHelper shareAlarmHelper] getHistoryAlarm:nAlarmOriginIndex];
         
-        if ([[resultDic objectForKey:DEVICE_JSON_RT] intValue ] == KSUCCESS) {//成功
-            
-            NSArray *arrayList = [resultDic objectForKey:JK_ALARM_INFO];
-            
-            for (NSDictionary *tdic in arrayList) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            if (array.count !=0) {
                 
-                JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:tdic];
+                if (nAlarmOriginIndex == 0) {
+                    
+                    [arrayAlarmList removeAllObjects];
+                    
+                    [self removeNoAlarmView];
+                }
+                [arrayAlarmList addObjectsFromArray:array];
+              
+                [self.tableView reloadData];
                 
-                [arrayAlarmList addObject:model];
-               // [model release];
-                
+                [self.tableView footerEndRefreshing];
+                [self.tableView headerEndRefreshing];
             
+                nAlarmOriginIndex = nAlarmOriginIndex+arrayAlarmList.count;
+                
+            }else{
+                
+                if (nAlarmOriginIndex == 0) {//显示没有数据的view
+                    
+                    [self  addNoAlarmDateView];
+                    
+                }else{
+                
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取报警历史失败"];
+                  
+                }
+                
+                [self.tableView footerEndRefreshing];
+                [self.tableView headerEndRefreshing];
             }
-            [self.tableView reloadData];
             
-        }else{
-            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"获取报警信息失败"];
-        }
+        });
+    });
+
+}
+
+/**
+ *  添加没有数据的图片
+ */
+- (void)addNoAlarmDateView
+{
+    UIView *viewNoAlarm = (UIView *)[self.view viewWithTag:KNoAlarmTag];
+    if (!viewNoAlarm) {
+        
+        viewNoAlarm = [[UIView alloc] initWithFrame:self.view.frame];
+        
+        NSString    *pathNoAlarm    = [UIImage imageBundlePath:@"arm_no.png"];
+        UIImage     *imageNo        = [[UIImage alloc] initWithContentsOfFile:pathNoAlarm];
+        UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.height -imageNo.size.height)/2.0 , (self.view.width -imageNo.size.width)/2.0, imageNo.size.width, imageNo.size.height)];
+        imageView.image             = imageNo;
+        imageView.tag               = KNoAlarmTag;
+        [viewNoAlarm addSubview:imageView];
+        
+        UILabel *labelNoAlarm = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
+        labelNoAlarm.backgroundColor = [UIColor clearColor];
+        labelNoAlarm.textAlignment = UITextAlignmentCenter;
+        labelNoAlarm.text = @"暂无消息";
+        [viewNoAlarm addSubview:labelNoAlarm];
+        [labelNoAlarm release];
+        [self.tableView addSubview:viewNoAlarm];
+        [viewNoAlarm release];
+        [imageNo release];
+        
+
+
+    }else{
+        
+        [self.tableView bringSubviewToFront:viewNoAlarm];
     }
     
-    [self.tableView performSelector:@selector(headerEndRefreshing) withObject:nil afterDelay:1];
+}
 
+/**
+ *  从父视图删除
+ */
+-(void)removeNoAlarmView
+{
+    UIView *viewNoAlarm = (UIView *)[self.tableView viewWithTag:KNoAlarmTag];
+    [viewNoAlarm removeFromSuperview];
 }
 
 #pragma mark tableview的
@@ -118,37 +235,34 @@ static const int KSUCCESS = 0;//成功
     }
     JVCAlarmModel *modelcell = [arrayAlarmList objectAtIndex:indexPath.row];
     [cell initAlermCell:modelcell];
-    [modelcell release];
 
-    // Configure the cell...
-
+    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.row];
     JVCAlarmCell *homecell = (JVCAlarmCell *)[tableView cellForRowAtIndexPath:indexPath];
     UIImageView *imageViewNew = (UIImageView *)[homecell.contentView viewWithTag:10005];
     [imageViewNew removeFromSuperview];
     
-    JVCDeviceModel *DdvModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:cellModel.strYstNumber];
+    //点击cell，连接远程回放，判断是否连接上
     
-    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.row];
 
-    ystNetWorkHelperObj.ystNWHDelegate = self;
+    if (cellModel.strAlarmLocalPicURL.length !=0) {
+        
+        [self showJVHAlarmVideoWithModel:cellModel];
+        
+    }else{
+        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+        
+        iDownLoadType = DownLoadType_PIC;
+
+        [self connetDeviceWithYSTNum];
+
+    }
     
-    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:1
-                                                                           nRemoteChannel:1 strYstNumber:@"S90252170"strUserName:@"admin" strPassWord:@"aaa" nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
-   
-    
-//    connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:TRUE];
-
-//    -(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo;
-
-    //弹出图片
-    [self showJVHAlarmVideoWithModel:cellModel];
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -159,17 +273,61 @@ static const int KSUCCESS = 0;//成功
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)] autorelease];
-//    UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
-//    labelTimer.backgroundColor = [UIColor clearColor];
-//    JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
-//    alarmModel *tcellModel = [delegate._dealNotificationArray objectAtIndex:section];
-//    labelTimer.textAlignment = UITextAlignmentCenter;
-//    labelTimer.text = tcellModel.strAlarmTime;
-//    labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
-//    [labelTimer setFont:[UIFont systemFontOfSize:14]];
-//    [headView addSubview:labelTimer];
-//    [labelTimer release];
+    //    UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
+    //    labelTimer.backgroundColor = [UIColor clearColor];
+    //    JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
+    //    alarmModel *tcellModel = [delegate._dealNotificationArray objectAtIndex:section];
+    //    labelTimer.textAlignment = UITextAlignmentCenter;
+    //    labelTimer.text = tcellModel.strAlarmTime;
+    //    labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
+    //    [labelTimer setFont:[UIFont systemFontOfSize:14]];
+    //    [headView addSubview:labelTimer];
+    //    [labelTimer release];
     return headView;
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JVCAlarmModel *model = [arrayAlarmList objectAtIndex:indexPath.row];
+    
+    [self deleteSingelAlarm:model.strAlarmGuid];
+    
+}
+
+- (void)deleteSingelAlarm:(NSString *)deviceGuid
+{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        BOOL result = [[JVCAlarmHelper shareAlarmHelper] deleteAlarmHistoryWithGuid:deviceGuid];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+            if (result) {
+                
+                int row = self.tableView.indexPathForSelectedRow.row;
+                
+                [arrayAlarmList removeObjectAtIndex:row];
+
+//                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+
+                [self.tableView reloadData];
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除成功"];
+                
+                nAlarmOriginIndex -- ;
+
+            }else{
+            
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+            }
+            
+        });
+    });
     
 }
 
@@ -217,14 +375,13 @@ static const int KSUCCESS = 0;//成功
     
     [self.view.window addSubview:alarmView];
     [alarmView.layer addAnimation:animationGroup forKey:kAddAnimation];
-    
-    [alarmView showToastAlert];
-    
+        
     [alarmView release];
     
     [model release];
- 
+    
 }
+
 
 -(void)removeJVHAlarmShowView
 {
@@ -232,40 +389,50 @@ static const int KSUCCESS = 0;//成功
     if (viewContent) {
         [viewContent removeFromSuperview];
     }
+    
+    JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    cloudSEEObj.ystNWRPVDelegate          =  nil;
 }
 
 
 /**
- *  连接的回调代理
- *
- *  @param connectCallBackInfo 返回的连接信息
- *  @param nlocalChannel       本地通道连接从1开始
- *  @param connectType         连接返回的类型
+ *  down远程回放的图片
  */
--(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
+- (void)downRemotePlayBackPic:(int)nlocalChannel
 {
-    if (connectResultType == CONNECTRESULTTYPE_Succeed) {
-        
-        DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
-        
-        NSString *downUrl = @"./rec/00/20141011/A01135705.jpg";
-//        NSString *downUrl = @"./rec/00/20141016/A01202644.jpg";
-        
-        NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-        
-        NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
-        
-        NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:@"1009dds0ds1.jpg"];
-        
-        JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        cloudSEEObj.ystNWRPVDelegate          =  self;
-        
-        [cloudSEEObj RemoteDownloadFile:nlocalChannel withDownLoadPath:(char *)[downUrl UTF8String] withSavePath:pathAccount];
-        
-        
-    }else {
+    iDownLoadType = DownLoadType_PIC;
     
-    }
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    
+    DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
+    
+    NSString *pathAccount = [[JVCSystemUtility shareSystemUtilityInstance] getRandomPicLocalPath];
+    
+    JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    cloudSEEObj.ystNWRPVDelegate          =  self;
+    
+    [cloudSEEObj RemoteDownloadFile:nlocalChannel withDownLoadPath:(char *)[cellModel.strAlarmPicUrl UTF8String] withSavePath:pathAccount];
+    
+    
+}
+
+/**
+ *  down远程回放的图片
+ */
+- (void)downRemotePlayBackVideo:(int)nlocalChannel
+{
+    iDownLoadType = DownLoadType_VIDEO;
+
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    
+    DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
+    
+    NSString *pathAccount = [[JVCSystemUtility shareSystemUtilityInstance] getRandomVideoLocalPath];
+    
+    JVCCloudSEENetworkHelper *cloudSEEObj =  [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    cloudSEEObj.ystNWRPVDelegate          =  self;
+    
+    [cloudSEEObj RemoteDownloadFile:nlocalChannel withDownLoadPath:(char *)[cellModel.strAlarmVideoUrl UTF8String] withSavePath:pathAccount];
     
     
 }
@@ -286,28 +453,202 @@ static const int KSUCCESS = 0;//成功
 -(void)remoteDownLoadCallBack:(int)downLoadStatus withDownloadSavePath:(NSString *)savepath {
     
     DDLogCVerbose(@"%s--------savePath=%@ status=%d",__FUNCTION__,savepath,downLoadStatus);
-    
-    
-//    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow];
-//    [self playMovie:savepath];
+    [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
 
-    [self performSelectorOnMainThread:@selector(playMovie:) withObject:savepath waitUntilDone:NO];
-//    cellModel.strAlarmLocalVideoUrl = savepath;
+    
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    
+    if (downLoadStatus == JVN_RSP_DOWNLOADOVER) {//成功
+        
+        if (iDownLoadType == DownLoadType_PIC) {
+            NSLog(@"========111111======%@",savepath);
+            cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
+            
+            [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
+            
+        }else{
+            NSLog(@"========222222======%@",savepath);
+
+            cellModel.strAlarmLocalVideoUrl = [NSString stringWithFormat:@"%@",savepath];;
+            
+            [self performSelectorOnMainThread:@selector(playMovie:) withObject:cellModel.strAlarmLocalVideoUrl waitUntilDone:NO];
+            
+            /**
+             *  调用端口连接
+             */
+           [self disRemoteLink];
+
+        }
+        
+    }else{
+        
+        [self disRemoteLink];
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"获取报警信息失败，请重试"];
+        
+    }
+    
+}
+
+/**
+ *  播放view的回调
+ */
+- (void)playVideoCallBack:(JVCAlarmModel *)playModel
+{
+    iDownLoadType = DownLoadType_VIDEO;
+
+    if (playModel.strAlarmLocalVideoUrl.length ==0 ||playModel.strAlarmVideoUrl.length !=0) {//down 视频
+                
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+
+            if (playModel.strAlarmLocalVideoUrl.length >0) {//直接播放
+                
+                [self performSelectorOnMainThread:@selector(playMovie:) withObject:playModel.strAlarmLocalVideoUrl waitUntilDone:NO];
+                return ;
+            }
+            
+            if ([[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] returnCurrentLintState:nChannelLinkNum]) {
+                
+                [self downRemotePlayBackVideo:nChannelLinkNum];
+
+            }else{
+                
+                [self connetDeviceWithYSTNum];
+
+            }
+            
+        });
+        
+    }else{
+        
+        
+        [self playMovie:playModel.strAlarmLocalVideoUrl];
+        
+    }
+}
+
+/**
+ *  点击背景的事件
+ */
+- (void)jvcSingleAlarmClickBackGroundCallBack
+{
+    [self removeJVHAlarmShowView];
+    
+    [self disRemoteLink];
 
 }
 
 - (void)playMovie:(NSString *)filePath
 {
+    [self removeJVHAlarmShowView];
+    
     [filePath retain];
     
     JVCAlarmVideoPlayViewController *view = [[JVCAlarmVideoPlayViewController alloc] init];
     view._StrViedoPlay = filePath;
     
-   [self.navigationController pushViewController:view animated:YES];
+    [self.navigationController pushViewController:view animated:YES];
     
     [filePath release];
     
     [view release];
+}
+
+/**
+ *  连接云视通
+ */
+- (void)connetDeviceWithYSTNum
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        
+        JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:cellModel.strYstNumber];
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWHDelegate = self;
+        
+        NSString *deviceUserName ;
+        NSString *delvicePassword;
+        
+        if (deviceModel == nil) {
+            
+            deviceUserName  = (NSString *)DefaultUserName;
+            delvicePassword = (NSString *)DefaultPassWord;
+        }else{
+            
+            deviceUserName = deviceModel.userName;
+            delvicePassword = deviceModel.passWord;
+        }
+        
+        
+        if (deviceModel.linkType) {
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ipConnectVideobyDeviceInfo:1 nRemoteChannel:cellModel.iYstChannel  strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            
+        }else{
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:1
+                                                                                   nRemoteChannel:cellModel.iYstChannel strYstNumber:cellModel.strYstNumber
+                                                                                      strUserName:deviceUserName
+                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+        }
+        
+    });
+    
+}
+
+
+/**
+ *  连接的回调代理
+ *
+ *  @param connectCallBackInfo 返回的连接信息
+ *  @param nlocalChannel       本地通道连接从1开始
+ *  @param connectType         连接返回的类型
+ */
+-(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
+{
+    nChannelLinkNum = nlocalChannel;
+    
+    if (connectResultType == CONNECTRESULTTYPE_Succeed) {
+        
+        if (   iDownLoadType== DownLoadType_VIDEO) {//down视频
+            
+            [self downRemotePlayBackVideo:nChannelLinkNum];
+
+        }else{
+            //云视通连接成功，down图片
+            
+            [self downRemotePlayBackPic:nlocalChannel];
+        }
+  
+        
+    }else {
+        
+        [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"获取报警信息错误，请重试"];
+        
+    }
+    
+    
+}
+
+/**
+ *  断开远程连接方法
+ */
+- (void)disRemoteLink
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWHDelegate = nil;
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:nChannelLinkNum];
+    });
 }
 
 @end

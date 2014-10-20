@@ -359,4 +359,13 @@ enum DEVICETALKMODEL {
  */
 -(void)RemoteDownloadFile:(int)nLocalChannel withDownLoadPath:(char *)downloadPath  withSavePath:(NSString *)SavePath;
 
+/**
+ *  返回是否有当前通道的链接状态
+ *
+ *  @param nLocalChannel Channel号
+ *
+ *  @return yes 有  no 没有
+ */
+- (BOOL)returnCurrentLintState:(int)nLocalChannel;
+
 @end

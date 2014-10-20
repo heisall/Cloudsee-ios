@@ -19,6 +19,7 @@ typedef enum {
     AddDevicePopType_WlanAddDevice      = 2,//无线添加
     AddDevicePopType_ScanADDDevice      = 3,//扫描添加
     AddDevicePopType_VloceAddDevice     = 4,//声波添加
+    AddDevicePopType_IP                 = 5,//域名或ip添加设备
     
 }AddDevicePopType;
 

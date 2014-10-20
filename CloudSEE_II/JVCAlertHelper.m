@@ -120,6 +120,8 @@ static JVCAlertHelper *shareAlertHelper = nil;
  */
 - (void)alertToastWithKeyWindowWithMessage:(NSString *)message
 {
+    [self alertHidenToastOnWindow];
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
 	hud.mode = MBProgressHUDModeText;
     hud.animationType = MBProgressHUDAnimationZoomOut;
@@ -128,6 +130,48 @@ static JVCAlertHelper *shareAlertHelper = nil;
 	hud.yOffset = 0.0f;
 	hud.removeFromSuperViewOnHide = YES;
 	[hud hide:YES afterDelay:TIMERDURATION];
+}
+
+/**
+ *  再keywindow上显示文字
+ *
+ *  @param message 显示的文字
+ *
+ *  @timer 消失时间
+ */
+- (void)alertToastWithMessage:(NSString *)message  andTimer:(NSTimeInterval )timer
+{
+    [self alertHidenToastOnWindow];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+	hud.mode = MBProgressHUDModeText;
+    hud.animationType = MBProgressHUDAnimationZoomOut;
+	hud.labelText = message;
+	hud.margin = 10.f;
+	hud.yOffset = 0.0f;
+	hud.removeFromSuperViewOnHide = YES;
+	[hud hide:YES afterDelay:timer];
+}
+
+/**
+ *  再keywindow上显示文字,主线程
+ *
+ *  @param message 显示的文字
+ */
+- (void)alertToastMainThreadOnWindow:(NSString *)message
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.animationType = MBProgressHUDAnimationZoomOut;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = 0.0f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:TIMERDURATION];
+        
+    });
 }
 
 /**
@@ -171,8 +215,11 @@ static JVCAlertHelper *shareAlertHelper = nil;
 {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *hub = (MBProgressHUD *)[window viewWithTag:HUDTAG];
-    //    hub.animationType = MBProgressHUDAnimationZoomOut;
-    [hub removeFromSuperview];
+    if (hub) {
+        
+        [hub removeFromSuperview];
+
+    }
 }
 
 /**

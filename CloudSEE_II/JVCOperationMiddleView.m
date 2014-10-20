@@ -142,7 +142,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
         [btn setImage:hoverImage forState:UIControlStateSelected];
         
         
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(-(self.frame.size.height -hoverImage.size.height)/2+10 ,0 , 0,0)];
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(-(self.frame.size.height -hoverImage.size.height)/2+15 ,0 , 0,0)];
         
         UILabel * _LableTitle=[[UILabel alloc] init];
         _LableTitle.frame=CGRectMake(0.0,btn.frame.size.height*0.65, btn.frame.size.width, HEGIHT);

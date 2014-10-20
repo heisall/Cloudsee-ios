@@ -98,12 +98,10 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     
     rectPassword.origin.y    = ssidTextField.frame.size.height + ssidTextField.frame.origin.y;
     password.frame           = rectPassword;
-    password.secureTextEntry = YES;             //密码
     password.returnKeyType   = UIReturnKeyDone;
-    password.secureTextEntry = YES;
     password.borderStyle     = UITextBorderStyleNone;
     password.delegate        = self;
-    
+    password.keyboardType = UIKeyboardTypeASCIICapable;
     [self addTextFieldWithRightView:password withRightView:@"voi_show_pw.png"];
     
     [textBgView addSubview:password];
@@ -159,6 +157,16 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
 -(void)showPassword{
     
     password.secureTextEntry = !password.secureTextEntry;
+    if (password.secureTextEntry) {
+        
+        [self addTextFieldWithRightView:password withRightView:@"voi_show_pw.png"];
+
+    }else{
+    
+        [self addTextFieldWithRightView:password withRightView:@"voi_hiden_pw.png"];
+
+    }
+
     
 }
 

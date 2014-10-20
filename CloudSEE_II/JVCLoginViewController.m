@@ -21,6 +21,7 @@
 #import "JVCConfigModel.h"
 #import "JVCSystemConfigMacro.h"
 #import "JVCDemoViewController.h"
+#import "JVCAlarmCurrentView.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -99,16 +100,17 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 
+    [super viewWillAppear:animated];
+    
     
 
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     
    NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
@@ -123,7 +125,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
             textFieldPW.text =  modeluse.passWord;
             
             //太快延迟0.3秒
-            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+          //  [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
         }
     }
 }
@@ -132,10 +134,16 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
 {
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = YES;
+    self.navigationController.navigationBarHidden = YES;
+
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
- 
+    // Do any additional setup after loading the view
+//    
+//    JVCAlarmCurrentView *viewalarm = [[JVCAlarmCurrentView alloc]initWithFrame:self.view.bounds];
+//    [viewalarm initCurrentAlarmView:nil];
+//    [self.view addSubview:viewalarm];
+//    [viewalarm release];
+//    return;
     
     /**
      *  注册所有的
@@ -149,6 +157,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
     /**
      *  背景
      */
+    DDLogInfo(@"=self.view.frame==%@===",NSStringFromCGRect(self.view.frame));
     NSString *imagebgName = [UIImage correctImageName:@"log_bg.png"];
     UIImage *imageBg = [[UIImage alloc] initWithContentsOfFile:imagebgName];
     UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -212,7 +221,7 @@ static const int KDropDownViewHeight = 3*44;//下拉view的高度
         
         UIImage *imgBtnTriangel = [UIImage imageNamed:@"log_Down.png"];
         UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width*2, imgBtnTriangel.size.height*2);
+        btnDown.frame = CGRectMake(textFieldUser.frame.origin.x+textFieldUser.frame.size.width+5, textFieldUser.frame.origin.y, imgBtnTriangel.size.width*3, imgBtnTriangel.size.height*3);
         [btnDown setImage:imgBtnTriangel forState:UIControlStateNormal];
         btnDown.tag = LOGINVIEWTAG_Down;
         [btnDown addTarget:self action:@selector(clickDropDownView) forControlEvents:UIControlEventTouchUpInside];

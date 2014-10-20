@@ -16,6 +16,11 @@
  */
 - (void)playVideoCallBack:(JVCAlarmModel *)playModel;
 
+
+/**
+ *  点击背景的事件
+ */
+- (void)jvcSingleAlarmClickBackGroundCallBack;
 @end
 
 
@@ -29,6 +34,5 @@
 - (void)initView;
 
 - (void)ClickbackGroud;
-- (void)showToastAlert;
 
 @end

@@ -313,20 +313,14 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
-            
             if (ADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
-                
-                
                 
                 [self getNewAddDeviceInfo];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
-
-                
             }else{//失败
                 
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加失败")];
             }
         });
@@ -343,8 +337,6 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-    
             /**
              *  判断返回的字典是不是nil
              */
@@ -387,7 +379,6 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                 
                 DDLogInfo(@"==error3=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
                 
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
 
             }
@@ -415,7 +406,6 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
             [self addDeviceChannelToServerWithNum:channelCount];
         });
@@ -439,11 +429,13 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
             if (ADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
-
+                /**
+                 *  删除云视通号
+                 */
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:textFieldYST.text];
                 
             }else{//成功后，获取设备的所有信息
             
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
                 [self getChannelsDetailInfo];
             }
@@ -466,8 +458,6 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
             /**
              *  判断返回的字典是不是nil
              */
@@ -489,7 +479,12 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
             }else{//空
                 
              //   [self serachCloseFindDevice];
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"通道为空")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备通道数错误")];
+                
+                /**
+                 *  删除云视通号
+                 */
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:textFieldYST.text];
 
             }
             

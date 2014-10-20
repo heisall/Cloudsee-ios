@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface JVCAlarmVideoPlayViewController : UIViewController
+#import "JVCBaseWithGeneralViewController.h"
+@interface JVCAlarmVideoPlayViewController : JVCBaseWithGeneralViewController
 @property(nonatomic,retain)NSString *_StrViedoPlay;
 @end

@@ -55,6 +55,11 @@ enum ACCOUNTTYPEWATCH
      *  初始化账号sdk是否正确  0:全部成功 1:注册Sdk失败  2:配置域名（或IP）失败
      */
     int  _bInitAccountSDKSuccess;
+    
+    /**
+     *  是否有新版本
+     */
+    BOOL _bNewVersion;
 }
 @property(nonatomic,assign)int _bISLocalLoginIn;
 
@@ -65,6 +70,9 @@ enum ACCOUNTTYPEWATCH
 @property(nonatomic,assign)BOOL tempModelInsert;
 
 @property(nonatomic,assign)int _bInitAccountSDKSuccess;
+
+@property(nonatomic,assign)    BOOL _bNewVersion;
+
 /**
  *  单例
  *

@@ -10,5 +10,8 @@
 #import "JVCCloudSEENetworkHelper.h"
 
 @interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController <ystNetWorkHelpDelegate,ystNetWorkHelpRemotePlaybackVideoDelegate>
+{
+    int bStateReload;
+}
 
 @end

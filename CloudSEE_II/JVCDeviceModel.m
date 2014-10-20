@@ -15,6 +15,8 @@
 
 @synthesize linkType,onLineState,hasWifi,useWifi,isCustomLinkModel;
 
+@synthesize domainName;
+@synthesize bIpOrDomainAdd;
 
 - (void)dealloc
 {
@@ -122,6 +124,7 @@
             deviceLinkType:(int)linkType
              deviceHasWifi:(int)hasWifiValue
   devicebICustomLinckModel:(BOOL)DeviceLickModel
+                ipAddState:(BOOL)ipAddState
 {
     self = [super init];
     
@@ -139,9 +142,45 @@
         self.hasWifi        = DEVICESTATUS_OFFLINE;
         self.linkType       = CONNECTTYPE_YST;
         self.isCustomLinkModel = DeviceLickModel;
+        self.bIpOrDomainAdd = ipAddState;
     }
     
     return self;
 }
+
+
+/**
+ *  初始化设备
+ *  @param deviceUserName  用户名
+ *  @param devicePassWord  密码
+ *  @param deviceIp        设备ip
+ *  @param devicePort      设备端口号
+ *  @return 设备对象
+ */
+- (id)initDeviceWithIP:(NSString *)deviceIp
+            devicePort:(NSString *)devicePort
+            deviceUserName:(NSString *)deviceUserName
+            devicePassWord:(NSString *)devicePassWord
+{
+    self = [super init];
+    
+    if (self !=nil) {
+        
+        self.yunShiTongNum  = deviceIp;
+        self.nickName       = deviceIp;
+        self.userName       = deviceUserName;
+        self.passWord       = devicePassWord;
+        self.ip             = deviceIp;
+        self.port           = devicePort;
+        self.onLineState    = DEVICESTATUS_ONLINE;
+        self.hasWifi        = DEVICESTATUS_OFFLINE;
+        self.linkType       = CONNECTTYPE_YST;
+        self.isCustomLinkModel = 1;
+        self.bIpOrDomainAdd = YES;
+    }
+    
+    return self;
+}
+
 
 @end

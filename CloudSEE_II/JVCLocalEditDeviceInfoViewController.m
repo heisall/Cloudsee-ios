@@ -10,6 +10,7 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCDeviceModel.h"
 #import "JVCDeviceSourceHelper.h"
+#import "JVCChannelScourseHelper.h"
 @interface JVCLocalEditDeviceInfoViewController ()
 
 @end
@@ -36,6 +37,8 @@
  */
 - (void)deleteDevice
 {
+    [[JVCChannelScourseHelper shareChannelScourseHelper]deleteLocalChannelsWithYStNum:self.deviceModel.yunShiTongNum];
+
   BOOL bResult =  [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteLocalDeviceInfo:self.deviceModel.yunShiTongNum];
     
     [self handeleDeleteDeviceRusult:!bResult];

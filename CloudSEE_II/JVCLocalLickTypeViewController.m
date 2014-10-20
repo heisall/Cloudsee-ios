@@ -82,10 +82,17 @@
         result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceNickNameWithYst:self.deviceModel.yunShiTongNum NickName:self.deviceModel.nickName deviceName:textFieldYstName.text passWord:textFieldYstName.text iscustomLinkModel:NO];
     }else{
         
+        NSString *strIp = [[JVCSystemUtility shareSystemUtilityInstance]:textFieldIP.text];
+        
+        [strIp retain];
+        
         result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceLickInfoWithYst:self.deviceModel.yunShiTongNum
                                                                                         deviceName:textFieldIPName.text
                                                                                           passWord:textFieldIPPassWord.text iscustomLinkModel:YES
-                                                                                              port:textFieldPort.text ip:textFieldIP.text];
+                                                                                              port:textFieldPort.text ip:strIp];
+        [strIp release];
+
+      
 
     }
             

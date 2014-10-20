@@ -440,7 +440,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
     
 #ifndef NS_BLOCK_ASSERTIONS
     if (_crashOnErrors) {
-        NSAssert(false, @"The FMDatabase %@ is currently in use.", self);
+        DDLogVerbose(false, @"The FMDatabase %@ is currently in use.", self);
         abort();
     }
 #endif
@@ -454,7 +454,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
         
     #ifndef NS_BLOCK_ASSERTIONS
         if (_crashOnErrors) {
-            NSAssert(false, @"The FMDatabase %@ is not open.", self);
+            DDLogVerbose(false, @"The FMDatabase %@ is not open.", self);
             abort();
         }
     #endif
@@ -764,7 +764,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
             }
             
             if (_crashOnErrors) {
-                NSAssert(false, @"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
+                DDLogVerbose(false, @"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
                 abort();
             }
             
@@ -941,7 +941,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
             }
             
             if (_crashOnErrors) {
-                NSAssert(false, @"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
+                DDLogVerbose(false, @"DB Error: %d \"%@\"", [self lastErrorCode], [self lastErrorMessage]);
                 abort();
             }
             
@@ -1057,7 +1057,7 @@ static int FMDBDatabaseBusyHandler(void *f, int count) {
     }
     
     if (rc == SQLITE_ROW) {
-        NSAssert(NO, @"A executeUpdate is being called with a query string '%@'", sql);
+        DDLogVerbose(NO, @"A executeUpdate is being called with a query string '%@'", sql);
     }
     
     if (_shouldCacheStatements && !cachedStmt) {

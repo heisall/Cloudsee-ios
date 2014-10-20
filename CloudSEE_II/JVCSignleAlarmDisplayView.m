@@ -7,7 +7,7 @@
 //
 
 #import "JVCSignleAlarmDisplayView.h"
-
+#import "JVCCloudSEENetworkHelper.h"
 
 @implementation JVCSignleAlarmDisplayView
 
@@ -48,6 +48,20 @@ static const NSInteger  BTNTAG = 12683;
     UIImage *iamgeDefault = [UIImage imageNamed:@"alarmDefault.png"];
     UIImageView *imageView = [[UIImageView alloc] init];//
     imageView.frame =CGRectMake((contentView.frame.size.width - iamgeDefault.size.width)/2.0, 15, iamgeDefault.size.width, iamgeDefault.size.height);
+    if (tAlarmModel.strAlarmLocalPicURL.length>0) {
+        
+        UIImage *iamgeAlarm = [[UIImage alloc] initWithContentsOfFile:tAlarmModel.strAlarmLocalPicURL];
+        
+        imageView.image = iamgeAlarm;
+        
+        [iamgeAlarm release];
+
+    }else{
+        
+        imageView.image = iamgeDefault;
+
+    }
+    
     [contentView addSubview:imageView];
     [imageView release];
     
@@ -73,100 +87,38 @@ static const NSInteger  BTNTAG = 12683;
      *  查看视频
      */
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *imgBtnNormal = [UIImage imageNamed:@"alarmBtnNormal.png"];
+    UIImage *imgBtnNormal = [UIImage imageNamed:@"alarmBtnHover.png"];
+    UIImage *imgBtnUnUse = [UIImage imageNamed:@"alarmBtnNormal.png"];
+
     btn.frame = CGRectMake((contentView.frame.size.width-imgBtnNormal.size.width)/2.0, labelTimer.frame.size.height+labelTimer.frame.origin.y+5, imgBtnNormal.size.width, imgBtnNormal.size.height);
-    //    [btn setBackgroundImage:[UIImage imageNamed:@"alarmBtnHover.png"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
     btn.tag = BTNTAG;
     [btn addTarget:self action:@selector(clickedToPlayView) forControlEvents:UIControlEventTouchUpInside];
     
-    [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
     [contentView addSubview:btn];
     if (self.tAlarmModel.strAlarmVideoUrl.length ==0) {
         
-        [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
+        [btn setBackgroundImage:imgBtnUnUse forState:UIControlStateNormal];
         
         [btn setTitle:LOCALANGER(@"home_no_Alarm_video") forState:UIControlStateNormal];
         
         [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-        // btn.enabled = NO;
-    }else{
+         btn.enabled = NO;
         
-        if (self.tAlarmModel.strAlarmLocalVideoUrl.length == 0) {
-            
-            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            
-            [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
-            
-            [btn setTitle:LOCALANGER(@"home_no_Alarm_video") forState:UIControlStateNormal];
-            
-        }else{
-            
-            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            
-            [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage imageNamed:@"alarmBtnHover.png"] forState:UIControlStateNormal];
-        }
+    }else{
+    
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
+        [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
         
     }
-    
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
+    [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
+
     [self addSubview:contentView];
     [contentView release];
-    
-    [self performSelector:@selector(judegeLocalVideo) withObject:nil afterDelay:TIMER];
-    
-    
-}
-
-- (void)judegeLocalVideo
-{
-    
-    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-    
-    UIButton *btn = (UIButton *)[self viewWithTag:BTNTAG];
-    
-    UIImage *imgBtnNormal = [UIImage imageNamed:@"alarmBtnNormal.png"];
-    
-    NSLog(@"==%@=======%@===%@",self.tAlarmModel.strAlarmLocalVideoUrl,self.tAlarmModel.strAlarmVideoUrl,self.tAlarmModel.strAlarmGuid);
-    
-//    NSString *checkVideoResult=[OperationSet checkAlarmPhotoIsExistsInLocal:self.tAlarmModel.strAlarmGuid checkType:YES];
-//    
-//    NSLog(@"checkVideoResult========%@",checkVideoResult);
-//    
-//    if (checkVideoResult!=nil) {
-//        
-//        self.tAlarmModel.strAlarmLocalVideoUrl=checkVideoResult;
-//        
-//    }
-    
-    if (self.tAlarmModel.strAlarmLocalVideoUrl.length ==0) {
-        
-        [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
-        
-        [btn setTitle:LOCALANGER(@"home_no_Alarm_video") forState:UIControlStateNormal];
-        
-        [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        
-    }else{
-        
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
-        
-        [btn setBackgroundImage:[UIImage imageNamed:@"alarmBtnHover.png"] forState:UIControlStateNormal];
-    }
-    
-}
-
-- (void)showToastAlert
-{
-    if (self.tAlarmModel.strAlarmLocalVideoUrl.length !=0) {
-        
-        return;
-    }
-    
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"wifi_select_loading") ];
-    
     
 }
 
@@ -176,32 +128,21 @@ static const NSInteger  BTNTAG = 12683;
 - (void)clickedToPlayView
 {
     
-    if (self.tAlarmModel.strAlarmLocalVideoUrl.length ==0) {
-        
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_no_video")];
-        
-        return;
-    }
     if (palyVideoDelegate!=nil&&[palyVideoDelegate respondsToSelector:@selector(playVideoCallBack:)]) {
+        
+        NSLog(@"%@===",self.tAlarmModel.strAlarmLocalPicURL);
         
         [palyVideoDelegate playVideoCallBack:self.tAlarmModel];
         
     }
     
-    [self removeFromSuperview];
 }
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+
 
 - (void)ClickbackGroud
 {
     [self removeWithAnimation];
+    
 }
 
 -(void)removeWithAnimation
@@ -226,12 +167,16 @@ static const NSInteger  BTNTAG = 12683;
     
 }
 
-
 #pragma mark - Core animation delegate
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     if(flag) {
-        
+       
+        if (palyVideoDelegate!=nil&&[palyVideoDelegate respondsToSelector:@selector(jvcSingleAlarmClickBackGroundCallBack)]) {
+            
+            [palyVideoDelegate jvcSingleAlarmClickBackGroundCallBack];
+            
+        }
         [self removeFromSuperview];
     }
 }

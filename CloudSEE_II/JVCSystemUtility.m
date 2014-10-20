@@ -8,7 +8,10 @@
 
 #import "JVCSystemUtility.h"
 #import "JVCDeviceMacro.h"
-
+#import "JVCPredicateHelper.h"
+#import <netdb.h>
+#import <sys/socket.h>
+#import <arpa/inet.h>
 static NSString const *APPLANGUAGE = @"zh-Hans";//简体中文的标志
 
 @implementation JVCSystemUtility
@@ -194,15 +197,15 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (NSString *)getRandomPicLocalPath
 {
-    NSString *appCachePaht = [self getAppTempPath];
+    NSString *appCachePaht = [self getAppDocumentsPath];
     
     NSTimeInterval timerInterval = [[NSDate date] timeIntervalSince1970];
     
-    NSString *picString = [NSString stringWithFormat:@"%lf.pic",timerInterval];
+    NSString *picString = [NSString stringWithFormat:@"%lf.jpg",timerInterval];
     
-    [appCachePaht stringByAppendingPathComponent:picString];
-
-    return appCachePaht;
+    NSString * path=[appCachePaht stringByAppendingPathComponent:picString];
+    
+    return path;
 }
 
 /**
@@ -212,15 +215,105 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (NSString *)getRandomVideoLocalPath
 {
-    NSString *appCachePaht = [self getAppTempPath];
+    NSString *appCachePaht = [self getAppDocumentsPath];
     
     NSTimeInterval timerInterval = [[NSDate date] timeIntervalSince1970];
     
-    NSString *picString = [NSString stringWithFormat:@"%lf.MP4",timerInterval];
+    NSString *picString = [NSString stringWithFormat:@"%lf.mp4",timerInterval];
     
-    [appCachePaht stringByAppendingPathComponent:picString];
+     NSString * path=[appCachePaht stringByAppendingPathComponent:picString];
     
-    return appCachePaht;
+    return path;
 }
+
+/**
+ *  根据事件截，获取当前时间
+ *
+ *  @param timerCurrentInt 时间截
+ *
+ *  @return 时间
+ */
+- (NSString *)getCurrentTimerFrom:(int)timerCurrentInt
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timerCurrentInt];    
+    NSString *dateString = [formatter stringFromDate:confromTimesp];
+    [formatter release];
+
+    return dateString;
+}
+
+
+
+/**
+ *  根据域名获取ip
+ *
+ *  @param theHost 域名
+ *
+ *  @return 得到的ip
+ */
+-(NSString *)getIPAddressForHostString:(NSString *) theHost
+{
+    char **pptr;
+    struct hostent *hptr;
+    char str[32];
+    
+    if(inet_addr([theHost UTF8String]) == 0)
+        return theHost;
+    
+    if ((hptr = gethostbyname([theHost UTF8String])) == NULL)
+    {
+        return @""; /* 如果调用gethostbyname发生错误，返回1 */
+    }
+    
+    
+    NSString *addressString;
+    /* 根据地址类型，将地址打出来 */
+    switch(hptr->h_addrtype)
+    {
+        case AF_INET:
+            
+        case AF_INET6:
+            
+            pptr=hptr->h_addr_list;
+            addressString = [NSString stringWithCString:inet_ntop(hptr->h_addrtype, *pptr, str, sizeof(str)) encoding:NSUTF8StringEncoding];
+            DDLogVerbose(@"address = %@",addressString);
+            /* 将刚才得到的所有地址都打出来。其中调用了inet_ntop()函数 */
+            //         for(;*pptr!=NULL;pptr++)
+            //             printf(" address:%s\n", inet_ntop(hptr->h_addrtype, *pptr, str, sizeof(str)));
+            break;
+        default:
+            printf("unknown address type\n");
+            break;
+    }
+    return addressString;
+}
+
+/**
+ *  获取ip或域名的ip值
+ *
+ *  @param stringLocal 域名或ip
+ *
+ *  @return ip地址
+ */
+- (NSString *)getIpOrNetHostString:(NSString *)stringLocal
+{
+    NSString *strIp = nil;
+    
+    if (![[JVCPredicateHelper shareInstance] isIP:stringLocal]) {//域名
+        
+        strIp = [self getIPAddressForHostString:stringLocal];
+    }else{
+        
+        strIp = stringLocal;
+        
+    }
+    
+    return strIp;
+}
+
 
 @end

@@ -42,66 +42,33 @@
     [super viewDidDisappear:animated];
 }
 
-- (void) viewDidLayoutSubviews {
-    if (IOS_VERSION>=IOS7) {
-        CGRect viewBounds = self.view.bounds;
-        CGFloat topBarOffset = self.topLayoutGuide.length;
-        viewBounds.origin.y = topBarOffset * -1;
-        self.view.bounds = viewBounds;
-    }
-    
-}
 
-
-
-- (void)gotoBack
+- (void)BackClick
 {
     [movie stop];
+    
+    NSLog(@"%@==ddddd=",self._StrViedoPlay);
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage *imageBack = [UIImage imageNamed:@"homeBack.png"];
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, imageBack.size.width, imageBack.size.height)];
-    [backBtn setImage:imageBack forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(gotoBack) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    // backBarBtn.style = UIBarButtonItemStylePlain;
-    self.navigationItem.leftBarButtonItem=backBarBtn;
-    [backBtn release];
-    [backBarBtn release];
-    
-    
+    self.title = @"报警视频";
     
 	// Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.hidden = NO;
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];
     //NSURL *url = [NSURL URLWithString:self._StrViedoPlay];
     //视频播放对象
     movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
     
-    // [movie.view setFrame:self.view.frame];
-    
-    CGFloat add_height = 0.0;
-    CGFloat add_y = 0.0;
-    
-    if (IOS_VERSION<IOS7) {
-        add_height = self.navigationController.navigationBar.frame.size.height;
-    }else{
-        add_y=44;
-        
-    }
-    
-    movie.view.frame = CGRectMake(0, 0-add_y, self.view.frame.size.width, self.view.frame.size.height-add_height);
+    movie.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     movie.controlStyle = MPMovieControlStyleNone;
     movie.scalingMode = MPMovieScalingModeAspectFit;
     movie.initialPlaybackTime = -1;
     [self.view addSubview:movie.view];
     [movie play];
-    
     
 }
 

@@ -29,4 +29,13 @@
  *  @param linkType 返回值
  */
 - (void)modiyDeviceLinkModelToServer:(int)linkType;
+
+
+
+/**
+ *  修改连接类型的回调函数
+ *
+ *  @param result 0 成功 其他失败  -5 超时
+ */
+- (void)ModifyDeviceLinkYSTTypeResult:(int)result;
 @end

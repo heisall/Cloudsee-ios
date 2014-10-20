@@ -12,6 +12,10 @@
 #import "JVCAccountMacro.h"
 #import "JVCDataBaseHelper.h"
 #import "AppDelegate.h"
+#import "JVCAlarmCurrentView.h"
+#import "JSONKit.h"
+#import "JVCSystemUtility.h"
+#import "JVCAlarmModel.h"
 
 enum PushMessage
 {
@@ -19,6 +23,8 @@ enum PushMessage
     PTCP_ERROR        = 3103,//停止心跳、然后提掉线
     PTCP_CLOSED        = 3104,//停止心跳，然后提掉线
     RECIVE_PUSH_MESSAGE = 4602,
+    RECIVE_PUSH_MESSAGE_NEW = 4604,
+
 };
 
 @interface JVCKeepOnlineHelp ()
@@ -197,7 +203,9 @@ UIAlertView *alertView;
  */
 -(void)serverPushCallBack:(int)message_type serverPushData:(NSData *)serverPushData
 {
-    NSLog(@"帐号服务器的长连接的回调 （包含实时报警、赶人下线、TCP断开=");
+    
+    
+    NSLog(@"帐号服务器的长连接的回调 （包含实时报警、赶人下线、TCP断开=%@",[[NSString alloc] initWithData:serverPushData  encoding:NSUTF8StringEncoding]);
     
     switch (message_type) {
         case NOTIFY_OFFLINE:
@@ -208,6 +216,14 @@ UIAlertView *alertView;
             break;
             
          case RECIVE_PUSH_MESSAGE://报警的
+            break;
+            
+        case RECIVE_PUSH_MESSAGE_NEW://报警的
+            
+            [self performSelectorOnMainThread:@selector(dealWithCurrentAlarm:) withObject:serverPushData waitUntilDone:NO ];
+
+            break;
+            
         default:
             break;
     }
@@ -375,7 +391,7 @@ UIAlertView *alertView;
                 
             }else if(RESERT_PASSWORD == resultOldType)//重置密码的，再后台自动重置
             {
-                [self modifyPassWordInbackGround];
+              //  [self modifyPassWordInbackGround];
                 
             }else
             {
@@ -447,6 +463,31 @@ UIAlertView *alertView;
     });
 }
 
+
+- (void)dealWithCurrentAlarm:(NSData *)date
+{
+    id result = [date objectFromJSONData];
+    
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *resultDic = (NSDictionary *)result;
+        
+        if ([[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic]) {
+            JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:resultDic];
+            model.bNewAlarm = YES;
+            
+            JVCAlarmCurrentView *viewCurrent = [[JVCAlarmCurrentView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            [viewCurrent initCurrentAlarmView:model];
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            [window addSubview:viewCurrent];
+            [viewCurrent release];
+
+        }
+        
+    }
+    
+    
+  }
 
 
 @end

@@ -26,6 +26,7 @@
 #import "JVCVoiceencInputSSIDWithPasswordViewController.h"
 #import "JVCConfigModel.h"
 #import "JVCLocalAddDeviceViewController.h"
+#import "JVCIPAddViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
@@ -125,6 +126,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         [self.tableView headerEndRefreshing];
     });
 }
+#pragma mark 弹出添加设备选项卡，用户选中相应按钮的回调
 /**
  *  选中item的回调
  *
@@ -148,8 +150,11 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         case AddDevicePopType_VloceAddDevice:{
         
             [self beginVoiceencConfig];
-        
+            break;
         }
+        case AddDevicePopType_IP:
+            [self ipAddDevice];
+            break;
             
             break;
             
@@ -169,6 +174,16 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     [self.navigationController pushViewController:jvcVoiceencViewcontroller animated:YES];
     
     [jvcVoiceencViewcontroller release];
+}
+
+/**
+ *  ip添加设备
+ */
+- (void)ipAddDevice
+{
+    JVCIPAddViewController *viewController = [[JVCIPAddViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
 }
 
 #pragma mark 跳转到添加设备界面
@@ -208,8 +223,18 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 - (void)popAddDeviceItems
 {
     CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
-    NSArray *titles = @[@"添加设备", @"扫一扫", @"添加无线设备",@"局域网扫描", @"声波配置"];
-    NSArray *images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
+    NSArray *titles = nil;
+    NSArray *images = nil;
+
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地增加域名或ip添加设备
+        titles = @[@"云视通号", @"二维码", @"无线设备",@"局域网扫描", @"声波配置",@"域名/Ip添加"];
+        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png",@"add_voice.png"];
+        
+    }else{
+        
+        titles = @[@"云视通号", @"二维码", @"无线设备",@"局域网扫描", @"声波配置"];
+        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
+    }
     JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
     pop.popDelegate = self;
     [pop show];
@@ -390,7 +415,15 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                             [deviceView initWithLayoutView:iconDeviceImage titleFontColor:titleGontColor borderColor:borderColor];
                         }
                         
-                        [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:@"在线" wifiStatus:@"WI-FI"];
+                     
+                        NSString *onLineState = modelCell.onLineState == 1?@"在线":@"离线";
+                        NSString *wifiState = modelCell.hasWifi == 1?@"WI-FI":@"";
+
+                        if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
+                            onLineState = @"";
+                            wifiState = @"";
+                        }
+                        [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:onLineState wifiStatus:wifiState];
                         
                         //添加选中设备的事件
                         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectDeviceToPlay:)];
@@ -461,9 +494,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                
                 if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
-                    
+                
                     //把从服务器获取到的数据存放到数组中
                     [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
                     //必须刷新
@@ -625,7 +657,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 {
     switch (linkType) {
         case DEVICECLICKTYpe_Wire:
-            [self AddWlanDevice];
+            [self beginVoiceencConfig];
             break;
         case DEVICECLICKTYpe_WireLess:
             [self AddDevice];

@@ -413,7 +413,11 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
             NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
             NSString  *strName = [[NSString alloc] initWithCString:name encoding:NSUTF8StringEncoding];
             
-            [amRemoteListDic setObject:strPara forKey:strName];
+            if (strPara !=nil) {
+                
+                [amRemoteListDic setObject:strPara forKey:strName];
+
+            }
             
             [strPara release];
             [strName release];
