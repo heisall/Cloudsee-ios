@@ -117,6 +117,7 @@ enum TextChatType {
     TextChatType_setAlarmType  = 1008,
     TextChatType_getAlarmType  = 1009,
     TextChatType_deleteAlarm   = 1010,
+    TextChatType_editAlarm     = 1011,
 };
 
 enum NetWorkType {

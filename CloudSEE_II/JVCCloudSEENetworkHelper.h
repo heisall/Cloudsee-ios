@@ -375,4 +375,15 @@ enum DEVICETALKMODEL {
  */
 -(void)RemoteDeleteDeviceAlarm:(int)nLocalChannel withAlarmType:(int)alarmType  withAlarmGuid:(int)alarmGuid;
 
+/**
+ *  编辑门磁和手环报警
+ *
+ *  @param nLocalChannel 本地连接通道号
+ *  @param alarmType     报警的类型
+ *  @param alarmGuid     报警的唯一标示
+ *  @param alarmEnable   报警是否开启
+ *  @param alarmName     报警的别名
+ */
+-(void)RemoteEditDeviceAlarm:(int)nLocalChannel withAlarmType:(int)alarmType  withAlarmGuid:(int)alarmGuid withAlarmEnable:(int)alarmEnable withAlarmName:(NSString *)alarmName;
+
 @end

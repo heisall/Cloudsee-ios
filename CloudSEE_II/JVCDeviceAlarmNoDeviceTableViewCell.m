@@ -9,8 +9,8 @@
 #import "JVCDeviceAlarmNoDeviceTableViewCell.h"
 #import "JVCControlHelper.h"
 @implementation JVCDeviceAlarmNoDeviceTableViewCell
-static const  int KCellOriginX  = 20;//具有左侧的距离
-static const  int KCellSpan     = 20;//间距
+static const  int KCellOriginX       = 20;//具有左侧的距离
+static const  int KCellSpan          = 20;//间距
 static const  int KLabelFontSize     = 20;//间距
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -56,14 +56,13 @@ static const  int KLabelFontSize     = 20;//间距
 
 - (void)awakeFromNib
 {
-    // Initialization code
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 @end

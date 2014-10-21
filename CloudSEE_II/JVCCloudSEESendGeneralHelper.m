@@ -118,11 +118,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             [self RemoteRequestAlarmDevice:nJvChannelID];
         }
             break;
-        case TextChatType_deleteAlarm:{
-            
-            [self re];
-        }
-            break;
         default:
             break;
     }
@@ -499,19 +494,14 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 }
 
 /**
- *  设置门磁属性
+ *   设置门磁属性
  *
- *  @param nJvChannelID   本地连接的通道号
- *  @param deviceType     设备类型1:门磁；2：手环
- *  @param deviceGuid     设备guid
- *  @param deviceNickName 设备昵称
- *  @param openState      设备打开状态 1:开；0；关
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param alarmEnable  设备打开状态 1:开；0；关
+ *  @param alarmGuid    报警的唯一标示
+ *  @param alarmType    报警的类型
  */
--(void)RemoteSetAlarmDeviceNickName:(int)nJvChannelID
-                  withAddDeviceType:(int)deviceType
-                         deviceGuid:(NSString *)deviceGuid
-                     deviceNickName:(NSString *)deviceNickName
-                    deviceOpenState:(int )openState
+-(void)RemoteSetAlarmDeviceStatus:(int)nJvChannelID withAlarmEnable:(int )alarmEnable withAlarmGuid:(int)alarmGuid withAlarmType:(int)alarmType withAlarmName:(NSString *)alarmName;
 {
     
     PAC	m_stPacket;
@@ -520,22 +510,19 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     int nOffset=0;
     char acBuffer[256]={0};
     
-//    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String],deviceType);
-//    strcat(m_stPacket.acData+nOffset, acBuffer);
-    
-    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String], deviceType);
+    sprintf(acBuffer, "enable=%d;", alarmEnable);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
-    sprintf(acBuffer, "guid=%s;", [deviceGuid UTF8String]);
+    sprintf(acBuffer, "guid=%d;", alarmGuid);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
-    sprintf(acBuffer, "name=%s;", [deviceNickName UTF8String]);
+    sprintf(acBuffer, "type=%d;", alarmType);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
-    sprintf(acBuffer, "enable=%d;", openState );
+    sprintf(acBuffer, "name=%s;", [alarmName UTF8String]);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
 

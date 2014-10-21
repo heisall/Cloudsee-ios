@@ -97,21 +97,6 @@
 
 
 /**
- *  设置门磁属性
- *
- *  @param nJvChannelID   本地连接的通道号
- *  @param deviceType     设备类型1:门磁；2：手环
- *  @param deviceGuid     设备guid
- *  @param deviceNickName 设备昵称
- *  @param openState      设备打开状态 1:开；0；关
- */
--(void)RemoteSetAlarmDeviceNickName:(int)nJvChannelID
-                  withAddDeviceType:(int)deviceType
-                         deviceGuid:(NSString *)deviceGuid
-                     deviceNickName:(NSString *)deviceNickName
-                    deviceOpenState:(int )openState;
-
-/**
  *  查询当前设备绑定的所有门磁或者手环设备集合
  *
  *  @param nJvChannelID 本地连接的通道号
@@ -126,5 +111,17 @@
 -(void)RemoteDeleteAlarmDevice:(int)nJvChannelID
                     deviceType:(int)deviceType
                     deviceGuid:(int)deviceGuid;
+
+
+/**
+ *   设置门磁属性
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param alarmEnable  设备打开状态 1:开；0；关
+ *  @param alarmGuid    报警的唯一标示
+ *  @param alarmType    报警的类型
+ *  @param alarmName    报警的昵称
+ */
+-(void)RemoteSetAlarmDeviceStatus:(int)nJvChannelID withAlarmEnable:(int )alarmEnable withAlarmGuid:(int)alarmGuid withAlarmType:(int)alarmType withAlarmName:(NSString *)alarmName;
 
 @end

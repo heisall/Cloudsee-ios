@@ -20,6 +20,9 @@
 #import "JVCLocalEditChannelInfoTableViewController.h"
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVNetConst.h"
+#import "JVCOperationController.h"
+#import "JVCOperationControllerIphone5.h"
+
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -89,6 +92,32 @@ static const int  kRemoteDeviceChannelNum              = 1;
 }
 
 /**
+ *  前往视频播放界面
+ *
+ *  @param index 当前选择的通道索引
+ */
+-(void)gotoPlayViewController:(int)index {
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+        
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC._iSelectedChannelIndex     = index;
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
+
+}
+
+/**
  *  初始化图片名称集合
  */
 - (void)initWithIconImageNameListArray{
@@ -107,7 +136,7 @@ static const int  kRemoteDeviceChannelNum              = 1;
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
     [mArrayIconTitles addObjectsFromArray:@[@"远程设置",@"设备管理",@"连接模式",
-                                            @"通道管理",@"立即观看",@"添加设备"]];
+                                            @"通道管理",@"立即观看",@"报警设置"]];
 }
 
 
@@ -236,6 +265,7 @@ static const int  kRemoteDeviceChannelNum              = 1;
             break;
         case JVCEditDeviceListViewControllerClickType_play:{
             
+            [self gotoPlayViewController:0];
         }
             break;
             
@@ -484,10 +514,10 @@ static const int  kRemoteDeviceChannelNum              = 1;
             
             JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             netWorkHelper.ystNWTDDelegate = self;
-            
-            [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:kLocalDeviceChannelNum withAlarmType:1 withAlarmGuid:8];
-//            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:1];
-            //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+            [ystNetWorkHelperObj RemoteEditDeviceAlarm:kLocalDeviceChannelNum withAlarmType:2 withAlarmGuid:1 withAlarmEnable:1 withAlarmName:@"jovision"];
+            //[ystNetWorkHelperObj RemoteDeleteDeviceAlarm:kLocalDeviceChannelNum withAlarmType:1 withAlarmGuid:8];
+           //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_editAlarm remoteOperationCommand:0];
+           //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });
     }
