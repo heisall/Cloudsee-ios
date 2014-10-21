@@ -9,6 +9,8 @@
 #import "JVCVoiceencInputSSIDWithPasswordViewController.h"
 #import "JVCSystemUtility.h"
 #import "JVCVoiceencViewController.h"
+#import "JVCSystemSoundHelper.h"
+
 
 @interface JVCVoiceencInputSSIDWithPasswordViewController (){
     
@@ -39,6 +41,19 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     }
     
     return self;
+}
+
+/**
+ *  发现一个新设备，提示音
+ */
+-(void)playSound {
+    
+    NSString *path = [[NSBundle mainBundle ] pathForResource:@"voi_next" ofType:@"mp3"];
+    
+    if (path) {
+        
+         [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:path withIsRunloop:NO];
+    }
 }
 
 - (void)viewDidLoad
@@ -150,8 +165,27 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     [self.view addSubview:button];
     
     [textBgView release];
-    
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    [self playSound];
+}
+
+-(void)initLayoutWithViewWillAppear {
+
+     [self playSound];
+
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+
+    [super viewWillDisappear:YES];
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
+}
+
 
 /**
  *  显示和隐藏密码框的文本
@@ -159,6 +193,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
 -(void)showPassword{
     
     password.secureTextEntry = !password.secureTextEntry;
+    
     if (password.secureTextEntry) {
         
         [self addTextFieldWithRightView:password withRightView:@"voi_show_pw.png"];
@@ -166,7 +201,6 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     }else{
     
         [self addTextFieldWithRightView:password withRightView:@"voi_hiden_pw.png"];
-
     }
 }
 
@@ -209,6 +243,11 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+-(void)dealloc{
+
+    [super dealloc];
 }
 
 

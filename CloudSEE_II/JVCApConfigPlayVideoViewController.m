@@ -124,16 +124,15 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
     [middleView updateViewWithTitleArray:title detailArray:info];
     [self.view addSubview:middleView];
-//    
-//    UIButton *talkBtn = (UIButton *) [middleView getBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk];
-//    
-//    DDLogCVerbose(@"%s---talkBtn=%@",__FUNCTION__,talkBtn);
-//    
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
-//    [talkBtn addGestureRecognizer:longPress];
-//    longPress.allowableMovement = NO;
-//    longPress.minimumPressDuration = 0.5;
-//    [longPress release];
+    
+    UIView *talkViewBtn = [middleView getSelectbgView:OPERATIONAPBTNCLICKTYPE_Talk];
+    DDLogVerbose(@"%s---%@",__FUNCTION__,talkViewBtn);
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(aplongPressedStartTalk:)];
+    longPress.allowableMovement = NO;
+    longPress.minimumPressDuration = 0.5;
+    [talkViewBtn addGestureRecognizer:longPress];
+    [longPress release];
 }
 
 /**
@@ -222,7 +221,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  *
  *  @param longGestureRecognizer 长按对象
  */
--(void)longPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer{
+-(void)aplongPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer{
     
     JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
@@ -234,7 +233,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
         return;
     }
     
-    if (![[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK].selected) {
+    if (![self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk]) {
         
         [self RemoveTalkView];
         return;
@@ -355,7 +354,6 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 -(void)playVideoSoundCallBackMath:(char *)soundBuffer soundBufferSize:(int)soundBufferSize soundBufferType:(BOOL)soundBufferType{
     
     [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
-    
 }
 
 /**
@@ -440,11 +438,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
 }
 
-
-#pragma mark ========音频监听===end
-
 #pragma mark ========云台===start
-
 
 - (void)initytView:(CGRect )frame{
 
@@ -453,8 +447,8 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     ytoView.delegateYTOperation=self;
     [self.view addSubview:ytoView];
     [ytoView setHidden:YES];
-
 }
+
 /**
  *  显示云台view
  */
@@ -466,7 +460,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 
 }
 
-#pragma mark 云台操作的回调
+#pragma mark -------------------------------- 云台操作的回调
 /**
  *  云台操作的回调
  *
@@ -474,10 +468,11 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  */
 - (void)YTOperationDelegateCallBackWithJVNYTCType:(int )YTJVNtype
 {
-    DDLogInfo(@"==%s===%d",__FUNCTION__,YTJVNtype);
     
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
 }
+
+#pragma  mark  ---- AQRecoder Delegate
 /**
  *  打开采集音频模块
  *
@@ -496,10 +491,17 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     [aqsControllerObj changeRecordState:!singleVideoShow.isHomeIPC]; //设置采集的模式
     
 }
-#pragma mark ========云台===end
 
-
-#pragma mark =========对讲===start
+/**
+ *  发送音频数据的回调函数
+ *
+ *  @param audionData    采集的音频数据
+ *  @param audioDataSize 采集的音频数据大小
+ */
+-(void)receiveAudioDataCallBack:(char *)audionData audioDataSize:(long)audioDataSize{
+    
+    [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:kConnectDefaultLocalChannel Audiodata:audionData nAudiodataSize:audioDataSize];
+}
 
 /**
  *  开启语音对讲
@@ -609,7 +611,6 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
             
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
         }
-        
     });
 }
 

@@ -56,23 +56,25 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
  *
  *  @return 随机数
  */
- -(int)getRandomNumber:(int)from to:(int)to
- 
-{
-    
+ -(int)getRandomNumber:(int)from to:(int)to {
+     
     return (int)(from + (arc4random()%(to-from + 1)));
-    
 }
 
 -(void)initLayoutWithViewWillAppear {
 
     [self scanDeviceMath];
+    
 }
 
--(void)deallocWithViewDidDisappear {
 
-   
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:YES];
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -118,7 +120,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     backGroud.backgroundColor  = [UIColor clearColor];
     backGroud.frame            = CGRectMake(sendButton.frame.size.width/2.0 + sendButton.frame.origin.x - kScanfBgWithRadius, sendButton.frame.origin.y + sendButton.frame.size.height/2.0 - kScanfBgWithRadius, kScanfBgWithRadius*2, kScanfBgWithRadius*2);
     [self.view addSubview:backGroud];
-    [backGroud release];
+    //[backGroud release];
     
     UIImageView *line    = [[UIImageView alloc] init];
     line.frame           = CGRectMake(0.0, kScanfBgWithRadius , kScanfBgWithRadius, kScanfBgWithRadius);
@@ -143,7 +145,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     
     [self performSelector:@selector(scanDeviceMath) withObject:nil afterDelay:kScanfWithDurationBeginAnimationTime];
     
-//    scanfNewDevice = [self imageViewWithImageName:@"sca_device.png"];
+
     UIImage *deviceNewImage = [UIImage imageNamed:@"sca_device.png"] ;
     scanfNewDevice = [UIButton buttonWithType:UIButtonTypeCustom];
     scanfNewDevice.frame = CGRectMake(0, 0, deviceNewImage.size.width, deviceNewImage.size.height);
@@ -191,8 +193,6 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
                                                                     userName:devieNewModel.userName
                                                                     passWord:devieNewModel.passWord];
     }
-   
-
 }
 
 /**
@@ -200,7 +200,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
  */
 - (void)addDeviceSuccess
 {
-    [self gotoBack];
+    [self playConfigSound];
 }
 
 /**
@@ -229,6 +229,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     if (SerachLANAllDeviceList.count > 0) {
         
         [self stopScanfDeviceTimer];
+        [self playNewSound];
         
         devieNewModel = [[self LANModelConvertToSourceModel:SerachLANAllDeviceList] retain];
         
@@ -252,9 +253,59 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
         });
     }
     
-  
     [SerachLANAllDeviceList release];
 }
+
+/**
+ *  播放扫描背景音乐
+ */
+-(void)playScanSound{
+    
+    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:@"sca_sound" ofType:@"mp3"];
+    
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:soundPath withIsRunloop:YES];
+
+}
+
+/**
+ *  播放发现设备
+ */
+-(void)playNewSound{
+    
+    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:@"sca_new" ofType:@"mp3"];
+    
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:soundPath withIsRunloop:NO];
+}
+
+/**
+ *  播放配置完成
+ */
+-(void)playConfigSound{
+    
+    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:@"sca_finshed" ofType:@"mp3"];
+    
+    JVCSystemSoundHelper *soundHelperObj = [JVCSystemSoundHelper shareJVCSystemSoundHelper];
+    soundHelperObj.delegate              = self;
+    
+    [soundHelperObj playSound:soundPath withIsRunloop:YES];
+}
+
+/**
+ *  配置完成结束
+ */
+-(void)playEndCallBack {
+    
+    JVCSystemSoundHelper *soundHelperObj = [JVCSystemSoundHelper shareJVCSystemSoundHelper];
+    soundHelperObj.delegate              = nil;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        [self gotoBack];
+    
+    });
+
+}
+
 
 /**
  *  把广播到的设备实体转换成sourceModel
@@ -300,11 +351,12 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     rotationAnimation.delegate          = self;
     rotationAnimation.repeatCount       = kScanfAnimationWithKeepTime / kScanfWithAnimationDuration;
     [backGroud.layer addAnimation:rotationAnimation forKey:(NSString *)kRotationAnimationKeyName];
+    [self playScanSound];
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
-    [self gotoBack];
+    //[self gotoBack];
 }
 
 /**

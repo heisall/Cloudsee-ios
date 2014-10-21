@@ -40,6 +40,14 @@
     
     [middleView updateAPViewWithTitleArray:title ];
     [self.view addSubview:middleView];
+    
+    UIButton *talkViewBtn =(UIButton *) [middleView getSelectbtn:OPERATIONAPBTNCLICKTYPE_Talk];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(aplongPressedStartTalk:)];
+    longPress.allowableMovement = NO;
+    longPress.minimumPressDuration = 0.5;
+    [talkViewBtn addGestureRecognizer:longPress];
+    [longPress release];
 }
 
 - (void)didReceiveMemoryWarning
