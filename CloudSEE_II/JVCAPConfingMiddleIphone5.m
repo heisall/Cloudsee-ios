@@ -104,8 +104,8 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
             strDetailTitle = [detailArray objectAtIndex:i];
         }
         
-        
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, i*height, self.frame.size.width, height)];
+        contentView.backgroundColor = [UIColor clearColor];
         
         NSString *imageHeadStr = [UIImage imageBundlePath:[_arrayList objectAtIndex:i]];
         UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageHeadStr];

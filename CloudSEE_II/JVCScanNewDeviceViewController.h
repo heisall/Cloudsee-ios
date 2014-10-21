@@ -8,7 +8,9 @@
 
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
+#import"JVCDeviceMathsHelper.h"
 
-@interface JVCScanNewDeviceViewController : JVCBaseWithGeneralViewController <JVCLANScanWithSetHelpYSTNOHelperDelegate>
+
+@interface JVCScanNewDeviceViewController : JVCBaseWithGeneralViewController <JVCLANScanWithSetHelpYSTNOHelperDelegate,JVCDeviceMathDelegate,UIAlertViewDelegate>
 
 @end

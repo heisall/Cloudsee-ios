@@ -237,6 +237,8 @@ static const int  kInitWithLayoutColumnCount           = 3;
             
         case JVCEditDeviceListViewControllerClickType_add:{
             
+            
+            
         }
             break;
             

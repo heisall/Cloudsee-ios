@@ -287,10 +287,10 @@ static const int KLineHeight = 1;//横线的高度
     [self.view addSubview:btnResign];
     [btnResign release];
     
-    UILabel *labelResign = [[UILabel alloc] initWithFrame:CGRectMake(btnResign.left, btnResign.bottom, btnResign.width, KLineHeight)];
-    labelResign.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:labelResign];
-    [labelResign release];
+//    UILabel *labelResign = [[UILabel alloc] initWithFrame:CGRectMake(btnResign.left, btnResign.bottom, btnResign.width, KLineHeight)];
+//    labelResign.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:labelResign];
+//    [labelResign release];
     
     /**
      *  忘记密码
@@ -300,84 +300,12 @@ static const int KLineHeight = 1;//横线的高度
     btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnLocal.bottom+KSeperateSpan, btnreSetPw.width, btnreSetPw.height);
     [self.view addSubview:btnreSetPw];
     
-    UILabel *labelPW = [[UILabel alloc] initWithFrame:CGRectMake(btnreSetPw.left, btnreSetPw.bottom, btnreSetPw.width, KLineHeight)];
-    labelPW.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:labelPW];
-    [labelPW release];
+//    UILabel *labelPW = [[UILabel alloc] initWithFrame:CGRectMake(btnreSetPw.left, btnreSetPw.bottom, btnreSetPw.width, KLineHeight)];
+//    labelPW.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:labelPW];
+//    [labelPW release];
 //    [btnreSetPw addTarget:self action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
     [btnreSetPw release];
-    
-    
-//        /**
-//         *  演示点、注册按钮
-//         */
-//        UIImage *imgDemoAndResign = [UIImage imageNamed:@"log_darbg.png"];
-//        UIImageView *imgViewDemoAndResign = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-imgDemoAndResign.size.width)/2.0, btnLogin.frame.size.height+btnLogin.frame.origin.y+20, imgDemoAndResign.size.width, imgDemoAndResign.size.height)];
-//        imgViewDemoAndResign.image = imgDemoAndResign;
-//        [self.view addSubview:imgViewDemoAndResign];
-//        [imgViewDemoAndResign release];
-//    
-//        /**
-//         *  演示点按钮
-//         */
-//        UIButton *btnDemo = [UIButton buttonWithType:UIButtonTypeCustom];
-//        btnDemo.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x, imgViewDemoAndResign.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-//        [btnDemo setTitle:@"演示点" forState:UIControlStateNormal];
-//    [btnDemo addTarget:self  action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
-//        btnDemo.tag = LOGINVIEWTAG_Demo;
-//        if (btnColor) {
-//            
-//            [btnDemo setTitleColor:btnColor forState:UIControlStateNormal];
-//        }
-//        [self.view addSubview:btnDemo];
-//        /**
-//         *  注册
-//         */
-//        UIButton *btnResig = [UIButton buttonWithType:UIButtonTypeCustom];
-//        btnResig.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x+btnDemo.frame.size.width, imgViewDemoAndResign.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-//        [btnResig setTitle:@"注册" forState:UIControlStateNormal];
-//        [btnResig addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
-//        btnResig.tag = LOGINVIEWTAG_Resign;
-//        if (btnColor) {
-//            
-//            [btnResig setTitleColor:btnColor forState:UIControlStateNormal];
-//        }
-//        [self.view addSubview:btnResig];
-//    
-//    /**
-//     *  本地
-//     */
-//
-//    UIImageView *imgViewLocalAndGetPw = [[UIImageView alloc] initWithFrame:CGRectMake(imgViewDemoAndResign.left, imgViewDemoAndResign.bottom+20, imgDemoAndResign.size.width, imgDemoAndResign.size.height)];
-//    imgViewLocalAndGetPw.image = imgDemoAndResign;
-//    [self.view addSubview:imgViewLocalAndGetPw];
-//    [imgViewLocalAndGetPw release];
-//    
-//    /**
-//     *  本地登录
-//     */
-//    UIButton *btnLocal = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btnLocal.frame = CGRectMake(imgViewLocalAndGetPw.frame.origin.x, imgViewLocalAndGetPw.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-//    [btnLocal setTitle:@"本地登录" forState:UIControlStateNormal];
-//    [btnLocal addTarget:self action:@selector(localLogin) forControlEvents:UIControlEventTouchUpInside];
-//    btnLocal.tag = LOGINVIEWTAG_Local;
-//    if (btnColor) {
-//        [btnLocal setTitleColor:btnColor forState:UIControlStateNormal];
-//    }
-//    [self.view addSubview:btnLocal];
-//    /**
-//     *  注册
-//     */
-//    UIButton *btnPW = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btnPW.frame = CGRectMake(imgViewDemoAndResign.frame.origin.x+btnDemo.frame.size.width, imgViewLocalAndGetPw.frame.origin.y , imgDemoAndResign.size.width/2.0, imgDemoAndResign.size.height);
-//    [btnPW setTitle:@"找回密码" forState:UIControlStateNormal];
-//    [btnPW addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
-//    btnPW.tag = LOGINVIEWTAG_Resign;
-//    if (btnColor) {
-//        
-//        [btnPW setTitleColor:btnColor forState:UIControlStateNormal];
-//    }
-//    [self.view addSubview:btnPW];
     
     /**
      *  下拉view视图
