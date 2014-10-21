@@ -58,3 +58,6 @@
 "remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version ";
 "home_operation_talk"          = "This function is not available during two-way talk.";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
+"Learn audio info at any time" = "Learn audio info at any time";
+"Adjust PTZ at any time"       = "Adjust PTZ at any time";
+"AudioTalkInfo"                = "You can talk with the other end";

@@ -163,40 +163,35 @@
 "talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";
 "talkStart"      = "亲，你现在可以和对方说话了";
 
-
 "DeviceList" = "设备列表";
 "RequestConnPointError" = "请求通道不成功";
 "requestDeviceError" = "请求设备不成功";
 "NoData" = "没有通道信息";
 
-"QQLogin" = "用QQ账号登录";
+"QQLogin"   = "用QQ账号登录";
 "SinaLogin" = "用微博账号登录";
 
-"passWordNil" = "请输入密码";
+"passWordNil"  = "请输入密码";
 "RequestError" = "请求失败";
 "QQLoginError" = "登陆不成功 没有获取accesstoken";
-"QQAPiError" = "api调用失败";
+"QQAPiError"   = "api调用失败";
 "QQTokenError" = "可能授权已过期，请重新获取";
 "Notification" = "温馨提示";
 "Ok" = "确定";
 "NODelete" = "删除不成功";
-"sum" = "共有";
-"Device" = "个设备";
-"name" = "名称";
+"sum"      = "共有";
+"Device"   = "个设备";
+"name"     = "名称";
 "ConnPointNil" = "请输入通道昵称";
-"ErrorOnEditConPoint" = "修改用户名不成功";
+"ErrorOnEditConPoint"  = "修改用户名不成功";
 "ErrorOnEditConPoint2" = "修改通道名称不成功";
 
-"NickName" = "昵  称";
+"NickName"    = "昵  称";
 "NickNameNIl" = "请输入昵称";
 
-"InputYunShiTong" = "请输入云视通号";
-
-"InputConnPointNum" = "请输入通道数量";
-
-
-
-"connPOintNUmNIl" = "请输入通道数";
+"InputYunShiTong"    = "请输入云视通号";
+"InputConnPointNum"  = "请输入通道数量";
+"connPOintNUmNIl"    = "请输入通道数";
 "InputConnPointSure" = "请输入正确的通道数";
 
 
@@ -362,20 +357,18 @@
 "changepwOld" = "请输入旧密码";
 "changePwNew" = "请输入新密码";
 "changepwNewInSure" = "请输入确认密码";
-"newDevice" = "新品展示";
+"newDevice"         = "新品展示";
 "newDeviceGetError" = "获取新品数据不成功";
-"newdeviceNULL" = "暂时没有数据";
-"newDeviceWatch" = "观看效果";
-"deviceOnLine"="设备已离线，暂时无法观看.";
+"newdeviceNULL"     = "暂时没有数据";
+"newDeviceWatch"    = "观看效果";
+"deviceOnLine"      = "设备已离线，暂时无法观看.";
 
-"deviceCheck" = "正在更新主控状态，请稍后...";
-
-"mapDemo" = "演示点";
-
+"deviceCheck"       = "正在更新主控状态，请稍后...";
+"mapDemo"           = "演示点";
 
 "searchDeviceONLine" = "正在检测设备状态，请等待...";
 
-"emailHelp" = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请将反馈内容发送到feedbackandsuggestion@gmail.com邮箱";
+"emailHelp"          = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请将反馈内容发送到feedbackandsuggestion@gmail.com邮箱";
 
 "login_legal_pw1" = "密码不能全是相同的字母和数字";
 "login_legal_pw2" = "请不要使用连续数字或字符作为密码";
@@ -393,7 +386,7 @@
 "qrScan"="正在扫描设备，请等待...";
 "noLocalVideo"="不支持该设备录像.";
 "editDeviceError" = "修改设备不成功";
-"addDeviceError" = "添加设备不成功";
+"addDeviceError"  = "添加设备不成功";
 "GetDetailDemoPointError" = "获取演示点详细信息不成功";
 "four-Screen" = "4分屏";
 "nine-Screen" = "9分屏";
@@ -485,11 +478,11 @@
 "host-connect"="正在与主控建立连接，请等待...";
 "host-connectFalied"="与主控建立连接不成功，请重试...";
 "uploading" = "正在上传...";
-"net_add_channel_error"= "网络异常,添加通道不成功！";
-"No_video_file_found"="暂无远程视频文件";
-"data_not_compare"= "本地数据与服务器数据不一致，是否同步数据";
-"wifi_detail_infn"= "Wi-Fi详细信息";
-"wifiTimeout"="配置Wi-Fi超时！";
+"net_add_channel_error" = "网络异常,添加通道不成功！";
+"No_video_file_found"   = "暂无远程视频文件";
+"data_not_compare"      = "本地数据与服务器数据不一致，是否同步数据";
+"wifi_detail_infn"      = "Wi-Fi详细信息";
+"wifiTimeout"           = "配置Wi-Fi超时！";
 "Only administator can use this function"="不是管理员用户，无法使用此功能.";
 
 "skin" = "皮肤";
@@ -639,3 +632,6 @@
 "remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
 "home_operation_talk"          = "该功能在语音对讲时暂停使用.";
 "setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";
+"Learn audio info at any time" = "随时了解音频信息";
+"Adjust PTZ at any time"       = "随时调整监控画面信息";
+"AudioTalkInfo"                = "你可以和对方进行语音交流";
