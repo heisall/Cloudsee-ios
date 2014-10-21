@@ -484,7 +484,9 @@ static const int  kRemoteDeviceChannelNum              = 1;
             
             JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             netWorkHelper.ystNWTDDelegate = self;
-            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+            
+            [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:kLocalDeviceChannelNum withAlarmType:1 withAlarmGuid:8];
+//            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:1];
             //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });

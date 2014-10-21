@@ -116,7 +116,7 @@ enum TextChatType {
     TextChatType_setTalkModel  = 1007,  //设置家用IPC的语音对讲模式
     TextChatType_setAlarmType  = 1008,
     TextChatType_getAlarmType  = 1009,
-    
+    TextChatType_deleteAlarm   = 1010,
 };
 
 enum NetWorkType {

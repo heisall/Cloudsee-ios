@@ -110,12 +110,17 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             break;
         case TextChatType_setAlarmType:{
             
-            [self RemoteBindAlarmDevice:nJvChannelID withAddDeviceType:remoteOperationCommand];
+            [self RemoteBindAlarmDevice:nJvChannelID withAddAlarmType:remoteOperationCommand];
         }
             break;
         case TextChatType_getAlarmType:{
             
             [self RemoteRequestAlarmDevice:nJvChannelID];
+        }
+            break;
+        case TextChatType_deleteAlarm:{
+            
+            [self re];
         }
             break;
         default:
@@ -478,16 +483,16 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  *  绑定门磁或者手环设备
  *
  *  @param nJvChannelID 本地连接的通道号
- *  @param deviceType   设备类型 1:门磁；2：手环
+ *  @param alarmType   设备类型 1:门磁；2：手环
  */
--(void)RemoteBindAlarmDevice:(int)nJvChannelID  withAddDeviceType:(int)deviceType{
+-(void)RemoteBindAlarmDevice:(int)nJvChannelID  withAddAlarmType:(int)alarmType{
     
     PAC	m_stPacket;
     memset(&m_stPacket, 0, sizeof(PAC));
     m_stPacket.nPacketType=RC_GPIN_ADD;
     int nOffset=0;
     char acBuffer[256]={0};
-    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String],deviceType);
+    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String],alarmType);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
@@ -558,7 +563,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)RemoteDeleteAlarmDevice:(int)nJvChannelID
                     deviceType:(int)deviceType
-                    deviceGuid:(NSString *)deviceGuid
+                    deviceGuid:(int)deviceGuid
 {
     PAC	m_stPacket;
     memset(&m_stPacket, 0, sizeof(PAC));
@@ -570,7 +575,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
-    sprintf(acBuffer, "guid=%s;", [deviceGuid UTF8String]);
+    sprintf(acBuffer, "guid=%d;", deviceGuid);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
 
