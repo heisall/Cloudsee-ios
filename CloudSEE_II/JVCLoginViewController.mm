@@ -354,11 +354,7 @@ static const int KLineHeight = 1;//横线的高度
 -(void)gotoApConfigPlayVideo{
     
     self.navigationController.navigationBarHidden = NO;
-
-     self.navigationController.navigationBarHidden = NO;
-    JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
-    [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
-    [apConfigPlayVideo release];
+    
     if (iphone5) {
         
         JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
@@ -371,7 +367,6 @@ static const int KLineHeight = 1;//横线的高度
         [apConfigPlayVideo release];
     }
    
- 
 }
 
 /**
