@@ -20,6 +20,9 @@
 #import "JVCLocalEditChannelInfoTableViewController.h"
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVNetConst.h"
+#import "JVCOperationController.h"
+#import "JVCOperationControllerIphone5.h"
+
 #import "JVCLockAlarmModel.h"
 #import "JVCAlarmMacro.h"
 @interface JVCEditDeviceListViewController (){
@@ -89,6 +92,32 @@ static const int  kInitWithLayoutColumnCount           = 3;
 }
 
 /**
+ *  前往视频播放界面
+ *
+ *  @param index 当前选择的通道索引
+ */
+-(void)gotoPlayViewController:(int)index {
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+        
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC._iSelectedChannelIndex     = index;
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
+
+}
+
+/**
  *  初始化图片名称集合
  */
 - (void)initWithIconImageNameListArray{
@@ -107,7 +136,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
     [mArrayIconTitles addObjectsFromArray:@[@"远程设置",@"设备管理",@"连接模式",
-                                            @"通道管理",@"立即观看",@"添加设备"]];
+                                            @"通道管理",@"立即观看",@"报警设置"]];
 }
 
 
@@ -236,6 +265,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
             break;
         case JVCEditDeviceListViewControllerClickType_play:{
             
+            [self gotoPlayViewController:0];
         }
             break;
             
