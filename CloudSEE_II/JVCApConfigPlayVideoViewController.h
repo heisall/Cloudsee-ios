@@ -55,4 +55,11 @@
  */
 -(void)apConfigDisconnect;
 
+/**
+ *  长按说话
+ *
+ *  @param longGestureRecognizer 长按对象
+ */
+-(void)aplongPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer;
+
 @end

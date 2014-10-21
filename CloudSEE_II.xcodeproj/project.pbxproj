@@ -355,6 +355,11 @@
 		AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */; };
 		AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */; };
 		AD014DF019F5F42100E3D0FB /* ap_wifi_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DEF19F5F42100E3D0FB /* ap_wifi_icon@2x.png */; };
+		AD014DF419F65CF800E3D0FB /* voi_next.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD014DF319F65CF800E3D0FB /* voi_next.mp3 */; };
+		AD014DF619F65CFD00E3D0FB /* voi_send.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */; };
+		AD014DF919F65EF500E3D0FB /* JVCSystemSoundHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD014DF819F65EF500E3D0FB /* JVCSystemSoundHelper.m */; };
+		AD014DFD19F66B0F00E3D0FB /* sca_new.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD014DFC19F66B0F00E3D0FB /* sca_new.mp3 */; };
+		AD014DFF19F66B1400E3D0FB /* sca_finshed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD014DFE19F66B1400E3D0FB /* sca_finshed.mp3 */; };
 		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
 		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
@@ -396,7 +401,7 @@
 		AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */; };
 		AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7819EB75D3001B16D7 /* JVCLanScanDeviceModel.m */; };
 		AD3BDC7C19EB7C92001B16D7 /* JVCLocalCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */; };
-		AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.mm */; };
+		AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m */; };
 		AD3BDC9F19EBFA25001B16D7 /* voi_input_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDC9E19EBFA25001B16D7 /* voi_input_next@2x.png */; };
 		AD3BDCA119EBFA2C001B16D7 /* voi_hiden_pw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA019EBFA2C001B16D7 /* voi_hiden_pw@2x.png */; };
 		AD3BDCA319EBFA34001B16D7 /* voi_txt_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA219EBFA34001B16D7 /* voi_txt_bg@2x.png */; };
@@ -417,6 +422,7 @@
 		AD3BDCCB19EE0EDD001B16D7 /* sca_device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */; };
 		AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */; };
 		AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */; };
+		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -867,6 +873,12 @@
 		AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_textBg@2x.png"; sourceTree = "<group>"; };
 		AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.7_2014_10_20.a; sourceTree = "<group>"; };
 		AD014DEF19F5F42100E3D0FB /* ap_wifi_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_wifi_icon@2x.png"; sourceTree = "<group>"; };
+		AD014DF319F65CF800E3D0FB /* voi_next.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_next.mp3; sourceTree = "<group>"; };
+		AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_send.mp3; sourceTree = "<group>"; };
+		AD014DF719F65EF500E3D0FB /* JVCSystemSoundHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCSystemSoundHelper.h; sourceTree = "<group>"; };
+		AD014DF819F65EF500E3D0FB /* JVCSystemSoundHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCSystemSoundHelper.m; sourceTree = "<group>"; };
+		AD014DFC19F66B0F00E3D0FB /* sca_new.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_new.mp3; sourceTree = "<group>"; };
+		AD014DFE19F66B1400E3D0FB /* sca_finshed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed.mp3; sourceTree = "<group>"; };
 		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
 		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
@@ -928,7 +940,7 @@
 		AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocalCacheModel.m; sourceTree = "<group>"; };
 		AD3BDC9719EBF79A001B16D7 /* JVCVoiceencInteface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencInteface.h; sourceTree = "<group>"; };
 		AD3BDC9919EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencInputSSIDWithPasswordViewController.h; sourceTree = "<group>"; };
-		AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCVoiceencInputSSIDWithPasswordViewController.mm; sourceTree = "<group>"; };
+		AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencInputSSIDWithPasswordViewController.m; sourceTree = "<group>"; };
 		AD3BDC9E19EBFA25001B16D7 /* voi_input_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_input_next@2x.png"; sourceTree = "<group>"; };
 		AD3BDCA019EBFA2C001B16D7 /* voi_hiden_pw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_hiden_pw@2x.png"; sourceTree = "<group>"; };
 		AD3BDCA219EBFA34001B16D7 /* voi_txt_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_txt_bg@2x.png"; sourceTree = "<group>"; };
@@ -952,6 +964,7 @@
 		AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device@2x.png"; sourceTree = "<group>"; };
 		AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_long_talk@2x.png"; sourceTree = "<group>"; };
 		AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.17_2014_10_16.a; sourceTree = "<group>"; };
+		AD3FB61719F682F700034461 /* sca_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_sound.mp3; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1811,7 +1824,7 @@
 			isa = PBXGroup;
 			children = (
 				AD3BDC9919EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.h */,
-				AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.mm */,
+				AD3BDC9A19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m */,
 				AD3BDCAB19EBFEFF001B16D7 /* JVCVoiceencViewController.h */,
 				AD3BDCAC19EBFEFF001B16D7 /* JVCVoiceencViewController.m */,
 				AD3BDCB719EC055D001B16D7 /* JVCScanNewDeviceViewController.h */,
@@ -1935,6 +1948,8 @@
 				A7F5EF7619D2DC18009B797A /* JVCAlertHelper.m */,
 				A7F4250A19D1021C00D96475 /* JVCSystemUtility.h */,
 				A7F4250B19D1021C00D96475 /* JVCSystemUtility.m */,
+				AD014DF719F65EF500E3D0FB /* JVCSystemSoundHelper.h */,
+				AD014DF819F65EF500E3D0FB /* JVCSystemSoundHelper.m */,
 			);
 			name = appHelper;
 			sourceTree = "<group>";
@@ -2059,6 +2074,11 @@
 		ADA77BFA19D0250E003EE7A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */,
+				AD3FB61719F682F700034461 /* sca_sound.mp3 */,
+				AD014DFE19F66B1400E3D0FB /* sca_finshed.mp3 */,
+				AD014DFC19F66B0F00E3D0FB /* sca_new.mp3 */,
+				AD014DF319F65CF800E3D0FB /* voi_next.mp3 */,
 				AD014DE019F4FA2E00E3D0FB /* shake_match_2.mp3 */,
 				AD014DD719F4C00E00E3D0FB /* apConfigHomeIPC.bundle */,
 				ADA77BFB19D0250E003EE7A1 /* CloudSEE_II-Info.plist */,
@@ -2349,6 +2369,7 @@
 				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
 				A7F4458C19F63559002C984F /* arm_device_0@2x.png in Resources */,
+				AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */,
 				AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */,
 				A7F2211219F395F400447853 /* mor_usr_bg@2x.png in Resources */,
 				A7EFFA4E19F4FDE300DF783D /* arm_no@2x.png in Resources */,
@@ -2391,6 +2412,7 @@
 				A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A7263C5719E8108D003C22DE /* con_Slide@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
+				AD014DF619F65CFD00E3D0FB /* voi_send.mp3 in Resources */,
 				AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */,
 				AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */,
 				A709697319F245B600C191F8 /* arm_close@2x.png in Resources */,
@@ -2406,6 +2428,7 @@
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7FB595019E91C12005E2E6D /* bin_btn@2x.png in Resources */,
 				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
+				AD014DFF19F66B1400E3D0FB /* sca_finshed.mp3 in Resources */,
 				A7DFB28E19ED26DD002D9BF9 /* dem_def@2x.png in Resources */,
 				AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
@@ -2449,6 +2472,7 @@
 				AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */,
 				A7F7178119D8323F008DB1C5 /* add_ApConfig_ch@2x.png in Resources */,
 				A7FB594619E8FF7F005E2E6D /* con_Btn@2x.png in Resources */,
+				AD014DF419F65CF800E3D0FB /* voi_next.mp3 in Resources */,
 				A7EFF9F019F4DCF900DF783D /* arm_diobg@2x.png in Resources */,
 				A7F8DE3119EE1C77006CE984 /* rem_bg@2x.png in Resources */,
 				A7F51E7819EBC0F30052F878 /* arm_new_ch@2x.png in Resources */,
@@ -2456,6 +2480,7 @@
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7EFFA6419F50C0300DF783D /* apcofig_1@2x.png in Resources */,
 				AD3BDC9F19EBFA25001B16D7 /* voi_input_next@2x.png in Resources */,
+				AD014DFD19F66B0F00E3D0FB /* sca_new.mp3 in Resources */,
 				AD014DEA19F52CFF00E3D0FB /* ap_finsh@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
@@ -2618,7 +2643,7 @@
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				A7F4458F19F6527B002C984F /* JVCAddLockDeviceViewController.m in Sources */,
 				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,
-				AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.mm in Sources */,
+				AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m in Sources */,
 				A709697819F2468900C191F8 /* JVCControlHelper.m in Sources */,
 				A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */,
 				A7F5EF3E19D2621B009B797A /* UIView+MJExtension.m in Sources */,
@@ -2682,6 +2707,7 @@
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F4347519DA883500E7ECA1 /* UIImage+BundlePath.m in Sources */,
 				A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */,
+				AD014DF919F65EF500E3D0FB /* JVCSystemSoundHelper.m in Sources */,
 				A7F51E6E19EBB4920052F878 /* JVCAlarmCell.m in Sources */,
 				A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
 				A7F0042319D45C030028533E /* AHReach.m in Sources */,

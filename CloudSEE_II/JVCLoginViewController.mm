@@ -287,11 +287,6 @@ static const int KLineHeight = 1;//横线的高度
     [self.view addSubview:btnResign];
     [btnResign release];
     
-//    UILabel *labelResign = [[UILabel alloc] initWithFrame:CGRectMake(btnResign.left, btnResign.bottom, btnResign.width, KLineHeight)];
-//    labelResign.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:labelResign];
-//    [labelResign release];
-    
     /**
      *  忘记密码
      */
@@ -299,12 +294,6 @@ static const int KLineHeight = 1;//横线的高度
     [btnreSetPw retain];
     btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnLocal.bottom+KSeperateSpan, btnreSetPw.width, btnreSetPw.height);
     [self.view addSubview:btnreSetPw];
-    
-//    UILabel *labelPW = [[UILabel alloc] initWithFrame:CGRectMake(btnreSetPw.left, btnreSetPw.bottom, btnreSetPw.width, KLineHeight)];
-//    labelPW.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:labelPW];
-//    [labelPW release];
-//    [btnreSetPw addTarget:self action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
     [btnreSetPw release];
     
     /**
@@ -761,6 +750,7 @@ static const int KLineHeight = 1;//横线的高度
 {
     [textFieldPW release];
     [textFieldUser release];
+    AudioServicesDisposeSystemSoundID(shake_sound_finish);
     [super dealloc];
 }
 

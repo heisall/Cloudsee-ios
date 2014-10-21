@@ -11,6 +11,7 @@
 #import "OpenALBufferViewcontroller.h"
 #import "JVCScanNewDeviceViewController.h"
 #import "JVCVoiceencHelpViewController.h"
+#import "JVCSystemSoundHelper.h"
 
 @interface JVCVoiceencViewController (){
     
@@ -190,7 +191,6 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     
     [backGroud.layer addAnimation:animationGroup forKey:(NSString *)kAnimatinDurationKey];
     
-    
     //开始播放声波数据
     [NSThread detachNewThreadSelector:@selector(playVoiceenSound) toTarget:self withObject:nil];
 }
@@ -247,6 +247,38 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
         
     });
     
+}
+
+/**
+ *  发现一个新设备，提示音
+ */
+-(void)playSound {
+    
+    NSString *path = [[NSBundle mainBundle ] pathForResource:@"voi_send" ofType:@"mp3"];
+    
+    if (path) {
+        
+        [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:path withIsRunloop:NO];
+    }
+   
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    [self playSound];
+}
+
+-(void)initLayoutWithViewWillAppear {
+    
+    [self playSound];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:YES];
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
 }
 
 -(void)dealloc{
