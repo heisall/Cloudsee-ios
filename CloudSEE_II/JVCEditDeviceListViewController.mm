@@ -241,6 +241,7 @@ static const int  kRemoteDeviceChannelNum              = 1;
             
         case JVCEditDeviceListViewControllerClickType_add:{
             
+            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
             [self connetDeviceWithYSTNum];
             
         }
@@ -387,10 +388,6 @@ static const int  kRemoteDeviceChannelNum              = 1;
 - (void)connetDeviceWithYSTNum
 {
     
-    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSString *selectyst = [self currentYstTitles];
@@ -414,14 +411,13 @@ static const int  kRemoteDeviceChannelNum              = 1;
             delvicePassword = deviceModel.passWord;
         }
         
-        
         if (deviceModel.linkType) {
             
-            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ipConnectVideobyDeviceInfo:kLocalDeviceChannelNum nRemoteChannel:kRemoteDeviceChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:kLocalDeviceChannelNum nRemoteChannel:kRemoteDeviceChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
             
         }else{
             
-            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:kLocalDeviceChannelNum
+            [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:kLocalDeviceChannelNum
                                                                                    nRemoteChannel:kRemoteDeviceChannelNum strYstNumber:deviceModel.yunShiTongNum
                                                                                       strUserName:deviceUserName
                                                                                       strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
@@ -466,7 +462,6 @@ static const int  kRemoteDeviceChannelNum              = 1;
          JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
-        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
         
     });
 }
@@ -489,7 +484,8 @@ static const int  kRemoteDeviceChannelNum              = 1;
             
             JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             netWorkHelper.ystNWTDDelegate = self;
-            [ystNetWorkHelperObj remoteGetBindingAlarmDevices:kLocalDeviceChannelNum];
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+            //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });
     }

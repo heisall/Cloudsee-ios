@@ -142,6 +142,15 @@
  *
  *  @return key-value字典
  */
+-(NSMutableDictionary *)convertpBufferNoUtf8ToMDictionary:(char *)pBuffer;
+
+/**
+ *  将网络库传的key-value的buffer数据转成字典
+ *
+ *  @param pBuffer key-value
+ *
+ *  @return key-value字典
+ */
 -(NSMutableString *)findBufferInExitValueToByKey:(char *)pBuffer nameBuffer:(char *)nameBuffer;
 
 /**

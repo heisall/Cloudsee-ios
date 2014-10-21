@@ -406,7 +406,6 @@
 		AD3BDCA519EBFA3F001B16D7 /* voi_wifi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA419EBFA3F001B16D7 /* voi_wifi@2x.png */; };
 		AD3BDCAA19EBFEBD001B16D7 /* voi_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCA919EBFEBD001B16D7 /* voi_next@2x.png */; };
 		AD3BDCAD19EBFEFF001B16D7 /* JVCVoiceencViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDCAC19EBFEFF001B16D7 /* JVCVoiceencViewController.m */; };
-		AD3BDCAF19EC0379001B16D7 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCAE19EC0379001B16D7 /* libtransSing.a */; };
 		AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */; };
 		AD3BDCB619EC0546001B16D7 /* sca_ani@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */; };
 		AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDCB819EC055D001B16D7 /* JVCScanNewDeviceViewController.m */; };
@@ -421,6 +420,7 @@
 		AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */; };
 		AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */; };
 		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
+		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -946,7 +946,6 @@
 		AD3BDCA919EBFEBD001B16D7 /* voi_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_next@2x.png"; sourceTree = "<group>"; };
 		AD3BDCAB19EBFEFF001B16D7 /* JVCVoiceencViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencViewController.h; sourceTree = "<group>"; };
 		AD3BDCAC19EBFEFF001B16D7 /* JVCVoiceencViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencViewController.m; sourceTree = "<group>"; };
-		AD3BDCAE19EC0379001B16D7 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
 		AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_log@2x.png"; sourceTree = "<group>"; };
 		AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_ani@2x.png"; sourceTree = "<group>"; };
 		AD3BDCB719EC055D001B16D7 /* JVCScanNewDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCScanNewDeviceViewController.h; sourceTree = "<group>"; };
@@ -963,6 +962,7 @@
 		AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_long_talk@2x.png"; sourceTree = "<group>"; };
 		AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.17_2014_10_16.a; sourceTree = "<group>"; };
 		AD3FB61719F682F700034461 /* sca_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_sound.mp3; sourceTree = "<group>"; };
+		AD3FB61919F6A18800034461 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1094,9 +1094,9 @@
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
 				ADA22D2319DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a in Frameworks */,
 				A7F4059219E556160070945F /* libzxingLibrary.a in Frameworks */,
-				AD3BDCAF19EC0379001B16D7 /* libtransSing.a in Frameworks */,
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
+				AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */,
 				AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */,
 				AD3BDC2119E8BE7C001B16D7 /* libGlView_v2.0.0.a in Frameworks */,
 				AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */,
@@ -2021,11 +2021,11 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD3FB61919F6A18800034461 /* libtransSing.a */,
 				A7EFAB5719F3347D0092AE9C /* libSystem.dylib */,
 				A7EFAB5519F32FDF0092AE9C /* CFNetwork.framework */,
 				A709697C19F27AE600C191F8 /* libsystem_network.dylib */,
 				AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */,
-				AD3BDCAE19EC0379001B16D7 /* libtransSing.a */,
 				AD3BDC2019E8BE7C001B16D7 /* libGlView_v2.0.0.a */,
 				AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */,
 				A7F486B619E6AC4600C10B2B /* QuartzCore.framework */,

@@ -179,7 +179,7 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
             break;
         case playSoundType_16k16B:{
             
-             alBufferData(bufferID, AL_FORMAT_MONO16, (short*)[tmpData bytes], (ALsizei)[tmpData length], 16000);
+             alBufferData(bufferID, AL_FORMAT_MONO16, (short*)[tmpData bytes], (ALsizei)[tmpData length], 48000);
         }
             
             break;
