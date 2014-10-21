@@ -8,6 +8,7 @@
 
 #import "JVCApConfigDeviceViewController.h"
 
+
 @interface JVCApConfigDeviceViewController () {
 
     UITableView               *_mTableView;
@@ -38,6 +39,7 @@ static const CGFloat        kWifiTitleInfoWithTextFieldBgTop   = 10.0f;
 static const CGFloat        kWifiTitleInfoWithHeight           = 20.0f;
 static const CGFloat        kActityHeight                      = 20.0f;
 static const CGFloat        kWifiListViewCellHeight            = 50.0f;
+static const CGFloat        kWifiCellIconWithRight             = 20.0f;
 
 static NSString const *kConfigWifiEnc    =  @"wifiEnc";
 static NSString const *kConfigWifiAuth   =  @"wifiAuth";
@@ -50,6 +52,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     
     if (self) {
         
+        _wifiInfoDatas = [[NSMutableArray alloc] init];
         self.title = NSLocalizedString(@"ap_Setting_Detail", nil);
         
     }
@@ -75,7 +78,14 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     self.navigationItem.rightBarButtonItem = rightBar;
     [rightBar release];
     
+    //加载上方的SSID和密码文本框
     [self initLayoutWithInputSSidAndPassword];
+    
+    //加载下方的SSID热点列表的表格视图
+    [self initLayoutWithWifiListTableView];
+    
+    //获取设备的无线网络热点信息
+    [self getDeviceWifiListData];
 
 }
 
@@ -99,20 +109,18 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     
     UILabel *tlebel             = [[UILabel alloc] initWithFrame:CGRectMake(0.0,0.0 , 30.0, kTitleTVWithHeight)];
     tlebel.backgroundColor      = [UIColor clearColor];
-    //self.leftView = tlebel;
     tlebel.text = @"  ";
     
     _tfContentInfo              = [[UITextField alloc] init];
     _tfContentInfo.frame        = CGRectMake((self.view.frame.size.width - tImageBg.size.width)/2.0+kUserNameTextFieldWithTitleLeft, kUserNameTextFieldWithTop,tImageBg.size.width - kUserNameTextFieldWithTitleLeft, kTitleTVWithHeight);
-    _tfContentInfo.tag          = 200;
     _tfContentInfo.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     _tfContentInfo.keyboardAppearance=UIKeyboardAppearanceAlert;
     _tfContentInfo.placeholder  = NSLocalizedString(@"wifi-name", nil);
+    _tfContentInfo.enabled      = FALSE;
     [self.view addSubview:_tfContentInfo];
     
     _tfContentInfoPw                 = [[UITextField alloc] init];
     _tfContentInfoPw.frame           = CGRectMake(_tfContentInfo.frame.origin.x, _tfContentInfo.frame.origin.x + _tfContentInfo.frame.size.height + kPasswordWithUserNameTextFieldTop ,tImageBg.size.width - kUserNameTextFieldWithTitleLeft, kTitleTVWithHeight);
-    _tfContentInfoPw.tag             = 201;
     [_tfContentInfoPw setBorderStyle:UITextBorderStyleNone];
     _tfContentInfoPw.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     _tfContentInfoPw.keyboardType    = UIKeyboardTypeASCIICapable;
@@ -133,11 +141,10 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
  */
 -(void)initLayoutWithWifiListTableView {
     
-    
-    tlabelName = [[UILabel alloc] initWithFrame:CGRectMake(_tfContentInfo.frame.origin.x, textFieldBg.frame.size.height+kWifiTitleInfoWithTextFieldBgTop, self.view.frame.size.width, kWifiTitleInfoWithHeight)];
+    tlabelName = [[UILabel alloc] initWithFrame:CGRectMake(_tfContentInfo.frame.origin.x, textFieldBg.frame.size.height+kWifiTitleInfoWithTextFieldBgTop, self.view.frame.size.width - _tfContentInfo.frame.origin.x*2, kWifiTitleInfoWithHeight)];
     
     tlabelName.text = NSLocalizedString(@"wifi_select_loading", nil);
-    tlabelName.backgroundColor = [UIColor whiteColor];
+    tlabelName.backgroundColor = [UIColor clearColor];
     tlabelName.textAlignment = UITextAlignmentLeft;
     [self.view addSubview:tlabelName];
     
@@ -146,11 +153,11 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     [tActine startAnimating];
     [self.view addSubview:tActine];
     
-    _mTableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, textFieldBg.frame.size.height + tlabelName.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - tlabelName.frame.origin.y-tlabelName.size.height) style:UITableViewStyleGrouped] ;
+    _mTableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, tlabelName.frame.size.height + tlabelName.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - tlabelName.frame.origin.y-tlabelName.size.height) style:UITableViewStyleGrouped] ;
     _mTableView.dataSource = self;
     _mTableView.delegate = self;
     _mTableView.backgroundView = nil;
-    _mTableView.backgroundColor = [UIColor whiteColor];
+    _mTableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_mTableView];
 
 }
@@ -205,7 +212,6 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
         authStr =  [dicTemp objectForKey:kConfigWifiAuth];
     }
     
-    
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(runApSetting:strWifiAuth:strWifiSSid:strWifiPassWord:)]) {
         
         [self.delegate runApSetting:encStr  strWifiAuth:authStr strWifiSSid:_tfContentInfo.text strWifiPassWord:_tfContentInfoPw.text];
@@ -221,11 +227,6 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
  *  @param wifiListData 无线列表信息
  */
 -(void)refreshWifiViewShowInfo:(NSMutableArray*)wifiListData{
-
-    if(!_wifiInfoDatas){
-        
-        _wifiInfoDatas = [[NSMutableArray alloc] init];
-    }
     
     tlabelName.text = NSLocalizedString(@"selectedWifi", nil);
     
@@ -237,6 +238,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     DDLogWarn(@"%s---%@-----%@",__FUNCTION__,wifiListData,_wifiInfoDatas);
     
     [_wifiInfoDatas addObjectsFromArray:wifiListData];
+    
     [_mTableView  reloadData];
     
     [self stopGetWifiListTimer];
@@ -296,16 +298,6 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     if (cell == nil) {
         
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
-//        UIImage *image=[UIImage imageNamed:@"wifiXhBtn.png"];
-//        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(280, (UITABLECELLHEIGHT-image.size.height)/2.0, image.size.width, image.size.height)];
-//        imageView.image=image;
-//        imageView.tag = 201;
-//        imageView.image = [UIImage imageNamed:@"wifiXhBtn.png"];
-//        [cell addSubview:imageView];
-//        [imageView release];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
     }
     
     for (UIView *v in cell.contentView.subviews) {
@@ -314,7 +306,15 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
         v = nil;
     }
     
+    UIImage *image         = [UIImage imageNamed:@"ap_wifi_icon.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - image.size.width - kWifiCellIconWithRight, (kWifiListViewCellHeight - image.size.height ) / 2.0, image.size.width, image.size.height)];
+    imageView.image        = image;
+    [cell addSubview:imageView];
+    [imageView release];
+    
+    
     int row=indexPath.row;
+    
     NSDictionary *dic=(NSDictionary*)[_wifiInfoDatas objectAtIndex:row];
     cell.textLabel.text=[NSString stringWithFormat:@"%@",[dic objectForKey:(NSString *)kWifiUserName]];
     
@@ -333,14 +333,34 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     NSDictionary *dic=(NSDictionary*)[_wifiInfoDatas objectAtIndex:indexPath.row];
     iSelectIndexRow = indexPath.row;
     _tfContentInfo.text = [dic objectForKey:(NSString *)kWifiUserName];
-    // _tfContentInfoPw.text =
 }
 
+#pragma mark ----------------------- ystNetWorkHelpTextDataDelegate
 
+/**
+ *  更新设备的WIFi信息
+ */
+-(void)getDeviceWifiListData{
+    
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(refreshWifiListInfo)]) {
+        
+        [self.delegate refreshWifiListInfo];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+
+-(void)dealloc{
+    
+    [tActine release];
+    [tlabelName release];
+    [_wifiInfoDatas release];
+    [_mTableView release];
+    [super dealloc];
 }
 
 

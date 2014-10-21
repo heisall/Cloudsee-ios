@@ -41,10 +41,17 @@
 @property (nonatomic,assign) id<JVCApConfigDeviceViewControllerDelegate> delegate;
 
 /**
+ *  关闭获取无线设备列表信息的超时判断
+ */
+- (void)stopGetWifiListTimer;
+
+/**
  *  刷新无线列表信息
  *
  *  @param wifiListData 无线列表信息
  */
 -(void)refreshWifiViewShowInfo:(NSMutableArray*)wifiListData;
+
+
 
 @end

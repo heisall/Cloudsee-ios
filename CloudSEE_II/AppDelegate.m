@@ -26,9 +26,16 @@
 #import "JVCKeepOnlineHelp.h"
 #import "UINavigationBar+JVCCustomNavBar.h"
 
+#import "JVCAPConfigViewController.h"
+#import "JVCApConfigPlayVideoViewController.h"
+#import "JVCApConfigDeviceViewController.h"
+#import "JVCAlertHelper.h"
+#import "JVCSystemUtility.h"
+
 @interface AppDelegate ()
 {
     JVCDeviceListViewController *deviceListController; //设备管理界面
+    NSMutableString             *selectedSSID;
 }
 
 @end
@@ -45,7 +52,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+    selectedSSID = [[NSMutableString alloc] init];
     /**
      *  设置ddlog
      */
@@ -118,7 +125,6 @@ static  const   int      KSetHelpMaxCount    = 10;
     self.window.rootViewController = rootNav;
     [loginVC release];
     [rootNav release];
-
 }
 
 /**
@@ -260,9 +266,6 @@ static  const   int      KSetHelpMaxCount    = 10;
     }
 }
 
-
-
-
 - (void)DDLogSettings
 {
     [DDLog addLogger:[DDASLLogger sharedInstance]];
@@ -298,32 +301,95 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 -(void)updateAvailabilityStatus:(AHReach *)reach {
     
+    JVCConfigModel *configObj = [JVCConfigModel shareInstance];
     
-    [JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_NONET;
+    int netLinkType = NETLINTYEPE_NONET;
     
     if([reach isReachableViaWWAN]){
         
-        [JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_3G;
+        netLinkType = NETLINTYEPE_3G;
     }
 	if([reach isReachableViaWiFi]){
         
-		[JVCConfigModel shareInstance]._netLinkType = NETLINTYEPE_WIFI;
+		netLinkType = NETLINTYEPE_WIFI;
     }
-    DDLogInfo(@"[JVCConfigModel shareInstance]._netLinkType =%d",[JVCConfigModel shareInstance]._netLinkType );
     
-    if ([JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET && [JVCConfigModel shareInstance]._bInitAccountSDKSuccess !=0) {
+    configObj._netLinkType = netLinkType;
+    
+    
+    if (selectedSSID.length <= 0) {
+        
+        [selectedSSID appendString:[[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID]];
+        
+    }else {
+        
+        if (![selectedSSID isEqualToString:[[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID]]) {
+            
+            [self ssidChangeWithStopApConfigDevce];
+        }
+    }
+    
+    if (configObj._netLinkType != NETLINTYEPE_NONET && configObj._bInitAccountSDKSuccess != 0) {
         
        int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO];
         
         if ( result == 0) {
             
-            [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = 0;
+            configObj._bInitAccountSDKSuccess = 0;
         }
         
         DDLogInfo(@"%s---- hahha....==%d",__FUNCTION__,result);
-
     }
     
+}
+
+/**
+ *  如果在AP配置过程中手机无线网络发生变化，回到根视图重新配置
+ */
+-(void)ssidChangeWithStopApConfigDevce {
+    
+    UINavigationController *rootNav = (UINavigationController *)self.window.rootViewController;
+    
+    if ([rootNav isKindOfClass:[UINavigationController class]]) {
+        
+        BOOL isCheckAPConfig = FALSE;
+        
+        for (UIViewController *con in rootNav.viewControllers) {
+            
+             if ([con isKindOfClass:[JVCApConfigDeviceViewController class]]){
+            
+                JVCApConfigDeviceViewController  *apConfigDeviceObj = (JVCApConfigDeviceViewController *)con;
+                [apConfigDeviceObj stopGetWifiListTimer];
+                 
+                 isCheckAPConfig = TRUE;
+                 
+             }else if  ([con isKindOfClass:[JVCApConfigPlayVideoViewController class]]){
+                 
+                 JVCApConfigPlayVideoViewController  *apConfigPlayVideoObj = (JVCApConfigPlayVideoViewController *)con;
+                 
+                 isCheckAPConfig = TRUE;
+                 
+                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                     
+                     [apConfigPlayVideoObj apConfigDisconnect];
+                     
+                 });
+             }else if  ([con isKindOfClass:[JVCAPConfigViewController class]]){
+                 
+                 isCheckAPConfig = TRUE;
+                 
+             }
+            
+        }
+        if (isCheckAPConfig) {
+            
+            [rootNav popToRootViewControllerAnimated:NO];
+            
+            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"ap_change_net_work", nil)];
+
+        }
+        
+    }
 }
 
 /**
@@ -488,6 +554,9 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     [_amOpenGLViewListData release];
     _amOpenGLViewListData=nil;
+    
+    [selectedSSID release];
+    
     [super dealloc];
 }
 

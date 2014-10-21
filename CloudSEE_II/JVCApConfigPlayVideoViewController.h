@@ -44,4 +44,15 @@
  *  @param button 语音对讲的按钮
  */
 -(void)ApchatBtnRequest;
+
+/**
+ *  配置完成处理
+ */
+-(void)configFinshed;
+
+/**
+ *  断开当前的AP配置连接,不接收回调处理
+ */
+-(void)apConfigDisconnect;
+
 @end

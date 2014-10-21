@@ -12,9 +12,13 @@
 #import <netdb.h>
 #import <sys/socket.h>
 #import <arpa/inet.h>
-static NSString const *APPLANGUAGE = @"zh-Hans";//简体中文的标志
 
 @implementation JVCSystemUtility
+
+static NSString const  *kSSIDWithKeyValue          = @"SSID"; //获取当前手机连接无线网络的SSID
+static NSString const  *kHomeIPCSSIDWithIndexKey   = @"IPC-"; //家用IPC热点的前缀
+static const int        kHomeIPCSSIDWithMinLength  = 6;       //家用IPC热点的最小长度
+static NSString const  *APPLANGUAGE = @"zh-Hans";//简体中文的标志
 
 static JVCSystemUtility *shareInstance = nil;
 
@@ -313,6 +317,63 @@ static JVCSystemUtility *shareInstance = nil;
     }
     
     return strIp;
+}
+
+/**
+ *  获取当前Wifi的SSid （需要引入#import <SystemConfiguration/CaptiveNetwork.h>）
+ *
+ *  @return 当前手机连接的热点
+ */
+-(NSString *)currentPhoneConnectWithWifiSSID {
+    
+    NSString *ssid = nil;
+    
+    NSArray *ifs = (id)CNCopySupportedInterfaces();
+    
+    for (NSString *ifnam in ifs) {
+        
+        NSDictionary *info = (id)CNCopyCurrentNetworkInfo((CFStringRef)ifnam);
+        
+        if (info[kSSIDWithKeyValue]) {
+            
+            ssid = info[kSSIDWithKeyValue];
+        }
+    }
+    
+    return ssid;
+}
+
+/**
+ *  判断当前连接的设备的无线网络是否是家用设备的无线热点
+ *
+ *  @return YES：是 NO:否
+ */
+-(BOOL)currentPhoneConnectWithWifiSSIDIsHomeIPC {
+    
+    
+    NSString *ssid = [self currentPhoneConnectWithWifiSSID];
+    
+    [ssid retain];
+    
+    if (ssid.length < kHomeIPCSSIDWithMinLength) {
+        
+        [ssid release];
+        return FALSE;
+    }
+    
+    NSString *headStr = [ssid substringToIndex:kHomeIPCSSIDWithIndexKey.length];
+    
+    NSArray *arrayContran = [NSArray arrayWithObjects:(NSString *)kHomeIPCSSIDWithIndexKey,nil];
+    
+    if ([arrayContran containsObject:headStr]) {
+        
+        [ssid release];
+        return TRUE;
+    }
+    
+    [ssid release];
+    
+    return FALSE;
 }
 
 
