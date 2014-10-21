@@ -15,13 +15,14 @@
 #import "JVCCloudSEENetworkHelper.h"
 @interface JVCAddDevieAlarmViewController ()
 {
-    NSMutableArray *arrayAlarmList;
+ 
 }
 
 @end
 
 @implementation JVCAddDevieAlarmViewController
 @synthesize localChannelNum;
+@synthesize arrayAlarmList;
 static const  int KHeadViewHeight  = 20;//headview的高度
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,8 +38,6 @@ static const  int KHeadViewHeight  = 20;//headview的高度
     
     [super viewDidLoad];
     
-    [self initArrayList];
-        
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //添加按钮
@@ -58,29 +57,6 @@ static const  int KHeadViewHeight  = 20;//headview的高度
     [self disAlarmRemoteLink];
 }
 
-/**
- *  初始化arraylist
- */
-- (void)initArrayList
-{
-       arrayAlarmList = [[NSMutableArray alloc] init];
-    
-    for(int i =0;i<3;i++)
-    {
-        JVCLockAlarmModel*moeld = [[JVCLockAlarmModel alloc] init];
-        moeld.alarmGuid = [NSString stringWithFormat:@"%d",i];
-        moeld.alarmName = @"124";
-        moeld.alarmType = 1;
-        moeld.alarmState = YES;
-
-        [arrayAlarmList addObject:moeld];
-        [moeld release];
-    }
-    
-    [self.tableView reloadData];
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -91,7 +67,7 @@ static const  int KHeadViewHeight  = 20;//headview的高度
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return arrayAlarmList.count==0?1:arrayAlarmList.count;
+    return self.arrayAlarmList.count==0?1:self.arrayAlarmList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -108,7 +84,7 @@ static const  int KHeadViewHeight  = 20;//headview的高度
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (arrayAlarmList.count == 0) {
+    if (self.arrayAlarmList.count == 0) {
         
         static NSString *cellIndentify = @"cellIndentiyNoDevice";
         JVCDeviceAlarmNoDeviceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
@@ -131,7 +107,7 @@ static const  int KHeadViewHeight  = 20;//headview的高度
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        JVCLockAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.section];
+        JVCLockAlarmModel *cellModel = [self.arrayAlarmList objectAtIndex:indexPath.section];
         [cell initAlarmAddTableViewContentView:cellModel];
         return cell;
     }
@@ -140,7 +116,7 @@ static const  int KHeadViewHeight  = 20;//headview的高度
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (arrayAlarmList.count == 0) {//没有设备
+    if (self.arrayAlarmList.count == 0) {//没有设备
         
         if (indexPath.section == 0) {//跳转到添加界面
             [self addLockDeviceViewController];
