@@ -112,6 +112,7 @@
 		A7F442A119E7649B00519A4B /* add_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4429B19E7649B00519A4B /* add_scan@2x.png */; };
 		A7F442A219E7649B00519A4B /* add_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4429C19E7649B00519A4B /* add_voice@2x.png */; };
 		A7F442A319E7649B00519A4B /* add_wlan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4429D19E7649B00519A4B /* add_wlan@2x.png */; };
+		A7F4457919F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */; };
 		A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4869619E61BFD00C10B2B /* JVCAddDevicePopView.m */; };
 		A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869919E6256700C10B2B /* QrInfoText@2x.png */; };
 		A7F486A019E6256700C10B2B /* qdLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869A19E6256700C10B2B /* qdLine@2x.png */; };
@@ -598,6 +599,8 @@
 		A7F4429B19E7649B00519A4B /* add_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_scan@2x.png"; sourceTree = "<group>"; };
 		A7F4429C19E7649B00519A4B /* add_voice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_voice@2x.png"; sourceTree = "<group>"; };
 		A7F4429D19E7649B00519A4B /* add_wlan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_wlan@2x.png"; sourceTree = "<group>"; };
+		A7F4457719F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVDeviceCAlarmAddTableViewCell.h; sourceTree = "<group>"; };
+		A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVDeviceCAlarmAddTableViewCell.m; sourceTree = "<group>"; };
 		A7F4869519E61BFD00C10B2B /* JVCAddDevicePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAddDevicePopView.h; sourceTree = "<group>"; };
 		A7F4869619E61BFD00C10B2B /* JVCAddDevicePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAddDevicePopView.m; sourceTree = "<group>"; };
 		A7F4869919E6256700C10B2B /* QrInfoText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QrInfoText@2x.png"; sourceTree = "<group>"; };
@@ -1691,6 +1694,8 @@
 				A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */,
 				A7EFFA6919F520E700DF783D /* JVCAddDevieAlarmViewController.h */,
 				A7EFFA6A19F520E700DF783D /* JVCAddDevieAlarmViewController.m */,
+				A7F4457719F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.h */,
+				A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */,
 			);
 			name = editDeviceViewController;
 			sourceTree = "<group>";
@@ -2643,6 +2648,7 @@
 				A7DFB29219ED5DB4002D9BF9 /* JVCOperationMiddleView.m in Sources */,
 				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */,
+				A7F4457919F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m in Sources */,
 				A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */,
 				A7263C4F19E80763003C22DE /* JVCLickTypeViewController.m in Sources */,
 				A7F4346E19DA499C00E7ECA1 /* JVCDeviceListNoDevieCell.m in Sources */,

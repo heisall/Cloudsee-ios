@@ -9,11 +9,14 @@
 #import "JVCAddDevieAlarmViewController.h"
 
 @interface JVCAddDevieAlarmViewController ()
+{
+    NSMutableArray *arrayAlarmList;
+}
 
 @end
 
 @implementation JVCAddDevieAlarmViewController
-
+static const  int KHeadViewHeight  = 40;//headview的高度
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -25,8 +28,20 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initArrayList];
+    
+    
+}
+
+/**
+ *  初始化arraylist
+ */
+- (void)initArrayList
+{
+       arrayAlarmList = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,16 +49,90 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Table view data source
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return arrayAlarmList.count==0?1:arrayAlarmList.count;
 }
-*/
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIndentify = @"cellIndentiyf";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentify];
+    
+    if (cell==nil) {
+        
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
+    }
+    
+    for (UIView *contentView in cell.contentView.subviews) {
+        [contentView removeFromSuperview];
+    }
+    
+//    //摄像头
+//    NSString *pathImage = [UIImage imageBundlePath:@"edi_camer.png" ];
+//    UIImage *image = [[UIImage alloc] initWithContentsOfFile:pathImage];
+//    UIImageView *canmerImage = [[UIImageView alloc] initWithFrame:CGRectMake(kOffSet_x, (cell.height-image.size.height)/2,image.size.width, image.size.height)];
+//    [canmerImage setImage:image];
+//    [cell.contentView addSubview:canmerImage];
+//    [canmerImage release];
+//    
+//    //textField
+//    JVCChannelModel *tCellNode = [arrayChannelsList objectAtIndex:indexPath.row];
+//    UILabel *channelNickNameLab = [[UILabel alloc] initWithFrame:CGRectMake(kOffSet_x+kSeperate+canmerImage.frame.size.width, canmerImage.frame.origin.y, kChannelTextFieldWith, image.size.height)];
+//    channelNickNameLab.tag = kChannelTextFieldTag;
+//    channelNickNameLab.text = tCellNode.strNickName;
+//    channelNickNameLab.enabled = NO;
+//    //     channelNickNameFid.returnKeyType = UIReturnKeyDone;
+//    channelNickNameLab.font = [UIFont systemFontOfSize:KChannelTextFieldFont];
+//    channelNickNameLab.backgroundColor = [UIColor clearColor];
+//    [cell.contentView addSubview:channelNickNameLab];
+//    [channelNickNameLab release];
+//    
+//    [image release];
+    
+    return cell;
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    self.channelModel =  [arrayChannelsList objectAtIndex:indexPath.row];
+//    channelNickNameField.text = channelModel.strNickName ;
+//    [self.tableView setContentOffset:CGPointZero];
+//    [self tranfromanimation];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return KHeadViewHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, KHeadViewHeight)] autorelease];
+    //    UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
+    //    labelTimer.backgroundColor = [UIColor clearColor];
+    //    JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
+    //    alarmModel *tcellModel = [delegate._dealNotificationArray objectAtIndex:section];
+    //    labelTimer.textAlignment = UITextAlignmentCenter;
+    //    labelTimer.text = tcellModel.strAlarmTime;
+    //    labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
+    //    [labelTimer setFont:[UIFont systemFontOfSize:14]];
+    //    [headView addSubview:labelTimer];
+    //    [labelTimer release];
+    return headView;
+    
+}
+
+
 
 @end
