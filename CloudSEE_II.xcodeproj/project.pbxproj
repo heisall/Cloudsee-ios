@@ -329,9 +329,13 @@
 		A7FB595319E92207005E2E6D /* JVCAccountMathHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FB595219E92207005E2E6D /* JVCAccountMathHelp.m */; };
 		AD014DD819F4C00E00E3D0FB /* apConfigHomeIPC.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD014DD719F4C00E00E3D0FB /* apConfigHomeIPC.bundle */; };
 		AD014DDC19F4C05C00E3D0FB /* JVCAPConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD014DDB19F4C05C00E3D0FB /* JVCAPConfigViewController.mm */; };
-		AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m */; };
+		AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm */; };
 		AD014DE119F4FA2E00E3D0FB /* shake_match_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD014DE019F4FA2E00E3D0FB /* shake_match_2.mp3 */; };
 		AD014DE419F5024F00E3D0FB /* ap_playVideo_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DE319F5024F00E3D0FB /* ap_playVideo_next@2x.png */; };
+		AD014DE719F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD014DE619F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m */; };
+		AD014DEA19F52CFF00E3D0FB /* ap_finsh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */; };
+		AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */; };
+		AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */; };
 		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
 		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
@@ -393,7 +397,6 @@
 		AD3BDCC919ED5AE3001B16D7 /* voi_help_dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */; };
 		AD3BDCCB19EE0EDD001B16D7 /* sca_device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */; };
 		AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */; };
-		AD3BDCD119EF97D3001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCD019EF97D3001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */; };
 		AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
@@ -809,9 +812,14 @@
 		AD014DDA19F4C05C00E3D0FB /* JVCAPConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAPConfigViewController.h; sourceTree = "<group>"; };
 		AD014DDB19F4C05C00E3D0FB /* JVCAPConfigViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAPConfigViewController.mm; sourceTree = "<group>"; };
 		AD014DDD19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigPlayVideoViewController.h; sourceTree = "<group>"; };
-		AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCApConfigPlayVideoViewController.m; sourceTree = "<group>"; };
+		AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCApConfigPlayVideoViewController.mm; sourceTree = "<group>"; };
 		AD014DE019F4FA2E00E3D0FB /* shake_match_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shake_match_2.mp3; sourceTree = "<group>"; };
 		AD014DE319F5024F00E3D0FB /* ap_playVideo_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_playVideo_next@2x.png"; sourceTree = "<group>"; };
+		AD014DE519F51C2E00E3D0FB /* JVCApConfigDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigDeviceViewController.h; sourceTree = "<group>"; };
+		AD014DE619F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCApConfigDeviceViewController.m; sourceTree = "<group>"; };
+		AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_finsh@2x.png"; sourceTree = "<group>"; };
+		AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_textBg@2x.png"; sourceTree = "<group>"; };
+		AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.7_2014_10_20.a; sourceTree = "<group>"; };
 		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
 		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
@@ -896,7 +904,6 @@
 		AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_help_dev@2x.png"; sourceTree = "<group>"; };
 		AD3BDCCA19EE0EDD001B16D7 /* sca_device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device@2x.png"; sourceTree = "<group>"; };
 		AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_long_talk@2x.png"; sourceTree = "<group>"; };
-		AD3BDCD019EF97D3001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.6_2014_10_16.a; sourceTree = "<group>"; };
 		AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.17_2014_10_16.a; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
@@ -1032,9 +1039,9 @@
 				AD3BDCAF19EC0379001B16D7 /* libtransSing.a in Frameworks */,
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
+				AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */,
 				AD3BDC2119E8BE7C001B16D7 /* libGlView_v2.0.0.a in Frameworks */,
 				AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */,
-				AD3BDCD119EF97D3001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1610,17 +1617,30 @@
 				AD014DDA19F4C05C00E3D0FB /* JVCAPConfigViewController.h */,
 				AD014DDB19F4C05C00E3D0FB /* JVCAPConfigViewController.mm */,
 				AD014DDD19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.h */,
-				AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m */,
+				AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm */,
+				AD014DE519F51C2E00E3D0FB /* JVCApConfigDeviceViewController.h */,
+				AD014DE619F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m */,
 			);
 			name = apConfigHomeIPC;
 			sourceTree = "<group>";
 		};
-		AD014DE219F5023C00E3D0FB /* New Group */ = {
+		AD014DE219F5023C00E3D0FB /* apConfigImage */ = {
 			isa = PBXGroup;
 			children = (
+				AD014DE819F52CCD00E3D0FB /* apConfigWifi */,
+				A7EFFA5619F50BE500DF783D /* apConfigMiddle */,
 				AD014DE319F5024F00E3D0FB /* ap_playVideo_next@2x.png */,
 			);
-			name = "New Group";
+			name = apConfigImage;
+			sourceTree = "<group>";
+		};
+		AD014DE819F52CCD00E3D0FB /* apConfigWifi */ = {
+			isa = PBXGroup;
+			children = (
+				AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */,
+				AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */,
+			);
+			name = apConfigWifi;
 			sourceTree = "<group>";
 		};
 		AD2BDB0919D28EEA00AA6D73 /* editDeviceViewController */ = {
@@ -1911,8 +1931,8 @@
 				A7EFAB5719F3347D0092AE9C /* libSystem.dylib */,
 				A7EFAB5519F32FDF0092AE9C /* CFNetwork.framework */,
 				A709697C19F27AE600C191F8 /* libsystem_network.dylib */,
+				AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */,
 				AD3BDCAE19EC0379001B16D7 /* libtransSing.a */,
-				AD3BDCD019EF97D3001B16D7 /* libjvnetsdkV2.0.76.3.6_2014_10_16.a */,
 				AD3BDC2019E8BE7C001B16D7 /* libGlView_v2.0.0.a */,
 				AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */,
 				A7F486B619E6AC4600C10B2B /* QuartzCore.framework */,
@@ -2099,9 +2119,8 @@
 		ADA77C2819D0282F003EE7A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A7EFFA5619F50BE500DF783D /* apConfigMiddle */,
 				A7EFF9F119F4DCFF00DF783D /* tabbar */,
-				AD014DE219F5023C00E3D0FB /* New Group */,
+				AD014DE219F5023C00E3D0FB /* apConfigImage */,
 				A709696119F22D8300C191F8 /* uinavicationbar */,
 				AD3BDC9C19EBF9EF001B16D7 /* voiceenc */,
 				A7F51E6F19EBB5FE0052F878 /* alarm */,
@@ -2286,6 +2305,7 @@
 				A7F5555319D8FC9F0009F75C /* mor_IconItuns@2x.png in Resources */,
 				A7263C5719E8108D003C22DE /* con_Slide@2x.png in Resources */,
 				A72B4B6E19D3F9AA00760695 /* mor_user@2x.png in Resources */,
+				AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */,
 				AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */,
 				A709697319F245B600C191F8 /* arm_close@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
@@ -2347,6 +2367,7 @@
 				A7F5014F19D534E600AA78F0 /* mor_IconShark@2x.png in Resources */,
 				A7EFFA6419F50C0300DF783D /* apcofig_1@2x.png in Resources */,
 				AD3BDC9F19EBFA25001B16D7 /* voi_input_next@2x.png in Resources */,
+				AD014DEA19F52CFF00E3D0FB /* ap_finsh@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
 				A7F5EF4F19D26D77009B797A /* devAdv_white@2x.png in Resources */,
@@ -2584,7 +2605,7 @@
 				ADA22D1D19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m in Sources */,
 				A72DCD2C19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m in Sources */,
 				AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */,
-				AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */,
+				AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm in Sources */,
 				A7F5017119D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				A72B4B7419D3FDE500760695 /* JVCMoreUserCell.m in Sources */,
 				AD2BDB2019D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m in Sources */,
@@ -2603,6 +2624,7 @@
 				A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */,
 				ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */,
 				A7F8DE3419EE4770006CE984 /* JVCPopStreamView.m in Sources */,
+				AD014DE719F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,

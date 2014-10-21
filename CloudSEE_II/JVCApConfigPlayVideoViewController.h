@@ -9,8 +9,10 @@
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCMonitorConnectionSingleImageView.h"
+#import "JVCAPConfingMiddleIphone5.h"
+#import "JVCApConfigDeviceViewController.h"
 
-@interface JVCApConfigPlayVideoViewController : JVCBaseWithGeneralViewController <ystNetWorkHelpDelegate,JVCMonitorConnectionSingleImageViewDelegate> {
+@interface JVCApConfigPlayVideoViewController : JVCBaseWithGeneralViewController <ystNetWorkHelpDelegate,JVCMonitorConnectionSingleImageViewDelegate,JVCAPConfingMiddleIphone5Delegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,JVCApConfigDeviceViewControllerDelegate> {
 
     NSString *strYstNumber;
 }
