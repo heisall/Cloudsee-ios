@@ -166,13 +166,17 @@ static  const   int      KSetHelpMaxCount    = 10;
     UITabBarController *rootViewController  = [[UITabBarController alloc] init];
     rootViewController.viewControllers      =  [NSArray arrayWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav, nil] ;
     
-    if (IOS_VERSION>=IOS7) {
+    if (IOS_VERSION<IOS7) {
         
         NSString *tabbarString = [UIImage imageBundlePath:@"tabbar_bg.png"];
         UIImage *tabbarBgIamge = [[UIImage alloc] initWithContentsOfFile:tabbarString];
         rootViewController.tabBar.backgroundImage = tabbarBgIamge;
-        rootViewController.tabBar.selectionIndicatorImage = tabbarBgIamge;
+        
+        NSString *tabbarStringSec = [UIImage imageBundlePath:@"tabSec.png"];
+        UIImage *tabbarBgIamgeSec = [[UIImage alloc] initWithContentsOfFile:tabbarStringSec];
+        rootViewController.tabBar.selectionIndicatorImage = tabbarBgIamgeSec;
         [tabbarBgIamge release];
+        [tabbarBgIamgeSec release];
 
     }else{
         

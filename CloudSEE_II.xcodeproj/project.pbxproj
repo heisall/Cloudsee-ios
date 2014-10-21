@@ -57,6 +57,9 @@
 		A7EFFA6219F50C0300DF783D /* boderBigLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7EFFA5B19F50C0300DF783D /* boderBigLine@2x.png */; };
 		A7EFFA6419F50C0300DF783D /* apcofig_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7EFFA5D19F50C0300DF783D /* apcofig_1@2x.png */; };
 		A7EFFA6619F50C3700DF783D /* apcofig_1_sec@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7EFFA6519F50C3700DF783D /* apcofig_1_sec@2x.png */; };
+		A7EFFA6819F5165B00DF783D /* tabSec@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7EFFA6719F5165B00DF783D /* tabSec@2x.png */; };
+		A7EFFA6B19F520E700DF783D /* JVCAddDevieAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EFFA6A19F520E700DF783D /* JVCAddDevieAlarmViewController.m */; };
+		A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EFFA6E19F530F100DF783D /* JVCDeviceMathsHelper.m */; };
 		A7F0042319D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042419D45C030028533E /* AHReach.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042219D45C030028533E /* AHReach.m */; };
 		A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0042619D45DC70028533E /* JVCConfigModel.m */; };
@@ -542,6 +545,11 @@
 		A7EFFA5B19F50C0300DF783D /* boderBigLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boderBigLine@2x.png"; sourceTree = "<group>"; };
 		A7EFFA5D19F50C0300DF783D /* apcofig_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apcofig_1@2x.png"; sourceTree = "<group>"; };
 		A7EFFA6519F50C3700DF783D /* apcofig_1_sec@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apcofig_1_sec@2x.png"; sourceTree = "<group>"; };
+		A7EFFA6719F5165B00DF783D /* tabSec@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabSec@2x.png"; sourceTree = "<group>"; };
+		A7EFFA6919F520E700DF783D /* JVCAddDevieAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAddDevieAlarmViewController.h; sourceTree = "<group>"; };
+		A7EFFA6A19F520E700DF783D /* JVCAddDevieAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAddDevieAlarmViewController.m; sourceTree = "<group>"; };
+		A7EFFA6D19F530F100DF783D /* JVCDeviceMathsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceMathsHelper.h; sourceTree = "<group>"; };
+		A7EFFA6E19F530F100DF783D /* JVCDeviceMathsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceMathsHelper.m; sourceTree = "<group>"; };
 		A7F0042119D45C030028533E /* AHReach.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHReach.h; sourceTree = "<group>"; };
 		A7F0042219D45C030028533E /* AHReach.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReach.m; sourceTree = "<group>"; };
 		A7F0042519D45DC70028533E /* JVCConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConfigModel.h; sourceTree = "<group>"; };
@@ -1159,6 +1167,7 @@
 		A7EFF9F119F4DCFF00DF783D /* tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				A7EFFA6719F5165B00DF783D /* tabSec@2x.png */,
 				A7EFF9F219F4DD0500DF783D /* tabbar_bg@2x.png */,
 			);
 			name = tabbar;
@@ -1176,6 +1185,15 @@
 				A7EFFA5D19F50C0300DF783D /* apcofig_1@2x.png */,
 			);
 			name = apConfigMiddle;
+			sourceTree = "<group>";
+		};
+		A7EFFA6C19F530B100DF783D /* jvcAccountdevice */ = {
+			isa = PBXGroup;
+			children = (
+				A7EFFA6D19F530F100DF783D /* JVCDeviceMathsHelper.h */,
+				A7EFFA6E19F530F100DF783D /* JVCDeviceMathsHelper.m */,
+			);
+			name = jvcAccountdevice;
 			sourceTree = "<group>";
 		};
 		A7F0042019D45BE40028533E /* AHReach */ = {
@@ -1691,6 +1709,8 @@
 				A7263C4E19E80763003C22DE /* JVCLickTypeViewController.m */,
 				A7FB594219E8C53F005E2E6D /* JVCLabelFieldSView.h */,
 				A7FB594319E8C53F005E2E6D /* JVCLabelFieldSView.m */,
+				A7EFFA6919F520E700DF783D /* JVCAddDevieAlarmViewController.h */,
+				A7EFFA6A19F520E700DF783D /* JVCAddDevieAlarmViewController.m */,
 			);
 			name = editDeviceViewController;
 			sourceTree = "<group>";
@@ -2141,6 +2161,7 @@
 		ADA77C2919D02844003EE7A1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				A7EFFA6C19F530B100DF783D /* jvcAccountdevice */,
 				A7F538CC19F3F1E000694CA5 /* urlRequest */,
 				A709697519F245D800C191F8 /* controlHelper */,
 				A72DCD2619EBF93700C9A1ED /* localHelp */,
@@ -2274,6 +2295,7 @@
 				AD3BDCAA19EBFEBD001B16D7 /* voi_next@2x.png in Resources */,
 				A7F442A119E7649B00519A4B /* add_scan@2x.png in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
+				A7EFFA6819F5165B00DF783D /* tabSec@2x.png in Resources */,
 				A709696319F22D9100C191F8 /* navBarbg_ios6@2x.png in Resources */,
 				A7EFFA5F19F50C0300DF783D /* apcofig_2@2x.png in Resources */,
 				AD014DE419F5024F00E3D0FB /* ap_playVideo_next@2x.png in Resources */,
@@ -2508,6 +2530,7 @@
 				A7F9E04419ED0CD000C1D69C /* JVCDemoViewController.m in Sources */,
 				ADA22D6B19DA7CC30092F8B9 /* JVCRecordVideoHelper.m in Sources */,
 				ADA22DA519DA97B50092F8B9 /* OpenALBufferViewcontroller.m in Sources */,
+				A7EFFA6B19F520E700DF783D /* JVCAddDevieAlarmViewController.m in Sources */,
 				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
 				A709696E19F2450D00C191F8 /* JVCAlarmCurrentView.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
@@ -2518,6 +2541,7 @@
 				A7F9E04719ED0E9600C1D69C /* TableViewControllerdd.m in Sources */,
 				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7F5EF7C19D2DC69009B797A /* MBProgressHUD.m in Sources */,
+				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,

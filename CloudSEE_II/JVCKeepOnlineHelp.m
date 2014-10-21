@@ -257,7 +257,6 @@ UIAlertView *alertView;
     alertView  = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"AlertkeepLineError_network_title") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"Sure") otherButtonTitles: nil];
     alertView.delegate = self;
     [alertView show];
-    [alertView release];
     
 }
 
@@ -265,6 +264,7 @@ UIAlertView *alertView;
 {
     if (alertView!=nil) {
         [alertView dismissWithClickedButtonIndex:0 animated:NO];
+        [alertView release];
         alertView = nil;
     }
 }

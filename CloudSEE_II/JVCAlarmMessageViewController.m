@@ -178,15 +178,16 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         UIImage     *imageNo        = [[UIImage alloc] initWithContentsOfFile:pathNoAlarm];
         UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width -imageNo.size.width)/2.0 ,(self.view.height -imageNo.size.height)/2.0, imageNo.size.width, imageNo.size.height)];
         imageView.image             = imageNo;
-        imageView.tag               = KNoAlarmTag;
         [viewNoAlarm addSubview:imageView];
+        viewNoAlarm.tag               = KNoAlarmTag;
         
-        UILabel *labelNoAlarm = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
+        UILabel *labelNoAlarm        = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
         labelNoAlarm.backgroundColor = [UIColor clearColor];
-        labelNoAlarm.textAlignment = UITextAlignmentCenter;
-        labelNoAlarm.text = @"暂无消息";
+        labelNoAlarm.textAlignment   = UITextAlignmentCenter;
+        labelNoAlarm.text            = @"暂无消息";
         [viewNoAlarm addSubview:labelNoAlarm];
         [labelNoAlarm release];
+        
         [self.tableView addSubview:viewNoAlarm];
         [viewNoAlarm release];
         [imageNo release];
@@ -233,9 +234,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         
         cell = [[[JVCAlarmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     JVCAlarmModel *modelcell = [arrayAlarmList objectAtIndex:indexPath.row];
     [cell initAlermCell:modelcell];
-
     
     return cell;
 }
@@ -510,10 +511,13 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
             
             if ([[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] returnCurrentLintState:nChannelLinkNum]) {
                 
+                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
+
                 [self downRemotePlayBackVideo:nChannelLinkNum];
 
             }else{
                 
+                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
                 [self connetDeviceWithYSTNum];
 
             }

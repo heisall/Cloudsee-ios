@@ -84,6 +84,7 @@ static const int KLabelSize      = 14;//labe字体大小
      */
     UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:model.strAlarmTime];
     [label retain];
+    label.text = [NSString stringWithFormat:@"%d",model.iAlarmTimer];
     label.font = [UIFont systemFontOfSize:KLabelSize];
     if (color) {
         label.textColor = color;
