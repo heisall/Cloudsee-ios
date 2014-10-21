@@ -16,6 +16,8 @@
     NSMutableArray *_arrayImageSelect;
     
     NSMutableArray *_arrayBtnList;
+    
+    NSMutableArray *_arrayViewList;
 }
 
 @end
@@ -51,6 +53,8 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
             [shareApConfigMiddleIphone5Instance initImageSelectArray];
             
             [shareApConfigMiddleIphone5Instance initBtnArray];
+            
+            [shareApConfigMiddleIphone5Instance initViewArray];
 
         }
     }
@@ -116,6 +120,7 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         btnImage.frame = CGRectMake(OFF_X, (height - image.size.height)/2.0, image.size.width, image.size.height);
         [btnImage setBackgroundImage:image forState:UIControlStateNormal];
         [btnImage setBackgroundImage:imageHover forState:UIControlStateSelected];
+        [btnImage setBackgroundImage:imageHover forState:UIControlStateHighlighted];
         [btnImage addTarget:self action:@selector(btnImageClick:) forControlEvents:UIControlEventTouchUpInside];
         btnImage.tag = i;
         [contentView addSubview:btnImage];
@@ -143,6 +148,7 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         [contentView  addSubview:_titleInfo];
         [_titleInfo release];
         
+        
         NSString *imageboardVC = [UIImage imageBundlePath:@"boderBigLine.png"];
         UIImage *boderImage = [[UIImage alloc] initWithContentsOfFile:imageboardVC];
         
@@ -165,6 +171,8 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         
         [self addSubview:contentView];
         
+        [_arrayViewList  addObject:contentView];
+
         [contentView release];
         
         [image release];
@@ -266,6 +274,11 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
     _arrayBtnList = [[NSMutableArray alloc] init];
 }
 
+- (void)initViewArray
+{
+    _arrayViewList = [[NSMutableArray alloc] init];
+}
+
 /**
  *  点击背景的回调
  *
@@ -288,6 +301,27 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         
         [delegateIphone5BtnCallBack operationMiddleIphone5APBtnCallBack:(int )responseTag];
     }
+    
+}
+
+/**
+ *  获取相应的view
+ *
+ *  @param selectIndex 索引
+ *
+ *  @return 相应的veiw
+ */
+- (UIView *)getSelectbgView:(int)selectIndex
+{
+
+    if (selectIndex >=_arrayBtnList.count) {
+        
+        return nil ;
+    }
+    
+    UIView *bgView = [_arrayViewList objectAtIndex:selectIndex];
+    
+    return bgView;
     
 }
 

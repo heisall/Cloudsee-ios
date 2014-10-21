@@ -194,6 +194,25 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
     return  btn.selected;
 }
 
+/**
+ *  获取相应的按钮
+ *
+ *  @param index 索引
+ *
+ *  @return btn
+ */
+-(UIButton *)getSelectbtn:(int)index
+{
+    if (index >=_arrayBtnList.count) {
+        
+        return nil ;
+    }
+    
+    UIButton *btn = [_arrayBtnList objectAtIndex:index];
+    
+    return  btn;
+}
+
     /**
      *  设置皮肤未选中的图片集合
      */
@@ -223,5 +242,6 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
 {
     _arrayBtnList = [[NSMutableArray alloc] init];
 }
+
 
 @end

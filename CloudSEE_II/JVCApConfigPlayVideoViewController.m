@@ -864,7 +864,11 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 
 - (void)setApBtnSelect:(int)index
 {
-     [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnSelect:index ];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnSelect:index ];
+
+    });
 }
 #pragma mark --------  JVCApConfigDeviceViewControllerDelegate 获取设备的无线网络
 

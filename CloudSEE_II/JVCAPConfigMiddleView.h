@@ -60,4 +60,13 @@
  */
 - (BOOL)getBtnSelectState:(int)buttonIndex;
 
+/**
+ *  获取相应的按钮
+ *
+ *  @param index 索引
+ *
+ *  @return btn
+ */
+-(UIButton *)getSelectbtn:(int)index;
+
 @end
