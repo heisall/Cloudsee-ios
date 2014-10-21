@@ -635,3 +635,8 @@
 "Learn audio info at any time" = "随时了解音频信息";
 "Adjust PTZ at any time"       = "随时调整监控画面信息";
 "AudioTalkInfo"                = "你可以和对方进行语音交流";
+"wifi-Successful"              = "配置Wi-Fi完成，听到设备发出‘设备上线’声后，代表设备已上线!";
+"ap_change_net_work"           = "网络发生改变，无法继续操作";
+"home_ap_Alert_GOON"           = "退出软件";
+"home_ap_Alert_NO"             = "取消";
+"home_ap_Alert_message_ios7"   = "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网络到IPC-X-XXXX格式的无线网络下。具体步骤：设置->无线局域网->选取无线网络";

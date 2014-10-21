@@ -10,10 +10,11 @@
 
 enum NETLINGTYPE{
     
-    NETLINTYEPE_WIFI=0,//无线
-    NETLINTYEPE_3G,//3g
-    NETLINTYEPE_UNCERTAIN,//不确定
-    NETLINTYEPE_NONET,//无网路
+    NETLINTYEPE_WIFI_init = -1,
+    NETLINTYEPE_WIFI      = 0,//无线
+    NETLINTYEPE_3G        = 1 ,//3g
+    NETLINTYEPE_UNCERTAIN = 2,//不确定
+    NETLINTYEPE_NONET     = 3,//无网路
     
 };
 

@@ -462,7 +462,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     memcpy(m_pstExt->acData, &wifi_info, sizeof(WIFI_INFO));
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+sizeof(WIFI_INFO));
-    
 }
 
 @end

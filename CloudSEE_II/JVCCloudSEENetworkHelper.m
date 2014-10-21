@@ -1439,7 +1439,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         unsigned int type = 0;
                         memcpy(&type, stpacket.acData, 4);
                         
-                        if(EX_NW_GETRESULT == type)
+                        if(EX_WIFI_AP_CONFIG == type)
                         {
                             char a = stpacket.acData[4];
                             
@@ -1563,7 +1563,10 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
     JVCCloudSEEManagerHelper            *currentChannelObj            = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
-    [ystRemoteOperationHelperObj  RemoteNewSetWiFINetwork:currentChannelObj.nLocalChannel strSSIDName:strSSIDName strSSIDPassWord:strSSIDPassWord nWifiAuth:nWifiAuth nWifiEncrypt:nWifiEncrypt];
+    if (currentChannelObj != nil) {
+        
+        [ystRemoteOperationHelperObj  RemoteNewSetWiFINetwork:currentChannelObj.nLocalChannel strSSIDName:strSSIDName strSSIDPassWord:strSSIDPassWord nWifiAuth:nWifiAuth nWifiEncrypt:nWifiEncrypt];
+    }
 }
 
 #pragma mark --------------------- JVCCloudSEEManagerHelper delegate

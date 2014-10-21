@@ -339,6 +339,7 @@
 		AD014DEA19F52CFF00E3D0FB /* ap_finsh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */; };
 		AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */; };
 		AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */; };
+		AD014DF019F5F42100E3D0FB /* ap_wifi_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD014DEF19F5F42100E3D0FB /* ap_wifi_icon@2x.png */; };
 		AD1673B719D808AB0021CD1B /* JVCEditDeviceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */; };
 		AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD1673B919D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm */; };
 		AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673BC19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m */; };
@@ -828,6 +829,7 @@
 		AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_finsh@2x.png"; sourceTree = "<group>"; };
 		AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_textBg@2x.png"; sourceTree = "<group>"; };
 		AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.7_2014_10_20.a; sourceTree = "<group>"; };
+		AD014DEF19F5F42100E3D0FB /* ap_wifi_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ap_wifi_icon@2x.png"; sourceTree = "<group>"; };
 		AD1673B519D808AB0021CD1B /* JVCEditDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceListViewController.h; sourceTree = "<group>"; };
 		AD1673B619D808AB0021CD1B /* JVCEditDeviceListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCEditDeviceListViewController.mm; sourceTree = "<group>"; };
 		AD1673B819D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListWithChannelListViewController.h; sourceTree = "<group>"; };
@@ -1656,6 +1658,7 @@
 			isa = PBXGroup;
 			children = (
 				AD014DEB19F52FD800E3D0FB /* ap_textBg@2x.png */,
+				AD014DEF19F5F42100E3D0FB /* ap_wifi_icon@2x.png */,
 				AD014DE919F52CFF00E3D0FB /* ap_finsh@2x.png */,
 			);
 			name = apConfigWifi;
@@ -2400,6 +2403,7 @@
 				AD2BDB7419D2BC6A00AA6D73 /* tab_message_unselect@2x.png in Resources */,
 				A7F51E7319EBB7250052F878 /* arm_def@2x.png in Resources */,
 				A7EFF9F319F4DD0500DF783D /* tabbar_bg@2x.png in Resources */,
+				AD014DF019F5F42100E3D0FB /* ap_wifi_icon@2x.png in Resources */,
 				A7F2210C19F383F600447853 /* no_devWlan@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,

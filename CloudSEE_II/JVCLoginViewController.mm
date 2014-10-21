@@ -172,7 +172,6 @@ static const int KLineHeight = 1;//横线的高度
      */
     JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
     UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
-    UIColor *btnColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBlue];
    
     /**
      *  用户名模块
@@ -315,7 +314,7 @@ static const int KLineHeight = 1;//横线的高度
     dropDownView.dropDownDelegate = self;
     [self.view bringSubviewToFront:dropDownView];
     
-    if ([[JVCAppHelper shareJVCAppHelper] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+    if ([[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
         
         JVCAPConfigViewController *popApViewcontroller = [[JVCAPConfigViewController alloc] init];
         
@@ -345,21 +344,6 @@ static const int KLineHeight = 1;//横线的高度
     
         [self playSound];
         [self gotoApConfigPlayVideo];
-//        operationController *tOPVC    = [[operationController alloc] init];
-//        tOPVC._aDeviceChannelListData = devicelistData;
-//        tOPVC._iSelectedChannelIndex  = 0;
-//        tOPVC._amDeviceListData       = devicelistData;
-//        tOPVC._deviceModel            = newModel;
-//        tOPVC.isPlayModel             = TRUE;
-//        
-//        JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
-//        tOPVC._isConnectModel     =  delegate.isScreenMutable;
-//        
-//        [tOPVC initwithSoundClass:delegate._openALBufferSound aqsController:delegate._audioRecordControler];
-//        [self.navigationController pushViewController:tOPVC animated:YES];
-//        [tOPVC release];
-//        
-//        [newModel release];
     }
 }
 
@@ -368,7 +352,7 @@ static const int KLineHeight = 1;//横线的高度
  */
 -(void)gotoApConfigPlayVideo{
 
-     self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBarHidden = NO;
     JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
     [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
     [apConfigPlayVideo release];

@@ -10,7 +10,8 @@
 #import "JVCDeviceMacro.h"
 #import "JVNetConst.h"
 #import "JVCCustomOperationBottomView.h"
-#import "JVCAppHelper.h"
+#import "JVCSystemUtility.h"
+#import "JVCAlertHelper.h"
 
 @interface JVCApConfigPlayVideoViewController () {
 
@@ -129,7 +130,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     JVCCloudSEENetworkHelper *netWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     netWorkHelperObj.ystNWTDDelegate           = self;
     
-    if ([[JVCAppHelper shareJVCAppHelper] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+    if ([[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -175,8 +176,22 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType{
 
     [connectCallBackInfo retain];
-    
+
     [singleVideoShow connectResultShowInfo:connectCallBackInfo connectResultType:connectResultType];
+    
+    //如果在WIFI配置界面直接返回
+    if (connectResultType != CONNECTRESULTTYPE_Succeed) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            if ([self checkApconfigDeviceIsExist]) {
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+        });
+        
+    }
     
     [connectCallBackInfo release];
 }
@@ -283,6 +298,8 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     });
 }
 
+#pragma mark ---------  ystNetWorkHelpTextDataDelegate
+
 /**
  *  文本聊天返回的回调
  *
@@ -295,9 +312,28 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
             
         case TextChatType_NetWorkInfo:{
         
-                NSMutableDictionary *networkInfo = (NSMutableDictionary *)objYstNetWorkHelpSendData;
-                
-                [self gotoApConfigDevice:networkInfo];
+               NSMutableDictionary *networkInfo = (NSMutableDictionary *)objYstNetWorkHelpSendData;
+            
+               if (networkInfo) {
+    
+                  [self gotoApConfigDevice:networkInfo];
+               }
+        }
+            break;
+        case TextChatType_ApList:{
+            
+            NSMutableArray *networkInfo = (NSMutableArray *)objYstNetWorkHelpSendData;
+            
+            [self refreshWifiListInfoCallBack:networkInfo];
+            
+        }
+            break;
+            
+        case TextChatType_ApSetResult:{
+            
+            NSString *networkInfo = (NSString *)objYstNetWorkHelpSendData;
+            
+            [self apConfigDeviceWifiInfo:networkInfo.intValue];
             
         }
             break;
@@ -335,12 +371,79 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 }
 
 /**
+ *  刷新无线网络的信息
+ */
+-(void)refreshWifiListInfoCallBack:(NSMutableArray *)ssidList{
+    
+    [ssidList retain];
+    
+    for (UIViewController *con in self.navigationController.viewControllers) {
+        
+        if ([con isKindOfClass:[JVCApConfigDeviceViewController class]]) {
+            
+            JVCApConfigDeviceViewController *apConfig = (JVCApConfigDeviceViewController *)con;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                 [apConfig refreshWifiViewShowInfo:ssidList];
+            
+            });
+        }
+    }
+    
+    [ssidList release];
+}
+
+/**
+ *  配置设备的无线的网络的返回值
+ *
+ *  @param nResult 收到回调配置结束弹出回调
+ */
+-(void)apConfigDeviceWifiInfo:(int)nResult{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [self apConfigDisconnect];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            //配置完成处理回到登陆界面
+            [self configFinshed];
+            
+            DDLogVerbose(@"%s-----apConfigResult=%d",__FUNCTION__,nResult);
+            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"wifi-Successful", nil)];
+            
+        });
+    });
+}
+
+#pragma mark -------------- 配置完成处理
+
+/**
+ *  断开当前的AP配置连接,不接收回调处理
+ */
+-(void)apConfigDisconnect{
+    
+    JVCCloudSEENetworkHelper *networkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    networkHelperObj.ystNWHDelegate            = nil;
+    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:kConnectDefaultLocalChannel];
+}
+
+/**
+ *  配置完成处理
+ */
+-(void)configFinshed {
+    
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
+
+/**
  *  判断AP设置界面是否已经存在
  *
  *  @return YES：存在
  */
 -(BOOL)checkApconfigDeviceIsExist {
-    
     
     BOOL isCheck = NO;
     
@@ -354,6 +457,58 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
     return isCheck;
 }
+
+
+#pragma mark --------  JVCApConfigDeviceViewControllerDelegate 获取设备的无线网络
+
+/**
+ *  获取设备的WIFI信息
+ */
+-(void)refreshWifiListInfo {
+    
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWTDDelegate                      = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_ApList remoteOperationCommand:-1];
+        
+    });
+}
+
+/**
+ *  开始配置
+ *
+ *  @param strWifiEnc      wifi的加密方式
+ *  @param strWifiAuth     wifi的认证方式
+ *  @param strWifiSSid     配置WIFI的SSID名称
+ *  @param strWifiPassWord 配置WIFi的密码
+ */
+-(void)runApSetting:(NSString *)strWifiEnc strWifiAuth:(NSString *)strWifiAuth strWifiSSid:(NSString *)strWifiSSid strWifiPassWord:(NSString *)strWifiPassWord {
+    
+    [strWifiEnc retain];
+    [strWifiAuth retain];
+    [strWifiSSid retain];
+    [strWifiPassWord retain];
+    
+    JVCCloudSEENetworkHelper   *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWTDDelegate             = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        [ystNetWorkHelperObj RemoteNewSetWiFINetwork:kConnectDefaultLocalChannel strSSIDName:strWifiSSid strSSIDPassWord:strWifiPassWord nWifiAuth:strWifiAuth.intValue nWifiEncrypt:strWifiEnc.intValue];
+    
+    });
+    
+    [strWifiSSid release];
+    [strWifiPassWord release];
+    [strWifiEnc release];
+    [strWifiAuth release];
+}
+
+
 
 
 @end

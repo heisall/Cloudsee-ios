@@ -7,7 +7,7 @@
 //
 
 #import "JVCVoiceencInputSSIDWithPasswordViewController.h"
-#import "JVCAppHelper.h"
+#import "JVCSystemUtility.h"
 #import "JVCVoiceencViewController.h"
 
 @interface JVCVoiceencInputSSIDWithPasswordViewController (){
@@ -81,7 +81,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     ssidRect.origin.x    = kTextFiledWithLeft;
     
     ssidTextField.frame  = ssidRect;
-    ssidTextField.text   = [[JVCAppHelper shareJVCAppHelper] currentPhoneConnectWithWifiSSID];
+    ssidTextField.text   = [[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID];
     ssidTextField.autocorrectionType     = UITextAutocorrectionTypeNo;
     ssidTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     ssidTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

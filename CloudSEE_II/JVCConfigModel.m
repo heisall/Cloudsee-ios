@@ -31,6 +31,7 @@ static JVCConfigModel *_shareInstance = nil;
             _shareInstance = [[self alloc] init ];
             
             _shareInstance._bISLocalLoginIn = 0;
+            _shareInstance._netLinkType     = NETLINTYEPE_WIFI_init;
         }
         return _shareInstance;
     }

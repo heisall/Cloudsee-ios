@@ -61,3 +61,9 @@
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";
 "AudioTalkInfo"                = "You can talk with the other end";
+"wifi-Successful"              = "Wi-Fi has been set finished!";
+"ap_change_net_work"           = "NetWork has been seitched,unable to continue the operation";
+"home_ap_Alert_GOON"           = "Quiting";
+"home_ap_Alert_NO"             = "Cancel";
+"home_ap_Alert_message_ios7"   = "The OS version of your mobile phone is iOS 5.0 or above, and you need to quit the APP and change the Wi-Fi network to the AP of the IP camera with the format: IPC-X-XXX. Steps: Settings-WLAN-Choose a Network-IPC-X-XXX";
+
