@@ -141,4 +141,11 @@
  */
 -(BOOL)currentPhoneConnectWithWifiSSIDIsHomeIPC;
 
+/**
+ *  获取当前的云视通号
+ *
+ *  @return 云视通号
+ */
+- (NSString *)getCurrentDeviceYStNUm;
+
 @end

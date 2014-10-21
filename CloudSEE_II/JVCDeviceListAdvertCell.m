@@ -38,7 +38,7 @@
         
         for (int i=0; i<2; i++) {
             
-            [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d@2x.png",i]];
+            [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d.jpg",i]];
         }
     }
     return self;
@@ -76,6 +76,8 @@
         [_scrollView addSubview:imgView];
         [imgView release];
     }
+    
+    
     
     [_scrollView release];
     

@@ -22,7 +22,7 @@
 
 @implementation JVCAddDevieAlarmViewController
 @synthesize localChannelNum;
-static const  int KHeadViewHeight  = 40;//headview的高度
+static const  int KHeadViewHeight  = 20;//headview的高度
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,9 +38,7 @@ static const  int KHeadViewHeight  = 40;//headview的高度
     [super viewDidLoad];
     
     [self initArrayList];
-    
-    [self getAlarmDeviceList];
-    
+        
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //添加按钮
@@ -66,6 +64,20 @@ static const  int KHeadViewHeight  = 40;//headview的高度
 - (void)initArrayList
 {
        arrayAlarmList = [[NSMutableArray alloc] init];
+    
+    for(int i =0;i<3;i++)
+    {
+        JVCLockAlarmModel*moeld = [[JVCLockAlarmModel alloc] init];
+        moeld.alarmGuid = [NSString stringWithFormat:@"%d",i];
+        moeld.alarmName = @"124";
+        moeld.alarmType = 1;
+        moeld.alarmState = YES;
+
+        [arrayAlarmList addObject:moeld];
+        [moeld release];
+    }
+    
+    [self.tableView reloadData];
 }
 
 
@@ -135,6 +147,12 @@ static const  int KHeadViewHeight  = 40;//headview的高度
         }
     }
 }
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JVCLockAlarmModel *model = [];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

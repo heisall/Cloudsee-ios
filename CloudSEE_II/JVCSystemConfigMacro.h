@@ -30,6 +30,9 @@ static const int OPENGLMAXCOUNT  = 16;//opengl显示最大值
 static const NSString *DefaultUserName = @"abc";//默认用户名
 static const NSString *DefaultPassWord = @"123";      //默认密码
 
+static const NSString *DefaultHomeUserName = @"admin";//默认用户名
+static const NSString *DefaultHomePassWord = @"123456";      //默认密码
+
 static  const int KPredicateUserNameLegateAddNum            = 100;//正则校验用户名合法时返回值添加100
 
 static const  int KUserNameMaxLength   =  28;//用户名最大长度
@@ -45,7 +48,7 @@ static const  int KLocalAddDeviceMaxNUM     =  4;//本地添加设备最大值
 
 static const  int KDeviceMaxChannelNUM_64      =  64;//添加通道的最大值64
 
-
+static const  NSString *kSAVEYSTNUM    = @"saveYStNum";//保存云视通的号
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 #define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:1.0]

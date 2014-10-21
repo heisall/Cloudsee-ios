@@ -107,6 +107,8 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     
     if ([localDeviceSqlite open]) {
         //转化
+        
+        DDLogVerbose(@"ystNUm=%@====name=%@===passWord=%@",ystNUm,name,passWord);
         passWord = [CommonFunc  base64StringFromText:passWord];
         
         NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO DEVICEINFOTABLE(DEVICEYSTNUM,USERNAME,PASSWORD,LINKTYPE,IP,PORT,NICKNAME,ISCUSTOMLINKMODEL)VALUES('%@','%@','%@','%d','%@','%@','%@','%d')",ystNUm,name,passWord,0,@"",@"",ystNUm,0];
@@ -313,7 +315,7 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
             NSString *strUserName = [rsSet stringForColumn:@"USERNAME"];
             NSString *strPassWord = [rsSet stringForColumn:@"PASSWORD"];
             strPassWord = [CommonFunc textFromBase64String:strPassWord];
-            
+            DDLogVerbose(@"ystNUm=%@====name=%@===passWord=%@",strDeviceYST,strUserName,strPassWord);
             int iLintType = [rsSet intForColumn:@"LINKTYPE"];
             NSString *strIP = [rsSet stringForColumn:@"IP"];
             NSString *strPort = [rsSet stringForColumn:@"PORT"];

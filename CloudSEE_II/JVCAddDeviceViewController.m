@@ -60,6 +60,19 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
+    if (ystNum.length>0) {
+        
+        textFieldYST.text = ystNum;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
+    }
+    
+}
 
 - (void)viewDidLoad
 {
@@ -293,7 +306,7 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
                 
             }else{//开始添加
                 
-                [self  addDeviceToAccount:textFieldYST.text deviceUserName:textFieldUserName.text passWord:textFieldUserName.text];
+                [self  addDeviceToAccount:textFieldYST.text deviceUserName:textFieldUserName.text passWord:textFieldPassWord.text];
             }
         
     }else{

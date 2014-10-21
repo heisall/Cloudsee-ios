@@ -79,10 +79,10 @@
     
     if (linkType == CONNECTTYPE_YST) {
         
-        result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceNickNameWithYst:self.deviceModel.yunShiTongNum NickName:self.deviceModel.nickName deviceName:textFieldYstName.text passWord:textFieldYstName.text iscustomLinkModel:NO];
+        result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceNickNameWithYst:self.deviceModel.yunShiTongNum NickName:self.deviceModel.nickName deviceName:textFieldYstName.text passWord:textFieldYstPassWord.text iscustomLinkModel:NO];
     }else{
         
-        NSString *strIp = [[JVCSystemUtility shareSystemUtilityInstance]:textFieldIP.text];
+        NSString *strIp = [[JVCSystemUtility shareSystemUtilityInstance]getIpOrNetHostString:textFieldIP.text];
         
         [strIp retain];
         

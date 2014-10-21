@@ -376,5 +376,25 @@ static JVCSystemUtility *shareInstance = nil;
     return FALSE;
 }
 
+/**
+ *  获取当前的云视通号
+ *
+ *  @return 云视通号
+ */
+- (NSString *)getCurrentDeviceYStNUm
+{
+    if ([self currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+        
+        NSString *ssidString = [self currentPhoneConnectWithWifiSSID];
+        
+        if (ssidString.length>kHomeIPCSSIDWithMinLength) {
+            
+            NSString *headStr = [ssidString substringFromIndex:kHomeIPCSSIDWithMinLength];
+            
+            return headStr;
+        }
+    }
+    return nil;
+}
 
 @end

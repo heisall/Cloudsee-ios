@@ -18,7 +18,7 @@
 }
 @end
 @implementation JVCChannelScourseHelper
-
+static const  KHomeChannelsNum =1;//家用设备默认添加通道个数
 static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 
 /**
@@ -339,6 +339,18 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     [arrayInsertIn release];
     
 }
+
+/**
+ *  本地添加通道,并且把本地通道放到数组中
+ *
+ *  @param ystNum 云视通号
+ */
+- (void)addLocalHomeDeviceChannels:(NSString *)ystNum
+{
+    
+    [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] addLocalChannelToDataBase:ystNum nickName:[NSString stringWithFormat:@"%@_%d",ystNum,KHomeChannelsNum] ChannelSortNum:KHomeChannelsNum];
+}
+
 
 /**
  *  获取本地通道所有列表

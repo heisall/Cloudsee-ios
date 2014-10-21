@@ -23,7 +23,7 @@ typedef enum {
     
 }AddDevicePopType;
 
-@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate>
+@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate,UIAlertViewDelegate>
 
 #pragma mark 获取设备
 - (void)getDeviceList;

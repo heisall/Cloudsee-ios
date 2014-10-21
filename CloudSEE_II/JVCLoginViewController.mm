@@ -28,7 +28,11 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "JVCApConfigPlayVideoViewController.h"
 #import "JVCAPConfigPlayVideoIphone4ViewController.h"
-
+#import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCDeviceSourceHelper.h"
+#import "JVCSystemConfigMacro.h"
+#import "JVCChannelScourseHelper.h"
+#import "JVCAddDevieAlarmViewController.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -130,6 +134,10 @@ static const int KLineHeight = 1;//横线的高度
 
 - (void)viewDidLoad
 {
+    
+    JVCAddDevieAlarmViewController *vc = [[JVCAddDevieAlarmViewController alloc] init];
+    [self.view addSubview:vc.view];
+    return;
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     self.navigationController.navigationBarHidden = YES;
@@ -334,6 +342,21 @@ static const int KLineHeight = 1;//横线的高度
     
         [self playSound];
         [self gotoApConfigPlayVideo];
+        NSString *ystNum =  [[JVCSystemUtility shareSystemUtilityInstance] getCurrentDeviceYStNUm];
+        [[NSUserDefaults standardUserDefaults] setObject:ystNum forKey:(NSString *)kSAVEYSTNUM];
+        
+        /**
+         *  添加设备
+         */
+        [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:(NSString *)DefaultHomeUserName passWord:(NSString *)DefaultHomePassWord];
+        //设备添加到设备数组中
+        [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
+                                                             deviceUserName:(NSString *)DefaultHomeUserName
+                                                             devicePassWord:(NSString *)DefaultHomePassWord];
+        //添加通道
+        [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalHomeDeviceChannels:ystNum];
+
+        
     }
 }
 

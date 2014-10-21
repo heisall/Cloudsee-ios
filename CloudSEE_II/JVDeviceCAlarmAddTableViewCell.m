@@ -9,10 +9,12 @@
 #import "JVDeviceCAlarmAddTableViewCell.h"
 #import "JVCControlHelper.h"
 @implementation JVDeviceCAlarmAddTableViewCell
-static const int KCellOrignX    = 15;//距离左侧的距离
-static const int KCellSpan      = 20;//间距
+static const int KCellOrignX    = 20;//距离左侧的距离
+static const int KCellSpan      = 10;//间距
 static const int KCellLabelFont = 16;//字体大小
 static const int KCellSwitchOrigin = 200;//
+static const int KCellLabelHeight  = 20;//高度
+static const int KCellLabelOriginY = 10;//距离顶端的距离
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -48,7 +50,7 @@ static const int KCellSwitchOrigin = 200;//
     
     //uilabel
     UILabel *labelDevice = [controlHelper labelWithText:@"设备名称" textFontSize:KCellLabelFont];
-    labelDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellSpan, labelDevice.width, labelDevice.height);
+    labelDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellLabelOriginY, labelDevice.width, KCellLabelHeight);
     [self.contentView addSubview:labelDevice];
 
     //开关
@@ -57,7 +59,7 @@ static const int KCellSwitchOrigin = 200;//
     [self.contentView addSubview:switchDevcie];
     //设备名
     UILabel *labelNickDevice = [controlHelper labelWithText:model.alarmGuid textFontSize:KCellLabelFont];
-    labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellSpan, labelDevice.width, labelDevice.height);
+    labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, labelDevice.bottom+KCellSpan, labelDevice.width, KCellLabelHeight);
     [self.contentView addSubview:labelNickDevice];
 }
 

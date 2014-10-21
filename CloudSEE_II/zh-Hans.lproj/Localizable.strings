@@ -640,3 +640,4 @@
 "home_ap_Alert_GOON"           = "退出软件";
 "home_ap_Alert_NO"             = "取消";
 "home_ap_Alert_message_ios7"   = "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网络到IPC-X-XXXX格式的无线网络下。具体步骤：设置->无线局域网->选取无线网络";
+"JDCSViewController_ap_setting"= "亲，发现您刚刚配置了一个新设备";

@@ -39,6 +39,7 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ; //动画延迟时间
 static const int             kPopViewOffx                            = 290 ; //popview弹出的x坐标
 static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //设备视图的默认起始标志
+static const int             kAlertTag                               = 10008; //设备视图的默认起始标志
 
 @interface JVCDeviceListViewController ()
 {
@@ -74,7 +75,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -102,6 +102,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self getDeviceList];
+    
+    [self showaddAPConfigDevice];
     
    
 }
@@ -670,6 +672,38 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
             break;
         default:
             break;
+    }
+}
+
+/**
+ *  显示ap配置
+ */
+- (void)showaddAPConfigDevice
+{
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
+        
+        NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
+        
+        if (ystNum.length>0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") message:nil delegate:self cancelButtonTitle:@"添加" otherButtonTitles:@"取消", nil];
+            [alert show];
+            alert.tag = kAlertTag;
+            [alert release];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    if (buttonIndex == 0) {
+        
+        [self AddDevice];
+
+    }else{
+    
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
+
     }
 }
 
