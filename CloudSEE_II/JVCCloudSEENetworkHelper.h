@@ -366,5 +366,13 @@ enum DEVICETALKMODEL {
  */
 - (BOOL)returnCurrentLintState:(int)nLocalChannel;
 
+/**
+ *  删除门磁和手环报警
+ *
+ *  @param nLocalChannel 本地连接通道号
+ *  @param alarmType     报警的类型
+ *  @param alarmGuid     报警的唯一标示
+ */
+-(void)RemoteDeleteDeviceAlarm:(int)nLocalChannel withAlarmType:(int)alarmType  withAlarmGuid:(int)alarmGuid;
 
 @end

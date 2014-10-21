@@ -125,6 +125,6 @@
  */
 -(void)RemoteDeleteAlarmDevice:(int)nJvChannelID
                     deviceType:(int)deviceType
-                    deviceGuid:(NSString *)deviceGuid;
+                    deviceGuid:(int)deviceGuid;
 
 @end

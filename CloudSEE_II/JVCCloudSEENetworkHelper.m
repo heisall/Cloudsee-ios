@@ -864,7 +864,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setStream:
         case TextChatType_setTalkModel:
         case TextChatType_setAlarmType:
-        case TextChatType_getAlarmType:{
+        case TextChatType_getAlarmType:
+        case TextChatType_deleteAlarm:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1456,17 +1457,47 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                     if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                         
-                        DDLogCVerbose(@"%s--datda---%s",__FUNCTION__,stpacket.acData+n);
+                        NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
                         
-//                        NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
-//                        
-//                        [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n]];
-//                        
-//                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:networkInfoMDic];
-//                        
-//                        [networkInfoMDic release];
+                        NSMutableDictionary *alarmAddInfo = [[NSMutableDictionary alloc] initWithCapacity:10];
+                        
+                        if (responseStr.length > 0) {
+                            
+                            [alarmAddInfo addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:(char *)[responseStr UTF8String]]];
+                        }
+                        
+                        [responseStr release];
+
+                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:alarmAddInfo];
+                        
+                        [alarmAddInfo release];
                     }
 
+                }
+                    break;
+                    
+                case RC_GPIN_DEL:{
+                    
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                        
+                        DDLogCVerbose(@"%s----dataDel=%s",__FUNCTION__,stpacket.acData);
+                        
+                        NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
+                        
+                        NSMutableDictionary *alarmAddInfo = [[NSMutableDictionary alloc] initWithCapacity:10];
+                        
+                        if (responseStr.length > 0) {
+                            
+                            [alarmAddInfo addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:(char *)[responseStr UTF8String]]];
+                        }
+                        
+                        [responseStr release];
+                        
+                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_deleteAlarm objYstNetWorkHelpSendData:alarmAddInfo];
+                        
+                        [alarmAddInfo release];
+                    }
+                    
                 }
                     break;
                     
@@ -1819,6 +1850,32 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
     [remoteDownSavePath appendString:SavePath];
 
     [ystRemoteOperationHelperObj RemoteDownloadFile:currentChannelObj.nLocalChannel withDownloadPath:downloadPath];
+
+}
+
+#pragma mark ------------------ 门磁和手环报警设置
+
+/**
+ *  删除门磁和手环报警
+ *
+ *  @param nLocalChannel 本地连接通道号
+ *  @param alarmType     报警的类型
+ *  @param alarmGuid     报警的唯一标示
+ */
+-(void)RemoteDeleteDeviceAlarm:(int)nLocalChannel withAlarmType:(int)alarmType  withAlarmGuid:(int)alarmGuid {
+    
+    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
+    JVCCloudSEEManagerHelper     *currentChannelObj           = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
+    if (currentChannelObj == nil) {
+        
+        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
+        
+        
+        return;
+    }
+    
+    [ystRemoteOperationHelperObj RemoteDeleteAlarmDevice:currentChannelObj.nLocalChannel deviceType:alarmType deviceGuid:alarmGuid];
 
 }
 
