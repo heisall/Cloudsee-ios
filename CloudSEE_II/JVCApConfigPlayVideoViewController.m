@@ -10,8 +10,6 @@
 #import "JVCDeviceMacro.h"
 #import "JVNetConst.h"
 #import "JVCCustomOperationBottomView.h"
-#import "JVCAppHelper.h"
-#import "JVCAppHelper.h"
 #import "OpenALBufferViewcontroller.h"
 #import "JVCSystemUtility.h"
 #import "JVCAlertHelper.h"
@@ -21,6 +19,9 @@
     JVCMonitorConnectionSingleImageView *singleVideoShow;
     
     UIButton *nextBtn;
+    
+    UIView *talkView;
+    BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
 }
 
 @end
@@ -60,13 +61,14 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   
     self.navigationItem.leftBarButtonItem.customView.hidden = YES;
+    
     [self initLayoutWithSingVidew];
     [self initLayoutWithNextButton];
     [self initLayoutWithOperationView:CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop)];
     [self connectApDeviceWithVideo];
     [self initytView:CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop)];
-
 }
 
 /**
@@ -122,6 +124,16 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
     [middleView updateViewWithTitleArray:title detailArray:info];
     [self.view addSubview:middleView];
+//    
+//    UIButton *talkBtn = (UIButton *) [middleView getBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk];
+//    
+//    DDLogCVerbose(@"%s---talkBtn=%@",__FUNCTION__,talkBtn);
+//    
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
+//    [talkBtn addGestureRecognizer:longPress];
+//    longPress.allowableMovement = NO;
+//    longPress.minimumPressDuration = 0.5;
+//    [longPress release];
 }
 
 /**
@@ -143,6 +155,116 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
             [netWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_NetWorkInfo remoteOperationCommand:-1];
             
         });
+    }
+}
+
+/**
+ *  初始化长按对讲提示界面
+ */
+-(void)initTalkView {
+    
+    int width  = 200.0 ;
+    int height = 60.0 ;
+    
+    talkView = [[UIView alloc] init];
+    talkView.backgroundColor = [UIColor blackColor];
+    talkView.alpha = 0.8 ;
+    talkView.layer.cornerRadius = 5.0;
+    talkView.layer.borderWidth  = 1.0;
+    talkView.layer.borderColor  = [UIColor grayColor].CGColor;
+    talkView.frame = CGRectMake((self.view.frame.size.width - width)/2.0 , (self.view.frame.size.height - height)/2.0, width, height);
+    
+    
+    UIImage *image = [UIImage imageNamed:@"ope_long_talk.png"];
+    
+    UIImageView *talkImageIcon    = [[UIImageView alloc] init];
+    talkImageIcon.frame           = CGRectMake(15.0, (height-image.size.height)/2.0, image.size.width, image.size.height);
+    talkImageIcon.image           = image;
+    talkImageIcon.backgroundColor = [UIColor clearColor];
+    [talkView addSubview:talkImageIcon];
+    [talkImageIcon release];
+    
+    
+    UILabel *talkTitle=[[UILabel alloc] init];
+    talkTitle.frame=CGRectMake(talkImageIcon.frame.origin.x+talkImageIcon.frame.size.width+5.0, (height-40)/2,width - talkImageIcon.frame.origin.x-talkImageIcon.frame.size.width - 15.0, 40);
+    talkTitle.numberOfLines = 2;
+    talkTitle.lineBreakMode = UILineBreakModeWordWrap;
+    [talkTitle setTextColor:[UIColor blueColor]];
+    talkTitle.text=NSLocalizedString(@"talkStart", nil);
+    [talkTitle setTextColor:[UIColor whiteColor]];
+    talkTitle.font=[UIFont systemFontOfSize:14];
+    talkTitle.textAlignment=UITextAlignmentLeft;
+    [talkTitle setBackgroundColor:[UIColor clearColor]];
+    [talkView addSubview:talkTitle];
+    
+    [talkTitle release];
+    
+    [self.view addSubview:talkView];
+    
+    [talkView release];
+}
+
+/**
+ *  移除长按对讲界面
+ */
+-(void)RemoveTalkView {
+    
+    if (talkView != nil) {
+        
+        [talkView removeFromSuperview];
+        talkView = nil;
+    }
+}
+
+
+/**
+ *  长按说话
+ *
+ *  @param longGestureRecognizer 长按对象
+ */
+-(void)longPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer{
+    
+    JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
+    
+    DDLogCVerbose(@"%s-----talk",__FUNCTION__);
+    
+    if ([jvcCloudseeObj checknLocalChannelIsDisplayVideo:kConnectDefaultLocalChannel] && ! singleVideoShow.isHomeIPC) {
+        
+        return;
+    }
+    
+    if (![[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK].selected) {
+        
+        [self RemoveTalkView];
+        return;
+    }
+    
+    if ([longGestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
+        
+        [self initTalkView];
+        
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
+        [aqCon changeRecordState:TRUE];
+        
+        isLongPressedStartTalk = TRUE;
+        
+        
+    }else if ([longGestureRecognizer state] == UIGestureRecognizerStateEnded){
+        
+        [self RemoveTalkView];
+        
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        
+        [aqCon changeRecordState:FALSE];
+        
+        isLongPressedStartTalk = FALSE;
+        
     }
 }
 
@@ -364,7 +486,6 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  */
 -(void)OpenAudioCollectionCallBack:(int)nAudioBit nAudioCollectionDataSize:(int)nAudioCollectionDataSize{
     
-    
     DDLogVerbose(@"%s-----callBack",__FUNCTION__);
     AQSController *aqsControllerObj = [AQSController shareAQSControllerobjInstance];
     
@@ -386,7 +507,6 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  *  @param button 语音对讲的按钮
  */
 -(void)ApchatBtnRequest{
-    
     
     JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     

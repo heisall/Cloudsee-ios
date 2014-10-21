@@ -631,13 +631,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                     
                     //偏移带帧头的数据和视频数据的大小以及获取当前的帧类型
                     [jvcCloudSEENetworkHelper videoDataInExistStartCode:&pBuffer isFrameOStartCode:JVCVideoDecoderHelperObj.isExistStartCode nbufferSize:&nSize nBufferType:&bufferType];
-                    
-                    
+                
                         
                     [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType == JVN_DATA_B];
-                    
-                
-                    
                     
                     //DDLogCInfo(@"%s---video",__FUNCTION__);
                     
