@@ -69,4 +69,13 @@ enum OPERATIONBTNCLICKTYPE
  *  设置btn全为非选中状态
  */
 - (void)setAllBtnUnSelect;
+
+/**
+ *  获取相应的view
+ *
+ *  @param selectIndex 索引
+ *
+ *  @return 相应的veiw
+ */
+- (UIView *)getSelectbgView:(int)selectIndex;
 @end

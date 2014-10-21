@@ -132,8 +132,11 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 -(void)initWithTabarViewControllers{
     
-    [self startUserKeepOnline];
-
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {//本地登录
+        
+        [self startUserKeepOnline];
+        
+    }
     /**
      *	我的设备模块
      */
@@ -208,7 +211,7 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 -(void)UpdateTabarViewControllers{
     
-    if ([JVCConfigModel shareInstance]._bISLocalLoginIn != TYPELOGINTYPE_LOCAL) {//本地登录
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {//本地登录
         
         [self startUserKeepOnline];
 

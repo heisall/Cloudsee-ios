@@ -30,6 +30,7 @@ static const int KCellSpan      = 20;//间距
     
     JVCControlHelper *controlHelper = [JVCControlHelper shareJVCControlHelper];
     UIImageView *imageViewBG = [controlHelper imageViewWithIamge:@"arm_loc_cellbg.png"];
+    imageViewBG.frame = CGRectMake((self.width-imageViewBG.width)/2.0, 0, imageViewBG.width, imageViewBG.height);
     [self.contentView addSubview:imageViewBG];
     
     NSString *imageStr = nil;
@@ -40,7 +41,7 @@ static const int KCellSpan      = 20;//间距
         imageStr = @"arm_device_1.png";
     }
 //    UIImageView *imageViewDevice = [controlHelper imageViewWithIamge:imageStr];
-//    imageViewDevice.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+//    imageViewDevice.frame = CGRectMake(KCellOrignX, imageViewBG, <#CGFloat width#>, <#CGFloat height#>)
 
 }
 
