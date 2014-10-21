@@ -14,6 +14,7 @@ enum TYPEBUTTONCLI
     TYPEBUTTONCLI_PLAYBACK      =2,  //远程回调
     
 };
+static const NSString *BUNDLENAMEMiddle =  @"customMiddleView_cloudsee.bundle";
 
 @protocol operationMiddleViewDelegate <NSObject>
 

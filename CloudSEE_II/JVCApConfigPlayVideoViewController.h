@@ -11,12 +11,37 @@
 #import "JVCMonitorConnectionSingleImageView.h"
 #import "JVCAPConfingMiddleIphone5.h"
 #import "JVCApConfigDeviceViewController.h"
+#import "JVCCustomYTOView.h"
+#import "JVCCloudSEENetworkHelper.h"
+#import "AQSController.h"
 
-@interface JVCApConfigPlayVideoViewController : JVCBaseWithGeneralViewController <ystNetWorkHelpDelegate,JVCMonitorConnectionSingleImageViewDelegate,JVCAPConfingMiddleIphone5Delegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,JVCApConfigDeviceViewControllerDelegate> {
+@interface JVCApConfigPlayVideoViewController : JVCBaseWithGeneralViewController <ystNetWorkHelpDelegate,JVCMonitorConnectionSingleImageViewDelegate,JVCAPConfingMiddleIphone5Delegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,JVCApConfigDeviceViewControllerDelegate,YTOperationDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkAudioDelegate,receiveAudioDataDelegate> {
 
     NSString *strYstNumber;
 }
 
 @property (nonatomic,retain) NSString *strYstNumber;
 
+-(void)initLayoutWithOperationView:(CGRect )frame;
+
+/**
+ *  判断是否打开远程配置
+ *
+ *  @return yes 打开  no 取消
+ */
+- (BOOL)judgeAPOpenVideoPlaying;
+
+-(void)ApAudioBtnClick;
+
+/**
+ *  显示云台view
+ */
+- (void)APYTOperationViewShow;
+
+/**
+ *  开启语音对讲
+ *
+ *  @param button 语音对讲的按钮
+ */
+-(void)ApchatBtnRequest;
 @end

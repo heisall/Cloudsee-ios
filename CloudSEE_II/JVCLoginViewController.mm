@@ -27,6 +27,7 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import "JVCApConfigPlayVideoViewController.h"
+#import "JVCAPConfigPlayVideoIphone4ViewController.h"
 
 enum LOGINBTNTYPE
 {
@@ -367,11 +368,21 @@ static const int KLineHeight = 1;//横线的高度
  *  前往视频检测界面
  */
 -(void)gotoApConfigPlayVideo{
+    
+    self.navigationController.navigationBarHidden = NO;
 
-     self.navigationController.navigationBarHidden = NO;
-    JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
-    [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
-    [apConfigPlayVideo release];
+    if (iphone5) {
+        
+        JVCApConfigPlayVideoViewController *apConfigPlayVideo = [[JVCApConfigPlayVideoViewController alloc] init];
+        [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
+        [apConfigPlayVideo release];
+        
+    }else{
+        JVCAPConfigPlayVideoIphone4ViewController *apConfigPlayVideo = [[JVCAPConfigPlayVideoIphone4ViewController alloc] init];
+        [self.navigationController pushViewController:apConfigPlayVideo animated:YES];
+        [apConfigPlayVideo release];
+    }
+   
 }
 
 /**

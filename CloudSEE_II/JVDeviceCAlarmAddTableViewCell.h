@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JVCLockAlarmModel.h"
 
 @interface JVDeviceCAlarmAddTableViewCell : UITableViewCell
 

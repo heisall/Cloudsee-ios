@@ -113,6 +113,13 @@
 		A7F442A219E7649B00519A4B /* add_voice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4429C19E7649B00519A4B /* add_voice@2x.png */; };
 		A7F442A319E7649B00519A4B /* add_wlan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4429D19E7649B00519A4B /* add_wlan@2x.png */; };
 		A7F4457919F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */; };
+		A7F4457C19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4457B19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m */; };
+		A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4457E19F5FEA5002C984F /* JVCAPConfigMiddleView.m */; };
+		A7F4458319F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4458219F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m */; };
+		A7F4458519F62C3D002C984F /* arm_loc_cellbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4458419F62C3D002C984F /* arm_loc_cellbg@2x.png */; };
+		A7F4458819F63123002C984F /* JVCLockAlarmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4458719F63123002C984F /* JVCLockAlarmModel.m */; };
+		A7F4458B19F63559002C984F /* arm_device_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4458919F63559002C984F /* arm_device_1@2x.png */; };
+		A7F4458C19F63559002C984F /* arm_device_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4458A19F63559002C984F /* arm_device_0@2x.png */; };
 		A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4869619E61BFD00C10B2B /* JVCAddDevicePopView.m */; };
 		A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869919E6256700C10B2B /* QrInfoText@2x.png */; };
 		A7F486A019E6256700C10B2B /* qdLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4869A19E6256700C10B2B /* qdLine@2x.png */; };
@@ -604,6 +611,17 @@
 		A7F4429D19E7649B00519A4B /* add_wlan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_wlan@2x.png"; sourceTree = "<group>"; };
 		A7F4457719F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVDeviceCAlarmAddTableViewCell.h; sourceTree = "<group>"; };
 		A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVDeviceCAlarmAddTableViewCell.m; sourceTree = "<group>"; };
+		A7F4457A19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAPConfigPlayVideoIphone4ViewController.h; sourceTree = "<group>"; };
+		A7F4457B19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAPConfigPlayVideoIphone4ViewController.m; sourceTree = "<group>"; };
+		A7F4457D19F5FEA5002C984F /* JVCAPConfigMiddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAPConfigMiddleView.h; sourceTree = "<group>"; };
+		A7F4457E19F5FEA5002C984F /* JVCAPConfigMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAPConfigMiddleView.m; sourceTree = "<group>"; };
+		A7F4458119F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceAlarmNoDeviceTableViewCell.h; sourceTree = "<group>"; };
+		A7F4458219F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceAlarmNoDeviceTableViewCell.m; sourceTree = "<group>"; };
+		A7F4458419F62C3D002C984F /* arm_loc_cellbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_loc_cellbg@2x.png"; sourceTree = "<group>"; };
+		A7F4458619F63123002C984F /* JVCLockAlarmModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLockAlarmModel.h; sourceTree = "<group>"; };
+		A7F4458719F63123002C984F /* JVCLockAlarmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLockAlarmModel.m; sourceTree = "<group>"; };
+		A7F4458919F63559002C984F /* arm_device_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_device_1@2x.png"; sourceTree = "<group>"; };
+		A7F4458A19F63559002C984F /* arm_device_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_device_0@2x.png"; sourceTree = "<group>"; };
 		A7F4869519E61BFD00C10B2B /* JVCAddDevicePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAddDevicePopView.h; sourceTree = "<group>"; };
 		A7F4869619E61BFD00C10B2B /* JVCAddDevicePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAddDevicePopView.m; sourceTree = "<group>"; };
 		A7F4869919E6256700C10B2B /* QrInfoText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QrInfoText@2x.png"; sourceTree = "<group>"; };
@@ -1367,6 +1385,9 @@
 		A7F51E6F19EBB5FE0052F878 /* alarm */ = {
 			isa = PBXGroup;
 			children = (
+				A7F4458919F63559002C984F /* arm_device_1@2x.png */,
+				A7F4458A19F63559002C984F /* arm_device_0@2x.png */,
+				A7F4458419F62C3D002C984F /* arm_loc_cellbg@2x.png */,
 				A7EFF9EF19F4DCF900DF783D /* arm_diobg@2x.png */,
 				A7EFFA4D19F4FDE300DF783D /* arm_no@2x.png */,
 				A7F2210F19F389B900447853 /* arm_new_cellbg@2x.png */,
@@ -1633,6 +1654,8 @@
 		AD014DD919F4C02900E3D0FB /* apConfigHomeIPC */ = {
 			isa = PBXGroup;
 			children = (
+				A7F4457A19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.h */,
+				A7F4457B19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m */,
 				A7EFFA5319F50B9800DF783D /* JVCAPConfingMiddleIphone5.h */,
 				A7EFFA5419F50B9800DF783D /* JVCAPConfingMiddleIphone5.m */,
 				AD014DDA19F4C05C00E3D0FB /* JVCAPConfigViewController.h */,
@@ -1641,6 +1664,8 @@
 				AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.mm */,
 				AD014DE519F51C2E00E3D0FB /* JVCApConfigDeviceViewController.h */,
 				AD014DE619F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m */,
+				A7F4457D19F5FEA5002C984F /* JVCAPConfigMiddleView.h */,
+				A7F4457E19F5FEA5002C984F /* JVCAPConfigMiddleView.m */,
 			);
 			name = apConfigHomeIPC;
 			sourceTree = "<group>";
@@ -1716,6 +1741,8 @@
 				A7EFFA6A19F520E700DF783D /* JVCAddDevieAlarmViewController.m */,
 				A7F4457719F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.h */,
 				A7F4457819F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m */,
+				A7F4458119F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.h */,
+				A7F4458219F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m */,
 			);
 			name = editDeviceViewController;
 			sourceTree = "<group>";
@@ -2055,6 +2082,8 @@
 				AD3BDC7819EB75D3001B16D7 /* JVCLanScanDeviceModel.m */,
 				AD3BDC7A19EB7C92001B16D7 /* JVCLocalCacheModel.h */,
 				AD3BDC7B19EB7C92001B16D7 /* JVCLocalCacheModel.m */,
+				A7F4458619F63123002C984F /* JVCLockAlarmModel.h */,
+				A7F4458719F63123002C984F /* JVCLockAlarmModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -2290,6 +2319,7 @@
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				AD1673CA19D93BAA0021CD1B /* Default.png in Resources */,
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
+				A7F4458C19F63559002C984F /* arm_device_0@2x.png in Resources */,
 				AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */,
 				A7F2211219F395F400447853 /* mor_usr_bg@2x.png in Resources */,
 				A7EFFA4E19F4FDE300DF783D /* arm_no@2x.png in Resources */,
@@ -2354,6 +2384,7 @@
 				A7F5011C19D4EFB400AA78F0 /* Icon-Small@2x.png in Resources */,
 				AD1673C919D93BAA0021CD1B /* Default-568h@2x.png in Resources */,
 				A7F424F619D0FD7500D96475 /* log_darbg@2x.png in Resources */,
+				A7F4458B19F63559002C984F /* arm_device_1@2x.png in Resources */,
 				A7F4346A19DA44A800E7ECA1 /* log_user@2x.png in Resources */,
 				AD3BDC1119E8B2E9001B16D7 /* play_3@2x.png in Resources */,
 				A7F486A319E6256700C10B2B /* qrReturnImageBg@2x.png in Resources */,
@@ -2381,6 +2412,7 @@
 				AD2BDB7019D2BC6A00AA6D73 /* tab_deviceManager_select@2x.png in Resources */,
 				A7F424FA19D0FD7500D96475 /* log_btn@2x.png in Resources */,
 				A7EFF9EE19F4AB8D00DF783D /* play_dwn@2x.png in Resources */,
+				A7F4458519F62C3D002C984F /* arm_loc_cellbg@2x.png in Resources */,
 				A7F6EFB319D7993100FFE02D /* devAdv_default_1@2x.png in Resources */,
 				A7F51E7519EBBAA50052F878 /* arm_exc@2x.png in Resources */,
 				AD2BDB1719D28F0600AA6D73 /* edi_RemoteSetup@2x.png in Resources */,
@@ -2509,6 +2541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F4458819F63123002C984F /* JVCLockAlarmModel.m in Sources */,
 				ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */,
 				A7F5EF3619D2621B009B797A /* MJRefreshFooterView.m in Sources */,
 				ADA22D5719DA613E0092F8B9 /* DDFileLogger.m in Sources */,
@@ -2570,6 +2603,7 @@
 				A7F5EF4319D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */,
 				A7F5EF3C19D2621B009B797A /* UIScrollView+MJRefresh.m in Sources */,
+				A7F4458319F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m in Sources */,
 				AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */,
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
@@ -2595,6 +2629,7 @@
 				ADA22D3419DA5D990092F8B9 /* data_queue.mm in Sources */,
 				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,
+				A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
 				A7F5EF3219D2621B009B797A /* MJRefreshBaseView.m in Sources */,
@@ -2644,6 +2679,7 @@
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A72DCD2519EBF79500C9A1ED /* JVCLocalAddDeviceViewController.m in Sources */,
 				A7263C4C19E7FB91003C22DE /* JVCMoreViewController.m in Sources */,
+				A7F4457C19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m in Sources */,
 				ADA22D7519DA816C0092F8B9 /* JVCPlaySoundHelper.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,

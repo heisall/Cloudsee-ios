@@ -8,7 +8,6 @@
 
 #import "JVCOperationMiddleView.h"
 
-static const NSString *BUNDLENAMEMiddle =  @"customMiddleView_cloudsee.bundle";
 #define IOS_VERSION_A [[[UIDevice currentDevice] systemVersion] floatValue]
 static const double IOS_SYSTEM_7_A  =  7.0;     //ios7
 static const int    TAGADD          =  10000;   //tag开始

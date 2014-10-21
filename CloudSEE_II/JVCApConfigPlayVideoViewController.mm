@@ -11,6 +11,7 @@
 #import "JVNetConst.h"
 #import "JVCCustomOperationBottomView.h"
 #import "JVCAppHelper.h"
+#import "OpenALBufferViewcontroller.h"
 
 @interface JVCApConfigPlayVideoViewController () {
 
@@ -59,8 +60,9 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     [self initLayoutWithSingVidew];
     [self initLayoutWithNextButton];
-    [self initLayoutWithOperationView];
+    [self initLayoutWithOperationView:CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop)];
     [self connectApDeviceWithVideo];
+    [self initytView:CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop)];
 
 }
 
@@ -106,12 +108,12 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 /**
  *  初始化中间功能按钮视图
  */
--(void)initLayoutWithOperationView{
+-(void)initLayoutWithOperationView:(CGRect )frame{
 
     JVCAPConfingMiddleIphone5 *middleView = [JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance];
-    middleView.frame = CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop);
+    middleView.frame = frame;
     middleView.delegateIphone5BtnCallBack = self;
-    NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil), nil];
+    NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"megaphone", nil), nil];
     
      NSArray *info = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Learn audio info at any time", nil),NSLocalizedString(@"Adjust PTZ at any time", nil),NSLocalizedString(@"AudioTalkInfo", nil), nil];
     
@@ -149,7 +151,260 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 -  (void)operationMiddleIphone5APBtnCallBack:(int)clickBtnType
 {
     DDLogVerbose(@"%s---%d",__FUNCTION__,clickBtnType);
+    
+    if (![self judgeAPOpenVideoPlaying]) {//没有图像直接返回
+        return;
+    }
+
+    switch (clickBtnType) {
+        case OPERATIONAPBTNCLICKTYPE_AUDIO:
+            [self ApAudioBtnClick];
+            break;
+        case OPERATIONAPBTNCLICKTYPE_YTOPERATION:
+            [self  APYTOperationViewShow];
+            break;
+        case OPERATIONAPBTNCLICKTYPE_Talk:
+            [self ApchatBtnRequest];
+            break;
+            
+        default:
+            break;
+    }
 }
+
+#pragma mark ========音频监听===start
+-(void)ApAudioBtnClick
+{
+    JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    ystNetworkObj.ystNWADelegate    =  self;
+    [self audioAPButtonClick];
+}
+
+/**
+ *  音频监听功能（关闭）
+ *
+ *  @param bState YES:(对讲模式下)  NO：音频监听模式下
+ */
+-(void)audioAPButtonClick{
+    
+    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    /**
+     *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
+     */
+    if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_AUDIO]) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [ystNetworkObj  RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+            
+            
+        });
+        
+        [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
+
+        [openAlObj stopSound];
+        
+        
+    }else{
+        
+        [openAlObj initOpenAL];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [ystNetworkObj  RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+            
+        });
+        
+        [self setApBtnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
+    }
+}
+/**
+ *  ystNetWorkAudioDelegate ystNetWorkAudioDelegate
+ *
+ *  @param soundBuffer     音频数据
+ *  @param soundBufferSize 音频数据大小
+ *  @param soundBufferType 音频数据类型 YES：16bit NO：8bit
+ */
+-(void)playVideoSoundCallBackMath:(char *)soundBuffer soundBufferSize:(int)soundBufferSize soundBufferType:(BOOL)soundBufferType{
+    
+    [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
+    
+}
+
+/**
+ *  语音对讲的回调
+ *
+ *  @param VoiceInterState 对讲的状态
+ */
+-(void)VoiceInterComCallBack:(int)VoiceInterState
+{
+    switch (VoiceInterState) {
+            
+        case VoiceInterStateType_Succeed:{
+            
+            [self performSelectorOnMainThread:@selector(ApOpenChatVoiceIntercom) withObject:self waitUntilDone:NO];
+            
+        }
+            break;
+        case VoiceInterStateType_End:{
+            
+            [self performSelectorOnMainThread:@selector(ApcloseChatVoiceIntercom) withObject:self waitUntilDone:NO];
+            
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/**
+ *  打开语音对讲
+ */
+- (void)ApOpenChatVoiceIntercom
+{
+    //判断是否开启音频监听、如果打开关闭音频监听
+    [self stopAudioMonitor];
+    
+    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    [openAlObj initOpenAL];
+    
+    /**
+     *  选中对讲button
+     */
+    [self setApBtnSelect:OPERATIONAPBTNCLICKTYPE_Talk];
+    
+    
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString( singleVideoShow.isHomeIPC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
+}
+
+/**
+ *  停止音频监听
+ */
+- (void)stopAudioMonitor
+{
+    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    
+    if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_AUDIO]) {
+        
+        [openAlObj stopSound];
+        
+        [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
+        
+    }
+    
+}
+/**
+ *  关闭音频监听
+ */
+- (void)ApcloseChatVoiceIntercom
+{
+    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
+    
+    [openAlObj stopSound];
+    [openAlObj cleanUpOpenALMath];
+    
+    [aqControllerobj stopRecord];
+    aqControllerobj.delegate = nil;
+    
+    [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_Talk];
+    
+}
+
+
+#pragma mark ========音频监听===end
+
+#pragma mark ========云台===start
+
+
+- (void)initytView:(CGRect )frame{
+
+    JVCCustomYTOView *ytoView = [JVCCustomYTOView shareInstance];
+    ytoView.frame = frame;
+    ytoView.delegateYTOperation=self;
+    [self.view addSubview:ytoView];
+    [ytoView setHidden:YES];
+
+}
+/**
+ *  显示云台view
+ */
+- (void)APYTOperationViewShow
+{
+    [JVCCustomYTOView shareInstance].delegateYTOperation = self;
+    [[JVCCustomYTOView shareInstance] showYTOperationView];
+    [self.view bringSubviewToFront: [JVCCustomYTOView shareInstance]];
+
+}
+
+#pragma mark 云台操作的回调
+/**
+ *  云台操作的回调
+ *
+ *  @param YTJVNtype 云台控制的命令
+ */
+- (void)YTOperationDelegateCallBackWithJVNYTCType:(int )YTJVNtype
+{
+    DDLogInfo(@"==%s===%d",__FUNCTION__,YTJVNtype);
+    
+    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
+}
+/**
+ *  打开采集音频模块
+ *
+ *  @param nAudioBit                采集的位数
+ *  @param nAudioCollectionDataSize 采集数据的大小
+ */
+-(void)OpenAudioCollectionCallBack:(int)nAudioBit nAudioCollectionDataSize:(int)nAudioCollectionDataSize{
+    
+    
+    DDLogVerbose(@"%s-----callBack",__FUNCTION__);
+    AQSController *aqsControllerObj = [AQSController shareAQSControllerobjInstance];
+    
+    aqsControllerObj.delegate       = self;
+    
+    [[AQSController shareAQSControllerobjInstance] record:nAudioCollectionDataSize mChannelBit:nAudioBit];
+    
+    [aqsControllerObj changeRecordState:!singleVideoShow.isHomeIPC]; //设置采集的模式
+    
+}
+#pragma mark ========云台===end
+
+
+#pragma mark =========对讲===start
+
+/**
+ *  开启语音对讲
+ *
+ *  @param button 语音对讲的按钮
+ */
+-(void)ApchatBtnRequest{
+    
+    
+    JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkObj.ystNWADelegate    = self;
+    
+    if (![self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk]) {
+        
+        [ystNetWorkObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_REQ_CHAT];
+        
+    }else {
+        
+        [ystNetWorkObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+        
+        /**
+         *  使选中的button变成默认
+         */
+        [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_Talk];
+    }
+}
+
+#pragma mark =========对讲====end
 
 - (void)didReceiveMemoryWarning
 {
@@ -355,5 +610,35 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     return isCheck;
 }
 
+/**
+ *  判断是否打开远程配置
+ *
+ *  @return yes 打开  no 取消
+ */
+- (BOOL)judgeAPOpenVideoPlaying
+{
+    return [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] checknLocalChannelIsDisplayVideo:kConnectDefaultRemoteChannel];
+}
 
+/**
+ *  获取bug的状态
+ *
+ *  @param index 索引
+ *
+ *  @return btn的状态
+ */
+- (BOOL)getMiddleBtnSelectState:(int)index
+{
+    return  [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] getBtnSelectState: index];
+}
+
+- (void)setApBtnUnSelect:(int)index
+{
+    [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnUnSelect:index];
+}
+
+- (void)setApBtnSelect:(int)index
+{
+     [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnSelect:index ];
+}
 @end

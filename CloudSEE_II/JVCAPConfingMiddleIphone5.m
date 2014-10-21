@@ -234,6 +234,22 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
 }
 
 /**
+ *  获取btn的选中状态
+ *
+ *  @param selectIndex 索引
+ */
+- (BOOL)getBtnSelectState:(int)selectIndex
+{
+    if (selectIndex >=_arrayBtnList.count) {
+        
+        return NO ;
+    }
+    
+    UIButton *btn = [_arrayBtnList objectAtIndex:selectIndex];
+    
+    return btn.selected;
+}
+/**
  *  初始化数组信息
  */
 - (void)initImageSelectArray

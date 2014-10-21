@@ -59,6 +59,13 @@ enum OPERATIONBTNCLICKTYPE
 - (void)setBtnUnSelect:(int)selectIndex;
 
 /**
+ *  获取btn的选中状态
+ *
+ *  @param selectIndex 索引
+ */
+- (BOOL)getBtnSelectState:(int)selectIndex;
+
+/**
  *  设置btn全为非选中状态
  */
 - (void)setAllBtnUnSelect;
