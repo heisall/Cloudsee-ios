@@ -108,6 +108,11 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             [self RemoteWithDeviceSetFrameParam:nJvChannelID withStreamType:remoteOperationCommand];
         }
             break;
+        case TextChatType_setAlarmType:{
+            
+            [self RemoteBindAlarmDevice:nJvChannelID withAddDeviceType:remoteOperationCommand];
+        }
+            break;
         default:
             break;
     }
@@ -464,4 +469,106 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+sizeof(WIFI_INFO));
 }
 
+/**
+ *  绑定门磁或者手环设备
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param deviceType   设备类型 1:门磁；2：手环
+ */
+-(void)RemoteBindAlarmDevice:(int)nJvChannelID  withAddDeviceType:(int)deviceType{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_GPIN_ADD;
+    int nOffset=0;
+    char acBuffer[256]={0};
+    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String],deviceType);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
+
+/**
+ *  设置门磁属性
+ *
+ *  @param nJvChannelID   本地连接的通道号
+ *  @param deviceType     设备类型1:门磁；2：手环
+ *  @param deviceGuid     设备guid
+ *  @param deviceNickName 设备昵称
+ *  @param openState      设备打开状态 1:开；0；关
+ */
+-(void)RemoteSetAlarmDeviceNickName:(int)nJvChannelID
+                  withAddDeviceType:(int)deviceType
+                         deviceGuid:(NSString *)deviceGuid
+                     deviceNickName:(NSString *)deviceNickName
+                    deviceOpenState:(int )openState
+{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_GPIN_SET;
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+//    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String],deviceType);
+//    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String], deviceType);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "guid=%s;", [deviceGuid UTF8String]);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "name=%s;", [deviceNickName UTF8String]);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "enable=%d;", openState );
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
+
+/**
+ *  查询当前设备绑定的所有门磁或者手环设备集合
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ */
+-(void)RemoteRequestAlarmDevice:(int)nJvChannelID
+{
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_GPIN_SECLECT;
+    *((int*)m_stPacket.acData) =1;
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
+
+/**
+ *  查询当前设备绑定的所有门磁或者手环设备集合
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ */
+-(void)RemoteDeleteAlarmDevice:(int)nJvChannelID
+                    deviceType:(int)deviceType
+                    deviceGuid:(NSString *)deviceGuid
+{
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_GPIN_DEL;
+    int nOffset=0;
+    char acBuffer[256]={0};
+
+    sprintf(acBuffer, "%s=%d;",[kDeviceAlarmType UTF8String], deviceType);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "guid=%s;", [deviceGuid UTF8String]);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
 @end

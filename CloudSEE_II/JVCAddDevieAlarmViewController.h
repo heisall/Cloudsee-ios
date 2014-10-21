@@ -10,4 +10,5 @@
 
 @interface JVCAddDevieAlarmViewController : JVCBaseGeneralTableViewController
 
+@property(nonatomic,assign)int localChannelNum;
 @end

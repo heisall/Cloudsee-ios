@@ -289,7 +289,7 @@ typedef struct _JVS_FILE_HEADER_EX
 #define RC_DATA_SIZE	192*800
 typedef struct tagPAC
 {
-	int	nPacketType:5;		//包的类型
+	unsigned int	nPacketType:5;		//包的类型
 	int	nPacketCount:8;		//包总数
 	int	nPacketID:8;		//包序号
 	int	nPacketLen:11;		//包的长度
@@ -417,4 +417,11 @@ typedef struct
 #define POWER_ADMIN        0x0004
 #define POWER_FIXED        0x0010
 
+/**
+ *  手环门磁报警的
+ */
+#define RC_GPIN_ADD     0x10
+#define RC_GPIN_SET     0x11
+#define RC_GPIN_SECLECT 0x12
+#define RC_GPIN_DEL     0x13
 

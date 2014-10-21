@@ -18,6 +18,8 @@
 #import "JVCLocalEditDeviceInfoViewController.h"
 #import "JVCLocalLickTypeViewController.h"
 #import "JVCLocalEditChannelInfoTableViewController.h"
+#import "JVCAddDevieAlarmViewController.h"
+#import "JVNetConst.h"
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -41,6 +43,8 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 @implementation JVCEditDeviceListViewController
 
 static const int  kInitWithLayoutColumnCount           = 3;
+static const int  kLocalDeviceChannelNum               = 1;
+static const int  kRemoteDeviceChannelNum              = 1;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -237,7 +241,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
             
         case JVCEditDeviceListViewControllerClickType_add:{
             
-            
+            [self connetDeviceWithYSTNum];
             
         }
             break;
@@ -301,6 +305,17 @@ static const int  kInitWithLayoutColumnCount           = 3;
     }
 }
 
+/**
+ *  添加门磁报警的
+ */
+- (void)addAlarmDeviceViewController
+{
+    JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
+    viewControler.localChannelNum = kLocalDeviceChannelNum;
+    [self.navigationController pushViewController:viewControler animated:YES];
+    viewControler.hidesBottomBarWhenPushed = YES;
+    [viewControler release];
+}
 
 /**
  *  删除设备的回调
@@ -362,6 +377,151 @@ static const int  kInitWithLayoutColumnCount           = 3;
 {
 
     return [titles objectAtIndex:self.nIndex];
+}
+
+
+#pragma mark  连接云视通 不让显示=============
+/**
+ *  连接云视通
+ */
+- (void)connetDeviceWithYSTNum
+{
+    
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSString *selectyst = [self currentYstTitles];
+        
+        JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:selectyst];
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWHDelegate = self;
+        
+        NSString *deviceUserName ;
+        NSString *delvicePassword;
+        
+        if (deviceModel == nil) {
+            
+            deviceUserName  = (NSString *)DefaultUserName;
+            delvicePassword = (NSString *)DefaultPassWord;
+        }else{
+            
+            deviceUserName = deviceModel.userName;
+            delvicePassword = deviceModel.passWord;
+        }
+        
+        
+        if (deviceModel.linkType) {
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ipConnectVideobyDeviceInfo:kLocalDeviceChannelNum nRemoteChannel:kRemoteDeviceChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            
+        }else{
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:kLocalDeviceChannelNum
+                                                                                   nRemoteChannel:kRemoteDeviceChannelNum strYstNumber:deviceModel.yunShiTongNum
+                                                                                      strUserName:deviceUserName
+                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+        }
+        
+    });
+    
+}
+
+
+/**
+ *  连接的回调代理
+ *
+ *  @param connectCallBackInfo 返回的连接信息
+ *  @param nlocalChannel       本地通道连接从1开始
+ *  @param connectType         连接返回的类型
+ */
+-(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
+{
+    [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
+
+    if (connectResultType == CONNECTRESULTTYPE_Succeed) {
+        
+       // [self performSelectorOnMainThread:@selector(addAlarmDeviceViewController) withObject:nil waitUntilDone:NO ];
+    }else {
+        
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"连接失败请请重试"];
+        
+    }
+}
+
+/**
+*  视频来O帧之后请求文本聊天
+*
+*  @param nLocalChannel 本地显示的通道编号 需减去1
+*/
+-(void)RequestTextChatCallback:(int)nLocalChannel {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
+        
+    });
+}
+
+/**
+ *  文本聊天请求的结果回调
+ *
+ *  @param nLocalChannel 本地本地显示窗口的编号
+ *  @param nStatus       文本聊天的状态
+ */
+-(void)RequestTextChatStatusCallBack:(int)nLocalChannel withStatus:(int)nStatus{
+    
+    if (nStatus == JVN_RSP_TEXTACCEPT) {
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWRODelegate                      = self;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+            netWorkHelper.ystNWTDDelegate = self;
+            [ystNetWorkHelperObj remoteGetBindingAlarmDevices:kLocalDeviceChannelNum];
+            
+        });
+    }
+}
+
+#pragma mark  文本聊天的回调
+/**
+ *  文本聊天返回的回调
+ *
+ *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
+ *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
+ */
+-(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+{
+    DDLogVerbose(@"%s====%d=====%@",__FUNCTION__,nYstNetWorkHelpTextDataType,objYstNetWorkHelpSendData);
+}
+
+
+
+/**
+ *  断开远程连接方法
+ */
+- (void)disAlarmRemoteLink
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWHDelegate = nil;
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:kLocalDeviceChannelNum];
+    });
 }
 
 

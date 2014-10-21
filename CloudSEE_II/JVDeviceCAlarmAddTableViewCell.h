@@ -11,4 +11,6 @@
 
 @interface JVDeviceCAlarmAddTableViewCell : UITableViewCell
 
+- (void)initAlarmAddTableViewContentView:(JVCLockAlarmModel *)model;
+
 @end

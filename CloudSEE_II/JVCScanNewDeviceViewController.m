@@ -186,6 +186,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 {
     if (buttonIndex == 0) {
         
+        
         [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
         [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:devieNewModel.yunShiTongNum
                                                                     userName:devieNewModel.userName

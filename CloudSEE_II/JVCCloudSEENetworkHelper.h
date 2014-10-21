@@ -366,4 +366,11 @@ enum DEVICETALKMODEL {
  */
 - (BOOL)returnCurrentLintState:(int)nLocalChannel;
 
+/**
+ *  获取设备的绑定的设备列表（门磁手环）
+ *
+ *  @param nLocalChannel 通道号
+ */
+- (void)remoteGetBindingAlarmDevices:(int)nLocalChannel;
+
 @end

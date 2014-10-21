@@ -203,6 +203,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
         hub = [MBProgressHUD showHUDAddedTo:window animated:YES];
         
     }
+    [window bringSubviewToFront:hub];
     hub.tag = HUDTAG;
     
 }

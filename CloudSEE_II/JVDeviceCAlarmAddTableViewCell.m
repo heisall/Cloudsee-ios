@@ -11,6 +11,8 @@
 @implementation JVDeviceCAlarmAddTableViewCell
 static const int KCellOrignX    = 15;//距离左侧的距离
 static const int KCellSpan      = 20;//间距
+static const int KCellLabelFont = 16;//字体大小
+static const int KCellSwitchOrigin = 200;//
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -40,9 +42,23 @@ static const int KCellSpan      = 20;//间距
     }else{
         imageStr = @"arm_device_1.png";
     }
-//    UIImageView *imageViewDevice = [controlHelper imageViewWithIamge:imageStr];
-//    imageViewDevice.frame = CGRectMake(KCellOrignX, imageViewBG, <#CGFloat width#>, <#CGFloat height#>)
+    UIImageView *imageViewDevice = [controlHelper imageViewWithIamge:imageStr];
+    imageViewDevice.frame = CGRectMake(KCellOrignX, (imageViewBG.height - imageViewDevice.height)/2.0, imageViewDevice.width, imageViewDevice.height);
+    [self.contentView addSubview:imageViewDevice];
+    
+    //uilabel
+    UILabel *labelDevice = [controlHelper labelWithText:@"设备名称" textFontSize:KCellLabelFont];
+    labelDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellSpan, labelDevice.width, labelDevice.height);
+    [self.contentView addSubview:labelDevice];
 
+    //开关
+    UISwitch *switchDevcie = [[UISwitch alloc] initWithFrame:CGRectMake(KCellSwitchOrigin, labelDevice.top, 0, 0)];
+    switchDevcie.on = model.alarmState;
+    [self.contentView addSubview:switchDevcie];
+    //设备名
+    UILabel *labelNickDevice = [controlHelper labelWithText:model.alarmGuid textFontSize:KCellLabelFont];
+    labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellSpan, labelDevice.width, labelDevice.height);
+    [self.contentView addSubview:labelNickDevice];
 }
 
 - (void)awakeFromNib

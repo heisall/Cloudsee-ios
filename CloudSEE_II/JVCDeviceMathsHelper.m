@@ -16,6 +16,8 @@
 #import "JVCPredicateHelper.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCResultTipsHelper.h"
+#import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCConfigModel.h"
 @interface JVCDeviceMathsHelper ()
 {
     NSString *deviceYStNum;
@@ -72,7 +74,34 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
     return nil;
 }
 
+#pragma mark 添加本地设备
+/**
+ *  添加
+ *
+ *  @param ystNum   云视通
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)addDeviceToLocalAccount
+{
+    /**
+     *  添加设备
+     */
+    [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:deviceYStNum deviceName:deviceUserName passWord:devicePassWord];
+    //设备添加到设备数组中
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:deviceYStNum
+                                                         deviceUserName:deviceUserName
+                                                         devicePassWord:devicePassWord];
+    //添加通道
+    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:deviceYStNum];
+    
+    
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
 
+    [self releaseString];
+    
+    [self handerAddDeviceSuccess];
+}
 
 #pragma mark 添加设备方法
 /**
@@ -110,7 +139,15 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
             
         }else{//开始添加
             
-            [self  addDeviceToAccount];
+            if ([JVCConfigModel shareInstance ]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
+                
+                [self  addDeviceToAccount];//账号添加
+                
+            }else{//本地添加
+                
+                [self  addDeviceToLocalAccount];
+
+            }
         }
         
     }else{
@@ -311,6 +348,13 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
     [devicePassWord  release];
     
     [super dealloc];
+}
+
+- (void)releaseString
+{
+    [deviceYStNum    release];
+    [deviceUserName  release];
+    [devicePassWord  release];
 }
 
 /**

@@ -21,7 +21,7 @@ static const float KLabelOriginX      = 10;//距离左侧的距离
 static const float KLabelOriginY      = 10;//距离顶端的距离
 static const float KTextFieldHeight   = 37;//textfield 默认高度
 static const float KTextSpan          = 5;//textfield 与leftLabel的距离
-
+static const float KLeftViewWith      = 10;//左侧view的宽度
 static JVCControlHelper *shareJVCControlHelper = nil;
 
 /**
@@ -206,6 +206,40 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     textField.leftView = labelLeft;
     
     [labelLeft release];
+    [image release];
+    
+    return [textField autorelease];
+}
+
+/**
+ *  获取textfield
+ *
+ *  @param placeString 站位字符
+ *  @param imageName   图片名称
+ *
+ *  @return 相应的textfield
+ */
+- (UITextField *)textFieldWithPlaceHold:(NSString *)placeString
+                        backGroundImage:(NSString *)imageName
+{
+    if (!imageName||imageName.length == 0) {
+        DDLogError(@"传入图片错误");
+        imageName = @"con_fieldUnSec.png";
+    }
+    NSString *strImage = [UIImage imageBundlePath:imageName];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:strImage];
+    
+    UILabel *labeleft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLeftViewWith, image.size.height)];
+    labeleft.backgroundColor = [UIColor clearColor];
+    UITextField *textField  = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    textField.background    = image;
+    textField.keyboardType  = UIKeyboardTypeASCIICapable;
+    textField.placeholder   = placeString;
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.leftView = labeleft;
+    [labeleft release];
+    textField.returnKeyType = UIReturnKeyDone;
+    
     [image release];
     
     return [textField autorelease];

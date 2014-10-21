@@ -69,4 +69,15 @@
  */
 - (UITextField *)textFieldWithLeftLabelText:(NSString *)labelText
                             backGroundImage:(NSString *)imageName;
+
+/**
+ *  获取textfield
+ *
+ *  @param placeString 站位字符
+ *  @param imageName   图片名称
+ *
+ *  @return 相应的textfield
+ */
+- (UITextField *)textFieldWithPlaceHold:(NSString *)placeString
+                        backGroundImage:(NSString *)imageName;
 @end

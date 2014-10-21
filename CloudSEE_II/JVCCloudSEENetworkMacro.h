@@ -114,6 +114,7 @@ enum TextChatType {
     TextChatType_NetWorkInfo   = 1005,  //网络参数信息
     TextChatType_setStream     = 1006,  //设置码流信息
     TextChatType_setTalkModel  = 1007,  //设置家用IPC的语音对讲模式
+    TextChatType_setAlarmType  = 1008,  
     
 };
 
@@ -139,6 +140,8 @@ typedef struct AudioFrame//音频数据结构
 
 static NSString const *kDeviceFrameFlagKey        =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";     // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
+
+static NSString const *kDeviceAlarmType   =  @"type";     // 1:门磁  2手环
 
 
 #endif
