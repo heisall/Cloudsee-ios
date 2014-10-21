@@ -113,6 +113,11 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             [self RemoteBindAlarmDevice:nJvChannelID withAddDeviceType:remoteOperationCommand];
         }
             break;
+        case TextChatType_getAlarmType:{
+            
+            [self RemoteRequestAlarmDevice:nJvChannelID];
+        }
+            break;
         default:
             break;
     }
@@ -541,7 +546,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 {
     PAC	m_stPacket;
     memset(&m_stPacket, 0, sizeof(PAC));
-    m_stPacket.nPacketType=RC_GPIN_SECLECT;
+    m_stPacket.nPacketType  =RC_GPIN_SECLECT;
     *((int*)m_stPacket.acData) =1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }

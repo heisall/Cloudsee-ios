@@ -25,8 +25,8 @@
 
 @synthesize strSSID,strPassword;
 
-static const  int              kDefaultSamplerate                       = 16000;
-static const  int              kDefaultSignalCount                      = 40; //信号的数量值越大越好 建议40
+static const  int              kDefaultSamplerate                       = 48000;
+static const  int              kDefaultSignalCount                      = 60; //信号的数量值越大越好 建议40
 static const  int              kVoiceencSettingCount                    = 3;
 static const  CGFloat          kSendButtonWithTop                       = 150.0f;
 static const  CGFloat          kScanfBgWithRadius                       = 52.0f;
@@ -167,6 +167,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
         
         return;
     }
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
     animationGroup.duration = kAnimatinDuration;

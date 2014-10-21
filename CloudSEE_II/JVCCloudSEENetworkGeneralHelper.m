@@ -390,8 +390,6 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     
-    DDLogVerbose(@"%s--data=%s",__FUNCTION__,pBuffer);
-    
     char name[32], para[128];
     
     while (true) {
@@ -432,6 +430,64 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     return [amRemoteListDic autorelease];
 }
+
+/**
+ *  将网络库传的key-value的buffer数据转成字典
+ *
+ *  @param pBuffer key-value
+ *
+ *  @return key-value字典
+ */
+-(NSMutableDictionary *)convertpBufferNoUtf8ToMDictionary:(char *)pBuffer{
+    
+    NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
+    
+    DDLogVerbose(@"%s--data=%s",__FUNCTION__,pBuffer);
+    
+    char name[32], para[128];
+    
+    while (true) {
+        
+        memset(name, 0, strlen(name));
+        memset(para, 0, strlen(para));
+        
+        if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
+        {
+            pBuffer = strchr(pBuffer, ';');
+            
+            if(pBuffer == NULL)
+                break;
+            
+            if (name == NULL || para == NULL) {
+                
+                pBuffer++;
+                continue;
+            }
+            
+            NSString  *strPara = [[NSString alloc] initWithUTF8String:para];
+            NSString  *strName = [[NSString alloc] initWithUTF8String:name];
+            
+            if (strPara !=nil) {
+                
+                [amRemoteListDic setObject:strPara forKey:strName];
+                
+            }else {
+            
+                [amRemoteListDic setObject:@"" forKey:strName];
+            }
+            
+            [strPara release];
+            [strName release];
+            
+            pBuffer++;
+        }
+        else
+            break;
+    }
+    
+    return [amRemoteListDic autorelease];
+}
+
 
 /**
  *  将网络库传的key-value的buffer数据转成字典

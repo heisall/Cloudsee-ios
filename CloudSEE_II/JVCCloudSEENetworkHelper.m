@@ -119,6 +119,7 @@ BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请
 BOOL          isRequestRunFlag;                    //远程请求用于正在请求的标志位 FALSE :执行结束
 
 static NSString const *kCheckHomeFlagKey = @"MobileCH";
+static NSString const *kBindAlarmFlagKey = @"$";
 
 FILE *downloadHandle = NULL;
 
@@ -862,7 +863,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_ApSetResult:
         case TextChatType_setStream:
         case TextChatType_setTalkModel:
-        case TextChatType_setAlarmType:{
+        case TextChatType_setAlarmType:
+        case TextChatType_getAlarmType:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1300,7 +1302,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
 		memcpy(&stpacket, pBuffer, nSize);
 	}
     
-    DDLogCVerbose(@"%s----***************^^^^^^^^^^",__FUNCTION__);
     switch(uchType)
     {
         case JVN_RSP_TEXTACCEPT:
@@ -1455,6 +1456,8 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                     if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                         
+                        DDLogCVerbose(@"%s--datda---%s",__FUNCTION__,stpacket.acData+n);
+                        
 //                        NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
 //                        
 //                        [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n]];
@@ -1472,13 +1475,31 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                     if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                         
-                        NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                         
-                        [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n]];
+                        NSMutableArray *alarmInfo = [[NSMutableArray alloc] initWithCapacity:10];
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:networkInfoMDic];
+                        NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
                         
-                        [networkInfoMDic release];
+                        NSArray *responseArry = [responseStr componentsSeparatedByString:(NSString *)kBindAlarmFlagKey];
+                        
+                        if (responseArry.count > 0) {
+                            
+                            for (int i=0; i<responseArry.count; i++) {
+                                
+                                NSString *singleInfo = [responseArry objectAtIndex:i];
+                                
+                                if (singleInfo.length > 0) {
+                                    
+                                    [alarmInfo addObject:[ystNetworkHelperCMObj convertpBufferToMDictionary:(char *)[singleInfo UTF8String]]];
+                                }
+                            }
+                        }
+                        
+                        [responseStr release];
+                        
+                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:alarmInfo];
+                        
+                        [alarmInfo release];
                     }
                     
                 }
@@ -1801,25 +1822,5 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 
 }
 
-/**
- *  获取设备的绑定的设备列表（门磁手环）
- *
- *  @param nLocalChannel 通道号
- */
-- (void)remoteGetBindingAlarmDevices:(int)nLocalChannel
-{
-    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
-    JVCCloudSEEManagerHelper     *currentChannelObj           = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
-    
-    if (currentChannelObj == nil) {
-        
-        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
-        
-        return;
-    }
-    
-    [ystRemoteOperationHelperObj RemoteRequestAlarmDevice:nLocalChannel];
-
-}
 
 @end
