@@ -9,6 +9,11 @@
 #import "JVCBaseGeneralTableViewController.h"
 
 @interface JVCAddDevieAlarmViewController : JVCBaseGeneralTableViewController
+{
+       NSMutableArray *arrayAlarmList;
+}
 
 @property(nonatomic,assign)int localChannelNum;
+
+@property(nonatomic,retain)   NSMutableArray *arrayAlarmList;
 @end

@@ -23,6 +23,7 @@
 #import "JVCOperationController.h"
 #import "JVCOperationControllerIphone5.h"
 
+#import "JVCLockAlarmModel.h"
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -336,17 +337,7 @@ static const int  kRemoteDeviceChannelNum              = 1;
     }
 }
 
-/**
- *  添加门磁报警的
- */
-- (void)addAlarmDeviceViewController
-{
-    JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
-    viewControler.localChannelNum = kLocalDeviceChannelNum;
-    [self.navigationController pushViewController:viewControler animated:YES];
-    viewControler.hidesBottomBarWhenPushed = YES;
-    [viewControler release];
-}
+
 
 /**
  *  删除设备的回调
@@ -533,8 +524,40 @@ static const int  kRemoteDeviceChannelNum              = 1;
 -(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
 {
     DDLogVerbose(@"%s====%d=====%@",__FUNCTION__,nYstNetWorkHelpTextDataType,objYstNetWorkHelpSendData);
+    NSMutableArray *arrayAram = [[NSMutableArray alloc] initWithCapacity:10];
+
+    if ( [objYstNetWorkHelpSendData isKindOfClass:[NSArray class]]) {
+        
+        
+        NSArray *array= (NSArray *)objYstNetWorkHelpSendData;
+        
+        for (NSDictionary *tdic in array) {
+            JVCLockAlarmModel *model = [[JVCLockAlarmModel alloc] initAlarmLockModelWithDictionary:tdic];
+            [arrayAram addObject:model];
+            [model release];
+        }
+    }
+    
+    [self performSelectorOnMainThread:@selector(addAlarmDeviceViewController:) withObject:arrayAram waitUntilDone:NO];
+    [arrayAram release];
+    
 }
 
+/**
+ *  添加门磁报警的
+ */
+- (void)addAlarmDeviceViewController:(NSMutableArray *)arrayArm
+{
+    [arrayArm retain];
+    
+    JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
+    viewControler.localChannelNum = kLocalDeviceChannelNum;
+    viewControler.arrayAlarmList = arrayArm;
+    [self.navigationController pushViewController:viewControler animated:YES];
+    viewControler.hidesBottomBarWhenPushed = YES;
+    [viewControler release];
+    [arrayArm release];
+}
 
 
 /**

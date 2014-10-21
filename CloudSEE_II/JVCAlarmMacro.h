@@ -51,6 +51,12 @@
 #define JK_ALARM_FTP_DEVICE_GUID @"dguid"
 #define JK_ALARM_DEVICE_NAME    @"dname"
 
+static const NSString *Alarm_Lock_Guid  = @"guid";//报警的guid
+static const NSString *Alarm_Lock_Enable  = @"enable";//报警的enable
+static const NSString *Alarm_Lock_Name  = @"name";//报警的name
+static const NSString *Alarm_Lock_Type  = @"type";//报警的type
+
+
 static const int  JK_ALARM_LISTCOUNT =  4;//每次请求报警数据的个数
 static const int  ALARM_INFO_PROCESS =  11;//新版报警字段
 enum {
