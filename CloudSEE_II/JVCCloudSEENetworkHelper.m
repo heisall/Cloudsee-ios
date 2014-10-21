@@ -1528,7 +1528,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:alarmInfo];
+                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_getAlarmType objYstNetWorkHelpSendData:alarmInfo];
                         
                         [alarmInfo release];
                     }

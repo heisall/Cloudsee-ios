@@ -8,12 +8,20 @@
 
 #import "JVCBaseGeneralTableViewController.h"
 
+@protocol JVCAddDeviceArmDelegate <NSObject>
+
+- (void)AddDeviceArmCallBack:(NSDictionary *)tdic;
+
+@end
+
 @interface JVCAddDevieAlarmViewController : JVCBaseGeneralTableViewController
 {
        NSMutableArray *arrayAlarmList;
+    
+    id<JVCAddDeviceArmDelegate>delegateAddArm;
 }
 
 @property(nonatomic,assign)int localChannelNum;
-
+@property(nonatomic,assign)id<JVCAddDeviceArmDelegate>delegateAddArm;
 @property(nonatomic,retain)   NSMutableArray *arrayAlarmList;
 @end

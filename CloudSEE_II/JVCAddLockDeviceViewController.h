@@ -7,7 +7,23 @@
 //
 
 #import "JVCBaseWithGeneralViewController.h"
+#import "JVCCloudSEENetworkHelper.h"
 
-@interface JVCAddLockDeviceViewController : JVCBaseWithGeneralViewController
+@protocol JVCAddlockDeviceDelegate <NSObject>
+
+/**
+ *  绑定设备成功的回调
+ *
+ *  @param tdic 设备的字典
+ */
+- (void)AddLockDeviceSuccessCallBack:(NSDictionary *)tdic;
+
+@end
+
+@interface JVCAddLockDeviceViewController : JVCBaseWithGeneralViewController<ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate>
+{
+    id<JVCAddlockDeviceDelegate>addLockDeviceDelegate;
+}
+@property(nonatomic,assign)id<JVCAddlockDeviceDelegate>addLockDeviceDelegate;
 
 @end

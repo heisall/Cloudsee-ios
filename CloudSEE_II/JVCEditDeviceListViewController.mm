@@ -21,6 +21,7 @@
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVNetConst.h"
 #import "JVCLockAlarmModel.h"
+#import "JVCAlarmMacro.h"
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -44,8 +45,6 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 @implementation JVCEditDeviceListViewController
 
 static const int  kInitWithLayoutColumnCount           = 3;
-static const int  kLocalDeviceChannelNum               = 1;
-static const int  kRemoteDeviceChannelNum              = 1;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -404,12 +403,12 @@ static const int  kRemoteDeviceChannelNum              = 1;
         
         if (deviceModel.linkType) {
             
-            [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:kLocalDeviceChannelNum nRemoteChannel:kRemoteDeviceChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:AlarmLockChannelNum nRemoteChannel:AlarmLockChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
             
         }else{
             
-            [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:kLocalDeviceChannelNum
-                                                                                   nRemoteChannel:kRemoteDeviceChannelNum strYstNumber:deviceModel.yunShiTongNum
+            [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:AlarmLockChannelNum
+                                                                                   nRemoteChannel:AlarmLockChannelNum strYstNumber:deviceModel.yunShiTongNum
                                                                                       strUserName:deviceUserName
                                                                                       strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
         }
@@ -476,9 +475,9 @@ static const int  kRemoteDeviceChannelNum              = 1;
             JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             netWorkHelper.ystNWTDDelegate = self;
             
-            [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:kLocalDeviceChannelNum withAlarmType:1 withAlarmGuid:8];
+           // [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:AlarmLockChannelNum withAlarmType:1 withAlarmGuid:8];
 //            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:1];
-            //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:1 remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });
     }
@@ -493,9 +492,31 @@ static const int  kRemoteDeviceChannelNum              = 1;
  */
 -(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
 {
-    DDLogVerbose(@"%s====%d=====%@",__FUNCTION__,nYstNetWorkHelpTextDataType,objYstNetWorkHelpSendData);
-    NSMutableArray *arrayAram = [[NSMutableArray alloc] initWithCapacity:10];
+ 
+    switch (nYstNetWorkHelpTextDataType) {
+        case TextChatType_getAlarmType://获取列表的
+            [self handleGetDevieAlarmArrayList:objYstNetWorkHelpSendData];
+            break;
+        case TextChatType_setAlarmType://添加报警设备
+            
+            break;
+        case TextChatType_deleteAlarm://删除报警的
+            
+            break;
+        default:
+            break;
+    }
+    
+}
 
+/**
+ *获取门磁手环报警信息
+ */
+- (void)handleGetDevieAlarmArrayList:(id)objYstNetWorkHelpSendData
+{
+    DDLogVerbose(@"%s========%@",__FUNCTION__,objYstNetWorkHelpSendData);
+    NSMutableArray *arrayAram = [[NSMutableArray alloc] initWithCapacity:10];
+    
     if ( [objYstNetWorkHelpSendData isKindOfClass:[NSArray class]]) {
         
         
@@ -510,7 +531,6 @@ static const int  kRemoteDeviceChannelNum              = 1;
     
     [self performSelectorOnMainThread:@selector(addAlarmDeviceViewController:) withObject:arrayAram waitUntilDone:NO];
     [arrayAram release];
-    
 }
 
 /**
@@ -521,7 +541,6 @@ static const int  kRemoteDeviceChannelNum              = 1;
     [arrayArm retain];
     
     JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
-    viewControler.localChannelNum = kLocalDeviceChannelNum;
     viewControler.arrayAlarmList = arrayArm;
     [self.navigationController pushViewController:viewControler animated:YES];
     viewControler.hidesBottomBarWhenPushed = YES;
@@ -541,9 +560,11 @@ static const int  kRemoteDeviceChannelNum              = 1;
         
         ystNetWorkHelperObj.ystNWHDelegate = nil;
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:kLocalDeviceChannelNum];
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });
 }
+
+
 
 
 @end

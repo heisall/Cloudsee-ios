@@ -18,11 +18,12 @@ typedef NS_ENUM(NSInteger, JVCAlarmLockType) {
     int         alarmGuid;//唯一标示
     int         alarmType;//类型  门磁、手环
     NSString    *alarmName;//昵称
-    BOOL        alarmState;//开关的专题爱
+    BOOL        alarmState;//开关的
+    int         alarmRes;
 }
 @property(nonatomic,assign) int         alarmType;
 @property(nonatomic,assign) BOOL        alarmState;
-
+@property(nonatomic,assign) int         alarmRes;
 @property(nonatomic,assign) int         alarmGuid;
 @property(nonatomic,retain) NSString    *alarmName;
 

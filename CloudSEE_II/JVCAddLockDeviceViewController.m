@@ -9,11 +9,15 @@
 #import "JVCAddLockDeviceViewController.h"
 #import "JVCControlHelper.h"
 #import "JVCEditLockDeviceNickNameViewController.h"
+#import "JVCAlarmMacro.h"
 @interface JVCAddLockDeviceViewController ()
 
 @end
 
 @implementation JVCAddLockDeviceViewController
+@synthesize addLockDeviceDelegate;
+static const  int KAlarmSuccess         = 1;
+
 static const  int  KBtnTagDoor = 100;//门磁的的tag
 static const  int  KBtnTagBra  = 101;//手环的tag
 static const  int  kEdgeOff    = 100;//向下距离
@@ -65,25 +69,122 @@ static const  int  kEdgeOff    = 100;//向下距离
 
 - (void)addLockDevice:(UIButton *)btn
 {
+    int addDeviceType = 1;
+
     switch (btn.tag) {
         case KBtnTagDoor:
-            [self editLockDeviceNickName];
             break;
         case KBtnTagBra:
-            
+            addDeviceType=2;
             break;
-            
-        default:
-            break;
+    }
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWRODelegate                      = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkHelper.ystNWTDDelegate = self;
+        
+      //  [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:AlarmLockChannelNum withAlarmType:1 withAlarmGuid:8];
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:AlarmLockChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:addDeviceType];
+        
+        //[ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+        
+    });
+}
+
+/**
+ *  文本聊天返回的回调
+ *
+ *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
+ *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
+ */
+-(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+        switch (nYstNetWorkHelpTextDataType) {
+            case TextChatType_getAlarmType://获取列表的
+                break;
+            case TextChatType_setAlarmType://添加报警设备
+                
+                [self handleTextChatCallback:objYstNetWorkHelpSendData];
+                
+                break;
+            case TextChatType_deleteAlarm://删除报警的
+                
+                break;
+            default:
+                break;
+        }
+    
+    });
+ 
+}
+
+- (void)handleTextChatCallback:(id)sender
+{
+    if ([sender isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *tdic = (NSDictionary *)sender;
+        
+        int responResult = [[tdic objectForKey:Alarm_Lock_RES] integerValue];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+      
+            switch (responResult) {
+                case AlarmLockTypeRes_OK:
+                    [self editLockDeviceNickName:tdic];
+                    break;
+                case AlarmLockTypeRes_Fail:
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
+                    break;
+                case AlarmLockTypeRes_MaxCount:
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大绑定值"];
+                    break;
+                default:
+                    break;
+            }
+                
+        });
+        
+        
+    }else{
+    
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
+
     }
 }
 
-- (void)editLockDeviceNickName
+- (void)editLockDeviceNickName:(NSDictionary *)dic
 {
-    JVCEditLockDeviceNickNameViewController *editVC = [[JVCEditLockDeviceNickNameViewController alloc] init];
-    [self.navigationController pushViewController:editVC animated:YES];
-    [editVC release];
+    int result = [[dic objectForKey:Alarm_Lock_RES] integerValue];
+    if (result == KAlarmSuccess) {
+        
+        if ( addLockDeviceDelegate !=nil && [addLockDeviceDelegate respondsToSelector:@selector(AddLockDeviceSuccessCallBack:)]) {
+            [addLockDeviceDelegate AddLockDeviceSuccessCallBack:dic];
+        }
+//        
+//        JVCEditLockDeviceNickNameViewController *editVC = [[JVCEditLockDeviceNickNameViewController alloc] init];
+//        [self.navigationController pushViewController:editVC animated:YES];
+//        [editVC release];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+   
+    
+   
 }
+
+
 
 /*
 #pragma mark - Navigation

@@ -9,7 +9,7 @@
 #import "JVCLockAlarmModel.h"
 #import "JVCAlarmMacro.h"
 @implementation JVCLockAlarmModel
-@synthesize alarmGuid,alarmName,alarmType,alarmState;
+@synthesize alarmGuid,alarmName,alarmType,alarmState,alarmRes;
 
 - (void)dealloc
 {
@@ -31,8 +31,9 @@
         
         self.alarmGuid = [[dic objectForKey:Alarm_Lock_Guid] integerValue];
         self.alarmName = [dic objectForKey:Alarm_Lock_Name];
-        self.alarmState = [[dic objectForKey:Alarm_Lock_Enable] integerValue];
+        self.alarmState =[[dic objectForKey:Alarm_Lock_Enable] integerValue];
         self.alarmType = [[dic objectForKey:Alarm_Lock_Type] integerValue];
+//        self.alarmRes = [[dic objectForKey:Alarm_Lock_RES] integerValue];
 
     }
     return self;

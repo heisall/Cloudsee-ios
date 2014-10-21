@@ -55,6 +55,13 @@ static const NSString *Alarm_Lock_Guid  = @"guid";//报警的guid
 static const NSString *Alarm_Lock_Enable  = @"enable";//报警的enable
 static const NSString *Alarm_Lock_Name  = @"name";//报警的name
 static const NSString *Alarm_Lock_Type  = @"type";//报警的type
+static const NSString *Alarm_Lock_RES  = @"res";//报警的res
+
+typedef NS_ENUM(NSUInteger, AlarmLockTypeRes) {
+    AlarmLockTypeRes_OK         = 1,
+    AlarmLockTypeRes_Fail       = 0,
+    AlarmLockTypeRes_MaxCount   = 2,
+};
 
 
 static const int  JK_ALARM_LISTCOUNT =  4;//每次请求报警数据的个数
@@ -118,3 +125,8 @@ typedef enum alarm_client_messageid
 	MID_RESPONSE_REMOVEALARM		= 1008		/* 服务器向客户端发发送删除报警信息的结果 */
 } alarm_client_messageid_t;
 
+
+typedef NS_ENUM(NSUInteger, AlarmLockChannel) {
+    AlarmLockChannelNum = 1,
+  
+};

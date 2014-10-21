@@ -13,9 +13,10 @@
 #import "JVCAddLockDeviceViewController.h"
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "JVCAlarmMacro.h"
 @interface JVCAddDevieAlarmViewController ()
 {
- 
+    int delegateRow;
 }
 
 @end
@@ -24,6 +25,9 @@
 @synthesize localChannelNum;
 @synthesize arrayAlarmList;
 static const  int KHeadViewHeight  = 20;//headview的高度
+static const  int KSuccess         = 1;
+
+@synthesize delegateAddArm;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,6 +59,8 @@ static const  int KHeadViewHeight  = 20;//headview的高度
 - (void)BackClick
 {
     [self disAlarmRemoteLink];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -124,11 +130,93 @@ static const  int KHeadViewHeight  = 20;//headview的高度
     }
 }
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    JVCLockAlarmModel *model = [];
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    delegateRow = indexPath.section;
+    
+    JVCLockAlarmModel *model = [self.arrayAlarmList objectAtIndex:indexPath.section];
+    
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWRODelegate                      = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkHelper.ystNWTDDelegate = self;
+        
+          [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:AlarmLockChannelNum withAlarmType:model.alarmType withAlarmGuid:model.alarmGuid];
 
+        
+    });
+
+}
+/**
+ *  文本聊天返回的回调
+ *
+ *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
+ *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
+ */
+-(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+        
+        switch (nYstNetWorkHelpTextDataType) {
+            case TextChatType_getAlarmType://获取列表的
+                break;
+            case TextChatType_setAlarmType://添加报警设备
+                
+                break;
+            case TextChatType_deleteAlarm://删除报警的
+                [self handleDelegateDeviceAlarmResult:objYstNetWorkHelpSendData];
+                break;
+            default:
+                break;
+        }
+        
+    });
+    
+}
+
+- (void)handleDelegateDeviceAlarmResult:(id)result
+{
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *tdic = (NSDictionary *)result;
+        
+        int responResult = [[tdic objectForKey:Alarm_Lock_RES] integerValue];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            switch (responResult) {
+                case AlarmLockTypeRes_OK:
+                    [self handleDeletateSuccessResult];
+                    break;
+                case AlarmLockTypeRes_Fail:
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+                    break;
+                default:
+                    break;
+            }
+            
+        });
+        
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+        
+    }
+}
+
+- (void)handleDeletateSuccessResult
+{
+    [self.arrayAlarmList removeObjectAtIndex:delegateRow];
+    [self.tableView reloadData];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -155,10 +243,29 @@ static const  int KHeadViewHeight  = 20;//headview的高度
 - (void)addLockDeviceViewController
 {
     JVCAddLockDeviceViewController *lockAddVC = [[JVCAddLockDeviceViewController alloc] init];
+    lockAddVC.addLockDeviceDelegate = self;
     [self.navigationController pushViewController:lockAddVC animated:YES];
     [lockAddVC release];
 }
 
+/**
+ *  绑定设备成功的回调
+ *
+ *  @param tdic 设备的字典
+ */
+- (void)AddLockDeviceSuccessCallBack:(NSDictionary *)tdic
+{
+    int result = [[tdic objectForKey:Alarm_Lock_RES] integerValue];
+    if (result == KSuccess) {
+        
+        JVCLockAlarmModel *model = [[JVCLockAlarmModel alloc] initAlarmLockModelWithDictionary:tdic];
+        [self.arrayAlarmList insertObject:model atIndex:0];
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
+    }
+}
 
 /**
  *  断开远程连接方法
@@ -171,7 +278,7 @@ static const  int KHeadViewHeight  = 20;//headview的高度
         
         ystNetWorkHelperObj.ystNWHDelegate = nil;
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:1];
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });
 }
 @end

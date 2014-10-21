@@ -58,7 +58,8 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     switchDevcie.on = model.alarmState;
     [self.contentView addSubview:switchDevcie];
     //设备名
-    UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NO Name") textFontSize:KCellLabelFont];
+    UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NOName") textFontSize:KCellLabelFont];
+    labelNickDevice.numberOfLines = 1;
     labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, labelDevice.bottom+KCellSpan, labelDevice.width, KCellLabelHeight);
     [self.contentView addSubview:labelNickDevice];
 }
