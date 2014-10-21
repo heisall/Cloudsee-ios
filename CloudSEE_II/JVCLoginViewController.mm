@@ -127,7 +127,7 @@ static const int KLineHeight = 1;//横线的高度
             textFieldPW.text =  modeluse.passWord;
             
             //太快延迟0.3秒
-          //  [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
         }
     }
 }
@@ -135,9 +135,6 @@ static const int KLineHeight = 1;//横线的高度
 - (void)viewDidLoad
 {
     
-    JVCAddDevieAlarmViewController *vc = [[JVCAddDevieAlarmViewController alloc] init];
-    [self.view addSubview:vc.view];
-    return;
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     self.navigationController.navigationBarHidden = YES;
