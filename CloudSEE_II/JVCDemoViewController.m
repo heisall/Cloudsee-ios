@@ -73,8 +73,11 @@
             if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:tdicDemo]) {
                 
                 NSArray *arrayDemo  =  [tdicDemo objectForKey:DEVICE_JSON_DLIST];
+            
                 NSMutableArray *arrayDeviceList = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
 
+                [arrayDeviceList removeAllObjects];
+                
                 for (NSDictionary *tdicSingeDevie in arrayDemo) {
 
                     JVCDeviceModel *model = [[JVCDeviceModel alloc] init];

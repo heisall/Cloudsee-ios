@@ -197,4 +197,13 @@ enum ADDDEVICE_TYPE
             deviceUserName:(NSString *)userName
             devicePassWord:(NSString *)passWord;
 
+/**
+ *  根据云视通号是否再数组中
+ *
+ *  @param ystNumber 云通号
+ *
+ *  @return 云通号的sourceModel
+ */
+-(BOOL)judgeDeviceHasExist:(NSString *)ystNumber;
+
 @end

@@ -342,18 +342,19 @@ static const int KLineHeight = 1;//横线的高度
         NSString *ystNum =  [[JVCSystemUtility shareSystemUtilityInstance] getCurrentDeviceYStNUm];
         [[NSUserDefaults standardUserDefaults] setObject:ystNum forKey:(NSString *)kSAVEYSTNUM];
         
-        /**
-         *  添加设备
-         */
-        [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:(NSString *)DefaultHomeUserName passWord:(NSString *)DefaultHomePassWord];
-        //设备添加到设备数组中
-        [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
-                                                             deviceUserName:(NSString *)DefaultHomeUserName
-                                                             devicePassWord:(NSString *)DefaultHomePassWord];
-        //添加通道
-        [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalHomeDeviceChannels:ystNum];
+        if (![[JVCDeviceSourceHelper shareDeviceSourceHelper] judgeDeviceHasExist:ystNum]) {
+            /**
+             *  添加设备
+             */
+            [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:(NSString *)DefaultHomeUserName passWord:(NSString *)DefaultHomePassWord];
+            //设备添加到设备数组中
+            [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
+                                                                 deviceUserName:(NSString *)DefaultHomeUserName
+                                                                 devicePassWord:(NSString *)DefaultHomePassWord];
+            //添加通道
+            [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalHomeDeviceChannels:ystNum];
 
-        
+        }
     }
 }
 
