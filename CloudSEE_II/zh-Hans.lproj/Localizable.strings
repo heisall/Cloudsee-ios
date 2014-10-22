@@ -162,6 +162,8 @@
 "talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
 "talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";
 "talkStart"      = "亲，你现在可以和对方说话了";
+"talking"        = "对讲功能成功开启，长按向对方喊话吧";
+"Intercom function has started successfully, speak to him please."="对讲功能成功开启,抓紧向对方喊话吧!";
 
 "DeviceList" = "设备列表";
 "RequestConnPointError" = "请求通道不成功";

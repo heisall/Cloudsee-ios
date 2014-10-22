@@ -117,7 +117,7 @@ float min_offset;
     [_bPlayVideoBtn setBackgroundImage:_playImage forState:UIControlStateNormal];
     [self addSubview:_bPlayVideoBtn];
     
-    UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(10.0, self.frame.size.height-25.0,self.frame.size.width-20, 20.0)];
+    UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(10.0, self.frame.size.height-50.0,self.frame.size.width-20, 20.0)];
     //访问UISlider的值
     //    [slider setValue:3 animated:YES];  //设置slider的值
     
@@ -143,12 +143,13 @@ float min_offset;
  */
 -(void)getGlViewmodel{
     
-    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    int singleViewFlag=self.tag-KWINDOWSFLAG;
-    int openGLViewFlag=singleViewFlag%(OPENGLMAXCOUNT);
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    
+    int singleViewFlag = self.tag-KWINDOWSFLAG;
+    int openGLViewFlag = singleViewFlag%(OPENGLMAXCOUNT);
     
     UIScrollView   *allImageScrollView = (UIScrollView*)[self viewWithTag:109];
-    self._glView =(GlView*)[delegate._amOpenGLViewListData objectAtIndex:openGLViewFlag];
+    self._glView =(GlView*)[appDelegate._amOpenGLViewListData objectAtIndex:openGLViewFlag];
     
     [allImageScrollView addSubview:self._glView._kxOpenGLView];
     [self._glView updateDecoderFrame:self.bounds.size.width displayFrameHeight:self.bounds.size.height];
@@ -382,7 +383,7 @@ float min_offset;
 	connectInfoTV.frame=CGRectMake(10.0, activity.frame.origin.y+activity.frame.size.height, self.frame.size.width-20.0, 16.0);
     
     UISlider *slider=(UISlider*)[self viewWithTag:107];
-    slider.frame=CGRectMake(10.0, self.frame.size.height-25.0,self.frame.size.width-20.0, 20.0);
+    slider.frame=CGRectMake(10.0, self.frame.size.height-50.0,self.frame.size.width-20.0, 20.0);
 }
 
 -(void)hiddenSlider{
