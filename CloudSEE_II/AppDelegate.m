@@ -322,7 +322,12 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     if (selectedSSID.length <= 0) {
         
-        [selectedSSID appendString:[[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID]];
+        NSString *current = [[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID];
+        
+        if (current.length > 0) {
+            
+            [selectedSSID appendString:[[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID]];
+        }
         
     }else {
         

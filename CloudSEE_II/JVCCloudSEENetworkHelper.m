@@ -848,11 +848,6 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
             
-            if (remoteOperationCommand == JVN_CMD_CHATSTOP) {
-                
-                [self returnVoiceIntercomCallBack:currentChannelObj nVoiceInterStateType:VoiceInterStateType_End];
-            }
-            
         }
             break;
         case RemoteOperationType_YTO:

@@ -1225,7 +1225,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)receiveAudioDataCallBack:(char *)audionData audioDataSize:(long)audioDataSize{
     
     DDLogVerbose(@"audioDataSize=%ld",audioDataSize);
-    [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:_managerVideo.nSelectedChannelIndex+1 Audiodata:audionData nAudiodataSize:audioDataSize];
+    
+   [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:_managerVideo.nSelectedChannelIndex+1 Audiodata:audionData nAudiodataSize:audioDataSize];
+    
 }
 
 
@@ -1821,6 +1823,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)VoiceInterComCallBack:(int)VoiceInterState
 {
+    
+    DDLogVerbose(@"%s------status=%d",__FUNCTION__,VoiceInterState);
     switch (VoiceInterState) {
             
         case VoiceInterStateType_Succeed:{
@@ -1890,8 +1894,11 @@ char remoteSendSearchFileBuffer[29] = {0};
  *  @param soundBufferType 音频数据类型 YES：16bit NO：8bit
  */
 -(void)playVideoSoundCallBackMath:(char *)soundBuffer soundBufferSize:(int)soundBufferSize soundBufferType:(BOOL)soundBufferType{
-    
-    [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
+    if (!isLongPressedStartTalk) {
+        
+        [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
+    }
+   
     
 }
 
