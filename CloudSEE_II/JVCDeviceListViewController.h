@@ -28,4 +28,9 @@ typedef enum {
 #pragma mark 获取设备
 - (void)getDeviceList;
 
+/**
+ *  停止心跳
+ */
+-(void)stopTimer;
+
 @end

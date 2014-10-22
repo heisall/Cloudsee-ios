@@ -50,6 +50,11 @@
     [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:ystNum];
     
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+    
+    if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
+        
+        [addDeviceDelegate addDeviceSuccessCallBack];
+    }
    
     [self.navigationController popViewControllerAnimated:YES];
 
