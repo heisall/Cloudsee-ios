@@ -442,9 +442,8 @@ UIAlertView *alertView;
         
         int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
         
-
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
             if (LOGINRESULT_SUCCESS == resultnewType) {//成功
@@ -472,7 +471,7 @@ UIAlertView *alertView;
         
         NSDictionary *resultDic = (NSDictionary *)result;
         
-        if ([[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic]) {
+        if (![[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic]) {
             JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:resultDic];
             model.bNewAlarm = YES;
             

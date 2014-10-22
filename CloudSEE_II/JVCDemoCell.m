@@ -71,7 +71,7 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     labelTitle.font = [UIFont systemFontOfSize:KLabelTitleFont];
     labelTitle.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:labelTitle];
-    labelTitle.text = model.nickName;
+    labelTitle.text = model.yunShiTongNum;
     [labelTitle release];
 
     UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(self.width - KLabelWith, KMYVIDEOCELLHEIGHTADDHEIGH, KLabelWith, KLabelHeight)];
