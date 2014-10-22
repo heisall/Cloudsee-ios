@@ -19,7 +19,7 @@
 
 #define SETCOLOR(r,g,b)  [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1];
 
-static NSString *const kAPPIDNUM  = @"583826804";
+static NSString *const kAPPIDNUM  = @"673070046";
 
 static const int  kOPENGLMAXCOUNT = 17;//opengl数量
 

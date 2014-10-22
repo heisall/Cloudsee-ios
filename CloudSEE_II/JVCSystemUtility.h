@@ -148,4 +148,9 @@
  */
 - (NSString *)getCurrentDeviceYStNUm;
 
+/**
+ *  打开itunes 评论功能
+ */
+- (void) openItunsCommet;
+
 @end

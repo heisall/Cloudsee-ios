@@ -111,53 +111,62 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 {
     //下拉
     nAlarmOriginIndex = 0;
-    
-  
-    
+
     [self getAlarmListDate];
 }
 
 - (void)getAlarmListDate
 {
-  
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSArray *array = [[JVCAlarmHelper shareAlarmHelper] getHistoryAlarm:nAlarmOriginIndex];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-        
-            if (array.count !=0) {
-                
-                if (nAlarmOriginIndex == 0) {
-                    
-                    [arrayAlarmList removeAllObjects];
-                    
-                    [self removeNoAlarmView];
-                }
-                [arrayAlarmList addObjectsFromArray:array];
-              
-                [self.tableView reloadData];
-                
-                [self.tableView footerEndRefreshing];
-                [self.tableView headerEndRefreshing];
             
-                nAlarmOriginIndex = nAlarmOriginIndex+arrayAlarmList.count;
-                
+            if (array !=nil) {
+                if (array.count !=0) {
+                    
+                    if (nAlarmOriginIndex == 0) {
+                        
+                        [arrayAlarmList removeAllObjects];
+                        
+                        [self removeNoAlarmView];
+                    }
+                    [arrayAlarmList addObjectsFromArray:array];
+                    
+                    [self.tableView reloadData];
+                    
+                    [self.tableView footerEndRefreshing];
+                    [self.tableView headerEndRefreshing];
+                    
+                    nAlarmOriginIndex = nAlarmOriginIndex+arrayAlarmList.count;
+                    
+                }else{
+                    
+                    if (nAlarmOriginIndex == 0) {//显示没有数据的view
+                        
+                        [self  addNoAlarmDateView];
+                        
+                    }else{
+                        
+                        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"没有更多信息了"];
+                        
+                    }
+                    
+                    [self.tableView footerEndRefreshing];
+                    [self.tableView headerEndRefreshing];
+                }
             }else{
-                
+            
                 if (nAlarmOriginIndex == 0) {//显示没有数据的view
                     
                     [self  addNoAlarmDateView];
                     
-                }else{
-                
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取报警历史失败"];
-                  
                 }
-                
-                [self.tableView footerEndRefreshing];
-                [self.tableView headerEndRefreshing];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取报警信息错误"];
+
             }
+        
             
         });
     });

@@ -291,6 +291,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     cell.contentView.backgroundColor = [UIColor clearColor];
     
+    DDLogVerbose(@"===%d===",titles.count);
     [cell initWithLayoutView:[titles objectAtIndex:indexPath.row]];
     
     [cell setViewSelectedView:indexPath.row == nIndex];

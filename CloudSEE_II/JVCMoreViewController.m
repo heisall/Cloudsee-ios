@@ -231,8 +231,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     {
         if (indexPath.row == 0) {//打开评论
             
-            NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",kAPPIDNUM];
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+           
         }
     }else if(indexPath.section == 2)
     {

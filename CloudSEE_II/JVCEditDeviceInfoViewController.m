@@ -76,7 +76,6 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     deviceNickNameField.delegate = self;
     deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
-    deviceNickNameField.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:deviceNickNameField];
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelLeft.backgroundColor = [UIColor clearColor];
