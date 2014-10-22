@@ -68,7 +68,9 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
-            if ([[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:tdicDemo]) {
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:tdicDemo]) {
                 
                 NSArray *arrayDemo  =  [tdicDemo objectForKey:DEVICE_JSON_DLIST];
                 NSMutableArray *arrayDeviceList = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
@@ -118,7 +120,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return arrayDemoeList.count;
+    return [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -135,7 +137,7 @@
         
         cell = [[[JVCDemoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
     }
-    JVCDeviceModel *modelCell = [arrayDemoeList objectAtIndex:indexPath.row];
+    JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray] objectAtIndex:indexPath.row];
     [cell initCellWithModel:modelCell];
     return cell;
 }
