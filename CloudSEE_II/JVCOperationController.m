@@ -1137,6 +1137,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)chatRequest:(UIButton*)button{
     
     
+    //判断是否开启音频监听、如果打开关闭音频监听
+    [self stopAudioMonitor];
+    
     JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     ystNetWorkObj.ystNWADelegate    = self;
@@ -1802,12 +1805,12 @@ char remoteSendSearchFileBuffer[29] = {0};
     if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        ystNetworkObj.ystNWADelegate = nil;
-        OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+        OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
         
         [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
         
@@ -1851,8 +1854,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)OpenChatVoiceIntercom
 {
-    //判断是否开启音频监听、如果打开关闭音频监听
-    [self stopAudioMonitor];
     
     OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     [openAlObj initOpenAL];
@@ -1899,8 +1900,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
     }
-   
-    
 }
 
 /**

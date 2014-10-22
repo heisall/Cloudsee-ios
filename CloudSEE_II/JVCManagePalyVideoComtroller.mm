@@ -565,16 +565,21 @@ BOOL isAllLinkRun;
     [self connectVideoByLocalChannelID:nShowWindowID];
 }
 
+/**
+ *  远程回放快进
+ *
+ *  @param nFrameValue 快进的帧数
+ */
 -(void)fastforwardToFrameValue:(int)nFrameValue{
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//        
-//        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-//        
-//        [ystNetWorkHelperObj REmo]
-//      
-//    });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_RemotePlaybackSEEK remoteOperationCommand:nFrameValue];
+      
+    });
 
 }
 

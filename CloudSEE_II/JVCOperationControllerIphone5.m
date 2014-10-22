@@ -175,11 +175,15 @@
  */
 - (void)stopAudioMonitor
 {
-    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-    
     if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
         
+        JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+        
+        [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+        
         [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
         
