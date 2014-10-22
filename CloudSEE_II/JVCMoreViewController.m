@@ -231,7 +231,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     {
         if (indexPath.row == 0) {//打开评论
             
-           
+            
         }
     }else if(indexPath.section == 2)
     {
@@ -323,6 +323,22 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
                 }
             });
         });
+    }
+}
+
+
+#pragma mark  评论的事件
+- (void)moreOperItunsComment
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
+    [sheet showInView:self.view];
+    [sheet release];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {//确定
+        
+        [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
     }
 }
 

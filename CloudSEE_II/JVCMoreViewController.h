@@ -11,7 +11,7 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "JVCURlRequestHelper.h"
-@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate,JVCMoreCellSwitchDelegate,MFMailComposeViewControllerDelegate,JVCURLRequestDelegate>
+@interface JVCMoreViewController : JVCBaseGeneralTableViewController<UIAlertViewDelegate,JVCMoreCellSwitchDelegate,MFMailComposeViewControllerDelegate,JVCURLRequestDelegate,UIActionSheetDelegate>
 
 
 @end
