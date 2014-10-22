@@ -1225,7 +1225,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)receiveAudioDataCallBack:(char *)audionData audioDataSize:(long)audioDataSize{
     
     DDLogVerbose(@"audioDataSize=%ld",audioDataSize);
-    [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:_managerVideo.nSelectedChannelIndex+1 Audiodata:audionData nAudiodataSize:audioDataSize];
+    
+   [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:_managerVideo.nSelectedChannelIndex+1 Audiodata:audionData nAudiodataSize:audioDataSize];
+    
 }
 
 
@@ -1821,6 +1823,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)VoiceInterComCallBack:(int)VoiceInterState
 {
+    
+    DDLogVerbose(@"%s------status=%d",__FUNCTION__,VoiceInterState);
     switch (VoiceInterState) {
             
         case VoiceInterStateType_Succeed:{

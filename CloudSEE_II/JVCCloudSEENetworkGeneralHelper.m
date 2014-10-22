@@ -394,8 +394,8 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     while (true) {
         
-        memset(name, 0, strlen(name));
-        memset(para, 0, strlen(para));
+        memset(name, 0, sizeof(name));
+        memset(para, 0, sizeof(para));
         
         if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
         {
@@ -448,8 +448,8 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     while (true) {
         
-        memset(name, 0, strlen(name));
-        memset(para, 0, strlen(para));
+        memset(name, 0, sizeof(name));
+        memset(para, 0, sizeof(para));
         
         if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
         {
@@ -503,8 +503,8 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     char name[32],para[128];
     
-    memset(name, 0, strlen(name));
-    memset(para, 0, strlen(para));
+    memset(name, 0, sizeof(name));
+    memset(para, 0, sizeof(para));
     
     char  *p = strstr(pBuffer, nameBuffer);
     
