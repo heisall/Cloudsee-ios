@@ -28,22 +28,24 @@
 #import "JVCLocalAddDeviceViewController.h"
 #import "JVCIPAddViewController.h"
 
-static const int             kTableViewCellInViewColumnCount         = 2 ; //判断设备的颜色值是第几个数组
-static const int             kTableViewCellColorTypeCount            = 4 ; //判断设备的颜色值是第几个数组
-static const int             kTableViewCellAdeviceHeigit             = 180;//广告条的高度
-static const int             kTableViewCellNODevice                  = 600;//广告条的高度
+static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
+static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
+static const int             kTableViewCellAdeviceHeigit             = 180;   //广告条的高度
+static const int             kTableViewCellNODevice                  = 600;   //广告条的高度
 
-static const int             kTableViewCellNormalCellHeight          = 10 ; //cell减去图片高度的间距
+static const int             kTableViewCellNormalCellHeight          = 10 ;   //cell减去图片高度的间距
 static const CGFloat         kTableViewIconImageViewBorderColorAlpha = 0.3f;
 static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
-static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ; //动画延迟时间
-static const int             kPopViewOffx                            = 290 ; //popview弹出的x坐标
-static const int             kTableViewSingleDeviceViewBeginTag      = 1000; //设备视图的默认起始标志
+static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ;  //动画延迟时间
+static const int             kPopViewOffx                            = 290 ;  //popview弹出的x坐标
+static const int             kTableViewSingleDeviceViewBeginTag      = 1000;  //设备视图的默认起始标志
 static const int             kAlertTag                               = 10008; //设备视图的默认起始标志
+static const NSTimeInterval  kLanSearchTime                          = 2*60;  //设备视图的默认起始标志
 
 @interface JVCDeviceListViewController ()
 {
     NSMutableArray          *_arrayColorList; //存放颜色数据的数组
+    NSTimer                 *lanSerchtimer;
 }
 
 @end
@@ -483,6 +485,10 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
          *  获取本地通设备列表
          */
         [[JVCDeviceSourceHelper shareDeviceSourceHelper] getLocalDeviceList];
+        
+        //开启广播
+        [self startLanSearchDeviceTimer];
+        
         [self.tableView reloadData];
         /**
          *  获取本地通道列表
@@ -509,7 +515,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                     //必须刷新
                     [self.tableView reloadData];
                     
-                    [self StartLANSerchAllDevice];
+                     //开启广播
+                    [self startLanSearchDeviceTimer];
                     
                     [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel]];
                     
@@ -574,23 +581,49 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
  */
 - (void)addDeviceSuccessCallBack
 {
-    [self.tableView reloadData];
+    [self StartLANSerchAllDevice];
 }
 
 
 
 #pragma mark ------------------------ 广播刷新设备的接口
-
 #pragma mark --- 局域网广播轮询方法
+
+/**
+ *  开始局域网广播设备
+ */
+-(void)startLanSearchDeviceTimer {
+    
+    lanSerchtimer=[NSTimer scheduledTimerWithTimeInterval:kLanSearchTime
+                                                   target:self
+                                                 selector:@selector(StartLANSerchAllDevice)
+                                                 userInfo:nil
+                                                  repeats:YES];
+    [lanSerchtimer fire];
+
+}
+
+/**
+ *  停止心跳
+ */
+-(void)stopTimer{
+    
+    //局域网探测设备的轮询TIMER
+    if(lanSerchtimer!=nil && [lanSerchtimer isValid]){
+        
+        [lanSerchtimer invalidate];
+        lanSerchtimer=nil;
+        
+    }
+}
+
 -(void)StartLANSerchAllDevice {
     
     
-//    if (NETLINTYEPE_3G==[SystemSetingObject shareInstance]._netLinkType) {
-//        
-//        [self getAccountDeviceInfo];
-//        
-//        return;
-//    }
+    if (NETLINTYEPE_3G== [JVCConfigModel shareInstance]._netLinkType) {
+        
+        return;
+    }
     
     //还原设备的在线信息
     [[JVCDeviceSourceHelper shareDeviceSourceHelper] restoreDeviceListOnlineStatusInfo];
@@ -610,8 +643,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 -(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:(NSMutableArray *)SerachLANAllDeviceList {
 
     [SerachLANAllDeviceList  retain];
-    
-    DDLogVerbose(@"%s----scanDeviceList=%@",__FUNCTION__,SerachLANAllDeviceList);
     
      NSArray *lanModelDeviceList=[self LANModelListConvertToSourceModel:SerachLANAllDeviceList];
     
