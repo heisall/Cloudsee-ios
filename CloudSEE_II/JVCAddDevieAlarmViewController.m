@@ -14,9 +14,12 @@
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCAlarmMacro.h"
+#import "JVCEditLockDeviceNickNameViewController.h"
 @interface JVCAddDevieAlarmViewController ()
 {
     int delegateRow;
+    
+    int selectRow;
 }
 
 @end
@@ -33,6 +36,8 @@ static const  int KSuccess         = 1;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        self.title = @"报警设置";
     }
     return self;
 }
@@ -115,6 +120,9 @@ static const  int KSuccess         = 1;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         JVCLockAlarmModel *cellModel = [self.arrayAlarmList objectAtIndex:indexPath.section];
         [cell initAlarmAddTableViewContentView:cellModel];
+        [cell.switchDevcie addTarget:self action:@selector(switchValueChange:) forControlEvents:UIControlEventValueChanged];
+        cell.switchDevcie.tag = indexPath.section;
+
         return cell;
     }
 }
@@ -173,6 +181,9 @@ static const  int KSuccess         = 1;
             case TextChatType_deleteAlarm://删除报警的
                 [self handleDelegateDeviceAlarmResult:objYstNetWorkHelpSendData];
                 break;
+            case TextChatType_editAlarm:
+                [self handleEditSwithchResult:objYstNetWorkHelpSendData];
+            break;
             default:
                 break;
         }
@@ -208,6 +219,49 @@ static const  int KSuccess         = 1;
     }else{
         
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+        
+    }
+}
+
+- (void)handleEditSwithchResult:(id)result
+{
+    JVCLockAlarmModel *model = [self.arrayAlarmList objectAtIndex:selectRow];
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *tdic = (NSDictionary *)result;
+        
+        int responResult = [[tdic objectForKey:Alarm_Lock_RES] integerValue];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            switch (responResult) {
+                case AlarmLockTypeRes_OK:
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+
+                    model.alarmState = ! model.alarmState;
+                    break;
+                case AlarmLockTypeRes_Fail:
+                {
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+                    
+                    JVDeviceCAlarmAddTableViewCell *cell =(JVDeviceCAlarmAddTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:selectRow]];
+                    cell.switchDevcie.on =!cell.switchDevcie.on;
+
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+        });
+        
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+        
+        JVDeviceCAlarmAddTableViewCell *cell =(JVDeviceCAlarmAddTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:selectRow]];
+        cell.switchDevcie.on =!cell.switchDevcie.on;
         
     }
 }
@@ -255,16 +309,39 @@ static const  int KSuccess         = 1;
  */
 - (void)AddLockDeviceSuccessCallBack:(NSDictionary *)tdic
 {
-    int result = [[tdic objectForKey:Alarm_Lock_RES] integerValue];
-    if (result == KSuccess) {
+    [self.navigationController popViewControllerAnimated:NO];
+    
+    JVCLockAlarmModel *model = [[JVCLockAlarmModel alloc] initAlarmLockModelWithDictionary:tdic];
+    [self.arrayAlarmList insertObject:model atIndex:0];
+    
+    JVCEditLockDeviceNickNameViewController *editVC = [[JVCEditLockDeviceNickNameViewController alloc] init];
+    editVC.alertmodel = model;
+    [self.navigationController pushViewController:editVC animated:YES];
+    [editVC release];
         
-        JVCLockAlarmModel *model = [[JVCLockAlarmModel alloc] initAlarmLockModelWithDictionary:tdic];
-        [self.arrayAlarmList insertObject:model atIndex:0];
+}
+
+- (void)switchValueChange:(UISwitch *)switchSelect
+{
+    selectRow = switchSelect.tag;
+    
+    JVCLockAlarmModel *model = [self.arrayAlarmList objectAtIndex:switchSelect.tag];
+    
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWRODelegate                      = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-    }else{
+        JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkHelper.ystNWTDDelegate = self;
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
-    }
+        [ystNetWorkHelperObj RemoteEditDeviceAlarm:AlarmLockChannelNum withAlarmType:model.alarmType withAlarmGuid:model.alarmGuid withAlarmEnable:switchSelect.on withAlarmName:model.alarmName];
+        
+        
+    });
+    
+
 }
 
 /**

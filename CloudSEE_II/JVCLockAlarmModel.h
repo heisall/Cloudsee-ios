@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, JVCAlarmLockType) {
-    JVCAlarmLockType_Door       = 0,
-    JVCAlarmLockType_Bracelet   = 1,
+    JVCAlarmLockType_Door       = 1,
+    JVCAlarmLockType_Bracelet   = 2,
 };
 
 @interface JVCLockAlarmModel : NSObject

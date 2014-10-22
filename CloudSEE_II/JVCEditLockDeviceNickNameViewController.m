@@ -8,12 +8,17 @@
 
 #import "JVCEditLockDeviceNickNameViewController.h"
 #import "JVCControlHelper.h"
+#import "JVCAlarmMacro.h"
 
 @interface JVCEditLockDeviceNickNameViewController ()
+{
+    UITextField *textField;
+}
 
 @end
 
 @implementation JVCEditLockDeviceNickNameViewController
+@synthesize alertmodel;
 static const  int  KTextFieldOriginY  = 30;//textfield距离左侧的距离
 static const  int  KSpan              = 30;//间距
 
@@ -38,7 +43,7 @@ static const  int  KSpan              = 30;//间距
 - (void)initContentView
 {
     JVCControlHelper *controlHelper = [JVCControlHelper shareJVCControlHelper];
-    UITextField *textField = [controlHelper textFieldWithPlaceHold:@"请输入昵称" backGroundImage:@"arm_dev_tex.png"];
+    textField = [controlHelper textFieldWithPlaceHold:@"请输入昵称" backGroundImage:@"arm_dev_tex.png"];
     textField.frame = CGRectMake((self.view.width -textField.width)/2.0, KTextFieldOriginY, textField.width, textField.height);
     textField.keyboardType = UIKeyboardTypeDefault;
     [self.view addSubview:textField];
@@ -53,13 +58,61 @@ static const  int  KSpan              = 30;//间距
 - (void)finishEditDeviceNick
 {
     
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWRODelegate                      = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkHelper.ystNWTDDelegate = self;
+        
+        [ystNetWorkHelperObj RemoteEditDeviceAlarm:AlarmLockChannelNum withAlarmType:self.alertmodel.alarmType withAlarmGuid:self.alertmodel.alarmGuid withAlarmEnable:self.alertmodel.alarmState withAlarmName:textField.text];
+        
+        
+    });
+    
 }
+/**
+ *  文本聊天返回的回调
+ *
+ *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
+ *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
+ */
+-(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+        
+        switch (nYstNetWorkHelpTextDataType) {
+         
+                case TextChatType_editAlarm:
+            {
+                self.alertmodel.alarmName = textField.text;
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+                break;
+            default:
+                break;
+        }
+        
+    });
+    
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    [alertmodel release];
+    [super dealloc];
+}
 /*
 #pragma mark - Navigation
 

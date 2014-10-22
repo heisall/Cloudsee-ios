@@ -40,7 +40,7 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
                 
             }
             
-             self.tabBarController.hidesBottomBarWhenPushed = YES;
+            self.hidesBottomBarWhenPushed = YES;
             
             [self setupRefresh];
             
@@ -125,8 +125,8 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
 {
     if (self.navigationController.viewControllers.count == NavicationViewControllersCountINTableView) {//不是顶级试图
         
-        self.navigationItem.hidesBackButton = YES;
-        self.navigationItem.leftBarButtonItem = nil;
+        //self.navigationItem.hidesBackButton = YES;
+        self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     }
 }
 - (void)viewDidLoad

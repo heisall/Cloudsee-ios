@@ -7,7 +7,12 @@
 //
 
 #import "JVCBaseWithGeneralViewController.h"
-
+#import "JVCCloudSEENetworkHelper.h"
+#import "JVCLockAlarmModel.h"
 @interface JVCEditLockDeviceNickNameViewController : JVCBaseWithGeneralViewController
+{
+    JVCLockAlarmModel *alertmodel;
+}
+@property(nonatomic,retain)JVCLockAlarmModel *alertmodel;
 
 @end

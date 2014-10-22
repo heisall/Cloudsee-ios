@@ -177,7 +177,7 @@ static const  int  kEdgeOff    = 100;//向下距离
 //        [self.navigationController pushViewController:editVC animated:YES];
 //        [editVC release];
         
-        [self.navigationController popViewControllerAnimated:YES];
+     
     }
    
     

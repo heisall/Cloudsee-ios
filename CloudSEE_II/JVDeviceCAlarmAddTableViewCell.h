@@ -10,7 +10,10 @@
 #import "JVCLockAlarmModel.h"
 
 @interface JVDeviceCAlarmAddTableViewCell : UITableViewCell
-
+{
+    UISwitch *switchDevcie;
+}
+@property(nonatomic,retain)UISwitch *switchDevcie;
 - (void)initAlarmAddTableViewContentView:(JVCLockAlarmModel *)model;
 
 @end

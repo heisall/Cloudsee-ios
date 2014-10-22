@@ -9,6 +9,7 @@
 #import "JVDeviceCAlarmAddTableViewCell.h"
 #import "JVCControlHelper.h"
 @implementation JVDeviceCAlarmAddTableViewCell
+@synthesize switchDevcie;
 static const int KCellOrignX    = 20;//距离左侧的距离
 static const int KCellSpan      = 10;//间距
 static const int KCellLabelFont = 16;//字体大小
@@ -54,9 +55,11 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     [self.contentView addSubview:labelDevice];
 
     //开关
-    UISwitch *switchDevcie = [[UISwitch alloc] initWithFrame:CGRectMake(KCellSwitchOrigin, labelDevice.top, 0, 0)];
-    switchDevcie.on = model.alarmState;
-    [self.contentView addSubview:switchDevcie];
+    UISwitch *switchDevcietemp = [[UISwitch alloc] initWithFrame:CGRectMake(KCellSwitchOrigin, labelDevice.top, 0, 0)];
+    self.switchDevcie = switchDevcietemp;
+    self.switchDevcie.on = model.alarmState;
+    [self.contentView addSubview:self.switchDevcie];
+    [switchDevcietemp release];
     //设备名
     UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NOName") textFontSize:KCellLabelFont];
     labelNickDevice.numberOfLines = 1;
@@ -69,6 +72,11 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     // Initialization code
 }
 
+
+- (void)dealloc{
+    [self.switchDevcie release];
+    [super dealloc];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
