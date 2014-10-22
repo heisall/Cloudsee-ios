@@ -483,12 +483,23 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 - (void)presentLoginViewController
 {
+    
+    
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
     UINavigationController *navLoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
     [self.window.rootViewController presentModalViewController:navLoginVC animated:YES];
     [loginVC release];
     [navLoginVC release];
     
+}
+
+/**
+ *  关闭设备列表界面的timer
+ */
+- (void)stopDeviceListTimer
+{
+    [deviceListController stopTimer];
+
 }
 
 /**

@@ -36,4 +36,9 @@
  *  presentLoginViewController
  */
 - (void)presentLoginViewController;
+
+/**
+ *  关闭设备列表界面的timer
+ */
+- (void)stopDeviceListTimer;
 @end
