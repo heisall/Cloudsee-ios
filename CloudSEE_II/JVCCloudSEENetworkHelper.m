@@ -1033,7 +1033,7 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     
     [currentChannelObj retain];
     
-    if (!currentChannelObj.isVoiceIntercom) {
+    if (nVoiceInterStateType == VoiceInterStateType_Succeed) {
         
         [currentChannelObj openVoiceIntercomDecoder];
         

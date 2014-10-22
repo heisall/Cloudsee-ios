@@ -567,7 +567,15 @@ BOOL isAllLinkRun;
 
 -(void)fastforwardToFrameValue:(int)nFrameValue{
     
-    //[_operationController sendPlayBackSEEK:nFrameValue];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//        
+//        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+//        
+//        [ystNetWorkHelperObj REmo]
+//      
+//    });
+
 }
 
 /**

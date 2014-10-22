@@ -46,6 +46,7 @@
 "talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
 "talkingOther"   = "Intercom function has started successfully, speak to him please.";
 "talkStart"      = "You can speak to the other now.";
+"Intercom function has started successfully, speak to him please."="Intercom function has started successfully, speak to him please.";
 //远程回放
 "Playback_Finish"="Playback finish";
 

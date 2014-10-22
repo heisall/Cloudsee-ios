@@ -1894,6 +1894,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  *  @param soundBufferType 音频数据类型 YES：16bit NO：8bit
  */
 -(void)playVideoSoundCallBackMath:(char *)soundBuffer soundBufferSize:(int)soundBufferSize soundBufferType:(BOOL)soundBufferType{
+    
     if (!isLongPressedStartTalk) {
         
         [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
