@@ -320,4 +320,11 @@ enum DEVICEONLINESTATE
  */
 -(id)getAccountByDeviceAlarmList:(int)startIndexValue;
 
+/**
+ *  获取演示点信息
+ *
+ *  @return 演示点集合
+ */
+-(NSDictionary *)getDemoInfoList;
+
 @end

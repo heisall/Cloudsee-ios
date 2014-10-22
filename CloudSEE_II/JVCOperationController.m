@@ -1700,7 +1700,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  关闭录像
      */
-    UIButton *btn = [_operationItemSmallBg getButtonWithIndex:2];//获取录像的按钮
+    UIButton *btn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_VIDEO];//获取录像的按钮
     if (btn.selected) {
         
         btn.selected = NO;

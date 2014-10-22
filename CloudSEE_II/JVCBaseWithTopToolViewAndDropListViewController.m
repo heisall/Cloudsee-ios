@@ -253,6 +253,8 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    DDLogVerbose(@"=002==%d===",titles.count);
+
     return  titles.count;
     
 }
@@ -341,6 +343,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
         self.view.backgroundColor = [UIColor clearColor];
         deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
         dropImageView.transform   =  CGAffineTransformIdentity;
+        
         [toolBarView setSelectedTopItemAtIndex:nIndex];
         
     } completion:^(BOOL finished) {

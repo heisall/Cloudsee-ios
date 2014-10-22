@@ -71,7 +71,11 @@ static const int  kInitWithLayoutColumnCount           = 3;
 -(void)initLayoutWithViewWillAppear {
 
     [titles removeAllObjects];
+    [deviceListTableView reloadData];
+    
     [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+    
+    DDLogVerbose(@"==001====%d",titles.count);
     [self initWithTopToolView];
     
 }

@@ -103,7 +103,7 @@ static const int kImageSeperateCount = 2;//图片的image.png 分割，数组大
     
     NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:bundleName];
     
-    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= [main_image_dir_path stringByAppendingPathComponent:ImageName];
     
     NSArray *array = [ImageName componentsSeparatedByString:@"."];
     
@@ -113,6 +113,7 @@ static const int kImageSeperateCount = 2;//图片的image.png 分割，数组大
         imageName  = [imageName stringByAppendingString:@"@2x."];
         imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
         image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+        NSString *iamgeReturnPath = [NSString stringWithFormat:@"%@%@%@",[array objectAtIndex:0],@"@2x.",[array objectAtIndex:1]];
     }
     return image_path;
 }

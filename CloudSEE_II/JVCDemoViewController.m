@@ -9,6 +9,11 @@
 #import "JVCDemoViewController.h"
 #import "JVCDemoCell.h"
 #import "JVCDeviceModel.h"
+#import "JVCDeviceHelper.h"
+#import "JVCDeviceMacro.h"
+#import "JVCDeviceSourceHelper.h"
+#import "JVCChannelModel.h"
+#import "JVCChannelScourseHelper.h"
 @interface JVCDemoViewController ()
 {
     NSMutableArray *arrayDemoeList;
@@ -43,23 +48,62 @@
     // Do any additional setup after loading the view.
     [self initDemoArrayList];
     
-    for (int i = 0;i<3;i++) {
-        
-        JVCDeviceModel *model = [[JVCDeviceModel alloc] init];
-        model.yunShiTongNum = @"A361";
-        model.userName = @"abc";
-        model.passWord = @"123";
-        model.nickName = @"测试";
+    [self getDemoList];
 
-        [arrayDemoeList addObject:model];
-        [model release];
-    }
-    [self.tableView reloadData];
 }
 
 - (void)initDemoArrayList
 {
     arrayDemoeList = [[NSMutableArray alloc] init];
+}
+- (void)getDemoList
+{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+     NSDictionary *tdicDemo = [[JVCDeviceHelper sharedDeviceLibrary] getDemoInfoList];
+        
+        DDLogVerbose(@"demo = %@",tdicDemo);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            if ([[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:tdicDemo]) {
+                
+                NSArray *arrayDemo  =  [tdicDemo objectForKey:DEVICE_JSON_DLIST];
+                NSMutableArray *arrayDeviceList = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
+
+                for (NSDictionary *tdicSingeDevie in arrayDemo) {
+
+                    JVCDeviceModel *model = [[JVCDeviceModel alloc] init];
+                    model.yunShiTongNum = [tdicSingeDevie objectForKey:DEVICE_JSON_DGUID];
+                    model.userName = [tdicSingeDevie objectForKey:JK_DEVICE_Demo_USERNAME];
+                    model.passWord = [tdicSingeDevie objectForKey:JK_DEVICE_Demo_PASSWORD];
+                    [arrayDeviceList addObject:model];
+                    [model release];
+                    
+                    int channelNum = [[tdicSingeDevie objectForKey:JK_DEVICE_Demo_CHANNEL_SUM] intValue];
+                    if (channelNum>0) {
+                        NSMutableArray *arrayChannel = [[JVCChannelScourseHelper shareChannelScourseHelper] ChannelListArray];
+                        for (int i=0; i<channelNum; i++) {
+                            NSString *nickName = [NSString stringWithFormat:@"%@_%d",model.yunShiTongNum,i];
+                            
+                            JVCChannelModel *modelChannel = [[JVCChannelModel alloc] initChannelWithystNum:model.yunShiTongNum nickName:nickName channelNum:i idNum:i];
+                            [arrayChannel addObject:modelChannel];
+                            [modelChannel release];
+                        }
+                    }
+                }
+                
+                [self.tableView reloadData];
+
+            }else{
+            
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取数据错误"];
+            }
+            
+        });
+    });
 }
 
 

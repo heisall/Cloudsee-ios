@@ -1293,6 +1293,37 @@ char outTextBuffer[1280*720*3];
     return [self getResponseByRequestBusinessServer:parseStr];
 }
 
+/**
+ *  获取演示点信息
+ *
+ *  @return 演示点集合
+ */
+-(NSDictionary *)getDemoInfoList{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:DEV_INFO_PRO] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_DEMO_LIST] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    [requestInfoMDict setValue:AppDemoType forKey:CONVERTCHARTOSTRING(JK_CUSTOM_TYPE)];
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    
+    if(resultID==nil||![resultID isKindOfClass:[NSDictionary class]]){
+        
+        return nil;
+    }
+    
+    NSDictionary *resultInfoDic=(NSDictionary *)resultID;
+    
+    return resultInfoDic;
+    
+}
 
 
 @end

@@ -172,6 +172,7 @@ enum DEVICESERVICERESPONSE{
 #define JK_DEVICE_CHANNEL_NO	    "dcn"
 #define JK_CHANNEL_LIST			    "clist"
 #define JK_DEVICE_CHANNEL_NAME		"dcname"
+#define JK_DEVICE_Demo_CHANNEL_SUM	    @"dcs"
 
 //设备新增属性字段
 
@@ -201,6 +202,8 @@ enum DEVICESERVICERESPONSE{
 #define DEVICE_ONLINE_STATUS         @"dsls"
 #define DEVICE_DEVICE_RELATION_NUM    @"drn"
 
+#define JK_DEVICE_Demo_USERNAME		@"dusername"
+#define JK_DEVICE_Demo_PASSWORD		@"dpassword"
 
 /**
  *  ap 的密码
@@ -347,6 +350,8 @@ enum MessageType_DeviceInfo
     
     GET_DEVICE_Info_stateAndBing  = 2051,
 
+    GET_DEMO_LIST               = 2057,
+
     
     
 };
@@ -402,3 +407,8 @@ enum DEVICESTATUS{
     
 };
 
+/**
+ *  获取demo的的类别
+ */
+static const  NSString *AppDemoType = @"CloudSEE";
+#define JK_CUSTOM_TYPE              "custom_type"
