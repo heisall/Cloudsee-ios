@@ -118,6 +118,9 @@ static JVCAlarmHelper *shareAlarmHelper = nil;
                 
                 [model release];
             }
+        }else {
+        
+            return nil;
         }
     }
     

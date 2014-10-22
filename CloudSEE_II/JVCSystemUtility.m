@@ -397,4 +397,14 @@ static JVCSystemUtility *shareInstance = nil;
     return nil;
 }
 
+/**
+ *  打开itunes 评论功能
+ */
+- (void) openItunsCommet
+{
+    NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",kAPPIDNUM];
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+
+}
+
 @end
