@@ -204,14 +204,12 @@ UIAlertView *alertView;
  */
 -(void)serverPushCallBack:(int)message_type serverPushData:(NSData *)serverPushData
 {
-    
-    
-    NSLog(@"帐号服务器的长连接的回调 （包含实时报警、赶人下线、TCP断开=%@",[[NSString alloc] initWithData:serverPushData  encoding:NSUTF8StringEncoding]);
-    
     switch (message_type) {
+            
         case NOTIFY_OFFLINE:
         case PTCP_ERROR:
         case PTCP_CLOSED:
+            
             [self performSelectorOnMainThread:@selector(dealWithKeepOnResult:) withObject:[NSNumber numberWithInt:message_type] waitUntilDone:NO ];
 
             break;
@@ -221,7 +219,7 @@ UIAlertView *alertView;
             
         case RECIVE_PUSH_MESSAGE_NEW://报警的
             
-            [self performSelectorOnMainThread:@selector(dealWithCurrentAlarm:) withObject:serverPushData waitUntilDone:NO ];
+            [self performSelectorOnMainThread:@selector(dealWithCurrentAlarm:) withObject:serverPushData waitUntilDone:NO];
 
             break;
             
@@ -467,11 +465,13 @@ UIAlertView *alertView;
 - (void)dealWithCurrentAlarm:(NSData *)date
 {
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
     id result = [date objectFromJSONData];
     
     if ([result isKindOfClass:[NSDictionary class]]) {
         
         NSDictionary *resultDic = (NSDictionary *)result;
+        
         JVCAlarmCurrentView *viewCurrent = [JVCAlarmCurrentView shareCurrentAlarmInstance];
 
         if (![[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic] ) {
@@ -479,7 +479,7 @@ UIAlertView *alertView;
             JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:resultDic];
             model.bNewAlarm = YES;
             [delegate addCurrentAlarmInalarmMessageViewController:model];
-            [model release];
+           
             
             if (viewCurrent.bShowState == NO &&viewCurrent.bIsInPlay == NO ) {
                 
@@ -489,9 +489,10 @@ UIAlertView *alertView;
                 [viewCurrent initCurrentAlarmView:model];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [window addSubview:viewCurrent];
-                [model release];
                 
             }
+            
+             [model release];
         }
         
     }

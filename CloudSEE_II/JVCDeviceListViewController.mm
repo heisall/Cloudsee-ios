@@ -27,6 +27,7 @@
 #import "JVCConfigModel.h"
 #import "JVCLocalAddDeviceViewController.h"
 #import "JVCIPAddViewController.h"
+#import "JVCScanNewDeviceViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -40,7 +41,8 @@ static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ;  //
 static const int             kPopViewOffx                            = 290 ;  //popview弹出的x坐标
 static const int             kTableViewSingleDeviceViewBeginTag      = 1000;  //设备视图的默认起始标志
 static const int             kAlertTag                               = 10008; //设备视图的默认起始标志
-static const NSTimeInterval  kLanSearchTime                          = 2*60;  //设备视图的默认起始标志
+static const NSTimeInterval  kLanSearchTime                          = 2*60;  //局域网广播的最大个数
+static const int             kScanfDeviceMaxCount                    = 5; //设备视图的默认起始标志
 
 @interface JVCDeviceListViewController ()
 {
@@ -154,8 +156,10 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         case AddDevicePopType_WlanAddDevice:
             [self AddWlanDevice];
             break;
-        case AddDevicePopType_ScanADDDevice:
-            
+        case AddDevicePopType_ScanADDDevice:{
+        
+            [self gotoScanfDeviceViewController];
+        }
             break;
         case AddDevicePopType_VloceAddDevice:{
         
@@ -215,6 +219,17 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         [self.navigationController pushViewController:addDeviceVC animated:YES];
         [addDeviceVC release];
     }
+}
+
+/**
+ *  跳转到局域网扫描设备界面
+ */
+- (void)gotoScanfDeviceViewController
+{
+    JVCScanNewDeviceViewController *scanfDeviceController = [[JVCScanNewDeviceViewController alloc] init];
+    scanfDeviceController.nScanfDeviceMaxCont             =  kScanfDeviceMaxCount;
+    [self.navigationController pushViewController:scanfDeviceController animated:YES];
+    [scanfDeviceController release];
 }
 
 /**

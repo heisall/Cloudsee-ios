@@ -135,7 +135,9 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     [labelDevice release];
 
     NSString *titleString = nil;
+    
     switch (alarmModel.iAlarmType) {
+            
         case ALARM_MOTIONDETECT:
             titleString = @"移动检测报警";
             break;
