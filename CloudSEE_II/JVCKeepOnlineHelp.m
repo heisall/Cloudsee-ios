@@ -16,6 +16,7 @@
 #import "JSONKit.h"
 #import "JVCSystemUtility.h"
 #import "JVCAlarmModel.h"
+#import "AppDelegate.h"
 
 enum PushMessage
 {
@@ -465,22 +466,32 @@ UIAlertView *alertView;
 
 - (void)dealWithCurrentAlarm:(NSData *)date
 {
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     id result = [date objectFromJSONData];
     
     if ([result isKindOfClass:[NSDictionary class]]) {
         
         NSDictionary *resultDic = (NSDictionary *)result;
-        
-        if (![[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic]) {
+        JVCAlarmCurrentView *viewCurrent = [JVCAlarmCurrentView shareCurrentAlarmInstance];
+
+        if (![[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic] ) {
+            
             JVCAlarmModel *model = [[JVCAlarmModel alloc] initAlarmModelWithDictionary:resultDic];
             model.bNewAlarm = YES;
+            [delegate addCurrentAlarmInalarmMessageViewController:model];
+            [model release];
             
-            JVCAlarmCurrentView *viewCurrent = [[JVCAlarmCurrentView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            [viewCurrent initCurrentAlarmView:model];
-            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            [window addSubview:viewCurrent];
-            [viewCurrent release];
-
+            if (viewCurrent.bShowState == NO &&viewCurrent.bIsInPlay == NO ) {
+                
+                viewCurrent.frame= [UIScreen mainScreen].bounds;
+                viewCurrent.bShowState = YES;
+                viewCurrent.AlarmDelegate = delegate;
+                [viewCurrent initCurrentAlarmView:model];
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                [window addSubview:viewCurrent];
+                [model release];
+                
+            }
         }
         
     }

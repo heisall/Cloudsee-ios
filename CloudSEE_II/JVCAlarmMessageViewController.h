@@ -12,6 +12,9 @@
 @interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController <ystNetWorkHelpDelegate,ystNetWorkHelpRemotePlaybackVideoDelegate>
 {
     int bStateReload;
+    
+    NSMutableArray *arrayAlarmList;
 }
+@property(nonatomic,retain) NSMutableArray *arrayAlarmList;
 
 @end

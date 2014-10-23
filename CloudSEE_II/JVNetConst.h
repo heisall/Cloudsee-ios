@@ -290,9 +290,9 @@ typedef struct _JVS_FILE_HEADER_EX
 typedef struct tagPAC
 {
 	unsigned int	nPacketType:5;		//包的类型
-	int	nPacketCount:8;		//包总数
-	int	nPacketID:8;		//包序号
-	int	nPacketLen:11;		//包的长度
+	unsigned int	nPacketCount:8;		//包总数
+	unsigned int	nPacketID:8;		//包序号
+	unsigned int	nPacketLen:11;		//包的长度
 	char acData[RC_DATA_SIZE];
 } PAC, *PPAC;
 

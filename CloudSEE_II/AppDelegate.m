@@ -31,11 +31,16 @@
 #import "JVCApConfigDeviceViewController.h"
 #import "JVCAlertHelper.h"
 #import "JVCSystemUtility.h"
-
+#import "JVCAlarmModel.h"
+#import "JVCOperationController.h"
+#import "JVCOperationControllerIphone5.h"
+#import "JVCAlarmCurrentView.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController *deviceListController; //设备管理界面
     NSMutableString             *selectedSSID;
+    
+    JVCAlarmMessageViewController *alarmMessageViewController;
 }
 
 @end
@@ -148,10 +153,9 @@ static  const   int      KSetHelpMaxCount    = 10;
     /**
      *	报警消息模块
      */
-    JVCAlarmMessageViewController *alarmMessageViewController = [[JVCAlarmMessageViewController alloc] init];
+    alarmMessageViewController = [[JVCAlarmMessageViewController alloc] init];
     alarmMessageViewController.hidesBottomBarWhenPushed       = FALSE;
     UINavigationController        *alarmMessageViewNav        =[[UINavigationController alloc] initWithRootViewController:alarmMessageViewController];
-    
     [alarmMessageViewController release];
     
     /**
@@ -349,6 +353,16 @@ static  const   int      KSetHelpMaxCount    = 10;
         DDLogInfo(@"%s---- hahha....==%d",__FUNCTION__,result);
     }
     
+}
+
+/**
+ *  往报警列表界面中插入一条数据
+ *
+ *  @param alarmModel alarm数据
+ */
+- (void)addCurrentAlarmInalarmMessageViewController:(JVCAlarmModel*)alarmModel
+{
+    [alarmMessageViewController.arrayAlarmList insertObject:alarmModel atIndex:0];
 }
 
 /**
@@ -565,6 +579,45 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:devicesListData];
 }
+
+/**
+ *  返回用户的选择
+ *
+ *  @param result 用户选择
+ */
+- (void)JVCAlarmAlarmCallBack:(JVCAlarmModel *)alarmModelSelect
+{
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+        
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = alarmModelSelect.strYstNumber;
+    tOPVC._iSelectedChannelIndex     = 0;
+    
+    UITabBarController *tabbarController = (UITabBarController *)self.window.rootViewController;
+    if (tabbarController) {
+        
+        UINavigationController *navSelect = [tabbarController.viewControllers objectAtIndex:tabbarController.selectedIndex];
+        
+        if (navSelect) {
+            
+            [navSelect pushViewController:tOPVC animated:YES];
+
+        }
+    }
+    
+    [tOPVC release];
+
+}
+
 
 - (void)dealloc
 {

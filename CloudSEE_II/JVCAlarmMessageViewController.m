@@ -31,7 +31,7 @@ enum {
 
 @interface JVCAlarmMessageViewController ()
 {
-    NSMutableArray *arrayAlarmList;
+
     
     int iDownLoadType;//正在下载标识
     
@@ -50,7 +50,7 @@ static const int KChannelNum = 1;//通道连接
 static const int KNoAlarmTag = 10003;//没有报警的view的tag
 static const int KNoAlarmLabelHeight = 50;//没有报警的view的tag
 static const int KNoAlarmSpan    = 30;//没有报警的view的tag
-
+@synthesize arrayAlarmList;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "JVCQRCoderViewController.h"
 #import "JVCAccountHelper.h"
-
+@class JVCAlarmModel;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,JVCAccountDelegate>
 {
     NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
@@ -41,4 +41,11 @@
  *  关闭设备列表界面的timer
  */
 - (void)stopDeviceListTimer;
+
+/**
+ *  往报警列表界面中插入一条数据
+ *
+ *  @param alarmModel alarm数据
+ */
+- (void)addCurrentAlarmInalarmMessageViewController:(JVCAlarmModel*)alarmModel;
 @end

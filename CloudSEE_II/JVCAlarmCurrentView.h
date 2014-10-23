@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+enum
+{
+    ALARM_MOTIONDETECT = 7,//移动检测
+    ALARM_DOOR = 11,//门磁手环报警
+
+};
+
 enum  {
 
     AlarmType_Close = 0,//关闭
@@ -23,15 +30,27 @@ enum  {
  *
  *  @param result 用户选择
  */
-- (void)JVCAlarmAlarmCallBack:(int)result;
+- (void)JVCAlarmAlarmCallBack:(JVCAlarmModel*)AlarmModel;
 
 @end
 
 @interface JVCAlarmCurrentView : UIView
 {
     id<JVCAlarmAlarmDelegate>AlarmDelegate;
+    
+    BOOL bShowState;
+    
+    BOOL bIsInPlay;//是不是再播放界面
 }
 @property(nonatomic,assign)id<JVCAlarmAlarmDelegate>AlarmDelegate;
+@property(nonatomic,assign) BOOL bShowState;
+@property(nonatomic,assign) BOOL bIsInPlay;
+/**
+ *  单例
+ *
+ *  @return 返回JVCPredicateHelper的单例
+ */
++ (JVCAlarmCurrentView *)shareCurrentAlarmInstance;
 
 - (void)initCurrentAlarmView:(JVCAlarmModel *)alarmModel;
 @end

@@ -12,23 +12,68 @@
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
 
+@interface JVCAlarmCurrentView ()
+{
+    JVCAlarmModel *alarmModelSelect;
+}
+
+@end
 @implementation JVCAlarmCurrentView
 static const int KOriginY  = 10;  // 距离左侧的距离
 static const int KOriginLabelDevice  = 60;  // 距离左侧的距离
 static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
+static const int KLableTitleFont  = 16;  // 距离左侧的距离
+static const int KLableDeatilFont  = 14;  // 动画时间
 
 @synthesize AlarmDelegate;
-- (id)initWithFrame:(CGRect)frame
+static JVCAlarmCurrentView *_shareInstance = nil;
+@synthesize bShowState;
+@synthesize bIsInPlay;
+/**
+ *  单例
+ *
+ *  @return 返回JVCPredicateHelper的单例
+ */
++ (JVCAlarmCurrentView *)shareCurrentAlarmInstance
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    @synchronized(self)
+    {
+        if (_shareInstance == nil) {
+            
+            _shareInstance = [[self alloc] init ];
+            _shareInstance.bIsInPlay = NO;
+            _shareInstance.bShowState = NO;
+        }
+        return _shareInstance;
     }
-    return self;
+    return _shareInstance;
 }
+
++(id)allocWithZone:(struct _NSZone *)zone
+{
+    @synchronized(self)
+    {
+        if (_shareInstance == nil) {
+            
+            _shareInstance = [super allocWithZone:zone];
+            
+            return _shareInstance;
+            
+        }
+    }
+    return nil;
+}
+
 
 - (void)initCurrentAlarmView:(JVCAlarmModel *)alarmModel;
 {
+    alarmModelSelect = [alarmModel retain];
+    
+    self.backgroundColor = RGBConvertColor(0, 0, 0, 0.8);
+    
+    for (UIView *viewTemp  in self.subviews) {
+        [viewTemp removeFromSuperview];
+    }
     
     UIControl *control = [[UIControl alloc] initWithFrame:self.bounds];
     [control addTarget:self action:@selector(CloseCurrentView) forControlEvents:UIControlEventTouchUpInside];
@@ -68,6 +113,7 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
     //label
     UILabel *labelTitle = [[JVCControlHelper shareJVCControlHelper] labelWithText:@"报警信息"];
     [labelTitle retain];
+    labelTitle.font = [UIFont systemFontOfSize:KLableTitleFont];
     labelTitle.frame = CGRectMake(nSpan, KOriginY, imageView.width-nSpan, labelTitle.height);
     if (btnColorBlue) {
         labelTitle.textColor = btnColorBlue;
@@ -77,7 +123,8 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
     
     //设备
 //    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
-    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",@"361"]];
+    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
+    labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
 
     [labelDevice retain];
     labelDevice.frame = CGRectMake(nSpan, KOriginLabelDevice, imageView.width-nSpan, labelTitle.height);
@@ -87,8 +134,20 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
     [imageView addSubview:labelDevice];
     [labelDevice release];
 
+    NSString *titleString = nil;
+    switch (alarmModel.iAlarmType) {
+        case ALARM_MOTIONDETECT:
+            titleString = @"移动检测报警";
+            break;
+        case ALARM_DOOR:
+            titleString = @"门磁报警";
+            break;
+            
+        default:
+            break;
+    }
     //类型
-    UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%d",@"类型：",4]];
+    UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"类型：",titleString]];
     [labelArmType retain];
     labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelTitle.height);
     if (btnColorGray) {
@@ -126,7 +185,9 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
                          self.transform = CGAffineTransformMakeScale(0.1, 0.1);
                      }
                      completion:^(BOOL finish){
-                     
+                         self.transform = CGAffineTransformIdentity;
+                         _shareInstance.bShowState = NO;
+                         [alarmModelSelect release];
                          [self removeFromSuperview];
                      }];
 }
@@ -137,7 +198,7 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
     
     if (AlarmDelegate != nil && [AlarmDelegate respondsToSelector:@selector(JVCAlarmAlarmCallBack:)]) {
         
-        [AlarmDelegate JVCAlarmAlarmCallBack:AlarmType_Watch];
+        [AlarmDelegate JVCAlarmAlarmCallBack:alarmModelSelect];
         
     }
 }

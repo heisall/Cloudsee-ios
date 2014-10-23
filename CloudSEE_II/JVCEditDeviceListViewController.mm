@@ -511,7 +511,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
             
            // [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:AlarmLockChannelNum withAlarmType:1 withAlarmGuid:8];
 //            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:1];
-            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:1 remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:AlarmLockChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });
     }

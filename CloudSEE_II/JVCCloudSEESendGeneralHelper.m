@@ -219,7 +219,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     memset(&g_stPacket, 0, sizeof(PAC));
     g_stPacket.nPacketType	= RC_LOADDLG;
     g_stPacket.nPacketID	= RC_SNAPSLIST;
-    *((int*)g_stPacket.acData) =1;
+//    *((int*)g_stPacket.acData) =1;
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
     
@@ -251,7 +251,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     PAC	g_stPacket;
     g_stPacket.nPacketType	   = RC_LOADDLG; //0x05
     g_stPacket.nPacketID	   = RC_GETPARAM;
-    *((int*)g_stPacket.acData) = 1;
+//    *((int*)g_stPacket.acData) = 1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
 }
 
@@ -539,7 +539,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     PAC	m_stPacket;
     memset(&m_stPacket, 0, sizeof(PAC));
     m_stPacket.nPacketType  =RC_GPIN_SECLECT;
-    *((int*)m_stPacket.acData) =1;
+//    *((int*)m_stPacket.acData) =0;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
 

@@ -20,6 +20,7 @@
 #import<AssetsLibrary/AssetsLibrary.h>
 #import "JVCRemoteVideoPlayBackVControler.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCAlarmCurrentView.h"
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
 static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
@@ -131,6 +132,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)dealloc{
     
+    [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
+
     [_strSaveVideoPath release];
     [strSelectedDeviceYstNumber release];
     
@@ -213,6 +216,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     [super viewDidLoad];
     
+    [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;
     
     self._issound=FALSE;//音频监听
     self._isTalk=FALSE; //语音对讲
@@ -487,11 +491,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     [self.view addSubview:ytoView];
     [ytoView setHidden:YES];
     
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 
