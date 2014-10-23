@@ -10,13 +10,13 @@
 #import "JVCCloudSEENetworkMacro.h"
 #import "AppDelegate.h"
 #import "GlView.h"
-
+#import "JVCCloudSEENetworkHelper.h"
 @implementation JVCMonitorConnectionSingleImageView
 
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
-
+@synthesize iEffectType;
 int   _iConnectInfoIndex;
 float min_offset;
 
@@ -31,6 +31,7 @@ float min_offset;
 		sing_x=self.frame.origin.x;
         _amConnectInfoList=[[NSMutableArray alloc] initWithCapacity:10];
         _iConnectInfoIndex=-1;
+        self.iEffectType = -1;
         int indexPath=arc4random()%100;
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@%d%@",NSLocalizedString(@"Connected with server ", nil),indexPath+1,NSLocalizedString(@" successfully...", nil)]];
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"Asking for video data now...", nil)]];
@@ -107,6 +108,19 @@ float min_offset;
 	[imgView addSubview:connectInfoTV];
 	[connectInfoTV release];
     [connectInfoTV setHidden:YES];
+    
+    UIImage *effectImage=[UIImage imageNamed:@"effect_0.png"];
+    
+    UIButton *effectBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    effectBtn.tag=108;
+    effectBtn.frame=CGRectMake(self.frame.size.width-effectImage.size.width-10.0, self.frame.size.height-effectImage.size.height-10.0, effectImage.size.width, effectImage.size.height);
+    [effectBtn setBackgroundImage:effectImage forState:UIControlStateNormal];
+    effectBtn.alpha=0.8;
+    [effectBtn addTarget:self action:@selector(effectClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:effectBtn];
+    
+    effectBtn.hidden=YES;
+
     
     UIImage *_playImage = [UIImage imageNamed:@"play_1.png"];
     
@@ -391,6 +405,8 @@ float min_offset;
     UISlider *slider=(UISlider*)[self viewWithTag:107];
     [slider setValue:0.0];
     [slider setHidden:YES];
+    
+    [self setEffectBtnState:NO];
 }
 
 -(void)setImage:(UIImage*)image{
@@ -453,6 +469,8 @@ float min_offset;
                 
                 [self._glView hiddenWithOpenGLView];
                 [self bringSubviewToFront:imgView];
+        
+                [self setEffectBtnState:YES];
             }
             
         }else {
@@ -473,9 +491,12 @@ float min_offset;
                 }else{
                 
                      [slider setValue:slider.value+1];
+                    
+                    
                 }
                 
-               
+                [self setEffectBtnState:YES];
+
                 self._isPlayBackState=FALSE;
                 
             }else{
@@ -489,6 +510,10 @@ float min_offset;
                 
                 [self._glView._kxOpenGLView setHidden:NO];
                 [self bringSubviewToFront:self._glView._kxOpenGLView];
+                
+                [self setEffectBtnState:NO];
+                
+
             }
             
             disFlag=YES;
@@ -787,6 +812,68 @@ float min_offset;
     [self._glView hiddenWithOpenGLView];
     [self bringSubviewToFront:imgView];
     
+}
+
+/**
+ *  设置图像翻转的按钮的状态
+ *
+ *  @param state 状态
+ */
+- (void)setEffectBtnState:(BOOL)state
+{
+    UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
+    
+    if (self.iEffectType<0) {
+        return;
+    }
+    if (effectBtn) {
+        
+        effectBtn.hidden=state;
+    }
+    [self bringSubviewToFront:effectBtn];
+
+}
+
+
+/**
+ *  横屏的时候隐藏旋转按钮
+ */
+- (void)hidenEffectBtn
+{
+    [self setEffectBtnState:YES];
+}
+
+/**
+ *  横屏的时候隐藏旋转按钮
+ */
+- (void)showEffectBtn
+{
+    [self setEffectBtnState:NO];
+
+}
+
+/**
+ *  刷新按钮选择状态
+ *
+ *  @param flagVale 状态
+ */
+-(void)updateEffectBtn:(int)flagVale{
+    
+    [self showEffectBtn];
+    
+    UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
+    UIImage *effectImage=[UIImage imageNamed:[NSString stringWithFormat:@"effect_%d.png",flagVale]];
+    
+    [effectBtn setBackgroundImage:effectImage forState:UIControlStateNormal];
+}
+
+- (void)effectClick
+{
+
+    if (delegate !=nil &&[delegate respondsToSelector:@selector(effectTypeClickCallBack)]) {
+        
+        [delegate effectTypeClickCallBack];
+    }
 }
 
 @end

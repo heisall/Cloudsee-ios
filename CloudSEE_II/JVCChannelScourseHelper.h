@@ -119,4 +119,12 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
  *  @param ystNum 云视通号
  */
 - (void)addLocalHomeDeviceChannels:(NSString *)ystNum;
+
+/**
+ *  本地添加通道,并且把本地通道放到数组中
+ *
+ *  @param ystNum     云视通号
+ *  @param channelNum 通道个数
+ */
+- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  channelNums:(int)channelNum;
 @end

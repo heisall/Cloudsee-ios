@@ -345,5 +345,31 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     return userArray;
 }
 
+/**
+ *  判断云视通号在不在数据中
+ *
+ *  @param ystNum 云视通号
+ *
+ *  @return yes 在    no：不在
+ */
+- (BOOL)judgeYstNumInDateBase:(NSString *)ystNum
+{
+    if ([localDeviceSqlite open]) {
+        
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM DEVICEINFOTABLE WHERE DEVICEYSTNUM='%@'",ystNum];
+        
+        FMResultSet *rsSet = [localDeviceSqlite executeQuery:sqlStr];
+        
+        while ([rsSet next]) {
+            
+            return YES;
+        }
+        [localDeviceSqlite close];
+        
+    }
+    
+    return NO;
+
+}
 
 @end

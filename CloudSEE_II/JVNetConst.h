@@ -425,3 +425,8 @@ typedef struct
 #define RC_GPIN_SECLECT 0x12
 #define RC_GPIN_DEL     0x13
 
+/**
+ *  图像翻转的
+ */
+#define EX_MD_SUBMIT	 0x02
+

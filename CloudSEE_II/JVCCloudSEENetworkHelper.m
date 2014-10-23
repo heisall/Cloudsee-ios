@@ -864,7 +864,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setStream:
         case TextChatType_setTalkModel:
         case TextChatType_setAlarmType:
-        case TextChatType_getAlarmType:{
+        case TextChatType_getAlarmType:
+        case TextChatType_EffectInfo:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1371,6 +1372,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                         case RC_GETPARAM:{
                             
+                            DDLogCVerbose(@"%s----------data=%s",__FUNCTION__,stpacket.acData+n);
                             if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                                 
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
@@ -1393,7 +1395,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
@@ -1401,9 +1403,11 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
-                                    int  nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    int  nStreamType  = [[params objectForKey:kDeviceFrameFlagKey] intValue];
                                     
-                                    BOOL isHomeIPC   = FALSE;
+                                    BOOL isHomeIPC    = FALSE;
+                                    
+                                    int  nEffectflag  = -1;
                                     
                                     if ([params objectForKey:kCheckHomeFlagKey]) {
                                         
@@ -1415,7 +1419,12 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                         }
                                     }
                                     
-                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC];
+                                    if ([params objectForKey:KEFFECTFLAG]) {
+                                        
+                                        nEffectflag = [[params objectForKey:KEFFECTFLAG] intValue];
+                                    }
+                                    
+                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
                                 }
                                 
                                 [params release];

@@ -93,8 +93,9 @@
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType   码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  *  @param isHomeIPC     YES是家用IPC
+ *  @param effectType    图像翻转标志
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC;
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType;
 
 @end
 

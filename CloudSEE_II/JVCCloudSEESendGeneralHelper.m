@@ -15,7 +15,6 @@
 @implementation JVCCloudSEESendGeneralHelper
 
 static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
-
 /**
  *  单例
  *
@@ -117,6 +116,9 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             
             [self RemoteRequestAlarmDevice:nJvChannelID];
         }
+            break;
+        case TextChatType_EffectInfo:
+           [self RemoteEffectModel:nJvChannelID effectType:remoteOperationCommand];
             break;
         default:
             break;
@@ -568,4 +570,29 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
+
+#pragma mark 设置图像反转
+-(void)RemoteEffectModel:(int)nJvChannelID
+           effectType:(int)effectType
+{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_EXTEND;
+    m_stPacket.nPacketCount=RC_EX_SENSOR;
+    EXTEND *m_pstExt=(EXTEND*)m_stPacket.acData;
+    m_pstExt->nType=EX_MD_SUBMIT;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s=%d;",[KEFFECTFLAG UTF8String],effectType);
+    strcat(m_pstExt->acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_pstExt->acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
+    
+}
+
 @end

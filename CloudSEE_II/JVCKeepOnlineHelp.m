@@ -489,7 +489,6 @@ UIAlertView *alertView;
                 [viewCurrent initCurrentAlarmView:model];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [window addSubview:viewCurrent];
-                [model release];
                 
             }
         }

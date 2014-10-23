@@ -299,6 +299,10 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
 #pragma mark ========音频监听===start
 -(void)ApAudioBtnClick
 {
+    if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk]) {
+        
+        return;
+    }
     JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     ystNetworkObj.ystNWADelegate    =  self;
     [self audioAPButtonClick];
@@ -326,9 +330,12 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
             
         });
         
+        [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
+        
         [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
 
-        [openAlObj stopSound];
+       
         
         
     }else{
@@ -417,7 +424,15 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
     if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_AUDIO]) {
         
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+
+        });
+        
         [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
         
         [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
         
@@ -513,6 +528,11 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  *  @param button 语音对讲的按钮
  */
 -(void)ApchatBtnRequest{
+    
+    /**
+     *  关闭音频监听
+     */
+    [self stopAudioMonitor];
     
     JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
@@ -646,13 +666,37 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
     
     singleVideoShow.nStreamType                          = nStreamType;
     singleVideoShow.isHomeIPC                            = isHomeIPC;
+    singleVideoShow.iEffectType                          = effectType;
     
     DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
+    
+    [self refreshAPEffectType:nLocalChannel effectType:effectType];
+
 }
+/**
+ *  刷新当前图片翻转状态
+ *
+ *  @param nchannel   通道号（要减1）
+ *  @param effectType 图像翻转状态
+ */
+-(void)refreshAPEffectType:(int)nLocalChannel  effectType:(int)effectType{
+    
+    if (effectType<0) {
+        
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [singleVideoShow updateEffectBtn:effectType];
+        
+    });
+}
+
 
 /**
  *
@@ -923,6 +967,24 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     [strWifiEnc release];
     [strWifiAuth release];
 }
+
+/**
+ *  图像翻转按钮的回调
+ */
+- (void)effectTypeClickCallBack
+{
+
+    if (EffectType_UP == singleVideoShow.iEffectType) {//发送向下命令
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_EffectInfo remoteOperationCommand: EffectType_Down];
+        
+    }else{
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:EffectType_UP];
+        
+    }
+}
+
 
 
 

@@ -17,7 +17,8 @@
 
 @synthesize domainName;
 @synthesize bIpOrDomainAdd;
-
+@synthesize nDeviceSwitchAlarm;
+@synthesize nDeviceType;
 - (void)dealloc
 {
     [userName release];
@@ -60,7 +61,10 @@
         self.ip                 = [info objectForKey:DEVICE_JSON_IP];
         self.port               = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
         self.onLineState        =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue];
+        self.nDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue];
+        self.nDeviceSwitchAlarm =[[info objectForKey:DEVICE_JSON_ALARMSWITCH] intValue];
         self.isCustomLinkModel  = self.linkType == CONNECTTYPE_IP ? TRUE : FALSE;
+        
 
     }
     return self;

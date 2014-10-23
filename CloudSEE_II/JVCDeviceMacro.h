@@ -189,7 +189,9 @@ enum DEVICESERVICERESPONSE{
 #define DEVICE_JSON_NICKNAME        @"dname"
 #define DEVICE_JSON_PORT            @"dvport"
 #define DEVICE_JSON_IP              @"dvip"
-#define DEVICE_JSON_LINKTYPE         @"dvlt"
+#define DEVICE_JSON_LINKTYPE        @"dvlt"
+#define DEVICE_JSON_TYPE			@"dtype"
+#define DEVICE_JSON_ALARMSWITCH     @"aswitch"
 
 
 #define DEVICE_JSON_ONLINESTATE     @"dsls"//在线状态

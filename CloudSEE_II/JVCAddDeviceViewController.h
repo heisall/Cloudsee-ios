@@ -14,6 +14,7 @@ enum DEVICE_INFO {
     DEVICE_RESET  = 1,
 };
 
+static const int     DEFAULTCHANNELCOUNT         = 4;   //莫仍的通道数
 
 enum BINDING
 {

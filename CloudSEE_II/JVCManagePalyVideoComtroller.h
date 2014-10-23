@@ -24,7 +24,7 @@
  *  @param nStreamType 码流类型
  *  @param isHomeIPC   是否是家用IPC
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC;
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType;
 
 @end
 
@@ -78,5 +78,22 @@ enum CONNECTALLDEVICE{
  *  取消全连事件 (子线程调用)
  */
 -(void)CancelConnectAllVideoByLocalChannelID;
+
+/**
+ *  设置scrollview滚动状态
+ *
+ *  @param scrollState 状态
+ */
+- (void)setManagePlayViewScrollState:(BOOL)scrollState;
+
+/**
+ *  隐藏旋转按钮
+ */
+- (void)hiddenEffectView;
+
+/**
+ *  显示旋转按钮
+ */
+- (void)showEffectView;
 
 @end

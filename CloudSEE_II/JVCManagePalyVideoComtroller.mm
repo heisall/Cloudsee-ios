@@ -140,6 +140,13 @@ BOOL isAllLinkRun;
         [singleVideoShow  addGestureRecognizer:recognizer];
         [recognizer release];
         
+        /**
+         *  捏合的手势
+         */
+        UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(fingerpPinchGesture:)];
+        [singleVideoShow  addGestureRecognizer:pinchGesture];
+        [pinchGesture release];
+        
         [WheelShowListView  addSubview:singleVideoShow];
         [singleVideoShow release];
     }
@@ -194,26 +201,87 @@ BOOL isAllLinkRun;
     [WheelShowListView setContentOffset:point animated:NO];
 }
 
+#pragma mark  手势的动作
+- (void)fingerpPinchGesture:(UIPinchGestureRecognizer*)pinchGesture
+{
+    
+    //横屏，进行云台控制，竖屏左右滑动scrollview
+    
+    int bDevieOrigin = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    NSLog(@"handleSwipeFrom ==%d",bDevieOrigin);
+    
+    if (bDevieOrigin == UIInterfaceOrientationPortrait ||bDevieOrigin ==  UIInterfaceOrientationPortraitUpsideDown) {
+        
+        return;
+    }
+    
+    NSLog(@"pinchGesture=%lf",pinchGesture.scale);
+    
+    if (pinchGesture.state == UIGestureRecognizerStateBegan) {
+        
+    }else if(pinchGesture.scale<1) {//捏合缩小
+        
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_BBX];
+         usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_BBXT];
+
+    }else if(pinchGesture.scale>1)//捏合放大
+    {
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_BBD];
+         usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_BBDT];
+
+        
+    }
+    
+}
+
+
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer {
-   
-//    _operationController._iSelectedChannelIndex=recognizer.view.tag-KWINDOWSFLAG;
-//    // NSLog(@"windows Index=%d",_operationController._iSelectedChannelIndex);
-//    if (recognizer.direction==UISwipeGestureRecognizerDirectionDown) {
-//        
-//        [_operationController ytCTL:JVN_YTCTRL_D goOn:0];
-//        
-//    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionUp) {
-//        
-//        [_operationController ytCTL:JVN_YTCTRL_U goOn:0];
-//        
-//    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-//        
-//        [_operationController ytCTL:JVN_YTCTRL_L goOn:0];
-//        
-//    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
-//        
-//        [_operationController ytCTL:JVN_YTCTRL_R goOn:0];
-//    }
+  
+    //横屏，进行云台控制，竖屏左右滑动scrollview
+    
+    int bDevieOrigin = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    NSLog(@"handleSwipeFrom ==%d",bDevieOrigin);
+    
+    if (bDevieOrigin == UIInterfaceOrientationPortrait ||bDevieOrigin ==  UIInterfaceOrientationPortraitUpsideDown) {
+        
+        return;
+    }
+    
+    // NSLog(@"Swipe received.");
+    
+    if (recognizer.direction==UISwipeGestureRecognizerDirectionDown) {
+    
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_D];
+        usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_DT];
+
+        
+    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionUp) {
+        
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_U];
+         usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_UT];
+
+        
+    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
+        
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_L];
+         usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_LT];
+
+        
+    }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight) {
+        
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_R];
+         usleep(200*1000);
+        [self sendYTOperationWithOperationType:JVN_YTCTRL_RT];
+
+        
+    }
     
     
 }
@@ -247,6 +315,29 @@ BOOL isAllLinkRun;
 //            //[_operationController gotoDeviceShowChannels];
 //        }
 //    }
+}
+
+#pragma mark  向设备发送手势
+/**
+ *  云台操作的回调
+ *
+ *  @param YTJVNtype 云台控制的命令
+ */
+- (void)sendYTOperationWithOperationType:(int )YTJVNtype
+{
+    DDLogInfo(@"==%s===%d",__FUNCTION__,YTJVNtype);
+    
+    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
+}
+
+/**
+ *  设置scrollview滚动状态
+ *
+ *  @param scrollState 状态
+ */
+- (void)setManagePlayViewScrollState:(BOOL)scrollState
+{
+    WheelShowListView.scrollEnabled = scrollState;
 }
 
 /**
@@ -358,7 +449,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -480,7 +571,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -745,16 +836,21 @@ BOOL isAllLinkRun;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
+    
+    DDLogVerbose(@"effectType==%d===",effectType);
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
     singleView.nStreamType                          = nStreamType;
     singleView.isHomeIPC                            = isHomeIPC;
-    
+    singleView.iEffectType                          = effectType;
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
-        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC];
+        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
+        
+        [self refreshEffectType:nLocalChannel effectType:effectType];
+
     }
     
     DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
@@ -766,12 +862,34 @@ BOOL isAllLinkRun;
  *
  *  @param nStreamType 码流类型
  */
--(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
+-(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC  effectType:(int)effectType{
 
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:)]) {
+
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:withEffectType:)]) {
     
-        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC];
+        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:effectType];
     }
+}
+
+/**
+ *  刷新当前图片翻转状态
+ *
+ *  @param nchannel   通道号（要减1）
+ *  @param effectType 图像翻转状态
+ */
+-(void)refreshEffectType:(int)nLocalChannel  effectType:(int)effectType{
+    
+    if (effectType<0) {
+        
+        return;
+    }
+    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        [singleView updateEffectBtn:effectType];
+
+    });
 }
 
 /**
@@ -815,5 +933,43 @@ BOOL isAllLinkRun;
     
     [[OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance] openAudioFromQueue:(short *)soundBuffer dataSize:soundBufferSize playSoundType:soundBufferType == YES ? playSoundType_8k16B : playSoundType_8k8B];
 }
+
+/**
+ *  隐藏旋转按钮
+ */
+- (void)hiddenEffectView
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    [singleVideoShow hidenEffectBtn];
+    
+}
+
+/**
+ *  显示旋转按钮
+ */
+- (void)showEffectView
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    [singleVideoShow showEffectBtn];
+    
+}
+/**
+ *  图像翻转按钮的回调
+ */
+- (void)effectTypeClickCallBack
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+
+    if (EffectType_UP == singleVideoShow.iEffectType) {//发送向下命令
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand: EffectType_Down];
+        
+    }else{
+        
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:EffectType_UP];
+        
+    }
+}
+
 
 @end

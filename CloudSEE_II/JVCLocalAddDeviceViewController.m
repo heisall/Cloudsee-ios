@@ -10,12 +10,14 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCDeviceSourceHelper.h"
+#import "JVCCloudSEENetworkHelper.h"
 
 @interface JVCLocalAddDeviceViewController ()
 
 @end
 
 @implementation JVCLocalAddDeviceViewController
+static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备从服务器获取通道数的超时时间
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,25 +40,47 @@
  */
 - (void)addDeviceToAccount:(NSString *)ystNum  deviceUserName:(NSString *) name  passWord:(NSString *)passWord
 {
-    /**
-     *  添加设备
-     */
-    [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:name passWord:passWord];
-    //设备添加到设备数组中
-    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
-                                                         deviceUserName:name
-                                                         devicePassWord:passWord];
-    //添加通道
-    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:ystNum];
     
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
-    if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [addDeviceDelegate addDeviceSuccessCallBack];
-    }
+        int channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNum nTimeOut:kAddLocalDeviceWithWlanTimeOut];
+        DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
+        
+        channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+            /**
+             *  添加设备
+             */
+            [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] addLocalDeviceToDataBase:ystNum deviceName:name passWord:passWord];
+            //设备添加到设备数组中
+            [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:ystNum
+                                                                 deviceUserName:name
+                                                                 devicePassWord:passWord];
+
+            //添加通道
+            [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:ystNum channelNums:channelCount];
+            
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+            
+            if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
+                
+                [addDeviceDelegate addDeviceSuccessCallBack];
+            }
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
+    });
+
    
-    [self.navigationController popViewControllerAnimated:YES];
+    
+   
 
 }
 

@@ -83,4 +83,13 @@ enum{
                                    port:(NSString*)port
                                      ip:(NSString *)ip;
 
+/**
+ *  判断云视通号在不在数据中
+ *
+ *  @param ystNum 云视通号
+ *
+ *  @return yes 在    no：不在
+ */
+- (BOOL)judgeYstNumInDateBase:(NSString *)ystNum;
+
 @end

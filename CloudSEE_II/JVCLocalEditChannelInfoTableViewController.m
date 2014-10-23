@@ -89,6 +89,7 @@
 {
     [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:self.YstNum];
     
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"添加成功"];
     //刷新列表
     [self updateTableview];
 }
