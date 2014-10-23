@@ -29,15 +29,7 @@ static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
 
 - (void)initCurrentAlarmView:(JVCAlarmModel *)alarmModel;
 {
-    UILabel *label =  [[JVCControlHelper shareJVCControlHelper]labelWithText:@"1AJDF;JADFJ;AJDF;JA;FJA;JD;JF;AJFDJADJFAL;JDFADFADFADFAFDAFA24" textFontSize:12];
-    label.frame = CGRectMake(100, 100, label.width,label.height );
-    [label retain];
-    label.textColor = [UIColor darkGrayColor];
-    [self addSubview:label];
     
-    UITextField *TEXTFIEDL = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:@"ZUOCE" backGroundImage:nil];
-    [self addSubview:TEXTFIEDL];
-    return;
     UIControl *control = [[UIControl alloc] initWithFrame:self.bounds];
     [control addTarget:self action:@selector(CloseCurrentView) forControlEvents:UIControlEventTouchUpInside];
     [self didAddSubview:control];

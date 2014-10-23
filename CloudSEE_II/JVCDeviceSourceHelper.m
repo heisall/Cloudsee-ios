@@ -251,6 +251,30 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 }
 
 /**
+ *  根据云视通号是否再数组中
+ *
+ *  @param ystNumber 云通号
+ *
+ *  @return 云通号的sourceModel
+ */
+-(BOOL)judgeDeviceHasExist:(NSString *)ystNumber
+{
+    
+    for (int i=0; i<deviceArray.count; i++) {
+        
+        JVCDeviceModel *deviceModel= [deviceArray objectAtIndex:i];
+        
+        if ([[deviceModel.yunShiTongNum uppercaseString] isEqualToString:[ystNumber uppercaseString]]) {
+        
+            return YES;
+            
+        }
+    }
+    
+    return NO;
+}
+
+/**
  *  还原设备的在线信息，把所有的在线信息置为离线
  */
 -(void)restoreDeviceListOnlineStatusInfo{
