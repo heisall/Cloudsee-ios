@@ -390,7 +390,6 @@ float min_offset;
 
     UISlider *slider=(UISlider*)[self viewWithTag:107];
     [slider setValue:0.0];
-    [slider setMaximumValue:0.0];
     [slider setHidden:YES];
 }
 
@@ -451,36 +450,33 @@ float min_offset;
             [slider setHidden:YES];
             
             if (![self._glView._kxOpenGLView isHidden]) {
-//                [self._glView._kxOpenGLView setHidden:YES];
-//                [self bringSubviewToFront:imgView];
+                
                 [self._glView hiddenWithOpenGLView];
                 [self bringSubviewToFront:imgView];
             }
             
         }else {
             
-            UISlider *slider=(UISlider*)[self viewWithTag:107];
-            
             UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
             [_bPlayVideoBtn setHidden:YES];
             
-            if (nPlayBackFrametotalNumber>0) {
+            
+             UISlider *slider = (UISlider*)[self viewWithTag:107];
+            
+            if (nPlayBackFrametotalNumber > 0) {
                 
-                UISlider *slider=(UISlider*)[self viewWithTag:107];
-                self._isPlayBackState=FALSE;
-                [slider setMaximumValue:nPlayBackFrametotalNumber];
+                if (slider.hidden) {
+                    
+                     [slider setMaximumValue:nPlayBackFrametotalNumber];
+                     [slider setHidden:NO];
+                    
+                }else{
                 
-                [slider setHidden:NO];
-                
-                //判断远程回放是否播放完成
-                if (slider.value == nPlayBackFrametotalNumber) {//完成，自动结束远程回放
-                    
-                    
-                }else{//没有完成
-                    
-                    [slider setValue:slider.value+1];
-                    
+                     [slider setValue:slider.value+1];
                 }
+                
+               
+                self._isPlayBackState=FALSE;
                 
             }else{
                 
@@ -490,6 +486,7 @@ float min_offset;
             [self._glView decoder:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight];
             
             if ([self._glView._kxOpenGLView isHidden]) {
+                
                 [self._glView._kxOpenGLView setHidden:NO];
                 [self bringSubviewToFront:self._glView._kxOpenGLView];
             }

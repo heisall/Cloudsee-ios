@@ -120,19 +120,20 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     backGroud.backgroundColor  = [UIColor clearColor];
     backGroud.frame            = CGRectMake(sendButton.frame.size.width/2.0 + sendButton.frame.origin.x - kScanfBgWithRadius, sendButton.frame.origin.y + sendButton.frame.size.height/2.0 - kScanfBgWithRadius, kScanfBgWithRadius*2, kScanfBgWithRadius*2);
     [self.view addSubview:backGroud];
-    //[backGroud release];
+   
     
     UIImageView *line    = [[UIImageView alloc] init];
     line.frame           = CGRectMake(0.0, kScanfBgWithRadius , kScanfBgWithRadius, kScanfBgWithRadius);
     line.backgroundColor = [UIColor clearColor];
     line.image           = scanImage;
     [backGroud addSubview:line];
+    
+    [backGroud release];
     [line release];
     
     [self.view addSubview:sendButton];
     [sendButton release];
     
-    [bgImageView release];
     
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
     
@@ -334,7 +335,6 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
         return [devieNewModelTemp autorelease];
 }
 
-
 /**
  *  返回上一级
  */
@@ -357,6 +357,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
     //[self gotoBack];
 }
 
