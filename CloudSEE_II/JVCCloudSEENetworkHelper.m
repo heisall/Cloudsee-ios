@@ -1119,10 +1119,11 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
         return;
     }
     
+    
+    
     switch (uchType) {
             
         case JVN_DATA_O:{
-            
             
             int     width       = -1;
             int     height      = -1;
@@ -1139,10 +1140,11 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
                  */
                 playBackDecoderObj.nVideoWidth       = width;
                 playBackDecoderObj.nVideoHeight      = height;
-                playBackDecoderObj.dVideoframeFrate  = frameRate;
-                [currentChannelObj resetVideoDecoderParam];
-                currentChannelObj.isPlaybackVideo    = YES;
             }
+            
+            playBackDecoderObj.dVideoframeFrate  = frameRate;
+            [currentChannelObj resetVideoDecoderParam];
+            currentChannelObj.isPlaybackVideo    = YES;
             
             [currentChannelObj startPopVideoDataThread];
             
@@ -1159,6 +1161,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
         case JVN_DATA_I:
         case JVN_DATA_B:
         case JVN_DATA_P:{
+            
             
             if (!currentChannelObj.isPlaybackVideo) {
                 

@@ -1513,7 +1513,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
     
-    DDLogError(@"%s---date=%@",__FUNCTION__,date);
+    DDLogError(@"%s---date=%@ index=%d",__FUNCTION__,date,index);
     
     [ystNetworkObj RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:dicInfo requestPlayBackFileDate:date requestPlayBackFileIndex:index];
     
@@ -1564,15 +1564,16 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)remoteplaybackState:(int)remoteplaybackState
 {
-    DDLogInfo(@"%s====%d",__FUNCTION__,remoteplaybackState);
+    DDLogInfo(@"%s=##############################################===%d",__FUNCTION__,remoteplaybackState);
     
     switch (remoteplaybackState) {
+            
         case RemotePlayBackVideoStateType_End:
         {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self showPlayBackVideo:NO ];
+                [self showPlayBackVideo:NO];
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Playback_Finish")];
                 
@@ -1598,8 +1599,12 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case RemotePlayBackVideoStateType_Succeed:
         {
-            JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
-            [_singView hiddenSlider];
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                JVCMonitorConnectionSingleImageView  *_singView = (JVCMonitorConnectionSingleImageView*)[_managerVideo viewWithTag:WINDOWSFLAG+_managerVideo.nSelectedChannelIndex];
+                [_singView hiddenSlider];
+            
+            });
         }
             break;
             
