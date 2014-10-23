@@ -317,6 +317,7 @@ static const  int KSuccess         = 1;
     JVCEditLockDeviceNickNameViewController *editVC = [[JVCEditLockDeviceNickNameViewController alloc] init];
     editVC.alertmodel = model;
     [self.navigationController pushViewController:editVC animated:YES];
+    [model release];
     [editVC release];
         
 }

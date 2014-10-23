@@ -9,21 +9,24 @@
 #import "JVCScanNewDeviceViewController.h"
 #import "JVCDeviceModel.h"
 #import "JVCDeviceMacro.h"
+#import "JVCSystemConfigMacro.h"
+#import "JVCDeviceSourceHelper.h"
 
 @interface JVCScanNewDeviceViewController () {
     
     UIView       *backGroud;
     NSTimer      *scanfTimer;
-    UIButton     *scanfNewDevice;
     CGFloat       scanfNewDevice_x;
     CGFloat       scanfNewDevice_y;
-    
-    JVCDeviceModel *devieNewModel;
+    CGRect        scanfImageFrame;
+    int           nSelectedIndex;
+    NSMutableArray *amLanSearchModelList;
 }
 
 @end
 
 @implementation JVCScanNewDeviceViewController
+@synthesize nScanfDeviceMaxCont;
 
 static const    CFTimeInterval  kScanfWithAnimationDuration          = 10.0f;  //动画执行的时间
 static const    CFTimeInterval  kScanfWithDurationBeginAnimationTime = 0.5f;   //延时动画的时间
@@ -33,10 +36,13 @@ static const    CGFloat         kBackButtonWithLeft                  = 15.0f;
 static NSString const          *kRotationAnimationKeyName            = @"scanRotation";
 static const    CGFloat         kNewDeviceImageViewWithRadius        = 100.0f;
 
-static const    NSTimeInterval kScanfTimerInterval                   = 5.0f;
+static const    NSTimeInterval  kScanfTimerInterval                   = 5.0f;
 static const    CGFloat         kNewDeviceImageViewWithMinScale      = 0.1f;
 static const    CGFloat         kNewDeviceImageViewWithMinAlpha      = 0.1f;
 static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
+static const    int             kNewDeviceButtonWithTag              = 100000;
+static const    int             kScanDeviceWithDefaultCount          = 1;
+static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +50,9 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     
     if (self) {
         
+        //初始化搜到的设备数据
+        amLanSearchModelList = [[NSMutableArray alloc] initWithCapacity:10];
+        self.nScanfDeviceMaxCont = kScanDeviceWithDefaultCount;
     }
     return self;
 }
@@ -63,10 +72,9 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 
 -(void)initLayoutWithViewWillAppear {
 
+   self.navigationController.navigationBarHidden = YES;
     [self scanDeviceMath];
-    
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated{
     
@@ -74,22 +82,123 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
 }
 
-
-
 - (void)viewDidLoad
 {
     self.navigationController.navigationBarHidden = YES;
     [super viewDidLoad];
     
-    scanfNewDevice_x = (self.view.frame.size.width  - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
-    scanfNewDevice_y = (self.view.frame.size.height - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
+    [self initLayoutWithScanView];
+    [self initLayoutWithBackClick];
+    
+    [self performSelector:@selector(scanDeviceMath) withObject:nil afterDelay:kScanfWithDurationBeginAnimationTime];
+    
+    
+    scanfTimer = [NSTimer scheduledTimerWithTimeInterval:kScanfTimerInterval
+                                                           target:self
+                                                        selector:@selector(scanfDeviceList)
+                                                         userInfo:nil
+                                                          repeats:YES];
+    
+    [scanfTimer fire];
 
+}
+
+/**
+ *  判断当前生成的按钮不重合在扫描图标上
+ *
+ *  @param x x坐标
+ *  @param y y坐标
+ *
+ *  @return 不重叠返回YES 采用中心点距离判断
+ */
+-(BOOL)checkNewDevicePoint:(CGFloat)x withY:(CGFloat)y{
     
-    UIImageView *bgImageView    = [self imageViewWithImageName:@"sca_bg.png"];
+    UIImage *deviceNewImage = [UIImage imageNamed:@"sca_device.png"] ;
     
-    [bgImageView retain];
-    [self.view addSubview:bgImageView];
-    [bgImageView release];
+    CGPoint deviceCenter    = CGPointMake(x + ceil(deviceNewImage.size.width/2.0), y+ceil(deviceNewImage.size.height/2.0));
+    
+    CGPoint scanImageCenter = CGPointMake(scanfImageFrame.origin.x + ceil(scanfImageFrame.size.width/2.0), scanfImageFrame.origin.y + ceil(scanfImageFrame.size.height/2.0));
+    
+    double distance_x = pow(scanImageCenter.x - deviceCenter.x, 2);
+    double distance_y = pow(scanImageCenter.y - deviceCenter.y, 2);
+    
+    double distance = sqrt(distance_x + distance_y);
+    
+    DDLogVerbose(@"%s---lf=%lf",__FUNCTION__,distance);
+    
+    if (distance >= (deviceNewImage.size.width + scanfImageFrame.size.width)/2.0 ) {
+        
+        return YES;
+    }
+    
+    return NO;
+    
+}
+
+/**
+ *  判断当前生成的按钮不重合在已扫描的设备上
+ *
+ *  @param x x坐标
+ *  @param y y坐标
+ *
+ *  @return 不重叠返回YES 采用中心点距离判断
+ */
+-(BOOL)checkNewDevicePointWithOtherDevcReclosing:(CGFloat)x withY:(CGFloat)y{
+    
+    int isReclosingStatus = TRUE;
+    
+    for (int i = 0 ; i<amLanSearchModelList.count; i++) {
+        
+        UIButton *newDeviceBtn = (UIButton *)[self.view viewWithTag:kNewDeviceButtonWithTag+i];
+        
+        
+        CGPoint deviceCenter    = CGPointMake(x + ceil(newDeviceBtn.frame.size.width/2.0), y+ceil(newDeviceBtn.size.height/2.0));
+        
+        CGPoint scanImageCenter = CGPointMake(newDeviceBtn.frame.origin.x + ceil(newDeviceBtn.frame.size.width/2.0), newDeviceBtn.frame.origin.y + ceil(newDeviceBtn.frame.size.height/2.0));
+        
+        double distance_x = pow(scanImageCenter.x - deviceCenter.x, 2);
+        double distance_y = pow(scanImageCenter.y - deviceCenter.y, 2);
+        
+        double distance = sqrt(distance_x + distance_y);
+        
+        
+        if (distance < newDeviceBtn.size.width +5.0) {
+            
+            isReclosingStatus = FALSE;
+            
+            break;
+        }
+        
+    }
+    
+    return isReclosingStatus;
+}
+
+/**
+ *  根据标签返回一个新设备的按钮
+ *
+ *  @param tag 标签
+ *
+ *  @return 新设备的按钮
+ */
+-(UIButton *)newDeviceuttonWithTag:(int)tag {
+   
+    UIImage *deviceNewImage = [UIImage imageNamed:@"sca_device.png"] ;
+    
+    UIButton *newDeviceBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    newDeviceBtn.frame      = CGRectMake(0, 0, deviceNewImage.size.width, deviceNewImage.size.height);
+    [newDeviceBtn setBackgroundImage:deviceNewImage forState:UIControlStateNormal];
+    newDeviceBtn.tag        = kNewDeviceButtonWithTag + tag;
+    [newDeviceBtn addTarget:self  action:@selector(addNewScanDevice:) forControlEvents:UIControlEventTouchUpInside];
+    DDLogVerbose(@"%s----%@",__FUNCTION__,newDeviceBtn);
+    
+    return newDeviceBtn;
+}
+
+/**
+ *  初始化返回按钮
+ */
+- (void)initLayoutWithBackClick {
     
     NSString *path= nil;
     
@@ -98,19 +207,48 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     if (path == nil) {
         
         path = [[NSBundle mainBundle] pathForResource:@"nav_back@2x" ofType:@"png"];
-        
     }
 
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+    
+    DDLogVerbose(@"%s-----hahha=%@",__FUNCTION__,image);
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame = CGRectMake(kBackButtonWithLeft, kBackButtonWithTop, image.size.width, image.size.height);
+    [btn addTarget:self action:@selector(popClick) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    [self.view addSubview:btn];
+    
+    [image release];
+}
+
+/**
+ *  初始化局域网广播扫描视图
+ */
+- (void)initLayoutWithScanView {
+    
+    scanfNewDevice_x = (self.view.frame.size.width  - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
+    scanfNewDevice_y = (self.view.frame.size.height - (kNewDeviceImageViewWithRadius*2) ) / 2.0;
+    
+    UIImageView *bgImageView    = [self imageViewWithImageName:@"sca_bg.png"];
+    
+    [bgImageView retain];
+    [self.view addSubview:bgImageView];
+    [bgImageView release];
+    
     UIImage *sendImage        = [UIImage imageNamed:@"sca_log"];
     
     CGFloat sendButtonWidth   = sendImage.size.width;
     
     UIImageView *sendButton    = [[UIImageView alloc] init];
-    sendButton.frame           = CGRectMake((self.view.frame.size.width - sendButtonWidth)/2.0, bgImageView.frame.size.height/2.0 - sendButtonWidth/2.0 , sendButtonWidth, sendButtonWidth);
+    sendButton.frame           = CGRectMake((self.view.frame.size.width - sendButtonWidth)/2.0 , bgImageView.frame.size.height/2.0 - sendButtonWidth/2.0 + kIcoImageViewwithBottom , sendButtonWidth, sendButtonWidth);
     [[sendButton layer] setCornerRadius:sendButtonWidth/2.0];
     sendButton.image           = sendImage;
     sendButton.backgroundColor = [UIColor clearColor];
     sendButton.userInteractionEnabled= YES;
+    
+    scanfImageFrame           = sendButton.frame;
     
     UIImage *scanImage = [UIImage imageNamed:@"sca_ani"];
     
@@ -120,7 +258,7 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     backGroud.backgroundColor  = [UIColor clearColor];
     backGroud.frame            = CGRectMake(sendButton.frame.size.width/2.0 + sendButton.frame.origin.x - kScanfBgWithRadius, sendButton.frame.origin.y + sendButton.frame.size.height/2.0 - kScanfBgWithRadius, kScanfBgWithRadius*2, kScanfBgWithRadius*2);
     [self.view addSubview:backGroud];
-   
+    
     
     UIImageView *line    = [[UIImageView alloc] init];
     line.frame           = CGRectMake(0.0, kScanfBgWithRadius , kScanfBgWithRadius, kScanfBgWithRadius);
@@ -133,53 +271,25 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     
     [self.view addSubview:sendButton];
     [sendButton release];
-    
-    
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    btn.frame = CGRectMake(kBackButtonWithLeft, kBackButtonWithTop, image.size.width, image.size.height);
-    [btn addTarget:self action:@selector(popClick) forControlEvents:UIControlEventTouchUpInside];
-    [btn setBackgroundImage:image forState:UIControlStateNormal];
-    [self.view addSubview:btn];
-    
-    [self performSelector:@selector(scanDeviceMath) withObject:nil afterDelay:kScanfWithDurationBeginAnimationTime];
-    
-
-    UIImage *deviceNewImage = [UIImage imageNamed:@"sca_device.png"] ;
-    scanfNewDevice = [UIButton buttonWithType:UIButtonTypeCustom];
-    scanfNewDevice.frame = CGRectMake(0, 0, deviceNewImage.size.width, deviceNewImage.size.height);
-    [scanfNewDevice setBackgroundImage:deviceNewImage forState:UIControlStateNormal];
-    [scanfNewDevice addTarget:self  action:@selector(addNewScanDevice) forControlEvents:UIControlEventTouchUpInside];
-    
-    CGRect rectDevice    = scanfNewDevice.frame;
-    rectDevice.origin.x  = scanfNewDevice_x ;
-    rectDevice.origin.y  = scanfNewDevice_y ;
-    scanfNewDevice.frame = rectDevice;
-    
-    [self.view addSubview:scanfNewDevice];
-    
-    DDLogVerbose(@"%@",scanfNewDevice);
-    scanfNewDevice.alpha = kNewDeviceImageViewWithMinAlpha;
-    scanfNewDevice.transform = CGAffineTransformMakeScale(kNewDeviceImageViewWithMinScale, kNewDeviceImageViewWithMinScale);
-    
-    scanfTimer = [NSTimer scheduledTimerWithTimeInterval:kScanfTimerInterval
-                                                           target:self
-                                                        selector:@selector(scanfDeviceList)
-                                                         userInfo:nil
-                                                          repeats:YES];
-    
-    [scanfTimer fire];
-    
 }
 
 /**
  *  添加新设备
  */
--(void)addNewScanDevice
+-(void)addNewScanDevice:(UIButton *)button
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"发现设备：%@",devieNewModel.yunShiTongNum] message:nil delegate:self cancelButtonTitle:@"添加" otherButtonTitles:@"取消", nil];
+    nSelectedIndex               = button.tag - kNewDeviceButtonWithTag;
+    
+    for (int i = 0; i< amLanSearchModelList.count; i++) {
+        
+         JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
+        
+        DDLogVerbose(@"%s################%d#######ystNumber=%@",__FUNCTION__,nSelectedIndex,model.strYstNumber);
+    }
+    
+    JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"发现设备：%@",model.strYstNumber] message:nil delegate:self cancelButtonTitle:@"添加" otherButtonTitles:@"取消", nil];
     alert.delegate = self;
     [alert show];
     [alert release];
@@ -189,11 +299,12 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 {
     if (buttonIndex == 0) {
         
+        JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
         
         [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:devieNewModel.yunShiTongNum
-                                                                    userName:devieNewModel.userName
-                                                                    passWord:devieNewModel.passWord];
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                    userName:(NSString *)DefaultUserName
+                                                                    passWord:(NSString *)DefaultHomePassWord];
     }
 }
 
@@ -202,7 +313,10 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
  */
 - (void)addDeviceSuccess
 {
-    [self playConfigSound];
+    if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+        
+        [self gotoBack];
+    }
 }
 
 /**
@@ -210,14 +324,36 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
  */
 -(void)scanfDeviceList {
    
-    DDLogVerbose(@"%s-----",__FUNCTION__);
     JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
     
     [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
     
-    
 }
+
+/**
+ *  判断当前的缓存数据中 广播到的设备是否存在
+ *
+ *  @param ystNumber 云视通号
+ *
+ *  @return 存在返回YES 否则返回NO
+ */
+-(BOOL)checkLanSearchModelIsExist:(NSString *)ystNumber {
+    
+    for (int i = 0 ; i < amLanSearchModelList.count; i++) {
+        
+        JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:i];
+        
+        if ([model.strYstNumber isEqualToString:ystNumber]) {
+            
+            return YES;
+        }
+        
+    }
+    
+    return NO;
+}
+
 
 /**
  *  返回的所有广播搜到的设备
@@ -228,35 +364,84 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 
     [SerachLANAllDeviceList retain];
     
-    if (SerachLANAllDeviceList.count > 0) {
+    
+    for (int i = 0; i < SerachLANAllDeviceList.count; i++) {
         
-        [self stopScanfDeviceTimer];
+        JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[SerachLANAllDeviceList objectAtIndex:i];
+        
+        
+        if (amLanSearchModelList.count >= self.nScanfDeviceMaxCont) {
+            
+            [self stopScanfDeviceTimer];
+            break;
+        }
+        
+        if (self.nScanfDeviceMaxCont > kScanDeviceWithDefaultCount) {
+            
+            if ( ADDDEVICE_HAS_EXIST == [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:model.strYstNumber]){
+            
+                continue;
+            }
+        }
+        
+        if ([self checkLanSearchModelIsExist:model.strYstNumber] ) {
+            
+            continue;
+        }
+        
+         DDLogVerbose(@"%s----ystNumber=%@,i=%d",__FUNCTION__,model.strYstNumber,i);
+        
+        [amLanSearchModelList addObject:model];
+        
         [self playNewSound];
         
-        devieNewModel = [[self LANModelConvertToSourceModel:SerachLANAllDeviceList] retain];
+        UIButton *newButton = [self newDeviceuttonWithTag:i];
+        
+        [newButton retain];
+        
+        newButton.tag        = kNewDeviceButtonWithTag + amLanSearchModelList.count - 1;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            CGFloat x  = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
-            CGFloat y = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
+            CGFloat x  ;
+            CGFloat y  ;
             
-            CGRect rectDevice    = scanfNewDevice.frame;
+            do {
+            
+                 x  = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
+                 y  = [self getRandomNumber:0 to:kNewDeviceImageViewWithRadius*2];
+                
+            }while (![self checkNewDevicePoint:scanfNewDevice_x+x withY:scanfNewDevice_y+y]);
+            
+            
+            CGRect rectDevice    = newButton.frame;
             rectDevice.origin.x  = scanfNewDevice_x + x;
             rectDevice.origin.y  = scanfNewDevice_y + y;
-            scanfNewDevice.frame = rectDevice;
+            newButton.frame      = rectDevice;
+            newButton.alpha = kNewDeviceImageViewWithMinAlpha;
+            newButton.transform = CGAffineTransformMakeScale(kNewDeviceImageViewWithMinScale, kNewDeviceImageViewWithMinScale);
+            [self.view addSubview:newButton];
             
             [UIView animateWithDuration:kNewDeviceWithanimateWithDuration animations:^{
                 
-                scanfNewDevice.alpha     = 1.0f;
-                scanfNewDevice.transform = CGAffineTransformIdentity;
+                if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+                    
+                    [self playConfigSound];
+                }
                 
-
+                newButton.alpha     = 1.0f;
+                newButton.transform = CGAffineTransformIdentity;
+                
             }];
         });
+
+        [newButton release];
     }
     
     [SerachLANAllDeviceList release];
+
 }
+
 
 /**
  *  播放扫描背景音乐
@@ -287,53 +472,10 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     NSString *soundPath = [[NSBundle mainBundle ] pathForResource:@"sca_finshed" ofType:@"mp3"];
     
     JVCSystemSoundHelper *soundHelperObj = [JVCSystemSoundHelper shareJVCSystemSoundHelper];
-    soundHelperObj.delegate              = self;
     
-    [soundHelperObj playSound:soundPath withIsRunloop:YES];
+    [soundHelperObj playSound:soundPath withIsRunloop:NO];
 }
 
-/**
- *  配置完成结束
- */
--(void)playEndCallBack {
-    
-    JVCSystemSoundHelper *soundHelperObj = [JVCSystemSoundHelper shareJVCSystemSoundHelper];
-    soundHelperObj.delegate              = nil;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-    
-        [self gotoBack];
-    
-    });
-
-}
-
-
-/**
- *  把广播到的设备实体转换成sourceModel
- *
- *  @param lanModelList 广播到的设备集合
- *
- *  @return 广播到的设备集合（存放的sourceModel集合）
- */
--(JVCDeviceModel *)LANModelConvertToSourceModel:(NSMutableArray *)lanModelList{
-    
-        JVCLanScanDeviceModel *lanModel=(JVCLanScanDeviceModel *)[lanModelList objectAtIndex:0];
-        
-        JVCDeviceModel *devieNewModelTemp=[[JVCDeviceModel alloc] init];
-        
-        devieNewModelTemp.yunShiTongNum = lanModel.strYstNumber;
-        devieNewModelTemp.nickName      = lanModel.strYstNumber;
-        devieNewModelTemp.userName      = (NSString *)DefaultUserName;
-        devieNewModelTemp.passWord      = (NSString *)DefaultPassWord;
-        devieNewModelTemp.onLineState   = DEVICESTATUS_ONLINE;
-        devieNewModelTemp.hasWifi       = lanModel.iNetMod;
-        devieNewModelTemp.linkType      = CONNECTTYPE_IP;
-        devieNewModelTemp.ip            = lanModel.strDeviceIP;
-        devieNewModelTemp.port          = lanModel.strDevicePort;
-    
-        return [devieNewModelTemp autorelease];
-}
 
 /**
  *  返回上一级
@@ -343,6 +485,9 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
     [self gotoBack];
 }
 
+/**
+ *  局域网广播动画
+ */
 -(void)scanDeviceMath{
     
     CABasicAnimation *rotationAnimation =
@@ -358,7 +503,8 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
     [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
-    //[self gotoBack];
+    [self stopScanfDeviceTimer];
+    
 }
 
 /**
@@ -367,14 +513,11 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
 -(void)gotoBack{
 
     [self stopScanfDeviceTimer];
-    
-    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
-    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
-
-    self.navigationController.navigationBarHidden = NO;
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
+     
+     self.navigationController.navigationBarHidden = NO;
+     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 
 /**
  *  停止扫描设备
@@ -389,11 +532,13 @@ static const    CGFloat         kNewDeviceWithanimateWithDuration    = 1.0f;
             scanfTimer = nil;
         }
     }
+    
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
 }
 
 - (void)dealloc
 {
-    [devieNewModel release];
     
     [super dealloc];
 }

@@ -12,6 +12,12 @@
 #import "JVCSystemSoundHelper.h"
 
 
-@interface JVCScanNewDeviceViewController : JVCBaseWithGeneralViewController <JVCLANScanWithSetHelpYSTNOHelperDelegate,JVCDeviceMathDelegate,UIAlertViewDelegate,JVCSystemSoundHelperDelegate>
+@interface JVCScanNewDeviceViewController : JVCBaseWithGeneralViewController <JVCLANScanWithSetHelpYSTNOHelperDelegate,JVCDeviceMathDelegate,UIAlertViewDelegate,JVCSystemSoundHelperDelegate> {
+    
+    int nScanfDeviceMaxCont;
+
+}
+
+@property (nonatomic,assign) int nScanfDeviceMaxCont;
 
 @end

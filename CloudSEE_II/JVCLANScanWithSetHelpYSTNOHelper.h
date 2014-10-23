@@ -12,7 +12,6 @@
 
 @protocol JVCLANScanWithSetHelpYSTNOHelperDelegate <NSObject>
 
-
 /**
  *  返回的所有广播搜到的设备
  *
