@@ -80,7 +80,7 @@ static const NSTimeInterval KPushApConfigControllerWithDuration  = 0.5;  //动�
 static const int KSeperateSpan = 20;//控件之间的间隔
 
 static const int KLineHeight = 1;//横线的高度
-
+static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -116,21 +116,22 @@ static const int KLineHeight = 1;//横线的高度
     
     [super viewDidAppear:animated];
     
-    NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+   NSString *fistOpen = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOME];
+
+    if (fistOpen.length>0) {
+        
+        [self autoLoginIn];
+        
+    }else{
     
-    if (userArray.count != 0) {//排序好了，第一个就是最后一次登录的用户
+        JVCHelpVIew *viewHelp = [[JVCHelpVIew alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [self.view addSubview:viewHelp];
+        viewHelp.delegateWelcome = self;
+        [viewHelp release];
         
-        JVCUserInfoModel *modeluse = [userArray objectAtIndex:0];
-        
-        textFieldUser.text  = modeluse.userName;
-        if (modeluse.bAutoLoginState) {
-            
-            textFieldPW.text =  modeluse.passWord;
-            
-            //太快延迟0.3秒
-            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
-        }
+        [[NSUserDefaults standardUserDefaults] setObject:(NSString *)KFISTOPEN forKey:(NSString *)kAPPWELCOME];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -774,6 +775,34 @@ static const int KLineHeight = 1;//横线的高度
     [textFieldUser release];
     AudioServicesDisposeSystemSoundID(shake_sound_finish);
     [super dealloc];
+}
+
+/**
+ *  第一次帮助的回调
+ */
+- (void)JVCWelcomeCallBack
+{
+    [self  autoLoginIn];
+}
+
+- (void)autoLoginIn
+{
+    NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+    
+    if (userArray.count != 0) {//排序好了，第一个就是最后一次登录的用户
+        
+        JVCUserInfoModel *modeluse = [userArray objectAtIndex:0];
+        
+        textFieldUser.text  = modeluse.userName;
+        if (modeluse.bAutoLoginState) {
+            
+            textFieldPW.text =  modeluse.passWord;
+            
+            //太快延迟0.3秒
+            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+        }
+    }
+
 }
 
 @end

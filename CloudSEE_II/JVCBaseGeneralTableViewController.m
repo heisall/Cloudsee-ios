@@ -42,28 +42,11 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
             
             self.hidesBottomBarWhenPushed = YES;
             
-            [self setupRefresh];
-            
         }
 
     return self;
 }
 
-/**
- *  集成刷新控件
- */
-- (void)setupRefresh
-{
-    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshingData)];
-    //自动下拉刷新
-    //[_tableView headerBeginRefreshing];
-    
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新";
-    self.tableView.headerRefreshingText = @"正在刷新中";
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     

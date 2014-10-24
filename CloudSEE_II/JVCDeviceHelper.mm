@@ -429,6 +429,8 @@ char outTextBuffer[1280*720*3];
     NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
     [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:DEV_INFO_PRO] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    [requestInfoMDict setValue:kkUserName forKey:CONVERTCHARTOSTRING(JK_USERNAME)];
+
     [requestInfoMDict setValue:[NSNumber numberWithInt: GET_USER_DEVICES_STATUS_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
     
     NSString *parseStr=[requestInfoMDict JSONString];

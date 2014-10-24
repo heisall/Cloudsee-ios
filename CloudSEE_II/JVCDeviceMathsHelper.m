@@ -18,6 +18,7 @@
 #import "JVCResultTipsHelper.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCConfigModel.h"
+#import "JVCDeviceMacro.h"
 @interface JVCDeviceMathsHelper ()
 {
     NSString *deviceYStNum;
@@ -30,7 +31,7 @@
 @end
 @implementation JVCDeviceMathsHelper
 @synthesize deviceDelegate;
-
+@synthesize deviceUpdate;
 static JVCDeviceMathsHelper  *shareDeviceMathsHelper = nil;
 static const int     KADDDEVICE_RESULT_SUCCESS      = 0;   //成功
 static const int    kAddDeviceWithWlanTimeOut       = 5;   //添加设备从服务器获取通道数的超时时间
@@ -366,6 +367,63 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
         
         [deviceDelegate addDeviceSuccess];
     }
+}
+
+/**
+ *  刷新设备状态
+ */
+- ( void)updateAccountDeviceListInfo
+{
+    id deviceRemoteInfoID=[[JVCDeviceHelper sharedDeviceLibrary] refreshAccountNameByDeviceList];
+    
+    
+    if (deviceRemoteInfoID!=nil||[deviceRemoteInfoID isKindOfClass:[NSDictionary class]]) {
+        
+        NSDictionary *remoteDict=(NSDictionary *)deviceRemoteInfoID;
+        
+        DDLogVerbose(@"刷新设备状态的起始数据=%@",remoteDict);
+
+        [self remoteDeviceListDataToModel:remoteDict];
+        
+    }
+    
+    if (deviceUpdate !=nil && [deviceUpdate respondsToSelector:@selector(updateDeviceInfoMathSuccess)])  {
+        
+        [deviceUpdate updateDeviceInfoMathSuccess];
+    }
+}
+
+- (void)remoteDeviceListDataToModel:(NSDictionary*)deviceListDataMDic
+{
+    id devicesData=[deviceListDataMDic objectForKey:DEVICE_JSON_DLIST];
+    
+    if ([devicesData isKindOfClass:[NSArray class]]) {
+        
+        NSArray *deviceListDataArray=(NSArray*)devicesData;
+        
+        for (int i=0; i<deviceListDataArray.count; i++) {
+            
+            NSDictionary  *remoteInfoDict=(NSDictionary*)[deviceListDataArray objectAtIndex:i];
+            
+            NSArray *updateArray = [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
+            
+            for (int k=0; k<updateArray.count; k++) {
+                
+                JVCDeviceModel *model=(JVCDeviceModel*)[updateArray objectAtIndex:k];
+                
+                if ([[model.yunShiTongNum uppercaseString] isEqualToString:[[remoteInfoDict objectForKey:DEVICE_JSON_DGUID] uppercaseString]]) {
+                
+                    model.nDeviceSwitchAlarm=[[remoteInfoDict objectForKey:DEVICE_JSON_ALARMSWITCH] intValue];
+                    model.onLineState = [[remoteInfoDict objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
+                    model.nDeviceType = [[remoteInfoDict objectForKey:DEVICE_JSON_TYPE] intValue];
+                    model.hasWifi = [[remoteInfoDict objectForKey:DEVICE_JSON_WIFI] intValue];
+                    continue;
+                    
+                }
+            }
+        }
+    }
+    
 }
 
 
