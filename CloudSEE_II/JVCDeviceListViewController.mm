@@ -109,7 +109,26 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     
     [self showaddAPConfigDevice];
     
-   
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
+    {
+        [self setupRefresh];
+        
+    }
+
+}
+
+- (void)initLayoutWithViewWillAppear
+{
+    [super initLayoutWithViewWillAppear];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
+    {
+        [self.tableView removeHeader];
+        
+    }else{
+            [self setupRefresh];
+
+        }
 }
 
 /**

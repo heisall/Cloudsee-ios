@@ -16,8 +16,8 @@
 #import <objc/runtime.h>
 
 @interface UIScrollView()
-@property (weak, nonatomic) MJRefreshHeaderView *header;
-@property (weak, nonatomic) MJRefreshFooterView *footer;
+@property (assign, nonatomic) MJRefreshHeaderView *header;
+@property (assign, nonatomic) MJRefreshFooterView *footer;
 @end
 
 

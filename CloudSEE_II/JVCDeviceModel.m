@@ -19,6 +19,7 @@
 @synthesize bIpOrDomainAdd;
 @synthesize isDeviceSwitchAlarm;
 @synthesize isDeviceType;
+@synthesize bDeviceServiceOnlineState;
 - (void)dealloc
 {
     [userName release];
@@ -62,7 +63,8 @@
         self.port                = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
         self.onLineState         =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue];
         self.isDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
-        
+        self.bDeviceServiceOnlineState         =[[info objectForKey:DEVICE_DEVICE_ServiceState] intValue];
+
         if (self.isDeviceType) {
             
             self.isDeviceSwitchAlarm =[[info objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];

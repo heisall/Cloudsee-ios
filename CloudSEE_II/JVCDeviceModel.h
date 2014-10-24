@@ -19,7 +19,7 @@
 	NSString *port;             //端口号
     NSString *domainName;       //域名
 
-    int  onLineState;            //1 在线   0：不在线
+    int  onLineState;            //1 在线   0：不在线  （云视通服务器状态）
     int  hasWifi;                //0：没有wifi   1：有WiFi
     int  useWifi;                //0  没有用WiFi  1 ：使用WiFi
     int  linkType;               //设备连接模式  0 云视通连接  1：ip连接
@@ -27,6 +27,8 @@
     BOOL bIpOrDomainAdd;         //域名ip添加 //YES 域名ip NO：非域名ip
     BOOL isDeviceType;           //连接类型  NO：其他 YES:家用产品
     BOOL isDeviceSwitchAlarm;     //设备的安全防护开关
+    BOOL bDeviceServiceOnlineState;     //设备服务器状态
+
 
 }
 
@@ -50,7 +52,8 @@ enum kJVCDeviceModelDeviceType {
 @property(nonatomic,assign) BOOL isCustomLinkModel;
 @property(nonatomic,assign) BOOL bIpOrDomainAdd;   
 @property(nonatomic,assign) BOOL isDeviceType;
-@property(nonatomic,assign) BOOL isDeviceSwitchAlarm; 
+@property(nonatomic,assign) BOOL isDeviceSwitchAlarm;
+@property(nonatomic,assign) BOOL bDeviceServiceOnlineState;
 /**
  *  初始化
  *

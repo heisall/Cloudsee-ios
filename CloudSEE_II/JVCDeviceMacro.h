@@ -206,6 +206,7 @@ enum DEVICESERVICERESPONSE{
 
 #define JK_DEVICE_Demo_USERNAME		@"dusername"
 #define JK_DEVICE_Demo_PASSWORD		@"dpassword"
+#define DEVICE_DEVICE_ServiceState  @"dimols"
 
 /**
  *  ap 的密码

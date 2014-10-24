@@ -420,7 +420,8 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                         
                         model.isDeviceSwitchAlarm =[[remoteInfoDict objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];
                     }
-                    
+                    model.bDeviceServiceOnlineState =[[remoteInfoDict objectForKey:DEVICE_DEVICE_ServiceState] intValue];
+
                     model.hasWifi = [[remoteInfoDict objectForKey:DEVICE_JSON_WIFI] intValue];
                     continue;
                     

@@ -32,19 +32,19 @@ typedef enum {
  */
 @interface MJRefreshBaseView : UIView
 #pragma mark - 父控件
-@property (nonatomic, weak, readonly) UIScrollView *scrollView;
+@property (nonatomic, assign, readonly) UIScrollView *scrollView;
 @property (nonatomic, assign, readonly) UIEdgeInsets scrollViewOriginalInset;
 
 #pragma mark - 内部的控件
-@property (nonatomic, weak, readonly) UILabel *statusLabel;
-@property (nonatomic, weak, readonly) UIImageView *arrowImage;
-@property (nonatomic, weak, readonly) UIActivityIndicatorView *activityView;
+@property (nonatomic, assign, readonly) UILabel *statusLabel;
+@property (nonatomic, assign, readonly) UIImageView *arrowImage;
+@property (nonatomic, assign, readonly) UIActivityIndicatorView *activityView;
 
 #pragma mark - 回调
 /**
  *  开始进入刷新状态的监听器
  */
-@property (weak, nonatomic) id beginRefreshingTaget;
+@property (assign, nonatomic) id beginRefreshingTaget;
 /**
  *  开始进入刷新状态的监听方法
  */
