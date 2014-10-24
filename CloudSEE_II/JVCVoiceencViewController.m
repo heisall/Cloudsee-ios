@@ -15,8 +15,10 @@
 
 @interface JVCVoiceencViewController (){
     
-    UIImageView *sendButton;
-    UIView      *backGroud;
+    UIImageView    *sendButton;
+    UIView         *backGroud;
+    int             encoderTotalLength;
+    CFTimeInterval  animationTime;
 }
 
 @end
@@ -30,14 +32,13 @@ static const  int              kDefaultSignalCount                      = 60; //
 static const  int              kVoiceencSettingCount                    = 3;
 static const  CGFloat          kSendButtonWithTop                       = 150.0f;
 static const  CGFloat          kScanfBgWithRadius                       = 52.0f;
-static const  CFTimeInterval   kAnimatinDuration                        = 1.0f;
 static NSString const         *kAnimatinDurationKey                     = @"pulse";
 
 static const  CGFloat          kNetButtonWithSendButtonTop              = 100.0f;
 
 static const    CGFloat        kTitleLableFontSize                      = 14.0;
 static const    CGFloat        kTitleLableFontHeight                    = kTitleLableFontSize + 4.0;
-static const    CGFloat        kTitleLableWithBgViewTop                 = 30.0;
+static const    CGFloat        kTitleLableWithBgViewTop                 = 20.0;
 static const    CGFloat        kVoiceencHelpButtonWithSendButtonBottom  = 80.0;
 
 char encodeInputAudio[kDefaultSamplerate ]   = {0};
@@ -133,6 +134,33 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [button setTitle:@"下一步" forState:UIControlStateNormal];
     [self.view addSubview:button];
     
+    encoderTotalLength = 0.0;
+    
+    int len;
+    
+    char *p =(char *) [[NSString stringWithFormat:@"%@;%@",self.strSSID,self.strPassword] UTF8String];
+    
+    memset(encodeInputAudio, 0, sizeof(encodeInputAudio));
+    
+    //把要发送的数据，编码成适合的数据
+    len = voiceenc_data2code((unsigned char *)p, strlen(p), (unsigned char *)encodeInputAudio, sizeof(encodeInputAudio));
+    
+   
+    int i;
+    
+    for (i=0;i<len;i++)
+    {
+        memset(encodeOutAudio, 0, sizeof(encodeOutAudio));
+        
+        int al = voiceenc_code2pcm_16K16Bit(kDefaultSamplerate, kDefaultSignalCount, encodeInputAudio[i], (unsigned char *)encodeOutAudio, sizeof(encodeOutAudio));
+        
+        encoderTotalLength += al;
+    }
+    
+    animationTime = encoderTotalLength / kDefaultSamplerate ;
+    
+    DDLogVerbose(@"%s----encoderTotalLength= %d",__FUNCTION__,encoderTotalLength);
+    
 }
 
 /**
@@ -170,18 +198,17 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.duration = kAnimatinDuration;
+    animationGroup.duration = animationTime;
     animationGroup.repeatCount = INFINITY;
     animationGroup.removedOnCompletion = NO;
-    //self.animationGroup.timingFunction = defaultCurve;
     
     CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale.xy"];
     scaleAnimation.fromValue = @1.0;
     scaleAnimation.toValue = @5.0;
-    scaleAnimation.duration = kAnimatinDuration;
+    scaleAnimation.duration = animationTime;
     
     CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.duration             = kAnimatinDuration;
+    opacityAnimation.duration             = animationTime;
     opacityAnimation.values               = @[@0.6, @0.6, @0.0];
     opacityAnimation.keyTimes             = @[@0, @0.2, @1.0];
     opacityAnimation.removedOnCompletion  = NO;

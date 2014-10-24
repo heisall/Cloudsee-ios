@@ -16,10 +16,10 @@
 
 @implementation JVCVoiceencInfoViewController
 
-static CGFloat kImageIconWithTop       = 100.0f;
-static CGFloat kInfoTVWithFontSize     = 14.0f;
-static int     kInfoTVWithNumberOfLine = 2;
-static CGFloat kInfoTVWithLineOfHeight = 6.0f;
+static const CGFloat kImageIconWithTop       = 100.0f;
+static const CGFloat kInfoTVWithFontSize     = 14.0f;
+static const int     kInfoTVWithNumberOfLine = 2;
+static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,7 +51,7 @@ static CGFloat kInfoTVWithLineOfHeight = 6.0f;
     [self.view addSubview:imageView];
     
     UILabel *infoTV        = [controlHelperObj labelWithText:@"用顶针轻插配置孔\n直到您听到嘀的一声"];
-    infoTV.frame           = CGRectMake(imageView.origin.x, 30.0, imageView.frame.size.width, (kInfoTVWithFontSize +kInfoTVWithLineOfHeight)*kInfoTVWithNumberOfLine);
+    infoTV.frame           = CGRectMake(imageView.origin.x, 30.0, imageView.frame.size.width, kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
     infoTV.textAlignment   = NSTextAlignmentCenter;
     infoTV.numberOfLines   = kInfoTVWithNumberOfLine;
     infoTV.font            = [UIFont systemFontOfSize:kInfoTVWithFontSize];

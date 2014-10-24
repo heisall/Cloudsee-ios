@@ -138,7 +138,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     mArrayIconNames  = [[NSMutableArray alloc] initWithCapacity:10];
     
     [mArrayIconNames addObjectsFromArray:@[@"edi_deviceManger.png",@"edi_linkModel.png",@"edi_deviceManger.png",
-                                           @"edi_channelManager.png",@"edi_safe_se.png",@"edi_alarm.png"]];
+                                           @"edi_channelManager.png",@"edi_safe_un.png",@"edi_alarm.png"]];
 }
 
 /**
@@ -266,10 +266,14 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 -(void)changeCurrentSafeWithAlarmOperationView {
     
+    if (titles.count > 0) {
+        
+        JVCDeviceModel *model= [self getCurrentDeviceModel];
+        
+        [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
+        
+    }
     
-    JVCDeviceModel *model= [self getCurrentDeviceModel];
-
-    [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
     
 }
 
@@ -535,7 +539,6 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 - (void)connetDeviceWithYSTNum
 {
-    JVCDeviceHelper *deviceHelperObj = [JVCDeviceHelper sharedDeviceLibrary];
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
