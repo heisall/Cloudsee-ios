@@ -111,9 +111,9 @@ static const int kImageSeperateCount = 2;//图片的image.png 分割，数组大
         
         NSString *imageName = [array objectAtIndex:0];
         imageName  = [imageName stringByAppendingString:@"@2x."];
-        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
-        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
-        NSString *iamgeReturnPath = [NSString stringWithFormat:@"%@%@%@",[array objectAtIndex:0],@"@2x.",[array objectAtIndex:1]];
+        imageName = [imageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:imageName];
+
     }
     return image_path;
 }

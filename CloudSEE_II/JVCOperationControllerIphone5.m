@@ -11,6 +11,7 @@
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCManagePalyVideoComtroller.h"
 #import "JVCOperationMiddleView.h"
+#import "JVCHorizontalScreenBar.h"
 //#import "managePalyVideoComtroller.h"
 
 @interface JVCOperationControllerIphone5 ()
@@ -124,6 +125,7 @@
     OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
+    
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
@@ -141,6 +143,8 @@
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
         
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
+
     }else{
         
         [openAlObj initOpenAL];
@@ -152,6 +156,9 @@
         });
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
+        
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
+
     }
 }
 

@@ -10,6 +10,15 @@
 
 @class GlView;
 
+
+
+typedef NS_ENUM(int, EffectType)
+{
+    EffectType_UP   = 0,//向上
+    EffectType_Down = 4,//向下
+
+};
+
 @protocol JVCMonitorConnectionSingleImageViewDelegate <NSObject>
 
 /**
@@ -18,6 +27,11 @@
  *  @param nShowWindowID 窗口的编号
  */
 -(void)connectVideoCallBack:(int)nShowWindowID;
+
+/**
+ *  图像翻转按钮的回调
+ */
+- (void)effectTypeClickCallBack;
 
 
 /**
@@ -48,6 +62,8 @@
     id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
     int             nStreamType;     //当前显示窗口的码流类型
     BOOL            isHomeIPC;           //判断当前连接的视频是否是家用的IPC
+    
+    int             iEffectType;//标示图像翻转的
 }
 
 @property (nonatomic,assign) int      singleViewType,wheelShowType;
@@ -57,7 +73,7 @@
 @property (nonatomic,assign) id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
 @property (nonatomic,assign) int      nStreamType;     //当前显示窗口的码流类型
 @property (nonatomic,assign) BOOL     isHomeIPC;
-
+@property (nonatomic,assign) int             iEffectType;
 -(void)initWithView;
 #pragma mark UIView中的UIImageView的选中与未选中边框颜色处理
 -(void)setImage:(UIImage*)image;
@@ -110,6 +126,20 @@
  */
 -(void)connectResultShowInfo:(NSString *)connectResultText  connectResultType:(int)connectResultType;
 
+/**
+ *  横屏的时候隐藏旋转按钮
+ */
+- (void)hidenEffectBtn;
+/**
+ *  横屏的时候隐藏旋转按钮
+ */
+- (void)showEffectBtn;
 
+/**
+ *  刷新按钮选择状态
+ *
+ *  @param flagVale 状态
+ */
+-(void)updateEffectBtn:(int)flagVale;
 
 @end

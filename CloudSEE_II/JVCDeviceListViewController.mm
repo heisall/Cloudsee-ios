@@ -520,6 +520,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             
+            DDLogVerbose(@"设备列表=%@",tdicDevice);
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];

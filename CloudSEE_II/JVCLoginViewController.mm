@@ -33,6 +33,7 @@
 #import "JVCSystemConfigMacro.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCAddDevieAlarmViewController.h"
+#import "JVCLocalDeviceDateBaseHelp.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -342,7 +343,7 @@ static const int KLineHeight = 1;//横线的高度
         NSString *ystNum =  [[JVCSystemUtility shareSystemUtilityInstance] getCurrentDeviceYStNUm];
         [[NSUserDefaults standardUserDefaults] setObject:ystNum forKey:(NSString *)kSAVEYSTNUM];
         
-        if (![[JVCDeviceSourceHelper shareDeviceSourceHelper] judgeDeviceHasExist:ystNum]) {
+        if (![[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] judgeYstNumInDateBase:ystNum]) {
             /**
              *  添加设备
              */
@@ -352,7 +353,7 @@ static const int KLineHeight = 1;//横线的高度
                                                                  deviceUserName:(NSString *)DefaultHomeUserName
                                                                  devicePassWord:(NSString *)DefaultHomePassWord];
             //添加通道
-            [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalHomeDeviceChannels:ystNum];
+            [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalHomeDeviceChannels:ystNum ];
 
         }
     }

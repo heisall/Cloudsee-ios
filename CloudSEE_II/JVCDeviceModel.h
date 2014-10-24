@@ -25,6 +25,8 @@
     int  linkType;               //设备连接模式  0 云视通连接  1：ip连接
     BOOL isCustomLinkModel;      //连接模式 //YES 客户定制IP连接 NO：非定制
     BOOL bIpOrDomainAdd;        //域名ip添加 //YES 域名ip NO：非域名ip
+    int  nDeviceType;           //连接类型  0：其他 2： 家用产品
+    int  nDeviceSwitchAlarm;          //连接设备的报警级别
 
 }
 
@@ -42,7 +44,8 @@
 @property(nonatomic,assign) int  useWifi;
 @property(nonatomic,assign) BOOL isCustomLinkModel;
 @property(nonatomic,assign) BOOL bIpOrDomainAdd;   
-
+@property(nonatomic,assign) int  nDeviceType;
+@property(nonatomic,assign) int  nDeviceSwitchAlarm; 
 /**
  *  初始化
  *

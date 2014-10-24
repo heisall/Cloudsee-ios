@@ -372,7 +372,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     UIButton *btn = [_arrayButtons objectAtIndex:BUTTON_TYPE_MORE];
     NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",stremType];
     [btn setTitle:NSLocalizedString(bundString, nil) forState:UIControlStateNormal];
-    
+
 }
 
 /**

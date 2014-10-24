@@ -124,4 +124,9 @@
  */
 -(void)RemoteSetAlarmDeviceStatus:(int)nJvChannelID withAlarmEnable:(int )alarmEnable withAlarmGuid:(int)alarmGuid withAlarmType:(int)alarmType withAlarmName:(NSString *)alarmName;
 
+
+#pragma mark 设置图像反转
+-(void)setEffectModel:(int)nJvChannelID
+           effectType:(int)effectType;
+
 @end

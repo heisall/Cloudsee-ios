@@ -343,6 +343,59 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 /**
  *  本地添加通道,并且把本地通道放到数组中
  *
+ *  @param ystNum     云视通号
+ *  @param channelNum 通道个数
+ */
+- (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  channelNums:(int)channelNum
+{
+    NSMutableArray *addArray = [[NSMutableArray alloc] init];
+    
+    for (int i=0;i<channelNum;i++) {
+        
+        [addArray addObject:[NSString stringWithFormat:@"%d",i+1]];
+    }
+    
+
+    
+    
+    for (NSString *channelSortNum in addArray) {
+        
+        [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] addLocalChannelToDataBase:ystNum nickName:[NSString stringWithFormat:@"%@_%@",ystNum,channelSortNum] ChannelSortNum:channelSortNum.intValue];
+    }
+    
+    [addArray release];
+    
+    
+    NSMutableArray *channelSingleArray = [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]getSingleChannnelListWithYstNum:ystNum];
+    
+    NSMutableArray *arrayInsertIn = [[NSMutableArray alloc] init];
+    
+    for (JVCChannelModel *channelInsertmodel in channelSingleArray) {
+        
+        for (JVCChannelModel *channelHasmodel in channelArray) {
+            
+            if ([channelInsertmodel.strDeviceYstNumber isEqualToString:channelHasmodel.strDeviceYstNumber] &&channelInsertmodel.nChannelValue == channelHasmodel.nChannelValue) {
+                
+                [arrayInsertIn addObject:channelInsertmodel];
+                
+            }
+        }
+    }
+    [channelSingleArray removeObjectsInArray:arrayInsertIn];
+    
+    if (channelSingleArray.count >0) {
+        
+        [channelArray addObjectsFromArray:channelSingleArray];
+    }
+    
+    [arrayInsertIn release];
+    
+}
+
+
+/**
+ *  本地添加通道,并且把本地通道放到数组中
+ *
  *  @param ystNum 云视通号
  */
 - (void)addLocalHomeDeviceChannels:(NSString *)ystNum

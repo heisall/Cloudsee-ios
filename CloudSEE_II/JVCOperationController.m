@@ -21,6 +21,8 @@
 #import "JVCRemoteVideoPlayBackVControler.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCAlarmCurrentView.h"
+#import "JVCHorizontalScreenBar.h"
+#import "JVCHorizontalStreamView.h"
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
 static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
@@ -69,6 +71,10 @@ bool selectState_audio ;
     BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
     
     UIButton *_splitViewBtn;//导航条上面的箭头，用于选则是否分屏
+
+    JVCHorizontalStreamView *horizonView;
+    
+    JVCPopStreamView *straemView;
 
 }
 
@@ -132,6 +138,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)dealloc{
     
+    [straemView release];
+
     [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
 
     [_strSaveVideoPath release];
@@ -457,7 +465,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  *
  *  @param nStreamType 码流类型
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC{
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
     
     nCurrentStreamType = nStreamType;
     isCurrentHomePC    = isHomeIPC;
@@ -465,6 +473,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     dispatch_async(dispatch_get_main_queue(), ^{
     
         [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
+        
+        NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
     
     });
 }
@@ -779,7 +790,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)hideencapAnimations{
     
     [self.view bringSubviewToFront:_managerVideo];
-    
+    [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
+
 }
 
 -(void)stopcapAnimations{
@@ -889,11 +901,16 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         self.navigationController.navigationBarHidden = NO;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
-        
+        [_managerVideo setManagePlayViewScrollState:YES];
+
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
         UIView *_smallView=(UIView*)[self.view viewWithTag:101];
         [self.view bringSubviewToFront:_smallView];
+        
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = YES;
+
+        [_managerVideo showEffectView];
         
     }else{
         
@@ -902,9 +919,24 @@ char remoteSendSearchFileBuffer[29] = {0};
         }
         self.navigationController.navigationBarHidden = YES;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, self.view.height , self.view.width);
+        [_managerVideo setManagePlayViewScrollState:NO];
         
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
+        [ straemView removeFromSuperview];
+        [_managerVideo hiddenEffectView];
+
+        //显示横屏的按钮
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.frame.origin.y+_managerVideo.frame.size.height - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
+        
+        if (![self.view.constraints containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
+            
+            [self.view addSubview:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
+            
+        }
+        [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
     }
 }
 
@@ -1046,6 +1078,15 @@ char remoteSendSearchFileBuffer[29] = {0};
         {
             btn.selected = !btn.selected;
             
+            if (btn.isSelected) {
+                
+                [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_VIDEO];
+                
+            }else{
+                [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
+                
+            }
+            
             [self operationPlayVideo:btn];
             
         }
@@ -1066,11 +1107,17 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)showChangeStreamView:(UIButton *)btn
 {
-      JVCPopStreamView *straemView = [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType];
+    if (VideoStreamType_Default == nCurrentStreamType) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"不支持画质切换"];
+        return;
+    }
+     straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType];
     straemView.delegateStream = self;
     [self.view addSubview:straemView];
     [straemView show];
-    [straemView release];
+    
+    
 }
 
 /**
@@ -1080,6 +1127,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)changeStreamViewCallBack:(int)index
 {
+    [self removeStreamView];
+    
     if (nCurrentStreamType != index) {
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index];
@@ -1162,6 +1211,8 @@ char remoteSendSearchFileBuffer[29] = {0};
          *  使选中的button变成默认
          */
         [[JVCCustomOperationBottomView  shareInstance] setAllButtonUnselect];
+        
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
     }
 }
 
@@ -1357,6 +1408,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
         
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
+
+        
     }else{
         
         [openAlObj initOpenAL];
@@ -1365,7 +1419,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
         
-        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
     }
 }
 
@@ -1875,7 +1929,8 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  选中对讲button
      */
     [[JVCCustomOperationBottomView  shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
-    
+    [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
+
     
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
 }
@@ -1937,6 +1992,175 @@ char remoteSendSearchFileBuffer[29] = {0};
         _managerVideo.imageViewNums=1;
         [_managerVideo changeContenView];
     }
+}
+
+
+#pragma mark  横屏的回调
+
+/**
+ *  HorizontalScreenBar按钮按下的返回值
+ *
+ *  @param btn 传回相应的but
+ */
+- (void)HorizontalScreenBarBtnClickCallBack:(UIButton *)btn
+{
+    
+    /**
+     *  是否有画面
+     */
+    if (![self judgeOpenVideoPlaying] ) {
+        
+        return;
+        
+    }
+    
+    
+    //    HORIZONTALBAR_TACK          = 0,//对讲
+    //    HORIZONTALBAR_CAPTURE       = 1,//拍照
+    //    HORIZONTALBAR_VIDEO         = 2,//录像
+    //    HORIZONTALBAR_AUDIO         = 3,//音频
+    //    HORIZONTALBAR_RESTORE       = 4,//回放默认状态
+    //    HORIZONTALBAR_ROTATION      = 5,//图片旋转
+    //    HORIZONTALBAR_STREAM        = 6,//画质
+    
+    int switchCase = btn.tag - 232000;
+    
+    
+    switch (switchCase) {
+        case HORIZONTALBAR_TACK://对讲
+        {
+            
+            [self chatRequest:btn];
+            
+            /**
+             *  长按
+             */
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
+            [btn addGestureRecognizer:longPress];
+            longPress.allowableMovement = NO;
+            longPress.minimumPressDuration = 0.5;
+            [longPress release];
+        }
+            
+            break;
+        case HORIZONTALBAR_CAPTURE:{//抓拍
+            
+            [self smallCaptureTouchUpInside:btn];
+        }
+            break;
+        case HORIZONTALBAR_VIDEO://录像
+        {
+            if (!btn.isSelected) {
+                
+                [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_VIDEO];
+                [[JVCCustomOperationBottomView shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_VIDEO andSkinType:0];
+                
+            }else{
+                [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
+                [[JVCCustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_VIDEO ];
+
+
+            }
+            
+            [self  operationPlayVideo:btn];
+            
+            
+        }
+            break;
+        case  HORIZONTALBAR_AUDIO://音频
+        {
+            
+            [self audioButtonClick];
+            
+        }
+            
+            break;
+        case HORIZONTALBAR_RESTORE://恢复到设备默认状态
+        {
+           
+        }
+            break;
+        case HORIZONTALBAR_ROTATION://图像旋转
+        {
+//            if (iOperationEffectFlag == 4) {
+//                
+//                iOperationEffectFlag = 1;
+//            }else{
+//                
+//                iOperationEffectFlag =4;
+//            }
+//            
+//            [self sendEffectModel:iOperationEffectFlag];
+        }
+            
+            break;
+        case HORIZONTALBAR_STREAM://画质切换
+        {
+            //画质
+            
+            [self setHorbarStreamView:btn];
+            
+        }
+            break;
+            //
+        default:
+            break;
+    }
+    
+    
+    //  [self addSetimgQualityView:btn];
+}
+
+- (void)setHorbarStreamView:(UIButton *)btn
+{
+    if(!horizonView)
+    {
+        horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType -1:0];
+        horizonView.horStreamDelegate = self;
+    }else{
+        [self removeStreamView];
+    }
+
+}
+
+//横屏的时候处理
+- (void)removeStreamView
+{
+    
+    if ( [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+        
+//        [UIView beginAnimations:nil context:nil];
+//        [UIView setAnimationDuration:0.5];
+//        CGRect frame = streamView.frame;
+//        frame.size.height = 0;
+//        streamView.frame =frame;
+//        [UIView commitAnimations];
+//        [streamView removeFromSuperview];
+//        [streamView release];
+//        streamView = nil;
+        
+    }else{
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        CGRect frame = horizonView.frame;
+        frame.size.height = 0;
+        horizonView.frame =frame;
+        [UIView commitAnimations];
+        [horizonView removeFromSuperview];
+        [horizonView release];
+        horizonView = nil;
+    }
+    
+}
+
+//选中那个按钮
+- (void)horizontalStreamViewCallBack:(UIButton *)btn
+{
+    
+    [self changeStreamViewCallBack:btn.tag];
+    
+    
 }
 
 @end

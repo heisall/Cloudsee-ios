@@ -118,6 +118,8 @@ enum TextChatType {
     TextChatType_getAlarmType  = 1009,
     TextChatType_deleteAlarm   = 1010,
     TextChatType_editAlarm     = 1011,
+    TextChatType_EffectInfo    = 1012,  //码流参数信息
+
 };
 
 enum NetWorkType {
@@ -144,6 +146,8 @@ static NSString const *kDeviceFrameFlagKey        =  @"MainStreamQos";  // 1:高
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";     // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
 
 static NSString const *kDeviceAlarmType   =  @"type";     // 1:门磁  2手环
+
+static const NSString  *KEFFECTFLAG       =  @"effect_flag";//图像翻转的
 
 
 #endif

@@ -24,7 +24,6 @@ static const int     ADDPREDICATE_SUCCESS        = 0;
 static const int     TESTORIIGIN_Y               = 30;  //距离navicationbar的距离
 static const int     SEPERATE                    = 20;  //控件之间的距离，纵向
 static const int     ADDDEVICE_RESULT_SUCCESS    = 0;   //成功
-static const int     DEFAULTCHANNELCOUNT         = 4;   //莫仍的通道数
 static const int     DEFAULRESIGNTFONTSIZE       = 14;  //默认的字体大小
 static const int     DEFAULTLABELWITH            = 70;  //textfield的lefitwiew对应的label的宽度
 static const CGFloat kADDDEVICESLIDEHEIGIT       = 100.0f; //向上滑动的高度

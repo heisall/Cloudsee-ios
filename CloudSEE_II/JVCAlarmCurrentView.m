@@ -142,7 +142,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
             titleString = @"移动检测报警";
             break;
         case ALARM_DOOR:
-            titleString = @"门磁报警";
+            titleString = @"门磁或手环报警";
             break;
             
         default:

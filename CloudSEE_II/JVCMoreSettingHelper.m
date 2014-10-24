@@ -132,7 +132,12 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     //关于我们
     JVCMoreSettingModel *modelAbout = [[JVCMoreSettingModel alloc] init];
-    modelAbout.itemName = @"关于我们";
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        // app版本
+    
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    modelAbout.itemName =[NSString stringWithFormat:@"版本号:%@",app_Version];
     modelAbout.iconImageName = @"mor_IconAbout.png";
     modelAbout.bBtnState = NO;
     [secondSectionArray addObject:modelAbout];
