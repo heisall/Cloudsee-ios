@@ -193,7 +193,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     switch (swipeGestureRecognizer.direction) {
             
-        case UISwipeGestureRecognizerDirectionLeft:{
+        case UISwipeGestureRecognizerDirectionRight:{
             
             if (nIndex > 0) {
                 
@@ -204,7 +204,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
             
             break;
         }
-        case UISwipeGestureRecognizerDirectionRight:{
+        case UISwipeGestureRecognizerDirectionLeft:{
             
             if (nIndex < titles.count -1) {
                 

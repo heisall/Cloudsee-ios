@@ -8,6 +8,14 @@
 
 #import "JVCEditDeviceOperationView.h"
 
+@interface JVCEditDeviceOperationView () {
+
+    UIImageView *iconImageView;
+
+}
+
+@end
+
 @implementation JVCEditDeviceOperationView
 
 -(void)dealloc{
@@ -30,7 +38,7 @@
     
     //初始化图标
     
-    UIImageView *iconImageView    = [[UIImageView alloc] init];
+    iconImageView    = [[UIImageView alloc] init];
     iconImageView.backgroundColor = [UIColor clearColor];
     iconImageView.image           = iconImage;
     iconImageView.frame = CGRectMake((self.frame.size.width - iconImageView.image.size.width)/2.0, (self.frame.size.height - iconImageView.image.size.height)/3.0, iconImageView.image.size.width, iconImageView.image.size.height);
@@ -53,6 +61,17 @@
     [title release];
     [titleColor release];
     [iconImage release];
+}
+
+/**
+ *
+ *  @param iconImage 设置背景图片
+ */
+-(void)setIconImage:(UIImage *)iconImage {
+    
+    [iconImageView setImage:iconImage];
+
+
 }
 
 @end

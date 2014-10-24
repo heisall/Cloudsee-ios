@@ -14,6 +14,19 @@
 AudioFrame    *audioFrame;
 char          decodeAudioCache[76]    = {0};
 
+
+-(id)init{
+    
+    
+    if (self=[super init]) {
+        
+        audioFrame = (AudioFrame*)decodeAudioCache;
+        audioFrame->iIndex=0;
+    }
+    
+    return self;
+}
+
 /**
  *  音频解码
  *
@@ -194,12 +207,13 @@ char          decodeAudioCache[76]    = {0};
             
             int ndecoderAudioSize = sizeof(encodeOutAudioData);
             
-            EncodeAudioData((char *)Audiodata,960,encodeOutAudioData,&ndecoderAudioSize);
+            [self lock];
+            EncodeAudioData((char *)Audiodata,AudioSize_AMR,encodeOutAudioData,&ndecoderAudioSize);
             audioFrame->iIndex ++;
             memcpy(decodeAudioCache, audioFrame, sizeof(struct AudioFrame));
             //复制音频格式信息
             memcpy(decodeAudioCache + sizeof(struct AudioFrame),encodeOutAudioData,ndecoderAudioSize);
-            
+            [self unLock];
             *nEncodeAudioOutdataSize = ndecoderAudioSize +sizeof(struct AudioFrame);
             
         }

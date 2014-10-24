@@ -961,6 +961,7 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     
     JVCCloudSEEManagerHelper  *currentChannelObj = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
+    DDLogCVerbose(@"%s-------stopTalk=################################",__FUNCTION__);
     switch(uchType)
 	{
         case JVN_REQ_CHAT:
@@ -986,6 +987,7 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
             break;
             
         case JVN_CMD_CHATSTOP://"终止语音"
+            
             
             [jvcCloudSEENetworkHelper returnVoiceIntercomCallBack:currentChannelObj nVoiceInterStateType:VoiceInterStateType_End];
             
@@ -1039,6 +1041,11 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     
     [currentChannelObj retain];
     
+    if (self.ystNWADelegate !=nil && [self.ystNWADelegate respondsToSelector:@selector(VoiceInterComCallBack:)]) {
+        
+        [self.ystNWADelegate VoiceInterComCallBack:nVoiceInterStateType];
+    }
+    
     if (nVoiceInterStateType == VoiceInterStateType_Succeed) {
         
         [currentChannelObj openVoiceIntercomDecoder];
@@ -1048,10 +1055,6 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
         [currentChannelObj closeVoiceIntercomDecoder];
     }
     
-    if (self.ystNWADelegate !=nil && [self.ystNWADelegate respondsToSelector:@selector(VoiceInterComCallBack:)]) {
-        
-        [self.ystNWADelegate VoiceInterComCallBack:nVoiceInterStateType];
-    }
     
     [currentChannelObj release];
 }
@@ -1401,31 +1404,36 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 [params retain];
                                 
+                                int  nStreamType = -1;
+                                BOOL isHomeIPC   = FALSE;
+                                int  nEffectflag  = -1;
+                               
+                                
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
-                                    int  nStreamType  = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
                                     
-                                    BOOL isHomeIPC    = FALSE;
+                                }
+                                
+                         
+                                if ([params objectForKey:kCheckHomeFlagKey]) {
                                     
-                                    int  nEffectflag  = -1;
+                                    int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
                                     
-                                    if ([params objectForKey:kCheckHomeFlagKey]) {
+                                    if (nMobileCH == DEVICETYPE_HOME) {
                                         
-                                        int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
-                                        
-                                        if (nMobileCH == DEVICETYPE_HOME) {
-                                            
-                                            isHomeIPC = TRUE;
-                                        }
+                                        isHomeIPC = TRUE;
                                     }
-                                    
-                                    if ([params objectForKey:KEFFECTFLAG]) {
+                                }
+
+                                if ([params objectForKey:KEFFECTFLAG]) {
                                         
                                         nEffectflag = [[params objectForKey:KEFFECTFLAG] intValue];
-                                    }
-                                    
-                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
                                 }
+
+                                
+                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
+                                   
                                 
                                 [params release];
                                 
