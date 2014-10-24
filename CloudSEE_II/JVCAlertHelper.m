@@ -10,7 +10,7 @@
 #import "JVCConfigModel.h"
 #import "MBProgressHUD.h"
 
-static  const    int    HUDTAG                  =   5454554;//HUd的tag
+static  const    int    HUDTAG                  =   54545554;//HUd的tag
 
 static  const   NSTimeInterval TIMERDURATION    = 1;//让toast自动消失的时间
 

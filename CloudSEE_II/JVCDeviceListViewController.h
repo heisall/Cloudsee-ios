@@ -11,6 +11,7 @@
 #import "JVCQRCoderViewController.h"
 #import "JVCAddDevicePopView.h"
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
+#import "JVCDeviceMathsHelper.h"
 
 typedef enum {
     
@@ -23,7 +24,7 @@ typedef enum {
     
 }AddDevicePopType;
 
-@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate,UIAlertViewDelegate>
+@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate,UIAlertViewDelegate,JVCUpdateMathDelegate>
 
 #pragma mark 获取设备
 - (void)getDeviceList;

@@ -8,7 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol JVCUpdateMathDelegate <NSObject>
+
+/**
+ *  更新设备信息成功的回调
+ */
+- (void)updateDeviceInfoMathSuccess;
+
+
+@end
+
 @protocol JVCDeviceMathDelegate <NSObject>
+
 
 /**
  *  添加云视通成功的时候
@@ -25,8 +36,12 @@
 @interface JVCDeviceMathsHelper : NSObject
 {
     id<JVCDeviceMathDelegate> deviceDelegate;
+    id<JVCUpdateMathDelegate> deviceUpdate;
+
 }
 @property(nonatomic,assign) id<JVCDeviceMathDelegate> deviceDelegate;
+@property(nonatomic,assign)    id<JVCUpdateMathDelegate> deviceUpdate;
+
 
 /**
  *  单例
@@ -46,4 +61,9 @@
 - (void)addDeviceWithYstNum:(NSString *)ystNum
                    userName:(NSString *)userName
                    passWord:(NSString *)passWord;
+
+/**
+ *  刷新设备状态
+ */
+- ( void)updateAccountDeviceListInfo;
 @end

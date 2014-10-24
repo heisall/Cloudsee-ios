@@ -11,6 +11,9 @@
 #import "JVCEditLockDeviceNickNameViewController.h"
 #import "JVCAlarmMacro.h"
 @interface JVCAddLockDeviceViewController ()
+{
+    UIImageView *imageView ;
+}
 
 @end
 
@@ -20,7 +23,13 @@ static const  int KAlarmSuccess         = 1;
 
 static const  int  KBtnTagDoor = 100;//门磁的的tag
 static const  int  KBtnTagBra  = 101;//手环的tag
-static const  int  kEdgeOff    = 100;//向下距离
+static const  int  KBtnTagHand  = 102;//遥控
+
+static const  int  kEdgeOff    = 50;//向下距离
+
+static const int KOriginX = 40;
+
+static const int KOriginAddHeight = 30;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,33 +62,62 @@ static const  int  kEdgeOff    = 100;//向下距离
     JVCControlHelper *controlHelper = [JVCControlHelper shareJVCControlHelper];
     UIButton *btn  = [controlHelper buttonWithTitile:@"门磁设备" normalImage:@"arm_dev_dor.png" horverimage:nil];
     btn.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
-    btn.frame = CGRectMake((self.view.width-btn.width)/2.0, (self.view.height- btn.height*2)/3.0, btn.width, btn.height);
+    
+    int seperateSize = (self.view.width - 2*btn.width)/3.0;
+    btn.frame = CGRectMake(seperateSize, KOriginX, btn.width, btn.height);
     btn.tag = KBtnTagDoor;
     [btn addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
     UIButton *btnBra  = [controlHelper buttonWithTitile:@"手环设备" normalImage:@"arm_dev_Bra.png" horverimage:nil];
     btnBra.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
-    btnBra.frame = CGRectMake((self.view.width-btnBra.width)/2.0, btn.bottom+(self.view.height- btn.height*2)/3.0, btn.width, btn.height);
+    btnBra.frame = CGRectMake(btn.right+seperateSize, btn.top, btn.width, btn.height);
     btnBra.tag = KBtnTagBra;
     [btnBra addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnBra];
+    
+    UIButton *btnhand  = [controlHelper buttonWithTitile:@"遥控器设备" normalImage:@"arm_dev_hand.png" horverimage:nil];
+    btnhand.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
+    btnhand.frame = CGRectMake(btn.left , btn.bottom+KOriginAddHeight, btn.width, btn.height);
+    btnhand.tag = KBtnTagHand;
+    [btnBra addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnhand];
 
 }
 
 - (void)addLockDevice:(UIButton *)btn
 {
     int addDeviceType = 1;
-
+    NSString *imageName = nil;
     switch (btn.tag) {
         case KBtnTagDoor:
+            imageName = @"add_lock_door.jpg" ;
             break;
         case KBtnTagBra:
+        {
+            imageName = @"add_lock_door.jpg" ;
             addDeviceType=2;
+        }
+            break;
+            case KBtnTagHand:
+        {
+            imageName = @"add_lock_door.jpg" ;
+            addDeviceType=3;
+        }
             break;
     }
     
+    
+    imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    NSString *path = [UIImage imageBundlePath:imageName];
+    UIImage *imageHelp = [[UIImage alloc] initWithContentsOfFile:path];
+    imageView.image = imageHelp;
+    [self.view.window addSubview:imageView];
+    [imageHelp release];
+    [imageView release];
+    
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
     
     JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
@@ -108,6 +146,8 @@ static const  int  kEdgeOff    = 100;//向下距离
 -(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [imageView removeFromSuperview];
         
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 

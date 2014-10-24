@@ -39,6 +39,8 @@ enum {
     
     int nAlarmOriginIndex ;//获取alarm起始的索引
     
+    int nDeleteRow;//删除的主控的index
+    
 }
 
 @end
@@ -262,6 +264,8 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     //点击cell，连接远程回放，判断是否连接上
     
     JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.row];
+    
+    nDeleteRow = indexPath.row;
 
     if (cellModel.strAlarmLocalPicURL.length !=0) {
         
@@ -306,6 +310,8 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     [self deleteSingelAlarm:model.strAlarmGuid];
     
+    nDeleteRow = indexPath.row;
+    
 }
 
 - (void)deleteSingelAlarm:(NSString *)deviceGuid
@@ -322,9 +328,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
             if (result) {
                 
-                int row = self.tableView.indexPathForSelectedRow.row;
-                
-                [arrayAlarmList removeObjectAtIndex:row];
+                [arrayAlarmList removeObjectAtIndex:nDeleteRow];
 
 //                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 
@@ -415,7 +419,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 {
     iDownLoadType = DownLoadType_PIC;
     
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
     DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
     
@@ -436,7 +440,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 {
     iDownLoadType = DownLoadType_VIDEO;
 
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
     DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
     
@@ -469,7 +473,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
 
     
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
     if (downLoadStatus == JVN_RSP_DOWNLOADOVER) {//成功
         
@@ -578,7 +582,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
         
         JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:cellModel.strYstNumber];
         

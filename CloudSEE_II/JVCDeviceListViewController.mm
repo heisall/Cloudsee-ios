@@ -80,9 +80,13 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
     
     UIColor *tabbarBackgroundColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
     if (tabbarBackgroundColor) {
@@ -102,8 +106,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     [RightBtn release];
     [rightBarBtn release];
     
-    //添加下拉刷新
-    [self setupRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self getDeviceList];
@@ -132,12 +134,21 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    // 2.2秒后刷新表格UI
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        [self.tableView headerEndRefreshing];
+        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
+
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
+    
     });
+    
+//    // 2.2秒后刷新表格UI
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
+//        [self.tableView headerEndRefreshing];
+//    });
 }
 #pragma mark 弹出添加设备选项卡，用户选中相应按钮的回调
 /**
@@ -637,6 +648,11 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 
 -(void)StartLANSerchAllDevice {
     
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT ) {
+        
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
+
+    }
     
     if (NETLINTYEPE_3G== [JVCConfigModel shareInstance]._netLinkType) {
         
@@ -754,6 +770,23 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
 
     }
+}
+
+
+#pragma mark 刷新设备成功的回调
+/**
+ *  更新设备信息成功的回调
+ */
+- (void)updateDeviceInfoMathSuccess
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+        [self.tableView headerEndRefreshing];
+        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = nil;
+        [self.tableView reloadData];
+    
+    });
+  
 }
 
 - (void)didReceiveMemoryWarning
