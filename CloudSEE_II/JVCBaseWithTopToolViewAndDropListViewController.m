@@ -116,15 +116,25 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
             
             [UIView animateWithDuration:kDropListViewAnimationEnd animations:^{
                 
-                self.view.backgroundColor = [UIColor clearColor];
-                deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
-                recognizer.view.transform =  CGAffineTransformIdentity;
-                
+                [self dropDownCilckWithTableHidden:recognizer.view];
                 
             }];
         }
         
     }
+}
+
+/**
+ *  TableView收起
+ *
+ *  @param ClickView 点击的View
+ */
+-(void)dropDownCilckWithTableHidden:(UIView *)ClickView {
+    
+    self.view.backgroundColor = [UIColor clearColor];
+    deviceListTableView.frame = CGRectMake(deviceListTableView.frame.origin.x, deviceListTableView.frame.origin.y, deviceListTableView.frame.size.width, 0.0);
+    ClickView.transform =  CGAffineTransformIdentity;
+    
 }
 
 /**

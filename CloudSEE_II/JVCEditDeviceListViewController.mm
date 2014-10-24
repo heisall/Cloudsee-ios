@@ -82,9 +82,14 @@ static const int  kInitWithLayoutColumnCount           = 3;
 
 -(void)deallocWithViewDidDisappear {
 
-    [self clearToolView];
-    self.nIndex = 0;
+    if (deviceListTableView.height > 0) {
+        
+        [self dropDownCilckWithTableHidden:dropImageView];
+    }
     
+    [self clearToolView];
+    
+    self.nIndex = 0;
 }
 
 /**

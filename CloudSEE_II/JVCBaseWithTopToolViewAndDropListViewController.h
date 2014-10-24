@@ -58,4 +58,12 @@ static const NSTimeInterval kDropListViewAnimationEnd            = 0.5;    //下
 
 -(void)topItemSelectedIndex:(int)index;
 
+
+/**
+ *  TableView收起
+ *
+ *  @param ClickView 点击的View
+ */
+-(void)dropDownCilckWithTableHidden:(UIView *)ClickView;
+
 @end
