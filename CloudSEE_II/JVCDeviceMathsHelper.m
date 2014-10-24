@@ -413,9 +413,14 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 
                 if ([[model.yunShiTongNum uppercaseString] isEqualToString:[[remoteInfoDict objectForKey:DEVICE_JSON_DGUID] uppercaseString]]) {
                 
-                    model.nDeviceSwitchAlarm=[[remoteInfoDict objectForKey:DEVICE_JSON_ALARMSWITCH] intValue];
-                    model.onLineState = [[remoteInfoDict objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
-                    model.nDeviceType = [[remoteInfoDict objectForKey:DEVICE_JSON_TYPE] intValue];
+                    model.onLineState        = [[remoteInfoDict objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
+                    model.isDeviceType       = [[remoteInfoDict objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO ;
+                    
+                    if (model.isDeviceType) {
+                        
+                        model.isDeviceSwitchAlarm =[[remoteInfoDict objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];
+                    }
+                    
                     model.hasWifi = [[remoteInfoDict objectForKey:DEVICE_JSON_WIFI] intValue];
                     continue;
                     

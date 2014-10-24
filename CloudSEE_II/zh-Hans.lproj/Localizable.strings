@@ -448,10 +448,12 @@
 "wifi_search_device_image_0" = "wifi_search_new_ch_0.png";
 "wifi_search_device_image_1" = "wifi_search_new_ch_1.png";
 
-
-"device_manager"= "设备管理";
-"device_manager_helper"= "可添加、修改、删除、远程配置设备";
-"device_scan" = "扫描";
+//设备管理界面
+"device_manager"         = "设备管理";
+"device_manager_helper"  = "可添加、修改、删除、远程配置设备";
+"device_scan"            = "扫描";
+"operation_error"        = "操作不成功";
+"device_off_line"        = "设备已处于离线状态,不能进行操作";
 
 "IP"="IP地址";
 "Netmask"="子网掩码";

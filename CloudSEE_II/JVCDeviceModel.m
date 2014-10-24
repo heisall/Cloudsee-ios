@@ -17,8 +17,8 @@
 
 @synthesize domainName;
 @synthesize bIpOrDomainAdd;
-@synthesize nDeviceSwitchAlarm;
-@synthesize nDeviceType;
+@synthesize isDeviceSwitchAlarm;
+@synthesize isDeviceType;
 - (void)dealloc
 {
     [userName release];
@@ -52,18 +52,23 @@
     
     if (self !=nil) {
         
-        self.userName           = [info objectForKey:DEVICE_JSON_DVUSERNAME];
-        self.passWord           = [info objectForKey:DEVICE_JSON_DVPASSWORD];
-        self.yunShiTongNum      = [info objectForKey:DEVICE_JSON_DGUID];
-        self.hasWifi            = [[info objectForKey:DEVICE_JSON_WIFI] intValue];
-        self.nickName           = [info objectForKey:DEVICE_JSON_NICKNAME];
-        self.linkType           = [[info objectForKey:DEVICE_JSON_LINKTYPE] intValue];
-        self.ip                 = [info objectForKey:DEVICE_JSON_IP];
-        self.port               = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
-        self.onLineState        =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue];
-        self.nDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue];
-        self.nDeviceSwitchAlarm =[[info objectForKey:DEVICE_JSON_ALARMSWITCH] intValue];
-        self.isCustomLinkModel  = self.linkType == CONNECTTYPE_IP ? TRUE : FALSE;
+        self.userName            = [info objectForKey:DEVICE_JSON_DVUSERNAME];
+        self.passWord            = [info objectForKey:DEVICE_JSON_DVPASSWORD];
+        self.yunShiTongNum       = [info objectForKey:DEVICE_JSON_DGUID];
+        self.hasWifi             = [[info objectForKey:DEVICE_JSON_WIFI] intValue];
+        self.nickName            = [info objectForKey:DEVICE_JSON_NICKNAME];
+        self.linkType            = [[info objectForKey:DEVICE_JSON_LINKTYPE] intValue];
+        self.ip                  = [info objectForKey:DEVICE_JSON_IP];
+        self.port                = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
+        self.onLineState         =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue];
+        self.isDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
+        
+        if (self.isDeviceType) {
+            
+            self.isDeviceSwitchAlarm =[[info objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];
+        }
+        
+        self.isCustomLinkModel   = self.linkType == CONNECTTYPE_IP ? TRUE : FALSE;
         
 
     }

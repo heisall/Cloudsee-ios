@@ -25,6 +25,8 @@
 
 #import "JVCLockAlarmModel.h"
 #import "JVCAlarmMacro.h"
+#import "JVCDeviceHelper.h"
+
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -47,7 +49,8 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 
 @implementation JVCEditDeviceListViewController
 
-static const int  kInitWithLayoutColumnCount           = 3;
+static const int       kInitWithLayoutColumnCount           = 3;
+static const CGFloat   kAlertTostViewTime                   = 2.0f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,16 +78,22 @@ static const int  kInitWithLayoutColumnCount           = 3;
     
     [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     
-    DDLogVerbose(@"==001====%d",titles.count);
     [self initWithTopToolView];
+    
+    [self changeCurrentSafeWithAlarmOperationView];
     
 }
 
 -(void)deallocWithViewDidDisappear {
 
-    [self clearToolView];
-    self.nIndex = 0;
+    if (deviceListTableView.height > 0) {
+        
+        [self dropDownCilckWithTableHidden:dropImageView];
+    }
     
+    [self clearToolView];
+    
+    self.nIndex = 0;
 }
 
 /**
@@ -137,10 +146,9 @@ static const int  kInitWithLayoutColumnCount           = 3;
  */
 -(void)animationEndCallBack {
 
-    DDLogVerbose(@"%s-----hahah",__FUNCTION__);
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        [self showWithHiddenSafeAndAlarmView:NO withEnableSale:NO];
+        [self changeCurrentSafeWithAlarmOperationView];
     
     });
 }
@@ -236,8 +244,33 @@ static const int  kInitWithLayoutColumnCount           = 3;
         [operationView addSubview:bgView];
         [bgView release];
     }
+}
+
+
+/**
+ *  获取当前的设备实体
+ *
+ *  @return 当前的设备实体
+ */
+-(JVCDeviceModel *)getCurrentDeviceModel {
+
+    JVCDeviceSourceHelper *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
     
-    [self showWithHiddenSafeAndAlarmView:NO withEnableSale:YES];
+    return (JVCDeviceModel *)[[deviceSourceObj deviceListArray] objectAtIndex:self.nIndex];
+}
+
+/**
+ *  返回当前索引的设备实体
+ *
+ *  @return 当前索引的设备实体
+ */
+-(void)changeCurrentSafeWithAlarmOperationView {
+    
+    
+    JVCDeviceModel *model= [self getCurrentDeviceModel];
+
+    [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
+    
 }
 
 /**
@@ -286,7 +319,6 @@ static const int  kInitWithLayoutColumnCount           = 3;
     {
         case JVCEditDeviceListViewControllerClickType_alarm:{
             
-            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
             [self connetDeviceWithYSTNum];
             
         }
@@ -311,12 +343,67 @@ static const int  kInitWithLayoutColumnCount           = 3;
             
         case JVCEditDeviceListViewControllerClickType_safe:{
             
+            [self safeWithChangeStatus];
+            
         }
             break;
             
         default:
             break;
     }
+}
+
+/**
+ *  改变当前设备的安全防护状态
+ */
+-(void)safeWithChangeStatus{
+
+    int alarmType = DEVICE_ALARTM_SWITCH;
+    
+    JVCDeviceHelper *deviceHelperObj = [JVCDeviceHelper sharedDeviceLibrary];
+    JVCDeviceModel  *model           = [self getCurrentDeviceModel];
+    JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
+    
+    if (!model.onLineState) {
+        
+       [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
+        return;
+    }
+    
+
+    [alertObj alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, NULL), ^{
+        
+        int result = [deviceHelperObj controlDeviceOperationSwitchButton:(NSString *)kkUserName deviceGuidStr:model.yunShiTongNum operationType:alarmType switchState:!model.isDeviceSwitchAlarm updateText:nil];
+        
+        [alertObj alertHidenToastOnWindow];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (result != 0) {
+                
+                [alertObj alertToastOnWindowWithText:NSLocalizedString(@"operation_error", nil) delayTime:kAlertTostViewTime];
+
+            }else{
+                
+                switch (alarmType) {
+                        
+                    case DEVICE_ALARTM_SWITCH:{
+                        model.isDeviceSwitchAlarm  = !model.isDeviceSwitchAlarm;
+                        [self changeCurrentSafeWithAlarmOperationView];
+                        break;
+                    }
+                        
+                    default:
+                        break;
+                }
+            }
+        });
+    });
+
+
+
 }
 
 
@@ -424,6 +511,10 @@ static const int  kInitWithLayoutColumnCount           = 3;
     [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     [super viewDidLoad];
     
+    [self changeCurrentSafeWithAlarmOperationView];
+    
+   
+    
 }
 
 /**
@@ -444,7 +535,17 @@ static const int  kInitWithLayoutColumnCount           = 3;
  */
 - (void)connetDeviceWithYSTNum
 {
+    JVCDeviceHelper *deviceHelperObj = [JVCDeviceHelper sharedDeviceLibrary];
+    JVCDeviceModel  *model           = [self getCurrentDeviceModel];
+    JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
+    if (!model.onLineState) {
+        
+        [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
+        return;
+    }
+    
+    [alertObj alertShowToastOnWindow];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSString *selectyst = [self currentYstTitles];

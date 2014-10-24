@@ -433,9 +433,9 @@
 		AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6D19D2BC6A00AA6D73 /* tab_more_select@2x.png */; };
 		AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */; };
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
-		AD348C5219F92760006C8A15 /* edi_safe_un@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */; };
+		AD348C5219F92760006C8A15 /* edi_safe_se@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */; };
 		AD348C5519F92768006C8A15 /* edi_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5319F92768006C8A15 /* edi_alarm@2x.png */; };
-		AD348C5619F92768006C8A15 /* edi_safe_se@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */; };
+		AD348C5619F92768006C8A15 /* edi_safe_un@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */; };
 		AD348C5919F954FA006C8A15 /* JVCVoiceencInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD348C5819F954FA006C8A15 /* JVCVoiceencInfoViewController.m */; };
 		AD348C5C19F95545006C8A15 /* voi_info_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5B19F95545006C8A15 /* voi_info_icon@2x.png */; };
 		AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC0A19E54637001B16D7 /* JVCChannelModel.m */; };
@@ -1015,9 +1015,9 @@
 		AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_more_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB7719D2CB7F00AA6D73 /* JVCAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppHelper.h; sourceTree = "<group>"; };
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
-		AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_un@2x.png"; sourceTree = "<group>"; };
+		AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_se@2x.png"; sourceTree = "<group>"; };
 		AD348C5319F92768006C8A15 /* edi_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_alarm@2x.png"; sourceTree = "<group>"; };
-		AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_se@2x.png"; sourceTree = "<group>"; };
+		AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_un@2x.png"; sourceTree = "<group>"; };
 		AD348C5719F954FA006C8A15 /* JVCVoiceencInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencInfoViewController.h; sourceTree = "<group>"; };
 		AD348C5819F954FA006C8A15 /* JVCVoiceencInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencInfoViewController.m; sourceTree = "<group>"; };
 		AD348C5B19F95545006C8A15 /* voi_info_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_info_icon@2x.png"; sourceTree = "<group>"; };
@@ -1901,10 +1901,10 @@
 			isa = PBXGroup;
 			children = (
 				A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */,
-				AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */,
+				AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */,
 				A7263C5019E8108C003C22DE /* con_fieldSec@2x.png */,
 				AD348C5319F92768006C8A15 /* edi_alarm@2x.png */,
-				AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */,
+				AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */,
 				A7263C5119E8108D003C22DE /* con_fieldUnSec@2x.png */,
 				A7263C5219E8108D003C22DE /* con_line@2x.png */,
 				A7263C5319E8108D003C22DE /* con_Slide@2x.png */,
@@ -2581,7 +2581,7 @@
 				A7F6C60719F8D2710090B6F0 /* effect_4@2x.png in Resources */,
 				A7EFFA5F19F50C0300DF783D /* apcofig_2@2x.png in Resources */,
 				AD014DE419F5024F00E3D0FB /* ap_playVideo_next@2x.png in Resources */,
-				AD348C5619F92768006C8A15 /* edi_safe_se@2x.png in Resources */,
+				AD348C5619F92768006C8A15 /* edi_safe_un@2x.png in Resources */,
 				A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */,
 				A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
 				A7EFFA6219F50C0300DF783D /* boderBigLine@2x.png in Resources */,
@@ -2720,7 +2720,7 @@
 				A7F6C5F219F89B570090B6F0 /* HorizontalScreenBar_0@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,
-				AD348C5219F92760006C8A15 /* edi_safe_un@2x.png in Resources */,
+				AD348C5219F92760006C8A15 /* edi_safe_se@2x.png in Resources */,
 				AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */,
 				A7F4250319D0FD8600D96475 /* log_bg_iphone5.png in Resources */,
 				A7F50A0819FA017A004D061F /* welcome_1_ch4.jpg in Resources */,
