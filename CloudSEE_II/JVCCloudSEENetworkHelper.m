@@ -1418,7 +1418,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                          
                                 if ([params objectForKey:kCheckHomeFlagKey]) {
                                     
-                                    nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
+                                    int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
                                     
                                     if (nMobileCH == DEVICETYPE_HOME) {
                                         
@@ -1434,8 +1434,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
                                    
-                                    [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
-                                }
                                 
                                 [params release];
                                 
