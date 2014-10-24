@@ -390,6 +390,11 @@
 		AD2BDB7519D2BC6A00AA6D73 /* tab_more_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6D19D2BC6A00AA6D73 /* tab_more_select@2x.png */; };
 		AD2BDB7619D2BC6A00AA6D73 /* tab_more_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */; };
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
+		AD348C5219F92760006C8A15 /* edi_safe_un@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */; };
+		AD348C5519F92768006C8A15 /* edi_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5319F92768006C8A15 /* edi_alarm@2x.png */; };
+		AD348C5619F92768006C8A15 /* edi_safe_se@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */; };
+		AD348C5919F954FA006C8A15 /* JVCVoiceencInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD348C5819F954FA006C8A15 /* JVCVoiceencInfoViewController.m */; };
+		AD348C5C19F95545006C8A15 /* voi_info_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5B19F95545006C8A15 /* voi_info_icon@2x.png */; };
 		AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3BDC0A19E54637001B16D7 /* JVCChannelModel.m */; };
 		AD3BDC1019E8B2E9001B16D7 /* play_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDC0C19E8B2E9001B16D7 /* play_2@2x.png */; };
 		AD3BDC1119E8B2E9001B16D7 /* play_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDC0D19E8B2E9001B16D7 /* play_3@2x.png */; };
@@ -922,6 +927,12 @@
 		AD2BDB6E19D2BC6A00AA6D73 /* tab_more_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_more_unselect@2x.png"; sourceTree = "<group>"; };
 		AD2BDB7719D2CB7F00AA6D73 /* JVCAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppHelper.h; sourceTree = "<group>"; };
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
+		AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_un@2x.png"; sourceTree = "<group>"; };
+		AD348C5319F92768006C8A15 /* edi_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_alarm@2x.png"; sourceTree = "<group>"; };
+		AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_se@2x.png"; sourceTree = "<group>"; };
+		AD348C5719F954FA006C8A15 /* JVCVoiceencInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencInfoViewController.h; sourceTree = "<group>"; };
+		AD348C5819F954FA006C8A15 /* JVCVoiceencInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencInfoViewController.m; sourceTree = "<group>"; };
+		AD348C5B19F95545006C8A15 /* voi_info_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_info_icon@2x.png"; sourceTree = "<group>"; };
 		AD3BDC0919E54637001B16D7 /* JVCChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCChannelModel.h; sourceTree = "<group>"; };
 		AD3BDC0A19E54637001B16D7 /* JVCChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCChannelModel.m; sourceTree = "<group>"; };
 		AD3BDC0C19E8B2E9001B16D7 /* play_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play_2@2x.png"; sourceTree = "<group>"; };
@@ -1728,7 +1739,10 @@
 			isa = PBXGroup;
 			children = (
 				A7FB594519E8FF7F005E2E6D /* con_Btn@2x.png */,
+				AD348C5119F92760006C8A15 /* edi_safe_un@2x.png */,
 				A7263C5019E8108C003C22DE /* con_fieldSec@2x.png */,
+				AD348C5319F92768006C8A15 /* edi_alarm@2x.png */,
+				AD348C5419F92768006C8A15 /* edi_safe_se@2x.png */,
 				A7263C5119E8108D003C22DE /* con_fieldUnSec@2x.png */,
 				A7263C5219E8108D003C22DE /* con_line@2x.png */,
 				A7263C5319E8108D003C22DE /* con_Slide@2x.png */,
@@ -1818,6 +1832,14 @@
 			name = tabarImages;
 			sourceTree = "<group>";
 		};
+		AD348C5A19F95515006C8A15 /* voi_info */ = {
+			isa = PBXGroup;
+			children = (
+				AD348C5B19F95545006C8A15 /* voi_info_icon@2x.png */,
+			);
+			name = voi_info;
+			sourceTree = "<group>";
+		};
 		AD3BDC9819EBF7EB001B16D7 /* voiceenc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1829,6 +1851,8 @@
 				AD3BDCB819EC055D001B16D7 /* JVCScanNewDeviceViewController.m */,
 				AD3BDCBE19ED4F81001B16D7 /* JVCVoiceencHelpViewController.h */,
 				AD3BDCBF19ED4F81001B16D7 /* JVCVoiceencHelpViewController.m */,
+				AD348C5719F954FA006C8A15 /* JVCVoiceencInfoViewController.h */,
+				AD348C5819F954FA006C8A15 /* JVCVoiceencInfoViewController.m */,
 			);
 			name = voiceenc;
 			sourceTree = "<group>";
@@ -1836,6 +1860,7 @@
 		AD3BDC9C19EBF9EF001B16D7 /* voiceenc */ = {
 			isa = PBXGroup;
 			children = (
+				AD348C5A19F95515006C8A15 /* voi_info */,
 				AD3BDCC319ED5A72001B16D7 /* voi_helper */,
 				AD3BDCB019EC053A001B16D7 /* scanf */,
 				AD3BDCA619EBFE95001B16D7 /* sendVoic */,
@@ -2382,6 +2407,7 @@
 				A709696319F22D9100C191F8 /* navBarbg_ios6@2x.png in Resources */,
 				A7EFFA5F19F50C0300DF783D /* apcofig_2@2x.png in Resources */,
 				AD014DE419F5024F00E3D0FB /* ap_playVideo_next@2x.png in Resources */,
+				AD348C5619F92768006C8A15 /* edi_safe_se@2x.png in Resources */,
 				A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */,
 				A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
 				A7EFFA6219F50C0300DF783D /* boderBigLine@2x.png in Resources */,
@@ -2404,6 +2430,7 @@
 				AD3BDC1219E8B2E9001B16D7 /* play_4@2x.png in Resources */,
 				A7F5015519D5353C00AA78F0 /* mor_IconSug@2x.png in Resources */,
 				AD014DD819F4C00E00E3D0FB /* apConfigHomeIPC.bundle in Resources */,
+				AD348C5519F92768006C8A15 /* edi_alarm@2x.png in Resources */,
 				AD3BDCC519ED5A89001B16D7 /* voi_help_txtbg@2x.png in Resources */,
 				A7EFFA5019F501E700DF783D /* log_loc_btn@2x.png in Resources */,
 				A7263C5519E8108D003C22DE /* con_fieldUnSec@2x.png in Resources */,
@@ -2485,6 +2512,7 @@
 				A7F5EF4F19D26D77009B797A /* devAdv_white@2x.png in Resources */,
 				A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */,
 				AD2BDB1319D28F0600AA6D73 /* edi_channelManager@2x.png in Resources */,
+				AD348C5C19F95545006C8A15 /* voi_info_icon@2x.png in Resources */,
 				AD2BDB7219D2BC6A00AA6D73 /* tab_deviceManager_unselect@2x.png in Resources */,
 				A7F5016419D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
 				AD2BDB7419D2BC6A00AA6D73 /* tab_message_unselect@2x.png in Resources */,
@@ -2494,6 +2522,7 @@
 				A7F2210C19F383F600447853 /* no_devWlan@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,
+				AD348C5219F92760006C8A15 /* edi_safe_un@2x.png in Resources */,
 				AD3BDC1319E8B2E9001B16D7 /* play_1@2x.png in Resources */,
 				A7F4250319D0FD8600D96475 /* log_bg_iphone5.png in Resources */,
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
@@ -2682,6 +2711,7 @@
 				ADA22D5519DA613E0092F8B9 /* DDAbstractDatabaseLogger.m in Sources */,
 				AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */,
 				A7F5EF3819D2621B009B797A /* MJRefreshHeaderView.m in Sources */,
+				AD348C5919F954FA006C8A15 /* JVCVoiceencInfoViewController.m in Sources */,
 				ADA22D3419DA5D990092F8B9 /* data_queue.mm in Sources */,
 				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,

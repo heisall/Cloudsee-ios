@@ -35,12 +35,12 @@
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
     
     JVCEditDeviceListViewControllerClickType_beganIndex = 1000,
-    JVCEditDeviceListViewControllerClickType_remoteSetup,
     JVCEditDeviceListViewControllerClickType_deviceManager,
     JVCEditDeviceListViewControllerClickType_linkModel,
     JVCEditDeviceListViewControllerClickType_channelManage,
     JVCEditDeviceListViewControllerClickType_play,
-    JVCEditDeviceListViewControllerClickType_add,
+     JVCEditDeviceListViewControllerClickType_safe,
+    JVCEditDeviceListViewControllerClickType_alarm,
 };
 
 @end
@@ -128,9 +128,41 @@ static const int  kInitWithLayoutColumnCount           = 3;
     
     mArrayIconNames  = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconNames addObjectsFromArray:@[@"edi_RemoteSetup.png",@"edi_deviceManger.png",@"edi_linkModel.png",
-                                           @"edi_deviceManger.png",@"edi_channelManager.png",@"edi_add.png"]];
+    [mArrayIconNames addObjectsFromArray:@[@"edi_deviceManger.png",@"edi_linkModel.png",@"edi_deviceManger.png",
+                                           @"edi_channelManager.png",@"edi_safe_se.png",@"edi_alarm.png"]];
 }
+
+/**
+ *  动画结束
+ */
+-(void)animationEndCallBack {
+
+    DDLogVerbose(@"%s-----hahah",__FUNCTION__);
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        [self showWithHiddenSafeAndAlarmView:NO withEnableSale:NO];
+    
+    });
+}
+
+/**
+ *  隐藏和显示报警和安全防护的按钮
+ *
+ *  @param isHidden 是否显示
+ */
+- (void)showWithHiddenSafeAndAlarmView:(BOOL)isHidden withEnableSale:(BOOL)isEanble{
+    
+    JVCEditDeviceOperationView *safeView = (JVCEditDeviceOperationView *)[operationView viewWithTag: JVCEditDeviceListViewControllerClickType_safe];
+    
+    JVCEditDeviceOperationView *alarmView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_alarm];
+    
+    alarmView.hidden = isHidden;
+    safeView.hidden  = isHidden;
+    
+    [safeView setIconImage:isEanble == NO?[UIImage imageNamed:@"edi_safe_se.png"]:[UIImage imageNamed:@"edi_safe_un.png"]];
+
+}
+
 
 /**
  *  初始化图片标题
@@ -139,8 +171,8 @@ static const int  kInitWithLayoutColumnCount           = 3;
     
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconTitles addObjectsFromArray:@[@"远程设置",@"设备管理",@"连接模式",
-                                            @"通道管理",@"立即观看",@"报警设置"]];
+    [mArrayIconTitles addObjectsFromArray:@[@"设备管理",@"连接模式",@"通道管理",
+                                            @"立即观看",@"安全防护",@"报警设置"]];
 }
 
 
@@ -166,7 +198,6 @@ static const int  kInitWithLayoutColumnCount           = 3;
         
         [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         
-        //position.origin.y = position.origin.y + toolBarView.frame.origin.y + toolBarView.frame.size.height;
         
         UIColor *backgroundColor = [rgbHelper rgbColorForKey:[mArrayColors objectAtIndex:i]];
         
@@ -205,6 +236,8 @@ static const int  kInitWithLayoutColumnCount           = 3;
         [operationView addSubview:bgView];
         [bgView release];
     }
+    
+    [self showWithHiddenSafeAndAlarmView:NO withEnableSale:YES];
 }
 
 /**
@@ -251,7 +284,10 @@ static const int  kInitWithLayoutColumnCount           = 3;
     
     switch (type)
     {
-        case JVCEditDeviceListViewControllerClickType_remoteSetup:{
+        case JVCEditDeviceListViewControllerClickType_alarm:{
+            
+            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+            [self connetDeviceWithYSTNum];
             
         }
             break;
@@ -273,10 +309,7 @@ static const int  kInitWithLayoutColumnCount           = 3;
         }
             break;
             
-        case JVCEditDeviceListViewControllerClickType_add:{
-            
-            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-            [self connetDeviceWithYSTNum];
+        case JVCEditDeviceListViewControllerClickType_safe:{
             
         }
             break;

@@ -28,6 +28,7 @@
 #import "JVCLocalAddDeviceViewController.h"
 #import "JVCIPAddViewController.h"
 #import "JVCScanNewDeviceViewController.h"
+#import "JVCVoiceencInfoViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组

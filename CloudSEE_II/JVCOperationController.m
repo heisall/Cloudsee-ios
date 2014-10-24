@@ -1031,6 +1031,14 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case BUTTON_TYPE_TALK:
             
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
+            
             [self chatRequest:btn];
             break;
             
@@ -1296,13 +1304,6 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
-            //远程回放时，屏蔽掉此功能
-            if (_isPlayBackVideo) {
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
-                
-                return;
-            }
             
             JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
             ystNetworkObj.ystNWADelegate    =  self;
@@ -1311,6 +1312,14 @@ char remoteSendSearchFileBuffer[29] = {0};
         }
             break;
         case TYPEBUTTONCLI_YTOPERATION:
+            
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
             [self ytoClick:nil];
             break;
             

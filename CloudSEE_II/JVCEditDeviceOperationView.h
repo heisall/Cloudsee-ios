@@ -18,4 +18,10 @@
  *  @param iconImage  图标
  */
 -(void)initWithLayoutView:(NSString *)title titleColor:(UIColor *)titleColor iconImage:(UIImage *)iconImage;
+
+/**
+ *
+ *  @param iconImage 设置背景图片
+ */
+-(void)setIconImage:(UIImage *)iconImage;
 @end
