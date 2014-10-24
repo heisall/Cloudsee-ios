@@ -80,3 +80,7 @@
 "home_ap_Alert_NO"             = "Cancel";
 "home_ap_Alert_message_ios7"   = "The OS version of your mobile phone is iOS 5.0 or above, and you need to quit the APP and change the Wi-Fi network to the AP of the IP camera with the format: IPC-X-XXX. Steps: Settings-WLAN-Choose a Network-IPC-X-XXX";
 
+//设备管理界面
+"operation_error"              = "Failed to operate";
+"device_off_line"              = "Unable to operate due to device has been offline";
+

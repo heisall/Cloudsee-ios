@@ -24,10 +24,10 @@ enum ControlSwitchType
 enum UPDATEDEVICEMATHTYPE{
     
     UPDATEDEVICEMATH_CMD_UPDATE=0,        //IPC升级命令
-    UPDATEDEVICEMATH_CMD_EXIT=1,        //IPC升级退出
-    UPDATEDEVICEMATH_DOWNLOAD_VALUE, //IPC下载升级文件的进度
-    UPDATEDEVICEMATH_WRITE_VALUE,    //IPC烧写文件的进度
-    UPDATEDEVICEMATH_CMD_REBOOT     //IPC烧写完重启
+    UPDATEDEVICEMATH_CMD_EXIT=1,          //IPC升级退出
+    UPDATEDEVICEMATH_DOWNLOAD_VALUE,      //IPC下载升级文件的进度
+    UPDATEDEVICEMATH_WRITE_VALUE,         //IPC烧写文件的进度
+    UPDATEDEVICEMATH_CMD_REBOOT           //IPC烧写完重启
     
 };
 
@@ -154,14 +154,15 @@ enum DEVICEONLINESTATE
 /**
  *	控制设备的功能按钮（安全防护、时段、Baby模式）
  *
+ *	@param	accountName	        帐户名
  *	@param	deviceGuidStr	    设备的云通号
  *	@param	operationInfoDict	控制的开关
  *  @param  switchState         开关的状态
  *  @param  updateText          更新的内容
  *
- *	@return	0：成功 否则看失败代码
+ *	@return	0：成功 1:失败
  */
--(int)controlDeviceOperationSwitchButton:(NSString *)deviceGuidStr operationType:(int)operationType  switchState:(int)switchState updateText:(NSString *)updateText;
+-(int)controlDeviceOperationSwitchButton:(NSString *)accountName  deviceGuidStr:(NSString *)deviceGuidStr operationType:(int)operationType  switchState:(int)switchState updateText:(NSString *)updateText;
 
 /**
  *  检查IPC是否有新版本

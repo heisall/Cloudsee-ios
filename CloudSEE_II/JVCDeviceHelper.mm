@@ -524,19 +524,21 @@ char outTextBuffer[1280*720*3];
 /**
  *	控制设备的功能按钮（安全防护、时段、Baby模式）
  *
+ *	@param	accountName	        帐户名
  *	@param	deviceGuidStr	    设备的云通号
  *	@param	operationInfoDict	控制的开关
  *  @param  switchState         开关的状态
  *  @param  updateText          更新的内容
  *
- *	@return	0：成功 否则看失败代码
+ *	@return	0：成功 1:失败
  */
--(int)controlDeviceOperationSwitchButton:(NSString *)deviceGuidStr operationType:(int)operationType  switchState:(int)switchState updateText:(NSString *)updateText {
+-(int)controlDeviceOperationSwitchButton:(NSString *)accountName  deviceGuidStr:(NSString *)deviceGuidStr operationType:(int)operationType  switchState:(int)switchState updateText:(NSString *)updateText {
     
     NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
     
     [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:IM_SERVER_RELAY] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    [requestInfoMDict setValue:accountName forKey:CONVERTCHARTOSTRING(JK_USERNAME)];
     [requestInfoMDict setValue:deviceGuidStr forKey:CONVERTCHARTOSTRING(JK_DEVICE_GUID)];
     [requestInfoMDict setValue:[self fillMdicByOperationType:operationType switchState:switchState updateText:updateText] forKey:CONVERTCHARTOSTRING(JK_DEVICE_INFO)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:PUSH_DEVICE_MODIFY_INFO] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
@@ -549,21 +551,23 @@ char outTextBuffer[1280*720*3];
     
     if (resultID==nil||![resultID isKindOfClass:[NSDictionary class]]) {
         
-        return DEVICESERVICERESPONSE_REQ_TIMEOUT;
+        return nil;
     }
     
     NSDictionary *resultDict=(NSDictionary *)resultID;
     
-    if ([[resultDict objectForKey:CONVERTCHARTOSTRING(JK_RESULT)] intValue]==DEVICESERVICERESPONSE_SUCCESS) {
+    DDLogVerbose(@"%s---longInfo=%@",__FUNCTION__,resultDict);
+    
+    if ([[resultDict objectForKey:CONVERTCHARTOSTRING(JK_RESULT)] intValue]==0) {
         
         if (!updateText||DEVICE_ALARTM_TIME_SWITCH) {
             
             [self saveControlDeviceOperationSwitchButtonToDataBase:deviceGuidStr operationType:operationType switchState:switchState updateText:updateText];
         }
         
-        return DEVICESERVICERESPONSE_SUCCESS;
+        return 0;
     }
-    
+
     return  [[resultDict objectForKey:CONVERTCHARTOSTRING(JK_RESULT)] intValue];
     
 }

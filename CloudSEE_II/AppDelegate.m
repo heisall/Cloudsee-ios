@@ -191,7 +191,7 @@ static  const   int      KSetHelpMaxCount    = 10;
         rootViewController.tabBar.selectionIndicatorImage = tabbarBgIamgeSec;
         [tabbarBgIamge release];
         [tabbarBgIamgeSec release];
-
+        
     }else{
         
         JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
@@ -200,6 +200,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     
             rootViewController.tabBar.backgroundColor = tabBarBackgroundColor;
         }
+        
     }
     self.window.rootViewController = rootViewController ;
     

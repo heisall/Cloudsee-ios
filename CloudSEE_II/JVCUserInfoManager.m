@@ -14,11 +14,11 @@
  */
 static const NSString * USERINFO_NAME       =  @"user" ;//用户名
 static const NSString * USERINFO_PW         =  @"password";//密码
-static const NSString * USERINFO_TIMER      =   @"timer";//最后一次登录时间
+static const NSString * USERINFO_TIMER      =  @"timer";//最后一次登录时间
 static const NSString * USERINFO_AutoLogin  =  @"AutoLogin";//自动登录
-static const NSString * USERINFO_Gesture    =   @"Gesture";//手势密码
-static const NSString * USERINFO_StrToken    =   @"Token";//手势密码
-static const NSString * USERINFO_AlarmState  =   @"userAlarmState";//用户报警状态
+static const NSString * USERINFO_Gesture    =  @"Gesture";//手势密码
+static const NSString * USERINFO_StrToken   =  @"Token";//手势密码
+static const NSString * USERINFO_AlarmState =  @"userAlarmState";//用户报警状态
 
 
 @interface JVCUserInfoManager ()
@@ -81,7 +81,7 @@ static JVCUserInfoManager *shanreInstance = nil;
 
 - (NSString *)strUserName {
     
-    NSString *str = [_dirUserInfo objectForKey:USERINFO_NAME];
+    NSString *str = [[_dirUserInfo objectForKey:USERINFO_NAME] lowercaseString];
     
     return (!str)?@"":str;
 }

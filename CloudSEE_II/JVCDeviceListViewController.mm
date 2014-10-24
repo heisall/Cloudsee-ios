@@ -23,7 +23,6 @@
 #import "JVCAPConfigPreparaViewController.h"
 #import "JVCQRAddDeviceViewController.h"
 #import "JVCDeviceMacro.h"
-#import "JVCVoiceencInputSSIDWithPasswordViewController.h"
 #import "JVCConfigModel.h"
 #import "JVCLocalAddDeviceViewController.h"
 #import "JVCIPAddViewController.h"
@@ -196,10 +195,11 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
  */
 -(void)beginVoiceencConfig{
     
-    JVCVoiceencInputSSIDWithPasswordViewController *jvcVoiceencViewcontroller = [[JVCVoiceencInputSSIDWithPasswordViewController alloc] init];
+    JVCVoiceencInfoViewController *jvcVoiceencViewcontroller = [[JVCVoiceencInfoViewController alloc] init];
     [self.navigationController pushViewController:jvcVoiceencViewcontroller animated:YES];
     
     [jvcVoiceencViewcontroller release];
+
 }
 
 /**
