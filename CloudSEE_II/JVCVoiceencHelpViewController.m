@@ -19,8 +19,8 @@ static const CGFloat KDeviceImageViewWithGesturesViewWithLeft  = 22.0f;
 static const CGFloat KDeviceImageViewWithGesturesViewWithTop   = 100.0f;
 static const CGFloat KTitleViewWithGesturesViewBottom          = 75.0f;
 static const CGFloat KTitleViewWithSuperViewLeft               = 10.0f;
-static const CGFloat KTitleTvWithFontSize                      = 14.0f;
-static const CGFloat KTitleTvWithLineHeight                    = KTitleTvWithFontSize + 6.0;
+static const CGFloat KTitleTvWithFontSize                      = 16.0f;
+static const CGFloat KTitleTvWithLineHeight                    = KTitleTvWithFontSize + 4.0;
 static const int     KTitleTvWithNumberOfLines                 = 2;
 static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
 
@@ -96,7 +96,6 @@ static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
 }
 
 @end
