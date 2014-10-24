@@ -16,6 +16,7 @@
 @synthesize tempModelInsert;
 @synthesize _bInitAccountSDKSuccess;
 @synthesize _bNewVersion;
+@synthesize bSwitchSafe;
 static JVCConfigModel *_shareInstance = nil;
 /**
  *  单例

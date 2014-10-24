@@ -10,7 +10,7 @@
 
 @implementation JVCMoreSettingModel
 @synthesize iconImageName,bNewState,itemName,bBtnState;
-
+@synthesize bSwitchState;
 - (void)dealloc
 {
     [iconImageName release];

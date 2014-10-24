@@ -77,38 +77,20 @@ enum {
 /* 报警类型 */
 typedef enum alarmtype
 {
-	ALARM_DISKERROR,
-    ALARM_DISKFULL,
-    ALARM_DISCONN,
-    ALARM_UPGRADE,
-    ALARM_GPIN,
-    ALARM_VIDEOLOSE,
-    ALARM_HIDEDETECT,
-    ALARM_MOTIONDETECT,			/* 移动侦测 */
-    ALARM_POWER_OFF,
-    ALARM_MANUALALARM,
-    ALARM_GPS,
-    ALARM_PIR,                    /*pir红外人体检测*/
-    ALARM_NONE,
-    ALARM_NOTIFY,
-    ALARM_TEMP_HIGH,
-    ALARM_TEMP_LOW,
-    ALARM_HUM_HIGH,
-    ALARM_HUM_LOW,
-    ALARM_TEMP_HIGH_HUM_HIGH,
-    ALARM_TEMP_HIGH_HUM_LOW,
-    ALARM_TEMP_LOW_HUM_HIGH,
-    ALARM_TEMP_LOW_HUM_LOW,
-    //    ALARM_TEMP_HIGH=16,
-    //    ALARM_TEMP_LOW=32,
-    //    ALARM_HUM_HIGH=64,
-    //    ALARM_HUM_LOW=128,
-    //
-    //    ALARM_tH__hH=80,  //温度过高、湿度过高
-    //    ALARM_tl_hH=96,   //温度过低、湿度过高
-    //    ALARM_tH__hl=144, //温度过高、湿度过低
-    //    ALARM_tl_hl=160,  //温度过低、湿度过低
-    ALARM_TOTAL
+    ALARM_DISKERROR,
+	ALARM_DISKFULL,
+	ALARM_DISCONN,
+	ALARM_UPGRADE,
+	ALARM_GPIN,
+	ALARM_VIDEOLOSE,     // 视频丢失
+	ALARM_HIDEDETECT,    // 视频遮挡
+	ALARM_MOTIONDETECT,  // 移动侦测
+	ALARM_POWER_OFF,
+	ALARM_MANUALALARM,
+	ALARM_GPS,
+	ALARM_DOOR,
+	ALARM_TOTAL
+    
 } alarmtype_t;
 
 /* 报警服务器的消息类型 */

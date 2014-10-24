@@ -483,12 +483,14 @@ static  const   int      KSetHelpMaxCount    = 10;
     
 }
 
+/**
+ *  获取用户的报警信息字段，与服务器统一
+ */
 - (void)getUserAlarmState
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
         kkAlarmState = [[JVCAccountHelper sharedJVCAccountHelper]getAlarmStateInt];
-        DDLogVerbose(@"%s===%d",__FUNCTION__,kkAlarmState);
         
         int  getAlarmState = kkAlarmState==1?0:1;
                 
@@ -636,6 +638,14 @@ static  const   int      KSetHelpMaxCount    = 10;
     [selectedSSID release];
     
     [super dealloc];
+}
+
+/**
+ *  添加设备广播
+ */
+- (void)startDeviceLANSerchAllDevice
+{
+    [deviceListController StartLANSerchAllDevice];
 }
 
 @end

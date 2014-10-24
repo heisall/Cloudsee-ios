@@ -96,6 +96,8 @@ static JVCOperationMiddleView *_shareInstance = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titileArray  frame:(CGRect)frame skinType:(int)skinType
 {
+    [_arrayButtons removeAllObjects];
+    
     _shareInstance.frame  = frame;
     
     /**
@@ -140,7 +142,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
         
         [btn setImage:hoverImage forState:UIControlStateSelected];
         
-        
+
         [btn setImageEdgeInsets:UIEdgeInsetsMake(-(self.frame.size.height -hoverImage.size.height)/2+15 ,0 , 0,0)];
         
         UILabel * _LableTitle=[[UILabel alloc] init];
@@ -288,8 +290,8 @@ static JVCOperationMiddleView *_shareInstance = nil;
         
         NSString *imageName = [array objectAtIndex:0];
         imageName  = [imageName stringByAppendingString:@"@2x."];
-        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
-        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+        imageName = [imageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:imageName];
     }
     return image_path;
 }

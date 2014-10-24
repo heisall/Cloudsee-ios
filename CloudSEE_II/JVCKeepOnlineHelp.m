@@ -239,7 +239,6 @@ UIAlertView *alertView;
     alertView.tag = 2*KTAGADDNUM;
     alertView.delegate = self;
     [alertView show];
-    [alertView release];
     
     [self startTimerCountDown];
 
@@ -262,7 +261,6 @@ UIAlertView *alertView;
 - (void)closeAlertView
 {
     if (alertView!=nil) {
-        [alertView dismissWithClickedButtonIndex:0 animated:NO];
         [alertView release];
         alertView = nil;
     }

@@ -13,7 +13,10 @@ enum
     MoreSettingCellType_NO      =   0,//什么也没有的
     MoreSettingCellType_Btn     =   1,//按钮的
     MoreSettingCellType_Switch  =   2,//开关的
-    MoreSettingCellType_index   =   3,//开关的
+    MoreSettingCellType_index   =   3,//指示的
+    
+    MoreSettingCellType_AccountSwith =   4,//自定义的cell的swith事件
+
 
 };
 
@@ -24,6 +27,7 @@ enum
     NSString *itemName;         //item的名称
     BOOL bNewState;             //是否显示新品 yes 显示  no不显示
     int bBtnState;             //是否显示bug yes btn  no正常cell
+    BOOL bSwitchState;          //switch的状态
     
 }
 
@@ -32,5 +36,5 @@ enum
 
 @property(nonatomic,assign) BOOL bNewState;
 @property(nonatomic,assign) int bBtnState;
-
+@property(nonatomic,assign) BOOL bSwitchState;
 @end

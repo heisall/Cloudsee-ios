@@ -1417,7 +1417,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
-        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:0 skinType:skinSelect];
+        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
     }

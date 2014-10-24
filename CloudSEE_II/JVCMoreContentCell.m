@@ -24,6 +24,7 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
 
 @implementation JVCMoreContentCell
 @synthesize delegateSwitch;
+@synthesize switchCell;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -74,21 +75,33 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
 
     }
     
-    UISwitch *switchCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
+    UISwitch *switchTempCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
+    self.switchCell = switchTempCell;
     [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:switchCell];
-    [switchCell release];
     
     self.accessoryType = UITableViewCellAccessoryNone;
     switchCell.hidden = YES;
     switch (model.bBtnState) {
 
         case MoreSettingCellType_Switch:
+        {
+            switchCell.tag = MoreSettingCellType_AccountSwith;
             switchCell.hidden = NO;
+
+        }
+            break;
+            
+        case MoreSettingCellType_AccountSwith:
+        {
+            switchCell.tag = MoreSettingCellType_AccountSwith;
+            switchCell.hidden = NO;
+
+        }
             break;
             
         case MoreSettingCellType_index:
-            self.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
             
         default:
@@ -96,6 +109,8 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
             break;
     }
     [imgIconNew release];
+    [switchCell release];
+
 }
 
 /**
@@ -107,7 +122,7 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
 {
     if (delegateSwitch !=nil && [delegateSwitch respondsToSelector:@selector(modifySwitchState:)]) {
         
-        [delegateSwitch modifySwitchState:switchOn.on];
+        [delegateSwitch modifySwitchState:switchOn];
     }
 }
 
@@ -121,6 +136,13 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)dealloc
+{
+    [self.switchCell  release];
+    
+    [super dealloc];
 }
 
 @end

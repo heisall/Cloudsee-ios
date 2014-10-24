@@ -180,6 +180,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             
             [cell initContentCells:cellModel];
             
+            
         }else{//按钮显示
             
             UIImage *iamgeBtn = [UIImage imageNamed:@"mor_logOut.png"];
@@ -209,12 +210,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     
     if (indexPath.section == 1 ) {//
         
-        if (indexPath.row == 0) {//帮助
-            
-            JVCApHelpViewController *apHelper = [[JVCApHelpViewController alloc] init] ;
-            [self.navigationController pushViewController:apHelper animated:YES];
-            [apHelper release];
-        }else if(indexPath.row == 1)
+       if(indexPath.row == 1)
         {
             if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
                 
@@ -226,7 +222,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
                 [editVC release];
 
             }
-                   }
+        }
     }else if(indexPath.section == 3)
     {
         if (indexPath.row == 0) {//打开评论
@@ -359,9 +355,38 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
  *
  *  @param state 开关状态
  */
-- (void)modifySwitchState:(BOOL)state
+- (void)modifySwitchState:(UISwitch *)state
 {
-    NSLog(@"_%s==%d",__FUNCTION__,state);
+    if (state.tag == MoreSettingCellType_AccountSwith) {
+        
+        if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL ) {
+            
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"本地模式暂停使用"];
+            
+            state.on = !state.on;
+            return;
+        }else{
+            
+            if (!state.on) {
+                
+                [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+            }else{
+                
+                [[JVCAccountHelper sharedJVCAccountHelper] CancelServerPushToken:kkToken];
+                
+            }
+            [JVCConfigModel shareInstance].bSwitchSafe = state.on;
+
+        }
+    }else{//打开帮助
+    
+    
+    }
+    
+    
+    
+    
+    
 }
 
 

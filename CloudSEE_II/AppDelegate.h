@@ -48,4 +48,14 @@
  *  @param alarmModel alarm数据
  */
 - (void)addCurrentAlarmInalarmMessageViewController:(JVCAlarmModel*)alarmModel;
+
+/**
+ *  获取用户的报警信息字段，与服务器统一
+ */
+- (void)getUserAlarmState;
+
+/**
+ *  添加设备广播
+ */
+- (void)startDeviceLANSerchAllDevice;
 @end

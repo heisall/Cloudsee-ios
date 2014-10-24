@@ -34,4 +34,9 @@ typedef enum {
  */
 -(void)stopTimer;
 
+/**
+ *  添加广播
+ */
+-(void)StartLANSerchAllDevice;
+
 @end

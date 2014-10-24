@@ -17,6 +17,7 @@
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCResultTipsHelper.h"
+#import "JVCConfigModel.h"
 
 
 
@@ -63,12 +64,17 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
 {
     [super viewDidAppear:animated];
     
-    NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
-    if (ystNum.length>0) {
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
         
-        textFieldYST.text = ystNum;
+        NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
+        if (ystNum.length>0) {
+            
+            textFieldYST.text = ystNum;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
+        }
+
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
     }
     
 }

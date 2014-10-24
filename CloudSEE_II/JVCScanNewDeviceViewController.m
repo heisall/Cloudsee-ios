@@ -11,6 +11,7 @@
 #import "JVCDeviceMacro.h"
 #import "JVCSystemConfigMacro.h"
 #import "JVCDeviceSourceHelper.h"
+#import "AppDelegate.h"
 
 @interface JVCScanNewDeviceViewController () {
     
@@ -315,6 +316,8 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 {
     if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
         
+        AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegateApp startDeviceLANSerchAllDevice];
         [self gotoBack];
     }
 }

@@ -622,10 +622,10 @@
 "welcom_2"="welcome_2_ch.jpg";
 "welcom_3"="welcome_3_ch.jpg";
 
-"welcom_0_4"="welcome_0_ch.jpg";
-"welcom_1_4"="welcome_1_ch.jpg";
-"welcom_2_4"="welcome_2_ch.jpg";
-"welcom_3_4"="welcome_3_ch.jpg";
+"welcom_0_4"="welcome_0_ch4.jpg";
+"welcom_1_4"="welcome_1_ch4.jpg";
+"welcom_2_4"="welcome_2_ch4.jpg";
+"welcom_3_4"="welcome_3_ch4.jpg";
 
 "de_ch_1.png"="de_ch_1.png";
 "fl_ch_1.png"="fl_ch_1.png";
@@ -656,3 +656,28 @@
 "home_ap_Alert_NO"             = "取消";
 "home_ap_Alert_message_ios7"   = "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网络到IPC-X-XXXX格式的无线网络下。具体步骤：设置->无线局域网->选取无线网络";
 "JDCSViewController_ap_setting"= "亲，发现您刚刚配置了一个新设备";
+
+//报警类型
+"home_alarm_0"="发生存储错误告警，请注意防范。";
+"home_alarm_1"="发生存储满告警，请注意防范。";
+"home_alarm_2"="发生连接断开告警，请注意防范。";
+"home_alarm_3"="发生系统升级告警，请注意防范。";
+"home_alarm_4"="发生外接告警，请注意防范。";
+"home_alarm_5"="发生视频丢失告警，请注意防范。";
+"home_alarm_6"="发生视频遮挡告警，请注意防范。";
+"home_alarm_7"="发生移动侦测告警";
+"home_alarm_8"="发生断电告警，请注意防范。";
+"home_alarm_9"="发生手动告警，请注意防范。";
+"home_alarm_10"="发生GPS告警。";
+"home_alarm_11"="发生告警";
+"home_alarm_12"="很安全，请主人不必担心，我会好好看护的。";
+"home_alarm_13"="有些异常举动，请主人赶快采取措施。";
+"home_alarm_14"="周围温度太高了。";
+"home_alarm_15"="周围温度太低了。";
+"home_alarm_16"="周围湿度太高了。";
+"home_alarm_17"="周围湿度太低了。";
+"home_alarm_18"="周围温度过高、湿度过高。";
+"home_alarm_19"="周围温度过低、湿度过高。";
+"home_alarm_20"="周围温度过高、湿度过低。";
+"home_alarm_21"="周围温度过低、湿度过低。";
+

@@ -540,6 +540,8 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     textFieldUser.text = kkUserName;
     textFieldPW.text   = kkPassword;
     
+    [self getUserAccountState];
+    
     [self clickTologin];
 }
 
@@ -586,6 +588,8 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
  */
 - (void)loginInSuccessToChangeRootController
 {
+    [self getUserAccountState];
+    
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
     if (self.presentingViewController !=nil) {
         
@@ -622,7 +626,8 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 #pragma mark 切换主视图的root
 - (void)changeWindowRootViewController
 {
-
+    [self getUserAccountState];
+    
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate initWithTabarViewControllers];
@@ -803,6 +808,18 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
         }
     }
 
+}
+
+/**
+ *  获取用户的报警开关
+ */
+- (void)getUserAccountState
+{
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
+        
+        AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegateApp getUserAlarmState];
+    }
 }
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "JVCApConfigDeviceViewController.h"
-
-
+#import "MJRefreshHeaderView.h"
+#import "UIScrollView+MJRefresh.h"
 @interface JVCApConfigDeviceViewController () {
 
     UITableView               *_mTableView;
@@ -159,8 +159,27 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     _mTableView.backgroundView = nil;
     _mTableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_mTableView];
+    
+    [self setupRefresh];
 
 }
+
+/**
+ *  集成刷新控件
+ */
+- (void)setupRefresh
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [_mTableView addHeaderWithTarget:self action:@selector(getDeviceWifiListData)];
+    //自动下拉刷新
+    //[_tableView headerBeginRefreshing];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _mTableView.headerPullToRefreshText = @"下拉可以刷新";
+    _mTableView.headerReleaseToRefreshText = @"松开马上刷新";
+    _mTableView.headerRefreshingText = @"正在刷新中";
+}
+
 
 
 /**
@@ -242,6 +261,9 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     [_mTableView  reloadData];
     
     [self stopGetWifiListTimer];
+    
+    [_mTableView headerEndRefreshing];
+
 }
 
 /**
@@ -276,6 +298,8 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
  */
 - (void)showGetWifiListTimerOut
 {
+    [_mTableView headerEndRefreshing];
+
     getWifiListTimer = nil;
     UIAlertView *alertViewTimeOut = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"get_WIFI_list_timeOut", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Sure", nil) otherButtonTitles: nil];
     [alertViewTimeOut show];
@@ -346,6 +370,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
         
         [self.delegate refreshWifiListInfo];
     }
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -15,6 +15,7 @@
 static const int KLabelOriginX   = 10;//距离左边界的距离
 static const int KLabelSpan      = 0;//labe之间的距离
 static const int KLabelSize      = 14;//labe字体大小
+static const int KLabelSizeTitle      = 20;//标题的字体大小
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -82,9 +83,11 @@ static const int KLabelSize      = 14;//labe字体大小
     /**
      *  文字时间
      */
-    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:model.strAlarmTime];
+    NSString *stringlangue = [NSString stringWithFormat:@"home_alarm_%d",model.iAlarmType];
+    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",model.strALarmDeviceNickName,LOCALANGER(stringlangue)] textFontSize:KLabelSizeTitle];
     [label retain];
-    label.text = [NSString stringWithFormat:@"%d",model.iAlarmTimer];
+    label.numberOfLines = 0;
+    label.lineBreakMode = UILineBreakModeWordWrap;
     label.font = [UIFont systemFontOfSize:KLabelSize];
     if (color) {
         label.textColor = color;
@@ -101,9 +104,9 @@ static const int KLabelSize      = 14;//labe字体大小
     if (color) {
         labelNickName.textColor = color;
     }
-    
+    labelNickName.text =@"";
     labelNickName.font = [UIFont systemFontOfSize:KLabelSize];
-    labelNickName.frame = CGRectMake(label.left, label.bottom+KLabelSpan, labelNickName.width, labelNickName.height);
+    labelNickName.frame = CGRectMake(label.left, label.bottom+KLabelSpan, labelNickName.width, 0);
     [self.contentView addSubview:labelNickName];
     [labelNickName release];
     

@@ -16,15 +16,19 @@
  *
  *  @param state 开关状态
  */
-- (void)modifySwitchState:(BOOL)state;
+- (void)modifySwitchState:(UISwitch *)switchstate;
 
 @end
 
 @interface JVCMoreContentCell : UITableViewCell
 {
     id<JVCMoreCellSwitchDelegate>delegateSwitch;
+    
+    UISwitch *switchCell;
 }
 @property(nonatomic,assign)id<JVCMoreCellSwitchDelegate>delegateSwitch;
+@property(nonatomic,retain)UISwitch *switchCell;
+
 /**
  *  根据model初始化
  *

@@ -109,7 +109,8 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         [btnImage setBackgroundImage:image forState:UIControlStateNormal];
         //[btnImage setBackgroundImage:imageHover forState:UIControlStateHighlighted];
         [btnImage setBackgroundImage:imageHover forState:UIControlStateSelected];
-        
+        btnImage.tag = i;
+        [btnImage addTarget:self  action:@selector(imagebtnClick:) forControlEvents:UIControlEventTouchDragInside];
         [contentView addSubview:btnImage];
         
         if (i ==0) {
@@ -216,6 +217,15 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         
         [delegateIphone5BtnCallBack operationMiddleIphone5BtnCallBack:(int )gesture.view.tag];
     }
+}
+
+- (void)imagebtnClick:(UIButton *)btn
+{
+    if (delegateIphone5BtnCallBack !=nil &&[delegateIphone5BtnCallBack respondsToSelector:@selector(operationMiddleIphone5BtnCallBack:)]) {
+        
+        [delegateIphone5BtnCallBack operationMiddleIphone5BtnCallBack:(int )btn.tag];
+    }
+
 }
 
 /**

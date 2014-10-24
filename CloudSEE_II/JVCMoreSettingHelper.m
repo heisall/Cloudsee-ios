@@ -80,10 +80,11 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *FistSectionArray = [[NSMutableArray alloc] init];
     //帮助界面
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
-    modelHelp.itemName = @"观看模式";
+    modelHelp.itemName = @"报警";
     modelHelp.iconImageName = @"mor_IconHelp.png";
     modelHelp.bNewState = NO;
-    modelHelp.bBtnState = MoreSettingCellType_Switch;
+    modelHelp.bBtnState = MoreSettingCellType_AccountSwith;
+//    modelHelp.bSwitchState = kkToken
     [FistSectionArray addObject:modelHelp];
     [modelHelp release];
     
@@ -91,18 +92,18 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
     modelUser.itemName = @"修改密码";
     modelUser.iconImageName = @"mor_IconUser.png";
-    modelUser.bBtnState = MoreSettingCellType_Switch;
+    modelUser.bBtnState = MoreSettingCellType_index;
     [FistSectionArray addObject:modelUser];
     [modelUser release];
     
     //功能设置
-    JVCMoreSettingModel *modelFunction = [[JVCMoreSettingModel alloc] init];
-    modelFunction.itemName = @"报警";
-    modelFunction.iconImageName = @"mor_IconFun.png";
-    modelFunction.bBtnState = NO;
-    modelFunction.bNewState = MoreSettingCellType_Switch;
-    [FistSectionArray addObject:modelFunction];
-    [modelFunction release];
+//    JVCMoreSettingModel *modelFunction = [[JVCMoreSettingModel alloc] init];
+//    modelFunction.itemName = @"报警";
+//    modelFunction.iconImageName = @"mor_IconFun.png";
+//    modelFunction.bBtnState = NO;
+//    modelFunction.bNewState = MoreSettingCellType_Switch;
+//    [FistSectionArray addObject:modelFunction];
+//    [modelFunction release];
     
     [arrayList addObject:FistSectionArray];
     

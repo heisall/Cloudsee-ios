@@ -64,6 +64,7 @@ static const int KSeperate  = 10;//间距5
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [self addSubview:_tableView];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView release];
         
     }else{

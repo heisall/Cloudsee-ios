@@ -86,8 +86,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 {
     [super viewDidLoad];
     
-    [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
-    
     UIColor *tabbarBackgroundColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
     if (tabbarBackgroundColor) {
         
@@ -646,11 +644,18 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     }
 }
 
+/**
+ *  添加广播
+ */
 -(void)StartLANSerchAllDevice {
     
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT ) {
         
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
+
+        });
 
     }
     

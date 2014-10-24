@@ -61,6 +61,11 @@ enum ACCOUNTTYPEWATCH
      *  是否有新版本
      */
     BOOL _bNewVersion;
+    
+    /**
+     *  防护开发的状态
+     */
+    BOOL bSwitchSafe;
 }
 @property(nonatomic,assign)int _bISLocalLoginIn;
 
@@ -74,6 +79,7 @@ enum ACCOUNTTYPEWATCH
 
 @property(nonatomic,assign)    BOOL _bNewVersion;
 
+@property(nonatomic,assign) BOOL bSwitchSafe;
 /**
  *  单例
  *
