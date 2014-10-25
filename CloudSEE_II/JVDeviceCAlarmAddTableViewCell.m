@@ -42,8 +42,12 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     
     if (model.alarmType == JVCAlarmLockType_Door) {
         imageStr = @"arm_device_0.png";
-    }else{
+    }else if(model.alarmType == JVCAlarmLockType_Bracelet){
         imageStr = @"arm_device_1.png";
+        
+    }else{
+        imageStr = @"arm_device_2.png";
+
     }
     UIImageView *imageViewDevice = [controlHelper imageViewWithIamge:imageStr];
     imageViewDevice.frame = CGRectMake(KCellOrignX, (imageViewBG.height - imageViewDevice.height)/2.0, imageViewDevice.width, imageViewDevice.height);
@@ -61,7 +65,7 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     [self.contentView addSubview:self.switchDevcie];
     [switchDevcietemp release];
     //设备名
-    UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NOName") textFontSize:KCellLabelFont];
+    UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NOName") ];
     labelNickDevice.numberOfLines = 1;
     labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, labelDevice.bottom+KCellSpan, labelDevice.width, KCellLabelHeight);
     [self.contentView addSubview:labelNickDevice];

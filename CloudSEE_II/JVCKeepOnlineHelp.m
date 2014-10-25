@@ -337,6 +337,7 @@ UIAlertView *alertView;
 {
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate presentLoginViewController];
+    
     //并且把秘密置换成功
     [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
 }
@@ -363,7 +364,8 @@ UIAlertView *alertView;
             }else {//超时以及其他的一些提示
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-                
+                [self keepOnLineErrorToPresentLoginViewController];
+
                 
             }
             

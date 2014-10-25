@@ -11,6 +11,8 @@
 typedef NS_ENUM(NSInteger, JVCAlarmLockType) {
     JVCAlarmLockType_Door       = 1,
     JVCAlarmLockType_Bracelet   = 2,
+    JVCAlarmLockType_Hand   = 3,
+
 };
 
 @interface JVCLockAlarmModel : NSObject

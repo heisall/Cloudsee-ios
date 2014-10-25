@@ -235,6 +235,7 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     textField.background    = image;
     textField.keyboardType  = UIKeyboardTypeASCIICapable;
     textField.placeholder   = placeString;
+    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.leftView = labeleft;
     [labeleft release];

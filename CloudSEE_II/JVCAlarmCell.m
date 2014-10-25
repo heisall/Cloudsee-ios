@@ -149,6 +149,7 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
         [self.contentView addSubview:imageAlarm];
         [imageAlarm release];
     }
+    
 }
 
 - (void)awakeFromNib

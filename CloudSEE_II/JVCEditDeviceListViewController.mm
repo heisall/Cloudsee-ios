@@ -279,6 +279,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     if (titles.count > 0) {
         
         JVCDeviceModel *model= [self getCurrentDeviceModel];
+    
         
         [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
         
@@ -382,7 +383,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
-    if (!model.onLineState) {
+    if (!model.bDeviceServiceOnlineState) {
         
        [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
         return;
@@ -395,9 +396,11 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         
         int result = [deviceHelperObj controlDeviceOperationSwitchButton:(NSString *)kkUserName deviceGuidStr:model.yunShiTongNum operationType:alarmType switchState:!model.isDeviceSwitchAlarm updateText:nil];
         
-        [alertObj alertHidenToastOnWindow];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [alertObj alertHidenToastOnWindow];
+
             
             if (result != 0) {
                 
@@ -409,6 +412,14 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
                         
                     case DEVICE_ALARTM_SWITCH:{
                         model.isDeviceSwitchAlarm  = !model.isDeviceSwitchAlarm;
+                        
+                        if (model.isDeviceSwitchAlarm) {
+                            
+                            [alertObj alertToastWithKeyWindowWithMessage:@"设备的安全防护开关处于开启状态"];
+                        }else{
+                            [alertObj alertToastWithKeyWindowWithMessage:@"设备的安全防护开关处于关闭状态"];
+
+                        }
                         [self changeCurrentSafeWithAlarmOperationView];
                         break;
                     }

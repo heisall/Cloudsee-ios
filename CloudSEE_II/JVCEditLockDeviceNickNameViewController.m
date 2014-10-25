@@ -21,7 +21,7 @@
 @synthesize alertmodel;
 static const  int  KTextFieldOriginY  = 30;//textfield距离左侧的距离
 static const  int  KSpan              = 30;//间距
-
+static const  int  KAlarmState        = 1;//绑定alarm的状态
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,6 +58,8 @@ static const  int  KSpan              = 30;//间距
 - (void)finishEditDeviceNick
 {
     
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
     JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     ystNetWorkHelperObj.ystNWRODelegate                      = self;
@@ -67,7 +69,7 @@ static const  int  KSpan              = 30;//间距
         JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         netWorkHelper.ystNWTDDelegate = self;
         
-        [ystNetWorkHelperObj RemoteEditDeviceAlarm:AlarmLockChannelNum withAlarmType:self.alertmodel.alarmType withAlarmGuid:self.alertmodel.alarmGuid withAlarmEnable:self.alertmodel.alarmState withAlarmName:textField.text];
+        [ystNetWorkHelperObj RemoteEditDeviceAlarm:AlarmLockChannelNum withAlarmType:self.alertmodel.alarmType withAlarmGuid:self.alertmodel.alarmGuid withAlarmEnable:KAlarmState withAlarmName:textField.text];
         
         
     });
@@ -90,6 +92,7 @@ static const  int  KSpan              = 30;//间距
                 case TextChatType_editAlarm:
             {
                 self.alertmodel.alarmName = textField.text;
+                self.alertmodel.alarmState = KAlarmState;
                 [self.navigationController popViewControllerAnimated:YES];
             }
                 break;

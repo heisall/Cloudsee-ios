@@ -80,7 +80,7 @@ static const int KOriginAddHeight = 30;
     btnhand.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     btnhand.frame = CGRectMake(btn.left , btn.bottom+KOriginAddHeight, btn.width, btn.height);
     btnhand.tag = KBtnTagHand;
-    [btnBra addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
+    [btnhand addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnhand];
 
 }

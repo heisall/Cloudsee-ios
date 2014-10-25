@@ -319,6 +319,11 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         [self showJVHAlarmVideoWithModel:cellModel];
         
     }else{
+        
+        if (cellModel.strAlarmPicUrl.length<=0) {
+            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"暂无报警图片"];
+            return;
+        }
         [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
         
         iDownLoadType = DownLoadType_PIC;
@@ -482,7 +487,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
-    DDLogCVerbose(@"%s----downlocad",__FUNCTION__);
+    DDLogCVerbose(@"%s----downlocad==cellModel.strAlarmPicUrl =%@",__FUNCTION__,cellModel.strAlarmPicUrl );
     
     NSString *pathAccount = [[JVCSystemUtility shareSystemUtilityInstance] getRandomPicLocalPath];
     
@@ -691,6 +696,8 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
  */
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
 {
+    
+    DDLogVerbose(@"__%s =+++++++++++++=%d",__FUNCTION__,connectResultType);
     nChannelLinkNum = nlocalChannel;
     
     if (connectResultType == CONNECTRESULTTYPE_Succeed) {
