@@ -364,7 +364,8 @@ UIAlertView *alertView;
             }else {//超时以及其他的一些提示
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-                
+                [self keepOnLineErrorToPresentLoginViewController];
+
                 
             }
             
