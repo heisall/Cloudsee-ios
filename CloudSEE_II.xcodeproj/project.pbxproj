@@ -529,6 +529,8 @@
 		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
+		ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */; };
+		ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266F19FA56D800BD877F /* sto_auto@2x.png */; };
 		ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */; };
 /* End PBXBuildFile section */
 
@@ -1167,6 +1169,8 @@
 		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_alarm@2x.png"; sourceTree = "<group>"; };
+		ADD6266F19FA56D800BD877F /* sto_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_auto@2x.png"; sourceTree = "<group>"; };
 		ADE03D0719D7B945002F65DA /* JVCAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationHelper.h; sourceTree = "<group>"; };
 		ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAnimationHelper.m; sourceTree = "<group>"; };
 		ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationMacro.h; sourceTree = "<group>"; };
@@ -1356,8 +1360,10 @@
 		A7F4055A19E50D4A0070945F /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */,
 				A7F50A0E19FA20A3004D061F /* audioListennerSelected@2x.png */,
 				A7F6C60419F8D2710090B6F0 /* effect_0@2x.png */,
+				ADD6266F19FA56D800BD877F /* sto_auto@2x.png */,
 				A7F6C60519F8D2710090B6F0 /* effect_4@2x.png */,
 				A7F6C5E219F89B4D0090B6F0 /* horizationbar */,
 				A7EFF9ED19F4AB8D00DF783D /* play_dwn@2x.png */,
@@ -2641,6 +2647,7 @@
 				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,
 				AD014DFF19F66B1400E3D0FB /* sca_finshed.mp3 in Resources */,
 				A7F50A0F19FA20A3004D061F /* audioListennerSelected@2x.png in Resources */,
+				ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */,
 				A7DFB28E19ED26DD002D9BF9 /* dem_def@2x.png in Resources */,
 				AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */,
 				A7F46A8619F960D600AC1B1F /* arm_dev_hand@2x.png in Resources */,
@@ -2761,6 +2768,7 @@
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
 				A7F50A0A19FA017A004D061F /* welcome_2_ch4.jpg in Resources */,
 				A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */,
+				ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */,
 				A7F50A0919FA017A004D061F /* welcome_1_en4.jpg in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
 				A7F4429E19E7649B00519A4B /* add_normal@2x.png in Resources */,

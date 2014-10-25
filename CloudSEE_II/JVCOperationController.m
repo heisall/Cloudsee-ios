@@ -23,6 +23,8 @@
 #import "JVCAlarmCurrentView.h"
 #import "JVCHorizontalScreenBar.h"
 #import "JVCHorizontalStreamView.h"
+#import "JVCControlHelper.h"
+
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
 static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
@@ -66,6 +68,7 @@ bool selectState_audio ;
     
     int  nCurrentStreamType;
     BOOL isCurrentHomePC;
+    int  nStorageType;
     
     UIView *talkView;
     BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
@@ -77,6 +80,13 @@ bool selectState_audio ;
     JVCPopStreamView *straemView;
 
 }
+
+enum StorageType {
+    
+    StorageType_alarm = 2,
+    StorageType_auto  = 1,
+
+};
 
 @end
 
@@ -90,8 +100,11 @@ bool selectState_audio ;
 
 JVCCustomOperationBottomView *_operationItemSmallBg;
 
-static const int  JVCOPERATIONCONNECTMAXNUMS  = 16;//
-static const int  kDefaultShowWidnowCount     = 1 ;
+static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
+static const int      kDefaultShowWidnowCount         = 1 ;
+static const CGFloat  kRightButtonViewWithHeight      = 38.0f ;
+static const CGFloat  kRightButtonViewWithWidth       = 50.0f ;
+static const CGFloat  kRightButtonViewWithTitleFont   = 6.0f ; //右侧报警录像和手动录像 标题lab的字体间距
 
 
 int unAllLinkFlag;
@@ -208,17 +221,75 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-///**
-// *  解决状态栏显示问题
-// */
-//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-//{
-//    if  (IOS_VERSION >=IOS7) {
-//        
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//        
-//    }
-//}
+/**
+ *  加载右侧的手动录像和报警录像按钮
+ *
+ *  @param imageName 图片名称
+ *  @param title     图片的标题
+ */
+-(void)initwithRightButton:(NSString *)imageName withTitle:(NSString *)title{
+    
+    if (imageName == nil) {
+        
+        self.navigationItem.rightBarButtonItem.customView.hidden = YES;
+        return;
+    }
+    
+    JVCControlHelper *controlObj = [JVCControlHelper shareJVCControlHelper];
+    
+    UIImageView *rightImageView     = [[UIImageView alloc] init];
+    rightImageView.backgroundColor  = [UIColor clearColor];
+    rightImageView.frame            = CGRectMake(0.0, 0.0, kRightButtonViewWithWidth, kRightButtonViewWithHeight);
+    rightImageView.userInteractionEnabled = YES;
+    
+    UIButton *rightButton = [controlObj buttonWithTitile:nil normalImage:imageName horverimage:nil];
+    
+    CGRect rightRectBtn   = rightButton.frame;
+    rightRectBtn.origin.x = (rightImageView.frame.size.width - rightRectBtn.size.width)/2.0;
+    rightButton.frame     = rightRectBtn;
+    rightButton.userInteractionEnabled = NO;
+    [rightImageView addSubview:rightButton];
+    
+    UILabel *titleLbl     = [controlObj labelWithText:title];
+    CGRect titleRect      = titleLbl.frame;
+    titleRect.origin.y    = rightRectBtn.size.height;
+    titleRect.size.width  = rightImageView.frame.size.width;
+    titleRect.size.height = rightImageView.frame.size.height - rightRectBtn.size.height;
+    titleLbl.frame        = titleRect;
+    titleLbl.textAlignment = NSTextAlignmentCenter;
+    titleLbl.text         = title;
+    titleLbl.textColor    = [UIColor whiteColor];
+    titleLbl.font         = [UIFont systemFontOfSize:titleRect.size.height-kRightButtonViewWithTitleFont];
+    [rightImageView addSubview:titleLbl];
+    
+    UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoOrAlarmVideoModeSwitch)];
+    singleRecognizer.numberOfTapsRequired = 1; // 单击
+    [rightImageView addGestureRecognizer:singleRecognizer];
+    [singleRecognizer release];
+
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:rightImageView];
+    
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    [barButtonItem release];
+    [rightImageView release];
+}
+
+
+/**
+ *  手动录像和报警录像切换
+ */
+-(void)autoOrAlarmVideoModeSwitch {
+
+    JVCCloudSEENetworkHelper *netWorkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    if ([netWorkObj checknLocalChannelIsDisplayVideo:_managerVideo.nSelectedChannelIndex+1]) {
+        
+        [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_StorageMode remoteOperationCommand:nStorageType==StorageType_alarm?StorageType_auto:StorageType_alarm];
+        [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
+        
+    }
+}
+
 
 - (void)viewDidLoad
 {
@@ -455,6 +526,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  *  视频连接失败的回调函数
  */
 - (void)connectVideoFailCallBack{
+    
 
   [self closeAudioAndTalkAndVideoFuction];
 
@@ -465,18 +537,45 @@ char remoteSendSearchFileBuffer[29] = {0};
  *
  *  @param nStreamType 码流类型
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
     
     nCurrentStreamType = nStreamType;
     isCurrentHomePC    = isHomeIPC;
+    nStorageType       = storageType;
     
     dispatch_async(dispatch_get_main_queue(), ^{
     
         [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
-        
-        NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
+         NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
         [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
-    
+        
+        
+        if (_managerVideo.imageViewNums > kDefaultShowWidnowCount) {
+            
+            [self initwithRightButton:nil withTitle:nil];
+            
+        }else {
+            
+            switch (nStorageType) {
+                    
+                case StorageType_alarm:{
+                    
+                    [self initwithRightButton:@"sto_alarm.png" withTitle:@"报警录像"];
+                }
+                    break;
+                case StorageType_auto:{
+                    
+                    [self initwithRightButton:@"sto_auto.png" withTitle:@"手动录像"];
+                }
+                    break;
+                    
+                default:{
+                    
+                    [self initwithRightButton:nil withTitle:nil];
+                }
+                    break;
+            }
+        }
     });
 }
 
@@ -1769,15 +1868,23 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)closeAudioAndTalkAndVideoFuction
 {
-    /**
-     *  关闭录像
-     */
-    UIButton *btn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_VIDEO];//获取录像的按钮
-    if (btn.selected) {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        /**
+         *  关闭录像
+         */
+        UIButton *btn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_VIDEO];//获取录像的按钮
+        if (btn.selected) {
+            
+            btn.selected = NO;
+            [self operationPlayVideo:btn];
+        }
         
-        btn.selected = NO;
-        [self operationPlayVideo:btn];
-    }
+        [self initwithRightButton:nil withTitle:nil];
+    
+    });
+   
     
     /**
      *  关闭音频监听

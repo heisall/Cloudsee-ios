@@ -16,7 +16,7 @@
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
-@synthesize iEffectType;
+@synthesize iEffectType,nStorageType;
 int   _iConnectInfoIndex;
 float min_offset;
 
@@ -32,6 +32,7 @@ float min_offset;
         _amConnectInfoList=[[NSMutableArray alloc] initWithCapacity:10];
         _iConnectInfoIndex=-1;
         self.iEffectType = -1;
+        self.nStorageType = -1;
         int indexPath=arc4random()%100;
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@%d%@",NSLocalizedString(@"Connected with server ", nil),indexPath+1,NSLocalizedString(@" successfully...", nil)]];
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"Asking for video data now...", nil)]];

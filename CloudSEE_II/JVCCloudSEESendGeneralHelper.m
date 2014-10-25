@@ -120,6 +120,10 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
         case TextChatType_EffectInfo:
            [self RemoteEffectModel:nJvChannelID effectType:remoteOperationCommand];
             break;
+        case TextChatType_StorageMode:
+            
+            [self RemoteSetDeviceWithStorageMode:nJvChannelID withStorageMode:remoteOperationCommand];
+            break;
         default:
             break;
     }
@@ -593,6 +597,33 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     
     [self RemoteWithDeviceGetFrameParam:nJvChannelID];
     
+}
+
+/**
+ *  设置报警录像和手动录像
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param storageMode  类别
+ */
+-(void)RemoteSetDeviceWithStorageMode:(int)nJvChannelID withStorageMode:(int)storageMode {
+
+    PAC m_stPacket;
+    EXTEND *m_pstExt;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_EXTEND;
+    m_stPacket.nPacketCount=RC_EX_STORAGE;
+    m_pstExt=(EXTEND*)m_stPacket.acData;
+    m_pstExt->acData[0]=0;
+    m_pstExt->nType=EX_STORAGE_SWITCH;
+    
+    int nOffset=0;
+    char acBuffer[256]= {0};
+    
+    sprintf(acBuffer, "%s=%d;",[KStorageMode UTF8String],storageMode);
+    strcat(m_pstExt->acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    JVC_SendData(nJvChannelID,JVN_RSP_TEXTDATA, (unsigned char*)&m_stPacket, 20+strlen(m_pstExt->acData));
 }
 
 @end

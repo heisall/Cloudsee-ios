@@ -449,7 +449,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -571,7 +571,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -705,6 +705,25 @@ BOOL isAllLinkRun;
 
     [singleView connectResultShowInfo:connectCallBackInfo connectResultType:connectResultType];
     
+    /**
+     *  返回的类型判断是否成功
+     */
+    if (connectResultType != CONNECTRESULTTYPE_Succeed ) {
+        
+        /**
+         *判断断开的是不是当前的播放的窗口
+         */
+        DDLogInfo(@"%d====%d",nlocalChannel,self.nSelectedChannelIndex);
+        if ( nlocalChannel-1 == self.nSelectedChannelIndex  ) {
+            
+            if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(connectVideoFailCallBack)]) {
+                
+                [self.delegate connectVideoFailCallBack];
+            }
+        }
+        
+    }
+    
     [connectCallBackInfo release];
 }
 
@@ -836,18 +855,20 @@ BOOL isAllLinkRun;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
     
-    DDLogVerbose(@"effectType==%d===",effectType);
+    DDLogVerbose(@"effectType==%d===,storageType=%d",effectType,storageType);
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
     singleView.nStreamType                          = nStreamType;
     singleView.isHomeIPC                            = isHomeIPC;
     singleView.iEffectType                          = effectType;
+    singleView.nStorageType                         = storageType;
+    
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
-        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType];
+        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
         
         [self refreshEffectType:nLocalChannel effectType:effectType];
 
@@ -862,12 +883,11 @@ BOOL isAllLinkRun;
  *
  *  @param nStreamType 码流类型
  */
--(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC  effectType:(int)effectType{
+-(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC  effectType:(int)effectType StorageType:(int)storageType{
 
-
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:withEffectType:)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:withEffectType:withStorageType:)]) {
     
-        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:effectType];
+        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:effectType withStorageType:storageType];
     }
 }
 
@@ -879,12 +899,13 @@ BOOL isAllLinkRun;
  */
 -(void)refreshEffectType:(int)nLocalChannel  effectType:(int)effectType{
     
-    if (effectType<0) {
+    if (effectType < 0) {
         
         return;
     }
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
     
         [singleView updateEffectBtn:effectType];

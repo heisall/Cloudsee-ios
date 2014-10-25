@@ -24,7 +24,7 @@
  *  @param nStreamType 码流类型
  *  @param isHomeIPC   是否是家用IPC
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType;
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType;
 
 @end
 
