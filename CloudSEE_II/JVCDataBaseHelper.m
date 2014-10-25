@@ -82,8 +82,8 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
  */
 - (void)setConstantUserInfoWithUserName:(NSString *)userName passWord:(NSString *)passWord
 {
-    kkUserName =  userName;
-    kkPassword =  passWord;
+    kkUserName =  userName.lowercaseString;
+    kkPassword =  passWord.lowercaseString;
     
 }
 
@@ -277,7 +277,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET AUTOLOGINSTATE='%d' WHERE USERNAME = '%@'",autoLoginState,userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET AUTOLOGINSTATE='%d' WHERE USERNAME = '%@' COLLATE NOCASE",autoLoginState,userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         

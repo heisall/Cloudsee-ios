@@ -335,11 +335,13 @@ UIAlertView *alertView;
  */
 - (void)keepOnLineErrorToPresentLoginViewController
 {
+    //并且把秘密置换成功
+    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
+    
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate presentLoginViewController];
     
-    //并且把秘密置换成功
-    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
+ 
 }
 
 - (void)loginInWithOffLine

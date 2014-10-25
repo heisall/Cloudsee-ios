@@ -293,8 +293,8 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
     [fmdbHelp writeUserInfoToDataBaseWithUserName:userTextField.text passWord:passWordField.text];
     
-    kkUserName = userTextField.text;
-    kkPassword = passWordField.text;
+    kkUserName = userTextField.text.lowercaseString;
+    kkPassword = passWordField.text.lowercaseString;
     
     if(delegate !=nil && [delegate respondsToSelector:@selector(modifyUserAndPWSuccessCallBack)])
     {
