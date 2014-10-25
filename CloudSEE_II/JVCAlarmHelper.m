@@ -102,6 +102,7 @@ static JVCAlarmHelper *shareAlarmHelper = nil;
      */
     id result =  [[JVCDeviceHelper sharedDeviceLibrary]getAccountByDeviceAlarmList:index];
     
+    DDLogVerbose(@"%@===%s",result,__FUNCTION__);
     if ([result isKindOfClass:[NSDictionary class]]) {//是字典类型的
         
         NSDictionary *resultDic = (NSDictionary *)result;

@@ -51,6 +51,10 @@ static const  int KDeviceMaxChannelNUM_64      =  64;//添加通道的最大值6
 static const  NSString *kSAVEYSTNUM    = @"saveYStNum";//保存云视通的号
 
 static const  NSString *kAPPWELCOME   = @"Welcomehelp";
+
+static const  NSString *kAPPWELCOMEAlarmState   = @"kAPPWELCOMEAlarmState";//设备报警状态标识
+
+
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 
 #define SETLABLERGBCOLOUR(X,Y,Z) [UIColor colorWithRed:X/255.0 green:Y/255.0 blue:Z/255.0 alpha:1.0]

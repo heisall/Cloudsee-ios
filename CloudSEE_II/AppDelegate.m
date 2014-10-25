@@ -35,6 +35,7 @@
 #import "JVCOperationController.h"
 #import "JVCOperationControllerIphone5.h"
 #import "JVCAlarmCurrentView.h"
+#import "JVCOperationController.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController *deviceListController; //设备管理界面
@@ -497,17 +498,15 @@ static  const   int      KSetHelpMaxCount    = 10;
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        kkAlarmState = [[JVCAccountHelper sharedJVCAccountHelper]getAlarmStateInt];
-        
-        int  getAlarmState = kkAlarmState==1?0:1;
-                
-        if (getAlarmState == 0) {
-            
+        NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOMEAlarmState];
+        [JVCConfigModel shareInstance].bSwitchSafe = NO;
+        if (str.length==0) {
             [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+            [JVCConfigModel shareInstance].bSwitchSafe = YES;
+
         }else{
-            
             [[JVCAccountHelper sharedJVCAccountHelper] CancelServerPushToken:kkToken];
-            
+
         }
     });
    
@@ -517,7 +516,22 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 - (void)presentLoginViewController
 {
-    
+    UITabBarController *controller = (UITabBarController *)self.window.rootViewController;
+    for (UIViewController *con in controller.viewControllers) {
+        
+        if ([con isKindOfClass:[UINavigationController class]]) {
+            
+            UINavigationController *navCon=(UINavigationController*)con;
+            
+            for (UIViewController *chView in navCon.viewControllers) {
+                if ([chView isKindOfClass:[JVCOperationController class]]) {//断开视频连接
+                    
+                    JVCOperationController *opView = (JVCOperationController *)chView;
+                    [opView  BackClick];
+                 }
+            }
+        }
+    }
     
     JVCLoginViewController *loginVC = [[JVCLoginViewController alloc] init];
     UINavigationController *navLoginVC = [[UINavigationController alloc] initWithRootViewController:loginVC];

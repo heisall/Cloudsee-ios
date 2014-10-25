@@ -63,7 +63,7 @@ enum ACCOUNTTYPEWATCH
     BOOL _bNewVersion;
     
     /**
-     *  防护开发的状态
+     *  防护开关的状态
      */
     BOOL bSwitchSafe;
 }

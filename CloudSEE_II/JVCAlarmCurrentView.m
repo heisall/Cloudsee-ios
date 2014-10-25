@@ -20,10 +20,10 @@
 @end
 @implementation JVCAlarmCurrentView
 static const int KOriginY  = 10;  // 距离左侧的距离
-static const int KOriginLabelDevice  = 60;  // 距离左侧的距离
+static const int KOriginLabelDevice  = 50;  // 距离左侧的距离
 static const NSTimeInterval KAnimationTimer  = 0.5;  // 动画时间
-static const int KLableTitleFont  = 16;  // 距离左侧的距离
-static const int KLableDeatilFont  = 14;  // 动画时间
+static const int KLableTitleFont  = 18;  // 距离左侧的距离
+static const int KLableDeatilFont  = 16;  // 动画时间
 
 @synthesize AlarmDelegate;
 static JVCAlarmCurrentView *_shareInstance = nil;
@@ -114,6 +114,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     UILabel *labelTitle = [[JVCControlHelper shareJVCControlHelper] labelWithText:@"报警信息"];
     [labelTitle retain];
     labelTitle.font = [UIFont systemFontOfSize:KLableTitleFont];
+    labelTitle.font = [UIFont systemFontOfSize:KLableTitleFont];
     labelTitle.frame = CGRectMake(nSpan, KOriginY, imageView.width-nSpan, labelTitle.height);
     if (btnColorBlue) {
         labelTitle.textColor = btnColorBlue;
@@ -124,6 +125,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     //设备
 //    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
     UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
+    labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
     labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
 
     [labelDevice retain];
@@ -152,6 +154,8 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"类型：",titleString]];
     [labelArmType retain];
     labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelTitle.height);
+    labelArmType.font = [UIFont systemFontOfSize:KLableDeatilFont];
+
     if (btnColorGray) {
         labelArmType.textColor = btnColorGray;
     }

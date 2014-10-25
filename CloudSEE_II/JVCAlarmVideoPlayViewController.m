@@ -70,7 +70,23 @@
     [self.view addSubview:movie.view];
     [movie play];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(movieFinishedCallback:)
+     
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+     
+                                               object:movie]; //播放完后的通知
+    
 }
+
+-(void)movieFinishedCallback:(NSNotification*)notify {
+    
+    [self BackClick];
+    
+}
+
+
 
 - (void)movieEventFullscreenHandler:(NSNotification*)notification {
     return;

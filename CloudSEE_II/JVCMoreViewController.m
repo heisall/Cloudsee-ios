@@ -180,6 +180,18 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             
             [cell initContentCells:cellModel];
             
+            JVCConfigModel *modelConfig = [JVCConfigModel shareInstance];
+            if (cellModel.bBtnState == MoreSettingCellType_AccountSwith) {
+                
+                if (modelConfig._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT ) {
+                    
+                    cell.switchCell.on = modelConfig.bSwitchSafe;
+
+                }else{
+                    cell.switchCell.on = NO;
+
+                }
+            }
             
         }else{//按钮显示
             
@@ -367,13 +379,13 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             return;
         }else{
             
-            if (!state.on) {
-                
+            if (state.on) {
+                [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kAPPWELCOMEAlarmState];
                 [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
             }else{
                 
                 [[JVCAccountHelper sharedJVCAccountHelper] CancelServerPushToken:kkToken];
-                
+                   [[NSUserDefaults standardUserDefaults] setObject:@"close" forKey:(NSString *)kAPPWELCOMEAlarmState];
             }
             [JVCConfigModel shareInstance].bSwitchSafe = state.on;
 

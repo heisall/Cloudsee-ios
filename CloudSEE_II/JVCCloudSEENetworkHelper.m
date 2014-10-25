@@ -1789,6 +1789,8 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 {
       JVCCloudSEEManagerHelper  *currentChannelObj     = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
+     DDLogCVerbose(@"%s---dataSizeCallBack type ==%d",__FUNCTION__,uchType);
+    
     if (currentChannelObj == nil) {
         
         DDLogCVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
@@ -1801,6 +1803,7 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
         case JVN_RSP_DOWNLOADE:    //文件下载失败
         case JVN_RSP_DLTIMEOUT:{   //文件下载超时
             
+            DDLogCVerbose(@"%s---dataSizeCallBack=%d",__FUNCTION__,nSize);
             [jvcCloudSEENetworkHelper closeDownloadHandle:uchType];
             
         }

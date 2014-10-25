@@ -17,7 +17,7 @@
 //
 
 
-#define MAXBTNCOUNT  5
+#define MAXBTNCOUNT  4
 
 #define BTNTAG  232000
 
