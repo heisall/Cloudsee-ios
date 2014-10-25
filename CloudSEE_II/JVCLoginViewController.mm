@@ -76,11 +76,14 @@ static const double         KAfterDalayTimer                     = 0.3;  //延�
 static const NSTimeInterval KAmationTimer                        = 0.5;  //动画时间
 static const int            KDropDownViewHeight                  = 3*44; //下拉view的高度
 static const NSTimeInterval KPushApConfigControllerWithDuration  = 0.5;  //动画时间
+static const CGFloat        KDemoPointWithFontSize               = 16.0; //下拉view的高度
+static const CGFloat        KDemoPointTitleWithOffsetBottom      = 10.0; //下拉view的高度
 
-static const int KSeperateSpan = 20;//控件之间的间隔
-
-static const int KLineHeight = 1;//横线的高度
+static const CGFloat  KSeperateSpan      = 15.0f;//控件之间的间隔
+static const CGFloat  KTitleSeperateSpan = 5.0f;//控件之间的间隔
+static const CGFloat  KLineHeight   = 1.0f;//横线的高度
 static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -279,6 +282,9 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     //演示点
     UIButton *btnDemo = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"演示点" normalImage:@"log_demBg.png" horverimage:nil];
     [btnDemo retain];
+    
+    btnDemo.titleLabel.font =[UIFont systemFontOfSize:KDemoPointWithFontSize];
+    btnDemo.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -KDemoPointTitleWithOffsetBottom, 0);
     btnDemo.frame = CGRectMake((self.view.width-btnDemo.width)/2.0,self.view.height - btnDemo.height, btnDemo.width, btnDemo.height);
     [btnDemo addTarget:self action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnDemo];
@@ -289,7 +295,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
      */
     UIButton *btnResign = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"注册" normalImage:nil horverimage:nil];
     [btnResign retain];
-    btnResign.frame = CGRectMake((self.view.width-2*btnResign.width)/3.0,btnLocal.bottom+KSeperateSpan, btnResign.width, btnResign.height);
+    btnResign.frame = CGRectMake((self.view.width-2*btnResign.width)/3.0,btnLocal.bottom+KTitleSeperateSpan, btnResign.width, btnResign.height);
     [btnResign addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnResign];
     [btnResign release];
@@ -299,7 +305,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
      */
     UIButton *btnreSetPw = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"忘记密码" normalImage:nil horverimage:nil];
     [btnreSetPw retain];
-    btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnLocal.bottom+KSeperateSpan, btnreSetPw.width, btnreSetPw.height);
+    btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnResign.frame.origin.y, btnreSetPw.width, btnreSetPw.height);
     [self.view addSubview:btnreSetPw];
     [btnreSetPw release];
     

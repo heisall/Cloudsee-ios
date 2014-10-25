@@ -114,8 +114,7 @@ static const int KSeperate  = 10;//间距5
     UIImageView *imageViewCell = [[UIImageView alloc] initWithFrame:CGRectMake(KOrigin_X, (cell.frame.size.height-imgCellS.size.height)/2.0, imgCellS.size.width, imgCellS.size.height)];
     [cell.contentView addSubview:imageViewCell];
     [imageViewCell release];
-    
-    
+    imageViewCell.hidden = YES;
     
     JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
     UIColor *btnColorGray  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];

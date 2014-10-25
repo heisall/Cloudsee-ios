@@ -93,7 +93,7 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     deviceNickNameField.delegate = self;
     deviceNickNameField.leftView = labelLeft;
     [labelLeft release];
-    UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
+    UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10.0f, imgTextFieldBG.size.height)];
     labelRight.backgroundColor = [UIColor clearColor];
     deviceNickNameField.rightViewMode = UITextFieldViewModeAlways;
     deviceNickNameField.rightView = labelRight;
