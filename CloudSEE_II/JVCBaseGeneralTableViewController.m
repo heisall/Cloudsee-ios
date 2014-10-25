@@ -42,6 +42,8 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
             
             self.hidesBottomBarWhenPushed = YES;
             
+//            [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blueColor], UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
+            
         }
 
     return self;

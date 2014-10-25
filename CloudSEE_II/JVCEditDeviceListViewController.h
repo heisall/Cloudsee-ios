@@ -13,4 +13,5 @@
 
 @interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate,ystNetWorkHelpDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate>
 
+
 @end

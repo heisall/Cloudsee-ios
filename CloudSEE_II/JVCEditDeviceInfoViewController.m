@@ -247,19 +247,14 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
         
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"delete_Success", nil)];
         
-        if ([[JVCDeviceSourceHelper shareDeviceSourceHelper]deviceListArray].count == 0) {//判断设备列表中是否还有设备，如果没有
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
-        }else{
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
+        if (deleteDelegate !=nil && [deleteDelegate respondsToSelector:@selector(deleteDeviceInfoCallBack)]) {//删除设备的回调
+           
+            [self.deleteDelegate deleteDeviceInfoCallBack];
         }
         
-        if (deleteDelegate !=nil && [deleteDelegate respondsToSelector:@selector(deleteDeviceInfoCallBack)]) {//删除设备的回调
-            [deleteDelegate deleteDeviceInfoCallBack];
-        }
+        [self.navigationController popViewControllerAnimated:YES];
+            
+
         
     }else{//失败
         
@@ -328,7 +323,6 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     }else{//修改不成功
         
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_failt", nil)];
-        
         
     }
 }
