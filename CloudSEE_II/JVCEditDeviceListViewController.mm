@@ -61,7 +61,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     
     if (self) {
         
-        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备管理", nil) image:nil tag:1];
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"jvc_editDevice_title", nil) image:nil tag:1];
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_deviceManager_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_deviceManager_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
@@ -191,8 +191,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconTitles addObjectsFromArray:@[@"设备管理",@"连接模式",@"通道管理",
-                                            @"立即观看",@"安全防护",@"报警设置"]];
+    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
 }
 
 
@@ -417,9 +416,9 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
                         
                         if (model.isDeviceSwitchAlarm) {
                             
-                            [alertObj alertToastWithKeyWindowWithMessage:@"设备的安全防护开关处于开启状态"];
+                            [alertObj alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_Editbtn_safe_open")];
                         }else{
-                            [alertObj alertToastWithKeyWindowWithMessage:@"设备的安全防护开关处于关闭状态"];
+                            [alertObj alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_Editbtn_safe_close")];
 
                         }
                         [self changeCurrentSafeWithAlarmOperationView];
@@ -470,7 +469,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
     
     if (model.bIpOrDomainAdd) {
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备不支持此操作"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
         return;
     }
     
@@ -639,7 +638,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;
 
         
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"连接失败请请重试"];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_editDevice_lickError")];
         
     }
 }

@@ -111,3 +111,21 @@
 "operation_error"              = "Failed to operate";
 "device_off_line"              = "Unable to operate due to device has been offline";
 
+
+"jvc_editDevice_title" = "设备管理";
+"jvc_editDevice_Editbtn_device" = "设备管理";
+"jvc_editDevice_Editbtn_licktype" = "连接模式";
+"jvc_editDevice_Editbtn_channels" = "通道管理";
+"jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
+"jvc_editDevice_Editbtn_safe" = "安全防护";
+"jvc_editDevice_Editbtn_alarmseting" = "报警设置";
+"jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
+"jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
+"jvc_editDevice_noSupport" = "设备不支持此操作";
+"jvc_editDevice_lickError"= "连接失败请请重试";
+"Jvc_editDeviceInfo_Title" = "编辑设备";
+"Jvc_editDeviceInfo_nickName" = "  昵称";
+"Jvc_editDeviceInfo_userName" = "  用户名";
+"Jvc_editDeviceInfo_PW" = "  密码";
+"Jvc_editDeviceInfo_Delete" = "删除";
+"Jvc_editDeviceInfo_Save" = "保存";

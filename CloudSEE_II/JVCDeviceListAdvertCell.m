@@ -55,7 +55,7 @@
         contentViewInCell = nil;
     }
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, 180)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, kTableViewCellAdeviceHeigit)];
     _scrollView.pagingEnabled = YES;
     _scrollView.bounces = NO;
     _scrollView.delegate = self;

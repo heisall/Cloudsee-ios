@@ -49,7 +49,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     
     if (self) {
         
-        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"更多", nil) image:nil tag:1];
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"jvc_more_title", nil) image:nil tag:1];
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_more_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_more_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
@@ -226,7 +226,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
         {
             if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"本地模式暂停使用"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_local_noSupport")];
                 
             }else{
                 JVCMorEditPassWordViewController *editVC = [[JVCMorEditPassWordViewController alloc] init];
@@ -266,7 +266,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
  */
 - (void)showUserLoginOutAlert
 {
-    UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:@"确定要注销吗？" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_quit"), nil];
     [alertUser show];
     alertUser.tag = kAlertTag;
     alertUser.delegate = self;
@@ -337,7 +337,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
                     
                 }else{//失败
                     
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"注销失败"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_loginout_error")];
                 }
             });
         });
@@ -348,7 +348,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
 #pragma mark  评论的事件
 - (void)moreOperItunsComment
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定去APPStore评论吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout_appStore") delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") destructiveButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles: nil];
     [sheet showInView:self.view.window];
     sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [sheet release];
@@ -373,7 +373,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
         
         if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL ) {
             
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"本地模式暂停使用"];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_local_noSupport")];
             
             state.on = !state.on;
             return;
@@ -408,7 +408,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
 {
     if ([JVCConfigModel shareInstance ]._netLinkType ==NETLINTYEPE_NONET) {
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"没有网路，请检测网路"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"networkError")];
         
     }else{
     

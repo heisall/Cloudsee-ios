@@ -31,7 +31,6 @@
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
-static const int             kTableViewCellAdeviceHeigit             = 180;   //广告条的高度
 static const int             kTableViewCellNODevice                  = 600;   //广告条的高度
 
 static const int             kTableViewCellNormalCellHeight          = 10 ;   //cell减去图片高度的间距
@@ -62,7 +61,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     
     if (self) {
         
-        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"jvc_DeviceList_title", nil) image:nil tag:1];
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_device_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_device_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
@@ -142,9 +141,9 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     //[_tableView headerBeginRefreshing];
     
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新";
-    self.tableView.headerRefreshingText = @"正在刷新中";
+    self.tableView.headerPullToRefreshText = NSLocalizedString(@"jvc_PullToRefreshText", nil);
+    self.tableView.headerReleaseToRefreshText = NSLocalizedString(@"jvc_PullReleaseToRefreshText", nil);
+    self.tableView.headerRefreshingText =NSLocalizedString(@"jvc_PullRefreshingText", nil) ;
 }
 
 #pragma mark 开始进入刷新状态
@@ -159,12 +158,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     
     });
     
-//    // 2.2秒后刷新表格UI
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        
-//        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-//        [self.tableView headerEndRefreshing];
-//    });
 }
 #pragma mark 弹出添加设备选项卡，用户选中相应按钮的回调
 /**
@@ -280,13 +273,17 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     NSArray *titles = nil;
     NSArray *images = nil;
 
+    //设备列表界面
+
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地增加域名或ip添加设备
-        titles = @[@"云视通号", @"二维码", @"无线设备",@"局域网扫描", @"声波配置",@"域名/Ip添加"];
+
+        titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce"),LOCALANGER(@"jvc_DeviceList_add_ip")];
         images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png",@"add_voice.png"];
         
     }else{
         
-        titles = @[@"云视通号", @"二维码", @"无线设备",@"局域网扫描", @"声波配置"];
+        
+        titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce")];
         images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
     }
     JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
@@ -468,9 +465,9 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                             
                             [deviceView initWithLayoutView:iconDeviceImage titleFontColor:titleGontColor borderColor:borderColor];
                         }
-                        
+        
                      
-                        NSString *onLineState = modelCell.onLineState == 1?@"在线":@"离线";
+                        NSString *onLineState = modelCell.onLineState == 1?LOCALANGER(@"jvc_DeviceList_online"):LOCALANGER(@"jvc_DeviceList_offline");
                         NSString *wifiState = modelCell.hasWifi == 1?@"WI-FI":@"";
 
                         if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
