@@ -46,6 +46,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initDemoViewRgbColors];
         [self initPlayBackCellLabelColor];
         [self initAlertCellLabelColor];
+        [self initWithVoiceConfig];
     }
     
     return self;
@@ -286,6 +287,15 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     [mdicRgbModelList setObject:tabarWhite forKey:kJVCRGBColorMacroTabarTitleFontColor];
     
     [tabarWhite release];
+    
+    JVCRGBModel *tabarTitleColor  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    tabarTitleColor.r = 0.0f;
+    tabarTitleColor.g = 122.0f;
+    tabarTitleColor.b = 255.0f;
+    
+    [mdicRgbModelList setObject:tabarTitleColor forKey:kJVCRGBColorMacroTabarItemTitleColor];
+    
+    [tabarTitleColor release];
 }
 
 #pragma mark 初始化注册界面提示的颜色值
@@ -482,6 +492,40 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         
         return nil;
     }
+}
+
+/**
+ *  初始化声波配置流程
+ */
+-(void)initWithVoiceConfig {
+
+    JVCRGBModel *info  = [[JVCRGBModel alloc] init];
+    info.r = 64.0f;
+    info.g = 63.0f;
+    info.b = 65.0f;
+    [mdicRgbModelList setObject:info forKey:kJVCRGBColorMacroVoiceConfigInfo];
+    [info release];
+    
+    JVCRGBModel *ssid  = [[JVCRGBModel alloc] init];
+    ssid.r = 0.0f;
+    ssid.g = 122.0f;
+    ssid.b = 255.0f;
+    [mdicRgbModelList setObject:ssid forKey:kJVCRGBColorMacroVoiceConfigSSID];
+    [ssid release];
+
+    JVCRGBModel *demo  = [[JVCRGBModel alloc] init];
+    demo.r = 0.0f;
+    demo.g = 122.0f;
+    demo.b = 255.0f;
+    [mdicRgbModelList setObject:demo forKey:kJVCRGBColorMacroVoiceConfigDemo];
+    [demo release];
+    
+    JVCRGBModel *send  = [[JVCRGBModel alloc] init];
+    send.r = 82.0f;
+    send.g = 82.0f;
+    send.b = 82.0f;
+    [mdicRgbModelList setObject:send forKey:kJVCRGBColorMacroVoiceConfigSend];
+    [send release];
 }
 
 /**

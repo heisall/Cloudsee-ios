@@ -9,6 +9,7 @@
 #import "JVCVoiceencInfoViewController.h"
 #import "JVCControlHelper.h"
 #import "JVCVoiceencInputSSIDWithPasswordViewController.h"
+#import "JVCSystemSoundHelper.h"
 
 @interface JVCVoiceencInfoViewController ()
 
@@ -68,6 +69,31 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     [nextButton addTarget:self action:@selector(gotoVoicConfig) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextButton];
     
+}
+
+/**
+ *  发现一个新设备，提示音
+ */
+-(void)playSound {
+    
+    NSString *path = [[NSBundle mainBundle ] pathForResource:@"voi_info" ofType:@"mp3"];
+    
+    if (path) {
+        
+        [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:path withIsRunloop:NO];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    [self playSound];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:YES];
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
 }
 
 /**

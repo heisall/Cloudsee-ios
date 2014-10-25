@@ -67,7 +67,15 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
+        UIColor *tabarTitleColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroTabarItemTitleColor];
+        
+        if (tabarTitleColor) {
+            
+            [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabarTitleColor, UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
+        }
     }
+    
     return self;
 }
 
@@ -747,8 +755,8 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
     viewControler.arrayAlarmList = arrayArm;
     [self.navigationController pushViewController:viewControler animated:YES];
-    viewControler.hidesBottomBarWhenPushed = YES;
     [viewControler release];
+    
     [arrayArm release];
 }
 

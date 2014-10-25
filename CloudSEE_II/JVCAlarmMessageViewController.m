@@ -25,6 +25,8 @@
 
 #import "JVCConfigModel.h"
 #import "JVCAlarmCurrentView.h"
+#import "JVCRGBHelper.h"
+
 enum {
     DownLoadType_PIC    = 0,//图片的
     DownLoadType_VIDEO  = 1,//视频的
@@ -68,6 +70,13 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
+        UIColor *tabarTitleColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroTabarItemTitleColor];
+        
+        if (tabarTitleColor) {
+            
+            [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabarTitleColor, UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
+        }
     }
     return self;
 }
@@ -544,14 +553,15 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     if (downLoadStatus == JVN_RSP_DOWNLOADOVER) {//成功
         
+        
         if (iDownLoadType == DownLoadType_PIC) {
-            NSLog(@"========111111======%@",savepath);
+            
+    
             cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
             
             [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
             
         }else{
-            NSLog(@"========222222======%@",savepath);
 
             cellModel.strAlarmLocalVideoUrl = [NSString stringWithFormat:@"%@",savepath];;
             
@@ -701,12 +711,11 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
 {
     
-    DDLogVerbose(@"__%s =+++++++++++++=%d",__FUNCTION__,connectResultType);
     nChannelLinkNum = nlocalChannel;
     
     if (connectResultType == CONNECTRESULTTYPE_Succeed) {
         
-        if (   iDownLoadType== DownLoadType_VIDEO) {//down视频
+        if (iDownLoadType == DownLoadType_VIDEO) {//down视频
             
             [self downRemotePlayBackVideo:nChannelLinkNum];
 
@@ -742,7 +751,8 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
-        ystNetWorkHelperObj.ystNWHDelegate = nil;
+        ystNetWorkHelperObj.ystNWHDelegate            = nil;
+        ystNetWorkHelperObj.ystNWRPVDelegate          =  nil;
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:nChannelLinkNum];
     });

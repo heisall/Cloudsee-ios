@@ -525,6 +525,8 @@
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
 		ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */; };
 		ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266F19FA56D800BD877F /* sto_auto@2x.png */; };
+		ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267119FBC8C700BD877F /* voi_exit@2x.png */; };
+		ADD6267419FBCDFB00BD877F /* voi_info.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267319FBCDFB00BD877F /* voi_info.mp3 */; };
 		ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */; };
 /* End PBXBuildFile section */
 
@@ -1166,6 +1168,8 @@
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_alarm@2x.png"; sourceTree = "<group>"; };
 		ADD6266F19FA56D800BD877F /* sto_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_auto@2x.png"; sourceTree = "<group>"; };
+		ADD6267119FBC8C700BD877F /* voi_exit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_exit@2x.png"; sourceTree = "<group>"; };
+		ADD6267319FBCDFB00BD877F /* voi_info.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_info.mp3; sourceTree = "<group>"; };
 		ADE03D0719D7B945002F65DA /* JVCAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationHelper.h; sourceTree = "<group>"; };
 		ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAnimationHelper.m; sourceTree = "<group>"; };
 		ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationMacro.h; sourceTree = "<group>"; };
@@ -2058,6 +2062,7 @@
 		AD3BDCB019EC053A001B16D7 /* scanf */ = {
 			isa = PBXGroup;
 			children = (
+				ADD6267119FBC8C700BD877F /* voi_exit@2x.png */,
 				A7F509FB19F9FEE9004D061F /* sca_device@2x.png */,
 				AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */,
 				AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */,
@@ -2261,6 +2266,7 @@
 		ADA77BFA19D0250E003EE7A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ADD6267319FBCDFB00BD877F /* voi_info.mp3 */,
 				AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */,
 				AD3FB61719F682F700034461 /* sca_sound.mp3 */,
 				AD014DFE19F66B1400E3D0FB /* sca_finshed.mp3 */,
@@ -2557,6 +2563,7 @@
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
 				A7F50A2919FA47C3004D061F /* arm_device_0@2x.png in Resources */,
 				AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */,
+				ADD6267419FBCDFB00BD877F /* voi_info.mp3 in Resources */,
 				AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */,
 				A7F2211219F395F400447853 /* mor_usr_bg@2x.png in Resources */,
 				A7EFFA4E19F4FDE300DF783D /* arm_no@2x.png in Resources */,
@@ -2659,6 +2666,7 @@
 				AD3BDC1119E8B2E9001B16D7 /* play_3@2x.png in Resources */,
 				A7F509F619F9DB52004D061F /* add_lock_door.jpg in Resources */,
 				A7F46A8519F960D600AC1B1F /* arm_dev_dor@2x.png in Resources */,
+				ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */,
 				A7F486A319E6256700C10B2B /* qrReturnImageBg@2x.png in Resources */,
 				A7F509F819F9F295004D061F /* arm_dev_tex@2x.png in Resources */,
 				AD3BDCC219ED535F001B16D7 /* voi_help_btn@2x.png in Resources */,
