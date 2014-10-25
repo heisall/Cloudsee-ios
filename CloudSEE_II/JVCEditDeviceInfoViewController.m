@@ -18,7 +18,7 @@
 
 static const int    ADDPREDICATE_SUCCESS        = 0;
 static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
-static const int    SEPERATE                    = 20;//控件之间的距离，纵向
+static const int    SEPERATE                    = 15.0;//控件之间的距离，纵向
 static const int    ADDDEVICE_RESULT_SUCCESS    = 0;//成功
 static const int    DEFAULTCHANNELCOUNT         = 4;//莫仍的通道数
 static const int    DEFAULRESIGNTFONTSIZE       = 14;//默认的字体大小
@@ -91,7 +91,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     deviceNickNameField.delegate = self;
     deviceNickNameField.leftView = labelLeft;
     [labelLeft release];
-    UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
+    UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10.0f, imgTextFieldBG.size.height)];
     labelRight.backgroundColor = [UIColor clearColor];
     deviceNickNameField.rightViewMode = UITextFieldViewModeAlways;
     deviceNickNameField.rightView = labelRight;

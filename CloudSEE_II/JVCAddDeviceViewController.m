@@ -21,15 +21,16 @@
 
 
 
-static const int     ADDPREDICATE_SUCCESS        = 0;
-static const int     TESTORIIGIN_Y               = 30;  //距离navicationbar的距离
-static const int     SEPERATE                    = 20;  //控件之间的距离，纵向
-static const int     ADDDEVICE_RESULT_SUCCESS    = 0;   //成功
-static const int     DEFAULRESIGNTFONTSIZE       = 14;  //默认的字体大小
-static const int     DEFAULTLABELWITH            = 70;  //textfield的lefitwiew对应的label的宽度
-static const CGFloat kADDDEVICESLIDEHEIGIT       = 100.0f; //向上滑动的高度
-static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
-static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务器获取通道数的超时时间
+static const int         ADDPREDICATE_SUCCESS        = 0;
+static const int         TESTORIIGIN_Y               = 30;     //距离navicationbar的距离
+static const CGFloat     SEPERATE                    = 15.0f;  //控件之间的距离，纵向
+static const int         ADDDEVICE_RESULT_SUCCESS    = 0;      //成功
+static const int         DEFAULRESIGNTFONTSIZE       = 14;      //默认的字体大小
+static const int         DEFAULTLABELWITH            = 70;      //textfield的lefitwiew对应的label的宽度
+static const CGFloat     kADDDEVICESLIDEHEIGIT       = 100.0f;  //向上滑动的高度
+static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;         //动画时间
+static const int         kAddDeviceWithWlanTimeOut   = 5;       //添加设备从服务器获取通道数的超时时间
+static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的距离，纵向
 
 @interface JVCAddDeviceViewController ()
 {
@@ -103,18 +104,20 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     textFieldYST.textAlignment = UITextAlignmentRight;
     textFieldYST.returnKeyType = UIReturnKeyDone;
     textFieldYST.delegate = self;
+    
     if (textColor) {
         textFieldYST.textColor = textColor;
     }
     textFieldYST.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldYST];
+    
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelLeft.backgroundColor = [UIColor clearColor];
-    labelLeft.text = @"云视通号";
+    labelLeft.text = @"  云视通号";
     if (textColor) {
         labelLeft.textColor = textColor;
     }
-    labelLeft.textAlignment = UITextAlignmentRight;
+    labelLeft.textAlignment = UITextAlignmentLeft;
     labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldYST.leftViewMode = UITextFieldViewModeAlways;
     textFieldYST.leftView = labelLeft;
@@ -143,11 +146,11 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
     [self.view addSubview:textFieldUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
-    labelNameLeft.text = @"用户名";
+    labelNameLeft.text = @"  用户名";
     if (textColor) {
         labelNameLeft.textColor = textColor;
     }
-    labelNameLeft.textAlignment = UITextAlignmentRight;
+    labelNameLeft.textAlignment = UITextAlignmentLeft;
     labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldUserName.leftViewMode = UITextFieldViewModeAlways;
     textFieldUserName.leftView = labelNameLeft;
@@ -181,8 +184,8 @@ static const int    kAddDeviceWithWlanTimeOut   = 5;   //添加设备从服务�
         
         labelPassLeft.textColor = textColor;
     }
-    labelPassLeft.text = @"密码";
-    labelPassLeft.textAlignment = UITextAlignmentRight;
+    labelPassLeft.text = @"  密码";
+    labelPassLeft.textAlignment = UITextAlignmentLeft;
     labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldPassWord.leftViewMode = UITextFieldViewModeAlways;
     textFieldPassWord.leftView = labelPassLeft;
