@@ -126,7 +126,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     /**
      *  设置标题
      */
-    self.title = @"注册";
+    self.title = LOCALANGER(@"jvc_resign_Title");
     
     UIImage *imgTextFieldBg = [UIImage imageNamed:@"reg_fieldBg.png"];
     
@@ -160,7 +160,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldPassWord.delegate = self;
     textFieldPassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldPassWord.secureTextEntry = YES;
-    textFieldPassWord.placeholder = @"密码";
+    textFieldPassWord.placeholder = LOCALANGER(@"Password");
     textFieldPassWord.returnKeyType = UIReturnKeyDone;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     [textFieldPassWord setBackground:imgTextFieldBg];
@@ -183,7 +183,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldEnSurePassWord.borderStyle = UITextBorderStyleNone;
     textFieldEnSurePassWord.secureTextEntry = YES;
     textFieldEnSurePassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
-    textFieldEnSurePassWord.placeholder = @"确认密码";
+    textFieldEnSurePassWord.placeholder =LOCALANGER(@"jvc_resign_enpw");
     textFieldEnSurePassWord.returnKeyType = UIReturnKeyDone;
     textFieldEnSurePassWord.leftViewMode = UITextFieldViewModeAlways;
     [textFieldEnSurePassWord setBackground:imgTextFieldBg];
@@ -211,7 +211,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     
     [btnResign addTarget:self action:@selector(signUp) forControlEvents:UIControlEventTouchUpInside];
     
-    [btnResign setTitle:@"注册" forState:UIControlStateNormal];
+    [btnResign setTitle:LOCALANGER(@"jvc_resign_Title") forState:UIControlStateNormal];
     
     [self.view addSubview:btnResign];
     

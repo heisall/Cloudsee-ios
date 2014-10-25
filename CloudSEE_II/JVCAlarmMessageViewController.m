@@ -64,7 +64,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     if (self) {
         
-        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"报警消息", nil) image:nil tag:1];
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"jvc_alarmList_Title", nil) image:nil tag:1];
         [moreItem setFinishedSelectedImage:[UIImage imageNamed:@"tab_message_select.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"tab_message_unselect.png"]];
         self.tabBarItem = moreItem;
         [moreItem release];
@@ -133,9 +133,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     //[_tableView headerBeginRefreshing];
     
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    self.tableView.headerPullToRefreshText = @"下拉可以刷新";
-    self.tableView.headerReleaseToRefreshText = @"松开马上刷新";
-    self.tableView.headerRefreshingText = @"正在刷新中";
+    self.tableView.headerPullToRefreshText = LOCALANGER(@"jvc_PullToRefreshText");
+    self.tableView.headerReleaseToRefreshText = LOCALANGER(@"jvc_PullReleaseToRefreshText");
+    self.tableView.headerRefreshingText = LOCALANGER(@"jvc_PullRefreshingText");
 }
 
 
@@ -147,9 +147,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     //[_tableView headerBeginRefreshing];
     
     // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    self.tableView.footerPullToRefreshText = @"上拉加载更多";
-    self.tableView.headerReleaseToRefreshText = @"松开马上加载";
-    self.tableView.headerRefreshingText = @"正在加载";
+    self.tableView.footerPullToRefreshText = LOCALANGER(@"jvc_PullfooterToRefreshText");
+    self.tableView.headerReleaseToRefreshText = LOCALANGER(@"jvc_PullfooterReleaseToRefreshText");
+    self.tableView.headerRefreshingText = LOCALANGER(@"jvc_PullfooterRefreshingText");
     
 
 }
@@ -204,7 +204,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
                         
                     }else{
                         
-                        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"没有更多信息了"];
+                        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_noMore")];
                         
                     }
                     
@@ -218,7 +218,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
                     [self  addNoAlarmDateView];
                     
                 }
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取报警信息错误"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
 
             }
         
@@ -251,7 +251,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         UILabel *labelNoAlarm        = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
         labelNoAlarm.backgroundColor = [UIColor clearColor];
         labelNoAlarm.textAlignment   = UITextAlignmentCenter;
-        labelNoAlarm.text            = @"暂无报警消息";
+        labelNoAlarm.text            = LOCALANGER(@"jvc_alarmlist_noAlarm");
         [viewNoAlarm addSubview:labelNoAlarm];
         [labelNoAlarm release];
         
@@ -331,7 +331,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     }else{
         
         if (cellModel.strAlarmPicUrl.length<=0) {
-            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"暂无报警图片"];
+            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_noAlarm_PIC")];
             return;
         }
         [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
@@ -410,13 +410,13 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
                 [self.tableView reloadData];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除成功"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_delete_success")];
                 
                 nAlarmOriginIndex -- ;
 
             }else{
             
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_delete_failt")];
             }
             
         });
@@ -578,7 +578,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         
         [self disRemoteLink];
         
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"获取报警信息失败，请重试"];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
         
     }
     
@@ -732,7 +732,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
         [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
         
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"获取报警信息错误，请重试"];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
         
     }
     

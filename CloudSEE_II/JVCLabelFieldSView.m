@@ -25,7 +25,7 @@ static const float KLabelOriginY    = 30;//距离顶端的距离
 static const float KLabelWith       = 60;//距离顶端的距离
 static const float KSpan            = 20;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
-static const int   KLabelFont       = 14;//label的字体大小
+static const int   KLabelFont       = 16;//label的字体大小
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -13,7 +13,6 @@
 
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
-#define LOCALANGER(A)  NSLocalizedString(A, nil)
 
 #define IOS7    7.0
 

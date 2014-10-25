@@ -18,15 +18,16 @@
 
 static const int    ADDPREDICATE_SUCCESS        = 0;
 static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
-static const int    SEPERATE                    = 15.0;//控件之间的距离，纵向
+static const int    SEPERATE                    = 15;//控件之间的距离，纵向
 static const int    ADDDEVICE_RESULT_SUCCESS    = 0;//成功
 static const int    DEFAULTCHANNELCOUNT         = 4;//莫仍的通道数
-static const int    DEFAULRESIGNTFONTSIZE       = 14;//默认的字体大小
+static const int    DEFAULRESIGNTFONTSIZE       = 16;//默认的字体大小
 static const int    DEFAULTLABELWITH            = 70;//textfield的lefitwiew对应的label的宽度
 static const int    kADDDEVICESLIDEHEIGIT       = 100;//向上滑动的高度
 static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 
 static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
+static const int    KLeftLabelWith          = 0;    //删除设备成功
 
 @interface JVCEditDeviceInfoViewController ()
 {
@@ -55,7 +56,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"编辑设备";
+    self.title = LOCALANGER(@"Jvc_editDeviceInfo_Title");
     
     UIControl *controlBg = [[UIControl alloc] initWithFrame:self.view.frame];
     [controlBg addTarget:self action:@selector(resignEditDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
@@ -76,10 +77,11 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     deviceNickNameField.delegate = self;
     deviceNickNameField.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
+
     [self.view addSubview:deviceNickNameField];
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelLeft.backgroundColor = [UIColor clearColor];
-    labelLeft.text = @"昵称";
+    labelLeft.text = LOCALANGER(@"Jvc_editDeviceInfo_nickName");
     if (textColor) {
         labelLeft.textColor = textColor;
     }
@@ -113,7 +115,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     [self.view addSubview:devieUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
-    labelNameLeft.text = @"用户名";
+    labelNameLeft.text = LOCALANGER(@"Jvc_editDeviceInfo_userName");
     if (textColor) {
         labelNameLeft.textColor = textColor;
     }
@@ -153,7 +155,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
         
         labelPassLeft.textColor = textColor;
     }
-    labelPassLeft.text = @"密码";
+    labelPassLeft.text =LOCALANGER(@"Jvc_editDeviceInfo_PW") ;
     labelPassLeft.textAlignment = UITextAlignmentLeft;
     labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     devicePassWord.leftViewMode = UITextFieldViewModeAlways;
@@ -175,7 +177,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     btnDelegate = [UIButton buttonWithType:UIButtonTypeCustom];
     btnDelegate.frame = CGRectMake(seperate, devicePassWord.bottom+SEPERATE, imgBtnNor.size.width, imgBtnNor.size.height);
     [btnDelegate setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnDelegate setTitle:@"删除" forState:UIControlStateNormal];
+    [btnDelegate setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Delete") forState:UIControlStateNormal];
     [btnDelegate addTarget:self action:@selector(deleteDevice) forControlEvents:UIControlEventTouchUpInside];
     [btnDelegate setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
     [self.view addSubview:btnDelegate];
@@ -185,7 +187,7 @@ static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
     btnSave.frame = CGRectMake(seperate+btnDelegate.right, btnDelegate.top, imgBtnNor.size.width, imgBtnNor.size.height);
     [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
     [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [btnSave setTitle:@"保存" forState:UIControlStateNormal];
+    [btnSave setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Save") forState:UIControlStateNormal];
     [btnSave addTarget:self action:@selector(saveDeviceInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnSave];
 

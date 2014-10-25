@@ -10,14 +10,7 @@
 
 //yh
 //
-//登录界面
-"InputUserName" = "邮箱/用户名/手机号";
-"InputPassWorld" = "密码";
-"Login" = "登  录";
-"Registration" = "注  册";
-"DemoPoint" = "修改密码";
-"localLogin" ="访客登录";
-"getPw"= "找回密码";
+
 
 
 //注册界面
@@ -678,4 +671,144 @@
 "home_alarm_19"="周围温度过低、湿度过高。";
 "home_alarm_20"="周围温度过高、湿度过低。";
 "home_alarm_21"="周围温度过低、湿度过低。";
+
+
+
+//登录界面
+"jvc_log_user" = "邮箱/用户名/手机号";
+"jvc_log_pw" = "密码";
+"jvc_log_log" = "登  录";
+"jvc_log_local" ="访客登录";
+"jvc_log_resign" = "注  册";
+"jvc_log_fot"= "忘记密码";
+"jvc_log_demo" = "演示点";
+
+//登录界面的账号判读
+"LOGINRESULT_USERNAME_NIL" = "请输入用户名";
+"LOGINRESULT_USERNAME_ERROR" = "用户名格式不正确";
+"DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
+"DEVICE_PASSWORLD_ERROR" = "密码格式不正确,密码由0-16位字符组成";
+"LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
+"LOGINRESULT_PASSWORLD_ERROR" = "密码格式不正确,密码由6-20位任意字符组成";
+"LOGINRESULT_ENSURE_PASSWORD_NIL"= "请输入确认密码";
+"LOGINRESULT_ENSURE_PASSWORD_ERROR"= "两次输入的密码不一致";
+"LOGINRESULT_EMAIL_ERROR" = "邮箱格式不正确";
+"LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "输入的密码与旧密码不一致";
+"LOGINRESULT_default_ERROR" = "连接服务器错误，代码：";
+"LOGINRESULT_NEWWORD_EQUAL_USER_PASSWORD"= "输入的密码与旧密码一致";
+"login_pw_equal"= "亲，新密码与旧密码不能相同";
+"loginResign_LENGTH_E"="用户名长度只能在4-18位字符之间";
+"loginResign_NUMBER_E"="用户名不能全为数字,请确认输入的是手机号或重新输入";
+
+//注册界面
+"jvc_resign_Title" = "注  册";
+"jvc_resign_user" = "邮箱/用户名/手机号";
+"jvc_resign_pw" = "密 码";
+"jvc_resign_enpw" ="确认密码";
+//"loginResign_NUMBER_E"="Username can't be all number";
+//"loginResign_OTHER_E"="Username should be composed of letter, number and -_";
+
+
+
+//设备列表界面
+"jvc_DeviceList_title" = "设备列表";
+
+//设备列表界面
+"jvc_DeviceList_title" = "Device List";
+"jvc_DeviceList_add_yst" = "云视通号";
+"jvc_DeviceList_add_eq" = "二维码";
+"jvc_DeviceList_add_wlan" = "无线设备";
+"jvc_DeviceList_add_scan" = "局域网扫描";
+"jvc_DeviceList_add_volce" = "声波配置";
+"jvc_DeviceList_add_ip" = "域名/Ip添加";
+"jvc_DeviceList_offline" = "离线";
+"jvc_DeviceList_online" = "在线";
+
+//报警界面
+"jvc_alarmList_Title" = "报警消息";
+"jvc_alarmlist_noMore" = "没有更多信息";
+"jvc_alarmlist_getAlarmError" = "获取报警信息失败";
+"jvc_alarmlist_noMore" = "没有更多信息";
+"jvc_alarmlist_noAlarm" = "暂无报警消息";
+"jvc_alarmlist_noAlarm_PIC" = "暂无报警图片";
+"jvc_alarmlist_delete_success" = "删除成功";
+"jvc_alarmlist_delete_failt" = "删除失败";
+
+
+//设备管理界面
+"jvc_editDevice_title" = "设备管理";
+"jvc_editDevice_Editbtn_device" = "设备管理";
+"jvc_editDevice_Editbtn_licktype" = "连接模式";
+"jvc_editDevice_Editbtn_channels" = "通道管理";
+"jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
+"jvc_editDevice_Editbtn_safe" = "安全防护";
+"jvc_editDevice_Editbtn_alarmseting" = "报警设置";
+"jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
+"jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
+"jvc_editDevice_noSupport" = "设备不支持此操作";
+"jvc_editDevice_lickError"= "连接失败请请重试";
+"Jvc_editDeviceInfo_Title" = "编辑设备";
+"Jvc_editDeviceInfo_nickName" = "  昵称";
+"Jvc_editDeviceInfo_userName" = "  用户名";
+"Jvc_editDeviceInfo_PW" = "  密码";
+"Jvc_editDeviceInfo_Delete" = "删除";
+"Jvc_editDeviceInfo_Save" = "保存";
+
+
+//更多
+"jvc_more_title" = "更多";
+"jvc_more_local_noSupport"="本地模式暂停使用";
+"networkError"                                    =  "网络连接异常，请检查网络";
+"jvc_more_loginout"="确定要注销吗";
+"jvc_more_loginout_ok"="确定";
+"jvc_more_loginout_quit"="取消";
+"jvc_more_loginout_error"="注销失败";
+"jvc_more_loginout_appStore"="您确定去APPStore评论吗？";
+
+
+
+
+////设备列表界面
+//"jvc_DeviceList_title" = "Device List";
+//"jvc_DeviceList_add_yst" = "云视通号";
+//"jvc_DeviceList_add_eq" = "二维码";
+//"jvc_DeviceList_add_wlan" = "无线设备";
+//"jvc_DeviceList_add_scan" = "局域网扫描";
+//"jvc_DeviceList_add_volce" = "声波配置";
+//"jvc_DeviceList_add_ip" = "域名/Ip添加";
+//"jvc_DeviceList_offline" = "在线";
+//"jvc_DeviceList_online" = "离线";
+////下拉刷新
+//"jvc_PullToRefreshText" = "下拉刷新";
+//"jvc_PullReleaseToRefreshText" = "松开马上刷新";
+//"jvc_PullRefreshingText" = "正在刷新中";
+//"jvc_PullfooterToRefreshText" = "上拉加载更多";
+//"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
+//"jvc_PullfooterRefreshingText" = "正在加载";
+//
+////下拉刷新
+//"jvc_PullToRefreshText" = "下拉刷新";
+//"jvc_PullReleaseToRefreshText" = "松开马上刷新";
+//"jvc_PullRefreshingText" = "正在刷新中";
+//"jvc_PullfooterToRefreshText" = "上拉加载更多";
+//"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
+//"jvc_PullfooterRefreshingText" = "正在加载";
+//
+//
+//
+
+////登录界面
+//"jvc_log_user" = "Email/UserName";
+//"jvc_log_pw" = "Password";
+//"jvc_log_log" = "Login";
+//"jvc_log_local" ="Visitor Login";
+//"jvc_log_resign" = "Register";
+//"jvc_log_fot"= "Forget password";
+//"jvc_log_demo" = "Demo";
+//
+////注册界面
+//"jvc_resign_Title" = "Register";
+//"jvc_resign_user" = "Email/UserName";
+//"jvc_resign_pw" = "Password";
+//"jvc_resign_enpw" ="Confirm password";
 
