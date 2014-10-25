@@ -33,7 +33,8 @@ static const    CFTimeInterval  kScanfWithAnimationDuration          = 10.0f;  /
 static const    CFTimeInterval  kScanfWithDurationBeginAnimationTime = 0.5f;   //延时动画的时间
 static const    CFTimeInterval  kScanfAnimationWithKeepTime          = 120.0f; //动画持续的时间
 static const    CGFloat         kBackButtonWithTop                   = 20.0f;
-static const    CGFloat         kBackButtonWithLeft                  = 15.0f;
+static const    CGFloat         kBackButtonWithLeft                  = 10.0f;
+static const    CGFloat         kBackButtonWithFontSize              = 16.0f;
 static NSString const          *kRotationAnimationKeyName            = @"scanRotation";
 static const    CGFloat         kNewDeviceImageViewWithRadius        = 100.0f;
 
@@ -200,22 +201,13 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  *  初始化返回按钮
  */
 - (void)initLayoutWithBackClick {
-    
-    NSString *path= nil;
-    
-    path = [[NSBundle mainBundle] pathForResource:@"nav_back" ofType:@"png"];
-    
-    if (path == nil) {
-        
-        path = [[NSBundle mainBundle] pathForResource:@"nav_back@2x" ofType:@"png"];
-    }
 
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-    
-    DDLogVerbose(@"%s-----hahha=%@",__FUNCTION__,image);
+
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[UIImage imageBundlePath:@"voi_exit.png"]];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
+    btn.titleLabel.font = [UIFont systemFontOfSize:kBackButtonWithFontSize];
+    [btn setTitle:@"退出" forState:UIControlStateNormal];
     btn.frame = CGRectMake(kBackButtonWithLeft, kBackButtonWithTop, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(popClick) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
@@ -427,14 +419,16 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
             
             [UIView animateWithDuration:kNewDeviceWithanimateWithDuration animations:^{
                 
+                newButton.alpha     = 1.0f;
+                newButton.transform = CGAffineTransformIdentity;
+                
+            } completion:^(BOOL isFinshed){
+            
                 if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
                     
                     [self playConfigSound];
                 }
-                
-                newButton.alpha     = 1.0f;
-                newButton.transform = CGAffineTransformIdentity;
-                
+            
             }];
         });
 

@@ -193,6 +193,7 @@ static  const   int      KSetHelpMaxCount    = 10;
         [tabbarBgIamge release];
         [tabbarBgIamgeSec release];
         
+        
     }else{
         
         JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];

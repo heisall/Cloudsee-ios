@@ -10,6 +10,7 @@
 #import "JVCSystemUtility.h"
 #import "JVCVoiceencViewController.h"
 #import "JVCSystemSoundHelper.h"
+#import "JVCRGBHelper.h"
 
 
 @interface JVCVoiceencInputSSIDWithPasswordViewController (){
@@ -83,6 +84,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     titleLbl.font            = [UIFont systemFontOfSize:kTitleLableFontSize];
     titleLbl.frame           = CGRectMake(rectTextBg.origin.x, rectTextBg.origin.y - kTitleLableWithBgViewBottom - kTitleLableFontHeight, rectTextBg.size.width,kTitleLableFontHeight);
     titleLbl.text            = @"请输入摄像头要连接的无线网络密码";
+
     [self.view addSubview:titleLbl];
     [titleLbl release];
     
@@ -96,7 +98,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     ssidRect.origin.x    = kTextFiledWithLeft;
     
     ssidTextField.frame  = ssidRect;
-    ssidTextField.text   = [[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID];
+    
     ssidTextField.autocorrectionType     = UITextAutocorrectionTypeNo;
     ssidTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     ssidTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -116,6 +118,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     password.frame           = rectPassword;
     password.returnKeyType   = UIReturnKeyDone;
     password.borderStyle     = UITextBorderStyleNone;
+    password.secureTextEntry = YES;
     password.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     password.delegate        = self;
     password.keyboardType = UIKeyboardTypeASCIICapable;
@@ -172,13 +175,6 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     [super viewWillAppear:YES];
     [self playSound];
 }
-
--(void)initLayoutWithViewWillAppear {
-
-     [self playSound];
-
-}
-
 
 - (void)viewWillDisappear:(BOOL)animated{
 

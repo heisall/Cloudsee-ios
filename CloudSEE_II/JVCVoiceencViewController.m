@@ -12,6 +12,7 @@
 #import "JVCScanNewDeviceViewController.h"
 #import "JVCVoiceencHelpViewController.h"
 #import "JVCSystemSoundHelper.h"
+#import "JVCRGBHelper.h"
 
 @interface JVCVoiceencViewController (){
     
@@ -94,9 +95,20 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     rectHelprButton.origin.x  = ( self.view.frame.size.width - helpeImage.size.width ) / 2.0;
     helperButton.frame             = rectHelprButton;
     [helperButton setBackgroundImage:helpeImage forState:UIControlStateNormal];
+    
+    JVCRGBHelper *rgbHelper = [JVCRGBHelper shareJVCRGBHelper];
+    
+    UIColor *titleColor     = [rgbHelper rgbColorForKey:kJVCRGBColorMacroVoiceConfigDemo];
+    
+    if (titleColor) {
+        
+        [helperButton setTitleColor:titleColor forState:UIControlStateNormal];
+    }
+    
     [helperButton addTarget:self action:@selector(gotoHelpeViewController) forControlEvents:UIControlEventTouchUpInside];
     [helperButton setTitle:@"观看操作演示" forState:UIControlStateNormal];
     [self.view addSubview:helperButton];
+
     
     backGroud          = [[UIView alloc] init];
     backGroud.backgroundColor  = [UIColor colorWithRed:0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0];
@@ -118,6 +130,14 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     titleLbl.font            = [UIFont systemFontOfSize:kTitleLableFontSize];
     titleLbl.frame           = CGRectMake(backGroud.frame.origin.x, backGroud.frame.origin.y + kTitleLableWithBgViewTop + backGroud.frame.size.height, backGroud.frame.size.width,kTitleLableFontHeight);
     titleLbl.text            = @"点击发送声波";
+    
+    UIColor *titleTVColor     = [rgbHelper rgbColorForKey:kJVCRGBColorMacroVoiceConfigSend];
+    
+    if (titleColor) {
+        
+        titleLbl.textColor    = titleTVColor;
+    }
+    
     [self.view addSubview:titleLbl];
     [titleLbl release];
     
@@ -297,11 +317,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [self playSound];
 }
 
--(void)initLayoutWithViewWillAppear {
-    
-    [self playSound];
-    
-}
+
 
 - (void)viewWillDisappear:(BOOL)animated{
     

@@ -345,7 +345,6 @@ static const  int KSuccess         = 1;
         
         
     });
-    
 
 }
 
@@ -358,7 +357,9 @@ static const  int KSuccess         = 1;
         
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
-        ystNetWorkHelperObj.ystNWHDelegate = nil;
+        ystNetWorkHelperObj.ystNWHDelegate  = nil;
+        ystNetWorkHelperObj.ystNWRODelegate = nil;
+        ystNetWorkHelperObj.ystNWTDDelegate = nil;
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });

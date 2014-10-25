@@ -70,9 +70,22 @@ static NSString const *  kJVCRGBColorMacroTextFontColor   = @"addDeviceTextColor
 
 //添加设备弹出试图的边框颜色
 static NSString const *  kJVCRGBColorMacroPopBoardColor   = @"PopBoardColor";
-static NSString const *  kJVCRGBColorMacroPopBgColor   = @"PopBgColor";
+static NSString const *  kJVCRGBColorMacroPopBgColor      = @"PopBgColor";
 
-static NSString const *  kJVCRGBColorMacroAlertCellColor    = @"AlertCellColor";//报警的文字大小
+static NSString const *  kJVCRGBColorMacroAlertCellColor  = @"AlertCellColor";      //报警的文字大小
+
+
+//声波陪值流程
+static NSString const *  kJVCRGBColorMacroVoiceConfigInfo     = @"VoiceConfigInfo";
+static NSString const *  kJVCRGBColorMacroVoiceConfigDemo     = @"VoiceConfigDemo";
+static NSString const *  kJVCRGBColorMacroVoiceConfigSSID     = @"VoiceConfigSSID";
+static NSString const *  kJVCRGBColorMacroVoiceConfigSend     = @"VoiceConfigSend";
+
+//ios6 Tab标题颜色
+static NSString const *  kJVCRGBColorMacroTabarItemTitleColor = @"TabarItemTitleColor";
+
+
+
 
 static NSString const *  KLickTypeLeftLabelColor        = @"LickTypeLeftLabelColor";//连接模式界面，左侧label
 static NSString const *  KLickTypeTextFieldColor        = @"LickTypeTextFieldColor";//连接模式界面文本框

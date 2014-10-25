@@ -26,6 +26,7 @@
 #import "JVCSystemConfigMacro.h"
 #import "JVCConfigModel.h"
 #import "JSONKit.h"
+#import "JVCRGBHelper.h"
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -55,6 +56,13 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
         [moreItem release];
         
         self.title = self.tabBarItem.title;
+        
+        UIColor *tabarTitleColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroTabarItemTitleColor];
+        
+        if (tabarTitleColor) {
+            
+            [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabarTitleColor, UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
+        }
         
     }
     
