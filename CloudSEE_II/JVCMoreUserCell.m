@@ -7,6 +7,7 @@
 //
 
 #import "JVCMoreUserCell.h"
+#import "JVCRGBHelper.h"
 
 static const int moreOrigin_x  = 20;  //距离最左边的位置
 
@@ -64,36 +65,40 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
     //账号名称
     UILabel *labUser = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+moreSeperate, imageView.top, moreLabWith, moreLabHeigh)];
     labUser.backgroundColor = [UIColor clearColor];
+    UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KMoreUserLabeTextColor];
+    if (color) {
+        labUser.textColor = color;
+    }
     labUser.font = [UIFont systemFontOfSize:MORETEXTFONT_User];
     labUser.text = kkUserName.length==0?@"访客":kkUserName;
     [self.contentView addSubview:labUser];
     [labUser release];
     
-    //最后一次登录时间
-    UILabel *labLastLogin = [[UILabel alloc] initWithFrame:CGRectMake(labUser.left, labUser.bottom+moreLabSeperate, moreLabWith, moreLabHeigh)];
-    labLastLogin.text = @"最后一次登录时间:2014-09-19";
-    labLastLogin.font = [UIFont systemFontOfSize:MORETEXTFONT];
-    labLastLogin.backgroundColor = [UIColor clearColor];
-    [self.contentView addSubview:labLastLogin];
-    [labLastLogin release];
-    
-    //修改资料
-    UIButton *btnMofify = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnMofify.frame = CGRectMake(labLastLogin.left, labLastLogin.bottom+moreLabSeperate, moreLabShortWith, moreLabHeigh);
-    [btnMofify setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btnMofify setTitle:@"修改资料" forState:UIControlStateNormal];
-    [btnMofify.titleLabel setFont:[UIFont systemFontOfSize:MORETEXTFONT]];
-    [btnMofify.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.contentView addSubview:btnMofify];
-    
-    //修改资料
-    UIButton *btnGetPw = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnGetPw.frame = CGRectMake(btnMofify.right+moreSeperate, labLastLogin.bottom+moreLabSeperate, moreLabShortWith, moreLabHeigh);
-    [btnGetPw setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btnGetPw setTitle:@"找回密码" forState:UIControlStateNormal];
-    [btnGetPw.titleLabel setFont:[UIFont systemFontOfSize:MORETEXTFONT]];
-    [btnGetPw.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.contentView addSubview:btnGetPw];
+//    //最后一次登录时间
+//    UILabel *labLastLogin = [[UILabel alloc] initWithFrame:CGRectMake(labUser.left, labUser.bottom+moreLabSeperate, moreLabWith, moreLabHeigh)];
+//    labLastLogin.text = @"最后一次登录时间:2014-09-19";
+//    labLastLogin.font = [UIFont systemFontOfSize:MORETEXTFONT];
+//    labLastLogin.backgroundColor = [UIColor clearColor];
+//    [self.contentView addSubview:labLastLogin];
+//    [labLastLogin release];
+//    
+//    //修改资料
+//    UIButton *btnMofify = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btnMofify.frame = CGRectMake(labLastLogin.left, labLastLogin.bottom+moreLabSeperate, moreLabShortWith, moreLabHeigh);
+//    [btnMofify setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [btnMofify setTitle:@"修改资料" forState:UIControlStateNormal];
+//    [btnMofify.titleLabel setFont:[UIFont systemFontOfSize:MORETEXTFONT]];
+//    [btnMofify.titleLabel setTextAlignment:NSTextAlignmentLeft];
+//    [self.contentView addSubview:btnMofify];
+//    
+//    //修改资料
+//    UIButton *btnGetPw = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btnGetPw.frame = CGRectMake(btnMofify.right+moreSeperate, labLastLogin.bottom+moreLabSeperate, moreLabShortWith, moreLabHeigh);
+//    [btnGetPw setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [btnGetPw setTitle:@"找回密码" forState:UIControlStateNormal];
+//    [btnGetPw.titleLabel setFont:[UIFont systemFontOfSize:MORETEXTFONT]];
+//    [btnGetPw.titleLabel setTextAlignment:NSTextAlignmentLeft];
+//    [self.contentView addSubview:btnGetPw];
     
 }
 

@@ -149,7 +149,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     
     mArrayIconNames  = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconNames addObjectsFromArray:@[@"edi_deviceManger.png",@"edi_linkModel.png",@"edi_deviceManger.png",
+    [mArrayIconNames addObjectsFromArray:@[@"edi_deviceManger.png",@"edi_deviceModify.png",@"edi_linkModel.png",
                                            @"edi_channelManager.png",@"edi_safe_un.png",@"edi_alarm.png"]];
 }
 

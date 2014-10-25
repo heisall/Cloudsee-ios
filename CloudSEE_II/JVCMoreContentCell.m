@@ -7,6 +7,7 @@
 //
 
 #import "JVCMoreContentCell.h"
+#import "JVCRGBHelper.h"
 
 static const int  moreContentCellOff_X  = 20;//距离组边框的距离
 
@@ -15,7 +16,7 @@ static const int  moreContentCellSeperate  = 20;//距离图片的距离
 
 static const int  moreContentCellLabelWith  = 200;//label的宽
 
-static const int  moreContentCellTextFont  = 14;//字体大小
+static const int  moreContentCellTextFont  = 16;//字体大小
 
 static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
@@ -61,6 +62,10 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
     labelTitle.backgroundColor = [UIColor clearColor];
     labelTitle.font = [UIFont systemFontOfSize:moreContentCellTextFont];
     labelTitle.text = model.itemName;
+    UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KLickTypeLeftLabelColor];
+    if (color) {
+        labelTitle.textColor = color;
+    }
     [self.contentView addSubview:labelTitle];
     [labelTitle release];
     

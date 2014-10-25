@@ -91,6 +91,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
         
         [self.tableView headerBeginRefreshing];
+    }else{
+        
+        [self addNoAlarmDateView];
     }
     
 }

@@ -74,5 +74,9 @@ static NSString const *  kJVCRGBColorMacroPopBgColor   = @"PopBgColor";
 
 static NSString const *  kJVCRGBColorMacroAlertCellColor    = @"AlertCellColor";//报警的文字大小
 
+static NSString const *  KLickTypeLeftLabelColor        = @"LickTypeLeftLabelColor";//连接模式界面，左侧label
+static NSString const *  KLickTypeTextFieldColor        = @"LickTypeTextFieldColor";//连接模式界面文本框
+static NSString const *  KMoreUserLabeTextColor         = @"MoreUserLabeTextColor";//更多界面，用户名字体
+
 
 #endif

@@ -106,10 +106,11 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     UIColor *selectColor = [rgbHelper rgbColorForKey: kJVCRGBColorMacroEditDeviceTopBarItemSelectFontColor];
     UIColor *unSelectColor = [rgbHelper rgbColorForKey: kJVCRGBColorMacroEditDeviceTopBarItemUnselectFontColor];
-    btnYst.titleLabel.font = [UIFont systemFontOfSize:KLabelFont];
     btnYst = [UIButton buttonWithType:UIButtonTypeCustom];
     btnYst.frame = CGRectMake(btnIP.right, btnIP.top, self.view.width/2.0, KHeadViewHeigin);
     [btnYst setTitle:@"云视通号" forState:UIControlStateNormal];
+    btnYst.titleLabel.font = [UIFont systemFontOfSize:KLabelFont];
+
     //设置标题的颜色
     
     if (selectColor) {
@@ -219,7 +220,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     YStLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, KHeadViewHeigin+imageSlide.size.height, self.view.width, self.view.height)];
     YStLinkView.delegate = self;
-    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通号",@"用户名",@"密码",nil]  ];
+    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通",@"用户名",@"密码",nil]  ];
     
     [self.view addSubview:YStLinkView];
     

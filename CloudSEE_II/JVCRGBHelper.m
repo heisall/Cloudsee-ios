@@ -46,6 +46,8 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initDemoViewRgbColors];
         [self initPlayBackCellLabelColor];
         [self initAlertCellLabelColor];
+        [self initLickTypeViewRGBColors];
+        [self initMoreUserLabelViewRGBColors];
     }
     
     return self;
@@ -458,6 +460,45 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     PopViewBg.b = 86.0f;
     [mdicRgbModelList setObject:PopViewBg forKey:kJVCRGBColorMacroPopBgColor];
     [PopViewBg release];
+
+    
+}
+
+
+/**
+*  初始化试图的backgrou的颜色
+*/
+- (void)initLickTypeViewRGBColors
+{
+    JVCRGBModel *leftViewColor  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    leftViewColor.r = 82.0f;
+    leftViewColor.g = 82.0f;
+    leftViewColor.b = 82.0f;
+    [mdicRgbModelList setObject:leftViewColor forKey:KLickTypeLeftLabelColor];
+    [leftViewColor release];
+    
+    JVCRGBModel *textFieldColor = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    textFieldColor.r = 86.0f;
+    textFieldColor.g = 86.0f;
+    textFieldColor.b = 86.0f;
+    [mdicRgbModelList setObject:textFieldColor forKey:KLickTypeTextFieldColor];
+    [textFieldColor release];
+    
+    
+}
+
+/**
+ *  初始化试图更多界面的labe（用户名的）
+ */
+- (void)initMoreUserLabelViewRGBColors
+{
+    JVCRGBModel *moreViewColor  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    moreViewColor.r = 37.0f;
+    moreViewColor.g = 133.0f;
+    moreViewColor.b = 229.0f;
+    [mdicRgbModelList setObject:moreViewColor forKey:KMoreUserLabeTextColor];
+    [moreViewColor release];
+    
 
     
 }

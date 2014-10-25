@@ -7,6 +7,8 @@
 //
 
 #import "JVCLabelFieldSView.h"
+#import "JVCRGBHelper.h"
+#import "JVCRGBColorMacro.h"
 
 @interface JVCLabelFieldSView ()
 {
@@ -20,10 +22,10 @@
 @implementation JVCLabelFieldSView
 @synthesize delegate;
 
-static const float KLabelOriginX    = 20;//距离左侧的距离
+static const float KLabelOriginX    = 15;//距离左侧的距离
 static const float KLabelOriginY    = 30;//距离顶端的距离
-static const float KLabelWith       = 60;//距离顶端的距离
-static const float KSpan            = 20;//label之间的距离
+static const float KLabelWith       = 70;//距离顶端的距离
+static const float KSpan            = 15;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 static const int   KLabelFont       = 16;//label的字体大小
 
@@ -58,12 +60,20 @@ static const int   KLabelFont       = 16;//label的字体大小
     for (int i=0; i<arrayLabelTitiles.count; i++) {
         
         UILabel *label = nil;
+    
+        
+        UIColor *colorlabel = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KLickTypeLeftLabelColor] ;
+        UIColor *colortextfield = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KLickTypeTextFieldColor] ;
+
         
         label = [[UILabel alloc] init];
         label.frame = CGRectMake(KLabelOriginX, KLabelOriginY+(image.size.height+KSpan)*i, KLabelWith, image.size.height);
         label.text = [arrayLabelTitiles objectAtIndex:i];
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = UITextAlignmentLeft;
+        if (colorlabel) {
+            label.textColor = colorlabel;
+        }
         label.font = [UIFont systemFontOfSize:KLabelFont];
         [self addSubview:label];
         [label release];
@@ -79,6 +89,11 @@ static const int   KLabelFont       = 16;//label的字体大小
         textField.keyboardType = UIKeyboardTypeASCIICapable;
         textField.returnKeyType = UIReturnKeyDone;
         textField.leftView = labelLeftView;
+        if (colortextfield) {
+            
+            textField.textColor = colortextfield;
+
+        }
         [labelLeftView release];
         [self addSubview:textField];
         
@@ -92,7 +107,7 @@ static const int   KLabelFont       = 16;//label的字体大小
     NSString *btnPath = [UIImage imageBundlePath:@"con_Btn.png"];
     UIImage *imagebtn = [[UIImage alloc] initWithContentsOfFile:btnPath];
     btnClick = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnClick.frame = CGRectMake(frameTextFildButton.origin.x, frameTextFildButton.origin.y+frameTextFildButton.size.height+KSpan, frameTextFildButton.size.width, imagebtn.size.height);
+    btnClick.frame = CGRectMake(frameTextFildButton.origin.x, frameTextFildButton.origin.y+frameTextFildButton.size.height+KSpan+5, frameTextFildButton.size.width, imagebtn.size.height+10);
     [btnClick setTitle:@"完成" forState:UIControlStateNormal];
     [btnClick setBackgroundImage:imagebtn forState:UIControlStateNormal];
     [btnClick addTarget:self action:@selector(editBtnClick) forControlEvents:UIControlEventTouchUpInside];

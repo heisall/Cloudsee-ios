@@ -81,7 +81,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     //帮助界面
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
     modelHelp.itemName = @"报警";
-    modelHelp.iconImageName = @"mor_IconHelp.png";
+    modelHelp.iconImageName = @"mor_Iconalarm.png";
     modelHelp.bNewState = NO;
     modelHelp.bBtnState = MoreSettingCellType_AccountSwith;
 //    modelHelp.bSwitchState = kkToken
@@ -91,7 +91,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     //账号信息
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
     modelUser.itemName = @"修改密码";
-    modelUser.iconImageName = @"mor_IconUser.png";
+    modelUser.iconImageName = @"mor_Iconmdy.png";
     modelUser.bBtnState = MoreSettingCellType_index;
     [FistSectionArray addObject:modelUser];
     [modelUser release];
@@ -116,7 +116,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     //摇一摇加设备
     JVCMoreSettingModel *modeShark = [[JVCMoreSettingModel alloc] init];
     modeShark.itemName = @"检测更新";
-    modeShark.iconImageName = @"mor_IconShark.png";
+    modeShark.iconImageName = @"mor_IconCheck.png";
     modeShark.bBtnState = NO;
     modeShark.bNewState = YES;
     [secondSectionArray addObject:modeShark];
@@ -125,7 +125,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     //关于我们
     JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
     modelHelpSwitch.itemName = @"帮助";
-    modelHelpSwitch.iconImageName = @"mor_IconAbout.png";
+    modelHelpSwitch.iconImageName = @"mor_IconHelp.png";
     modelHelpSwitch.bBtnState = MoreSettingCellType_Switch;
     [secondSectionArray addObject:modelHelpSwitch];
     [modelHelpSwitch release];
@@ -138,7 +138,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
         // app版本
     
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    modelAbout.itemName =[NSString stringWithFormat:@"版本号:%@",app_Version];
+    modelAbout.itemName =[NSString stringWithFormat:@"版本号                    :%@",app_Version];
     modelAbout.iconImageName = @"mor_IconAbout.png";
     modelAbout.bBtnState = NO;
     [secondSectionArray addObject:modelAbout];

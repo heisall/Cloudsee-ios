@@ -103,18 +103,29 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 //    [modifyChannelNickNameView addGestureRecognizer:gesture];
 //    [gesture release];
     
+    UIColor *colortextfield = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KLickTypeTextFieldColor] ;
+   
     channelNickNameField = [[UITextField alloc] initWithFrame:CGRectMake(kOffSet_x, kTextFieldOff_y, self.view.width-2*kOffSet_x, kTextFieldHeight)];
     channelNickNameField.delegate = self;
-    channelNickNameField.layer.borderWidth = kTextFieldborderWidth;
-    UIColor *boardColor  = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
-    if (boardColor) {
-        channelNickNameField.layer.borderColor = boardColor.CGColor;
+    if (colortextfield) {
+        channelNickNameField.textColor = colortextfield;
     }
+    channelNickNameField.layer.borderWidth = kTextFieldborderWidth;
+    
+   
+    NSString *pathString = [UIImage imageBundlePath:@"con_fieldSec.png"];
+    UIImage *iamgeboard = [[UIImage alloc] initWithContentsOfFile:pathString];
+    channelNickNameField.backgroundColor = [UIColor colorWithPatternImage:iamgeboard];
+    [iamgeboard release];
+   
     
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTextFieldLeftViewWith, kTextFieldHeight)];
     labelLeft.backgroundColor = [UIColor clearColor];
     labelLeft.textAlignment = UITextAlignmentCenter;
     labelLeft.text = @"昵称:";
+    if (colortextfield) {
+        labelLeft.textColor = colortextfield;
+    }
     channelNickNameField.leftViewMode = UITextFieldViewModeAlways;
     channelNickNameField.leftView = labelLeft;
     channelNickNameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
