@@ -17,4 +17,9 @@
 }
 @property(nonatomic,retain) NSMutableArray *arrayAlarmList;
 
+/**
+ *  下拉刷新事件
+ */
+- (void)headerRereshingDataAlarmDate;
+
 @end

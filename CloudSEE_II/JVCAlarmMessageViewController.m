@@ -22,6 +22,8 @@
 
 #import "MJRefreshFooterView.h"
 #import "UIScrollView+MJRefresh.h"
+
+#import "JVCConfigModel.h"
 enum {
     DownLoadType_PIC    = 0,//图片的
     DownLoadType_VIDEO  = 1,//视频的
@@ -77,14 +79,55 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     [self.tableView addHeaderWithTarget:self action:@selector(headerRereshingData)];
 
-    NSLog(@"=================%@",NSStringFromCGRect(self.view.frame));
-    [self addTableViewFootView];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView headerBeginRefreshing];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
+    {
+        [self addTableViewHeadView];
+        
+        [self addTableViewFootView];
 
+        
+        [self.tableView headerBeginRefreshing];
+    }
     
 }
+
+- (void)initLayoutWithViewWillAppear
+{
+    [super initLayoutWithViewWillAppear];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
+    {
+        [self.tableView removeHeader];
+        [self.tableView removeFooter];
+        
+        [self addNoAlarmDateView];
+
+    }else{
+        [self removeNoAlarmView];
+        [self addTableViewHeadView];
+        [self addTableViewFootView];
+    }
+}
+
+/**
+ *  集成刷新控件
+ */
+- (void)addTableViewHeadView
+{
+    // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
+    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshingDataAlarmDate)];
+    //自动下拉刷新
+    //[_tableView headerBeginRefreshing];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    self.tableView.headerPullToRefreshText = @"下拉可以刷新";
+    self.tableView.headerReleaseToRefreshText = @"松开马上刷新";
+    self.tableView.headerRefreshingText = @"正在刷新中";
+}
+
 
 - (void)addTableViewFootView
 {
@@ -109,7 +152,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 /**
  *  下拉刷新事件
  */
-- (void)headerRereshingData
+- (void)headerRereshingDataAlarmDate
 {
     //下拉
     nAlarmOriginIndex = 0;
@@ -188,7 +231,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         NSString    *pathNoAlarm    = [UIImage imageBundlePath:@"arm_no.png"];
         UIImage     *imageNo        = [[UIImage alloc] initWithContentsOfFile:pathNoAlarm];
         
-        UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width -imageNo.size.width)/2.0 ,(self.view.height -imageNo.size.height)/2.0, imageNo.size.width, imageNo.size.height)];
+        UIImageView *imageView      = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.width -imageNo.size.width)/2.0 ,(self.view.height -imageNo.size.height)/2.0-50, imageNo.size.width, imageNo.size.height)];
         imageView.image             = imageNo;
         [viewNoAlarm addSubview:imageView];
         [imageView release];
@@ -198,7 +241,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         UILabel *labelNoAlarm        = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
         labelNoAlarm.backgroundColor = [UIColor clearColor];
         labelNoAlarm.textAlignment   = UITextAlignmentCenter;
-        labelNoAlarm.text            = @"暂无消息";
+        labelNoAlarm.text            = @"暂无报警消息";
         [viewNoAlarm addSubview:labelNoAlarm];
         [labelNoAlarm release];
         
@@ -227,9 +270,13 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 #pragma mark tableview的
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return  arrayAlarmList.count;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return arrayAlarmList.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -249,7 +296,7 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         cell = [[[JVCAlarmCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    JVCAlarmModel *modelcell = [arrayAlarmList objectAtIndex:indexPath.row];
+    JVCAlarmModel *modelcell = [arrayAlarmList objectAtIndex:indexPath.section];
     [cell initAlermCell:modelcell];
     
     return cell;
@@ -263,9 +310,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
     
     //点击cell，连接远程回放，判断是否连接上
     
-    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.row];
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.section];
     
-    nDeleteRow = indexPath.row;
+    nDeleteRow = indexPath.section;
 
     if (cellModel.strAlarmLocalPicURL.length !=0) {
         
@@ -289,28 +336,42 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:section];
+
     UIView *headView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)] autorelease];
-    //    UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
-    //    labelTimer.backgroundColor = [UIColor clearColor];
-    //    JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
-    //    alarmModel *tcellModel = [delegate._dealNotificationArray objectAtIndex:section];
-    //    labelTimer.textAlignment = UITextAlignmentCenter;
-    //    labelTimer.text = tcellModel.strAlarmTime;
-    //    labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
-    //    [labelTimer setFont:[UIFont systemFontOfSize:14]];
-    //    [headView addSubview:labelTimer];
-    //    [labelTimer release];
+    UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
+    labelTimer.backgroundColor = [UIColor clearColor];
+    labelTimer.textAlignment = UITextAlignmentCenter;
+    labelTimer.text = cellModel.strAlarmTime;
+    labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
+    [labelTimer setFont:[UIFont systemFontOfSize:14]];
+    [headView addSubview:labelTimer];
+    [labelTimer release];
     return headView;
     
 }
 
+/**
+ *  去除黏性
+ *
+ *  @param scrollView
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat sectionHeaderHeight = 40;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JVCAlarmModel *model = [arrayAlarmList objectAtIndex:indexPath.row];
+    JVCAlarmModel *model = [arrayAlarmList objectAtIndex:indexPath.section];
     
     [self deleteSingelAlarm:model.strAlarmGuid];
     
-    nDeleteRow = indexPath.row;
+    nDeleteRow = indexPath.section;
     
 }
 

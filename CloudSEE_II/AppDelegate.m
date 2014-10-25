@@ -217,11 +217,7 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 -(void)UpdateTabarViewControllers{
     
-    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {//本地登录
-        
-        [self startUserKeepOnline];
-
-    }
+   
     
     UITabBarController *tabbar =(UITabBarController *)self.window.rootViewController;
     
@@ -233,6 +229,15 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     //清理报警信息
     [alarmMessageViewController.arrayAlarmList removeAllObjects];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {//非本地登录
+        
+        [self startUserKeepOnline];
+        
+        [alarmMessageViewController  headerRereshingDataAlarmDate];
+        
+    }
+
 
     
     for (id idControler in tabbar.viewControllers) {
@@ -245,6 +250,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     }
     
     [deviceListController getDeviceList];
+    
     
 }
 
