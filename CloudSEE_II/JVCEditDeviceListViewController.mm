@@ -32,6 +32,7 @@
     NSMutableArray *mArrayColors;
     NSMutableArray *mArrayIconNames;
     NSMutableArray *mArrayIconTitles;
+    __block BOOL    isAnimationFinshed;
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
@@ -273,8 +274,6 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
         
     }
-    
-    
 }
 
 /**
@@ -284,11 +283,16 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 -(void)singleCilck:(UITapGestureRecognizer*)recognizer
 {
+    if (isAnimationFinshed) {
+        
+        return;
+    }
     if ([recognizer state] == UIGestureRecognizerStateEnded) {
         
         [UIView animateWithDuration:kOperationViewAnimationScaleBig animations:^{
             
             recognizer.view.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
+            isAnimationFinshed = TRUE;
             
             
         } completion:^(BOOL finished){
@@ -299,6 +303,7 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
                 
             } completion:^(BOOL finshed){
                 
+                 isAnimationFinshed = FALSE;
                 //单击事件
                 [self opeartionClick:recognizer.view.tag];
                 
