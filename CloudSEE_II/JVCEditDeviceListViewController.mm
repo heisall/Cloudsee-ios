@@ -27,6 +27,8 @@
 #import "JVCAlarmMacro.h"
 #import "JVCDeviceHelper.h"
 
+#import "JVCAlarmCurrentView.h"
+
 @interface JVCEditDeviceListViewController (){
     
     NSMutableArray *mArrayColors;
@@ -565,15 +567,18 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 - (void)connetDeviceWithYSTNum
 {
+    
+    
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
-    if (!model.onLineState) {
+    if (!model.bDeviceServiceOnlineState) {
         
         [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
         return;
     }
-    
+    [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;
+
     [alertObj alertShowToastOnWindow];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -631,6 +636,8 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
        // [self performSelectorOnMainThread:@selector(addAlarmDeviceViewController) withObject:nil waitUntilDone:NO ];
     }else {
         
+        [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;
+
         
         [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"连接失败请请重试"];
         
@@ -753,6 +760,8 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
+
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         ystNetWorkHelperObj.ystNWHDelegate = nil;

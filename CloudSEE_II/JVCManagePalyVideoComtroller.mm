@@ -591,6 +591,8 @@ BOOL isAllLinkRun;
  */
 -(void)runConnectAllVideoByLocalChannelID{
     
+    
+    DDLogCVerbose(@"%s---begin connect.................##########",__FUNCTION__);
     [self CancelConnectAllVideoByLocalChannelID];
     
     nAllLinkFlag   = CONNECTALLDEVICE_Run;
@@ -735,15 +737,17 @@ BOOL isAllLinkRun;
 -(void)connectVideoByLocalChannelID:(int)nlocalChannelID{
     
     
+    DDLogVerbose(@"%s------connect..........##################1",__FUNCTION__);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+         DDLogVerbose(@"%s------connect..........##################2",__FUNCTION__);
         JVCChannelScourseHelper             *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
         NSMutableArray                      *channels            = [channelSourceObj channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
         int                                  channelID           = nlocalChannelID - WINDOWSFLAG + 1;
        
         JVCMonitorConnectionSingleImageView *singleView          = [self singleViewAtIndex:nlocalChannelID - WINDOWSFLAG];
         
-        DDLogCVerbose(@"%s---%@",__FUNCTION__,singleView);
+        DDLogCVerbose(@"%s--2222222222222-%@",__FUNCTION__,singleView);
         
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:channelID];
@@ -758,6 +762,8 @@ BOOL isAllLinkRun;
     
         //重复连接
         if (!connectStatus) {
+            
+            DDLogCVerbose(@"%s--connect ========-%@",__FUNCTION__,singleView);
             
             [singleView startActivity:connectInfo isConnectType:deviceModel.linkType];
             

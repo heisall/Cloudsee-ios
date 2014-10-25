@@ -15,6 +15,7 @@
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCAlarmMacro.h"
 #import "JVCEditLockDeviceNickNameViewController.h"
+#import "JVCAlarmCurrentView.h"
 @interface JVCAddDevieAlarmViewController ()
 {
     int delegateRow;
@@ -64,6 +65,9 @@ static const  int KSuccess         = 1;
 - (void)BackClick
 {
     [self disAlarmRemoteLink];
+    
+    [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;
+
     
     [self.navigationController popViewControllerAnimated:YES];
 }

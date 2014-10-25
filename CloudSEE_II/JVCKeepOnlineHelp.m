@@ -35,6 +35,7 @@ enum PushMessage
 
 @end
 @implementation JVCKeepOnlineHelp
+static const int  KNavicationViewControllersCount = 1;//navicationbar的viewcontroller的数量，1标示根试图
 
 static JVCKeepOnlineHelp *_shareInstance = nil;
 
@@ -473,7 +474,7 @@ UIAlertView *alertView;
     if ([result isKindOfClass:[NSDictionary class]]) {
         
         NSDictionary *resultDic = (NSDictionary *)result;
-        
+        DDLogVerbose(@"收到报警的信息=%@",resultDic);
         JVCAlarmCurrentView *viewCurrent = [JVCAlarmCurrentView shareCurrentAlarmInstance];
 
         if (![[ JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resultDic] ) {
@@ -482,16 +483,39 @@ UIAlertView *alertView;
             model.bNewAlarm = YES;
             [delegate addCurrentAlarmInalarmMessageViewController:model];
            
+            BOOL showState = NO;
+
+            if ( [delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+                
+
+                UITabBarController *tabbarControler  = (UITabBarController *)delegate.window.rootViewController;
+                for (id controllerTab in tabbarControler.viewControllers) {
+                    
+                    if ([controllerTab isKindOfClass:[UINavigationController class]]) {
+                        
+                        UINavigationController *navTabVC = (UINavigationController *)controllerTab;
+                        if (navTabVC.viewControllers.count != KNavicationViewControllersCount) {
+                            showState = YES;
+                        }
+                    
+                    }
+                }
+
+            }
             
-            if (viewCurrent.bShowState == NO &&viewCurrent.bIsInPlay == NO ) {
+            if (!showState) {
                 
-                viewCurrent.frame= [UIScreen mainScreen].bounds;
-                viewCurrent.bShowState = YES;
-                viewCurrent.AlarmDelegate = delegate;
-                [viewCurrent initCurrentAlarmView:model];
-                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                [window addSubview:viewCurrent];
-                
+                if (viewCurrent.bShowState == NO &&viewCurrent.bIsInPlay == NO ) {
+                    
+                    viewCurrent.frame= [UIScreen mainScreen].bounds;
+                    viewCurrent.bShowState = YES;
+                    viewCurrent.AlarmDelegate = delegate;
+                    [viewCurrent initCurrentAlarmView:model];
+                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                    [window addSubview:viewCurrent];
+                    
+                }
+
             }
             
              [model release];

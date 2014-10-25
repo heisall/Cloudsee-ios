@@ -618,6 +618,12 @@ static  const   int      KSetHelpMaxCount    = 10;
 {
     JVCOperationController *tOPVC;
     
+    if (![[JVCDeviceSourceHelper shareDeviceSourceHelper] judgeDeviceHasExist:alarmModelSelect.strYstNumber]) {
+        
+        DDLogVerbose(@"%s--- nil",__FUNCTION__);
+        return;
+    }
+    
     if (iphone5) {
         
         tOPVC = [[JVCOperationControllerIphone5 alloc] init];

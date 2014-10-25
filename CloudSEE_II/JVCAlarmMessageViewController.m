@@ -24,6 +24,7 @@
 #import "UIScrollView+MJRefresh.h"
 
 #import "JVCConfigModel.h"
+#import "JVCAlarmCurrentView.h"
 enum {
     DownLoadType_PIC    = 0,//图片的
     DownLoadType_VIDEO  = 1,//视频的
@@ -646,6 +647,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
  */
 - (void)connetDeviceWithYSTNum
 {
+    [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;
+
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
@@ -715,6 +719,8 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         
     }else {
         
+        [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
+
         [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
         
         [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:@"获取报警信息错误，请重试"];
@@ -730,6 +736,9 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
 - (void)disRemoteLink
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
+
         
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         

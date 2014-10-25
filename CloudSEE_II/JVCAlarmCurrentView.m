@@ -11,6 +11,7 @@
 #import "JVCAlarmModel.h"
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
+#import "JVCAlarmMacro.h"
 
 @interface JVCAlarmCurrentView ()
 {
@@ -75,9 +76,9 @@ static JVCAlarmCurrentView *_shareInstance = nil;
         [viewTemp removeFromSuperview];
     }
     
-    UIControl *control = [[UIControl alloc] initWithFrame:self.bounds];
+    UIControl *control = [[UIControl alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [control addTarget:self action:@selector(CloseCurrentView) forControlEvents:UIControlEventTouchUpInside];
-    [self didAddSubview:control];
+    [self addSubview:control];
     [control release];
     
     

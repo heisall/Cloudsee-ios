@@ -529,13 +529,25 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
 -(NSMutableDictionary *)getFrameParamInfoByChannel:(char *)pBuffer nChannelValue:(int)nChannelValue{
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
-    NSString            *strFindKey      = [[NSString alloc] initWithFormat:@"%@%d%@",MOBILECHFRAMEBEGIN,nChannelValue,MOBILECHFRAMEEND];
+    NSString            *strFindKey      = [NSString stringWithFormat:@"%@%d%@",MOBILECHFRAMEBEGIN,nChannelValue,MOBILECHFRAMEEND];
     
     char  *p1,*p = strstr(pBuffer, [strFindKey UTF8String]);
     
+    
+    
     p+=strlen([strFindKey UTF8String]);
     
+   
+    
     if (p == NULL) {
+        
+        return [amRemoteListDic autorelease];
+    }
+    
+    
+    if (sizeof(p) <= 0) {
+        
+        DDLogVerbose(@"%s----data-%s",__FUNCTION__,p);
         
         return [amRemoteListDic autorelease];
     }

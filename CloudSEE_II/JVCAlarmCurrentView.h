@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-enum
-{
-    ALARM_MOTIONDETECT = 7,//移动检测
-    ALARM_DOOR = 11,//门磁手环报警
-
-};
+//enum
+//{
+//    ALARM_MOTIONDETECT = 7,//移动检测
+//    ALARM_DOOR = 11,//门磁手环报警
+//
+//};
 
 enum  {
 
