@@ -119,7 +119,7 @@ enum TextChatType {
     TextChatType_deleteAlarm   = 1010,
     TextChatType_editAlarm     = 1011,
     TextChatType_EffectInfo    = 1012,  //码流参数信息
-
+    TextChatType_StorageMode   = 1013,  //设置录像模式
 };
 
 enum NetWorkType {
@@ -142,12 +142,13 @@ typedef struct AudioFrame//音频数据结构
     char cb[12];//音频数据？
 } AudioFrame;
 
+
 static NSString const *kDeviceFrameFlagKey        =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";     // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
 
-static NSString const *kDeviceAlarmType   =  @"type";     // 1:门磁  2手环
-
-static const NSString  *KEFFECTFLAG       =  @"effect_flag";//图像翻转的
+static NSString const *kDeviceAlarmType   =  @"type";        // 1:门磁  2手环
+static NSString const *KEFFECTFLAG        =  @"effect_flag"; //图像翻转的
+static NSString const *KStorageMode       =  @"storageMode"; //设置录像的模式
 
 
 #endif

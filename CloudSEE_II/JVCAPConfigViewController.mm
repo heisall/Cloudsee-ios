@@ -81,12 +81,6 @@ static NSString const *KApConfigImageWithFileName = @"apConfigHomeIPC.bundle";
         fontSize = 14;
     }
     
-//    if ([OperationSet judgeSystemLocalLanguage]) {
-//        
-//        fontSize = 14;
-//        
-//    }
-    
     operationInfo.frame=CGRectMake((self.view.frame.size.width-btnImage.size.width)/2.0, deviceImageView.frame.origin.y+deviceImageView.frame.size.height+10.0, btnImage.size.width, heightLable);
     operationInfo.textColor=SETLABLERGBCOLOUR(50.0, 50.0, 50.0);
     

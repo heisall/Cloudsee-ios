@@ -374,6 +374,9 @@ typedef struct
 #define RC_EX_SENSOR		0x08
 #define RC_EX_PTZ			0x09
 
+#define EX_STORAGE_SWITCH   0x07
+
+
 
 //远程控制指令
 #define RC_DISCOVER		0x01

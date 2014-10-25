@@ -28,7 +28,7 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     
     if (self) {
         
-        self.title = @"准备工作";
+        self.title = @"准备步骤";
     }
     
     return self;

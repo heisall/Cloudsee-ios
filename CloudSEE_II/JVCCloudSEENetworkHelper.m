@@ -589,19 +589,21 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 JVCVideoDecoderHelperObj.nVideoWidth          = width;
                 JVCVideoDecoderHelperObj.nVideoHeight         = height;
                 
-                JVCVideoDecoderHelperObj.dVideoframeFrate     = [ystNetworkHelperCMObj getPlayVideoframeFrate:startCode buffer_O:pBuffer buffer_O_size:nSize nAudioType:&nAudioType];
-                
-                JVCVideoDecoderHelperObj.isDecoderModel       = [ystNetworkHelperCMObj checkConnectDeviceEncodModel:startCode];
-                
-                JVCVideoDecoderHelperObj.isExistStartCode     = [ystNetworkHelperCMObj checkConnectVideoInExistStartCode:startCode buffer_O:pBuffer buffer_O_size:nSize];
-                
-                [currentChannelObj setAudioType:nAudioType];
-                
-                playBackDecoderObj.isDecoderModel    = JVCVideoDecoderHelperObj.isDecoderModel;
-                playBackDecoderObj.isExistStartCode  = JVCVideoDecoderHelperObj.isExistStartCode;
-                
-                [currentChannelObj resetVideoDecoderParam];
             }
+            
+            JVCVideoDecoderHelperObj.dVideoframeFrate     = [ystNetworkHelperCMObj getPlayVideoframeFrate:startCode buffer_O:pBuffer buffer_O_size:nSize nAudioType:&nAudioType];
+            
+            JVCVideoDecoderHelperObj.isDecoderModel       = [ystNetworkHelperCMObj checkConnectDeviceEncodModel:startCode];
+            
+            JVCVideoDecoderHelperObj.isExistStartCode     = [ystNetworkHelperCMObj checkConnectVideoInExistStartCode:startCode buffer_O:pBuffer buffer_O_size:nSize];
+            
+            [currentChannelObj setAudioType:nAudioType];
+            
+            playBackDecoderObj.isDecoderModel    = JVCVideoDecoderHelperObj.isDecoderModel;
+            playBackDecoderObj.isExistStartCode  = JVCVideoDecoderHelperObj.isExistStartCode;
+            
+            [currentChannelObj resetVideoDecoderParam];
+            
             [currentChannelObj startPopVideoDataThread];
             
             if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:)]) {
@@ -865,7 +867,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setTalkModel:
         case TextChatType_setAlarmType:
         case TextChatType_getAlarmType:
-        case TextChatType_EffectInfo:{
+        case TextChatType_EffectInfo:
+        case TextChatType_StorageMode:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1146,9 +1149,10 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
                 playBackDecoderObj.nVideoHeight      = height;
             }
             
-            playBackDecoderObj.dVideoframeFrate  = frameRate;
+            playBackDecoderObj.dVideoframeFrate      = frameRate;
+            
             [currentChannelObj resetVideoDecoderParam];
-            currentChannelObj.isPlaybackVideo    = YES;
+            currentChannelObj.isPlaybackVideo        = YES;
             
             [currentChannelObj startPopVideoDataThread];
             
@@ -1260,6 +1264,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
     
     [currentChannelObj resetVideoDecoderParam];
     currentChannelObj.isPlaybackVideo = FALSE;
+    [currentChannelObj startPopVideoDataThread];
     
     int nRemotePlaybackVideoState = RemotePlayBackVideoStateType_End;
     
@@ -1398,15 +1403,16 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
                                 
-                                int  nStreamType = -1;
-                                BOOL isHomeIPC   = FALSE;
+                                int  nStreamType  = -1;
+                                BOOL isHomeIPC    = FALSE;
                                 int  nEffectflag  = -1;
+                                int  nStorageMode = -1;
                                
                                 
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
@@ -1428,11 +1434,16 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
 
                                 if ([params objectForKey:KEFFECTFLAG]) {
                                         
-                                        nEffectflag = [[params objectForKey:KEFFECTFLAG] intValue];
+                                    nEffectflag = [[params objectForKey:KEFFECTFLAG] intValue];
+                                }
+                                
+                                if ([params objectForKey:KStorageMode]) {
+                                    
+                                    nStorageMode = [[params objectForKey:KStorageMode] intValue];
                                 }
 
                                 
-                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag];
+                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode];
                                    
                                 
                                 [params release];

@@ -28,7 +28,7 @@
 @end
 
 
-@interface JVCOperationController : JVCBaseWithGeneralViewController<customBottomDelegate,CustomCoverViewDelegate,JVCPopStreamViewDelegate>
+@interface JVCOperationController : JVCBaseWithGeneralViewController<customBottomDelegate,CustomCoverViewDelegate,JVCPopStreamViewDelegate,UIGestureRecognizerDelegate>
 {
     int             _iSelectedChannelIndex;         //选择当前设备的通道索引
     NSString       *strSelectedDeviceYstNumber;     //选择的设备的云视通号
