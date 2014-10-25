@@ -106,6 +106,7 @@
 "home_alarm_20"="Temp too high and RH too low.";
 "home_alarm_21"="Temp and RH too low.";
 "home_alarm_attention"= "Please pay attention.";
+
 //设备管理界面
 "operation_error"              = "Failed to operate";
 "device_off_line"              = "Unable to operate due to device has been offline";

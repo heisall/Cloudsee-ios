@@ -1380,7 +1380,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                         case RC_GETPARAM:{
                             
-                            DDLogCVerbose(@"%s----------data=%s",__FUNCTION__,stpacket.acData+n);
                             if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                                 
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
@@ -1394,6 +1393,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                                 
+                                stpacket.acData[stpacket.nPacketLen] = 0;
                                 [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj getFrameParamInfoByChannel:stpacket.acData+n nChannelValue:3]];
                                 
                                 [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_paraInfo objYstNetWorkHelpSendData:networkInfoMDic];
