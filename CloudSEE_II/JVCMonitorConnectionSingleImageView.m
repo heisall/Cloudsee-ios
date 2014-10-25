@@ -452,7 +452,7 @@ float min_offset;
 -(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         if (decoderFrameHeight<=0) {
             
@@ -475,6 +475,13 @@ float min_offset;
             }
             
         }else {
+            
+            UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
+            
+            if (!connectInfoTV.hidden) {
+                
+                connectInfoTV.hidden = !connectInfoTV.hidden;
+            }
             
             UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
             [_bPlayVideoBtn setHidden:YES];
@@ -786,8 +793,17 @@ float min_offset;
         }
 	}
     
-    UILabel *connectInfoTV=(UILabel*)[self viewWithTag:106];
-    [connectInfoTV setHidden:YES];
+    if (connectInfo == nil) {
+        
+        UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
+        connectInfoTV.text     = @"正在努力加载视频数据\n请等待...";
+        
+    }else{
+        
+        UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
+        [connectInfoTV setHidden:YES];
+    }
+    
     
 	UILabel *selectedSourceTV=(UILabel*)[self viewWithTag:102];
 	selectedSourceTV.text=[NSString stringWithFormat:@"%@",connectInfo];

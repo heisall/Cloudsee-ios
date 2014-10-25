@@ -353,7 +353,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     NSString *pathSamllImage = [UIImage getBundleImagePath:@"smallItem__Normal.png" bundleName:(NSString *)BUNDLENAMEBottom];
     UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
-    DDLogVerbose(@" self.view.frame==%@",NSStringFromCGRect( self.view.frame));
+
     frameBottom = CGRectMake(0.0, self.view.frame.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
     [_smallItemBgImage release];
 
@@ -370,8 +370,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [self.view addSubview:_operationItemSmallBg];
 
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
-    
-    DDLogCVerbose(@"%s---talkBtn=%@",__FUNCTION__,talkBtn);
+
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
     [talkBtn addGestureRecognizer:longPress];
