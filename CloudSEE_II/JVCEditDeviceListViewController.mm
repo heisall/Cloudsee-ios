@@ -95,6 +95,15 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     [self clearToolView];
     
     self.nIndex = 0;
+    
+}
+
+/**
+ *  还原索引
+ */
+-(void)resetSelectedIndex {
+    
+     self.nIndex = 0;
 }
 
 /**
@@ -476,7 +485,8 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 - (void)deleteDeviceInfoCallBack
 {
-    DDLogVerbose(@"%s",__FUNCTION__);
+
+    DDLogVerbose(@"%s---",__FUNCTION__);
 }
 
 #pragma 通道管理

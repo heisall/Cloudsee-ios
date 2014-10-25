@@ -38,6 +38,7 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
         }
         
         self.hidesBottomBarWhenPushed = YES;
+        
     }
     return self;
 }

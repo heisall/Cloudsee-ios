@@ -435,10 +435,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 - (void)handleDeleteDeviceWithNoChannel:(int)result   channelModel:(JVCChannelModel *)channelModelDelete
 {
     if (kAddChannelSuccesss == result ) {//成功后，把数据从本地列表中删除,返回
+        
         JVCDeviceModel *deviceModel = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:channelModelDelete.strDeviceYstNumber];
+        
         [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithModel:deviceModel];
         //删除通道
         [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
+        
+        
         [self.navigationController popViewControllerAnimated:YES];
         
     }else{//失败
