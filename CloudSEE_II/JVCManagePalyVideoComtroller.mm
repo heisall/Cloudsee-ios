@@ -765,7 +765,7 @@ BOOL isAllLinkRun;
             
             DDLogCVerbose(@"%s--connect ========-%@",__FUNCTION__,singleView);
             
-            [singleView startActivity:connectInfo isConnectType:deviceModel.linkType];
+            [singleView startActivity:connectInfo isConnectType:!deviceModel.linkType];
             
             if (deviceModel.linkType) {
                 

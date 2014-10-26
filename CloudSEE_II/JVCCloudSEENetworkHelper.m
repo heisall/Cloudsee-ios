@@ -964,7 +964,6 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     
     JVCCloudSEEManagerHelper  *currentChannelObj = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
-    DDLogCVerbose(@"%s-------stopTalk=################################",__FUNCTION__);
     switch(uchType)
 	{
         case JVN_REQ_CHAT:
@@ -1414,7 +1413,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 int  nEffectflag  = -1;
                                 int  nStorageMode = -1;
                                
-                                 DDLogCVerbose(@"%s-------**********************************%s",__FUNCTION__,stpacket.acData+n);
+                                 DDLogCVerbose(@"%s-------*****************67888*****************%s",__FUNCTION__,stpacket.acData+n);
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
                                     nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];

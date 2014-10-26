@@ -666,7 +666,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
     
     singleVideoShow.nStreamType                          = nStreamType;
     singleVideoShow.isHomeIPC                            = isHomeIPC;
@@ -716,7 +716,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
         //重复连接
         if (!connectStatus) {
             
-            [singleVideoShow startActivity:connectInfo isConnectType:CONNECTTYPE_IP];
+            [singleVideoShow startActivity:connectInfo isConnectType:!CONNECTTYPE_IP];
             
              connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:kConnectDefaultLocalChannel nRemoteChannel:kConnectDefaultRemoteChannel strUserName:(NSString *)kConnectDefaultUsername strPassWord:(NSString *)kConnectDefaultPassword strRemoteIP:(NSString *)kConnectDefaultIP nRemotePort:kConnectDefaultPort nSystemVersion:IOS_VERSION isConnectShowVideo:TRUE];
         }
