@@ -282,6 +282,7 @@
 "wifi-name-nil"="请输入无线网络名称";
 "ap_configer"= "配置";
 "wifi-name-nil"="请输入无线网络名称";
+"wifi-name-selected"="请选择无线网络名称";
 
 //扫描加设备界面
 "jvc_adddevcie_sacn_back" = "退出";

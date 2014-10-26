@@ -115,7 +115,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     _tfContentInfo.frame        = CGRectMake((self.view.frame.size.width - tImageBg.size.width)/2.0+kUserNameTextFieldWithTitleLeft, kUserNameTextFieldWithTop,tImageBg.size.width - kUserNameTextFieldWithTitleLeft, kTitleTVWithHeight);
     _tfContentInfo.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     _tfContentInfo.keyboardAppearance=UIKeyboardAppearanceAlert;
-    _tfContentInfo.placeholder  = NSLocalizedString(@"wifi-name", nil);
+    _tfContentInfo.placeholder  = NSLocalizedString(@"wifi-name-selected", nil);
     _tfContentInfo.enabled      = FALSE;
     [self.view addSubview:_tfContentInfo];
     
