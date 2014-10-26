@@ -20,6 +20,7 @@
     UIView         *backGroud;
     int             encoderTotalLength;
     CFTimeInterval  animationTime;
+    UIButton       *button;
 }
 
 @end
@@ -146,13 +147,16 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     rectNextButton.origin.x  = (self.view.frame.size.width - rectNextButton.size.width)/2.0;
     rectNextButton.origin.y  = sendButton.frame.size.height + sendButton.frame.origin.y + kNetButtonWithSendButtonTop;
     
-    UIButton *button         = [UIButton buttonWithType:UIButtonTypeCustom];
+    button         = [UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor   = [UIColor clearColor];
     button.frame             = rectNextButton;
     [button setBackgroundImage:nextButtonImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(gotoLanSerchDevice) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:LOCALANGER(@"jvc_voice_add_next") forState:UIControlStateNormal];
     [self.view addSubview:button];
+    
+    button.enabled  = FALSE;
+    
     
     encoderTotalLength = 0.0;
     
@@ -215,6 +219,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
         
         return;
     }
+    
     [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
@@ -291,6 +296,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             
             [backGroud.layer removeAnimationForKey:(NSString *)kAnimatinDurationKey];
+            button.enabled  = TRUE;
         });
         
     });
