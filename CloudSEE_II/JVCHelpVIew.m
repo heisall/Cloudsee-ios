@@ -51,7 +51,7 @@ static const  int  KWelcomeListCount  = 4;//欢迎界面的最大值
     
         for(int i=0;i<KWelcomeListCount;i++ )
         {
-            NSString *string = [NSString stringWithFormat:@"welcome_%d_4",i];
+            NSString *string = [NSString stringWithFormat:@"welcom_%d_4",i];
             [imageNameList addObject:NSLocalizedString(string, nil)];
             
         }

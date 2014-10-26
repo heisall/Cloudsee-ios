@@ -50,7 +50,7 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"重置信息";
+    self.title = LOCALANGER(@"jvc_Unmod_titile");
     
     self.navigationController.navigationBarHidden = NO;
     
@@ -61,7 +61,7 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:strImage];
     
     UILabel *LabelTitleUser = [[UILabel alloc] initWithFrame: CGRectMake(KLabelOriginX, KLabelOriginY, KLabelWith, image.size.height)];
-    LabelTitleUser.text = @"用户名";
+    LabelTitleUser.text = LOCALANGER(@"jvc_Unmod_user");
     LabelTitleUser.backgroundColor = [UIColor clearColor];
     LabelTitleUser.textAlignment = UITextAlignmentLeft;
     [self.view addSubview:LabelTitleUser];
@@ -96,7 +96,7 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     [self.view addSubview:userLabel];
     
     UILabel *LabelTitlePW = [[UILabel alloc] initWithFrame: CGRectMake(KLabelOriginX, userTextField.bottom+KSpan, KLabelWith, image.size.height)];
-    LabelTitlePW.text = @"密码";
+    LabelTitlePW.text = LOCALANGER(@"jvc_Unmod_pw");
     LabelTitlePW.backgroundColor = [UIColor clearColor];
     LabelTitlePW.textAlignment = UITextAlignmentLeft;
     [self.view addSubview:LabelTitlePW];
@@ -125,7 +125,7 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     UIImage *imagebtn = [[UIImage alloc] initWithContentsOfFile:btnPath];
     UIButton *btnClick = [UIButton buttonWithType:UIButtonTypeCustom];
     btnClick.frame = CGRectMake(userTextField.left, passWordField.bottom+KSpan, userTextField.size.width, imagebtn.size.height);
-    [btnClick setTitle:@"完成" forState:UIControlStateNormal];
+    [btnClick setTitle:LOCALANGER(@"jvc_Unmod_btntit") forState:UIControlStateNormal];
     [btnClick setBackgroundImage:imagebtn forState:UIControlStateNormal];
     [btnClick addTarget:self action:@selector(modifyUnlegatUserInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnClick];
@@ -284,7 +284,7 @@ static const int   KlabelFont       = 14;//labbel的字体大小
         [self modifyUnLegalUserInfoSeccess];
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_Unmod_resultError")];
     }
 }
 

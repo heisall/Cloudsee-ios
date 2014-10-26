@@ -13,565 +13,7 @@
 
 
 
-//注册界面
-"ResignUser" = "邮箱/用户名/手机号";
-"ResignPassWord" = "密码";
-"InsuerpassWord" = "确认密码";
-"home_email" = "邮箱";
-"registeTiShi" = "阅读并同意";
-"userAgreement" = "用户协议";
-"Finish" = "完  成";
-"home_email_nil"="请输入邮箱";
-"home_email_error"="邮箱格式不正确";
-"loginResign_LENGTH_E"="用户名长度只能在4-28位字符之间";
-"loginResign_NUMBER_E"="用户名不能全为数字,请确认输入的是手机号或重新输入";
-"loginResign_OTHER_E"="用户名由英文、数字及-_组成";
-"loginResign_passWord_error" = "密码长度在6-20位字符之间";
-"home_login_resign_Email_exit"= "亲， 邮箱已经被别人占领，请修改。";
-"home_login_resign_Email_Noexit"= "恭喜，邮箱已被您收入囊中。";
-"home_login_user_exit"= "用户名已存在";
-"home_login_resign_user_exit"= "亲， 用户名已经被别人占领，请修改。";
-"home_login_user_noFound"= "用户不存在";
-"home_login_resign_user_noFound"= "恭喜，用户名已被您收入囊中。";
-"PasswordNoEqual" = "两次输入的密码不一致";
 
-"LOGINRESULT_USERNAME_NIL"   = "请输入用户名";
-"LOGINRESULT_USERNAME_ERROR" = "用户名格式不正确";
-"DEVICE_USERNAME_ERROR"      = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
-"DEVICE_PASSWORLD_ERROR"     = "密码格式不正确,密码由0-16位字符组成";
-
-"LOGINRESULT_PASSWORLD_NIL"           = "请输入密码";
-"LOGINRESULT_PASSWORLD_ERROR"         = "密码格式不正确,密码由6-20位任意字符组成";
-"LOGINRESULT_ENSURE_PASSWORD_NIL"     = "请输入确认密码";
-"LOGINRESULT_ENSURE_PASSWORD_ERROR"   = "两次输入的密码不一致";
-"LOGINRESULT_EMAIL_ERROR"             = "邮箱格式不正确";
-"LOGINRESULT_NOT_EQUAL_USER_PASSWORD" = "输入的密码与旧密码不一致";
-"LOGINRESULT_default_ERROR" = "连接服务器错误，代码：";
-"LOGINRESULT_NEWWORD_EQUAL_USER_PASSWORD" = "输入的密码与旧密码一致";
-"login_pw_equal"= "亲，新密码与旧密码不能相同";
-
-"USER_HAS_EXIST" = "用户已经存在";
-"USER_NOT_EXIST" = "用户不存在";
-"PASSWORD_ERROR" = "亲，请输入正确的密码";
-"SESSION_NOT_EXSIT" = "亲，您的登录已过期";
-"PTCP_HAS_CLOSED"   = "与服务器连接断开";
-"SQL_NOT_FIND"= "数据库不存在";
-"Login_Default_error" = "连接服务器错误,代码：";
-"home_login_resign_PhoneNum_error" = "手机号格式不正确";
-"Home_Resign_error"  ="注册失败";
-
-"REQ_RES_TIMEOUT"= "请求超时，请稍后重试";
-"CONN_OTHER_ERROR"= "连接服务器超时";
-
-
-//添加设备界面
-"YunShitong"    = "云视通号";
-"ConnPointNum"  = "通道数量";
-"gaoji"         = "高级";
-"save"          = "保存";
-"back"          = "返回";
-"userName"      = "用户名";
-"passWord"      = "密  码";
-"yunshitongNIl" = "请输入云视通号";
-"nolegalYushitongadd" = "云视通号错误";
-"UserNameNil"     = "请输入用户名";
-"adddevice_error" = "添加设备失败";
-"adddevice_net_error"= "请求超时，请稍后重试.";
-"adddevice_has_exist"= "您已添加过该设备，不能重复添加.";
-"addDevice_Max_num"  = "您的设备数已经超过最大值，请删除不使用的设备后再添加新设备";
-
-
-
-//绑定邮箱界面
-"Binding_email"="邮箱";
-"binding_skip" = "跳过";
-"binding_email_exist"="邮箱已被注册";
-"binding_failt"= "邮箱绑定失败";
-"Binding_email_title"="绑定邮箱";
-"DeviceModifyViewController_binding" = "为了您的账户安全以及体验更多服务，建议绑定一个邮箱";
-
-//重置界面
-"modify_title"="完善用户信息";
-"modify_failt"= "修改失败";
-"Binding_phone"="手机号";
-"DeviceModifyUnlegalUSer_alert"="账号系统升级，请重置账号";
-
-
-//设备编辑理界面
-"delete_success"= "删除成功";
-"delete_failt"= "删除失败";
-"add_channel_success"="通道添加成功";
-"add_channel_fail"="通道添加失败";
-"edit_falt"="修改失败";
-"edit_success"="修改成功";
-"MAX_ERROR" = "该设备的通道数量达到上限，无法继续添加!";
-
-
-//连接类型设置界面
-"Modify_LinkType_success" = "修改成功";
-"Modify_LinkType_fail"    = "修改失败";
-
-////用户管理界面
-"userManager_modify_pw" = "修改密码";
-"userManager_title"     = "用户设置";
-
-//修改密码界面
-"Modify_Pw_success" = "修改成功";
-"Modify_PW_fail"    = "修改密码失败";
-
-//customaler
-"customAlert_sure"="确定";
-
-//DeviceListAlert
-"MODIFY_DEVIE_NICK_NIL"     = "请输入设备昵称";
-"MODIFY_CHANNEL_NICK_NIL"   = "请输入通道昵称";
-"MODIFY_DEVIE_NICK_ERROR"   = "含有非法字符，昵称由1-20个字母、数字、汉字及特殊字符-_+().组成";
-"MODIFY_DEVIE_USER_NIL"     = "请输入用户名";
-"MODIFY_DEVIE_PASSWORD_NIL" = "请输入密码";
-"LINKMODEL_USER_NIL"        = "请输入用户名";
-"LINKMODEL_USER_ERROR"      = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
-"LINKMODEL_PASSWORD_NIL"    = "请输入密码";
-"LINKMODEL_PASSWORD_ERROR"  = "密码格式不正确,密码只能由0-16位字符组成";
-"LINKMODEL_IP_NIL"          = "请输入IP";
-"LINKMODEL_IP_ERROR"        = "IP格式不正确";
-"LINKMODEL_PORT_NIL"        = "请输入端口号";
-"LINKMODEL_PORT_ERROR"      = "端口格式不正确";
-"LINKMODEL_UNKONWN_ERROR"   = "连接服务器错误，代码：";
-
-//jdcsviewController
-"JDCSVC_GetDevice_Error" ="设备加载失败";
-
-//Keeplineerror
-"AlertkeepLineError_userOut" = "退出";
-"AlertkeepLineError_LoginIn" = "继续登录";
-"AlertkeepLineError_title"   = "账号在其他地方登录或者账号异常";
-
-"AlertkeepLineError_network_title" = "网络连接异常,请重新登录";
-
-//播放界面
-"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
-//***语音对讲**
-"talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
-"talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";
-"talkStart"      = "亲，你现在可以和对方说话了";
-"talking"        = "对讲功能成功开启，长按向对方喊话吧";
-"Intercom function has started successfully, speak to him please."="对讲功能成功开启,抓紧向对方喊话吧!";
-
-"DeviceList"            = "设备列表";
-"RequestConnPointError" = "请求通道不成功";
-"requestDeviceError"    = "请求设备不成功";
-"NoData"                = "没有通道信息";
-
-"QQLogin"               = "用QQ账号登录";
-"SinaLogin"             = "用微博账号登录";
-
-"passWordNil"  = "请输入密码";
-"RequestError" = "请求失败";
-"QQLoginError" = "登陆不成功 没有获取accesstoken";
-"QQAPiError"   = "api调用失败";
-"QQTokenError" = "可能授权已过期，请重新获取";
-"Notification" = "温馨提示";
-"Ok" = "确定";
-"NODelete" = "删除不成功";
-"sum"      = "共有";
-"Device"   = "个设备";
-"name"     = "名称";
-"ConnPointNil" = "请输入通道昵称";
-"ErrorOnEditConPoint"  = "修改用户名不成功";
-"ErrorOnEditConPoint2" = "修改通道名称不成功";
-
-"NickName"    = "昵  称";
-"NickNameNIl" = "请输入昵称";
-
-"InputYunShiTong"    = "请输入云视通号";
-"InputConnPointNum"  = "请输入通道数量";
-"connPOintNUmNIl"    = "请输入通道数";
-"InputConnPointSure" = "请输入正确的通道数";
-
-
-"InsureNumNIl" = "请输入确认密码";
-"NoResin"      = "注册不成功";
-"NoBond"       = "绑定不成功";
-"UserResignInputError" = "用户名格式不正确,用户名由4-18个字母、数字或特殊字符'-'、'_'组成";
-"PassWordInputError"   = "密码格式不正确,密码由6-20个英文字母、数字或特殊字符组成";
-"NODEVICE"        = "暂无设备";
-"NODEVICEADD"     = "请添加设备";
-"keepOnLineError" = "网络连接异常,请重新登录";
-
-"AgreeResign" = "请勾选用户协议";
-
-"Binding"     = "绑定";
-
-"Share"       = "分享";
-"Call Poloce" = "报警";
-"Position"    = "位置";
-"Account"     = "帐户";
-
-"Scence Picture" = "场景图片";
-"Help"           = "帮助";
-"About"          = "关于";
-"Log Out"        = "注销";
-
-"DemoPointError" = "演示点加载失败";
-
-//------播放视频界面
-"Video Display" = "视频播放";
-"Capture"       = "  抓拍";
-"megaphone"     = "  对讲";
-"video"         = "  录像";
-"MoreOper"      = "  默认";
-"Audio"         = "音频监听";
-"PTZ Control"   = "云台控制";
-"Playback"      = "远程回放";
-
-"Disconnecting nowPlease Wait" = "正在断开\n请等待...";
-"Exiting NowPlease Wait"       = "正在退出\n请等待...";
-
-"Channel List" = "通道列表";
-"More"         = "更多";
-
-"Searching device information, Please wait"="正在加载设备信息\n请等待..." ;
-
-"connectResultInfo_4"  = "连接失败.";
-"connectResultInfo_6"  = "连接异常断开.";
-"connectResultInfo_7"  = "服务停止，连接断开.";
-"connectResultInfo_8"  = "断开连接失败.";
-"connectResultInfo_9"  = "云视通服务已停止.";
-"connectResultInfo_10" = "身份验证不成功.";
-"connectResultInfo_11" = "超过主控连接最大次数!";
-
-"Play back" = "远程回放";
-"Serach"    = "检索";
-
-"ErrorInLoginINFinish" = "数据获取不成功";
-"moreFunction"         = "更多功能";
-"Asking for video data now, please wait..." = "正在加载数据，请等待...";
-"Connecting with server now..."             = "正在连接服务器...";
-"Connected with server "                    = "与 ";
-" successfully..."                          = " 号服务器连接成功...";
-"Asking for video data now..."              = "正在请求视频数据...";
-"Asking for video data now, please wait..." = "视频数据请求中，请等待....";
-
-"alertInfo"              = "报警信息";
-"adddeviceRequestError"  = "添加设备异常或者设备名重复";
-"alertInfo"              = "报警信息";
-"starttime"              = "开始时间";
-"disk"                   = "盘符";
-"Cancel"                 = "取消";
-"Sure"                   = "确定";
-
-"firstImage1" = "firstImage01.png";
-"firstImage2" = "firstImage02.png";
-"firstImage3" = "firstImage03.png";
-"firstImage4" = "firstImage04.png";
-"gotoSoftBtn" = "goSoftView.png";
-
-"networkError"                                    =  "网络连接异常，请检查网络";
-"Asking for Device Info data now, please wait..." = "正在加载设备信息，请等待...";
-
-"helpImage1"  = "help_ch__1.png";
-"helpImage2"  = "help_ch__2.png";
-"helpImage3"  = "help_ch__3.png";
-"helpImage4"  = "help_ch__4.png";
-"helpImage5"  = "help_ch__5.png";
-//二维码的
-"helpImage6"  = "help_ch__6.png";
-//分屏的
-"helpImage7"  = "help_ch__7.png";
-
-
-"helpImage1_568"  =  "help_ch_568_1@2x.png";
-"helpImage2_568"  = "help_ch_568_2@2x.png";
-"helpImage3_568"  = "help_ch_568_3@2x.png";
-"helpImage4_568"  = "help_ch_568_4@2x.png";
-"helpImage5_568"  = "help_ch_568_5@2x.png";
-"helpImage6_568"  = "help_ch_568_6@2x.png";
-"helpImage7_568"  = "help_ch_568_7@2x.png";
-
-"firstImage01E568" = "firstImage01568@2x.png";
-"firstImage02E568" = "firstImage02568@2x.png";
-"firstImage03E568" = "firstImage03568@2x.png";
-"firstImage04E568" = "firstImage04568@2x.png";
-
-"password_error_result"     = "密码错误,请重新输入";
-"loginError11"              = "用户名或密码错误,请重新输入";
-"noLegalcharacters"         = "通道名由1-10个字母、数字、汉字及特殊字符—_+().组成";
-"nolegalpasswordcharacters" = "密码格式不正确,密码由6-16个英文字母、数字或特殊字符组成";
-"nolegalusercharacters"     = "用户名由6-20个字母、数字或特殊字符@-_.组成";
-"nolegalYushitong"          = "昵称由1-10位字母、汉字、数字和特殊字符—._+()组成";
-
-"abcpwError" = "密码格式不正确，请重新输入";
-"abcerror"   = "用户名格式不正确，请重新输入";
-
-"ErrorOnAddConPoint"  = "添加设备不成功";
-"userResign"          = "userResign";
-
-"Learn audio info at any time"    = "随时了解音频信息";
-"Adjust PTZ at any time"          =  "随时调整监控画面信息";
-"Check Playback info at any time" = "随时查看录像信息";
-"focus"                           = "变焦";
-"Zoom"                            = "变倍";
-
-"Update Available"  = "更新提示";
-"Not now"           = "忽略";
-"UpdateBtn"         = "更新";
-"Found new version" = "发现新版本 ";
-"update now"        = ",是否更新?";
-
-"goOn"         = "继续";
-"3gW"          = "目前处于2G/3G网络，观看视频会产生大量流量费用（由运营商收取），建议使用Wi-Fi网络.";
-"Poloce Info"  = "报警信息";
-"errorResin"   = "用户名格式不正确或已注册";
-"DontALLowAdd" = "不能添加，自动获取的";
-"localquit"    =  "退出";
-
-"DontALLowAdd"= "该设备的通道数量达到上限，无法继续添加!";
-"insertSuccess" = "添加成功!";
-"operation"="该功能在远程回放时暂停使用.";
-"TalkInfo"="正在与主控请求对讲，请等待...";
-
-"pictureLibraynoAutor" = "无法访问相册.请在[设置->隐私->照片]设置为打开状态.";
-"picturelibrayError" = "访问相册失败";
-"userDefine" = "用户拒绝访问";
-"NSLocalString"="Chinese";
-
-"oldPW" = "旧密码";
-"newPW" = "新密码";
-"newInsurePw" = "确认密码";
-"changePwUser"= "用户名";
-"changepwOldNil" = "请输入旧密码";
-
-"changepwerror" = "帐号或密码有误，请重新输入.";
-"changepwsuccess" = "修改密码成功";
-
-"changepwOld" = "请输入旧密码";
-"changePwNew" = "请输入新密码";
-"changepwNewInSure" = "请输入确认密码";
-"newDevice"         = "新品展示";
-"newDeviceGetError" = "获取新品数据不成功";
-"newdeviceNULL"     = "暂时没有数据";
-"newDeviceWatch"    = "观看效果";
-"deviceOnLine"      = "设备已离线，暂时无法观看.";
-
-"deviceCheck"       = "正在更新主控状态，请稍后...";
-"mapDemo"           = "演示点";
-
-"searchDeviceONLine" = "正在检测设备状态，请等待...";
-
-"emailHelp"          = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请将反馈内容发送到feedbackandsuggestion@gmail.com邮箱";
-
-"login_legal_pw1" = "密码不能全是相同的字母和数字";
-"login_legal_pw2" = "请不要使用连续数字或字符作为密码";
-
-"suggestAndFeedBack" = "建议与反馈";
-"suggestAndFeedBack_email_title" = "建议与反馈";
-
-"version" = "版本号:";
-
-"qrReturn"="  返回";
-"qrAdd"="添加";
-"qrContinue"="继续";
-"qrDevice"="发现设备";
-"qrNoDevice"="不属于云视通设备";
-"qrScan"="正在扫描设备，请等待...";
-"noLocalVideo"="不支持该设备录像.";
-"editDeviceError" = "修改设备不成功";
-"addDeviceError"  = "添加设备不成功";
-"GetDetailDemoPointError" = "获取演示点详细信息不成功";
-"four-Screen" = "4分屏";
-"nine-Screen" = "9分屏";
-"sixteen-Screen" = "16分屏";
-"Not_720p" = "手机软件不支持播放大于720P的视频";
-
-"WIFISetting"="Wi-Fi配置";
-"host-end-error"="获取主控设备的Wi-Fi出错\n与主控建立连接不成功!";
-"host-get-information"="正在获取主控设备的Wi-Fi信息";
-"wifi-setting"="正在配置设备\n请等待";
-"wifi_search_setting"="正在扫描设备\n请等待";
-"wifi-Successful"="配置Wi-Fi完成，听到设备发出‘滴滴’两声，代表配置成功!";
-"wifi-failture"="配置Wi-Fi不成功，请重试!";
-"get-device-error"="未扫瞄出设备，请检查Wi-Fi";
-"wifi-name-nil"="请输入无线网络名称";
-
-"wifi-name"="无线网络名称";
-"wifi-finish"="完成";
-"wifi-select"= "选取网络...";
-"wifi_select_loading"= "正在加载数据...";
-"wifi-modefy"="口令设置";
-"wifi-setting-open"="远程设置";
-"wifi-change"="修改口令";
-"fastmonior" = "快速观看";
-
-"app-search-device"= "正在扫描设备\n请耐心等待...";
-"app-search-device-error"= "获取设备Wi-Fi异常\n与主控建立连接不成功!";
-
-
-"image-help-add-device_1" = "添加设备";
-"image-help-left_1" = "可以对该设备增加通道数";
-"image-help-left_2" = "左滑设备列表";
-
-"image-operation_1" = "左右切换通道";
-"image-operation_2" = "抓拍和录像文件保存到手机相册中";
-"image-operation_3" = "戴耳机使用音频，效果更佳";
-"image-operation_4" = "长按切换其它通道";
-"image-operation_5" = "多个通道可以同时观看";
-
-
-"image-help-bg_1"= "adddevice.png";
-"image-help-bg_2"= "bg_left.png";
-"image-help-bg_3"= "operaudio.png";
-"image-help-bg_4"= "operLong.png";
-"image-help-bg_5"= "operSlide1.png";
-"image-help-bg_6"= "operSpreat.png";
-
-"image-help-bg_1_568"= "adddevice568@2x.png";
-"image-help-bg_2_568"= "bg_left568@2x.png";
-"image-help-bg_3_568"= "operaudio568@2x.png";
-"image-help-bg_4_568"= "operLong568@2x.png";
-"image-help-bg_5_568"= "operSlide1568@2x.png";
-"image-help-bg_6_568"= "operSpreat568_ch@2x.png";
-
-
-//wifi 扫描出来的产品的图片
-"wifi_search_device_image_0" = "wifi_search_new_ch_0.png";
-"wifi_search_device_image_1" = "wifi_search_new_ch_1.png";
-
-//设备管理界面
-"device_manager"         = "设备管理";
-"device_manager_helper"  = "可添加、修改、删除、远程配置设备";
-"device_scan"            = "扫描";
-"operation_error"        = "操作不成功";
-"device_off_line"        = "设备已处于离线状态,不能进行操作";
-
-"IP"="IP地址";
-"Netmask"="子网掩码";
-"Gateway"="默认网关";
-"DNS"="域名服务器";
-"MAC"="网卡地址";
-"CloudSEEID"="云视通号";
-"Status"="云视通状态";
-
-"obtain automatically"="自动获取";
-"Input Manually"="手动输入";
-"stream"="码流设置";
-"Ethernet"="有线连接";
-"WIFI"="无线连接";
-
-"Image Quality"="图片质量";
-"Clear"="清晰";
-"Fluent"="流畅";
-"FPS"="帧率";
-"Video Quality"="码流质量";
-"selectedWifi"="选取网络...";
-"No support for this device"="暂不支持设置此类设备,仅支持IPC设备。";
-"wifiInfo"="无线网络信息";
-"Offline"="离线";
-"Online"="在线";
-"host-connect"="正在与主控建立连接，请等待...";
-"host-connectFalied"="与主控建立连接不成功，请重试...";
-"uploading" = "正在上传...";
-"net_add_channel_error" = "网络异常,添加通道不成功！";
-"No_video_file_found"   = "暂无远程视频文件";
-"data_not_compare"      = "本地数据与服务器数据不一致，是否同步数据";
-"wifi_detail_infn"      = "Wi-Fi详细信息";
-"wifiTimeout"           = "配置Wi-Fi超时！";
-"Only administator can use this function"="不是管理员用户，无法使用此功能.";
-
-"skin" = "皮肤";
-"setskin"= "皮肤设置";
-
-"Last_Updated"= "上次刷新";
-"Release_to_refresh"= "释放立即刷新...";
-"EGOLoading" = "正在刷新...";
-"Pull_down_to_refresh"= "释放刷新...";
-
-"delete_left" = "删除成功";
-"Edit_left" = "修改成功";
-"screen_set" = "观看模式";
-"singel_device" = "单设备";
-"muti_device" = "多设备";
-"You have no permissions"="没有权限!";
-"loading_device"= "正在加载...";
-"Refresh_frequently"="刷新频繁，请稍后再试";
-"AM" = "上午";
-"PM" = "下午";
-
-"FONT"= "18";
-"FONT_OPERATION"= "14";
-"OpenSwitch" = "打开";
-"CloseSwitch" = "关闭";
-"Push_Notification"= "报警推送功能关闭，设备报警时手机端将不会收到设备的报警信息";
-"loginOut"= "您确定要注销吗？";
-"Connection Failed ID_and_modify_user_and password"="身份验证不成功，是否修改用户名密码";
-
-"IP_address"="IP 地址";
-"Port"= "端口";
-"IPNIl" = "请输入IP";
-"PortIl" = "请输入端口号";
-"IPUnLegal" = "IP格式不正确";
-"PortUnLegal" = "端口号格式不正确";
-"IP_connect" = "连接模式";
-"resign_Notification" = "是否已有账号？";
-"resign_notification_ok"="登录";
-"resign_notification_resign"="注册";
-"wi-fi_setting_User"= "身份确认失败,请确认";
-"ip_connect_text"="IP连接";
-"yst_connect_text"= "云视通连接";
-
-"devicemanagerhelper_1"= "可添加、修改、删除通道和设备";
-"devicemanagerhelper_2"= "远程配置IPC设备的网络和码流参数";
-"devicemanagerhelper_3"= "切换ip直连和云视通连接模式";
-"local_notification"   = "账号登录可以检测设备在线状态、接收设备报警信息等功能，请切换到账号模式";
-"local_location"       = "忽略";
-"local_ccLogin"        = "切换";
-"DeviceonLine"         = "设备在线显示为橘红色，设备离线显示为灰色";
-"DeviceWifi"           = "设备有Wi-Fi功能时，该图标为橘红色，设备无Wi-Fi功能时，图标显示为灰色";
-
-"help_Mainlist_586_line"= "help_Mainlist_586_line_ch.png";
-"help_Mainlist_line"= "help_Mainlist_line_ch.png";
-"addDevice_error_delegate" = "由于网络原因，添加设备不成功，请删除设备重新添加";
-"adddevice_error_someSuccess"= "由于网络原因，部分通道添加不成功";
-"watchType" = "设备在线检测";
-"clickOffLineDevie" = "关闭设置界面中设备在线检测，就可以查看离线设备";
-"setting_offLine_Device"= "关闭设备在线检测功能，设备将全部显示为在线状态";
-"ap_setting"="配置热点";
-"ap_Setting_Detail"= "快速配置";
-
-"sharkToAdd"= "摇一摇加设备";
-"openSharkTitle"="摇一摇加设备仅适用于家用安防产品，具体操作如下:\n1.开启手机无线局域网连接，并选取网络IPC-H-***；\n2.访客登录应用.在设置界面打开摇一摇添加设备功能，在设备列表界面晃动手机，搜索到设备，点击进入配置界面；\n3.选中预配置的路由器，输入密码，点击【配置】，直到配置流程结束。
-";
-"shark_open"= "打开";
-"shark_More"= "了解更多";
-"homeAlerm"="家庭安防";
-
-"wifi_ap_setting_error"="配置Wi-Fi不成功，请重试!";
-"wifi_ap_setting_success"= "配置Wi-Fi成功!";
-"get_WIFI_list_timeOut"="获取主控Wi-Fi列表超时";
-"ap_seacher_no_device"= "未搜索到设备";
-"ap_configer"= "配置";
-
-"ap_change_net_work"="网络发生改变，无法继续操作";
-
-/**
- *  注册界面
- */
-"delete_Success" = "删除成功";
-"delete_Failt" = "删除不成功";
-"Edit_Success" = "修改成功";
-"Edit_failt" = "修改不成功";
-"scan_add_device"= "使用二维码扫描，添加设备更方便";
-
-
-/**
- *  找回密码网址
- */
-"GETRESTPWD" =  "http://webapp.afdvr.com/findpwd/index.html";
-
-//账号服务器的
-"APPCHANNELSERVICEADDRESS" = "appchannel.afdvr.com";//@"jovephoneacc.yoosee.cc"
-"APPONLINESERVICEADDRESS" =  "apponline.afdvr.com";//@"jovephoneacc.yoosee.cc"
-
-"InitAccountSDKError" = "网络异常，初始化失败";
 
 /*******************************************************/
 
@@ -683,38 +125,109 @@
 "jvc_log_fot"= "忘记密码";
 "jvc_log_demo" = "演示点";
 
-//登录界面的账号判读
-"LOGINRESULT_USERNAME_NIL" = "请输入用户名";
-"LOGINRESULT_USERNAME_ERROR" = "用户名格式不正确";
-"DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
-"DEVICE_PASSWORLD_ERROR" = "密码格式不正确,密码由0-16位字符组成";
-"LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
-"LOGINRESULT_PASSWORLD_ERROR" = "密码格式不正确,密码由6-20位任意字符组成";
-"LOGINRESULT_ENSURE_PASSWORD_NIL"= "请输入确认密码";
-"LOGINRESULT_ENSURE_PASSWORD_ERROR"= "两次输入的密码不一致";
-"LOGINRESULT_EMAIL_ERROR" = "邮箱格式不正确";
-"LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "输入的密码与旧密码不一致";
-"LOGINRESULT_default_ERROR" = "连接服务器错误，代码：";
-"LOGINRESULT_NEWWORD_EQUAL_USER_PASSWORD"= "输入的密码与旧密码一致";
-"login_pw_equal"= "亲，新密码与旧密码不能相同";
-"loginResign_LENGTH_E"="用户名长度只能在4-18位字符之间";
-"loginResign_NUMBER_E"="用户名不能全为数字,请确认输入的是手机号或重新输入";
+//不合法用户名用户密码修改
+"jvc_Unmod_titile"="重置信息";
+"jvc_Unmod_user"="用户名";
+"jvc_Unmod_pw"="密码";
+"jvc_Unmod_btntit"="密码";
+"jvc_Unmod_resultError"="修改失败";
+
+//绑定邮箱界面
+"Binding_email_title"="绑定邮箱";
+"Binding_email"="邮箱";
+"binding_skip" = "跳过";
+"binding_email_exist"="邮箱已被注册";
+"binding_failt"= "邮箱绑定失败";
+"DeviceModifyViewController_binding" = "为了您的账户安全以及体验更多服务，建议绑定一个邮箱";
+"binding_finish"= "完成";
+"DeviceModifyViewController_bindingDevice"="温馨提示\n1.请确保设备通电且保持网络连接畅通\n2.建议密码不要太过简单，防止隐私外泄。\n3.用户名、密码是以后您查看设备视频得凭证，请谨记。";
 
 //注册界面
 "jvc_resign_Title" = "注  册";
 "jvc_resign_user" = "邮箱/用户名/手机号";
 "jvc_resign_pw" = "密 码";
 "jvc_resign_enpw" ="确认密码";
-//"loginResign_NUMBER_E"="Username can't be all number";
-//"loginResign_OTHER_E"="Username should be composed of letter, number and -_";
 
+//jvcresulttiphelper
+"LOGINRESULT_USERNAME_NIL" = "请输入用户名";
+"LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
+"LOGINRESULT_USERNAME_ERROR" = "用户名格式不正确";
+"LOGINRESULT_PASSWORLD_ERROR" = "密码格式不正确,密码由6-20位任意字符组成";
+"LOGINRESULT_ENSURE_PASSWORD_NIL"= "请输入确认密码";
+"LOGINRESULT_ENSURE_PASSWORD_ERROR"= "两次输入的密码不一致";
+"LOGINRESULT_EMAIL_ERROR" = "邮箱格式不正确";
+"LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "输入的密码与旧密码不一致";
+"login_pw_equal"= "亲，新密码与旧密码不能相同";
+"loginResign_LENGTH_E"="用户名长度只能在4-18位字符之间";
+"loginResign_NUMBER_E"="用户名不能全为数字,请确认输入的是手机号或重新输入";
+"loginResign_OTHER_E"="用户名由英文、数字及-_组成";
+"home_login_resign_PhoneNum_error"= "手机号格式不正确";
+"home_email_error"="邮箱格式不正确";
+"USER_HAS_EXIST"= "用户已经存在";
+"USER_NOT_EXIST"= "用户不存在";
+"password_error_result"= "密码错误,请重新输入";
+"SESSION_NOT_EXSIT" = "亲，您的登录已过期";
+"CONN_OTHER_ERROR"= "连接服务器超时";
+"REQ_RES_TIMEOUT"= "请求超时，请稍后重试";
+"Login_Default_error"= "连接服务器错误,代码：";
+"MODIFY_DEVIE_NICK_NIL"= "请输入设备昵称";
+"MODIFY_DEVIE_NICK_ERROR"= "含有非法字符，昵称由1-20个字母、数字、汉字及特殊字符-_+().组成";
+"MODIFY_DEVIE_USER_NIL"= "请输入用户名";
+"MODIFY_DEVIE_PASSWORD_NIL"= "请输入密码";
+"DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
+"DEVICE_PASSWORLD_ERROR" = "密码格式不正确,密码由0-16位字符组成";
+"yunshitongNIl" = "设备号不能为空";
+"nolegalYushitongadd" = "设备号由字母、数字组成";
+"UserNameNil" = "用户名不能为空";
+"DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
+"LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
+"DEVICE_PASSWORLD_ERROR" = "密码格式不正确,密码由0-16位字符组成";
+"LINKMODEL_USER_NIL"= "请输入用户名";
+"LINKMODEL_USER_ERROR"= "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
+"LINKMODEL_PASSWORD_NIL"="请输入密码";
+"LINKMODEL_PASSWORD_ERROR"="密码格式不正确,密码只能由0-16位字符组成";
+"LINKMODEL_IP_NIL"="请输入域名/IP";
+"LINKMODEL_IP_ERROR"="域名/IP格式不正确";
+"LINKMODEL_PORT_NIL"= "请输入端口号";
+"LINKMODEL_PORT_ERROR"= "端口格式不正确";
+"LINKMODEL_UNKONWN_ERROR"="连接服务器错误，代码：";
+"loginResign_passWord_error" = "密码由英文、数字及“-”、“_”组成且长度在6~20位字符之间";
+"home_login_resign_user_noFound"= "恭喜，用户名已被您收入囊中。";
 
+//添加设备界面
+"jvc_addDevice_title" = "添加设备";
+"jvc_addDevice_YstNUm" = "  云视通号";
+"jvc_addDevice_userName" = "  用户名";
+"jvc_addDevice_password" = "  密码";
+"jvc_addDevice_save" = "保存";
+"jvc_addDevice_back" = "返回";
+"jvc_addDevice_advance" = "高级";
+"jvc_addDevice_has_Device" = "设备列表中已存在";
+"jvc_addDevice_has_Device_totalNum" = "超过最大值";
+"jvc_addDevice_add_error" = "添加失败";
+"adddevice_net_error"= "请求超时，请稍后重试.";
+"adddevice_net_success"= "添加设备成功";
+"jvc_adddevice_addChannel_error" = "添加设备通道数错误";
+"qrReturn"="  返回";
+"qrScan"="正在扫描设备，请等待...";
+
+//声波添加设备
+"jvc_voice_add_title" = "准备步骤";
+"jvc_voice_add_help" = "用顶针轻插配置孔\n直到您听到嘀的一声";
+"jvc_voice_add_next" = "下一步";
+"jvc_voice_add_prepareconfig" = "准备配置";
+"jvc_voice_add_prepareconfig_help" = "请输入摄像头要连接的无线网络密码";
+"jvc_voice_add_Voiceconfig" = "声波配置";
+"jvc_voice_add_Voiceconfig_see" = "观看操作演示";
+"jvc_voice_add_Voiceconfig_clicktosend" = "点击发送声波";
+
+//连接模式
+"jvc_licktype_title" = "连接模式";
+"jvc_licktype_Ip" = "IP/域名";
+"jvc_licktype_YST" = "云视通";
 
 //设备列表界面
 "jvc_DeviceList_title" = "设备列表";
-
-//设备列表界面
-"jvc_DeviceList_title" = "Device List";
 "jvc_DeviceList_add_yst" = "云视通号";
 "jvc_DeviceList_add_eq" = "二维码";
 "jvc_DeviceList_add_wlan" = "无线设备";
@@ -723,6 +236,46 @@
 "jvc_DeviceList_add_ip" = "域名/Ip添加";
 "jvc_DeviceList_offline" = "离线";
 "jvc_DeviceList_online" = "在线";
+"jvc_DeviceList_APadd" = "添加";
+"jvc_DeviceList_APquit" = "取消";
+"jvc_DeviceList_no_device" = "无线设备";
+"jvc_DeviceList_has_device" = "有线设备";
+
+//ip/域名添加设备
+"jvc_addDevice_ipadd_titile"="IP/域名";
+"jvc_addDevice_ipadd_Port"="端口";
+"jvc_addDevice_ipadd_user"="用户名";
+"jvc_addDevice_ipadd_pw"="密码";
+"jvc_addDevice_ipadd_yst"="云视通";
+
+//通道管理
+"jvc_editChannel_title"="通道管理";
+"jvc_editChannel_nick"="昵称：";
+"jvc_editChannel_save"="保存";
+"jvc_editChannel_adderror" = "添加通道失败";
+"jvc_editChannel_addsuccess"= "添加通道成功";
+"jvc_editChannel_delete_error" = "删除通道失败";
+"jvc_editChannel_delete_success"= "删除通道成功";
+"jvc_editChannel_editchannel_success" = "修改成功";
+"jvc_editChannel_editchannel_error"= "修改失败";
+"jvc_editChannel_nick_error"= "昵称不合法";
+
+//ap配置@"开始添加"
+"jvc_ap_title" = "添加无线设备";
+"jvc_ap_start_add" = "开始添加";
+"home_ap_Alert_message_ios7"= "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网路到IPC-X-XXXX格式的无线网路下。具体步骤：设置->无线局域网->选取无线网路";
+"home_ap_Btn_will"= "添加无线设备";
+"home_ap_title_did"= "无线设备配置流程";
+"home_ap_title_will"= "添加流程";
+
+//扫描加设备界面
+"jvc_adddevcie_sacn_back" = "退出";
+//通道选择界面
+"jvc_channelSelect_title"="选择通道";
+"jvc_channelSelect_Num" = "第";
+"jvc_channelSelect_channel"="通道";
+"jvc_channelSelect_linkAll"="全连";
+
 
 //报警界面
 "jvc_alarmList_Title" = "报警消息";
@@ -733,7 +286,105 @@
 "jvc_alarmlist_noAlarm_PIC" = "暂无报警图片";
 "jvc_alarmlist_delete_success" = "删除成功";
 "jvc_alarmlist_delete_failt" = "删除失败";
+"jvc_alarmlist_alarmLeavel" = "报警级别";
+"home_no_Alarm_video"= "暂无报警视频";
+"home_alarm_watch_video"= "查看报警视频";
+"jvc_alarmVideo_title" = "报警视频";
 
+//------播放视频界面
+"Video Display"="视频播放";
+"Capture"="抓拍";
+"megaphone"="对讲";
+"video"="录像";
+"MoreOper"="更多";
+"Audio"="音频监听";
+"PTZ Control"="云台控制";
+"Playback"="远程回放";
+"ResetDeviceInfotitile"= "重置设备";
+"talkStart"= "亲，你现在可以和对方说话了";
+"talking"= "对讲功能成功开启，长按向对方喊话吧";
+"jvcoper_autoRecord"="自动录像";
+"jvcoper_Record"="手动录像";
+"Learn audio info at any time"="随时了解音频信息";
+"Adjust PTZ at any time"="随时调整监控画面信息";
+"Check Playback info at any time"="随时查看录像信息";
+"focus"="对焦";
+"Zoom"="变焦";
+"noLocalVideo"="不支持该设备录像.";
+"editDeviceError" = "修改设备失败";
+"addDeviceError" = "添加设备失败";
+"GetDetailDemoPointError" = "获取演示点详细信息错误";
+"four-Screen" = "4分屏";
+"nine-Screen" = "9分屏";
+"sixteen-Screen" = "16分屏";
+"Not_720p" = "手机软件不支持播放大于720P的视频";
+"Disconnecting nowPlease Wait"="正在断开\n请等待...";
+"Exiting NowPlease Wait"="正在退出\n请等待...";
+"Connection Failed ID"="身份验证失败.";
+"Connection Failed ID_and_modify_user_and password"= "用户名或密码错误";
+"operation"="该功能在远程回放时暂停使用.";
+"home_operation_talk"="该功能在语音对讲时暂停使用.";
+"This video source doesn't support image resolution switch."="该视频源不支持画质切换";
+"TalkInfo"="正在与主控请求对讲，请等待...";
+"Asking for video data now, please wait..."="正在加载数据，请等待...";
+"Connecting with server now..."="正在连接服务器...";
+"Connected with server "="与 ";
+" successfully..."=" 号服务器连接成功...";
+"Asking for video data now..."="正在请求视频数据...";
+"Asking for video data now, please wait..."="视频数据请求中，请等待....";
+
+"pictureLibraynoAutor" = "无法访问相册.请在[设置->隐私->照片]设置为打开状态.";
+"picturelibrayError" = "保存图片不成功.";
+"videolibrayError" = "保存录像不成功.";
+"userDefine" = "用户拒绝访问";
+"Connection Failed"="连接超时";
+"Disconnected Due To Abnormal Network"="连接异常断开.";
+"Disconnected Due To CloudSEE Service Has Been Stopped"="服务停止，连接断开.";
+"CloudSEE Service Has Been Stopped"="设备服务已停止.";
+"Play back"="远程回放";
+"Serach"="检索";
+"Playback_Finish"= "远程回放结束";
+"Playback_error" = "运程回放错误";
+"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
+//***语音对讲**
+"talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
+"talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";
+"talkStart"      = "亲，你现在可以和对方说话了";
+"talking"        = "对讲功能成功开启，长按向对方喊话吧";
+"Intercom function has started successfully, speak to him please."="对讲功能成功开启,抓紧向对方喊话吧!";
+
+//更多界面
+"jvc_more_alarm"= "报警";
+"jvc_more_editPw"="修改密码";
+"jvc_more_checkVersion"="检测更新";
+"jvc_more_help"="帮助";
+"jvc_more_suggest"="意见与反馈";
+"jvc_more_appStore"="评论";
+"jvc_more_userOut"="账号注销";
+"home_version_found"= "发现";
+"home_version_new" = "版本";
+"home_version_last"= "求求你别点了啦，有更新会通知你的.";
+"home_version_last_count3"= "哎呀，别点了，真的没有了，再等等吧.";
+"local_location" = "忽略";
+"local_ccLogin" = "切换";
+"Update Available"="更新提示";
+"Not now"="暂不更新";
+"UpdateBtn"="更新";
+"Found new version"="发现新版本 ";
+"update now"=",现在是否更新?";
+"emailHelp" = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请发送邮件到feedbackandsuggestion@gmail.com以请求进一步的协助";
+"version" = "版本号:";
+"suggestAndFeedBack" = "建议与反馈";
+
+//修改密码的
+"oldPW" = "旧密码";
+"newPW" = "新密码";
+"newInsurePw" = "确认新密码";
+"changePwUser"= "用户名";
+"changepwOldNil" = "旧密码不能为空";
+"jvc_mor_pwSuccess" = "修改密码成功,请重新登录";
+"Modify_Pw_success"= "修改成功";
+"Modify_PW_fail"= "修改密码失败";
 
 //设备管理界面
 "jvc_editDevice_title" = "设备管理";

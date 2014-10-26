@@ -55,7 +55,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"报警视频";
+    self.title = LOCALANGER(@"jvc_alarmVideo_title");
     
 	// Do any additional setup after loading the view.
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];

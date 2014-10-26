@@ -78,9 +78,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"通道管理";
-    
- 
+    self.title = LOCALANGER(@"jvc_editChannel_title");
     
     //添加按钮
     UIImage *imageRight = [UIImage imageNamed:@"dev_add.png"];
@@ -115,14 +113,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
    
     NSString *pathString = [UIImage imageBundlePath:@"con_fieldSec.png"];
     UIImage *iamgeboard = [[UIImage alloc] initWithContentsOfFile:pathString];
-    channelNickNameField.backgroundColor = [UIColor colorWithPatternImage:iamgeboard];
+    channelNickNameField.background = iamgeboard;
     [iamgeboard release];
    
     
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTextFieldLeftViewWith, kTextFieldHeight)];
     labelLeft.backgroundColor = [UIColor clearColor];
     labelLeft.textAlignment = UITextAlignmentCenter;
-    labelLeft.text = @"昵称:";
+    labelLeft.text = LOCALANGER(@"jvc_editChannel_nick");
     if (colortextfield) {
         labelLeft.textColor = colortextfield;
     }
@@ -140,7 +138,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(kOffSet_x, channelNickNameField.bottom+kTextFieldSeperate, self.view.width-2*kOffSet_x, kTextFieldHeight);
     [btn addTarget:self action:@selector(editChannelNickName) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"保存" forState:UIControlStateNormal];
+    [btn setTitle:LOCALANGER(@"jvc_editChannel_save") forState:UIControlStateNormal];
     [btn setBackgroundImage:imageBtn forState:UIControlStateNormal];
     [modifyChannelNickNameView addSubview:btn];
     [imageBtn release];
@@ -272,7 +270,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     
     if (arrayChannelsList.count>KDeviceMaxChannelNUM_64) {
         
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"达到通道最大值，不能添加"];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_has_Device_totalNum")];
         return;
     }
     
@@ -304,14 +302,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             if (kAddChannelSuccesss == result) {
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"添加成功"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_adderror")];
                 
                 [self getAllChannels];//重新获取这个设备下面对应的所有的通道数
                 
             }else{
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"添加失败"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_addsuccess")];
             }
         });
         
@@ -344,7 +342,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
                 
             }else{
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"添加失败"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_adderror")];
                 
             }
             
@@ -403,14 +401,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     if (kAddChannelSuccesss == reuslt) {//成功
         
         [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除成功"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_error")];
         
         //跟新
         [self updateTableview];
         
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_success")];
         
     }
 
@@ -458,7 +456,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         
     }else{//失败
         
-        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"删除失败", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"jvc_editChannel_delete_success", nil)];
         
     }
 
@@ -477,7 +475,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         [self handlePredicatChannelNickNameSuccess:channelNickNameField.text];
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"昵称不合法"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_nick_error")];
 
     }
 }
@@ -511,7 +509,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     
     if (kAddChannelSuccesss == result) {//成功
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_editchannel_success")];
         
         channelModel.strNickName = channelNickNameField.text;
         //转过去
@@ -520,7 +518,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         [self updateTableview];
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_editchannel_error")];
         
     }
 

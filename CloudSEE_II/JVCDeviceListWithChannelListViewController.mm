@@ -41,7 +41,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     if (self) {
         
-        self.title  = @"选择通道";
+        self.title  = LOCALANGER(@"jvc_channelSelect_title");
         [self initWithTitleColors];
     }
     
@@ -163,7 +163,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
             [titleViews addObject:channelTitleView];
             
             //初始化按钮标题
-            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"第%d通道", channelValue]];
+            [channelTitleView initWithTitleView:[NSString stringWithFormat:@"%@%d%@",LOCALANGER(@"jvc_channelSelect_Num"), channelValue,LOCALANGER(@"jvc_channelSelect_channel")]];
             
             //添加选中通道的事件
             UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectChannelToPlay:)];
@@ -246,7 +246,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         [connectButton setTitleColor:titleColor forState:UIControlStateNormal];
     }
     
-    [connectButton setTitle:@"全连" forState:UIControlStateNormal];
+    [connectButton setTitle:LOCALANGER(@"jvc_channelSelect_linkAll") forState:UIControlStateNormal];
     [operationView addSubview:connectButton];
     [connectBtnImageView release];
 

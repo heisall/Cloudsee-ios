@@ -119,7 +119,7 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     if (color) {
         labelALarmType.textColor = color;
     }
-    labelALarmType.text = @"报警级别";
+    labelALarmType.text = LOCALANGER(@"jvc_alarmlist_alarmLeavel");
     [self.contentView addSubview:labelALarmType];
     [labelALarmType release];
     

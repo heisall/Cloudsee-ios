@@ -234,6 +234,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
  */
 - (void)AddDevice
 {
+    
+    
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
         
         JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
@@ -777,7 +779,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
         
         if (ystNum.length>0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") message:nil delegate:self cancelButtonTitle:@"添加" otherButtonTitles:@"取消", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
             [alert show];
             alert.tag = kAlertTag;
             [alert release];

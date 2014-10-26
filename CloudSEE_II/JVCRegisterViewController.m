@@ -139,7 +139,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
     [textFieldUser setBackground:imgTextFieldBg];
     textFieldUser.returnKeyType = UIReturnKeyDone;
-    textFieldUser.placeholder = NSLocalizedString(@"InputUserName", nil);
+    textFieldUser.placeholder = NSLocalizedString(@"jvc_resign_user", nil);
     textFieldUser.keyboardType = UIKeyboardTypeASCIICapable;
     [self.view addSubview:textFieldUser];
     UILabel *userLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLabelWith, textFieldUser.height)];
@@ -160,7 +160,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     textFieldPassWord.delegate = self;
     textFieldPassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
     textFieldPassWord.secureTextEntry = YES;
-    textFieldPassWord.placeholder = LOCALANGER(@"Password");
+    textFieldPassWord.placeholder = LOCALANGER(@"jvc_resign_pw");
     textFieldPassWord.returnKeyType = UIReturnKeyDone;
     textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
     [textFieldPassWord setBackground:imgTextFieldBg];

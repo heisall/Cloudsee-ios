@@ -14,9 +14,9 @@
 @synthesize tAlarmModel;
 @synthesize palyVideoDelegate;
 
-static const NSInteger  TIMER = 6;
-
-static const NSInteger  HUBTAG = 12683;
+//static const NSInteger  TIMER = 6;
+//
+//static const NSInteger  HUBTAG = 12683;
 
 static const NSInteger  BTNTAG = 12683;
 

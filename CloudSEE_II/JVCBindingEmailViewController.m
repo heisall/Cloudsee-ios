@@ -133,7 +133,7 @@ static const int  KSUCCESS          = 0;//成功
     tFinishBtn.frame = CGRectMake(_textFieldEmail.left, _textFieldEmail.frame.size.height+_textFieldEmail.frame.origin.y+KBtnSpan, tImageBtn.size.width, tImageBtn.size.height);
     [tFinishBtn addTarget:self action:@selector(bingEmail) forControlEvents:UIControlEventTouchUpInside];
     [tFinishBtn setBackgroundImage:tImageBtn forState:UIControlStateNormal];
-    [tFinishBtn setTitle:NSLocalizedString(@"Finish", nil) forState:UIControlStateNormal];
+    [tFinishBtn setTitle:NSLocalizedString(@"binding_finish", nil) forState:UIControlStateNormal];
     [tFinishBtn.titleLabel setFont:[UIFont systemFontOfSize:KSYSTEM_FONT]];
     [self.view addSubview:tFinishBtn];
     [tImageBtn release];
@@ -247,7 +247,7 @@ static const int  KSUCCESS          = 0;//成功
     }else{
         [_textFieldEmail becomeFirstResponder];
 
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"绑定邮箱失败，请重新绑定"];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"binding_failt")];
     }
 }
 

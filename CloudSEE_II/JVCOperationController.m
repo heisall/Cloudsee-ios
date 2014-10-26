@@ -559,12 +559,12 @@ char remoteSendSearchFileBuffer[29] = {0};
                     
                 case StorageType_alarm:{
                     
-                    [self initwithRightButton:@"sto_alarm.png" withTitle:@"报警录像"];
+                    [self initwithRightButton:@"sto_alarm.png" withTitle:LOCALANGER(@"jvcoper_autoRecord")];
                 }
                     break;
                 case StorageType_auto:{
                     
-                    [self initwithRightButton:@"sto_auto.png" withTitle:@"手动录像"];
+                    [self initwithRightButton:@"sto_auto.png" withTitle:LOCALANGER(@"jvcoper_Record")];
                 }
                     break;
                     
@@ -920,7 +920,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         if (!bStateModifyDeviceInfo) {
             
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"Connection Failed ID_and_modify_user_and password") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles:LOCALANGER(@"Sure"), nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"Connection Failed ID_and_modify_user_and password") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_ok"), nil];
             alertView.tag = 19384324;
             [alertView show];
             [alertView release];
@@ -1207,7 +1207,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     if (VideoStreamType_Default == nCurrentStreamType) {
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"不支持画质切换"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
         return;
     }
      straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType];
@@ -1986,6 +1986,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         [openAlObj cleanUpOpenALMath];
         
         [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
+
         
     }
 

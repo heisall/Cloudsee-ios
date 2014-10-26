@@ -31,12 +31,12 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"添加无线设备";
+    self.title = LOCALANGER(@"jvc_ap_title");
     
     NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(@"add_apConfig")];
     UIImage *iamgeAp = [[UIImage alloc] initWithContentsOfFile:imageBundlePath];
     
-    NSString *btnBgBundlePath = [UIImage imageBundlePath:@"add_ApConfig.png"];
+    NSString *btnBgBundlePath = [UIImage imageBundlePath:@"arm_dev_btn.png"];
     UIImage *btnBg = [[UIImage alloc] initWithContentsOfFile:btnBgBundlePath];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -52,7 +52,7 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake((self.view.width -btnBg.size.width)/2.0 , imageview.height+(ADDCONFIGHEIGIN -btnBg.size.height)/2.0, btnBg.size.width, btnBg.size.height);
     [btn setBackgroundImage:btnBg forState:UIControlStateNormal];
-    [btn setTitle:@"开始添加" forState:UIControlStateNormal];
+    [btn setTitle:LOCALANGER(@"jvc_ap_start_add") forState:UIControlStateNormal];
     [scrollView addSubview:btn];
     [btn addTarget:self action:@selector(exitToAPPConfig) forControlEvents:UIControlEventTouchUpInside];
     [scrollView release];

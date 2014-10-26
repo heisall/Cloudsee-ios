@@ -193,6 +193,8 @@
         [openAlObj cleanUpOpenALMath];
         
         [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
+
         
     }
     

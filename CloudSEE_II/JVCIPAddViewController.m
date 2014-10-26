@@ -42,13 +42,13 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"ip/域名添加设备";
+    self.title = LOCALANGER(@"jvc_addDevice_ipadd_titile");
     NSString *imageSlideStr      = [UIImage imageBundlePath:@"con_Slide.png"];
     UIImage *imageSlide     = [[UIImage alloc] initWithContentsOfFile:imageSlideStr];
     
     JVCLabelFieldSView *IPLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     IPLinkView.delegate = self;
-    [IPLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"IP",@"端口号",@"用户名",@"密码",nil]  ];
+    [IPLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:LOCALANGER(@"jvc_addDevice_ipadd_titile"),LOCALANGER(@"jvc_addDevice_ipadd_Port"),LOCALANGER(@"jvc_addDevice_ipadd_user"),LOCALANGER(@"jvc_addDevice_ipadd_pw"),nil]  ];
     
     [self.view addSubview:IPLinkView];
     
@@ -111,7 +111,7 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
     //添加通道
     [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:textFieldIP.text];
     
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
     
     [self.navigationController popViewControllerAnimated:YES];
     

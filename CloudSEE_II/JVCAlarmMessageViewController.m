@@ -56,7 +56,7 @@ static const NSTimeInterval KTimerAfterDelay = 0.5;
 static const int KChannelNum = 1;//通道连接
 static const int KNoAlarmTag = 10003;//没有报警的view的tag
 static const int KNoAlarmLabelHeight = 50;//没有报警的view的tag
-static const int KNoAlarmSpan    = 30;//没有报警的view的tag
+static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的距离
 @synthesize arrayAlarmList;
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -119,7 +119,11 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         [self addNoAlarmDateView];
 
     }else{
-        [self removeNoAlarmView];
+        if (arrayAlarmList.count>0) {
+            
+            [self removeNoAlarmView];
+
+        }
         [self addTableViewHeadView];
         [self addTableViewFootView];
     }
@@ -252,6 +256,10 @@ static const int KNoAlarmSpan    = 30;//没有报警的view的tag
         viewNoAlarm.tag               = KNoAlarmTag;
         
         UILabel *labelNoAlarm        = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
+        UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:@"KLickTypeLeftLabelColor"];
+        if (color) {
+            labelNoAlarm.textColor = color;
+        }
         labelNoAlarm.backgroundColor = [UIColor clearColor];
         labelNoAlarm.textAlignment   = UITextAlignmentCenter;
         labelNoAlarm.text            = LOCALANGER(@"jvc_alarmlist_noAlarm");

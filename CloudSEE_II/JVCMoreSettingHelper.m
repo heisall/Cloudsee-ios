@@ -80,7 +80,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *FistSectionArray = [[NSMutableArray alloc] init];
     //帮助界面
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
-    modelHelp.itemName = @"报警";
+    modelHelp.itemName = LOCALANGER(@"jvc_more_alarm");
     modelHelp.iconImageName = @"mor_Iconalarm.png";
     modelHelp.bNewState = NO;
     modelHelp.bBtnState = MoreSettingCellType_AccountSwith;
@@ -90,7 +90,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     //账号信息
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
-    modelUser.itemName = @"修改密码";
+    modelUser.itemName = LOCALANGER(@"jvc_more_editPw");
     modelUser.iconImageName = @"mor_Iconmdy.png";
     modelUser.bBtnState = MoreSettingCellType_index;
     [FistSectionArray addObject:modelUser];
@@ -115,7 +115,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *secondSectionArray = [[NSMutableArray alloc] init];
     //摇一摇加设备
     JVCMoreSettingModel *modeShark = [[JVCMoreSettingModel alloc] init];
-    modeShark.itemName = @"检测更新";
+    modeShark.itemName = LOCALANGER(@"jvc_more_checkVersion");
     modeShark.iconImageName = @"mor_IconCheck.png";
     modeShark.bBtnState = NO;
     modeShark.bNewState = YES;
@@ -124,7 +124,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     //关于我们
     JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
-    modelHelpSwitch.itemName = @"帮助";
+    modelHelpSwitch.itemName = LOCALANGER(@"jvc_more_help");
     modelHelpSwitch.iconImageName = @"mor_IconHelp.png";
     modelHelpSwitch.bBtnState = MoreSettingCellType_Switch;
     [secondSectionArray addObject:modelHelpSwitch];
@@ -138,7 +138,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
         // app版本
     
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    modelAbout.itemName =[NSString stringWithFormat:@"版本号                    :%@",app_Version];
+    modelAbout.itemName =[NSString stringWithFormat:@"版本号：                  V%@",app_Version];
     modelAbout.iconImageName = @"mor_IconAbout.png";
     modelAbout.bBtnState = NO;
     [secondSectionArray addObject:modelAbout];
@@ -146,7 +146,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     
     //意见反馈
     JVCMoreSettingModel *modelSuggest = [[JVCMoreSettingModel alloc] init];
-    modelSuggest.itemName = @"意见反馈";
+    modelSuggest.itemName = LOCALANGER(@"jvc_more_suggest");
     modelSuggest.iconImageName = @"mor_IconSug.png";
     modelSuggest.bBtnState = NO;
     [secondSectionArray addObject:modelSuggest];
@@ -162,7 +162,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *thirdSectionArray = [[NSMutableArray alloc] init];
     //评论
     JVCMoreSettingModel *modelItuns = [[JVCMoreSettingModel alloc] init];
-    modelItuns.itemName = @"评论";
+    modelItuns.itemName = LOCALANGER(@"jvc_more_appStore");
     modelItuns.iconImageName = @"mor_IconItuns.png";
     modelItuns.bBtnState = NO;
     
@@ -177,7 +177,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     NSMutableArray *fourthArray = [[NSMutableArray alloc] init];
     //账号注销
     JVCMoreSettingModel *modelBtn = [[JVCMoreSettingModel alloc] init];
-    modelBtn.itemName = @"账号注销";
+    modelBtn.itemName = LOCALANGER(@"jvc_more_userOut");
     modelBtn.iconImageName = @"mor_head_0.png";
     modelBtn.bBtnState = YES;
     [fourthArray addObject:modelBtn];

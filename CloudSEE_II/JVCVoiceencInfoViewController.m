@@ -29,7 +29,7 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     
     if (self) {
         
-        self.title = @"准备步骤";
+        self.title = LOCALANGER(@"jvc_voice_add_title");
     }
     
     return self;
@@ -51,7 +51,7 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     
     [self.view addSubview:imageView];
     
-    UILabel *infoTV        = [controlHelperObj labelWithText:@"用顶针轻插配置孔\n直到您听到嘀的一声"];
+    UILabel *infoTV        = [controlHelperObj labelWithText:LOCALANGER(@"jvc_voice_add_help")];
     infoTV.frame           = CGRectMake(imageView.origin.x, 30.0, imageView.frame.size.width, kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
     infoTV.textAlignment   = NSTextAlignmentCenter;
     infoTV.numberOfLines   = kInfoTVWithNumberOfLine;
@@ -59,7 +59,7 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     
     [self.view addSubview:infoTV];
     
-    UIButton *nextButton = [controlHelperObj buttonWithTitile:@"下一步" normalImage:@"voi_input_next.png" horverimage:nil];
+    UIButton *nextButton = [controlHelperObj buttonWithTitile:LOCALANGER(@"jvc_voice_add_next") normalImage:@"voi_input_next.png" horverimage:nil];
     
     CGRect NextBtnRect = nextButton.frame;
     

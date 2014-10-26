@@ -81,7 +81,7 @@ static const CGFloat        KDemoPointTitleWithOffsetBottom      = 10.0; //下�
 
 static const CGFloat  KSeperateSpan      = 15.0f;//控件之间的间隔
 static const CGFloat  KTitleSeperateSpan = 5.0f;//控件之间的间隔
-static const CGFloat  KLineHeight   = 1.0f;//横线的高度
+//static const CGFloat  KLineHeight   = 1.0f;//横线的高度
 static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -90,19 +90,19 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     if (self) {
         // Custom initialization
         
-        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
-        
-        NSString *pathSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
-        UIImage *imageSelect = [[UIImage alloc] initWithContentsOfFile:pathSelectimage];
-        
-        NSString *pathUnSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
-        UIImage *imageUbSelect = [[UIImage alloc] initWithContentsOfFile:pathUnSelectimage];
-        
-        [moreItem setFinishedSelectedImage: imageSelect withFinishedUnselectedImage: imageUbSelect];
-        self.tabBarItem = moreItem;
-        [moreItem release];
-        [imageSelect release];
-        [imageUbSelect release];
+//        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
+//        
+//        NSString *pathSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
+//        UIImage *imageSelect = [[UIImage alloc] initWithContentsOfFile:pathSelectimage];
+//        
+//        NSString *pathUnSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
+//        UIImage *imageUbSelect = [[UIImage alloc] initWithContentsOfFile:pathUnSelectimage];
+//        
+//        [moreItem setFinishedSelectedImage: imageSelect withFinishedUnselectedImage: imageUbSelect];
+//        self.tabBarItem = moreItem;
+//        [moreItem release];
+//        [imageSelect release];
+//        [imageUbSelect release];
     }
     return self;
 }
@@ -206,7 +206,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     textFieldUser.autocorrectionType = UITextAutocorrectionTypeNo;
     textFieldUser.returnKeyType = UIReturnKeyDone;
     textFieldUser.delegate = self;
-    textFieldUser.placeholder = @"用户名";
+    textFieldUser.placeholder = LOCALANGER(@"jvc_log_user");
     if (labColor) {
         
         textFieldUser.textColor =labColor;
@@ -244,7 +244,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     [imageViewPW release];
     //输入框
     textFieldPW = [[UITextField alloc] initWithFrame:CGRectMake(imageViewPW.frame.origin.x+10+imageViewPW.frame.size.width, imageViewPW.frame.origin.y, imageviewInPutLinePW.frame.size.width - imageViewPW.frame.size.width-30, imageViewPW.frame.size.height+5)];
-    textFieldPW.placeholder = @"密码";
+    textFieldPW.placeholder = LOCALANGER(@"jvc_log_pw") ;
     textFieldPW.delegate = self;
     textFieldPW.returnKeyType = UIReturnKeyDone;
     textFieldPW.keyboardType = UIKeyboardTypeASCIICapable;
@@ -266,13 +266,13 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     [btnLogin.titleLabel setTextColor: [UIColor whiteColor]];
     [btnLogin addTarget:self action:@selector(clickTologin) forControlEvents:UIControlEventTouchUpInside];
     btnLogin.tag = LOGINVIEWTAG_Login;
-    [btnLogin setTitle:@"登录" forState:UIControlStateNormal];
+    [btnLogin setTitle:LOCALANGER(@"jvc_log_log") forState:UIControlStateNormal];
     [self.view addSubview:btnLogin];
     
     /**
      *  本地
      */
-    UIButton *btnLocal = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"访客登录" normalImage:@"log_loc_btn.png" horverimage:nil];
+    UIButton *btnLocal = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_local") normalImage:@"log_loc_btn.png" horverimage:nil];
     [btnLocal retain];
     btnLocal.frame = CGRectMake(btnLogin.left,btnLogin.bottom+KSeperateSpan, btnLocal.width, btnLocal.height);
     [btnLocal addTarget:self action:@selector(localLogin) forControlEvents:UIControlEventTouchUpInside];
@@ -280,7 +280,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     [btnLocal release];
     
     //演示点
-    UIButton *btnDemo = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"演示点" normalImage:@"log_demBg.png" horverimage:nil];
+    UIButton *btnDemo = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_demo") normalImage:@"log_demBg.png" horverimage:nil];
     [btnDemo retain];
     
     btnDemo.titleLabel.font =[UIFont systemFontOfSize:KDemoPointWithFontSize];
@@ -293,7 +293,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     /**
      *  注册
      */
-    UIButton *btnResign = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"注册" normalImage:nil horverimage:nil];
+    UIButton *btnResign = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_resign") normalImage:nil horverimage:nil];
     [btnResign retain];
     btnResign.frame = CGRectMake((self.view.width-2*btnResign.width)/3.0,btnLocal.bottom+KTitleSeperateSpan, btnResign.width, btnResign.height);
     [btnResign addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
@@ -303,7 +303,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     /**
      *  忘记密码
      */
-    UIButton *btnreSetPw = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"忘记密码" normalImage:nil horverimage:nil];
+    UIButton *btnreSetPw = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_fot") normalImage:nil horverimage:nil];
     [btnreSetPw retain];
     btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnResign.frame.origin.y, btnreSetPw.width, btnreSetPw.height);
     [self.view addSubview:btnreSetPw];

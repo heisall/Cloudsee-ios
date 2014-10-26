@@ -70,7 +70,7 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
         labUser.textColor = color;
     }
     labUser.font = [UIFont systemFontOfSize:MORETEXTFONT_User];
-    labUser.text = kkUserName.length==0?@"访客":kkUserName;
+    labUser.text = kkUserName.length==0?LOCALANGER(@"jvc_log_local"):kkUserName;
     [self.contentView addSubview:labUser];
     [labUser release];
     

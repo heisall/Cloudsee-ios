@@ -207,7 +207,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.titleLabel.font = [UIFont systemFontOfSize:kBackButtonWithFontSize];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
+    [btn setTitle:LOCALANGER(@"jvc_adddevcie_sacn_back") forState:UIControlStateNormal];
     btn.frame = CGRectMake(kBackButtonWithLeft, kBackButtonWithTop, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(popClick) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
@@ -282,7 +282,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"发现设备：%@",model.strYstNumber] message:nil delegate:self cancelButtonTitle:@"添加" otherButtonTitles:@"取消", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"发现设备：%@",model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
     alert.delegate = self;
     [alert show];
     [alert release];

@@ -88,7 +88,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 
     }
     
-    self.title = @"连接模式";
+    self.title = LOCALANGER(@"jvc_licktype_title");
 }
 
 /**
@@ -98,7 +98,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 {
     btnIP = [UIButton buttonWithType:UIButtonTypeCustom];
     btnIP.frame = CGRectMake(0, 0, self.view.width/2.0, KHeadViewHeigin);
-    [btnIP setTitle:@"域名/IP地址" forState:UIControlStateNormal];
+    [btnIP setTitle:LOCALANGER(@"jvc_licktype_Ip") forState:UIControlStateNormal];
     btnIP.titleLabel.font = [UIFont systemFontOfSize:KLabelFont];
 
     //设置标题的颜色
@@ -108,7 +108,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     UIColor *unSelectColor = [rgbHelper rgbColorForKey: kJVCRGBColorMacroEditDeviceTopBarItemUnselectFontColor];
     btnYst = [UIButton buttonWithType:UIButtonTypeCustom];
     btnYst.frame = CGRectMake(btnIP.right, btnIP.top, self.view.width/2.0, KHeadViewHeigin);
-    [btnYst setTitle:@"云视通号" forState:UIControlStateNormal];
+    [btnYst setTitle:LOCALANGER(@"jvc_licktype_YST") forState:UIControlStateNormal];
     btnYst.titleLabel.font = [UIFont systemFontOfSize:KLabelFont];
 
     //设置标题的颜色
@@ -177,7 +177,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     IPLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, KHeadViewHeigin+imageSlide.size.height, self.view.width, self.view.height)];
     IPLinkView.delegate = self;
-    [IPLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"IP",@"端口号",@"用户名",@"密码",nil]  ];
+    [IPLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:LOCALANGER(@"jvc_addDevice_ipadd_titile"),LOCALANGER(@"jvc_addDevice_ipadd_Port"),LOCALANGER(@"jvc_addDevice_ipadd_user"),LOCALANGER(@"jvc_addDevice_ipadd_pw"),nil]  ];
     
     [self.view addSubview:IPLinkView];
     
@@ -220,7 +220,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     
     YStLinkView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, KHeadViewHeigin+imageSlide.size.height, self.view.width, self.view.height)];
     YStLinkView.delegate = self;
-    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:@"云视通",@"用户名",@"密码",nil]  ];
+    [YStLinkView initViewWithTitlesArray:[NSArray arrayWithObjects:LOCALANGER(@"jvc_addDevice_ipadd_yst"),LOCALANGER(@"jvc_addDevice_ipadd_user"),LOCALANGER(@"jvc_addDevice_ipadd_pw"),nil]  ];
     
     [self.view addSubview:YStLinkView];
     

@@ -44,7 +44,7 @@ static const int kTag         = 100;//tag
     UIImage *imageWlan = [[UIImage alloc] initWithContentsOfFile:devWlanPath];
     UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, kLabelOriginY, imageWlan.size.width, kLabelHeigt)];
     labelTitle.backgroundColor = [UIColor clearColor];
-    labelTitle.text = @"无线设备";
+    labelTitle.text = LOCALANGER(@"jvc_DeviceList_no_device");
     [self.contentView addSubview:labelTitle];
     [labelTitle release];
     
@@ -63,7 +63,7 @@ static const int kTag         = 100;//tag
     //按钮
     UIButton *btnWlan = [UIButton buttonWithType:UIButtonTypeCustom];
     btnWlan.frame = CGRectMake(imageview.left, imageview.bottom+kSpan, imageBtnWlan.size.width, imageBtnWlan.size.height);
-    [btnWlan setTitle:@"无线设备" forState:UIControlStateNormal];
+    [btnWlan setTitle:LOCALANGER(@"jvc_DeviceList_no_device") forState:UIControlStateNormal];
     btnWlan.tag = kTag;
     [btnWlan addTarget:self action:@selector(addDeviceClickWithType:) forControlEvents:UIControlEventTouchUpInside];
     if (btnColorBlue) {
@@ -75,7 +75,7 @@ static const int kTag         = 100;//tag
     //有限设备
     UILabel *labelWire = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, btnWlan.bottom+kSpan, imageWlan.size.width, kLabelHeigt)];
     labelWire.backgroundColor = [UIColor clearColor];
-    labelWire.text = @"有线设备";
+    labelWire.text = LOCALANGER(@"jvc_DeviceList_has_device");
     [self.contentView addSubview:labelWire];
     [labelWire release];
 
@@ -90,7 +90,7 @@ static const int kTag         = 100;//tag
     //按钮
     UIButton *btnWireWlan = [UIButton buttonWithType:UIButtonTypeCustom];
     btnWireWlan.frame = CGRectMake(imageviewWire.left, imageviewWire.bottom+kSpan, imageBtnWlan.size.width, imageBtnWlan.size.height);
-    [btnWireWlan setTitle:@"有线设备" forState:UIControlStateNormal];
+    [btnWireWlan setTitle:LOCALANGER(@"jvc_DeviceList_has_device") forState:UIControlStateNormal];
     if (btnColorBlue) {
         [btnWireWlan setTitleColor:btnColorBlue forState:UIControlStateNormal];
     }

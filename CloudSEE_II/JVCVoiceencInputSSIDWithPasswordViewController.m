@@ -37,7 +37,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     
     if (self) {
         
-        self.title = @"准备配置";
+        self.title = LOCALANGER(@"jvc_voice_add_prepareconfig");
         
     }
     
@@ -83,7 +83,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     titleLbl.numberOfLines   = 1;
     titleLbl.font            = [UIFont systemFontOfSize:kTitleLableFontSize];
     titleLbl.frame           = CGRectMake(rectTextBg.origin.x, rectTextBg.origin.y - kTitleLableWithBgViewBottom - kTitleLableFontHeight, rectTextBg.size.width,kTitleLableFontHeight);
-    titleLbl.text            = @"请输入摄像头要连接的无线网络密码";
+    titleLbl.text            = LOCALANGER(@"jvc_voice_add_prepareconfig_help");
 
     [self.view addSubview:titleLbl];
     [titleLbl release];
@@ -164,7 +164,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     button.frame             = rectNextButton;
     [button setBackgroundImage:nextButtonImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(nextClick) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"下一步" forState:UIControlStateNormal];
+    [button setTitle:LOCALANGER(@"jvc_voice_add_next") forState:UIControlStateNormal];
     [self.view addSubview:button];
     
     [textBgView release];

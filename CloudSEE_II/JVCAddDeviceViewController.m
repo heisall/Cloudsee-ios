@@ -65,9 +65,12 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 {
     [super viewDidAppear:animated];
     
+    [[JVCAlertHelper shareAlertHelper]  alertHidenToastOnWindow];
+
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
         
         NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
+        
         if (ystNum.length>0) {
             
             textFieldYST.text = ystNum;
@@ -85,7 +88,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"添加设备";
+    self.title = LOCALANGER(@"jvc_addDevice_title");
 
     rectRectFrame = self.view.frame;
     
@@ -113,7 +116,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelLeft.backgroundColor = [UIColor clearColor];
-    labelLeft.text = @"  云视通号";
+    labelLeft.text = LOCALANGER(@"jvc_addDevice_YstNUm");
     if (textColor) {
         labelLeft.textColor = textColor;
     }
@@ -146,7 +149,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     [self.view addSubview:textFieldUserName];
     UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
     labelNameLeft.backgroundColor = [UIColor clearColor];
-    labelNameLeft.text = @"  用户名";
+    labelNameLeft.text = LOCALANGER(@"jvc_addDevice_userName");
     if (textColor) {
         labelNameLeft.textColor = textColor;
     }
@@ -184,7 +187,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         labelPassLeft.textColor = textColor;
     }
-    labelPassLeft.text = @"  密码";
+    labelPassLeft.text = LOCALANGER(@"jvc_addDevice_password");
     labelPassLeft.textAlignment = UITextAlignmentLeft;
     labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
     textFieldPassWord.leftViewMode = UITextFieldViewModeAlways;
@@ -217,7 +220,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     btnSave.frame = CGRectMake(seperate, textFieldPassWord.bottom+SEPERATE, self.view.width - 2*seperate, imgBtnNor.size.height);
     [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
     [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [btnSave setTitle:@"保存" forState:UIControlStateNormal];
+    [btnSave setTitle:LOCALANGER(@"jvc_addDevice_save") forState:UIControlStateNormal];
     [btnSave addTarget:self action:@selector(saveDevice) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnSave];
     
@@ -261,7 +264,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         textFieldPassWord.hidden = NO;
         textFieldUserName.hidden = NO;
-        [btnAdvace setTitle:LOCALANGER(@"返回") forState:UIControlStateNormal];
+        [btnAdvace setTitle:LOCALANGER(@"jvc_addDevice_back") forState:UIControlStateNormal];
       //  btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
     }else{
         CGRect rectFrame =btnAdvace.frame;
@@ -271,7 +274,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         CGRect rectFrameSave =btnSave.frame;
         rectFrameSave.origin.y -=2*(SEPERATE+tImageBG.size.height);
         btnSave.frame = rectFrameSave;
-        [btnAdvace setTitle:LOCALANGER(@"高级") forState:UIControlStateNormal];
+        [btnAdvace setTitle:LOCALANGER(@"jvc_addDevice_advance") forState:UIControlStateNormal];
         
         textFieldPassWord.hidden = YES;
         textFieldUserName.hidden = YES;
@@ -305,12 +308,12 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             
             if (ADDDEVICE_HAS_EXIST == result) {//存在
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备列表中已存在"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_has_Device")];
                 
             }else if(ADDDEVICE_MAX_MUX == result)//超过最大值
             {
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大值"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_has_Device_totalNum")];
                 
             }else{//开始添加
                 
@@ -346,7 +349,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加失败")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
             }
         });
     });
@@ -396,7 +399,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                     DDLogInfo(@"==error2=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
                     
                     
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_error")];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
                     
                 }
                 
@@ -491,7 +494,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 //把获取的设备通道信息的josn数据转换成model集合
                 [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text];
                 
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
                 if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
                     
                     [addDeviceDelegate addDeviceSuccessCallBack];
@@ -504,7 +507,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             }else{//空
                 
              //   [self serachCloseFindDevice];
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备通道数错误")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_adddevice_addChannel_error")];
                 
                 /**
                  *  删除云视通号

@@ -51,7 +51,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     
     if (self) {
         
-        self.title = @"声波配置";
+        self.title = LOCALANGER(@"jvc_voice_add_Voiceconfig");
     }
     
     return self;
@@ -106,7 +106,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     }
     
     [helperButton addTarget:self action:@selector(gotoHelpeViewController) forControlEvents:UIControlEventTouchUpInside];
-    [helperButton setTitle:@"观看操作演示" forState:UIControlStateNormal];
+    [helperButton setTitle:LOCALANGER(@"jvc_voice_add_Voiceconfig_see") forState:UIControlStateNormal];
     [self.view addSubview:helperButton];
 
     
@@ -129,7 +129,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     titleLbl.numberOfLines   = 1;
     titleLbl.font            = [UIFont systemFontOfSize:kTitleLableFontSize];
     titleLbl.frame           = CGRectMake(backGroud.frame.origin.x, backGroud.frame.origin.y + kTitleLableWithBgViewTop + backGroud.frame.size.height, backGroud.frame.size.width,kTitleLableFontHeight);
-    titleLbl.text            = @"点击发送声波";
+    titleLbl.text            = LOCALANGER(@"jvc_voice_add_Voiceconfig_clicktosend");
     
     UIColor *titleTVColor     = [rgbHelper rgbColorForKey:kJVCRGBColorMacroVoiceConfigSend];
     
@@ -151,7 +151,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     button.frame             = rectNextButton;
     [button setBackgroundImage:nextButtonImage forState:UIControlStateNormal];
     [button addTarget:self action:@selector(gotoLanSerchDevice) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"下一步" forState:UIControlStateNormal];
+    [button setTitle:LOCALANGER(@"jvc_voice_add_next") forState:UIControlStateNormal];
     [self.view addSubview:button];
     
     encoderTotalLength = 0.0;

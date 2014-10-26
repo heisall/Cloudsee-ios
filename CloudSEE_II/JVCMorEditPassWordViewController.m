@@ -75,7 +75,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"修改密码";
+    self.title = LOCALANGER(@"jvc_more_editPw");
     
     [self initControll];
     
@@ -172,7 +172,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     tFinishBtn.frame = CGRectMake(20, _textFieldEnSurePassWord.frame.size.height+_textFieldEnSurePassWord.frame.origin.y+30, tImageBtn.size.width, tImageBtn.size.height);
     [tFinishBtn addTarget:self action:@selector(modifyUserPassWord) forControlEvents:UIControlEventTouchUpInside];
     [tFinishBtn setBackgroundImage:tImageBtn forState:UIControlStateNormal];
-    [tFinishBtn setTitle:NSLocalizedString(@"Finish", nil) forState:UIControlStateNormal];
+    [tFinishBtn setTitle:NSLocalizedString(@"binding_finish", nil) forState:UIControlStateNormal];
     [tFinishBtn.titleLabel setFont:[UIFont systemFontOfSize:SYSTEM_FONT]];
     [mControll addSubview:tFinishBtn];
     
@@ -206,7 +206,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
                     
                     [delegateApp presentLoginViewController];
                     
-                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"修改密码成功,请重新登录")];
+                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_pwSuccess")];
                     
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
