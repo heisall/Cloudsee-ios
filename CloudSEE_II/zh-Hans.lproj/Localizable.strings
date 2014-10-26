@@ -259,6 +259,13 @@
 "jvc_editChannel_editchannel_success" = "修改成功";
 "jvc_editChannel_editchannel_error"= "修改失败";
 "jvc_editChannel_nick_error"= "昵称不合法";
+"delete_Success" = "删除成功";
+"delete_Failt" = "删除不成功";
+"device_manager"         = "设备管理";
+"device_manager_helper"  = "可添加、修改、删除、远程配置设备";
+"device_scan"            = "扫描";
+"operation_error"        = "操作不成功";
+"device_off_line"        = "设备已处于离线状态,不能进行操作";
 
 //ap配置@"开始添加"
 "jvc_ap_title" = "添加无线设备";
@@ -267,6 +274,14 @@
 "home_ap_Btn_will"= "添加无线设备";
 "home_ap_title_did"= "无线设备配置流程";
 "home_ap_title_will"= "添加流程";
+"selectedWifi"="选取网络...";
+"ap_setting"="配置热点";
+"ap_Setting_Detail"= "快速配置";
+"ResignPassWord" = "密码";
+"wifi_select_loading"= "正在加载数据...";
+"wifi-name-nil"="请输入无线网络名称";
+"ap_configer"= "配置";
+"wifi-name-nil"="请输入无线网络名称";
 
 //扫描加设备界面
 "jvc_adddevcie_sacn_back" = "退出";
@@ -363,6 +378,14 @@
 "Playback_Finish"= "远程回放结束";
 "Playback_error" = "运程回放错误";
 "PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
+"connectResultInfo_4"  = "连接失败.";
+"connectResultInfo_6"  = "连接异常断开.";
+"connectResultInfo_7"  = "服务停止，连接断开.";
+"connectResultInfo_8"  = "断开连接失败.";
+"connectResultInfo_9"  = "云视通服务已停止.";
+"connectResultInfo_10" = "身份验证不成功.";
+"connectResultInfo_11" = "超过主控连接最大次数!";
+
 //***语音对讲**
 "talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
 "talkingOther"   = "对讲功能成功开启,抓紧向对方喊话吧!";

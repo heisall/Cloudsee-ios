@@ -91,6 +91,8 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         [viewContent removeFromSuperview];
     }
     
+//    [_arrayBtnList removeAllObjects];
+    
     CGFloat height = self.frame.size.height/titleArray.count;
     
     for (int i = 0;i<titleArray.count;i++) {
@@ -118,6 +120,7 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
         UIImage *imageHover = [[UIImage alloc] initWithContentsOfFile:imageHeadHover];
         UIButton *btnImage = [UIButton buttonWithType:UIButtonTypeCustom];
         btnImage.frame = CGRectMake(OFF_X, (height - image.size.height)/2.0, image.size.width, image.size.height);
+        btnImage.userInteractionEnabled = NO;
         [btnImage setImage:image forState:UIControlStateNormal];
         [btnImage setImage:imageHover forState:UIControlStateSelected];
         [btnImage setImage:imageHover forState:UIControlStateHighlighted];

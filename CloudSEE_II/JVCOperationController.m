@@ -2187,7 +2187,14 @@ char remoteSendSearchFileBuffer[29] = {0};
             break;
         case  HORIZONTALBAR_AUDIO://音频
         {
-            
+            /**
+             *  判断是否开启语音对讲,开启直接返回
+             */
+            UIButton *btnTalk = [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+            if (btnTalk.selected) {
+                
+                return;
+            }
             [self audioButtonClick];
             
         }

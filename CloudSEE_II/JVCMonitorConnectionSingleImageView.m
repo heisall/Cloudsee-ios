@@ -10,6 +10,7 @@
 #import "JVCCloudSEENetworkMacro.h"
 #import "AppDelegate.h"
 #import "GlView.h"
+#import "JVCHorizontalScreenBar.h"
 #import "JVCCloudSEENetworkHelper.h"
 @implementation JVCMonitorConnectionSingleImageView
 
@@ -865,7 +866,11 @@ float min_offset;
  */
 - (void)showEffectBtn
 {
-    [self setEffectBtnState:NO];
+    if([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden == YES)
+    {
+        [self setEffectBtnState:NO];
+
+    }
 
 }
 

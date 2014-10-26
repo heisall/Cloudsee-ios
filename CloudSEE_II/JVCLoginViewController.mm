@@ -655,6 +655,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 - (void)localLogin
 {
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_LOCAL;
+  
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
     if (self.presentingViewController !=nil) {
         

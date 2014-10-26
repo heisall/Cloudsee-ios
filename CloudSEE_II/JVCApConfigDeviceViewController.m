@@ -205,7 +205,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     
     if (_tfContentInfo.text.length <= 0) {
         
-        //[OperationSet showAlert:NSLocalizedString(@"wifi-name-nil", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"wifi-name-nil", nil)];
         
         return;
     }

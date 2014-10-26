@@ -51,13 +51,17 @@
         self.strAlarmPicUrl = [dic objectForKey:JK_ALARM_PIC];
         self.iAlarmPlanType = [[dic objectForKey:JK_ALARM_SOLUTION] intValue];
         self.strAlarmTime = [[JVCSystemUtility shareSystemUtilityInstance] getCurrentTimerFrom:[[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue]];
+        
+        
         self.iAlarmTimer = [[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue];
         self.iAlarmType =  [[dic objectForKey:JK_ALARM_TYPE] intValue];
         self.strAlarmVideoUrl = [dic objectForKey:JK_ALARM_VIDEO];
         self.iYstChannel = [[dic objectForKey:JK_ALARM_FTP_CHANNEL_NO] intValue];
         self.strYstNumber = [dic objectForKey:JK_ALARM_FTP_DEVICE_GUID];
         self.strALarmDeviceNickName = [dic objectForKey:JK_ALARM_DEVICE_NAME];
-
+        
+        
+       
     }
     return self;
 }

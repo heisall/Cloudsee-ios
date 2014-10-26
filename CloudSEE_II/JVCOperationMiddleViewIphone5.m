@@ -110,6 +110,7 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         //[btnImage setBackgroundImage:imageHover forState:UIControlStateHighlighted];
         [btnImage setBackgroundImage:imageHover forState:UIControlStateSelected];
         btnImage.tag = i;
+        btnImage.userInteractionEnabled = NO;
         [btnImage addTarget:self  action:@selector(imagebtnClick:) forControlEvents:UIControlEventTouchDragInside];
         [contentView addSubview:btnImage];
         

@@ -8,6 +8,7 @@
 
 #import "JVCMoreUserCell.h"
 #import "JVCRGBHelper.h"
+#import "JVCConfigModel.h"
 
 static const int moreOrigin_x  = 20;  //距离最左边的位置
 
@@ -73,7 +74,12 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
         labUser.textColor = color;
     }
     labUser.font = [UIFont systemFontOfSize:MORETEXTFONT_User];
-    labUser.text = kkUserName.length==0?LOCALANGER(@"jvc_log_local"):kkUserName;
+    if ( [JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
+        labUser.text = LOCALANGER(@"jvc_log_local");
+    }else{
+        labUser.text = kkUserName;
+
+    }
     [self.contentView addSubview:labUser];
     [labUser release];
     
