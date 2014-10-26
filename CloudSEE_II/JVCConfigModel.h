@@ -66,20 +66,27 @@ enum ACCOUNTTYPEWATCH
      *  防护开关的状态
      */
     BOOL bSwitchSafe;
+    
+    /**
+     *  声波配置是否开始广播的标志：YES:广播
+     */
+    BOOL isLanSearchDevices;
 }
-@property(nonatomic,assign)int _bISLocalLoginIn;
+@property(nonatomic,assign) int _bISLocalLoginIn;
 
-@property(nonatomic,assign)int _netLinkType;
+@property(nonatomic,assign) int _netLinkType;
 
-@property(nonatomic,assign)int _iWatchType;
+@property(nonatomic,assign) int _iWatchType;
 
-@property(nonatomic,assign)BOOL tempModelInsert;
+@property(nonatomic,assign) BOOL tempModelInsert;
 
-@property(nonatomic,assign)int _bInitAccountSDKSuccess;
+@property(nonatomic,assign) int _bInitAccountSDKSuccess;
 
-@property(nonatomic,assign)    BOOL _bNewVersion;
+@property(nonatomic,assign) BOOL _bNewVersion;
 
 @property(nonatomic,assign) BOOL bSwitchSafe;
+
+@property(nonatomic,assign) BOOL isLanSearchDevices;
 /**
  *  单例
  *

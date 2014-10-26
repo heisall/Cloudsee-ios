@@ -126,14 +126,31 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 {
     [super initLayoutWithViewWillAppear];
     
-    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
+    JVCConfigModel *configObj = [JVCConfigModel shareInstance];
+    
+    if (configObj._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
     {
         [self.tableView removeHeader];
         
     }else{
-            [self setupRefresh];
+        
+        [self setupRefresh];
 
-        }
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+
+    [super viewDidAppear:NO];
+    
+    JVCConfigModel *configObj = [JVCConfigModel shareInstance];
+    
+    if (configObj.isLanSearchDevices) {
+        
+        configObj.isLanSearchDevices = FALSE;
+        
+        [self StartLANSerchAllDevice];
+    }
 }
 
 /**
@@ -234,8 +251,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
  */
 - (void)AddDevice
 {
-    
-    
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
         
         JVCLocalAddDeviceViewController *addDeviceVC = [[JVCLocalAddDeviceViewController alloc] init];
@@ -677,7 +692,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper]updateAccountDeviceListInfo];
+            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
 
         });
 
@@ -694,6 +709,8 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
     
+    DDLogVerbose(@"%s-------------self lan=%@",__FUNCTION__,self);
+    
     [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
     
 }
@@ -707,7 +724,11 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 
     [SerachLANAllDeviceList  retain];
     
-     NSArray *lanModelDeviceList=[self LANModelListConvertToSourceModel:SerachLANAllDeviceList];
+    DDLogVerbose(@"%s-----------lanModel=%@",__FUNCTION__,SerachLANAllDeviceList);
+    
+    JVCDeviceSourceHelper *deviceSourceObj = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    
+     NSArray *lanModelDeviceList=[deviceSourceObj LANModelListConvertToSourceModel:SerachLANAllDeviceList];
     
     [lanModelDeviceList retain];
     
@@ -718,38 +739,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     [SerachLANAllDeviceList release];
 }
 
-/**
- *  把广播到的设备实体转换成sourceModel
- *
- *  @param lanModelList 广播到的设备集合
- *
- *  @return 广播到的设备集合（存放的sourceModel集合）
- */
--(NSArray *)LANModelListConvertToSourceModel:(NSMutableArray *)lanModelList{
-    
-    NSMutableArray *lanDeviceList=[NSMutableArray arrayWithCapacity:10];
-    
-    for (int i=0; i<lanModelList.count; i++) {
-        
-        JVCLanScanDeviceModel *lanModel=(JVCLanScanDeviceModel *)[lanModelList objectAtIndex:i];
-        
-        JVCDeviceModel *devieNewModel=[[JVCDeviceModel alloc] init];
-        
-        devieNewModel.yunShiTongNum = lanModel.strYstNumber;
-        devieNewModel.nickName      = lanModel.strYstNumber;
-        devieNewModel.onLineState   = DEVICESTATUS_ONLINE;
-        devieNewModel.hasWifi       = lanModel.iNetMod;
-        devieNewModel.linkType      = CONNECTTYPE_IP;
-        devieNewModel.ip            = lanModel.strDeviceIP;
-        devieNewModel.port          = lanModel.strDevicePort;
-    
-        [lanDeviceList addObject:devieNewModel];
-        
-        [devieNewModel release];
-    }
-    
-    return lanDeviceList;
-}
 
 #pragma mark 没有设备的时候，点击无线添加和有线添加按钮事件的回调
 /**

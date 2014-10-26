@@ -206,4 +206,13 @@ enum ADDDEVICE_TYPE
  */
 -(BOOL)judgeDeviceHasExist:(NSString *)ystNumber;
 
+/**
+ *  把广播到的设备实体转换成sourceModel
+ *
+ *  @param lanModelList 广播到的设备集合
+ *
+ *  @return 转换的Model
+ */
+-(NSArray *)LANModelListConvertToSourceModel:(NSMutableArray *)lanModelList;
+
 @end

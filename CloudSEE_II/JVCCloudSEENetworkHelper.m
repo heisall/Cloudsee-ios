@@ -1414,14 +1414,13 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 int  nEffectflag  = -1;
                                 int  nStorageMode = -1;
                                
-                                
+                                 DDLogCVerbose(@"%s-------**********************************%s",__FUNCTION__,stpacket.acData+n);
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
                                     nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
                                     
                                 }
                                 
-                         
                                 if ([params objectForKey:kCheckHomeFlagKey]) {
                                     
                                     int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];
@@ -1442,7 +1441,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     nStorageMode = [[params objectForKey:KStorageMode] intValue];
                                 }
 
-                                
                                 [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode];
                                    
                                 

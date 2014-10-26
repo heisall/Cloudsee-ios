@@ -12,6 +12,7 @@
 #import "JVCSystemConfigMacro.h"
 #import "JVCDeviceSourceHelper.h"
 #import "AppDelegate.h"
+#import "JVCConfigModel.h"
 
 @interface JVCScanNewDeviceViewController () {
     
@@ -22,6 +23,7 @@
     CGRect        scanfImageFrame;
     int           nSelectedIndex;
     NSMutableArray *amLanSearchModelList;
+    BOOL            isExit;
 }
 
 @end
@@ -81,7 +83,13 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:YES];
+
     [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
+    
+    if ([backGroud.layer animationForKey:(NSString *)kRotationAnimationKeyName]) {
+        
+        [backGroud.layer removeAnimationForKey:(NSString *)kRotationAnimationKeyName];
+    }
 }
 
 - (void)viewDidLoad
@@ -295,9 +303,19 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
         
         [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                    userName:(NSString *)DefaultUserName
-                                                                    passWord:(NSString *)DefaultHomePassWord];
+        
+        if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+            
+            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                        userName:(NSString *)DefaultHomeUserName
+                                                                        passWord:(NSString *)DefaultHomePassWord];
+        }else {
+        
+            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                        userName:(NSString *)DefaultUserName
+                                                                        passWord:(NSString *)DefaultPassWord];
+        }
+        
     }
 }
 
@@ -306,10 +324,11 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 - (void)addDeviceSuccess
 {
+    
+    [JVCConfigModel shareInstance].isLanSearchDevices = TRUE;
+    
     if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
         
-        AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegateApp startDeviceLANSerchAllDevice];
         [self gotoBack];
     }
 }
@@ -323,7 +342,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
     
     [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
-    
+
 }
 
 /**
@@ -359,6 +378,16 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 
     [SerachLANAllDeviceList retain];
     
+    JVCDeviceSourceHelper *deviceSourceObj = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    
+    NSArray *lanModelDeviceList=[deviceSourceObj LANModelListConvertToSourceModel:SerachLANAllDeviceList];
+    
+    [lanModelDeviceList retain];
+    
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLanModelToChannelListData:lanModelDeviceList];
+    
+    [lanModelDeviceList release];
+
     
     for (int i = 0; i < SerachLANAllDeviceList.count; i++) {
         
@@ -367,25 +396,22 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         
         if (amLanSearchModelList.count >= self.nScanfDeviceMaxCont) {
             
+            DDLogVerbose(@"%s-------------endLanSearch=hahah",__FUNCTION__);
             [self stopScanfDeviceTimer];
             break;
         }
         
-        if (self.nScanfDeviceMaxCont > kScanDeviceWithDefaultCount) {
-            
-            if ( ADDDEVICE_HAS_EXIST == [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:model.strYstNumber]){
-            
-                continue;
-            }
-        }
         
         if ([self checkLanSearchModelIsExist:model.strYstNumber] ) {
             
             continue;
         }
         
-         DDLogVerbose(@"%s----ystNumber=%@,i=%d",__FUNCTION__,model.strYstNumber,i);
+        if ( ADDDEVICE_HAS_EXIST == [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:model.strYstNumber]){
         
+            continue;
+        }
+       
         [amLanSearchModelList addObject:model];
         
         [self playNewSound];
@@ -499,9 +525,11 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
 
-    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
-    [self stopScanfDeviceTimer];
-    
+    if (!isExit ) {
+        
+        [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
+        [self stopScanfDeviceTimer];
+    }
 }
 
 /**
@@ -509,10 +537,16 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 -(void)gotoBack{
 
+    isExit = TRUE;
     [self stopScanfDeviceTimer];
+    
+    if ([backGroud.layer animationForKey:(NSString *)kRotationAnimationKeyName]) {
+        
+        [backGroud.layer removeAnimationForKey:(NSString *)kRotationAnimationKeyName];
+    }
      
-     self.navigationController.navigationBarHidden = NO;
-     [self.navigationController popToRootViewControllerAnimated:YES];
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 
@@ -532,10 +566,13 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
+    
+    DDLogVerbose(@"%s---------------------stopScanfDeviceTimer===end",__FUNCTION__);
 }
 
 - (void)dealloc
 {
+    DDLogVerbose(@"%s-----hahahDealloc",__FUNCTION__);
     
     [super dealloc];
 }

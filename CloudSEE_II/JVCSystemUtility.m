@@ -239,15 +239,38 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (NSString *)getCurrentTimerFrom:(int)timerCurrentInt
 {
+    
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    DDLogVerbose(@"%s----convert----%d",__FUNCTION__,timerCurrentInt);
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
     [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
-    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timerCurrentInt];    
-    NSString *dateString = [formatter stringFromDate:confromTimesp];
-    [formatter release];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timerCurrentInt];
+    
+    NSString *strDateStr= [formatter stringFromDate:confromTimesp];
+    [formatter  release];
+    
+//    /**
+//     *  解决时差相差8个小时的问题
+//     */
+//    NSTimeZone *localZone =[NSTimeZone systemTimeZone];
+//    NSUInteger interval =[localZone secondsFromGMTForDate:confromTimesp];
+//    NSDate *date  = [confromTimesp dateByAddingTimeInterval:interval];
+//    
+//    DDLogVerbose(@"%s----date=%@",__FUNCTION__,date);
+//    
+//    
+//    NSDateFormatter* dateFormatter1 = [[NSDateFormatter alloc]init];
+//    
+//    [dateFormatter1 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    
+//    NSString *fixString = [dateFormatter1 stringFromDate:date];
+//    
+//    [dateFormatter1 release];
 
-    return dateString;
+
+    return strDateStr;
 }
 
 
