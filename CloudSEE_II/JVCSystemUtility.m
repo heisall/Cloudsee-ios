@@ -239,9 +239,12 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (NSDate *)getCurrentTimerFrom:(int)timerCurrentInt
 {
+    
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    DDLogVerbose(@"%s----convert----%d",__FUNCTION__,timerCurrentInt);
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
     [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timerCurrentInt];    
     [formatter release];

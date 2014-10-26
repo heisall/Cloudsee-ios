@@ -876,7 +876,7 @@ BOOL isAllLinkRun;
     
         [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
         
-        [self refreshEffectType:nLocalChannel effectType:effectType];
+        [self refreshEffectType:nLocalChannel effectType:effectType&0x04];
 
     }
     
@@ -987,15 +987,11 @@ BOOL isAllLinkRun;
 {
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
 
-    if (EffectType_UP == singleVideoShow.iEffectType) {//发送向下命令
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand: EffectType_Down];
-        
-    }else{
-        
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:EffectType_UP];
-        
-    }
+    [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:(singleVideoShow.iEffectType&0x04) == EffectType_UP ? singleVideoShow.iEffectType|0x04:(singleVideoShow.iEffectType&(~0x04))];
+    
+    DDLogVerbose(@"%s------%d",__FUNCTION__,singleVideoShow.iEffectType|0x04);
+    
 }
 
 

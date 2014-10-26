@@ -233,6 +233,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     //DDLogError(@"dateString=%@",dateString);
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
     [formatter setDateFormat:KDateFormatFlag];
+    
     /**
      *  解决时差相差8个小时的问题
      */

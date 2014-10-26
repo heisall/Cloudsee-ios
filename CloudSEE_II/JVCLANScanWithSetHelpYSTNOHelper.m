@@ -183,8 +183,21 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
  */
 -(void)sendCallBack{
     
+    DDLogCVerbose(@"%s--------endLanserach 0111--------",__FUNCTION__);
+    
+    if (self.delegate == nil) {
+        
+         DDLogCVerbose(@"%s--------endLanserach 0113--------",__FUNCTION__);
+    }
+    
+    if (![self.delegate respondsToSelector:@selector(SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:)]) {
+        
+        DDLogCVerbose(@"%s--------endLanserach 0114--------",__FUNCTION__);
+    }
+    
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:)]) {
         
+        DDLogCVerbose(@"%s--------endLanserach 0112--------",__FUNCTION__);
         [self.delegate SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:CacheMArrayDeviceList];
     }
 }

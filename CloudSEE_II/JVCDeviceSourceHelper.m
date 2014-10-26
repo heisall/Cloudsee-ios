@@ -11,6 +11,7 @@
 #import "JVCDeviceMacro.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLanScanDeviceModel.h"
 
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
@@ -466,6 +467,39 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 {
     return [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] updateLocalDeviceLickInfoWithYst:ystNUm deviceName:deviceName passWord:passWord iscustomLinkModel:linkModel port:port ip:ip
             ];
+}
+
+/**
+ *  把广播到的设备实体转换成sourceModel
+ *
+ *  @param lanModelList 广播到的设备集合
+ *
+ *  @return 转换的Model
+ */
+-(NSArray *)LANModelListConvertToSourceModel:(NSMutableArray *)lanModelList{
+    
+    NSMutableArray *lanDeviceList=[NSMutableArray arrayWithCapacity:10];
+    
+    for (int i=0; i<lanModelList.count; i++) {
+        
+        JVCLanScanDeviceModel *lanModel=(JVCLanScanDeviceModel *)[lanModelList objectAtIndex:i];
+        
+        JVCDeviceModel *devieNewModel=[[JVCDeviceModel alloc] init];
+        
+        devieNewModel.yunShiTongNum = lanModel.strYstNumber;
+        devieNewModel.nickName      = lanModel.strYstNumber;
+        devieNewModel.onLineState   = DEVICESTATUS_ONLINE;
+        devieNewModel.hasWifi       = lanModel.iNetMod;
+        devieNewModel.linkType      = CONNECTTYPE_IP;
+        devieNewModel.ip            = lanModel.strDeviceIP;
+        devieNewModel.port          = lanModel.strDevicePort;
+        
+        [lanDeviceList addObject:devieNewModel];
+        
+        [devieNewModel release];
+    }
+    
+    return lanDeviceList;
 }
 
 @end

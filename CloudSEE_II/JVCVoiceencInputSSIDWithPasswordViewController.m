@@ -101,6 +101,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     
     ssidTextField.autocorrectionType     = UITextAutocorrectionTypeNo;
     ssidTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    ssidTextField.text                   = [[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSID];
     ssidTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     ssidTextField.enabled                = FALSE;
     ssidTextField.borderStyle            = UITextBorderStyleNone;
