@@ -58,14 +58,14 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     /**
      *  new
      */
-//    if (model.bNewAlarmFlag) {
-//        UIImage *imgNew = [UIImage imageNamed:LOCALANGER(@"JVCArm_New")];
-//        UIImageView *imageViewNew = [[UIImageView alloc] initWithFrame:CGRectMake(ImageViewCellBg.left,ImageViewCellBg.top, imgNew.size.width, imgNew.size.height)];
-//        imageViewNew.tag = 10005;
-//        imageViewNew.image = imgNew;
-//        [self.contentView addSubview:imageViewNew];
-//        [imageViewNew release];
-//    }
+    if (model.bNewAlarm) {
+        UIImage *imgNew = [UIImage imageNamed:@"arm_new.png"];
+        UIImageView *imageViewNew = [[UIImageView alloc] initWithFrame:CGRectMake(ImageViewCellBg.left,ImageViewCellBg.top, imgNew.size.width, imgNew.size.height)];
+        imageViewNew.tag = 10005;
+        imageViewNew.image = imgNew;
+        [self.contentView addSubview:imageViewNew];
+        [imageViewNew release];
+    }
     
     
     /**

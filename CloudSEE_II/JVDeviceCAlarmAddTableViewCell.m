@@ -67,7 +67,7 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     //设备名
     UILabel *labelNickDevice = [controlHelper labelWithText:(model.alarmName.length>0?model.alarmName:@"NOName") ];
     labelNickDevice.numberOfLines = 1;
-    labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, labelDevice.bottom+KCellSpan, labelDevice.width, KCellLabelHeight);
+    labelNickDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, labelDevice.bottom+KCellSpan, labelDevice.width+100, KCellLabelHeight);
     [self.contentView addSubview:labelNickDevice];
 }
 

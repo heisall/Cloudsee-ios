@@ -662,9 +662,11 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     [filePath retain];
     
+    DDLogVerbose(@"=======%@=",filePath);
     JVCAlarmVideoPlayViewController *view = [[JVCAlarmVideoPlayViewController alloc] init];
     view._StrViedoPlay = filePath;
-    
+    DDLogVerbose(@"==view._StrViedoPlay =%@=====%@=",filePath,view._StrViedoPlay );
+
     [self.navigationController pushViewController:view animated:YES];
     
     [filePath release];

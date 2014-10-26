@@ -124,8 +124,7 @@ static const int KOriginAddHeight = 30;
         
         helpIView.backgroundColor = viewDefaultColor;
     }
-    helpIView.backgroundColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:@""];
-   UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     NSString *path = [UIImage imageBundlePath:imageName];
     UIImage *imageHelp = [[UIImage alloc] initWithContentsOfFile:path];
     imageView.image = imageHelp;

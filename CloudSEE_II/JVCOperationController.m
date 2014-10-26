@@ -2131,7 +2131,10 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
         
     }
-    
+    /**
+     *  是否多屏，多屏的时候，变成单屏
+     */
+    [self changeManagePalyVideoComtrollerViewsToSingeView];
     
     //    HORIZONTALBAR_TACK          = 0,//对讲
     //    HORIZONTALBAR_CAPTURE       = 1,//拍照

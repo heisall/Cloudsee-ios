@@ -47,8 +47,6 @@
 {
     [movie stop];
     
-    NSLog(@"%@==ddddd=",self._StrViedoPlay);
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewDidLoad
@@ -57,6 +55,8 @@
     
     self.title = LOCALANGER(@"jvc_alarmVideo_title");
     
+    NSLog(@"%@==ddddd=",self._StrViedoPlay);
+
 	// Do any additional setup after loading the view.
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];
     //NSURL *url = [NSURL URLWithString:self._StrViedoPlay];
