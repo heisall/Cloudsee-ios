@@ -142,6 +142,25 @@
     }
     JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray] objectAtIndex:indexPath.row];
     [cell initCellWithModel:modelCell];
+    NSString *imageName= nil;
+    switch (indexPath.row%3) {
+        case 0:
+            imageName = @"dem_def0.png";
+            break;
+        case 1:
+            imageName = @"dem_def0.png";
+            break;
+        case 2:
+            imageName = @"dem_def0.png";
+            break;
+        default:
+            break;
+            
+        NSString *imagePath = [UIImage imageBundlePath:@"imageName"];
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        cell.imageView.image = image;
+        [image release];
+    }
     return cell;
 }
 

@@ -29,7 +29,6 @@
     BOOL isDeviceSwitchAlarm;     //设备的安全防护开关
     BOOL bDeviceServiceOnlineState;     //设备服务器状态
 
-
 }
 
 enum kJVCDeviceModelDeviceType {

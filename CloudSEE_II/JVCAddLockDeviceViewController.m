@@ -10,9 +10,12 @@
 #import "JVCControlHelper.h"
 #import "JVCEditLockDeviceNickNameViewController.h"
 #import "JVCAlarmMacro.h"
+#import "JVCSystemSoundHelper.h"
+#import "JVCAddDevieAlarmViewController.h"
+#import "JVCRGBHelper.h"
 @interface JVCAddLockDeviceViewController ()
 {
-    UIImageView *imageView ;
+    UIView *helpIView ;
 }
 
 @end
@@ -89,35 +92,50 @@ static const int KOriginAddHeight = 30;
 {
     int addDeviceType = 1;
     NSString *imageName = nil;
+    NSString *voiceString = nil;
+
     switch (btn.tag) {
         case KBtnTagDoor:
-            imageName = @"add_lock_door.jpg" ;
+            imageName = @"add_lock_door.png" ;
+            voiceString = @"learn_1";
             break;
         case KBtnTagBra:
         {
-            imageName = @"add_lock_door.jpg" ;
+            imageName = @"add_lock_Bra.png" ;
+            voiceString = @"learn_2";
+
             addDeviceType=2;
         }
             break;
             case KBtnTagHand:
         {
-            imageName = @"add_lock_door.jpg" ;
+            imageName = @"add_lock_Hand.png" ;
+            voiceString = @"learn_3";
+
             addDeviceType=3;
         }
             break;
     }
     
+    helpIView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIColor *viewDefaultColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroViewControllerBackGround];
+    if (viewDefaultColor) {
+        
+        helpIView.backgroundColor = viewDefaultColor;
+    }
+    helpIView.backgroundColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:@""];
+   UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     NSString *path = [UIImage imageBundlePath:imageName];
     UIImage *imageHelp = [[UIImage alloc] initWithContentsOfFile:path];
     imageView.image = imageHelp;
-    [self.view.window addSubview:imageView];
+    [helpIView addSubview:imageView];
+    [self.view.window addSubview:helpIView];
     [imageHelp release];
     [imageView release];
+    [self playLearnSound:voiceString];
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-
     
     JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
@@ -138,6 +156,24 @@ static const int KOriginAddHeight = 30;
 }
 
 /**
+ *  播放扫描背景音乐
+ */
+-(void)playLearnSound:(NSString *)voiceString{
+    
+    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:voiceString ofType:@"mp3"];
+    
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:soundPath withIsRunloop:NO ];
+    
+}
+
+- (void)stopPlaySound
+{
+    [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
+
+}
+
+
+/**
  *  文本聊天返回的回调
  *
  *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
@@ -147,7 +183,8 @@ static const int KOriginAddHeight = 30;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [imageView removeFromSuperview];
+        [helpIView removeFromSuperview];
+        [self stopPlaySound];
         
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
@@ -190,6 +227,11 @@ static const int KOriginAddHeight = 30;
                 case AlarmLockTypeRes_MaxCount:
                     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大绑定值"];
                     break;
+                case AlarmLockTypeRes_HasAdd:{
+                    //根据guid去检索设备
+                    [self predicatAddDeviceExist:tdic];
+                }
+                    break;
                 default:
                     break;
             }
@@ -199,9 +241,47 @@ static const int KOriginAddHeight = 30;
         
     }else{
     
+        
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
 
     }
+}
+
+- (void)predicatAddDeviceExist:(NSDictionary *)dic
+{
+    int dguid = [[dic objectForKey:Alarm_Lock_Guid] integerValue];
+
+    NSString *nickName = [self getDevicehasExistNickName:dguid];
+    if (nickName.length>0) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"%@重复绑定",nickName]];
+
+    }else{
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"重复绑定"]];
+
+    }
+}
+
+/**
+ *  判断设备是否存在
+ *
+ *  @param nGuid 收到的guid
+ *
+ *  @return 昵称，可能为空
+ */
+- (NSString *)getDevicehasExistNickName:(int )nGuid
+{
+    if ([addLockDeviceDelegate isKindOfClass:[JVCAddDevieAlarmViewController class]]) {
+        
+        JVCAddDevieAlarmViewController *deviceListVC = (JVCAddDevieAlarmViewController *)addLockDeviceDelegate;
+        for (JVCLockAlarmModel *model in deviceListVC.arrayAlarmList) {
+            
+            if (model.alarmGuid == nGuid) {
+                return model.alarmName;
+            }
+        }
+    }
+    return nil;
 }
 
 - (void)editLockDeviceNickName:(NSDictionary *)dic

@@ -17,7 +17,7 @@ static const  int KLabelHeight                = 40;//label的高度
 static const  int KLabelLineHeight            = 1;//labelLIne的高度
 static const  int KLabelTitleFont             = 16;//label字体
 static const  int KLabelTimerHeight           = 14;//labeltimer的字体
-
+@synthesize imageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -82,15 +82,22 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     labelTimer.textAlignment = UITextAlignmentCenter;
     [self.contentView addSubview:labelTimer];
     labelTimer.font = [UIFont systemFontOfSize:KLabelTimerHeight];
-    labelTimer.text = @"2014-1-1";
+    labelTimer.text = @"";
     [labelTimer release];
     
     UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KLabelHeight, image.size.width,image.size.height)];
+    self.imageView = imageViewBg;
     imageViewBg.image = image;
     [self.contentView addSubview:imageViewBg];
     [imageViewBg release];
     [image release];
     
+}
+
+- (void)dealloc
+{
+    [imageView release];
+    [super dealloc];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

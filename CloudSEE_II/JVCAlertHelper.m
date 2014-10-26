@@ -247,7 +247,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
 {
     if ( [JVCConfigModel shareInstance]._netLinkType == NETLINTYEPE_NONET) {
         
-        [self alertToastWithKeyWindowWithMessage:@"没有网路，请查看网络"];
+        [self alertToastWithKeyWindowWithMessage:@"没有网络，请查看"];
         
         return NO;
     }

@@ -61,6 +61,8 @@ typedef NS_ENUM(NSUInteger, AlarmLockTypeRes) {
     AlarmLockTypeRes_OK         = 1,
     AlarmLockTypeRes_Fail       = 0,
     AlarmLockTypeRes_MaxCount   = 2,
+    AlarmLockTypeRes_HasAdd     = 3,//添加
+
 };
 
 

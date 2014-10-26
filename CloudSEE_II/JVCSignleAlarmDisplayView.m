@@ -71,7 +71,7 @@ static const NSInteger  BTNTAG = 12683;
     labelTimer.font = [UIFont systemFontOfSize:14];
     labelTimer.textColor = [UIColor colorWithRed:57.0/255 green:57.0/255 blue:57.0/255 alpha:1];
     labelTimer.textAlignment = UITextAlignmentLeft;
-    labelTimer.text = self.tAlarmModel.strAlarmTime;
+    labelTimer.text = [NSString stringWithFormat:@"%@",self.tAlarmModel.strAlarmTime];
     [contentView addSubview:labelTimer];
     [labelTimer release];
     

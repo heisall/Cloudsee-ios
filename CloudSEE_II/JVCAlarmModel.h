@@ -23,7 +23,7 @@ enum AlarmPlan
     NSString *strALarmDeviceNickName;   //设备的昵称
     int iYstChannel;                    //通道
     int iAlarmLevel;                     //报警的级别
-    NSString *strAlarmTime;             //报警的时间
+    NSDate *strAlarmTime;             //报警的时间
     NSString *strAlarmPicUrl;           //报警图片的URL
 
     NSString *strAlarmVideoUrl;         //报警视频的URL
@@ -44,7 +44,7 @@ enum AlarmPlan
 @property(nonatomic,assign)int iAlarmPlanType;
 @property(nonatomic,assign)int iAlarmLevel;
 @property(nonatomic,assign)    int iAlarmTimer;                    //时间截
-@property(nonatomic,retain)NSString  *strAlarmTime;
+@property(nonatomic,retain)NSDate  *strAlarmTime;
 @property(nonatomic,retain)NSString  *strAlarmPicUrl;
 @property(nonatomic,retain)NSString  *strAlarmVideoUrl;
 @property(nonatomic,retain)NSString  *strAlarmLocalVideoUrl;

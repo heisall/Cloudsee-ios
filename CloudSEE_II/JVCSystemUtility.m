@@ -237,17 +237,16 @@ static JVCSystemUtility *shareInstance = nil;
  *
  *  @return 时间
  */
-- (NSString *)getCurrentTimerFrom:(int)timerCurrentInt
+- (NSDate *)getCurrentTimerFrom:(int)timerCurrentInt
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     [formatter setDateFormat:@"yyyy-MM-dd HH:MM:ss"];
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timerCurrentInt];    
-    NSString *dateString = [formatter stringFromDate:confromTimesp];
     [formatter release];
 
-    return dateString;
+    return confromTimesp;
 }
 
 

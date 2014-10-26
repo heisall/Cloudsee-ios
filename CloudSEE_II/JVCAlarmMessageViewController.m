@@ -368,7 +368,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
     labelTimer.backgroundColor = [UIColor clearColor];
     labelTimer.textAlignment = UITextAlignmentCenter;
-    labelTimer.text = cellModel.strAlarmTime;
+    labelTimer.text = [NSString stringWithFormat:@"%@",cellModel.strAlarmTime];
     labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
     [labelTimer setFont:[UIFont systemFontOfSize:14]];
     [headView addSubview:labelTimer];
@@ -562,12 +562,21 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
+    if (savepath.length<=0) {
+        
+        [self disRemoteLink];
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
+        return;
+        
+    }
+    
     if (downLoadStatus == JVN_RSP_DOWNLOADOVER) {//成功
         
         
         if (iDownLoadType == DownLoadType_PIC) {
             
-    
+           
             cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
             
             [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];

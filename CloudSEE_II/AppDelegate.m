@@ -58,7 +58,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+ 
     selectedSSID = [[NSMutableString alloc] init];
     /**
      *  设置ddlog

@@ -15,9 +15,10 @@ static const int moreSeperate  = 20;  //与头像的距离
 
 static const int moreLabWith  = 200;  //lab的宽度
 
-static const int moreLabHeigh  = 18;  //lab的高度
+static const int moreLabHeigh  = 40;  //lab的高度
 
-static const int moreLabShortWith  = 90;  //lab的短的宽度
+
+static const int moreLabUSernameFont  = 25;  //账号的font
 
 static const int moreLabSeperate  = 5;  //lab之间的距离
 
@@ -63,9 +64,11 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
     [imageView release];
     
     //账号名称
-    UILabel *labUser = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+moreSeperate, imageView.top, moreLabWith, moreLabHeigh)];
+    UILabel *labUser = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+moreSeperate, 0, moreLabWith, moreLabHeigh)];
+    labUser.center = CGPointMake(labUser.center.x, imageView.center.y);
     labUser.backgroundColor = [UIColor clearColor];
-    UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KMoreUserLabeTextColor];
+    labUser.font = [UIFont systemFontOfSize:moreLabUSernameFont];
+    UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
     if (color) {
         labUser.textColor = color;
     }

@@ -24,6 +24,7 @@
 #import "JVCHorizontalScreenBar.h"
 #import "JVCHorizontalStreamView.h"
 #import "JVCControlHelper.h"
+#import "JVCCustomOperationBottomView.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -544,9 +545,18 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     dispatch_async(dispatch_get_main_queue(), ^{
     
-        [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
-         NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
-        [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
+        switch (nStreamType) {
+            case VideoStreamType_Default:
+            case VideoStreamType_HD:
+            case VideoStreamType_SD:
+            case VideoStreamType_FL:
+            [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
+            NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
+            [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
+                break;
+            default:
+                break;
+        }
         
         
         if (_managerVideo.imageViewNums > kDefaultShowWidnowCount) {

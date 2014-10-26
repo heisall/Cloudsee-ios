@@ -107,7 +107,7 @@
  *
  *  @return 时间
  */
-- (NSString *)getCurrentTimerFrom:(int)timerCurrentInt;
+- (NSDate *)getCurrentTimerFrom:(int)timerCurrentInt;
 
 /**
  *  根据域名获取ip

@@ -112,7 +112,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     
     [self getDeviceList];
     
-    [self showaddAPConfigDevice];
     
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
     {
@@ -574,8 +573,12 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                     //获取设备通道
                     [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
                     
+                    [self showaddAPConfigDevice];
+                    
                 }else{//空
                     
+                    [self showaddAPConfigDevice];
+
                     [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
                     
                 }
@@ -792,7 +795,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 
     if (buttonIndex == 0) {
         
-        [self AddDevice];
+       [self AddDevice];
 
     }else{
     

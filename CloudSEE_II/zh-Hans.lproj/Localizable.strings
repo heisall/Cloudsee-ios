@@ -291,6 +291,23 @@
 "home_alarm_watch_video"= "查看报警视频";
 "jvc_alarmVideo_title" = "报警视频";
 
+//保持在线的
+//Keeplineerror
+"AlertkeepLineError_userOut" = "退出";
+"AlertkeepLineError_LoginIn" = "继续登录";
+"AlertkeepLineError_title"   = "账号在其他地方登录或者账号异常";
+"AlertkeepLineError_network_title" = "网络连接异常,请重新登录";
+
+//下拉刷新
+"jvc_PullToRefreshText" = "下拉刷新";
+"jvc_PullReleaseToRefreshText" = "松开马上刷新";
+"jvc_PullRefreshingText" = "正在刷新中";
+"jvc_PullfooterToRefreshText" = "上拉加载更多";
+"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
+"jvc_PullfooterRefreshingText" = "正在加载";
+
+
+
 //------播放视频界面
 "Video Display"="视频播放";
 "Capture"="抓拍";
@@ -303,7 +320,7 @@
 "ResetDeviceInfotitile"= "重置设备";
 "talkStart"= "亲，你现在可以和对方说话了";
 "talking"= "对讲功能成功开启，长按向对方喊话吧";
-"jvcoper_autoRecord"="自动录像";
+"jvcoper_autoRecord"="报警录像";
 "jvcoper_Record"="手动录像";
 "Learn audio info at any time"="随时了解音频信息";
 "Adjust PTZ at any time"="随时调整监控画面信息";
@@ -437,13 +454,6 @@
 //"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
 //"jvc_PullfooterRefreshingText" = "正在加载";
 //
-////下拉刷新
-//"jvc_PullToRefreshText" = "下拉刷新";
-//"jvc_PullReleaseToRefreshText" = "松开马上刷新";
-//"jvc_PullRefreshingText" = "正在刷新中";
-//"jvc_PullfooterToRefreshText" = "上拉加载更多";
-//"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
-//"jvc_PullfooterRefreshingText" = "正在加载";
 //
 //
 //

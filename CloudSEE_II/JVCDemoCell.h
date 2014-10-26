@@ -10,7 +10,10 @@
 static const  int  KCellHeight  = 225;//邓静给的值
 @class JVCDeviceModel;
 @interface JVCDemoCell : UITableViewCell
-
+{
+    UIImageView *imageView;
+}
+@property(nonatomic,assign)UIImageView *imageView;
 /**
  *  初始化cell
  */
