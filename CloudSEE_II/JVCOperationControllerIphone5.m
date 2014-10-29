@@ -77,7 +77,6 @@
  */
 -  (void)operationMiddleIphone5BtnCallBack:(int)clickBtnType
 {
-    DDLogInfo(@"%s====%d",__FUNCTION__,clickBtnType);
     
     [self MiddleBtnClickWithIndex:clickBtnType];
     

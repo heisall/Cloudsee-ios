@@ -93,7 +93,6 @@ char outTextBuffer[1280*720*3];
     
     NSData *responseData=[NSData dataWithBytes:outTextBuffer length:strlen(outTextBuffer)];
     
-    DDLogVerbose(@"__%s=================%@=======",__FUNCTION__,[responseData objectFromJSONData]);
     return [responseData objectFromJSONData];
     
 }

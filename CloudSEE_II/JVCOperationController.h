@@ -48,8 +48,10 @@
     
     int              skinSelect;
     
-    id <operationControllerDelegate> delegate;
+    id <operationControllerDelegate>  delegate;
     JVCManagePalyVideoComtroller     *_managerVideo;
+    BOOL                               isPlayBackVideo;
+    NSString                         *strPlayBackVideoPath;
 }
 
 @property (nonatomic,assign) int             _iSelectedChannelIndex;
@@ -60,6 +62,8 @@
 @property (nonatomic,retain) NSMutableArray  *_playBackVideoDataArray;
 @property (nonatomic,assign) BOOL             showSingeleDeviceLongTap;
 @property (nonatomic,assign) id <operationControllerDelegate> delegate;
+@property (nonatomic,assign) BOOL             isPlayBackVideo;
+@property (nonatomic,retain) NSString        *strPlayBackVideoPath;
 
 - (void)saveLocalVideo:(NSString*)urlString;
 -(void)unAllLink;

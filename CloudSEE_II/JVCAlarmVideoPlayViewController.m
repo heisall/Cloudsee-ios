@@ -9,6 +9,7 @@
 #import "JVCAlarmVideoPlayViewController.h"
 #import <MediaPlayer/MPMoviePlayerController.h>
 #import <MediaPlayer/MPMoviePlayerViewController.h>
+
 @interface JVCAlarmVideoPlayViewController ()
 {
     MPMoviePlayerController *movie;
@@ -55,11 +56,8 @@
     
     self.title = LOCALANGER(@"jvc_alarmVideo_title");
     
-    NSLog(@"%@==ddddd=",self._StrViedoPlay);
 
-	// Do any additional setup after loading the view.
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];
-    //NSURL *url = [NSURL URLWithString:self._StrViedoPlay];
     //视频播放对象
     movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
     
@@ -123,9 +121,7 @@
     }
 }
 
-
 #pragma mark -------------------视频播放结束委托--------------------
-
 
 - (void)dealloc
 {

@@ -79,7 +79,6 @@ typedef NS_ENUM(int, EffectType)
 
 -(void)initWithView;
 #pragma mark UIView中的UIImageView的选中与未选中边框颜色处理
--(void)setImage:(UIImage*)image;
 -(void)startActivity:(NSString*)connectChannelInfo isConnectType:(BOOL)isConnectType;
 -(void)stopActivity:(NSString*)connectInfo;
 -(NSString*)getConnectChannelInfo;
@@ -90,6 +89,16 @@ typedef NS_ENUM(int, EffectType)
 -(void)unSelectUIView;
 -(void)hiddenSlider;
 
+
+/**
+ *  04版主控的显示方式
+ *
+ *  @param imageBuffer               YUV数据
+ *  @param decoderFrameWidth         解码的宽
+ *  @param decoderFrameHeight        解码的高
+ *  @param nPlayBackFrametotalNumber 远程回放的数据
+ */
+-(void)setOldImageBuffer:(char *)imageBuffer decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber;
 
 /**
  *	显示图片方法

@@ -286,11 +286,9 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     UIButton *btn =  [_arrayButtons objectAtIndex:index];
     
-    //    UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amUnSelectedImageNameListData objectAtIndex:index]]];
     
     btn.selected = NO;
     
-    //    [btn setImage:imageHover forState:UIControlStateNormal];
     
     return YES;
     

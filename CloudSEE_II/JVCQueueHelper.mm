@@ -295,14 +295,15 @@ long long currentMillisSec() {
 /**
  *  数据入队 （生产者）
  *
- *  @param data       入队的数据
- *  @param nSize      入队的数据大小
- *  @param is_i_frame 是否是I帧（视频数据用的）
- *  @param is_b_frame 是否是B帧
+ *  @param data      入队的数据
+ *  @param nSize     入队的数据大小
+ *  @param isIFrame  是否是I帧（视频数据用的）
+ *  @param isBFrame  是否是B帧
+ *  @param frameType 帧类型
  *
  *  @return 成功返回 0, 队列满返回 －1
  */
--(int)offer:(unsigned char *)data nSize:(int)nSize is_i_frame:(BOOL)is_i_frame is_b_frame:(BOOL)is_b_frame
+-(int)offer:(unsigned char *)data withFrameSize:(int)nSize withIsIFrame:(BOOL)isIFrame withIsBFrame:(BOOL)isBFrame withFrameType:(int)frameType
 {
 	if (dqueue==NULL)
         return  OPERATION_TYPE_ERROR;
@@ -315,8 +316,9 @@ long long currentMillisSec() {
     if (nSize > 0) {
         
         bufferFrame->nSize      = nSize;
-        bufferFrame->is_i_frame = is_i_frame;
-        bufferFrame->is_b_frame = is_b_frame;
+        bufferFrame->is_i_frame = isIFrame;
+        bufferFrame->is_b_frame = isBFrame;
+        bufferFrame->nFrameType = frameType;
         bufferFrame->buf = (unsigned char *)malloc(sizeof(unsigned char)*nSize);
         
         memcpy(bufferFrame->buf, data, nSize);

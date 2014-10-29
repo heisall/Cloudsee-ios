@@ -23,8 +23,9 @@
  *
  *  @param decoderOutVideoFrame       解码返回的数据
  *  @param nPlayBackFrametotalNumber  远程回放的总帧数
+ *  @param isVideoType                YES：05 NO：04
  */
--(void)decoderOutVideoFrameCallBack:(DecoderOutVideoFrame *)decoderOutVideoFrame nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber;
+-(void)decoderOutVideoFrameCallBack:(DecoderOutVideoFrame *)decoderOutVideoFrame nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber withVideoType:(BOOL)isVideoType;
 
 /**
  *  抓拍图片
@@ -138,8 +139,9 @@
  *  @param nVideoDataSize    数据数据大小
  *  @param isVideoDataIFrame 视频是否是关键帧
  *  @param isVideoDataBFrame 视频是否是B帧
+ *  @param frameType         视频数据类型
  */
--(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame;
+-(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame frameType:(int)frameType;
 
 #pragma mark  解码处理模块
 

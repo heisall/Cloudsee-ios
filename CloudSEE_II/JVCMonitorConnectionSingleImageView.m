@@ -411,45 +411,47 @@ float min_offset;
     [self setEffectBtnState:NO];
 }
 
--(void)setImage:(UIImage*)image{
+/**
+ *  04版主控的显示方式
+ *
+ *  @param imageBuffer               YUV数据
+ *  @param decoderFrameWidth         解码的宽
+ *  @param decoderFrameHeight        解码的高
+ *  @param nPlayBackFrametotalNumber 远程回放的数据
+ */
+-(void)setOldImageBuffer:(char *)imageBuffer decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
-    //managePalyVideoComtroller *_managePlay=(managePalyVideoComtroller*)f_view;
-    
-	if (image==nil) {
+    dispatch_sync(dispatch_get_main_queue(), ^{
         
-        disFlag=FALSE;
-		UIImageView *imgView =(UIImageView*)[self viewWithTag:101];
-		[imgView setImage:nil];
+        UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
+        
+        if (!connectInfoTV.hidden) {
+            
+            connectInfoTV.hidden = !connectInfoTV.hidden;
+        }
+        
         UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
-        [_bPlayVideoBtn setHidden:NO];
-        UISlider *slider=(UISlider*)[self viewWithTag:107];
-        [slider setValue:0.0];
-        [slider setMaximumValue:0.0];
-        [slider setHidden:YES];
+        [_bPlayVideoBtn setHidden:YES];
         
+        NSData *imageData     = [NSData dataWithBytes:imageBuffer length:decoderFrameWidth*decoderFrameHeight*2+66];
+        UIImage *image        = [UIImage imageWithData:imageData];
+        UIImageView *imgView  = (UIImageView *)[self viewWithTag:101];
         
-        
-    }else {
-        
-        //        if ([_managePlay returnPlayBackViewState]&&!self._isPlayBackState) {
-        //
-        //            UISlider *slider=(UISlider*)[self viewWithTag:107];
-        //            [slider setHidden:NO];
-        //            [slider setValue:slider.value+1];
-        //
-        //        }else{
-        //
-        //            UISlider *slider=(UISlider*)[self viewWithTag:107];
-        //            [slider setHidden:YES];
-        //        }
-        
-        disFlag=YES;
-		UIImageView *imgView =(UIImageView*)[self viewWithTag:101];
-		[imgView setImage:image];
-	}
+        [imgView setImage:image];
+    });
 }
 
 
+/**
+ *  05版主控的显示方式
+ *
+ *  @param imageBufferY              Y数据
+ *  @param imageBufferU              U数据
+ *  @param imageBufferV              V数据
+ *  @param decoderFrameWidth         解码的宽
+ *  @param decoderFrameHeight        解码的高
+ *  @param nPlayBackFrametotalNumber 远程回放的总帧数
+ */
 -(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
     
@@ -488,7 +490,7 @@ float min_offset;
             [_bPlayVideoBtn setHidden:YES];
             
             
-             UISlider *slider = (UISlider*)[self viewWithTag:107];
+            UISlider *slider = (UISlider*)[self viewWithTag:107];
             
             if (nPlayBackFrametotalNumber > 0) {
                 
@@ -500,8 +502,6 @@ float min_offset;
                 }else{
                 
                      [slider setValue:slider.value+1];
-                    
-                    
                 }
                 
                 [self setEffectBtnState:YES];
@@ -521,28 +521,24 @@ float min_offset;
                 [self bringSubviewToFront:self._glView._kxOpenGLView];
                 
                 [self setEffectBtnState:NO];
-                
-
             }
             
             disFlag=YES;
-            
         }
         
     });
     
-    //    managePalyVideoComtroller *_managePlay=(managePalyVideoComtroller*)f_view;
 }
 
 /**
  *  开始连接
  *
  *  @param connectChannelInfo 连接的通道信息
- *  @param isConnectType      连接的类型（YES：IP NO：YST）
+ *  @param isConnectType      连接的类型（YES：YST NO：IP）
  */
 -(void)startActivity:(NSString*)connectChannelInfo isConnectType:(BOOL)isConnectType{
     
-    self._isConnectType=!isConnectType;
+    self._isConnectType = isConnectType;
     
     [self runSetConnectDeviceInfo:connectChannelInfo];
     
@@ -794,7 +790,7 @@ float min_offset;
         }
 	}
     
-    if (connectInfo == nil) {
+    if (connectInfo.length > 0 ) {
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
         connectInfoTV.text     = LOCALANGER(@"JVCMonitorConnectionSingleImageView_connecting");
@@ -802,10 +798,9 @@ float min_offset;
     }else{
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
-        [connectInfoTV setHidden:YES];
+        connectInfoTV.text     = @"正在努力加载视频数据,请等待...";
     }
-    
-    
+
 	UILabel *selectedSourceTV=(UILabel*)[self viewWithTag:102];
 	selectedSourceTV.text=[NSString stringWithFormat:@"%@",connectInfo];
 	[selectedSourceTV setHidden:NO];

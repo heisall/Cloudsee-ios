@@ -263,8 +263,6 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    DDLogVerbose(@"=002==%d===",titles.count);
-
     return  titles.count;
     
 }
@@ -303,7 +301,6 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     
     cell.contentView.backgroundColor = [UIColor clearColor];
     
-    DDLogVerbose(@"===%d===",titles.count);
     [cell initWithLayoutView:[titles objectAtIndex:indexPath.row]];
     
     [cell setViewSelectedView:indexPath.row == nIndex];
@@ -359,6 +356,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
     } completion:^(BOOL finished) {
         
         [deviceListTableView reloadData];
+        [self animationEndCallBack];
         
     }];
 }

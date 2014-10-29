@@ -95,7 +95,7 @@ char  captureImageBuffer[1280*720*3] ={0};
                 
             }else {
                 
-                // JVD04_DecodeOpen(self.nVideoWidth ,self.nVideoHeight ,nVideoDecodeID);
+                 JVD04_DecodeOpen(self.nVideoWidth ,self.nVideoHeight ,nVideoDecodeID);
             }
             
             self.isOpenDecoder   = TRUE;
@@ -125,7 +125,9 @@ char  captureImageBuffer[1280*720*3] ={0};
             
         }else{
             
-            //JVD04_DecodeClose(nVideoDecodeID);
+            [self videoLock];
+            JVD04_DecodeClose(nDecoderID);
+            [self VideoUnlock];
         }
         
         self.isOpenDecoder = FALSE;
@@ -146,7 +148,7 @@ char  captureImageBuffer[1280*720*3] ={0};
  *
  *  @return 解码成功返回 0 否则失败
  */
--(int)decodeOneVideoFrame:(frame *)videoFrame nSystemVersion:(int)nSystemVersion VideoOutFrame:(DecoderOutVideoFrame *)VideoOutFrame{
+-(int)decodeOneVideoFrame:(frame *)videoFrame nSystemVersion:(int)nSystemVersion VideoOutFrame:(DecoderOutVideoFrame *)VideoOutFrame {
     
     int ndecoderStatus = -1;
     
@@ -157,23 +159,46 @@ char  captureImageBuffer[1280*720*3] ={0};
         
         if (self.isWaitIFrame) {
             
-            [self videoLock];
-            ndecoderStatus = JVD05_DecodeOneFrame(nDecoderID,videoFrame->nSize,videoFrame->buf,outVideoFrame->decoder_y,outVideoFrame->decoder_u,outVideoFrame->decoder_v,0,nSystemVersion,0,&outVideoFrame->nWidth,&outVideoFrame->nHeight);
-            [self VideoUnlock];
-            
-            if (self.isCaptureImage) {
+            if (self.isDecoderModel) {
                 
-                if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
+                [self videoLock];
+                ndecoderStatus = JVD05_DecodeOneFrame(nDecoderID,videoFrame->nSize,videoFrame->buf,outVideoFrame->decoder_y,outVideoFrame->decoder_u,outVideoFrame->decoder_v,0,nSystemVersion,0,&outVideoFrame->nWidth,&outVideoFrame->nHeight);
+                [self VideoUnlock];
+                
+                if (self.isCaptureImage) {
                     
-                    yuv_rgb(nDecoderID,(unsigned int*)(captureImageBuffer+66),nSystemVersion);
-                    CreateBitmap((unsigned char *)captureImageBuffer,self.nVideoWidth,self.nVideoHeight,nSystemVersion);
-                    NSData *captureImageData=[NSData dataWithBytes:captureImageBuffer length:self.nVideoWidth*self.nVideoHeight*2+66];
+                    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
+                        
+                        yuv_rgb(nDecoderID,(unsigned int*)(captureImageBuffer+66),nSystemVersion);
+                        CreateBitmap((unsigned char *)captureImageBuffer,outVideoFrame->nWidth,outVideoFrame->nHeight,nSystemVersion);
+                        NSData *captureImageData=[NSData dataWithBytes:captureImageBuffer length:outVideoFrame->nWidth*outVideoFrame->nHeight*2+66];
+                        
+                        [self.delegate decoderModelCaptureImageCallBack:captureImageData];
+                    }
                     
-                    [self.delegate decoderModelCaptureImageCallBack:captureImageData];
+                    self.isCaptureImage = FALSE;
                 }
                 
-                self.isCaptureImage = FALSE;
+            }else {
+            
+                [self videoLock];
+                outVideoFrame->nHeight = self.nVideoHeight;
+                outVideoFrame->nWidth  = self.nVideoWidth;
+                ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,outVideoFrame->decoder_y,videoFrame->nSize, nDecoderID, videoFrame->nFrameType,nSystemVersion);
                 
+                if (self.isCaptureImage) {
+                    
+                    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
+                        
+                        NSData *captureImageData=[NSData dataWithBytes:outVideoFrame->decoder_y length:self.nVideoWidth*self.nVideoHeight*2+66];
+                        
+                        [self.delegate decoderModelCaptureImageCallBack:captureImageData];
+                    }
+                    
+                    self.isCaptureImage = FALSE;
+                }
+                [self VideoUnlock];
+            
             }
         }
         
@@ -201,7 +226,6 @@ char  captureImageBuffer[1280*720*3] ={0};
         if (nvideoFrameType) {
             
             self.isWaitIFrame = YES;
-            
         }
     }
 }

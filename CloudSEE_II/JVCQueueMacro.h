@@ -22,6 +22,7 @@ typedef struct frame{
     int             nSize;
     bool            is_i_frame; //是否是I帧
     bool            is_b_frame; //是否是B帧
+    int             nFrameType;
     
 }frame;
 

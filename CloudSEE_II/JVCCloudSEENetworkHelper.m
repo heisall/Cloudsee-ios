@@ -112,7 +112,6 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 
 
 char          ppszPCMBuf[640] ={0};
-
 char          encodeLocalRecordeData[1024]  = {0}; //语音对讲编码后的数据
 char          remotePlaybackBuffer[64*1024] = {0}; //存放远程回放数据原始值
 BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请求的标志位 TRUE  :跳出
@@ -630,13 +629,12 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 
                 int bufferType = uchType;
                 
-                if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(H264VideoDataCallBackMath:imageBufferY:imageBufferU:imageBufferV:decoderFrameWidth:decoderFrameHeight:nPlayBackFrametotalNumber:)]) {
+                if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(H264VideoDataCallBackMath:imageBufferY:imageBufferU:imageBufferV:decoderFrameWidth:decoderFrameHeight:nPlayBackFrametotalNumber:withVideoType:)]) {
                     
                     //偏移带帧头的数据和视频数据的大小以及获取当前的帧类型
                     [jvcCloudSEENetworkHelper videoDataInExistStartCode:&pBuffer isFrameOStartCode:JVCVideoDecoderHelperObj.isExistStartCode nbufferSize:&nSize nBufferType:&bufferType];
                 
-                        
-                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType == JVN_DATA_B];
+                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType == JVN_DATA_B frameType:bufferType];
                     
                     //DDLogCInfo(@"%s---video",__FUNCTION__);
                     
@@ -644,6 +642,21 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                     
                     DDLogCVerbose(@"%s---H264VideoDataCallBackMath:imageBufferY:imageBufferU:imageBufferV:decoderFrameWidth:decoderFrameHeight:nPlayBackFrametotalNumber: callBack is Null",__FUNCTION__);
                 }
+                
+                
+            }else {
+            
+                unsigned int i_data =*(unsigned int *)(pBuffer+4);
+                unsigned int uType = i_data & 0xF;
+                
+                if (uType < JVN_DATA_A) {
+                    
+                     unsigned int nLen = (i_data>>4) & 0xFFFFF;
+                    
+                     [currentChannelObj pushVideoData:(unsigned char *)pBuffer+8 nVideoDataSize:nLen isVideoDataIFrame:uType ==JVN_DATA_I isVideoDataBFrame:uType == JVN_DATA_B frameType:uType];
+                  
+                }
+            
             }
         }
             break;
@@ -1134,7 +1147,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
             int     width       = -1;
             int     height      = -1;
             double  frameRate   = 0 ;
-            
+             DDLogCVerbose(@"%s--------playBack###################00000001",__FUNCTION__);
             currentChannelObj.nConnectDeviceType         = currentChannelObj.nConnectDeviceType;
             
             playBackDecoderObj.nPlayBackFrametotalNumber = [ystNetworkHelperCMObj getRemotePlaybackTotalFrameAndframeFrate:pBuffer buffer_O_size:nSize videoWidth:&width videoHeight:&height dFrameRate:&frameRate];
@@ -1184,12 +1197,12 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
                 
                 int bufferType = uchType;
                 
-                if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(H264VideoDataCallBackMath:imageBufferY:imageBufferU:imageBufferV:decoderFrameWidth:decoderFrameHeight:nPlayBackFrametotalNumber:)]) {
+                if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(H264VideoDataCallBackMath:imageBufferY:imageBufferU:imageBufferV:decoderFrameWidth:decoderFrameHeight:nPlayBackFrametotalNumber:withVideoType:)]) {
                     
                     //偏移带帧头的数据和视频数据的大小
                     [jvcCloudSEENetworkHelper videoDataInExistStartCode:&pBuffer isFrameOStartCode:playBackDecoderObj.isExistStartCode nbufferSize:&nSize nBufferType:&bufferType];
                     
-                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType==JVN_DATA_B];
+                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer nVideoDataSize:nSize isVideoDataIFrame:bufferType==JVN_DATA_I isVideoDataBFrame:bufferType==JVN_DATA_B frameType:uchType];
                     
                 }else{
                     
@@ -1214,6 +1227,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
         case JVN_RSP_PLAYOVER:
         case JVN_RSP_PLTIMEOUT:{
             
+            DDLogCVerbose(@"%s--------playBack###################00000000",__FUNCTION__);
             [jvcCloudSEENetworkHelper RemotePlayBackVideoEndCallBack:uchType currentChannelObj:currentChannelObj];
         }
             
@@ -1250,6 +1264,25 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
     
     [requestPlayBackFileDate release];
     [requestPlayBackFileInfo release];
+}
+
+/**
+ *  远程回放请求文件视频
+ *
+ *  @param nLocalChannel           视频显示窗口编号
+ *  @param withPlayBackPath        远程文件的路径
+ */
+-(void)RemoteRequestSendPlaybackVideo:(int)nLocalChannel withPlayBackPath:(NSString *)playBackVideoPath {
+    
+    [playBackVideoPath retain];
+    
+    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
+    
+    JVCCloudSEEManagerHelper                    *currentChannelObj               = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
+    [ystRemoteOperationHelperObj remoteSendDataToDevice:currentChannelObj.nLocalChannel remoteOperationType:JVN_REQ_PLAY remoteOperationCommandData:(char *)[playBackVideoPath UTF8String]];
+    
+    [playBackVideoPath release];
 }
 
 /**
@@ -1413,7 +1446,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 int  nEffectflag  = -1;
                                 int  nStorageMode = -1;
                                
-                                 DDLogCVerbose(@"%s-------*****************67888*****************%s",__FUNCTION__,stpacket.acData+n);
                                 if ([params objectForKey:kDeviceFrameFlagKey]) {
                                     
                                     nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
@@ -1506,8 +1538,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                 case RC_GPIN_DEL:{
                     
                     if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
-                        
-                        DDLogCVerbose(@"%s----dataDel=%s",__FUNCTION__,stpacket.acData);
                         
                         NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
                         
@@ -1708,13 +1738,13 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
  *
  *  @param decoderOutVideoFrame 解码返回的数据
  */
--(void)decoderOutVideoFrameCallBack:(DecoderOutVideoFrame *)decoderOutVideoFrame nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
+-(void)decoderOutVideoFrameCallBack:(DecoderOutVideoFrame *)decoderOutVideoFrame nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber withVideoType:(BOOL)isVideoType{
     
     int nLocalChannel                     = decoderOutVideoFrame->nLocalChannelID;
     JVCCloudSEEManagerHelper *currentChannelObj   = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
     int                nshowWindowNumber  = [self returnCurrentChannelNShowWindowIDBynLocalChannel:nLocalChannel];
     
-    [self.ystNWHDelegate H264VideoDataCallBackMath:nshowWindowNumber imageBufferY:decoderOutVideoFrame->decoder_y imageBufferU:decoderOutVideoFrame->decoder_u imageBufferV:decoderOutVideoFrame->decoder_v decoderFrameWidth:decoderOutVideoFrame->nWidth decoderFrameHeight:decoderOutVideoFrame->nHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
+    [self.ystNWHDelegate H264VideoDataCallBackMath:nshowWindowNumber imageBufferY:decoderOutVideoFrame->decoder_y imageBufferU:decoderOutVideoFrame->decoder_u imageBufferV:decoderOutVideoFrame->decoder_v decoderFrameWidth:decoderOutVideoFrame->nWidth decoderFrameHeight:decoderOutVideoFrame->nHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber withVideoType:isVideoType];
     
     currentChannelObj.isDisplayVideo = YES;
 }

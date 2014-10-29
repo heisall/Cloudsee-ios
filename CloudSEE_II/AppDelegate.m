@@ -39,10 +39,10 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 @interface AppDelegate ()
 {
-    JVCDeviceListViewController *deviceListController; //设备管理界面
-    NSMutableString             *selectedSSID;
-    
-    JVCAlarmMessageViewController *alarmMessageViewController;
+    JVCDeviceListViewController     *deviceListController; //设备管理界面
+    NSMutableString                 *selectedSSID;
+    JVCAlarmMessageViewController   *alarmMessageViewController;
+    JVCEditDeviceListViewController *editDeviceViewController;
 }
 
 @end
@@ -151,7 +151,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     /**
      *	我的设备模块
      */
-    deviceListController = [[JVCDeviceListViewController alloc] init];
+    deviceListController                              = [[JVCDeviceListViewController alloc] init];
     deviceListController.hidesBottomBarWhenPushed     = FALSE;
     UINavigationController      *deviceNav            = [[UINavigationController alloc] initWithRootViewController:deviceListController];
     [deviceListController release];
@@ -159,7 +159,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     /**
      *	报警消息模块
      */
-    alarmMessageViewController = [[JVCAlarmMessageViewController alloc] init];
+    alarmMessageViewController                                = [[JVCAlarmMessageViewController alloc] init];
     alarmMessageViewController.hidesBottomBarWhenPushed       = FALSE;
     UINavigationController        *alarmMessageViewNav        =[[UINavigationController alloc] initWithRootViewController:alarmMessageViewController];
     [alarmMessageViewController release];
@@ -167,7 +167,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     /**
      *	设备管理模块
      */
-    JVCEditDeviceListViewController *editDeviceViewController = [[JVCEditDeviceListViewController alloc] init];
+    editDeviceViewController                                  = [[JVCEditDeviceListViewController alloc] init];
     editDeviceViewController.hidesBottomBarWhenPushed         = FALSE;
     UINavigationController          *editDeviceNav            = [[UINavigationController alloc] initWithRootViewController:editDeviceViewController];
     
@@ -184,6 +184,7 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     UITabBarController *rootViewController  = [[UITabBarController alloc] init];
     rootViewController.viewControllers      =  [NSArray arrayWithObjects:deviceNav,alarmMessageViewNav,editDeviceNav,moreNav, nil] ;
+    rootViewController.delegate             = self;
     
     if (IOS_VERSION<IOS7) {
         
@@ -216,6 +217,26 @@ static  const   int      KSetHelpMaxCount    = 10;
     [moreNav release];
     [rootViewController release];
     
+}
+
+/**
+ *  UITabar的选中委托事件
+ *
+ *  @param tabBarController 当前的tabBar控制器
+ *  @param viewController   当前选择的视图
+ */
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *) viewController {
+    
+//    if ([viewController isKindOfClass:[UINavigationController class]]) {
+//        
+//        UINavigationController
+//    }
+    
+    if (tabBarController.selectedIndex !=  tabarViewItem_editDevice) {
+        
+        editDeviceViewController.nIndex = 0;
+        
+    }
 }
 
 /**

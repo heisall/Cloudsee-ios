@@ -35,6 +35,8 @@
     NSMutableArray *mArrayIconNames;
     NSMutableArray *mArrayIconTitles;
     __block BOOL    isAnimationFinshed;
+    
+    NSTimer        *requestTimer;
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
@@ -52,8 +54,9 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 
 @implementation JVCEditDeviceListViewController
 
-static const int       kInitWithLayoutColumnCount           = 3;
-static const CGFloat   kAlertTostViewTime                   = 2.0f;
+static const int             kInitWithLayoutColumnCount           = 3;
+static const CGFloat         kAlertTostViewTime                   = 2.0f;
+static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,11 +88,17 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
 -(void)initLayoutWithViewWillAppear {
 
     [titles removeAllObjects];
+    
     [deviceListTableView reloadData];
     
     [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
     
     [self initWithTopToolView];
+    
+    if (titles.count > 0) {
+        
+        [toolBarView setSelectedTopItemAtIndex:self.nIndex];
+    }
     
     [self changeCurrentSafeWithAlarmOperationView];
     
@@ -103,8 +112,6 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
     }
     
     [self clearToolView];
-    
-    self.nIndex = 0;
     
 }
 
@@ -505,6 +512,10 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 - (void)deleteDeviceInfoCallBack
 {
+    if (self.nIndex == titles.count -1) {
+        
+        self.nIndex --;
+    }
 
     DDLogVerbose(@"%s---",__FUNCTION__);
 }
@@ -636,18 +647,22 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
 {
-    [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
 
+    
     if (connectResultType == CONNECTRESULTTYPE_Succeed) {
         
-       // [self performSelectorOnMainThread:@selector(addAlarmDeviceViewController) withObject:nil waitUntilDone:NO ];
     }else {
         
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
+            
+            [alertObj alertHidenToastOnWindow];
+            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"jvc_editDevice_lickError")];
+        });
+      
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;
-
-        
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_editDevice_lickError")];
-        
     }
 }
 
@@ -684,13 +699,66 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             JVCCloudSEENetworkHelper *netWorkHelper = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+            
             netWorkHelper.ystNWTDDelegate = self;
             
-           // [ystNetWorkHelperObj RemoteDeleteDeviceAlarm:AlarmLockChannelNum withAlarmType:1 withAlarmGuid:8];
-//            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kLocalDeviceChannelNum remoteOperationType:TextChatType_setAlarmType remoteOperationCommand:1];
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:AlarmLockChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
             
         });
+        
+        [self performSelectorOnMainThread:@selector(startRequestCheckTimer) withObject:nil waitUntilDone:NO];
+        
+    }else {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+           JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
+        
+            [alertObj alertHidenToastOnWindow];
+            [alertObj alertToastMainThreadOnWindow:@"主控忙碌，请重试..."];
+            [self disAlarmRemoteLink];
+        });
+    }
+}
+
+/**
+ *  开启检测的Timer
+ */
+-(void)startRequestCheckTimer{
+    
+   requestTimer = [NSTimer scheduledTimerWithTimeInterval:kRequestTimeout
+                                     target:self
+                                   selector:@selector(RequestTimeoutMath)
+                                   userInfo:nil
+                                    repeats:NO];
+
+}
+
+-(void)RequestTimeoutMath {
+    
+    requestTimer =nil;
+    DDLogVerbose(@"%s----endCallback",__FUNCTION__);
+    JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
+    [alertObj alertHidenToastOnWindow];
+    [alertObj alertToastMainThreadOnWindow:@"请求超时，请重试..."];
+    [self disAlarmRemoteLink];
+    
+    
+
+}
+
+/**
+ *  停止检测的Timer
+ */
+-(void)stopRequestTimer {
+    
+    if (requestTimer != nil) {
+        
+        if ([requestTimer isValid]) {
+            
+            [requestTimer invalidate];
+            requestTimer = nil;
+        }
     }
 }
 
@@ -705,8 +773,20 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
 {
  
     switch (nYstNetWorkHelpTextDataType) {
+            
         case TextChatType_getAlarmType://获取列表的
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
+                
+                [alertObj alertHidenToastOnWindow];
+            });
+            
+            [self performSelectorOnMainThread:@selector(stopRequestTimer) withObject:nil waitUntilDone:NO];
             [self handleGetDevieAlarmArrayList:objYstNetWorkHelpSendData];
+           
+        }
             break;
         case TextChatType_setAlarmType://添加报警设备
             
@@ -725,7 +805,6 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
  */
 - (void)handleGetDevieAlarmArrayList:(id)objYstNetWorkHelpSendData
 {
-    DDLogVerbose(@"%s========%@",__FUNCTION__,objYstNetWorkHelpSendData);
     NSMutableArray *arrayAram = [[NSMutableArray alloc] initWithCapacity:10];
     
     if ( [objYstNetWorkHelpSendData isKindOfClass:[NSArray class]]) {
@@ -776,8 +855,5 @@ static const CGFloat   kAlertTostViewTime                   = 2.0f;
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });
 }
-
-
-
 
 @end
