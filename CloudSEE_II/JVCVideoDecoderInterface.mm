@@ -11,6 +11,42 @@
 extern "C"
 {
     
+    /****************************************************************************
+     非标准解码器对应接口*/
+    void JVD04_InitSDK();
+    //
+    //    /*
+    //     * Class:     com_jovetech_CloudSee_JVSH264_01
+    //     * Method:    JVD04_ReleaseSDK
+    //     * Signature: ()V
+    //     */
+    void JVD04_ReleaseSDK();
+    
+    /*
+     * Class:     com_jovetech_CloudSee_JVSH264_01
+     * Method:    JVD04_DecodeOpen
+     * Signature: ()V
+     */
+    void JVD04_DecodeOpen(int width,int height,int nLocalChannel);
+    
+    /*
+     * Class:     com_jovetech_CloudSee_JVSH264_01
+     * Method:    JVD04_DecodeClose
+     * Signature: ()V
+     */
+    void JVD04_DecodeClose(int nLocalChannel);
+    
+    /*
+     * Class:     com_jovetech_CloudSee_JVSH264_01
+     * Method:    JVD04_DecodeOneFrame
+     * Signature: ()I
+     */
+    //int JVD04_DecodeOneFrame
+    //  (unsigned char* inH264Data,int length,int nLocalChannel,int uchType);
+    int JVD04_DecodeOneFrame(unsigned char * inH264Data,unsigned char * outH264Data,int length,int nLocalChannel,int uchType,int systemVersion,int deviceType);
+    
+    
+    
     /******************************
      Function: JVD05_InitSDK
      Description: 加载avcodec-54.dll、avutil-51.dll

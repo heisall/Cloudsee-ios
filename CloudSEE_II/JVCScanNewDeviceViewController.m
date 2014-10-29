@@ -567,7 +567,6 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = nil;
     
-    DDLogVerbose(@"%s---------------------stopScanfDeviceTimer===end",__FUNCTION__);
 }
 
 - (void)dealloc

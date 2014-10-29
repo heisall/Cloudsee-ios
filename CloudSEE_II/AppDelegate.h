@@ -10,13 +10,19 @@
 #import "JVCQRCoderViewController.h"
 #import "JVCAccountHelper.h"
 @class JVCAlarmModel;
-@interface AppDelegate : UIResponder <UIApplicationDelegate,JVCAccountDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,JVCAccountDelegate,UITabBarControllerDelegate>
 {
-    NSMutableArray *_amOpenGLViewListData; //存放GlView显示类的集合
+    NSMutableArray           *_amOpenGLViewListData; //存放GlView显示类的集合
     
     JVCQRCoderViewController *QRViewController;//二维码扫描view
     
 }
+
+enum tabarViewItem {
+
+    tabarViewItem_editDevice = 2,
+
+};
 
 @property (strong, nonatomic)   UIWindow *window;
 @property(nonatomic,retain)     NSMutableArray *_amOpenGLViewListData;

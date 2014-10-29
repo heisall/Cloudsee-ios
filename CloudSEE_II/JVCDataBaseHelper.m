@@ -361,7 +361,6 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             
             [userArray addObject:userModel];
             
-//            DDLogInfo(@"用户信息==%@==%@==%d===%lf",userModel.passWord,userModel.userName,userModel.bAutoLoginState,userModel.loginTimer);
             
             [userModel release];
         }

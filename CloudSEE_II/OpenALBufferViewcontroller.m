@@ -126,7 +126,6 @@ static OpenALBufferViewcontroller *_OpenALBufferViewcontroller = nil;
         stateVaue == AL_PAUSED ||
         stateVaue == AL_INITIAL)
     {
-        DDLogInfo(@"%s----error===%d",__FUNCTION__,stateVaue);
         [self playSound];
         return NO;
     }

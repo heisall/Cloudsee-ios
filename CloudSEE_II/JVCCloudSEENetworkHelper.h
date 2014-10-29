@@ -30,9 +30,9 @@
  *  @param imageBufferV              YUV数据中的V数据
  *  @param decoderFrameWidth         视频的宽
  *  @param decoderFrameHeight        视频的高
- *  @param nPlayBackFrametotalNumber 远程回放的总帧数
+ *  @param isVideoType               视频数据类型 YES:05 NO:04
  */
--(void)H264VideoDataCallBackMath:(int)nLocalChannel imageBufferY:(char *)imageBufferY imageBufferU:(char *)imageBufferU imageBufferV:(char *)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber;
+-(void)H264VideoDataCallBackMath:(int)nLocalChannel imageBufferY:(char *)imageBufferY imageBufferU:(char *)imageBufferU imageBufferV:(char *)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber withVideoType:(BOOL)isVideoType;
 
 /**
  *  开始请求文本聊天的回调
@@ -304,6 +304,14 @@ enum DEVICETALKMODEL {
  *  @param requestPlayBackFileIndex 请求文件的索引
  */
 -(void)RemoteRequestSendPlaybackVideo:(int)nLocalChannel requestPlayBackFileInfo:(NSMutableDictionary *)requestPlayBackFileInfo  requestPlayBackFileDate:(NSDate *)requestPlayBackFileDate requestPlayBackFileIndex:(int)requestPlayBackFileIndex;
+
+/**
+ *  远程回放请求文件视频
+ *
+ *  @param nLocalChannel           视频显示窗口编号
+ *  @param withPlayBackPath        远程文件的路径
+ */
+-(void)RemoteRequestSendPlaybackVideo:(int)nLocalChannel withPlayBackPath:(NSString *)playBackVideoPath;
 
 /**
  *  设置有线网络

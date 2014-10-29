@@ -26,6 +26,8 @@
 #import "JVCConfigModel.h"
 #import "JVCAlarmCurrentView.h"
 #import "JVCRGBHelper.h"
+#import "JVCOperationController.h"
+#import "JVCOperationControllerIphone5.h"
 
 enum {
     DownLoadType_PIC    = 0,//图片的
@@ -579,6 +581,8 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
            
             cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
             
+            [self disRemoteLink];
+            
             [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
             
         }else{
@@ -609,40 +613,61 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
  */
 - (void)playVideoCallBack:(JVCAlarmModel *)playModel
 {
-    iDownLoadType = DownLoadType_VIDEO;
-
-    if (playModel.strAlarmLocalVideoUrl.length ==0 ||playModel.strAlarmVideoUrl.length !=0) {//down 视频
-                
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-
-            if (playModel.strAlarmLocalVideoUrl.length >0) {//直接播放
-                
-                [self performSelectorOnMainThread:@selector(playMovie:) withObject:playModel.strAlarmLocalVideoUrl waitUntilDone:NO];
-                return ;
-            }
-            
-            if ([[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] returnCurrentLintState:nChannelLinkNum]) {
-                
-                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
-
-                [self downRemotePlayBackVideo:nChannelLinkNum];
-
-            }else{
-                
-                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
-                [self connetDeviceWithYSTNum];
-
-            }
-            
-        });
+    
+    [self removeJVHAlarmShowView];
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
         
-    }else{
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
         
-        
-        [self playMovie:playModel.strAlarmLocalVideoUrl];
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
         
     }
+    
+    tOPVC.strSelectedDeviceYstNumber = playModel.strYstNumber;
+    tOPVC.isPlayBackVideo            = TRUE;
+    tOPVC.strPlayBackVideoPath       = playModel.strAlarmVideoUrl;
+    tOPVC._iSelectedChannelIndex     = 0;
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
+    
+
+//    if (playModel.strAlarmLocalVideoUrl.length ==0 ||playModel.strAlarmVideoUrl.length !=0) {//down 视频
+//                
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            
+//
+//            if (playModel.strAlarmLocalVideoUrl.length >0) {//直接播放
+//                
+//                [self performSelectorOnMainThread:@selector(playMovie:) withObject:playModel.strAlarmLocalVideoUrl waitUntilDone:NO];
+//                return ;
+//            }
+//            
+//            if ([[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] returnCurrentLintState:nChannelLinkNum]) {
+//                
+//                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
+//
+//                [self downRemotePlayBackVideo:nChannelLinkNum];
+//
+//            }else{
+//                
+//                [[JVCAlertHelper shareAlertHelper]performSelectorOnMainThread:@selector(alertShowToastOnWindow) withObject:nil waitUntilDone:NO];
+//                [self connetDeviceWithYSTNum];
+//
+//            }
+//            
+//        });
+//        
+//    }else{
+//        
+//        
+//        [self playMovie:playModel.strAlarmLocalVideoUrl];
+//        
+//    }
 }
 
 /**
@@ -662,15 +687,12 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     [filePath retain];
     
-    DDLogVerbose(@"=======%@=",filePath);
     JVCAlarmVideoPlayViewController *view = [[JVCAlarmVideoPlayViewController alloc] init];
     view._StrViedoPlay = filePath;
-    DDLogVerbose(@"==view._StrViedoPlay =%@=====%@=",filePath,view._StrViedoPlay );
 
     [self.navigationController pushViewController:view animated:YES];
     
     [filePath release];
-    
     [view release];
 }
 

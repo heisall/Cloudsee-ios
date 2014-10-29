@@ -49,7 +49,6 @@ char          pcmBuffer[1024] ={0};
     [jvcVoiceIntercomHelper release];
     [jvcRecodVideoHelper release];
     
-    DDLogInfo(@"%s",__FUNCTION__);
     
     free(jvcOutVideoFrame);
     
@@ -191,15 +190,17 @@ char          pcmBuffer[1024] ={0};
  *  @param nVideoDataSize    数据数据大小
  *  @param isVideoDataIFrame 视频是否是关键帧
  *  @param isVideoDataBFrame 视频是否是B帧
+ *  @param frameType         视频数据类型
  */
--(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame{
+-(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame frameType:(int)frameType{
     
     if (self.isOnlyIState && !isVideoDataIFrame) {
         
         return;
     }
     
-    [self.jvcQueueHelper offer:videoData nSize:nVideoDataSize is_i_frame:isVideoDataIFrame is_b_frame:isVideoDataBFrame];
+    [self.jvcQueueHelper offer:videoData withFrameSize:nVideoDataSize withIsIFrame:isVideoDataIFrame withIsBFrame:isVideoDataBFrame withFrameType:frameType];
+    
 }
 
 /**
@@ -219,11 +220,11 @@ char          pcmBuffer[1024] ={0};
     
     if ( nDecoderStatus >= 0) {
         
-        if (self.jvConnectDelegate != nil && [self.jvConnectDelegate respondsToSelector:@selector(decoderOutVideoFrameCallBack:nPlayBackFrametotalNumber:)]) {
+        if (self.jvConnectDelegate != nil && [self.jvConnectDelegate respondsToSelector:@selector(decoderOutVideoFrameCallBack:nPlayBackFrametotalNumber:withVideoType:)]) {
             
             jvcOutVideoFrame->nLocalChannelID = self.nLocalChannel;
             
-            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1];
+            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:self.decodeModelObj.isDecoderModel];
         }
     }
 }
@@ -275,12 +276,11 @@ char          pcmBuffer[1024] ={0};
  */
 -(int)decodeOneVideoFrame:(frame *)videoFrame VideoOutFrame:(DecoderOutVideoFrame *)VideoOutFrame{
     
-    int nDecoderID      = self.nLocalChannel -1 ;
     int nDecoderStatus  = -1 ;
     
     nDecoderStatus = [self.decodeModelObj decodeOneVideoFrame:videoFrame nSystemVersion:self.nSystemVersion VideoOutFrame:jvcOutVideoFrame];
     
-    return nDecoderID;
+    return nDecoderStatus;
 }
 
 /**

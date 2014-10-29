@@ -26,14 +26,17 @@
  */
 -(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType;
 
+/**
+ *  请求报警视频的远程回放的回调
+ */
+-(void)RemotePlayBackVideo;
+
 @end
 
 enum CONNECTALLDEVICE{
     
     CONNECTALLDEVICE_Run = 1, //正在全连接
     CONNECTALLDEVICE_End = 0, //全连接结束
-    
-    
 };
 
 @interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate>
@@ -46,14 +49,17 @@ enum CONNECTALLDEVICE{
     NSString               *strSelectedDeviceYstNumber;
     
     id<JVCManagePalyVideoComtrollerDelegate> delegate;
+    
+    BOOL                    isPlayBackVideo;          //YES 远程回放模式
+
 }
 
 @property (nonatomic,retain) NSMutableArray         *amChannelListData;
 @property (nonatomic,assign) JVCOperationController *_operationController;
 @property (nonatomic,assign) int                     imageViewNums,_iCurrentPage,_iBigNumbers;
 @property (nonatomic,assign) int                     nSelectedChannelIndex;
-@property (nonatomic,assign) NSString               *strSelectedDeviceYstNumber;
-
+@property (nonatomic,retain) NSString               *strSelectedDeviceYstNumber;
+@property (nonatomic,assign) BOOL                     isPlayBackVideo;
 @property (nonatomic,assign) id<JVCManagePalyVideoComtrollerDelegate> delegate;
 
 /**
@@ -61,7 +67,6 @@ enum CONNECTALLDEVICE{
  */
 -(void)initWithLayout;
 
--(void)_playVideoCilck:(int)windowsIndex selectedChannel:(int)selectedChannel;
 /**
  *  切割窗口的处理函数
  *
@@ -70,7 +75,7 @@ enum CONNECTALLDEVICE{
 -(void)splitViewWindow:(int)singeShowViewNumber;
 
 -(void)changeContenView;
--(BOOL)returnPlayBackViewState;
+
 -(void)setScrollviewByIndex:(NSInteger)Index;
 
 

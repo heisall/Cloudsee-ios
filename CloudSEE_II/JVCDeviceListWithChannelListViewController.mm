@@ -96,7 +96,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithChannelListView{
     
-    NSLog(@"%@===",[titles objectAtIndex:nIndex]);
     NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
     
     [channelValues retain];
