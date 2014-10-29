@@ -34,6 +34,7 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCGetPassWordViewController.h"
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -306,6 +307,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     UIButton *btnreSetPw = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_fot") normalImage:nil horverimage:nil];
     [btnreSetPw retain];
     btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnResign.frame.origin.y, btnreSetPw.width, btnreSetPw.height);
+    [btnreSetPw addTarget:self  action:@selector(getPassWord) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnreSetPw];
     [btnreSetPw release];
     
@@ -767,6 +769,21 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
     resignVC.resignDelegate = self;
     [self.navigationController pushViewController:resignVC animated:YES];
     [resignVC release];
+}
+
+/**
+ *  注册按钮的点击时间
+ */
+- (void)getPassWord
+{
+    if (![[JVCAlertHelper shareAlertHelper]predicateNetWorkState]) {
+        
+        return;
+    };
+    
+    JVCGetPassWordViewController *getpw = [[JVCGetPassWordViewController alloc] init];
+    [self.navigationController pushViewController:getpw animated:YES];
+    [getpw release];
 }
 
 

@@ -245,6 +245,10 @@
 "operation_error"        = "操作不成功";
 "device_off_line"        = "设备已处于离线状态,不能进行操作";
 
+//找回设备
+"JVCGetPassWordViewController_title" = "找回密码";
+"JVCGetPassWordViewController_error" = "获取数据错误";
+
 //ap配置@"开始添加"
 "jvc_ap_title" = "添加无线设备";
 "jvc_ap_start_add" = "开始添加";
@@ -294,6 +298,7 @@
 "AlertkeepLineError_title"   = "账号在其他地方登录或者账号异常";
 "AlertkeepLineError_network_title" = "网络连接异常,请重新登录";
 "AlertkeepLineError_loginin_error" = "登录失败";
+
 
 
 //下拉刷新

@@ -205,7 +205,7 @@
 
 //设备列表界面
 "jvc_DeviceList_title" = "My device";
-"jvc_DeviceList_add_yst" = "CloudSEE"";
+"jvc_DeviceList_add_yst" = "CloudSEE";
 "jvc_DeviceList_add_eq" = "QR Scanning";
 "jvc_DeviceList_add_wlan" = "Wireless Device";
 "jvc_DeviceList_add_scan" = "Devices in LAN";
@@ -243,6 +243,10 @@
 "device_scan"            = "scan";
 "operation_error"        = "Failed to operation";
 "device_off_line"        = "This operation is unavailable since the device is offline now.";
+
+//找回设备
+"JVCGetPassWordViewController_title" = "Retrieve";
+"JVCGetPassWordViewController_error" = "Failed to get data.";
 
 
 //ap配置@"开始添加"
@@ -356,7 +360,7 @@
 "videolibrayError" = "Failed to save the recording.";
 "userDefine" = "User refused to visit";
 "Connection Failed"="Connection Failed";
-"Disconnected Due To Abnormal Network"="Disconnected Due To Abnormal Network.;
+"Disconnected Due To Abnormal Network"="Disconnected Due To Abnormal Network.";
 "Disconnected Due To CloudSEE Service Has Been Stopped"="Disconnected Due To CloudSEE Service Has Been Stopped.";
 "CloudSEE Service Has Been Stopped"="Device service has been stopped.";
 "Play back"="Play back";

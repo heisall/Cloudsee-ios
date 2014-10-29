@@ -101,6 +101,7 @@
 		A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4347019DA4A4A00E7ECA1 /* dev_nodevBg@2x.png */; };
 		A7F4347219DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F4347019DA4A4A00E7ECA1 /* dev_nodevBg@2x.png */; };
 		A7F4347519DA883500E7ECA1 /* UIImage+BundlePath.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F4347419DA883500E7ECA1 /* UIImage+BundlePath.m */; };
+		A7F43BF81A00BB6700FC3CC3 /* JVCGetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F43BF71A00BB6700FC3CC3 /* JVCGetPassWordViewController.m */; };
 		A7F43F5C19FBC5BE00C11109 /* con_fieldSec@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F43F5A19FBC5BE00C11109 /* con_fieldSec@2x.png */; };
 		A7F43F5D19FBC5BE00C11109 /* con_fieldUnSec@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F43F5B19FBC5BE00C11109 /* con_fieldUnSec@2x.png */; };
 		A7F43F6019FBCA3F00C11109 /* edi_camer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F43F5E19FBCA3F00C11109 /* edi_camer@2x.png */; };
@@ -672,6 +673,8 @@
 		A7F4347019DA4A4A00E7ECA1 /* dev_nodevBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_nodevBg@2x.png"; sourceTree = "<group>"; };
 		A7F4347319DA883500E7ECA1 /* UIImage+BundlePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BundlePath.h"; sourceTree = "<group>"; };
 		A7F4347419DA883500E7ECA1 /* UIImage+BundlePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BundlePath.m"; sourceTree = "<group>"; };
+		A7F43BF61A00BB6700FC3CC3 /* JVCGetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCGetPassWordViewController.h; sourceTree = "<group>"; };
+		A7F43BF71A00BB6700FC3CC3 /* JVCGetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCGetPassWordViewController.m; sourceTree = "<group>"; };
 		A7F43F5A19FBC5BE00C11109 /* con_fieldSec@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con_fieldSec@2x.png"; sourceTree = "<group>"; };
 		A7F43F5B19FBC5BE00C11109 /* con_fieldUnSec@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con_fieldUnSec@2x.png"; sourceTree = "<group>"; };
 		A7F43F5E19FBCA3F00C11109 /* edi_camer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_camer@2x.png"; sourceTree = "<group>"; };
@@ -1456,6 +1459,8 @@
 				A7F9E04619ED0E9600C1D69C /* TableViewControllerdd.m */,
 				A7F9E04B19ED1A5A00C1D69C /* JVCDemoCell.h */,
 				A7F9E04C19ED1A5A00C1D69C /* JVCDemoCell.m */,
+				A7F43BF61A00BB6700FC3CC3 /* JVCGetPassWordViewController.h */,
+				A7F43BF71A00BB6700FC3CC3 /* JVCGetPassWordViewController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -3041,6 +3046,7 @@
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
 				A7263C4919E7F921003C22DE /* JVCDeviceListViewController.mm in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
+				A7F43BF81A00BB6700FC3CC3 /* JVCGetPassWordViewController.m in Sources */,
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
 				ADA22D2E19DA5C8F0092F8B9 /* JVCAudioCodecInterface.mm in Sources */,
 				A72DCD2919EBF99600C9A1ED /* JVCLocalDeviceDateBaseHelp.m in Sources */,
