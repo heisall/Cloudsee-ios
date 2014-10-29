@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"演示点";
+    self.title = LOCALANGER(@"jvc_demo_title");
 
     // Do any additional setup after loading the view.
     [self initDemoArrayList];
@@ -104,7 +104,7 @@
 
             }else{
             
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"获取数据错误"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_demo_GetDate_error")];
             }
             
         });

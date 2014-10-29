@@ -97,7 +97,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
     [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:deviceYStNum];
     
     
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_success")];
 
     [self releaseString];
     
@@ -131,12 +131,12 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
         
         if (ADDDEVICE_HAS_EXIST == result) {//存在
             
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"设备列表中已存在"];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_HasExist")];
             
         }else if(ADDDEVICE_MAX_MUX == result)//超过最大值
         {
             
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大值"];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_max")];
             
         }else{//开始添加
             
@@ -175,7 +175,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加失败")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_error")];
             }
         });
     });
@@ -320,14 +320,14 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 //把获取的设备通道信息的josn数据转换成model集合
                 [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:deviceYStNum];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备成功")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_success")];
 
                 [self handerAddDeviceSuccess];
                 
             }else{//空
                 
                 //   [self serachCloseFindDevice];
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"添加设备通道数错误")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDeviceChannel_error")];
                 
                 /**
                  *  删除云视通号

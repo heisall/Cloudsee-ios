@@ -8,21 +8,10 @@
 
 "ch"="中国";
 
-//yh
-//
-
-
-
-
-
 /*******************************************************/
 
-"APPCHANNELSERVICEADDRESS" = "appchannelen.afdvr.com";
-"APPONLINESERVICEADDRESS" =  "apponlineen.afdvr.com";
-
-//登录界面
-"log_TextField_placeName"     = "用户名";
-"log_TextField_placePassWord" = "密码";
+"APPCHANNELSERVICEADDRESS" = "appchannel.afdvr.com";
+"APPONLINESERVICEADDRESS" =  "apponline.afdvr.com";
 
 //ALert
 "Alert_btn_sure"="确定";
@@ -44,30 +33,20 @@
 "stream_3"="流畅";
 "stream_1"="高清";
 "stream_2"="标清";
-
 "HD"="高清";
 "SD"="标清";
 "Fluent"="流畅";
 
+//欢迎图片  iphone5
 "welcom_0"="welcome_0_ch.jpg";
 "welcom_1"="welcome_1_ch.jpg";
 "welcom_2"="welcome_2_ch.jpg";
 "welcom_3"="welcome_3_ch.jpg";
-
+//欢迎图片 iphone4
 "welcom_0_4"="welcome_0_ch4.jpg";
 "welcom_1_4"="welcome_1_ch4.jpg";
 "welcom_2_4"="welcome_2_ch4.jpg";
 "welcom_3_4"="welcome_3_ch4.jpg";
-
-"de_ch_1.png"="de_ch_1.png";
-"fl_ch_1.png"="fl_ch_1.png";
-"hd_ch_1.png"="hd_ch_1.png";
-"sd_ch_1.png"="sd_ch_1.png";
-
-//远程回放
-"Playback_Finish"="远程回放结束";
-
-//
 "welcome_help" = "立即体验";
 
 //ap配置流程
@@ -87,7 +66,6 @@
 "home_ap_Alert_GOON"           = "退出软件";
 "home_ap_Alert_NO"             = "取消";
 "home_ap_Alert_message_ios7"   = "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网络到IPC-X-XXXX格式的无线网络下。具体步骤：设置->无线局域网->选取无线网络";
-
 "JDCSViewController_ap_setting"= "亲，发现您刚刚配置了一个新设备";
 
 //报警类型
@@ -114,22 +92,20 @@
 "home_alarm_20"="周围温度过高、湿度过低。";
 "home_alarm_21"="周围温度过低、湿度过低。";
 
-
-
 //登录界面
 "jvc_log_user" = "邮箱/用户名/手机号";
 "jvc_log_pw" = "密码";
 "jvc_log_log" = "登  录";
 "jvc_log_local" ="访客登录";
 "jvc_log_resign" = "注  册";
-"jvc_log_fot"= "忘记密码";
+"jvc_log_fot"= "找回密码";
 "jvc_log_demo" = "演示点";
 
 //不合法用户名用户密码修改
-"jvc_Unmod_titile"="重置信息";
+"jvc_Unmod_titile"="完善用户信息";
 "jvc_Unmod_user"="用户名";
 "jvc_Unmod_pw"="密码";
-"jvc_Unmod_btntit"="密码";
+"jvc_Unmod_btntit"="确认";
 "jvc_Unmod_resultError"="修改失败";
 
 //绑定邮箱界面
@@ -196,7 +172,7 @@
 
 //添加设备界面
 "jvc_addDevice_title" = "添加设备";
-"jvc_addDevice_YstNUm" = "  云视通号";
+"jvc_addDevice_YstNUm" = "  云视通";
 "jvc_addDevice_userName" = "  用户名";
 "jvc_addDevice_password" = "  密码";
 "jvc_addDevice_save" = "保存";
@@ -207,9 +183,11 @@
 "jvc_addDevice_add_error" = "添加失败";
 "adddevice_net_error"= "请求超时，请稍后重试.";
 "adddevice_net_success"= "添加设备成功";
-"jvc_adddevice_addChannel_error" = "添加设备通道数错误";
+"jvc_adddevice_addChannel_error" = "添加设备通道失败";
 "qrReturn"="  返回";
 "qrScan"="正在扫描设备，请等待...";
+"JDCSVC_GetDevice_Error"= "设备失败";
+"JDCSVC_GetDeviceChannel_Error"= "激活设备通道失败";
 
 //声波添加设备
 "jvc_voice_add_title" = "准备步骤";
@@ -227,13 +205,13 @@
 "jvc_licktype_YST" = "云视通";
 
 //设备列表界面
-"jvc_DeviceList_title" = "设备列表";
+"jvc_DeviceList_title" = "我的设备";
 "jvc_DeviceList_add_yst" = "云视通号";
-"jvc_DeviceList_add_eq" = "二维码";
+"jvc_DeviceList_add_eq" = "二维码扫描";
 "jvc_DeviceList_add_wlan" = "无线设备";
-"jvc_DeviceList_add_scan" = "局域网扫描";
+"jvc_DeviceList_add_scan" = "局域网设备";
 "jvc_DeviceList_add_volce" = "声波配置";
-"jvc_DeviceList_add_ip" = "域名/Ip添加";
+"jvc_DeviceList_add_ip" = "Ip/域名设备";
 "jvc_DeviceList_offline" = "离线";
 "jvc_DeviceList_online" = "在线";
 "jvc_DeviceList_APadd" = "添加";
@@ -258,7 +236,7 @@
 "jvc_editChannel_delete_success"= "删除通道成功";
 "jvc_editChannel_editchannel_success" = "修改成功";
 "jvc_editChannel_editchannel_error"= "修改失败";
-"jvc_editChannel_nick_error"= "昵称不合法";
+"jvc_editChannel_nick_error"= "昵称只能由中文、英文、数字及“_”、“-”、“ ” 组成且长度在1~30位字符之间。";
 "delete_Success" = "删除成功";
 "delete_Failt" = "删除不成功";
 "device_manager"         = "设备管理";
@@ -271,11 +249,7 @@
 "jvc_ap_title" = "添加无线设备";
 "jvc_ap_start_add" = "开始添加";
 "home_ap_Alert_message_ios7"= "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网路到IPC-X-XXXX格式的无线网路下。具体步骤：设置->无线局域网->选取无线网路";
-"home_ap_Btn_will"= "添加无线设备";
-"home_ap_title_did"= "无线设备配置流程";
-"home_ap_title_will"= "添加流程";
 "selectedWifi"="选取网络...";
-"ap_setting"="配置热点";
 "ap_Setting_Detail"= "快速配置";
 "ResignPassWord" = "密码";
 "wifi_select_loading"= "正在加载数据...";
@@ -291,13 +265,19 @@
 "jvc_channelSelect_Num" = "第";
 "jvc_channelSelect_channel"="通道";
 "jvc_channelSelect_linkAll"="全连";
-
+//设备编辑界面
+"delete_success"= "删除成功";
+"delete_failt"= "删除失败";
+"add_channel_success"="通道添加成功";
+"add_channel_fail"="通道添加失败";
+"edit_falt"="修改失败";
+"edit_success"="修改成功";
+"MAX_ERROR" = "该设备的通道数量达到上限，无法继续添加!";
 
 //报警界面
 "jvc_alarmList_Title" = "报警消息";
 "jvc_alarmlist_noMore" = "没有更多信息";
 "jvc_alarmlist_getAlarmError" = "获取报警信息失败";
-"jvc_alarmlist_noMore" = "没有更多信息";
 "jvc_alarmlist_noAlarm" = "暂无报警消息";
 "jvc_alarmlist_noAlarm_PIC" = "暂无报警图片";
 "jvc_alarmlist_delete_success" = "删除成功";
@@ -313,6 +293,8 @@
 "AlertkeepLineError_LoginIn" = "继续登录";
 "AlertkeepLineError_title"   = "账号在其他地方登录或者账号异常";
 "AlertkeepLineError_network_title" = "网络连接异常,请重新登录";
+"AlertkeepLineError_loginin_error" = "登录失败";
+
 
 //下拉刷新
 "jvc_PullToRefreshText" = "下拉刷新";
@@ -320,16 +302,23 @@
 "jvc_PullRefreshingText" = "正在刷新中";
 "jvc_PullfooterToRefreshText" = "上拉加载更多";
 "jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
-"jvc_PullfooterRefreshingText" = "正在加载";
+"jvc_PullfooterRefreshingText" = "正在加载...";
+"jvc_PullfooterRefreshingDate" = "今天";
+"jvc_PullfooterRefreshinglastDate" = "最后更新：";
 
-
+//报警设备
+"jvc_alarmmanage_title" = "报警设置";
+"jvc_alarmmanage_delete_error" = "删除失败";
+"jvc_alarmmanage_delete_success" = "删除成功";
+"jvc_alarmmanage_edit_success" = "修改成功";
+"jvc_alarmmanage_edit_error" = "修改失败";
 
 //------播放视频界面
 "Video Display"="视频播放";
 "Capture"="抓拍";
 "megaphone"="对讲";
 "video"="录像";
-"MoreOper"="更多";
+"MoreOper"="更多功能";
 "Audio"="音频监听";
 "PTZ Control"="云台控制";
 "Playback"="远程回放";
@@ -400,7 +389,7 @@
 "jvc_more_checkVersion"="检测更新";
 "jvc_more_help"="帮助";
 "jvc_more_suggest"="意见与反馈";
-"jvc_more_appStore"="评论";
+"jvc_more_appStore"="亲,去AppStore评论一下吧";
 "jvc_more_userOut"="账号注销";
 "home_version_found"= "发现";
 "home_version_new" = "版本";
@@ -416,7 +405,7 @@
 "emailHelp" = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请发送邮件到feedbackandsuggestion@gmail.com以请求进一步的协助";
 "version" = "版本号:";
 "suggestAndFeedBack" = "建议与反馈";
-
+"more_help_title"="帮助";
 //修改密码的
 "oldPW" = "旧密码";
 "newPW" = "新密码";
@@ -426,6 +415,8 @@
 "jvc_mor_pwSuccess" = "修改密码成功,请重新登录";
 "Modify_Pw_success"= "修改成功";
 "Modify_PW_fail"= "修改密码失败";
+"Modify_LinkType_success" = "修改成功";
+"Modify_LinkType_fail"    = "修改失败";
 
 //设备管理界面
 "jvc_editDevice_title" = "设备管理";
@@ -438,7 +429,7 @@
 "jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
 "jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
 "jvc_editDevice_noSupport" = "设备不支持此操作";
-"jvc_editDevice_lickError"= "连接失败请请重试";
+"jvc_editDevice_lickError"= "连接失败请重试";
 "Jvc_editDeviceInfo_Title" = "编辑设备";
 "Jvc_editDeviceInfo_nickName" = "  昵称";
 "Jvc_editDeviceInfo_userName" = "  用户名";
@@ -457,43 +448,57 @@
 "jvc_more_loginout_error"="注销失败";
 "jvc_more_loginout_appStore"="您确定去APPStore评论吗？";
 
+//门磁或手环报警
+"jvc_alarmDevice_title" = "添加设备";
+"jvc_alarmDevice_door" = "门磁设备";
+"jvc_alarmDevice_hand" = "手环设备";
+"jvc_alarmDevice_control" = "遥控器设备";
+"jvc_alarmDevice_addError" = "添加失败";
+"jvc_alarmDevice_addMaxNum" = "超过最大绑定值";
+"jvc_alarmDevice_addhasexist" = "重复绑定";
+
+//弹出报警信息的title
+"JVCAlarmCurrentView_title"= "报警信息";
+"JVCAlarmCurrentView_device"= "设备：";
+"JVCAlarmCurrentView_motion"= "移动检测报警";
+"JVCAlarmCurrentView_door"= "门磁或手环报警";
+"JVCAlarmCurrentView_another"= "未知报警";
+"JVCAlarmCurrentView_type"= "类型：";
+"JVCAlarmCurrentView_see"= "查看";
+"JVCAlarmCurrentView_ignorce"= "忽略";
+
+//演示点
+"jvc_demo_title" = "演示点";
+"jvc_demo_GetDate_error" = "获取数据错误";
+
+//JVCDeviceAlarmNoDeviceTableViewCell
+"JVCDeviceAlarmNoDeviceTableViewCell_labe"= "点击此处添加设备";
+
+//JVCDeviceMathsHelper
+"JVCDeviceMathsHelper_addDevice_success" = "添加设备成功";
+"JVCDeviceMathsHelper_addDevice_HasExist" = "设备列表中已存在";
+"JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
+"JVCDeviceMathsHelper_addDevice_error" = "添加失败";
+"JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数错误";
+
+//JVCEditLockDeviceNickNameViewController
+"JVCEditLockDeviceNickNameViewController_title"= "修改昵称";
+"JVCEditLockDeviceNickNameViewController_Nickname"= "请输入昵称";
+"JVCEditLockDeviceNickNameViewController_Save"= "完成";
+
+//JVCLabelFieldSView
+"JVCLabelFieldSView_save" = "完成";
+
+//JVCLocalEditChannelInfoTableViewController
+"JVCLocalEditChannelInfoTableViewController_saveSuccess" = "添加成功";
+
+//
+"JVCMonitorConnectionSingleImageView_connecting"="正在努力加载视频数据\n请等待...";
+
+//JVCVoiceencHelpViewController
+"JVCVoiceencHelpViewController_title" = "操作演示";
+
+"JVCVoiceencHelpViewController_helpString" = "请将手机靠近设备，点击声波发送按钮，配置设备";
 
 
-
-////设备列表界面
-//"jvc_DeviceList_title" = "Device List";
-//"jvc_DeviceList_add_yst" = "云视通号";
-//"jvc_DeviceList_add_eq" = "二维码";
-//"jvc_DeviceList_add_wlan" = "无线设备";
-//"jvc_DeviceList_add_scan" = "局域网扫描";
-//"jvc_DeviceList_add_volce" = "声波配置";
-//"jvc_DeviceList_add_ip" = "域名/Ip添加";
-//"jvc_DeviceList_offline" = "在线";
-//"jvc_DeviceList_online" = "离线";
-////下拉刷新
-//"jvc_PullToRefreshText" = "下拉刷新";
-//"jvc_PullReleaseToRefreshText" = "松开马上刷新";
-//"jvc_PullRefreshingText" = "正在刷新中";
-//"jvc_PullfooterToRefreshText" = "上拉加载更多";
-//"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
-//"jvc_PullfooterRefreshingText" = "正在加载";
-//
-//
-//
-//
-
-////登录界面
-//"jvc_log_user" = "Email/UserName";
-//"jvc_log_pw" = "Password";
-//"jvc_log_log" = "Login";
-//"jvc_log_local" ="Visitor Login";
-//"jvc_log_resign" = "Register";
-//"jvc_log_fot"= "Forget password";
-//"jvc_log_demo" = "Demo";
-//
-////注册界面
-//"jvc_resign_Title" = "Register";
-//"jvc_resign_user" = "Email/UserName";
-//"jvc_resign_pw" = "Password";
-//"jvc_resign_enpw" ="Confirm password";
 

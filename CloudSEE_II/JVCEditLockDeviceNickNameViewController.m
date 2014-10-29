@@ -36,20 +36,20 @@ static const  int  KAlarmState        = 1;//绑定alarm的状态
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"完成添加按钮";
+    self.title = LOCALANGER(@"JVCEditLockDeviceNickNameViewController_title");
     [self initContentView];
 }
 
 - (void)initContentView
 {
     JVCControlHelper *controlHelper = [JVCControlHelper shareJVCControlHelper];
-    textField = [controlHelper textFieldWithPlaceHold:@"请输入昵称" backGroundImage:@"arm_dev_tex.png"];
+    textField = [controlHelper textFieldWithPlaceHold:LOCALANGER(@"JVCEditLockDeviceNickNameViewController_Nickname") backGroundImage:@"arm_dev_tex.png"];
     textField.frame = CGRectMake((self.view.width -textField.width)/2.0, KTextFieldOriginY, textField.width, textField.height);
     textField.keyboardType = UIKeyboardTypeDefault;
     [self.view addSubview:textField];
     [textField becomeFirstResponder];
     
-    UIButton *btn = [controlHelper buttonWithTitile:@"完成" normalImage:@"arm_dev_btn.png" horverimage:nil];
+    UIButton *btn = [controlHelper buttonWithTitile:LOCALANGER(@"JVCEditLockDeviceNickNameViewController_Save") normalImage:@"arm_dev_btn.png" horverimage:nil];
     btn.frame = CGRectMake((self.view.width -btn.width)/2.0 , textField.bottom+KSpan, btn.width, btn.height);
     [btn addTarget:self  action:@selector(finishEditDeviceNick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];

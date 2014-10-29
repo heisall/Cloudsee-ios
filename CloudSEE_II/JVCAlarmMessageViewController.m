@@ -87,7 +87,6 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     arrayAlarmList  = [[NSMutableArray alloc] init];
     
-    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshingData)];
 
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -220,7 +219,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
                 }
             }else{
             
-                if (nAlarmOriginIndex == 0) {//显示没有数据的view
+                if (nAlarmOriginIndex == 0 ||arrayAlarmList.count == 0) {//显示没有数据的view
                     
                     [self  addNoAlarmDateView];
                     
@@ -240,6 +239,10 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
  */
 - (void)addNoAlarmDateView
 {
+    
+    if (arrayAlarmList.count>0) {
+        return;
+    }
     UIView *viewNoAlarm = (UIView *)[self.view viewWithTag:KNoAlarmTag];
     if (!viewNoAlarm) {
         

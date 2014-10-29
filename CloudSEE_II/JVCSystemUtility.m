@@ -19,6 +19,8 @@ static NSString const  *kSSIDWithKeyValue          = @"SSID"; //获取当前手�
 static NSString const  *kHomeIPCSSIDWithIndexKey   = @"IPC-"; //家用IPC热点的前缀
 static const int        kHomeIPCSSIDWithMinLength  = 6;       //家用IPC热点的最小长度
 static NSString const  *APPLANGUAGE = @"zh-Hans";//简体中文的标志
+static NSString const  *KOldUserPlist = @"userInfo.plist";//简体中文的标志
+
 
 static JVCSystemUtility *shareInstance = nil;
 
@@ -405,6 +407,31 @@ static JVCSystemUtility *shareInstance = nil;
     NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",kAPPIDNUM];
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
 
+}
+
+//返回保存用户名密码的plist路径
+- (NSString *)getUserInfoPlistPath
+{
+    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *tPath = [NSString stringWithFormat:@"%@/%@",docPath,KOldUserPlist];
+    return tPath;
+}
+
+//返回保存用户名密码的plist路径
+- (BOOL )removeOldUserPlist
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathString = [self getUserInfoPlistPath];
+    NSError *error;
+    if ([fileManager fileExistsAtPath:pathString]) {
+        
+        [fileManager removeItemAtPath:pathString error:&error];
+        if (error) {
+            DDLogVerbose(@"%s==%@",__FUNCTION__,error);
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

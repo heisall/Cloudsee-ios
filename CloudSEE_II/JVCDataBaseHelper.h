@@ -33,6 +33,15 @@ static int      const  kLoginStateOFF   = 0;      //关闭自动登录
  */
 - (void)writeUserInfoToDataBaseWithUserName:(NSString *)userName  passWord:(NSString *)passWord;
 
+
+/**
+ *  往表格中插入数据
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码 * 
+ *  @param timer    时间截
+ */
+- (void)writeOldUserInfoToDataBaseWithUserName:(NSString *)userName  passWord:(NSString *)passWord  loginTimer:(int)loginTimer;
 /**
  *  获取所有数据库中用户的数据
  *

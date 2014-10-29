@@ -734,6 +734,11 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 {
     textFieldUser.text  = model.userName;
     textFieldPW.text    = model.passWord;
+
+    if (!model.bAutoLoginState) {
+        textFieldPW.text    = @"";
+
+    }
     
     [self clickDropDownView];
 

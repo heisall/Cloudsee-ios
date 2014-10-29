@@ -14,6 +14,13 @@ enum{
     TYPE_Add_Device_IP_YES  = 1,//是ip添加
 
 };
+
+NS_ENUM(int, OldDeviceType)
+{
+    OldDeviceType_Device    = 0,//设备
+    OldDeviceType_Channel   = 1,//通道
+
+};
 @interface JVCLocalDeviceDateBaseHelp : NSObject
 
 /**
@@ -91,5 +98,29 @@ enum{
  *  @return yes 在    no：不在
  */
 - (BOOL)judgeYstNumInDateBase:(NSString *)ystNum;
+
+/**
+ *  获取所有的本地设备列表
+ *
+ *  @return 设备列表数组
+ */
+- (NSMutableArray *)getOldAllLocalDeviceList;
+
+/**
+ *  把老数据导入成为新数据
+ *
+ *  @param ystNUm   云视通号
+ *  @param name     用户名
+ *  @param passWord 密码
+ *  @param nickName 昵称
+ *
+ *  @return 是否成功 yes 成功  no 失败
+ */
+-(BOOL)convertOldDeviceToDataBase:(NSString *)ystNUm  deviceName:(NSString *)name  passWord:(NSString *)passWord  nickName:(NSString *)nickName;
+
+/**
+ *  把老的数据库转化为新的数据库
+ */
+- (void)converOldDeviceListInDateFame;
 
 @end

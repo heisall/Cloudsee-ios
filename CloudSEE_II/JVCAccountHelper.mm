@@ -440,18 +440,14 @@ void ServerPushCallBack(const int message_type, const c_SERVER_PUSH_INFO serverP
     
     NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:ACCOUNTSERVICELOG];
     
-    //    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPCHANNELSERVICEADDRESS")];
-    //
-    //    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
+    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPCHANNELSERVICEADDRESS")];
     
-    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:@"appchannel.afdvr.com"];
-    
-    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:@"apponline.afdvr.com"];
+    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
     
     int result = [self InitSdk:pathAccount
-       channelServerAddressStr:@"appchannel.afdvr.com"
+       channelServerAddressStr:LOCALANGER(@"APPCHANNELSERVICEADDRESS")
 channelServerAddressStrLocalPath:APPCHANNELSERVICEADDRESSPATHPATH
-        onlineServerAddressStr:@"apponline.afdvr.com"
+        onlineServerAddressStr:LOCALANGER(@"APPONLINESERVICEADDRESS")
 onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
                   islocalCheck:state
                    isLogAppend:YES];

@@ -112,7 +112,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
      int  nSpan = (imageView.size.width - image.size.width*2)/3.0;
     
     //label
-    UILabel *labelTitle = [[JVCControlHelper shareJVCControlHelper] labelWithText:@"报警信息"];
+    UILabel *labelTitle = [[JVCControlHelper shareJVCControlHelper] labelWithText:LOCALANGER(@"JVCAlarmCurrentView_title")];
     [labelTitle retain];
     labelTitle.font = [UIFont systemFontOfSize:KLableTitleFont];
     labelTitle.font = [UIFont systemFontOfSize:KLableTitleFont];
@@ -125,7 +125,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     
     //设备
 //    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
-    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
+    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_device"),alarmModel.strYstNumber]];
     labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
     labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
 
@@ -142,17 +142,18 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     switch (alarmModel.iAlarmType) {
             
         case ALARM_MOTIONDETECT:
-            titleString = @"移动检测报警";
+            titleString = LOCALANGER(@"JVCAlarmCurrentView_motion");
             break;
         case ALARM_DOOR:
-            titleString = @"门磁或手环报警";
+            titleString = LOCALANGER(@"JVCAlarmCurrentView_door");
             break;
             
         default:
+            titleString = LOCALANGER(@"JVCAlarmCurrentView_another");
             break;
     }
     //类型
-    UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"类型：",titleString]];
+    UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_type"),titleString]];
     [labelArmType retain];
     labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelTitle.height);
     labelArmType.font = [UIFont systemFontOfSize:KLableDeatilFont];
@@ -164,7 +165,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     [labelArmType release];
     
     //查看
-    UIButton *btnCheck = [[JVCControlHelper shareJVCControlHelper]buttonWithTitile:@"查看" normalImage:@"arm_btn_bg.png" horverimage:nil];
+    UIButton *btnCheck = [[JVCControlHelper shareJVCControlHelper]buttonWithTitile:LOCALANGER(@"JVCAlarmCurrentView_see") normalImage:@"arm_btn_bg.png" horverimage:nil];
     [btnCheck retain];
     btnCheck.frame = CGRectMake(labelArmType.left, labelArmType.bottom+KOriginY, btnCheck.width, btnCheck.height);
     [btnCheck addTarget:self action:@selector(WatchCurrentView) forControlEvents:UIControlEventTouchUpInside];
@@ -173,7 +174,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     [btnCheck release];
 
     //忽略
-    UIButton *btnNignorce = [[JVCControlHelper shareJVCControlHelper]buttonWithTitile:@"忽略" normalImage:@"arm_btn_bg.png" horverimage:nil];
+    UIButton *btnNignorce = [[JVCControlHelper shareJVCControlHelper]buttonWithTitile:LOCALANGER(@"JVCAlarmCurrentView_ignorce") normalImage:@"arm_btn_bg.png" horverimage:nil];
     [btnNignorce retain];
     btnNignorce.frame = CGRectMake(btnCheck.right+nSpan, btnCheck.top, btnNignorce.width, btnNignorce.height);
     [btnNignorce release];

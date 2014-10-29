@@ -555,6 +555,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
                 break;
             default:
+                nCurrentStreamType = 0;
                 break;
         }
         
@@ -1215,7 +1216,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)showChangeStreamView:(UIButton *)btn
 {
-    if (VideoStreamType_Default == nCurrentStreamType) {
+    if (VideoStreamType_Default == nCurrentStreamType ||VideoStreamType_NoSupport == nCurrentStreamType) {
         
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
         return;

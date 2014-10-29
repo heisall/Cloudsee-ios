@@ -36,6 +36,7 @@
 #import "JVCOperationControllerIphone5.h"
 #import "JVCAlarmCurrentView.h"
 #import "JVCOperationController.h"
+#import "JVCLocalDeviceDateBaseHelp.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController *deviceListController; //设备管理界面
@@ -58,7 +59,9 @@ static  const   int      KSetHelpMaxCount    = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    [self convertOldUserInfoToDatebase];
+    
+    [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] converOldDeviceListInDateFame];
     
     selectedSSID = [[NSMutableString alloc] init];
     /**
@@ -675,6 +678,12 @@ static  const   int      KSetHelpMaxCount    = 10;
 - (void)startDeviceLANSerchAllDevice
 {
     [deviceListController StartLANSerchAllDevice];
+}
+
+- (void)convertOldUserInfoToDatebase
+{
+    [[JVCUserInfoManager shareUserInfoManager]convertOldUserInfoToDateBase ];
+    
 }
 
 @end

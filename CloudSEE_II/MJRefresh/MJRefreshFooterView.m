@@ -29,9 +29,9 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.pullToRefreshText = MJRefreshFooterPullToRefresh;
-        self.releaseToRefreshText = MJRefreshFooterReleaseToRefresh;
-        self.refreshingText = MJRefreshFooterRefreshing;
+        self.pullToRefreshText = LOCALANGER(@"jvc_PullfooterToRefreshText");
+        self.releaseToRefreshText = LOCALANGER(@"jvc_PullfooterReleaseToRefreshText");
+        self.refreshingText = LOCALANGER(@"jvc_PullfooterRefreshingText");
     }
     return self;
 }

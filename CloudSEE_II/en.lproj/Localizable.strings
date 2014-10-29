@@ -5,13 +5,12 @@
   Created by Yanghu on 9/24/14.
   Copyright (c) 2014 Yanghu. All rights reserved.
 */
-
+"ch"="ch";
+/*******************************************************/
+//域名
 "APPCHANNELSERVICEADDRESS" = "appchannelen.afdvr.com";
 "APPONLINESERVICEADDRESS" =  "apponlineen.afdvr.com";
 
-//登录界面
-"log_TextField_placeName"="Email/UserName";
-"log_TextField_placePassWord"="Password";
 
 //ALert
 "Alert_btn_sure"="Sure";
@@ -33,66 +32,52 @@
 "stream_3"="Fluent";
 "stream_1"="HD";
 "stream_2"="SD";
-
 "HD"="HD";
 "SD"="SD";
 "Fluent"="Fluent";
 
+//欢迎图片  iphone5
 "welcom_0"="welcome_0_en.jpg";
 "welcom_1"="welcome_1_en.jpg";
 "welcom_2"="welcome_2_en.jpg";
 "welcom_3"="welcome_3_en.jpg";
-
+//欢迎图片  iphone4
 "welcom_0_4"="welcome_0_en4.jpg";
 "welcom_1_4"="welcome_1_en4.jpg";
 "welcom_2_4"="welcome_2_en4.jpg";
 "welcom_3_4"="welcome_3_en4.jpg";
-
-"welcome_help" = "立即体验";
-
-"de_ch_1.png"="de_en_1.png";
-"fl_ch_1.png"="fl_en_1.png";
-"hd_ch_1.png"="hd_en_1.png";
-"sd_ch_1.png"="sd_en_1.png";
-//***语音对讲**
-"talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
-"talkingOther"   = "Intercom function has started successfully, speak to him please.";
-"talkStart"      = "You can speak to the other now.";
-"Intercom function has started successfully, speak to him please."="Intercom function has started successfully, speak to him please.";
-//远程回放
-"Playback_Finish"="Playback finish";
+"welcome_help" = "Enjoy";
 
 //ap配置流程
 "apSetting_new_device"         = "Find a new device";
 "apSetting_new_device_setting" = "Configure";
 "apSetting_new_device_sKip"    = "Skip";
 "apSetting_new_device_next"    = "Next";
-"new_d"                        = "new_e.png";
-"remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version ";
+"new_d"                        = "new_c.png";
+"remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to the last version ";
 "home_operation_talk"          = "This function is not available during two-way talk.";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";
 "AudioTalkInfo"                = "You can talk with the other end";
-"wifi-Successful"              = "Wi-Fi has been set finished!";
+"wifi-Successful"              = "配置Wi-Fi完成，听到设备发出‘设备上线’声后，代表设备已上线!";
 "ap_change_net_work"           = "NetWork has been seitched,unable to continue the operation";
 "home_ap_Alert_GOON"           = "Quiting";
 "home_ap_Alert_NO"             = "Cancel";
 "home_ap_Alert_message_ios7"   = "The OS version of your mobile phone is iOS 5.0 or above, and you need to quit the APP and change the Wi-Fi network to the AP of the IP camera with the format: IPC-X-XXX. Steps: Settings-WLAN-Choose a Network-IPC-X-XXX";
+"JDCSViewController_ap_setting"= "A new device has been configured by you";
 
-"home_alarm_device"="Device:";
-"home_alerm_timer"=",Time:";
-
-"home_alarm_0"="Disk Error Alarm,";
-"home_alarm_1"="Disk Full Alarm,";
-"home_alarm_2"="Disconnection Alarm,";
-"home_alarm_3"="System Update Alarm,";
-"home_alarm_4"="Input Alarm,";
-"home_alarm_5"="Video Lost Alarm,";
-"home_alarm_6"="Video Covered Alarm,";
-"home_alarm_7"="Motion Detection Alarm,";
-"home_alarm_8"="Power Off Alarm,";
-"home_alarm_9"="Manual Alarm,";
+//报警类型
+"home_alarm_0"="Disk Error Alarm";
+"home_alarm_1"="Disk Full Alarm";
+"home_alarm_2"="Disconnection Alarm";
+"home_alarm_3"="System Update Alarm";
+"home_alarm_4"="Input Alarm";
+"home_alarm_5"="Video Lost Alarm";
+"home_alarm_6"="Video Covered Alarm";
+"home_alarm_7"="Motion Detection Alarm";
+"home_alarm_8"="Power Off Alarm";
+"home_alarm_9"="Manual Alarm";
 "home_alarm_10"="GPS Alarm";
 "home_alarm_11"="alarm";
 "home_alarm_12"="It's safe.Don't worry.";
@@ -105,16 +90,334 @@
 "home_alarm_19"="Temp too low and RH too high.";
 "home_alarm_20"="Temp too high and RH too low.";
 "home_alarm_21"="Temp and RH too low.";
-"home_alarm_attention"= "Please pay attention.";
+
+//登录界面
+"jvc_log_user" = "Email/UserName";
+"jvc_log_pw" = "Password";
+"jvc_log_log" = "Login";
+"jvc_log_local" ="Visitor Login";
+"jvc_log_resign" = "Register";
+"jvc_log_fot"= "Retrieve";
+"jvc_log_demo" = "Demo";
+
+//不合法用户名用户密码修改
+"jvc_Unmod_titile"="Complete the user info";
+"jvc_Unmod_user"="UserName";
+"jvc_Unmod_pw"="Password";
+"jvc_Unmod_btntit"="Finish";
+"jvc_Unmod_resultError"="Failed to edit";
+
+//绑定邮箱界面
+"Binding_email_title"="Bind email";
+"Binding_email"="Email";
+"binding_skip" = "Skip";
+"binding_email_exist"="This Email address has been registered.";
+"binding_failt"= "Failed to combine with the Email address.";
+"DeviceModifyViewController_binding" = "One Email address is suggested to be combined for account security and for more functions.";
+"binding_finish"= "完成";
+"DeviceModifyViewController_bindingDevice"="Note\n1.Please make sure the power on and network stable\n2.Password mustn't be too simple in order to keep your privacy\n3.Please remember your username and password which shall be a must to view your videos.";
+
+//注册界面
+"jvc_resign_Title" = "Register";
+"jvc_resign_user" = "Email/UserName";
+"jvc_resign_pw" = "PassWord";
+"jvc_resign_enpw" ="Confirm password";
+
+//jvcresulttiphelper  正则判断的
+"LOGINRESULT_USERNAME_NIL" = "Please input username.";
+"LOGINRESULT_PASSWORLD_NIL" = "Please input password.";
+"LOGINRESULT_USERNAME_ERROR" = "User name format is not correct, please modify";
+"LOGINRESULT_PASSWORLD_ERROR" = "Password format is incorrect, Password consists of 6-20 letters, numbers or special characters  composed";
+"LOGINRESULT_ENSURE_PASSWORD_NIL"= "Please input Password confirmation";
+"LOGINRESULT_ENSURE_PASSWORD_ERROR"= "Password is inconsistent.";
+"LOGINRESULT_EMAIL_ERROR" = "The format of email is wrong.";
+"LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "Password wrong.";
+"login_pw_equal"= "New password can't be the same with the old one.";
+"loginResign_LENGTH_E"="Username should be 4-28 characters.";
+"loginResign_NUMBER_E"="Username can't be all number";
+"loginResign_OTHER_E"="Username should be composed of letter, number and -_";
+"home_login_resign_PhoneNum_error"= "Mobile phone format is not correct.";
+"home_email_error"="The format of email is wrong ";
+"USER_HAS_EXIST"= "Username existed already";
+"USER_NOT_EXIST"= "Username not exist";
+"password_error_result"= "Password is incorrect, please check";
+"SESSION_NOT_EXSIT" = "Your login has expired";
+"CONN_OTHER_ERROR"= "Connection timeout.";
+"REQ_RES_TIMEOUT"= "Timeout,please try again later.";
+"Login_Default_error"= "Unable to communicate with server, code:";
+"MODIFY_DEVIE_NICK_NIL"= "Please input Nickname for the device";
+"MODIFY_DEVIE_NICK_ERROR"= "Ilegal character,the NikeName should be 1-20 characters of English letter,number,or special characters like .-_+()";
+"MODIFY_DEVIE_USER_NIL"= "Please input username";
+"MODIFY_DEVIE_PASSWORD_NIL"= "Please input password";
+"DEVICE_USERNAME_ERROR" = "Username format incorrect, it should be 1-16 letter, number and -_";
+"DEVICE_PASSWORLD_ERROR" = "Password format incorrect, it should be 1-16 characters";
+"yunshitongNIl" = "Please input CloudSEE ID";
+"nolegalYushitongadd" = "CloudSEE ID Incorrect.";
+"UserNameNil" = "please input username";
+"DEVICE_USERNAME_ERROR" = "Username format incorrect, it should be 1-16 letter, number and -_";
+"LOGINRESULT_PASSWORLD_NIL" = "Please input password.";
+"DEVICE_PASSWORLD_ERROR" = "Password format incorrect, it should be 1-16 characters.";
+"LINKMODEL_USER_NIL"= "Please input username";
+"LINKMODEL_USER_ERROR"= "Username format incorrect, it can only be formed by 1-16 characters";
+"LINKMODEL_PASSWORD_NIL"="Please input password";
+"LINKMODEL_PASSWORD_ERROR"="Password format incorrect, it can only be formed by 0-16 characters";
+"LINKMODEL_IP_NIL"="Please input Domain or IP";
+"LINKMODEL_IP_ERROR"="Domain or IP is invalid, please modify";
+"LINKMODEL_PORT_NIL"= "Please input the port";
+"LINKMODEL_PORT_ERROR"= "Wrong Port number";
+"LINKMODEL_UNKONWN_ERROR"="Unable to communicate with server,code:";
+"loginResign_passWord_error" = "Password should be 6-20 characters";
+"home_login_resign_user_noFound"= "Congratulations,username can register";
+
+//添加设备界面
+"jvc_addDevice_title" = "Add device";
+"jvc_addDevice_YstNUm" = "  CloudSEE ID";
+"jvc_addDevice_userName" = "  UserName";
+"jvc_addDevice_password" = "  PassWord";
+"jvc_addDevice_save" = "Save";
+"jvc_addDevice_back" = "back";
+"jvc_addDevice_advance" = "Advance";
+"jvc_addDevice_has_Device" = "No need to add the same device";
+"jvc_addDevice_has_Device_totalNum" = "超过最大值";//////////////
+"jvc_addDevice_add_error" = "Failed to add";
+"adddevice_net_error"= "Connection timeout.";
+"adddevice_net_success"= "added device successfully";
+"jvc_adddevice_addChannel_error" = "Channel added failed";
+"qrReturn"="  Back";
+"qrScan"="Scanning now,please wait...";
+"JDCSVC_GetDevice_Error"= "Faild to add device";
+"JDCSVC_GetDeviceChannel_Error"= "Channel added failed";
+
+//声波添加设备
+"jvc_voice_add_title" = "准备步骤";
+"jvc_voice_add_help" = "用顶针轻插配置孔\n直到您听到嘀的一声";
+"jvc_voice_add_next" = "下一步";
+"jvc_voice_add_prepareconfig" = "准备配置";
+"jvc_voice_add_prepareconfig_help" = "请输入摄像头要连接的无线网络密码";
+"jvc_voice_add_Voiceconfig" = "声波配置";
+"jvc_voice_add_Voiceconfig_see" = "观看操作演示";
+"jvc_voice_add_Voiceconfig_clicktosend" = "点击发送声波";
+
+//连接模式
+"jvc_licktype_title" = "Connection Mode";
+"jvc_licktype_Ip" = "IP/Domain Name";
+"jvc_licktype_YST" = "CloudSEE";
+
+//设备列表界面
+"jvc_DeviceList_title" = "My device";
+"jvc_DeviceList_add_yst" = "CloudSEE"";
+"jvc_DeviceList_add_eq" = "QR Scanning";
+"jvc_DeviceList_add_wlan" = "Wireless Device";
+"jvc_DeviceList_add_scan" = "Devices in LAN";
+"jvc_DeviceList_add_volce" = "声波配置";
+"jvc_DeviceList_add_ip" = "IP/Domain Name";
+"jvc_DeviceList_offline" = "Offline";
+"jvc_DeviceList_online" = "Online";
+"jvc_DeviceList_APadd" = "Add";
+"jvc_DeviceList_APquit" = "Cancel";
+"jvc_DeviceList_no_device" = "Wireless Device";
+"jvc_DeviceList_has_device" = "有线设备";
+
+//ip/域名添加设备
+"jvc_addDevice_ipadd_titile"="IP/Domain Name";
+"jvc_addDevice_ipadd_Port"="Port";
+"jvc_addDevice_ipadd_user"="UserName";
+"jvc_addDevice_ipadd_pw"="Password";
+"jvc_addDevice_ipadd_yst"="CloudSEE";
+
+//通道管理
+"jvc_editChannel_title"="Channel Management";
+"jvc_editChannel_nick"="Nickname:";
+"jvc_editChannel_save"="Save";
+"jvc_editChannel_adderror" = "Failed to add channel";
+"jvc_editChannel_addsuccess"= "Add channel successfully";
+"jvc_editChannel_delete_error" = "Failed to delete channel";
+"jvc_editChannel_delete_success"= "Delete channel successfully";
+"jvc_editChannel_editchannel_success" = "Edit channel successfully";
+"jvc_editChannel_editchannel_error"= "Failed to edit channel";
+"jvc_editChannel_nick_error"= "Nickname can only be formed by 1~30 letters,numbers,- _";
+"delete_Success" = "Delete successfully";
+"delete_Failt" = "Failed to delete";
+"device_manager"         = "Device Management";
+"device_manager_helper"  = "可添加、修改、删除、远程配置设备";
+"device_scan"            = "scan";
+"operation_error"        = "Failed to operation";
+"device_off_line"        = "This operation is unavailable since the device is offline now.";
+
+
+//ap配置@"开始添加"
+"jvc_ap_title" = "Adding Wi-Fi device";
+"jvc_ap_start_add" = "Adding";
+"selectedWifi"="Choose a network...";
+"ap_Setting_Detail"= "Quick configuration";
+"ResignPassWord" = "Password";
+"wifi_select_loading"= "ploading datas, please wait...";
+"wifi-name-nil"="Wi-Fi name can not be null.";
+"ap_configer"= "Done";
+"wifi-name-selected"="Please select Wi-Fi ...";
+
+//扫描加设备界面
+"jvc_adddevcie_sacn_back" = "Quiting";
+//通道选择界面
+"jvc_channelSelect_title"="Channel List";
+"jvc_channelSelect_Num" = "";
+"jvc_channelSelect_channel"="channel";
+"jvc_channelSelect_linkAll"="全连";
+//设备编辑界面
+"delete_success"= "Delete successfully";
+"delete_failt"= "Failed to delete";
+"add_channel_success"="Add channel successfully";
+"add_channel_fail"="Faild to add channel";
+"edit_falt"="Faild to edit";
+"edit_success"="Edit successfully";
+"MAX_ERROR" = "该设备的通道数量达到上限，无法继续添加!";
+
+//报警界面
+"jvc_alarmList_Title" = "Alarm Message";
+"jvc_alarmlist_noMore" = "No more alerts";
+"jvc_alarmlist_getAlarmError" = "获取报警信息失败";
+"jvc_alarmlist_noAlarm" = "No alarm now";
+"jvc_alarmlist_noAlarm_PIC" = "暂无报警图片";
+"jvc_alarmlist_delete_success" = "Delete successfully";
+"jvc_alarmlist_delete_failt" = "Faild to delete alarm";
+"jvc_alarmlist_alarmLeavel" = "Alarm Grade:";
+"home_no_Alarm_video"= "暂无报警视频";
+"home_alarm_watch_video"= "Check alarm video";
+"jvc_alarmVideo_title" = "Alarm video";
+
+//保持在线的
+//Keeplineerror
+"AlertkeepLineError_userOut" = "Exit";
+"AlertkeepLineError_LoginIn" = "Continue";
+"AlertkeepLineError_title"   = "Account login elsewhere or account exception";
+"AlertkeepLineError_network_title" = "Network connection exception,please login again.";
+"AlertkeepLineError_loginin_error" = "Login error";
+
+
+//下拉刷新
+"jvc_PullToRefreshText" = "下拉刷新";
+"jvc_PullReleaseToRefreshText" = "Release to refresh...";
+"jvc_PullRefreshingText" = "Loading...";
+"jvc_PullfooterToRefreshText" = "上拉加载更多";
+"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
+"jvc_PullfooterRefreshingText" = "正在加载...";
+"jvc_PullfooterRefreshingDate" = "今天";
+"jvc_PullfooterRefreshinglastDate" = "最后更新：";
+
+//报警设备
+"jvc_alarmmanage_title" = "Alarm Device";
+"jvc_alarmmanage_delete_error" = "Faild to delete";
+"jvc_alarmmanage_delete_success" = "Delete successfully";
+"jvc_alarmmanage_edit_success" = "Edit successfully";
+"jvc_alarmmanage_edit_error" = "Faild to edit";
+
+//------播放视频界面
+"Video Display"="Video Display";
+"Capture"="Capture ";
+"megaphone"="AudioTalk";
+"video"="  Video  ";
+"MoreOper"=" More";
+"Audio"="Audio";
+"PTZ Control"="PTZ Control";
+"Playback"="Playback";
+"ResetDeviceInfotitile"= "Resert Device";
+"jvcoper_autoRecord"="报警录像";
+"jvcoper_Record"="手动录像";
+"Learn audio info at any time"="Learn audio info at any time";
+"Adjust PTZ at any time"="Adjust PTZ at any time";
+"Check Playback info at any time"="Check Playback info at any time";
+"focus"="Focus";
+"Zoom"="Zoom";
+"noLocalVideo"="Not support to record on this device.";
+"editDeviceError" = "Failed to edit";
+"addDeviceError" = "Failed to add";
+"GetDetailDemoPointError" = "Faild to get demo list";
+"four-Screen" = "4 channels";
+"nine-Screen" = "9 channels";
+"sixteen-Screen" = "16 channels";
+"Not_720p" = "This APP doesn't support to play videos with resolution more than 720P.";
+"Disconnecting nowPlease Wait"="Disconnecting now\nPlease wait...";
+"Exiting NowPlease Wait"="Exiting now\nPlease wait...";
+"Connection Failed ID"="Failed to verify ID.";
+"Connection Failed ID_and_modify_user_and password"= "Username or password is incorrect";
+"operation"="This function is suspended during remote playback.";
+"home_operation_talk"="该功能在语音对讲时暂停使用.";
+"This video source doesn't support image resolution switch."="This video source doesn't support image resolution switch.";
+"TalkInfo"="Applying to talk with host-end,pls wait...";
+"Asking for video data now, please wait..."="Asking for video data now, please wait...";
+"Connecting with server now..."="Connecting with server now...";
+"Connected with server "="Connected with server ";
+" successfully..."=" Successfully...";
+"Asking for video data now..."="Asking for video data now...";
+"Asking for video data now, please wait..."="Asking for video data now, please wait...";
+
+"pictureLibraynoAutor" = "Can not visit photo album. Please set it open in[ Settings->Privacy->Photos ].";
+"picturelibrayError" = "Failed to save the picture.";
+"videolibrayError" = "Failed to save the recording.";
+"userDefine" = "User refused to visit";
+"Connection Failed"="Connection Failed";
+"Disconnected Due To Abnormal Network"="Disconnected Due To Abnormal Network.;
+"Disconnected Due To CloudSEE Service Has Been Stopped"="Disconnected Due To CloudSEE Service Has Been Stopped.";
+"CloudSEE Service Has Been Stopped"="Device service has been stopped.";
+"Play back"="Play back";
+"Serach"="Search";
+"Playback_Finish"= "远程回放结束";
+"Playback_error" = "运程回放错误";
+"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
+"connectResultInfo_4"  = "连接失败.";
+"connectResultInfo_6"  = "连接异常断开.";
+"connectResultInfo_7"  = "服务停止，连接断开.";
+"connectResultInfo_8"  = "断开连接失败.";
+"connectResultInfo_9"  = "云视通服务已停止.";
+"connectResultInfo_10" = "身份验证不成功.";
+"connectResultInfo_11" = "超过主控连接最大次数!";
+
+//***语音对讲**
+"talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
+"talkingOther"   = "Intercom function has started successfully, speak to him please.";
+"talkStart"      = "You can speak to the other now.";
+"talking"        = "对讲功能成功开启，长按向对方喊话吧";
+"Intercom function has started successfully, speak to him please."="Intercom function has started successfully, speak to him please.";
+
+//更多界面
+"jvc_more_alarm"= "Alarm";
+"jvc_more_editPw"="Modify Password";
+"jvc_more_checkVersion"="检测更新";
+"jvc_more_help"="Help";
+"jvc_more_suggest"="意见与反馈";
+"jvc_more_appStore"="Go to AppStore to comment.";
+"jvc_more_userOut"="Log Out";
+"home_version_found"= "Found";
+"home_version_new" = "version";
+"home_version_last"= "It's already the lastest version";
+"home_version_last_count3"= "No more, please wait.";
+"local_location" = "Ignore";
+"local_ccLogin" = "Switch";
+"Update Available"="Update Tip";
+"Not now"="Next Time ";
+"UpdateBtn"="Update";
+"Found new version"="Found new version ";
+"update now"="\n update now?";
+"emailHelp" = "This mobile phone does't support Email function or Email function hasn't been set on this mobile phone, please write Email to: feedbackandsuggestion@gmail.com for further support.";
+"version" = "version：";
+"suggestAndFeedBack" = "建议与反馈";
+"more_help_title"="Help";
+//修改密码的
+"oldPW" = "Old Password";
+"newPW" = "New Password";
+"newInsurePw" = "Confirm password";
+"changePwUser"= "Username";
+"changepwOldNil" = "Old password can't be null.";
+"jvc_mor_pwSuccess" = "Password changed successfully.";
+"Modify_Pw_success"= "修改成功";
+"Modify_PW_fail"= "修改密码失败";
+"Modify_LinkType_success" = "Edit successfully";
+"Modify_LinkType_fail"    = "Faild to Edit";
 
 //设备管理界面
-"operation_error"              = "Failed to operate";
-"device_off_line"              = "Unable to operate due to device has been offline";
-
-
-"jvc_editDevice_title" = "设备管理";
-"jvc_editDevice_Editbtn_device" = "设备管理";
-"jvc_editDevice_Editbtn_licktype" = "连接模式";
+"jvc_editDevice_title" = "Management";
+"jvc_editDevice_Editbtn_device" = "Management";
+"jvc_editDevice_Editbtn_licktype" = "Connection Mode";
 "jvc_editDevice_Editbtn_channels" = "通道管理";
 "jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
 "jvc_editDevice_Editbtn_safe" = "安全防护";
@@ -122,10 +425,74 @@
 "jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
 "jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
 "jvc_editDevice_noSupport" = "设备不支持此操作";
-"jvc_editDevice_lickError"= "连接失败请请重试";
+"jvc_editDevice_lickError"= "连接失败请重试";
 "Jvc_editDeviceInfo_Title" = "编辑设备";
 "Jvc_editDeviceInfo_nickName" = "  昵称";
 "Jvc_editDeviceInfo_userName" = "  用户名";
 "Jvc_editDeviceInfo_PW" = "  密码";
 "Jvc_editDeviceInfo_Delete" = "删除";
 "Jvc_editDeviceInfo_Save" = "保存";
+
+
+//更多
+"jvc_more_title" = "更多";
+"jvc_more_local_noSupport"="本地模式暂停使用";
+"networkError"                                    =  "网络连接异常，请检查网络";
+"jvc_more_loginout"="确定要注销吗";
+"jvc_more_loginout_ok"="确定";
+"jvc_more_loginout_quit"="取消";
+"jvc_more_loginout_error"="注销失败";
+"jvc_more_loginout_appStore"="您确定去APPStore评论吗？";
+
+//门磁或手环报警
+"jvc_alarmDevice_title" = "添加设备";
+"jvc_alarmDevice_door" = "门磁设备";
+"jvc_alarmDevice_hand" = "手环设备";
+"jvc_alarmDevice_control" = "遥控器设备";
+"jvc_alarmDevice_addError" = "添加失败";
+"jvc_alarmDevice_addMaxNum" = "超过最大绑定值";
+"jvc_alarmDevice_addhasexist" = "重复绑定";
+
+//弹出报警信息的title
+"JVCAlarmCurrentView_title"= "报警信息";
+"JVCAlarmCurrentView_device"= "设备：";
+"JVCAlarmCurrentView_motion"= "移动检测报警";
+"JVCAlarmCurrentView_door"= "门磁或手环报警";
+"JVCAlarmCurrentView_another"= "未知报警";
+"JVCAlarmCurrentView_type"= "类型：";
+"JVCAlarmCurrentView_see"= "查看";
+"JVCAlarmCurrentView_ignorce"= "忽略";
+
+//演示点
+"jvc_demo_title" = "演示点";
+"jvc_demo_GetDate_error" = "获取数据错误";
+
+//JVCDeviceAlarmNoDeviceTableViewCell
+"JVCDeviceAlarmNoDeviceTableViewCell_labe"= "点击此处添加设备";
+
+//JVCDeviceMathsHelper
+"JVCDeviceMathsHelper_addDevice_success" = "添加设备成功";
+"JVCDeviceMathsHelper_addDevice_HasExist" = "设备列表中已存在";
+"JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
+"JVCDeviceMathsHelper_addDevice_error" = "添加失败";
+"JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数错误";
+
+//JVCEditLockDeviceNickNameViewController
+"JVCEditLockDeviceNickNameViewController_title"= "修改昵称";
+"JVCEditLockDeviceNickNameViewController_Nickname"= "请输入昵称";
+"JVCEditLockDeviceNickNameViewController_Save"= "完成";
+
+//JVCLabelFieldSView
+"JVCLabelFieldSView_save" = "完成";
+
+//JVCLocalEditChannelInfoTableViewController
+"JVCLocalEditChannelInfoTableViewController_saveSuccess" = "添加成功";
+
+//
+"JVCMonitorConnectionSingleImageView_connecting"="正在努力加载视频数据\n请等待...";
+
+//JVCVoiceencHelpViewController
+"JVCVoiceencHelpViewController_title" = "操作演示";
+
+"JVCVoiceencHelpViewController_helpString" = "请将手机靠近设备，点击声波发送按钮，配置设备";
+

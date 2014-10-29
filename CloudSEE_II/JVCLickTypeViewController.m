@@ -250,6 +250,11 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
  */
 - (void)animationSlideView:(UIButton *)btn
 {
+    if (btn.selected == YES) {
+        
+        return;
+    }
+    
     [self setBtnUnSelected];
     
     btn.selected = YES;
@@ -422,6 +427,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     deviceModel.linkType = CONNECTTYPE_YST;
     textFieldIPName.text = deviceModel.userName;
     textFieldIPPassWord.text = deviceModel.passWord;
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 /**
@@ -445,6 +453,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     deviceModel.linkType = CONNECTTYPE_IP;
     textFieldYstName.text = deviceModel.userName;
     textFieldYstPassWord.text = deviceModel.passWord;
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc

@@ -97,7 +97,7 @@ static JVCCustomYTOView *_shareInstance = nil;
     UIImage *_closeImageHover=[[UIImage alloc ]initWithContentsOfFile:[self getBundleImagePath:@"ytoClose.png"]];
 
     UIButton *closeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame=CGRectMake([UIApplication sharedApplication].keyWindow.frame.size.width-_closeImage.size.width-15.0, 10.0+_iphonePadding, _closeImage.size.width*1.2, _closeImage.size.height*1.2);
+    closeBtn.frame=CGRectMake([UIApplication sharedApplication].keyWindow.frame.size.width-_closeImage.size.width-15.0, 5.0+_iphonePadding, _closeImage.size.width*1.2, _closeImage.size.height*1.2);
     [closeBtn setBackgroundImage:_closeImage forState:UIControlStateNormal];
     [closeBtn setBackgroundImage:_closeImageHover forState:UIControlStateHighlighted];
 
@@ -128,6 +128,11 @@ static JVCCustomYTOView *_shareInstance = nil;
 	float y_padding=10.0;
     float y_paddingSize=7.5;
     float x_padding=25.0;
+    
+    if (!iphone5) {
+        y_padding=5.0;
+        y_paddingSize=4.5;
+    }
     
 	for (int i=0; i<[imageNameList count]; i++) {
 		NSArray *array=[[imageNameList objectAtIndex:i] componentsSeparatedByString:@"|"];

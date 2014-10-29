@@ -55,6 +55,10 @@
         self.pullToRefreshText = MJRefreshHeaderPullToRefresh;
         self.releaseToRefreshText = MJRefreshHeaderReleaseToRefresh;
         self.refreshingText = MJRefreshHeaderRefreshing;
+        
+        self.pullToRefreshText = LOCALANGER(@"jvc_PullToRefreshText");
+        self.releaseToRefreshText = LOCALANGER(@"jvc_PullReleaseToRefreshText");
+        self.refreshingText = LOCALANGER(@"jvc_PullfooterRefreshingText");
     }
     return self;
 }
@@ -114,7 +118,7 @@
     // 2.格式化日期
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     if ([cmp1 day] == [cmp2 day]) { // 今天
-        formatter.dateFormat = @"今天 HH:mm";
+        formatter.dateFormat = [NSString stringWithFormat:@"%@ HH:mm", LOCALANGER(@"jvc_PullfooterRefreshingDate") ];
     } else if ([cmp1 year] == [cmp2 year]) { // 今年
         formatter.dateFormat = @"MM-dd HH:mm";
     } else {
@@ -123,7 +127,7 @@
     NSString *time = [formatter stringFromDate:self.lastUpdateTime];
     
     // 3.显示日期
-    self.lastUpdateTimeLabel.text = [NSString stringWithFormat:@"最后更新：%@", time];
+    self.lastUpdateTimeLabel.text = [NSString stringWithFormat:@"%@%@", LOCALANGER(@"jvc_PullfooterRefreshinglastDate"),time];
 }
 
 #pragma mark - 监听UIScrollView的contentOffset属性

@@ -31,7 +31,7 @@ static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
     
     if (self) {
         
-       self.title = @"操作演示";
+       self.title = LOCALANGER(@"JVCVoiceencHelpViewController_title");
     }
     return self;
 }
@@ -81,7 +81,7 @@ static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
     titleLbl.font            = [UIFont systemFontOfSize:KTitleTvWithFontSize];
     titleLbl.numberOfLines   = KTitleTvWithNumberOfLines;
     titleLbl.frame           = CGRectMake( KTitleViewWithSuperViewLeft,KTitleTvWithSuperViewTop , titleView.frame.size.width - KTitleViewWithSuperViewLeft * 2,KTitleTvWithLineHeight * KTitleTvWithNumberOfLines);
-    titleLbl.text            = @"请将手机靠近设备，点击声波发送按钮，配置设备";
+    titleLbl.text            = LOCALANGER(@"JVCVoiceencHelpViewController_helpString");
     [titleView addSubview:titleLbl];
     [titleLbl release];
     

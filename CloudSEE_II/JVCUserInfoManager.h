@@ -96,6 +96,9 @@
 - (void)setConstantUserInfoWithUserName:(NSString *)userName passWord:(NSString *)passWord;
 
 
-
+/**
+ *  把老的用户放到新的数据库中
+ */
+- (void)convertOldUserInfoToDateBase;
 
 @end

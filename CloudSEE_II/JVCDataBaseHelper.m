@@ -185,6 +185,40 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 }
 
 /**
+ *  登录成功后，将用户名，密码存到数据库中，首先看看数据库中有这条数据吗，有更新，没有直接写入
+ *
+ *  @param userName 用户名
+ *  @param passWord 秘密
+ */
+- (void)writeOldUserInfoToDataBaseWithUserName:(NSString *)userName  passWord:(NSString *)passWord  loginTimer:(int)loginTimer
+{
+    
+    if ([userInfoSqlite open]) {
+        
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
+        
+        FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
+        
+        while ([resultSet next]) {
+            
+            NSUInteger totalNum = [resultSet intForColumn:@"TOTALCOUNT"];
+            
+            DDLogInfo(@"查询数据库结果,数据库中共有==%d",totalNum);
+            
+            if (totalNum == 0) {//数据库没有，直接插入
+                
+                [self insertUserInfoWithUserName:userName passWord:passWord loginTimer:loginTimer];
+                
+            }
+        }
+        
+        [userInfoSqlite close];
+    }
+    
+}
+
+
+/**
  *  往表格中插入数据
  *
  *  @param userName 用户名
@@ -197,6 +231,33 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         passWord = [CommonFunc  base64StringFromText:passWord];
         
         NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,[self getCurrenttime],kLoginStateON];
+        
+        BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_插入数据错误",__FUNCTION__);
+        }else{
+            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            
+        }
+        
+        [userInfoSqlite close];
+    }
+}
+
+/**
+ *  往表格中插入数据
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)insertUserInfoWithUserName:(NSString *)userName  passWord:(NSString *)passWord  loginTimer:(int)timer
+{
+    if ([userInfoSqlite open]) {
+        //转化
+        passWord = [CommonFunc  base64StringFromText:passWord];
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,(CGFloat)timer,kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {

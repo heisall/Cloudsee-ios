@@ -67,7 +67,7 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     
     
     //云视通号
-    UIImage *imgTextFieldBG = [UIImage imageNamed:@"addDev_textFiedlBg.png"];
+    UIImage *imgTextFieldBG = [UIImage imageNamed:@"tex_field.png"];
     deviceNickNameField = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, TESTORIIGIN_Y, imgTextFieldBG.size.width, imgTextFieldBG.size.height)];
     deviceNickNameField.background = imgTextFieldBG;
     deviceNickNameField.textAlignment = UITextAlignmentRight;
@@ -199,9 +199,35 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
 #pragma mark textfield的委托方法
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self setTextFieldStateNormal];
+    [self setTextFieldStateSelect:textField];
     if (textField == devicePassWord) {
         [self editDeviceSlideUp];
     }
+}
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateNormal
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [devieUserName setBackground:image];
+    [deviceNickNameField setBackground:image];
+    [devicePassWord setBackground:image];
+    [image release];
+}
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateSelect:(UITextField *)textField
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field_sec.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textField setBackground:image];
+    [image release];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

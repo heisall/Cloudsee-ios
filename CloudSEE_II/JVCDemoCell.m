@@ -96,7 +96,6 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
 
 - (void)dealloc
 {
-    [imageView release];
     [super dealloc];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

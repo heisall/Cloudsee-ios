@@ -38,7 +38,7 @@ static const  int KSuccess         = 1;
     if (self) {
         // Custom initialization
         
-        self.title = @"报警设置";
+        self.title = LOCALANGER(@"jvc_alarmmanage_title");
     }
     return self;
 }
@@ -211,7 +211,7 @@ static const  int KSuccess         = 1;
                     [self handleDeletateSuccessResult];
                     break;
                 case AlarmLockTypeRes_Fail:
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_delete_success")];
                     break;
                 default:
                     break;
@@ -222,7 +222,7 @@ static const  int KSuccess         = 1;
         
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"删除失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_delete_error")];
         
     }
 }
@@ -240,13 +240,13 @@ static const  int KSuccess         = 1;
             
             switch (responResult) {
                 case AlarmLockTypeRes_OK:
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改成功"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_edit_success")];
 
                     model.alarmState = ! model.alarmState;
                     break;
                 case AlarmLockTypeRes_Fail:
                 {
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_edit_error")];
                     
                     JVDeviceCAlarmAddTableViewCell *cell =(JVDeviceCAlarmAddTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:selectRow]];
                     cell.switchDevcie.on =!cell.switchDevcie.on;
@@ -262,7 +262,7 @@ static const  int KSuccess         = 1;
         
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"修改失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_edit_error")];
         
         JVDeviceCAlarmAddTableViewCell *cell =(JVDeviceCAlarmAddTableViewCell*) [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:selectRow]];
         cell.switchDevcie.on =!cell.switchDevcie.on;

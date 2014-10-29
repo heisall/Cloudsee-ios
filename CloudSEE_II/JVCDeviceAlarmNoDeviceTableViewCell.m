@@ -44,7 +44,7 @@ static const  int KLabelFontSize     = 20;//间距
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(addImageView.right+KCellSpan,0, self.width-addImageView.width-3*KCellSpan, addImageView.height)];
     label.backgroundColor = [UIColor clearColor];
-    label.text = @"点击此处添加设备";
+    label.text = LOCALANGER(@"JVCDeviceAlarmNoDeviceTableViewCell_labe");
     label.font = [UIFont systemFontOfSize:KLabelFontSize];
     label.numberOfLines = 2;
     label.lineBreakMode = UILineBreakModeWordWrap;

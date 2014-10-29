@@ -128,7 +128,7 @@ static const int KLabelWith  = 10 ;//label的宽度
      */
     self.title = LOCALANGER(@"jvc_resign_Title");
     
-    UIImage *imgTextFieldBg = [UIImage imageNamed:@"reg_fieldBg.png"];
+    UIImage *imgTextFieldBg = [UIImage imageNamed:@"tex_field.png"];
     
     //用户名
     textFieldUser = [[UITextField alloc] initWithFrame:CGRectMake((self.view.frame.size.width - imgTextFieldBg.size.width)/2.0, ORIGIN_Y, imgTextFieldBg.size.width, imgTextFieldBg.size.height)];
@@ -201,7 +201,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     [self.view addSubview:labEnPassWord];
     
     //注册按钮
-    UIImage *imageBtn = [UIImage imageNamed:@"reg_btnBg.png"];
+    UIImage *imageBtn = [UIImage imageNamed:@"btn_Bg.png"];
     
     UIButton *btnResign = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -220,10 +220,43 @@ static const int KLabelWith  = 10 ;//label的宽度
 #pragma mark textfieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self setTextBackGroudNormal];
+    [self setTextBackGroudSelect:textField];
     if (textField == textFieldEnSurePassWord) {
         
         [self slideUP];
     }
+}
+
+- (void)setTextBackGroudNormal
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textFieldUser setBackground:image];
+    [textFieldPassWord setBackground:image];
+    [textFieldEnSurePassWord setBackground:image];
+    [image release];
+
+}
+
+- (void)setTextBackGroudSelect:(UITextField *)textField
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field_sec.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textField setBackground:image];
+    [image release];
+    
+}
+
+- (void)resignTextField
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textFieldUser setBackground:image];
+    [textFieldPassWord setBackground:image];
+    [textFieldEnSurePassWord setBackground:image];
+    [image release];
+    
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

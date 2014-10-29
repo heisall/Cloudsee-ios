@@ -12,6 +12,10 @@
 #import "JVCDeviceModel.h"
 #import "CommonFunc.h"
 #import "JVCDeviceHelper.h"
+#import "JVCChannelModel.h"
+#import "JVCLocalChannelDateBaseHelp.h"
+#import "DBHelper.h"
+#import "JVCOldSouchModel.h"
 
 @interface JVCLocalDeviceDateBaseHelp ()
 {
@@ -20,7 +24,7 @@
 }
 @end
 @implementation JVCLocalDeviceDateBaseHelp
-
+static const NSString *sqlString = @"yunshitong.sql";//老的数据库名称
 static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
 
 /**
@@ -127,6 +131,43 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     }
     return NO;
 }
+
+/**
+ *  把老数据导入成为新数据
+ *
+ *  @param ystNUm   云视通号
+ *  @param name     用户名
+ *  @param passWord 密码
+ *  @param nickName 昵称
+ *
+ *  @return 是否成功 yes 成功  no 失败
+ */
+-(BOOL)convertOldDeviceToDataBase:(NSString *)ystNUm  deviceName:(NSString *)name  passWord:(NSString *)passWord  nickName:(NSString *)nickName
+{
+    
+    if ([localDeviceSqlite open]) {
+        //转化
+        
+        DDLogVerbose(@"ystNUm=%@====name=%@===passWord=%@",ystNUm,name,passWord);
+        passWord = [CommonFunc  base64StringFromText:passWord];
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO DEVICEINFOTABLE(DEVICEYSTNUM,USERNAME,PASSWORD,LINKTYPE,IP,PORT,NICKNAME,ISCUSTOMLINKMODEL)VALUES('%@','%@','%@','%d','%@','%@','%@','%d')",ystNUm,name,passWord,0,@"",@"",nickName,0];
+        
+        BOOL result  = [localDeviceSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_插入数据错误",__FUNCTION__);
+            return NO;
+        }else{
+            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            return YES;
+            
+        }
+        [localDeviceSqlite close];
+    }
+    return NO;
+}
+
 
 /**
  *  把ip数据插入到本地
@@ -371,5 +412,147 @@ static JVCLocalDeviceDateBaseHelp *shareLocalDeviceDataBaseHelper = nil;
     return NO;
 
 }
+
+#pragma mark ===============================
+/**
+ *  获取所有的本地设备列表
+ *
+ *  @return 设备列表数组
+ */
+- (NSMutableArray *)getOldAllLocalDeviceList
+{
+    
+    NSString *path = [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:(NSString *)sqlString];
+    
+     FMDatabase *localOldDeviceSqlite = [FMDatabase databaseWithPath:path];
+
+    NSMutableArray *userArray = [[[NSMutableArray alloc] init] autorelease];
+    
+    if ([localOldDeviceSqlite open]) {
+        
+        NSString *sqlStr = [NSString stringWithFormat:@"SELECT * FROM addSource "];
+        
+        FMResultSet *rsSet = [localDeviceSqlite executeQuery:sqlStr];
+        
+        while ([rsSet next]) {
+            
+            NSString *strDeviceYST= [rsSet stringForColumn:@"yunshitongNum"];
+            NSString *strUserName = [rsSet stringForColumn:@"userName"];
+            NSString *strPassWord = [rsSet stringForColumn:@"password"];
+            int iLintType = [rsSet intForColumn:@"linkType"];
+            NSString *strIP = [rsSet stringForColumn:@"ip"];
+            NSString *strPort = [rsSet stringForColumn:@"port"];
+            NSString *strNickName = [rsSet stringForColumn:@"channelName"];
+            NSString *strChannelNum = [rsSet stringForColumn:@"channelNumber"];
+            int deviceType =  [rsSet intForColumn:@"windowindex"];
+            BOOL bISCUSTOMLINKMODEL=  [rsSet boolForColumn:@"windowindex"];
+            BOOL bIpAddState=  [rsSet boolForColumn:@"ISIPADD"];
+            
+            if (deviceType == OldDeviceType_Device) {
+                
+                JVCDeviceModel *deviceModel = [[JVCDeviceModel alloc]initDeviceWithYstNum:strDeviceYST
+                                                                                 nickName:strNickName
+                                                                           deviceUserName:strUserName
+                                                                           devicePassWord:strPassWord
+                                                                                 deviceIP:strIP
+                                                                               devicePort:strPort
+                                                                        deviceOnlineState:1
+                                                                           deviceLinkType:iLintType
+                                                                            deviceHasWifi:1
+                                                                 devicebICustomLinckModel:bISCUSTOMLINKMODEL
+                                                                               ipAddState:bIpAddState];
+                [userArray addObject:deviceModel];
+                
+                [deviceModel release];
+
+            }else{
+            
+                JVCChannelModel *channelMode = [[JVCChannelModel alloc] initChannelWithystNum:strDeviceYST nickName:strNickName channelNum:strChannelNum.intValue ];
+                
+                [userArray addObject:channelMode];
+                
+                [channelMode release];
+            }
+            
+      
+        }
+        [localDeviceSqlite close];
+        
+    }
+    return userArray;
+}
+
+/**
+ * 把老数据转化为新数据存到数据库中
+ */
+- (void)converOldDeviceListInDateFame
+{
+    
+    DBHelper *helpDate = [[DBHelper alloc]init];
+    NSArray *array = [helpDate querySourceListData:0];
+    
+    for (JVCOldSouchModel *model in array) {
+        
+        if (model.windowIndex == OldDeviceType_Device) {
+            
+            JVCDeviceModel *deviceModel = [[JVCDeviceModel alloc]initDeviceWithYstNum:model.yunShiTongNum
+                                                                             nickName:model.channelName
+                                                                       deviceUserName:model.userName
+                                                                       devicePassWord:model.password
+                                                                             deviceIP:@""
+                                                                           devicePort:@""
+                                                                    deviceOnlineState:1
+                                                                       deviceLinkType:0
+                                                                        deviceHasWifi:1
+                                                             devicebICustomLinckModel:0
+                                                                           ipAddState:0];
+
+            
+            [self convertOldDeviceToDataBase:deviceModel.yunShiTongNum deviceName:deviceModel.userName passWord:deviceModel.passWord nickName:deviceModel.nickName];
+            
+            [deviceModel release];
+
+        }else{
+            
+            JVCChannelModel *channelMode = [[JVCChannelModel alloc] initChannelWithystNum:model.yunShiTongNum nickName:model.channelName channelNum:model.channelNumber.intValue ];
+
+            [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] addLocalChannelToDataBase:channelMode.strDeviceYstNumber nickName:channelMode.strNickName ChannelSortNum:channelMode.nChannelValue];
+
+        }
+    }
+    
+    [helpDate release];
+    
+    [self deleteOldLocalDateBase];
+}
+
+/**
+ *  删除数据库
+ *
+ *  @return yes成功  no 失败
+ */
+- (BOOL )deleteOldLocalDateBase
+{
+    BOOL success;
+    NSError *error;
+    NSString *path = [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:(NSString *)sqlString];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    FMDatabase *localOldDeviceSqlite = [FMDatabase databaseWithPath:path];
+
+    // delete the old db.
+    if ([fileManager fileExistsAtPath:path])
+    {
+        [localOldDeviceSqlite close];
+        success = [fileManager removeItemAtPath:path error:&error];
+        if (!success) {
+            NSAssert1(0, @"Failed to delete old database file with message '%@'.", [error localizedDescription]);
+            
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 @end

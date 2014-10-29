@@ -41,4 +41,15 @@
  *  @return 通道实体
  */
 -(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum idNum:(int)idNum ;
+
+/**
+ *  初始化通道实体
+ *
+ *  @param ystNum     云视通
+ *  @param nickName   昵称
+ *  @param channelNum 通道号
+ *
+ *  @return 通道实体
+ */
+-(id)initChannelWithystNum:(NSString *)ystNum nickName:(NSString *)nickName  channelNum:(int )channelNum;
 @end

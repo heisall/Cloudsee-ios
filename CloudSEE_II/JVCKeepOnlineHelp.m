@@ -205,6 +205,8 @@ UIAlertView *alertView;
  */
 -(void)serverPushCallBack:(int)message_type serverPushData:(NSData *)serverPushData
 {
+    
+    DDLogVerbose(@"%d=========",message_type);
     switch (message_type) {
             
         case NOTIFY_OFFLINE:
@@ -218,7 +220,7 @@ UIAlertView *alertView;
          case RECIVE_PUSH_MESSAGE://报警的
             break;
             
-        case RECIVE_PUSH_MESSAGE_NEW://报警的
+        case RECIVE_PUSH_MESSAGE_NEW://新报警的
             
             [self performSelectorOnMainThread:@selector(dealWithCurrentAlarm:) withObject:serverPushData waitUntilDone:NO];
 
@@ -454,7 +456,7 @@ UIAlertView *alertView;
                 
             }else{
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"登录失败"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"AlertkeepLineError_loginin_error")];
                 //跳转到登录界面
                 [self keepOnLineErrorToPresentLoginViewController];
 

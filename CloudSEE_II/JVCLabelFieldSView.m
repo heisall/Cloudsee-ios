@@ -85,6 +85,7 @@ static const int   KLabelFont       = 16;//label的字体大小
         textField = [[UITextField alloc] initWithFrame:CGRectMake(label.right+KLabelFieldSpan, label.top, image.size.width, image.size.height)];
         textField.backgroundColor = [UIColor colorWithPatternImage:image];
         textField.leftViewMode = UITextFieldViewModeAlways;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textField.keyboardType = UIKeyboardTypeASCIICapable;
         textField.returnKeyType = UIReturnKeyDone;
@@ -108,7 +109,7 @@ static const int   KLabelFont       = 16;//label的字体大小
     UIImage *imagebtn = [[UIImage alloc] initWithContentsOfFile:btnPath];
     btnClick = [UIButton buttonWithType:UIButtonTypeCustom];
     btnClick.frame = CGRectMake(frameTextFildButton.origin.x, frameTextFildButton.origin.y+frameTextFildButton.size.height+KSpan+5, frameTextFildButton.size.width, imagebtn.size.height+10);
-    [btnClick setTitle:@"完成" forState:UIControlStateNormal];
+    [btnClick setTitle:LOCALANGER(@"JVCLabelFieldSView_save") forState:UIControlStateNormal];
     [btnClick setBackgroundImage:imagebtn forState:UIControlStateNormal];
     [btnClick addTarget:self action:@selector(editBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnClick];

@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"帮助界面";
+    self.title = LOCALANGER(@"more_help_title");
     NSString *pathImage = [UIImage imageBundlePath:LOCALANGER(@"more_aphelp")];
     
     UIImage  *iamgeAp  = [[UIImage alloc] initWithContentsOfFile:pathImage];

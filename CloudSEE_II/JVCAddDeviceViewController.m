@@ -18,6 +18,7 @@
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCConfigModel.h"
+#import "JVCLabelFieldSView.h"
 
 
 
@@ -43,6 +44,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     UIButton *btnAP;//Ap按钮
     BOOL   isShowUSerAndPW;//旋转的标志
     CGRect rectRectFrame;  //原始的数据
+    JVCLabelFieldSView *contentView;
 }
 
 @end
@@ -90,207 +92,33 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     self.title = LOCALANGER(@"jvc_addDevice_title");
 
-    rectRectFrame = self.view.frame;
+    contentView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    contentView.delegate = self;
+    [contentView initViewWithTitlesArray:[NSArray arrayWithObjects:LOCALANGER(@"jvc_addDevice_YstNUm"),LOCALANGER(@"jvc_addDevice_userName"),LOCALANGER(@"jvc_addDevice_password"),nil]  ];
     
-    UIControl *controlBg = [[UIControl alloc] initWithFrame:self.view.frame];
-    [controlBg addTarget:self action:@selector(resignADDDeviceTextFields) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:controlBg];
-    [controlBg release];
+    [self.view addSubview:contentView];
     
-    UIColor *textColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroTextFontColor];
 
-        
-   //云视通号
-    UIImage *imgTextFieldBG = [UIImage imageNamed:@"addDev_textFiedlBg.png"];
-    textFieldYST = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, TESTORIIGIN_Y, imgTextFieldBG.size.width, imgTextFieldBG.size.height)];
-    textFieldYST.background = imgTextFieldBG;
-    textFieldYST.textAlignment = UITextAlignmentRight;
-    textFieldYST.returnKeyType = UIReturnKeyDone;
-    textFieldYST.delegate = self;
-    
-    if (textColor) {
-        textFieldYST.textColor = textColor;
-    }
-    textFieldYST.keyboardType = UIKeyboardTypeASCIICapable;
-    [self.view addSubview:textFieldYST];
-    
-    UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
-    labelLeft.backgroundColor = [UIColor clearColor];
-    labelLeft.text = LOCALANGER(@"jvc_addDevice_YstNUm");
-    if (textColor) {
-        labelLeft.textColor = textColor;
-    }
-    labelLeft.textAlignment = UITextAlignmentLeft;
-    labelLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
-    textFieldYST.leftViewMode = UITextFieldViewModeAlways;
-    textFieldYST.leftView = labelLeft;
-    textFieldYST.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
-
-    [labelLeft release];
-    UILabel *labelRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
-    labelRight.backgroundColor = [UIColor clearColor];
-    textFieldYST.rightViewMode = UITextFieldViewModeAlways;
-    textFieldYST.rightView = labelRight;
+    //云视通
+    textFieldYST = [contentView textFieldWithIndex:0];
     [textFieldYST becomeFirstResponder];
-    [labelRight release];
-    
+    textFieldYST.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    textFieldYST.delegate = self;
     //用户名
-    textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldYST.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
-    textFieldUserName.background = imgTextFieldBG;
+    textFieldUserName = [contentView textFieldWithIndex:1];
     textFieldUserName.delegate = self;
-    textFieldUserName.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
-    textFieldUserName.returnKeyType = UIReturnKeyDone;
-    textFieldUserName.textAlignment = UITextAlignmentRight;
-    if (textColor) {
-        textFieldUserName.textColor = textColor;
-    }
-    textFieldUserName.text = (NSString *)DefaultUserName;
-    textFieldUserName.keyboardType = UIKeyboardTypeASCIICapable;
-    [self.view addSubview:textFieldUserName];
-    UILabel *labelNameLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
-    labelNameLeft.backgroundColor = [UIColor clearColor];
-    labelNameLeft.text = LOCALANGER(@"jvc_addDevice_userName");
-    if (textColor) {
-        labelNameLeft.textColor = textColor;
-    }
-    labelNameLeft.textAlignment = UITextAlignmentLeft;
-    labelNameLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
-    textFieldUserName.leftViewMode = UITextFieldViewModeAlways;
-    textFieldUserName.leftView = labelNameLeft;
-    [labelNameLeft release];
-    UILabel *labelUserRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
-    labelUserRight.backgroundColor = [UIColor clearColor];
-    textFieldUserName.rightViewMode = UITextFieldViewModeAlways;
-    textFieldUserName.rightView = labelUserRight;
-    [labelUserRight release];
-    textFieldUserName.hidden = YES;
-    
-    //密码
-    textFieldPassWord = [[UITextField alloc] initWithFrame:CGRectMake((self.view.width- imgTextFieldBG.size.width)/2.0, textFieldUserName.bottom+SEPERATE, textFieldYST.width, textFieldYST.height)];
-    textFieldPassWord.background = imgTextFieldBG;
-    textFieldPassWord.contentVerticalAlignment  =  UIControlContentVerticalAlignmentCenter;
-    textFieldPassWord.textAlignment = UITextAlignmentRight;
-    textFieldPassWord.keyboardType = UIKeyboardTypeASCIICapable;
-    textFieldPassWord.delegate = self;
-    textFieldPassWord.returnKeyType = UIReturnKeyDone;
     textFieldPassWord.text = (NSString *)DefaultPassWord;
 
-    if (textColor) {
-        
-        textFieldPassWord.textColor = textColor;
-    }
+    //ip用户名
+    textFieldPassWord = [contentView textFieldWithIndex:2];
+    textFieldPassWord.text =(NSString *)DefaultUserName;
+    textFieldPassWord.delegate = self;
     textFieldPassWord.secureTextEntry = YES;
-    [self.view addSubview:textFieldPassWord];
-    UILabel *labelPassLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, DEFAULTLABELWITH, imgTextFieldBG.size.height)];
-    labelPassLeft.backgroundColor = [UIColor clearColor];
-    if (textColor) {
-        
-        labelPassLeft.textColor = textColor;
-    }
-    labelPassLeft.text = LOCALANGER(@"jvc_addDevice_password");
-    labelPassLeft.textAlignment = UITextAlignmentLeft;
-    labelPassLeft.font = [UIFont systemFontOfSize:DEFAULRESIGNTFONTSIZE];
-    textFieldPassWord.leftViewMode = UITextFieldViewModeAlways;
-    textFieldPassWord.leftView = labelPassLeft;
-    [labelPassLeft release];
-    UILabel *labelPassRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, imgTextFieldBG.size.height)];
-    labelPassRight.backgroundColor = [UIColor clearColor];
-    textFieldPassWord.rightViewMode = UITextFieldViewModeAlways;
-    textFieldPassWord.rightView = labelPassRight;
-    [labelPassRight release];
-    textFieldPassWord.hidden = YES;
-
-
-    UIImage *imgBtnNor = [UIImage imageNamed:@"addDev_btnHor.png"];
-    UIImage *imgBtnHor = [UIImage imageNamed:@"addDev_btnNor.png"];
-    int seperate = (self.view.width -2*imgBtnNor.size.width)/3.0;
-//    //高级按钮
-//    btnAdvace = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btnAdvace.frame = CGRectMake(seperate, textFieldYST.bottom+SEPERATE, imgBtnNor.size.width, imgBtnNor.size.height);
-//    [btnAdvace setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-//    [btnAdvace setTitle:@"高级" forState:UIControlStateNormal];
-//    [btnAdvace addTarget:self action:@selector(showUserAndPW) forControlEvents:UIControlEventTouchUpInside];
-//    [btnAdvace setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-//    [self.view addSubview:btnAdvace];
-    
-    [self showUserAndPW];
-    
-    //保存按钮
-    btnSave = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnSave.frame = CGRectMake(seperate, textFieldPassWord.bottom+SEPERATE, self.view.width - 2*seperate, imgBtnNor.size.height);
-    [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-    [btnSave setTitle:LOCALANGER(@"jvc_addDevice_save") forState:UIControlStateNormal];
-    [btnSave addTarget:self action:@selector(saveDevice) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnSave];
-    
-    //ap按钮
-//    btnAP = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btnAP.frame = CGRectMake(btnAdvace.left, btnAdvace.bottom+SEPERATE, self.view.width - 2*seperate, btnSave.frame.size.height);
-//    [btnAP setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-//    [btnAP setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
-//    [btnAP setTitle:@"添加无线设备" forState:UIControlStateNormal];
-//    [btnAP addTarget:self action:@selector(AddWlanDevice) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btnAP];
-    
-    
+    textFieldUserName.text = (NSString *)DefaultUserName;
+    textFieldYST.keyboardType = UIKeyboardTypeASCIICapable;
 
 }
 
-- (void)showUserAndPW
-{
-    isShowUSerAndPW =!isShowUSerAndPW;
-    CATransition  *animation = [CATransition animation];
-    animation.duration = 0.5;
-    animation.type = @"rippleEffect";
-    //  animation.subtype = kCATransitionFromRight;
-    
-    [self showNameAndPw];
-    [self.view.layer addAnimation:animation forKey:nil];
-    
-}
-
-- (void)showNameAndPw
-{
-    UIImage *tImageBG = [UIImage imageNamed:@"addDev_textFiedlBg.png"];
-    if (isShowUSerAndPW) {
-        CGRect rectFrame =btnAdvace.frame;
-        rectFrame.origin.y +=2*(SEPERATE+tImageBG.size.height);
-        btnAdvace.frame = rectFrame;
-        
-        CGRect rectFrameSave =btnSave.frame;
-        rectFrameSave.origin.y +=2*(SEPERATE+tImageBG.size.height);
-        btnSave.frame = rectFrameSave;
-        
-        textFieldPassWord.hidden = NO;
-        textFieldUserName.hidden = NO;
-        [btnAdvace setTitle:LOCALANGER(@"jvc_addDevice_back") forState:UIControlStateNormal];
-      //  btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
-    }else{
-        CGRect rectFrame =btnAdvace.frame;
-        rectFrame.origin.y -=2*(SEPERATE+tImageBG.size.height);
-        btnAdvace.frame = rectFrame;
-        
-        CGRect rectFrameSave =btnSave.frame;
-        rectFrameSave.origin.y -=2*(SEPERATE+tImageBG.size.height);
-        btnSave.frame = rectFrameSave;
-        [btnAdvace setTitle:LOCALANGER(@"jvc_addDevice_advance") forState:UIControlStateNormal];
-        
-        textFieldPassWord.hidden = YES;
-        textFieldUserName.hidden = YES;
-        //btnAP.frame = CGRectMake(textFieldYST.frame.origin.x,btnAdvace.frame.origin.y+SEPERATE+btnAdvace.frame.size.height, textFieldYST.frame.size.width, btnAP.height);
-        
-    }
-    
-    
-}
-
-- (void)AddWlanDevice
-{
-    JVCAPConfigPreparaViewController *configViewController = [[JVCAPConfigPreparaViewController alloc] init];
-    [self.navigationController pushViewController:configViewController animated:YES];
-    [configViewController release];
-}
 /**
  *  保存云视通到账号,备注这里的“abc” “123”都用不动，只是为了让她满足正则，主要方便本地添加设备
  */
@@ -317,7 +145,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 
             }else{//开始添加
                 
-                [self  addDeviceToAccount:textFieldYST.text deviceUserName:textFieldUserName.text passWord:textFieldPassWord.text];
+                [self  addDeviceToAccount:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text passWord:textFieldPassWord.text];
             }
         
     }else{
@@ -337,7 +165,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text userName:textFieldUserName.text password:textFieldPassWord.text];
+        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -357,11 +185,14 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
 - (void)getNewAddDeviceInfo
 {
+
+    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
+
     [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:textFieldYST.text ];
+        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:textFieldYST.text.uppercaseString ];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -378,8 +209,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                     /**
                      *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
                      */
-                    
-                  JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text];
+                  JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text.uppercaseString];
                     
                     [tempMode retain];
                     
@@ -390,7 +220,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                     [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
                     
                     //从云视通服务器获取设备的通道数
-                    [self getDeviceChannelNums:textFieldYST.text];
+                    [self getDeviceChannelNums:textFieldYST.text.uppercaseString];
                     [tempMode release];
 
                     
@@ -450,17 +280,14 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //把通道数添加到服务器
-      int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:textFieldYST.text addChannelCount:channelNum];
+      int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:textFieldYST.text.uppercaseString addChannelCount:channelNum];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (ADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
-                /**
-                 *  删除云视通号
-                 */
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:textFieldYST.text];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDeviceChannel_Error")];
+       
                 
             }else{//成功后，获取设备的所有信息
             
@@ -482,7 +309,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:textFieldYST.text];
+        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:textFieldYST.text.uppercaseString];
         DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -492,7 +319,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:channelAllInfoMdic]  ) {
                 
                 //把获取的设备通道信息的josn数据转换成model集合
-                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text];
+                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text.uppercaseString];
                 
                     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
                 if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
@@ -506,14 +333,9 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 
             }else{//空
                 
-             //   [self serachCloseFindDevice];
+             //   [self serachCloseFindDevice];JDCSVC_GetDeviceChannel_Error
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_adddevice_addChannel_error")];
                 
-                /**
-                 *  删除云视通号
-                 */
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:textFieldYST.text];
-
             }
             
 
@@ -524,10 +346,38 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self setTextFieldStateNormal];
+    [self setTextFieldStateSelect:textField];
+    
     if (textField == textFieldPassWord) {
         
         [self addDeviceSlideUp];
     }
+}
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateNormal
+{
+
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textFieldYST setBackground:image];
+    [textFieldUserName setBackground:image];
+    [textFieldPassWord setBackground:image];
+    [image release];
+}
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateSelect:(UITextField *)textField
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field_sec.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textField setBackground:image];
+    [image release];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -601,6 +451,29 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)dealloc
+{
+    [contentView release];
+    
+    [super dealloc];
+}
+
+/**
+ *  按钮按下的回调
+ */
+- (void)JVCLabelFieldBtnClickCallBack
+{
+    [self saveDevice];
+}
+
+/**
+ *  背景被按下的回调
+ */
+- (void)touchUpInsiderBackGroundCallBack
+{
+    [self resignADDDeviceTextFields];
+}
 
 /*
 #pragma mark - Navigation

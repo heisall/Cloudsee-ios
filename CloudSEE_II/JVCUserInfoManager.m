@@ -7,8 +7,8 @@
 //
 
 #import "JVCUserInfoManager.h"
-
-
+#import "JVCSystemUtility.h"
+#import "JVCDataBaseHelper.h"
 /**
  *  账号信息
  */
@@ -190,6 +190,30 @@ static JVCUserInfoManager *shanreInstance = nil;
     [[JVCUserInfoManager shareUserInfoManager] setStrUserName:userName];
     [[JVCUserInfoManager shareUserInfoManager] setStrPassword:passWord];
     
+}
+
+/**
+ *  把老的用户放到新的数据库中
+ */
+- (void)convertOldUserInfoToDateBase
+{
+    JVCSystemUtility *systemUtility =  [JVCSystemUtility shareSystemUtilityInstance];
+    NSString *tPathlist = [systemUtility getUserInfoPlistPath];
+    NSMutableArray *tOldUserArray = [[NSMutableArray alloc] initWithContentsOfFile:tPathlist];
+    
+    JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
+
+    for (NSDictionary *tDirUser in tOldUserArray) {
+        
+
+       NSString *passWord   = [tDirUser objectForKey:(NSString *)USERINFO_PW];
+       NSString *userName   = [tDirUser objectForKey:(NSString *)USERINFO_NAME];
+        int nLoginInter = (int )[tDirUser objectForKey:(NSString *)USERINFO_TIMER];
+        [fmdbHelp writeOldUserInfoToDataBaseWithUserName:userName passWord:passWord loginTimer:nLoginInter];
+    }
+    
+    [systemUtility removeOldUserPlist];
+
 }
 
 @end

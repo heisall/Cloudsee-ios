@@ -50,7 +50,7 @@ static const int KOriginAddHeight = 30;
     
     [self  initContentView];
     
-    self.title = @"添加设备";
+    self.title = LOCALANGER(@"jvc_alarmDevice_title");
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,7 +63,7 @@ static const int KOriginAddHeight = 30;
 - (void)initContentView
 {
     JVCControlHelper *controlHelper = [JVCControlHelper shareJVCControlHelper];
-    UIButton *btn  = [controlHelper buttonWithTitile:@"门磁设备" normalImage:@"arm_dev_dor.png" horverimage:nil];
+    UIButton *btn  = [controlHelper buttonWithTitile:LOCALANGER(@"jvc_alarmDevice_door") normalImage:@"arm_dev_dor.png" horverimage:nil];
     btn.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     
     int seperateSize = (self.view.width - 2*btn.width)/3.0;
@@ -72,14 +72,14 @@ static const int KOriginAddHeight = 30;
     [btn addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
-    UIButton *btnBra  = [controlHelper buttonWithTitile:@"手环设备" normalImage:@"arm_dev_Bra.png" horverimage:nil];
+    UIButton *btnBra  = [controlHelper buttonWithTitile:LOCALANGER(@"jvc_alarmDevice_hand") normalImage:@"arm_dev_Bra.png" horverimage:nil];
     btnBra.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     btnBra.frame = CGRectMake(btn.right+seperateSize, btn.top, btn.width, btn.height);
     btnBra.tag = KBtnTagBra;
     [btnBra addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnBra];
     
-    UIButton *btnhand  = [controlHelper buttonWithTitile:@"遥控器设备" normalImage:@"arm_dev_hand.png" horverimage:nil];
+    UIButton *btnhand  = [controlHelper buttonWithTitile:LOCALANGER(@"jvc_alarmDevice_control")  normalImage:@"arm_dev_hand.png" horverimage:nil];
     btnhand.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     btnhand.frame = CGRectMake(btn.left , btn.bottom+KOriginAddHeight, btn.width, btn.height);
     btnhand.tag = KBtnTagHand;
@@ -221,10 +221,10 @@ static const int KOriginAddHeight = 30;
                     [self editLockDeviceNickName:tdic];
                     break;
                 case AlarmLockTypeRes_Fail:
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmDevice_addError")];
                     break;
                 case AlarmLockTypeRes_MaxCount:
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"超过最大绑定值"];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmDevice_addMaxNum")];
                     break;
                 case AlarmLockTypeRes_HasAdd:{
                     //根据guid去检索设备
@@ -241,7 +241,7 @@ static const int KOriginAddHeight = 30;
     }else{
     
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"绑定失败"];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmDevice_addError")];
 
     }
 }
@@ -253,10 +253,10 @@ static const int KOriginAddHeight = 30;
     NSString *nickName = [self getDevicehasExistNickName:dguid];
     if (nickName.length>0) {
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"%@重复绑定",nickName]];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"%@%@",nickName,LOCALANGER(@"jvc_alarmDevice_addhasexist")]];
 
     }else{
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"重复绑定"]];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:[NSString stringWithFormat:@"%@",LOCALANGER(@"jvc_alarmDevice_addhasexist")]];
 
     }
 }
@@ -298,9 +298,6 @@ static const int KOriginAddHeight = 30;
         
      
     }
-   
-    
-   
 }
 
 

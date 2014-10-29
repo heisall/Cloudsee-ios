@@ -29,6 +29,7 @@ enum ButtomPressType
 
 enum VideoStreamType
 {
+    VideoStreamType_NoSupport = -1,//不支持
     VideoStreamType_Default = 0,//默认
     VideoStreamType_HD,        //高清
     VideoStreamType_SD,        //标清

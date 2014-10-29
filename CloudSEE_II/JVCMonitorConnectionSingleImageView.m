@@ -797,7 +797,7 @@ float min_offset;
     if (connectInfo == nil) {
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
-        connectInfoTV.text     = @"正在努力加载视频数据\n请等待...";
+        connectInfoTV.text     = LOCALANGER(@"JVCMonitorConnectionSingleImageView_connecting");
         
     }else{
         

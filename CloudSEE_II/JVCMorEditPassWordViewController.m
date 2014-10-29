@@ -120,13 +120,13 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     /**
      *  用户名
      */
-    UIImage *tImage = [UIImage imageNamed:@"mor_edtPW.png"];
+    UIImage *tImage = [UIImage imageNamed:@"tex_field.png"];
     UITextField  * _textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake(20, 20+textFieldType*(tImage.size.height+TEXTFIELD_SEPERATE), tImage.size.width, tImage.size.height) ];
     _textFieldUserName.delegate = self;
     _textFieldUserName.borderStyle = UITextBorderStyleNone;
     _textFieldUserName.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     _textFieldUserName.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [_textFieldUserName setBackground:tImage];
+    _textFieldUserName.background = tImage;
     _textFieldUserName.returnKeyType = UIReturnKeyDone;
     _textFieldUserName.autocorrectionType = UITextAutocorrectionTypeNo;
     _textFieldUserName.textAlignment = UITextAlignmentLeft;
@@ -136,6 +136,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
         _textFieldUserName.textColor = grayClor;
     }
     UILabel *labelLeftView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KTextFieldLeftLabelViewWith, _textFieldUserName.height)];
+    labelLeftView.backgroundColor = [UIColor clearColor];
     _textFieldUserName.leftViewMode = UITextFieldViewModeAlways;
     _textFieldUserName.leftView = labelLeftView;
     [labelLeftView release];
@@ -167,7 +168,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
  */
 - (void)initSaveBtn
 {
-    UIImage *tImageBtn = [UIImage imageNamed:@"mor_editPwdBtnBg.png"];
+    UIImage *tImageBtn = [UIImage imageNamed:@"btn_Bg.png"];
     UIButton *tFinishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     tFinishBtn.frame = CGRectMake(20, _textFieldEnSurePassWord.frame.size.height+_textFieldEnSurePassWord.frame.origin.y+30, tImageBtn.size.width, tImageBtn.size.height);
     [tFinishBtn addTarget:self action:@selector(modifyUserPassWord) forControlEvents:UIControlEventTouchUpInside];
@@ -239,11 +240,53 @@ static const int kPredicateSuccess   = 0;//正则校验成功
     return YES;
 }
 
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self setTextFieldStateNormal];
+    [self setTextFieldStateSelect:textField];
+    
+    if (textField == _textFieldEnSurePassWord) {
+        
+        [self editPwdSlideUp];
+    }
+}
+
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateNormal
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [_textFieldOldPassWord setBackground:image];
+    [_textFieldNewPassWord setBackground:image];
+    [_textFieldEnSurePassWord setBackground:image];
+    [image release];
+}
+
+/**
+ *  设置backGround的背景颜色
+ */
+- (void)setTextFieldStateSelect:(UITextField *)textField
+{
+    NSString *imagePath = [UIImage imageBundlePath:@"tex_field_sec.png"];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    [textField setBackground:image];
+    [image release];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     [self editPwdSlideDown];
     return YES;
+}
+
+//
+- (void)setTextFieldNormal
+{
 }
 /**
  *  注销用户
@@ -255,15 +298,6 @@ static const int kPredicateSuccess   = 0;//正则校验成功
         [[JVCAccountHelper sharedJVCAccountHelper] UserLogout];
         
     });
-}
-
-#pragma textfield的delegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if (textField == _textFieldEnSurePassWord) {
-        
-        [self editPwdSlideUp];
-    }
 }
 
 

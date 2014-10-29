@@ -174,10 +174,9 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     //自动下拉刷新
     //[_tableView headerBeginRefreshing];
     
-    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
-    _mTableView.headerPullToRefreshText = @"下拉可以刷新";
-    _mTableView.headerReleaseToRefreshText = @"松开马上刷新";
-    _mTableView.headerRefreshingText = @"正在刷新中";
+    _mTableView.headerPullToRefreshText = LOCALANGER(@"jvc_PullToRefreshText");
+    _mTableView.headerReleaseToRefreshText = LOCALANGER(@"jvc_PullReleaseToRefreshText");
+    _mTableView.headerRefreshingText = LOCALANGER(@"jvc_PullRefreshingText");
 }
 
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface JVCSystemUtility : NSObject
 
 + (JVCSystemUtility *)shareSystemUtilityInstance;
@@ -152,5 +153,17 @@
  *  打开itunes 评论功能
  */
 - (void) openItunsCommet;
+
+/**
+ *  返回保存用户名密码的plist路径
+ *
+ *  @return 路径
+ */
+- (NSString *)getUserInfoPlistPath;
+
+//返回保存用户名密码的plist路径
+- (BOOL )removeOldUserPlist;
+
+
 
 @end

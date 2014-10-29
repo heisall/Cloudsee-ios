@@ -191,11 +191,19 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
  */
 - (JVCDeviceModel *)convertDeviceDictionToModelAndInsertDeviceList:(NSDictionary *)deviceInfoDic withYSTNUM:(NSString *)YSTNum
 {
-    JVCDeviceModel *_model = [[JVCDeviceModel alloc] initWithADDDeviceDictionary:deviceInfoDic YSTNUM:YSTNum];
-    
-    [deviceArray insertObject:_model atIndex:0];
-    
-    return _model;
+    JVCDeviceModel *model = [[JVCDeviceModel alloc] initWithADDDeviceDictionary:deviceInfoDic YSTNUM:YSTNum];
+    if ([self judgeDeviceHasExist:model.yunShiTongNum]) {
+        JVCDeviceModel *modelHasExist =  [self getDeviceModelByYstNumber:model.yunShiTongNum];
+        modelHasExist.onLineState    = model.onLineState;
+        modelHasExist.hasWifi        = model.hasWifi;
+        
+        return modelHasExist;
+    }else{
+        
+        [deviceArray insertObject:model atIndex:0];
+
+    }
+    return model;
 }
 
 /**
