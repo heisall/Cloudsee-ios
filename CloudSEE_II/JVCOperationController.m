@@ -1014,6 +1014,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
+    _managerVideo.isShowVideo = TRUE;
     [self shouldAutorotate];
     [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
     
@@ -1037,6 +1038,11 @@ char remoteSendSearchFileBuffer[29] = {0};
         [self changeRotateFromInterfaceOrientationFrame:YES];
     }
     
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+
+    _managerVideo.isShowVideo = FALSE;
 }
 
 

@@ -35,7 +35,7 @@ enum showWindowNumberType{
 @synthesize amChannelListData,_operationController,imageViewNums;
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
 @synthesize strSelectedDeviceYstNumber,delegate;
-@synthesize isPlayBackVideo;
+@synthesize isPlayBackVideo,isShowVideo;
 
 static const int  kPlayViewDefaultMaxValue            = showWindowNumberType_Four;
 static const int  kPlayVideoWithFullFramCriticalValue = 4;
@@ -770,6 +770,11 @@ BOOL isAllLinkRun;
                    withVideoType:(BOOL)isVideoType{
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
+    
+    if (isShowVideo) {
+        
+        return;
+    }
     
     //05版显示
     if (isVideoType) {

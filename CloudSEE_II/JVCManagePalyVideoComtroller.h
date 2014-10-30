@@ -51,6 +51,8 @@ enum CONNECTALLDEVICE{
     id<JVCManagePalyVideoComtrollerDelegate> delegate;
     
     BOOL                    isPlayBackVideo;          //YES 远程回放模式
+    
+    BOOL                    isShowVideo;
 
 }
 
@@ -61,6 +63,7 @@ enum CONNECTALLDEVICE{
 @property (nonatomic,retain) NSString               *strSelectedDeviceYstNumber;
 @property (nonatomic,assign) BOOL                     isPlayBackVideo;
 @property (nonatomic,assign) id<JVCManagePalyVideoComtrollerDelegate> delegate;
+@property (nonatomic,assign) BOOL                     isShowVideo;
 
 /**
  *  初始化视频播放的窗口布局
