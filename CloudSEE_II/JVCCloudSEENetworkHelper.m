@@ -588,6 +588,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 JVCVideoDecoderHelperObj.nVideoWidth          = width;
                 JVCVideoDecoderHelperObj.nVideoHeight         = height;
                 
+                [currentChannelObj qualityChangeContinueRecoderVideo];
+                
             }
             
             JVCVideoDecoderHelperObj.dVideoframeFrate     = [ystNetworkHelperCMObj getPlayVideoframeFrate:startCode buffer_O:pBuffer buffer_O_size:nSize nAudioType:&nAudioType];
@@ -1159,6 +1161,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
                  */
                 playBackDecoderObj.nVideoWidth       = width;
                 playBackDecoderObj.nVideoHeight      = height;
+                [currentChannelObj qualityChangeContinueRecoderVideo];
             }
             
             playBackDecoderObj.dVideoframeFrate      = frameRate;

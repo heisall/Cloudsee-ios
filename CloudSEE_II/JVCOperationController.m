@@ -1103,7 +1103,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(BOOL)isCheckCurrentSingleViewGlViewHidden{
     
     
-     JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
+     JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
     
     return [(UIView *)singleView._glView isHidden];
     
@@ -1794,7 +1794,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    JVCMonitorConnectionSingleImageView  *_singView = (JVCMonitorConnectionSingleImageView*)[_managerVideo viewWithTag:WINDOWSFLAG+_managerVideo.nSelectedChannelIndex];
+                    JVCMonitorConnectionSingleImageView  *_singView = (JVCMonitorConnectionSingleImageView*)[_managerVideo viewWithTag:KWINDOWSFLAG+_managerVideo.nSelectedChannelIndex];
                     [_singView hiddenSlider];
                     
                 });
@@ -1844,7 +1844,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         {
             dispatch_async(dispatch_get_main_queue(), ^{
             
-                JVCMonitorConnectionSingleImageView  *_singView = (JVCMonitorConnectionSingleImageView*)[_managerVideo viewWithTag:WINDOWSFLAG+_managerVideo.nSelectedChannelIndex];
+                JVCMonitorConnectionSingleImageView  *_singView = (JVCMonitorConnectionSingleImageView*)[_managerVideo viewWithTag:KWINDOWSFLAG+_managerVideo.nSelectedChannelIndex];
                 [_singView hiddenSlider];
             
             });
@@ -1897,7 +1897,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         transition.subtype = kCATransitionFromTop;
         transition.delegate = self;
         [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:WINDOWSFLAG+self._iSelectedChannelIndex];
+        JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
         [_singView hiddenSlider];
     }
 }

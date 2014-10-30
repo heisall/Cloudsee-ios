@@ -302,14 +302,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             if (kAddChannelSuccesss == result) {
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_adderror")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_addsuccess")];
                 
                 [self getAllChannels];//重新获取这个设备下面对应的所有的通道数
                 
             }else{
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_addsuccess")];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_adderror")];
             }
         });
         
@@ -332,7 +332,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            if (result ) {//成功
+            if (result) {//成功
                 
                 [[JVCChannelScourseHelper shareChannelScourseHelper]deleteChannelsWithDeviceYstNumber:self.YstNum];
                 
@@ -401,14 +401,14 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     if (kAddChannelSuccesss == reuslt) {//成功
         
         [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_error")];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_success")];
         
         //跟新
         [self updateTableview];
         
     }else{
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_success")];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editChannel_delete_error")];
         
     }
 
@@ -420,19 +420,19 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 - (void)deleteDeviceWhenNoChannels:(JVCChannelModel *)channelModelDelete
 {
     
-            [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:channelModelDelete.strDeviceYstNumber];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:channelModelDelete.strDeviceYstNumber];
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-                    
-                    [self handleDeleteDeviceWithNoChannel:result channelModel:channelModelDelete];
-                });
-                
+                [self handleDeleteDeviceWithNoChannel:result channelModel:channelModelDelete];
             });
+            
+        });
 }
 
 /**

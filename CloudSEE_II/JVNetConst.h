@@ -185,7 +185,7 @@
 #define JVN_NVR_STARTCODE    0x2053564A
 
 
-#define CONNECTINTERVAL   600.0*1000.0f
+#define CONNECTINTERVAL      0.0*1000.0f
 
 
 #define MAX_PATH_01 256
@@ -197,7 +197,6 @@
 #define SOURCELISTIPHONEFIVEWIDTH 160.0
 #define TRYMAXCOUNT 20
 #define MAXIMAGENUMS 25
-#define WINDOWSFLAG 1000
 #define WAITIMAXCOUNT 6
 
 /* ****************************************************************************************************************** */

@@ -17,9 +17,11 @@
 @end
 @implementation JVCRecordVideoHelper
 @synthesize isRecordVideo,isRecordVideoWaitingFrameI;
+@synthesize strPath;
 
 -(void)dealloc{
     
+    [strPath release];
     [super dealloc];
 }
 
@@ -42,6 +44,8 @@
         self.isRecordVideoWaitingFrameI = TRUE;
         
         nRecordViddeoChannelID = nRecordChannelID;
+        
+        self.strPath = strRecordVideoPath;
         
         JP_OpenPackage((char*)[strRecordVideoPath UTF8String],nRecordChannelID,nWidth,nHeight,dRate,0,0);
         
