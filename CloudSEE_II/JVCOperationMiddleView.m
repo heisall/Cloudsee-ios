@@ -54,6 +54,7 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
     
     [self setUnselectImageListWithType];
     
+    [self setSelectImageListWithType];
     /**
      *  设置button数组
      */
@@ -62,18 +63,6 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
     
     self.frame  = frame;
     
-    /**
-     *  清除view上面的控件
-     */
-    for(UIView *viewContent in self.subviews)
-    {
-        [viewContent removeFromSuperview];
-    }
-    
-    /**
-     *  设置选中的颜色背景
-     */
-    [self setSelectImageListWithType];
     
     /**
      *  默认的背景图片
@@ -114,7 +103,6 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
         _LableTitle.textAlignment=NSTextAlignmentCenter;
         [btn addSubview:_LableTitle];
         [_LableTitle setBackgroundColor:[UIColor clearColor]];
-        
 
         btn.tag = TAGADD+i;
         
@@ -177,18 +165,8 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
  */
 - (void)setSelectImageListWithType
 {
-    /**
-     *  btn选中的图标集合
-     */
-    if (!_amSelectedImageNameListData) {
-        
-        _amSelectedImageNameListData = [[NSMutableArray alloc] init];
-        
-    }else{
-        
-        [_amSelectedImageNameListData removeAllObjects];
-        
-    }
+
+    _amSelectedImageNameListData = [[NSMutableArray alloc] init];
     
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn.png"]];
@@ -263,9 +241,8 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
 {
     [_arrayButtons release];
     [_amUnSelectedImageNameListData release];
+    [_amSelectedImageNameListData release];
     [super dealloc];
 }
-
-
 
 @end
