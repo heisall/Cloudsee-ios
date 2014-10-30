@@ -50,10 +50,19 @@ static const NSInteger  BTNTAG = 12683;
     imageView.frame =CGRectMake((contentView.frame.size.width - iamgeDefault.size.width)/2.0, 15, iamgeDefault.size.width, iamgeDefault.size.height);
     if (tAlarmModel.strAlarmLocalPicURL.length>0) {
         
-        UIImage *iamgeAlarm = [[UIImage alloc] initWithContentsOfFile:tAlarmModel.strAlarmLocalPicURL];
+       NSString *stringPath =  [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:@"1414637512.864878.jpg"];
         
-        imageView.image = iamgeAlarm;
-        
+        UIImage *iamgeAlarm = [[UIImage alloc] initWithContentsOfFile:stringPath];
+        if (iamgeAlarm ==nil|| [iamgeAlarm isKindOfClass:[NSNull class]]) {
+            
+            imageView.image = iamgeDefault;
+
+        }else{
+            imageView.image = iamgeAlarm;
+
+        }
+//        imageView.image = iamgeAlarm;
+
         [iamgeAlarm release];
 
     }else{

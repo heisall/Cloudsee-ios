@@ -246,7 +246,6 @@
 "delete_Success" = "删除成功";
 "delete_Failt" = "删除不成功";
 "device_manager"         = "设备管理";
-"device_manager_helper"  = "可添加、修改、删除、远程配置设备";
 "device_scan"            = "扫描";
 "operation_error"        = "操作不成功";
 "device_off_line"        = "设备已处于离线状态,不能进行操作";
@@ -341,8 +340,8 @@
 "Learn audio info at any time"="随时了解音频信息";
 "Adjust PTZ at any time"="随时调整监控画面信息";
 "Check Playback info at any time"="随时查看录像信息";
-"focus"="对焦";
-"Zoom"="变焦";
+"focus"="变焦";
+"Zoom"="变倍";
 "noLocalVideo"="不支持该设备录像.";
 "editDeviceError" = "修改设备失败";
 "addDeviceError" = "添加设备失败";
@@ -490,7 +489,7 @@
 "JVCDeviceMathsHelper_addDevice_HasExist" = "设备列表中已存在";
 "JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
 "JVCDeviceMathsHelper_addDevice_error" = "添加失败";
-"JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数错误";
+"JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数失败";
 
 //JVCEditLockDeviceNickNameViewController
 "JVCEditLockDeviceNickNameViewController_title"= "修改昵称";

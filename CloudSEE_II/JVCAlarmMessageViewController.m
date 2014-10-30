@@ -338,6 +338,8 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:indexPath.section];
     
+    cellModel.bNewAlarm = NO;
+    
     nDeleteRow = indexPath.section;
 
     if (cellModel.strAlarmLocalPicURL.length !=0) {
@@ -578,9 +580,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     
     if (downLoadStatus == JVN_RSP_DOWNLOADOVER) {//成功
         
-        
         if (iDownLoadType == DownLoadType_PIC) {
-            
            
             cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
             
