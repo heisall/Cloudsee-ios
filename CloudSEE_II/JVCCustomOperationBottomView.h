@@ -46,12 +46,7 @@ enum VideoStreamType
 
 @property(nonatomic,assign) id<customBottomDelegate>BottomDelegate;
 
-/**
- *  单例
- *
- *  @return 返回 单例
- */
-+ (JVCCustomOperationBottomView *)shareInstance;
+
 
 /**
  *  初始化播放视频底部view

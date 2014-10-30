@@ -28,7 +28,6 @@ enum OPERATIONBTNCLICKTYPE
 }
 @property(nonatomic,assign)id<OperationMiddleViewIphone5Delegate>delegateIphone5BtnCallBack;
 
-+ (JVCOperationMiddleViewIphone5 *)shareInstance;
 
 /**
  *  这个方法之前，一定要设置view的frame

@@ -52,7 +52,7 @@
  */
 - (void)initOperationControllerMiddleViewwithFrame:(CGRect )newFrame
 {
-    operationBigView=[JVCOperationMiddleViewIphone5 shareInstance];
+    operationBigView=[[JVCOperationMiddleViewIphone5 alloc] init];
     
 
     operationBigView.frame=CGRectMake(newFrame.origin.x, newFrame.origin.y, newFrame.size.width, newFrame.size.height);
@@ -60,6 +60,7 @@
     operationBigView.delegateIphone5BtnCallBack=self;
     [self.view addSubview:operationBigView];
     [self.view setBackgroundColor:SETLABLERGBCOLOUR(239.0, 239.0, 239.0)];
+    [operationBigView release];
     
     JVCCustomYTOView *ytoView = [JVCCustomYTOView shareInstance];
     ytoView.frame = CGRectMake(operationBigView.frame.origin.x,operationBigView.frame.origin.y,operationBigView.frame.size.width,operationBigView.frame.size.height);
@@ -128,7 +129,7 @@
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
-    if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
+    if ([operationBigView getAudioBtnState]) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
@@ -140,7 +141,7 @@
         
         [openAlObj stopSound];
         
-        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
+        [operationBigView setAudioBtnUNSelect];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
@@ -154,7 +155,7 @@
 
         });
         
-        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnSelectWithSkin];
+        [operationBigView setAudioBtnSelectWithSkin];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
 
@@ -181,7 +182,7 @@
  */
 - (void)stopAudioMonitor
 {
-    if ([[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState]) {
+    if ([operationBigView getAudioBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
@@ -191,7 +192,7 @@
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [[JVCOperationMiddleViewIphone5 shareInstance] setAudioBtnUNSelect];
+        [operationBigView setAudioBtnUNSelect];
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
         
@@ -208,16 +209,14 @@
     BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
     
     //音频监听
-    BOOL bStateAudio  =  [[JVCOperationMiddleViewIphone5 shareInstance] getAudioBtnState];
+    BOOL bStateAudio  =  [operationBigView getAudioBtnState];
     
     //对讲的状态
-    UIButton *btnTalk  =  [[JVCCustomOperationBottomView  shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
-    BOOL bStateTalk   =  btnTalk.selected;
+    BOOL bStateTalk   =  [self getButtonWithIndex:BUTTON_TYPE_TALK];
     
     //录像的状态
-    UIButton *btnVideo  =  [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
-    BOOL bStateVideo   =  btnVideo.selected;
-    
+    BOOL bStateVideo   =  [self getButtonWithIndex:BUTTON_TYPE_VIDEO];
+
     if (bStateYTView || bStateAudio || bStateTalk || bStateVideo ) {
         
         return YES;

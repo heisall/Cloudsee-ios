@@ -23,14 +23,6 @@
 }
 @property(nonatomic,assign)id<JVCAPOperationMiddleViewDelegate>delegateApOperationMiddle;
 
-
-/**
- *  单例
- *
- *  @return 返回单例
- */
-+ (JVCAPConfigMiddleView *)shareAPConfigMiddleInstance;
-
 /**
  *  设置middleview
  *

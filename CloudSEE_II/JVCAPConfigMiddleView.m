@@ -25,35 +25,6 @@
 static const double KHEGIHT          =   20.0;   //lable的高度
 static const int KTAGADD = 100000;         //起始tag
 
-static JVCAPConfigMiddleView *_shareInstance = nil;
-/**
- *  单例
- *
- *  @return 返回单例
- */
-+ (JVCAPConfigMiddleView *)shareAPConfigMiddleInstance
-{
-        @synchronized(self)
-        {
-            if (_shareInstance == nil) {
-                
-                _shareInstance = [[self alloc] init ];
-                
-                /**
-                 *  初始化按钮mormal的背景图片
-                 */
-                [_shareInstance setUnselectImageList];
-                [_shareInstance setSelectImageList];
-                
-                /**
-                 *  设置button数组
-                 */
-                [_shareInstance initApButtonsArray];
-            }
-            return _shareInstance;
-    }
-    return _shareInstance;
-}
 
 /**
  *  设置middleview
@@ -66,9 +37,19 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
 {
     
     /**
+     *  初始化按钮mormal的背景图片
+     */
+    [self setUnselectImageList];
+    [self setSelectImageList];
+    
+    /**
+     *  设置button数组
+     */
+    [self initApButtonsArray];
+    /**
      *  清除view上面的控件
      */
-    for(UIView *viewContent in _shareInstance.subviews)
+    for(UIView *viewContent in self.subviews)
     {
         [viewContent removeFromSuperview];
     }
@@ -83,14 +64,14 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
     /**
      *  计算按钮之间的空格
      */
-    int seperateSpace = (_shareInstance.width -titileArray.count*_bigItemImage.size.width)/(titileArray.count+1);
+    int seperateSpace = (self.width -titileArray.count*_bigItemImage.size.width)/(titileArray.count+1);
     
     for(int i=0;i<titileArray.count;i++)
     {
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        btn.frame = CGRectMake(seperateSpace+i*(seperateSpace+_bigItemImage.size.width), (_shareInstance.height - _bigItemImage.size.height)/2.0, _bigItemImage.size.width, _bigItemImage.size.height);
+        btn.frame = CGRectMake(seperateSpace+i*(seperateSpace+_bigItemImage.size.width), (self.height - _bigItemImage.size.height)/2.0, _bigItemImage.size.width, _bigItemImage.size.height);
         
         UIImage *normalImage = [[UIImage alloc] initWithContentsOfFile: [UIImage getBundleImagePath:[_ApUnSelectedImageNameListData objectAtIndex:i] bundleName:(NSString *)BUNDLENAMEMiddle]];
         
@@ -117,7 +98,7 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
         
         btn.tag = KTAGADD+i;
         
-        [_shareInstance addSubview:btn];
+        [self addSubview:btn];
         
         [btn addTarget:self action:@selector(apButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -241,6 +222,17 @@ static JVCAPConfigMiddleView *_shareInstance = nil;
 - (void)initApButtonsArray
 {
     _arrayBtnList = [[NSMutableArray alloc] init];
+}
+
+- (void)dealloc
+{
+    [_ApSelectArray release];
+    
+    [_arrayBtnList release];
+    
+    [_ApUnSelectedImageNameListData release];
+    
+    [super dealloc];
 }
 
 

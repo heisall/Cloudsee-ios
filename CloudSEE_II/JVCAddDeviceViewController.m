@@ -259,7 +259,13 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+        int channelCount  = DEFAULTCHANNELCOUNT;
+        
+        if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
+     
+             channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+
+        };
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
         
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;

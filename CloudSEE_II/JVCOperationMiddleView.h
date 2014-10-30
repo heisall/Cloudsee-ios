@@ -33,12 +33,6 @@ static const NSString *BUNDLENAMEMiddle =  @"customMiddleView_cloudsee.bundle";
 }
 @property(nonatomic,assign)id<operationMiddleViewDelegate>delegateOperationMiddle;
 
-/**
- *  单例
- *
- *  @return 返回单例
- */
-+ (JVCOperationMiddleView *)shareInstance;
 
 /**
  *  设置middleview

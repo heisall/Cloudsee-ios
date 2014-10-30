@@ -61,8 +61,8 @@
         self.linkType            = [[info objectForKey:DEVICE_JSON_LINKTYPE] intValue];
         self.ip                  = [info objectForKey:DEVICE_JSON_IP];
         self.port                = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
-        self.onLineState         =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue];
         self.isDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
+        self.onLineState =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue] == DEVICESTATUS_ONLINE?DEVICESTATUS_ONLINE:DEVICESTATUS_OFFLINE;
         self.bDeviceServiceOnlineState         =[[info objectForKey:DEVICE_DEVICE_ServiceState] intValue];
 
         if (self.isDeviceType) {

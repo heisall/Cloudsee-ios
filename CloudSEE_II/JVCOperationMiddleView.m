@@ -41,51 +41,6 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
 
 @synthesize delegateOperationMiddle;
 
-static JVCOperationMiddleView *_shareInstance = nil;
-/**
- *  单例
- *
- *  @return 返回单例
- */
-+ (JVCOperationMiddleView *)shareInstance
-{
-    @synchronized(self)
-    {
-        if (_shareInstance == nil) {
-            
-            _shareInstance = [[self alloc] init ];
-            
-            _shareInstance.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:239/255.0 alpha:1];
-            
-            /**
-             *  初始化按钮mormal的背景图片
-             */
-            [_shareInstance setUnselectImageListWithType];
-            
-            /**
-             *  设置button数组
-             */
-            [_shareInstance initButtonsArray];
-        }
-        return _shareInstance;
-    }
-    return _shareInstance;
-}
-
-+(id)allocWithZone:(struct _NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (_shareInstance == nil) {
-            
-            _shareInstance = [super allocWithZone:zone];
-            
-            return _shareInstance;
-            
-        }
-    }
-    return nil;
-}
 
 /**
  *  设置middleview
@@ -96,14 +51,21 @@ static JVCOperationMiddleView *_shareInstance = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titileArray  frame:(CGRect)frame skinType:(int)skinType
 {
-    [_arrayButtons removeAllObjects];
     
-    _shareInstance.frame  = frame;
+    [self setUnselectImageListWithType];
+    
+    /**
+     *  设置button数组
+     */
+    [self  initButtonsArray];
+
+    
+    self.frame  = frame;
     
     /**
      *  清除view上面的控件
      */
-    for(UIView *viewContent in _shareInstance.subviews)
+    for(UIView *viewContent in self.subviews)
     {
         [viewContent removeFromSuperview];
     }
@@ -111,7 +73,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
     /**
      *  设置选中的颜色背景
      */
-    [self setSelectImageListWithType:skinType];
+    [self setSelectImageListWithType];
     
     /**
      *  默认的背景图片
@@ -156,7 +118,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
 
         btn.tag = TAGADD+i;
         
-        [_shareInstance addSubview:btn];
+        [self addSubview:btn];
         
         [btn addTarget:self action:@selector(customButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -178,7 +140,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
  */
 - (void)setSelectButtonWithIndex:(int)buttonIndex  skinType:(int)skinType
 {
-    [self setSelectImageListWithType:skinType];
+    [self setSelectImageListWithType];
     
     if (buttonIndex>=_arrayButtons.count) {
         return;
@@ -213,7 +175,7 @@ static JVCOperationMiddleView *_shareInstance = nil;
  *  @param  皮肤颜色值
  *
  */
-- (void)setSelectImageListWithType:(int )skinType
+- (void)setSelectImageListWithType
 {
     /**
      *  btn选中的图标集合
@@ -300,7 +262,6 @@ static JVCOperationMiddleView *_shareInstance = nil;
 - (void)dealloc
 {
     [_arrayButtons release];
-    [_amUnSelectedImageNameListData release];
     [_amUnSelectedImageNameListData release];
     [super dealloc];
 }

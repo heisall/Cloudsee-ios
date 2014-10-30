@@ -33,7 +33,6 @@ enum OPERATIONBTNCLICKTYPEPLAY
 @property(nonatomic,assign)id<JVCAPConfingMiddleIphone5Delegate>delegateIphone5BtnCallBack;
 
 
-+ (JVCAPConfingMiddleIphone5 *)shareApConfigMiddleIphone5Instance;
 
 /**
  *  这个方法之前，一定要设置view的frame

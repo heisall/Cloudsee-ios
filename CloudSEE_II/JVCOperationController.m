@@ -82,6 +82,8 @@ bool selectState_audio ;
     JVCHorizontalStreamView *horizonView;
     
     JVCPopStreamView *straemView;
+    
+    JVCOperationMiddleView *_operationBigItemBg;//中间部分的问题
 
 }
 
@@ -102,8 +104,6 @@ enum StorageType {
 @synthesize showSingeleDeviceLongTap;
 @synthesize delegate;
 @synthesize isPlayBackVideo,strPlayBackVideoPath;
-
-JVCCustomOperationBottomView *_operationItemSmallBg;
 
 static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
 static const int      kDefaultShowWidnowCount         = 1 ;
@@ -371,13 +371,14 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  底部的按钮
      */
-    _operationItemSmallBg =  [JVCCustomOperationBottomView shareInstance];
+    _operationItemSmallBg =  [[JVCCustomOperationBottomView alloc] init];
     [_operationItemSmallBg updateViewWithTitleArray:arrayTitle Frame:frameBottom SkinType:skinSelect];
     _operationItemSmallBg.BottomDelegate = self;
     [_operationItemSmallBg setBackgroundColor:[UIColor clearColor]];
     _operationItemSmallBg.tag=101;
     [self.view addSubview:_operationItemSmallBg];
-
+    [_operationItemSmallBg release];
+    
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
 
     
@@ -495,7 +496,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
     }
     
-    if (![[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK].selected) {
+    if (![_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK].selected) {
         
         [self RemoveTalkView];
         return;
@@ -562,7 +563,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             case VideoStreamType_HD:
             case VideoStreamType_SD:
             case VideoStreamType_FL:
-            [[JVCCustomOperationBottomView shareInstance] setVideoStreamState:nStreamType];
+            [_operationItemSmallBg setVideoStreamState:nStreamType];
             NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
             [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
                 break;
@@ -608,13 +609,14 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     NSArray *array = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil), nil];
     
-    JVCOperationMiddleView *_operationBigItemBg =   [JVCOperationMiddleView shareInstance];
+     _operationBigItemBg =   [[JVCOperationMiddleView alloc] init];
     
     [_operationBigItemBg updateViewWithTitleArray:array frame:newFrame skinType:skinSelect];
     
     _operationBigItemBg.delegateOperationMiddle = self;
     
     [self.view addSubview:_operationBigItemBg];
+    [_operationBigItemBg release];
     
     JVCCustomYTOView *ytoView = [JVCCustomYTOView shareInstance];
     ytoView.frame = CGRectMake(_operationBigItemBg.frame.origin.x,_operationBigItemBg.frame.origin.y,_operationBigItemBg.frame.size.width,_operationBigItemBg.frame.size.height);
@@ -659,14 +661,14 @@ char remoteSendSearchFileBuffer[29] = {0};
     BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
     
     //音频监听
-    BOOL bStateAudio  =  [[JVCOperationMiddleView  shareInstance] getAudioBtnState];
+    BOOL bStateAudio  =  [_operationBigItemBg getAudioBtnState];
     
     //对讲的状态
-    UIButton *btnTalk  =  [[JVCCustomOperationBottomView  shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    UIButton *btnTalk  =  [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
     BOOL bStateTalk   =  btnTalk.selected;
     
     //录像的状态
-    UIButton *btnVideo  =  [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+    UIButton *btnVideo  =  [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_VIDEO];
     BOOL bStateVideo   =  btnVideo.selected;
     
     if (bStateYTView || bStateAudio || bStateTalk || bStateVideo ) {
@@ -674,6 +676,20 @@ char remoteSendSearchFileBuffer[29] = {0};
         return YES;
     }
     return NO;
+}
+
+/**
+ *  返回底部按钮的选中状态
+ *
+ *  @param indexBtn index
+ *
+ *  @return 选中状态
+ */
+- (BOOL)getButtonWithIndex:(int)indexBtn
+{
+    UIButton *btn  =  [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+    return  btn.selected;
+
 }
 
 
@@ -1344,7 +1360,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         /**
          *  使选中的button变成默认
          */
-        [[JVCCustomOperationBottomView  shareInstance] setAllButtonUnselect];
+        [_operationItemSmallBg setAllButtonUnselect];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
     }
@@ -1483,7 +1499,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             /**
              *  判断是否开启语音对讲,开启直接返回
              */
-            UIButton *btnTalk = [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+            UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
             
             if (btnTalk.selected) {
                 
@@ -1533,14 +1549,14 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
     
-    if ([[JVCOperationMiddleView  shareInstance] getAudioBtnState]) {
+    if ([_operationBigItemBg getAudioBtnState]) {
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
+        [_operationBigItemBg setButtonSunSelect];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
@@ -1551,7 +1567,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
-        [[JVCOperationMiddleView shareInstance] setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
+        [_operationBigItemBg setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
     }
@@ -2059,7 +2075,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 //        
 //    }
     
-    if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
+    if ([_operationBigItemBg getAudioBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
@@ -2069,7 +2085,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
+        [_operationBigItemBg setButtonSunSelect];
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
         
@@ -2120,7 +2136,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  选中对讲button
      */
-    [[JVCCustomOperationBottomView  shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
+    [_operationItemSmallBg setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
 
     
@@ -2141,7 +2157,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [aqControllerobj stopRecord];
     aqControllerobj.delegate = nil;
     
-    [[JVCCustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+    [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
     
 }
 
@@ -2248,11 +2264,11 @@ char remoteSendSearchFileBuffer[29] = {0};
             if (!btn.isSelected) {
                 
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_VIDEO];
-                [[JVCCustomOperationBottomView shareInstance] setbuttonSelectStateWithIndex:BUTTON_TYPE_VIDEO andSkinType:0];
+                [_operationItemSmallBg setbuttonSelectStateWithIndex:BUTTON_TYPE_VIDEO andSkinType:0];
                 
             }else{
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
-                [[JVCCustomOperationBottomView shareInstance] setbuttonUnSelectWithIndex:BUTTON_TYPE_VIDEO ];
+                [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_VIDEO ];
 
 
             }
@@ -2267,7 +2283,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             /**
              *  判断是否开启语音对讲,开启直接返回
              */
-            UIButton *btnTalk = [[JVCCustomOperationBottomView shareInstance] getButtonWithIndex:BUTTON_TYPE_TALK];
+            UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
             if (btnTalk.selected) {
                 
                 return;

@@ -43,43 +43,6 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
 
 @synthesize BottomDelegate;
 
-static JVCCustomOperationBottomView *_shareInstance = nil;
-
-/**
- *  单例
- *
- *  @return 返回 单例
- */
-+ (JVCCustomOperationBottomView *)shareInstance
-{
-    @synchronized(self)
-    {
-        if (_shareInstance == nil) {
-            
-            _shareInstance = [[self alloc] init ];
-            
-        }
-        return _shareInstance;
-    }
-    return _shareInstance;
-}
-
-+(id)allocWithZone:(struct _NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (_shareInstance == nil) {
-            
-            _shareInstance = [super allocWithZone:zone];
-            
-            return _shareInstance;
-            
-        }
-    }
-    return nil;
-}
-
-
 /**
  *  初始化播放视频底部view
  *
@@ -92,7 +55,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
 - (void)updateViewWithTitleArray:(NSArray *)titileArray Frame:(CGRect)frame SkinType:(int)skinType
 {
     
-    _shareInstance.frame = frame;
+    self.frame = frame;
     
     NSString      *tabbarString = [UIImage imageBundlePath:@"tabbar_bg.png"];
     UIImage       *bgImage      = [UIImage imageWithContentsOfFile:tabbarString];
@@ -113,11 +76,11 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     /**
      *  设置未选中的集合
      */
-    [_shareInstance setUnselectImageListWithType];
+    [self setUnselectImageListWithType];
     /**
      *  设置选中的集合
      */
-    [self setSelectImageListWithType:skinType];
+    [self setSelectImageListWithType];
     
     UIFont *font = [UIFont systemFontOfSize:kButtonTitleWithFontSize];
     
@@ -186,7 +149,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
         [titleLbl release];
         
         [bgView addSubview:btn];
-        [_shareInstance addSubview:bgView];
+        [self addSubview:bgView];
         [bgView release];
         
         [_arrayButtons addObject:btn];
@@ -211,7 +174,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
  *  @param  皮肤颜色值
  *
  */
-- (void)setSelectImageListWithType:(int )skinType
+- (void)setSelectImageListWithType
 {
     /**
      *  btn选中的图标集合
@@ -284,7 +247,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     UIButton *btn =  [_arrayButtons objectAtIndex:index];
     
-    [self setSelectImageListWithType:skinType];
+    [self setSelectImageListWithType];
     
     UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:index]]];
     
@@ -322,9 +285,9 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
  *
  *  @param skinType 选中的皮肤颜色
  */
-- (void)resetSelectButtonsWithSkinType:(int )skinType
+- (void)resetSelectButtonsWithSkinType
 {
-    [self setSelectImageListWithType:skinType];
+    [self setSelectImageListWithType];
     
     for (int i=0;i<_arrayButtons.count;i++) {
         

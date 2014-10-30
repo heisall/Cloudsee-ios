@@ -94,4 +94,13 @@
  */
 -(void)audioButtonClick;
 
+/**
+ *  返回底部按钮的选中状态
+ *
+ *  @param indexBtn index
+ *
+ *  @return 选中状态
+ */
+- (BOOL)getButtonWithIndex:(int)indexBtn;
+
 @end

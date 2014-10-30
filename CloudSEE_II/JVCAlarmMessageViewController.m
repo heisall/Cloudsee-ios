@@ -261,7 +261,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
         viewNoAlarm.tag               = KNoAlarmTag;
         
         UILabel *labelNoAlarm        = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.bottom+KNoAlarmSpan, self.view.width, KNoAlarmLabelHeight)];
-        UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:@"KLickTypeLeftLabelColor"];
+        UIColor *color = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KLickTypeLeftLabelColor];
         if (color) {
             labelNoAlarm.textColor = color;
         }

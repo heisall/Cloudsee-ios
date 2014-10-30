@@ -26,39 +26,6 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 @implementation JVCOperationMiddleViewIphone5
 @synthesize delegateIphone5BtnCallBack;
 /**
- *  单例
- */
-static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
-
-+ (JVCOperationMiddleViewIphone5 *)shareInstance
-{
-    @synchronized(self)
-    {
-        if (shareInstanc == nil) {
-            
-            shareInstanc = [[self alloc] init];
-            
-            [shareInstanc initImageArray];
-        }
-    }
-    return shareInstanc;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (shareInstanc == nil) {
-            
-            shareInstanc = [super allocWithZone: zone];
-            
-            return shareInstanc;
-        }
-    }
-    return nil;
-}
-
-/**
  *  这个方法之前，一定要设置view的frame
  *  显示音频监听、云台、远程回放view
  *
@@ -68,10 +35,7 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray skinType:(int )skinType
 {
-    for (UIView *viewContent in self.subviews) {
-        
-        [viewContent removeFromSuperview];
-    }
+    
     
     CGFloat height = self.frame.size.height/titleArray.count;
     
@@ -244,6 +208,13 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
     [_arrayList addObject:@"ytoBigBtn.png"];
     [_arrayList addObject:@"playBackBigBtn.png"];
     
+}
+
+- (void)dealloc
+{
+    [_arrayList release];
+    
+    [super dealloc];
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import "JVCAPConfigPlayVideoIphone4ViewController.h"
 @interface JVCAPConfigPlayVideoIphone4ViewController ()
+{
+    JVCAPConfigMiddleView *middleView ;
+}
 
 @end
 
@@ -33,13 +36,14 @@
  */
 -(void)initLayoutWithOperationView:(CGRect )frame{
     
-    JVCAPConfigMiddleView *middleView = [JVCAPConfigMiddleView shareAPConfigMiddleInstance];
+    middleView = [[JVCAPConfigMiddleView alloc]init];
     middleView.frame = frame;
     middleView.delegateApOperationMiddle = self;
     NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"megaphone", nil), nil];
     
     [middleView updateAPViewWithTitleArray:title ];
     [self.view addSubview:middleView];
+    [middleView release];
     
     UIButton *talkViewBtn =(UIButton *) [middleView getSelectbtn:OPERATIONAPBTNCLICKTYPE_Talk];
     
@@ -95,17 +99,17 @@
  */
 - (BOOL)getMiddleBtnSelectState:(int)index
 {
-    return  [[JVCAPConfigMiddleView shareAPConfigMiddleInstance] getBtnSelectState: index];
+    return  [middleView getBtnSelectState: index];
 }
 
 - (void)setApBtnUnSelect:(int)index
 {
-    [[JVCAPConfigMiddleView shareAPConfigMiddleInstance] setButtonunSelect:index];
+    [middleView setButtonunSelect:index];
 }
 
 - (void)setApBtnSelect:(int)index
 {
-    [[JVCAPConfigMiddleView shareAPConfigMiddleInstance] setAPConfigButtonSelect:index ];
+    [middleView setAPConfigButtonSelect:index ];
 }
 /*
 #pragma mark - Navigation

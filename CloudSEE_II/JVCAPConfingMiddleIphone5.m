@@ -36,48 +36,6 @@ static const int  KlabeWith             =  210;      //label的宽度
 static const int  KlabeAddHeight        =  4;       //label的高度添加值（比字体大4）
 
 /**
- *  单例
- */
-static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
-
-+ (JVCAPConfingMiddleIphone5 *)shareApConfigMiddleIphone5Instance
-{
-    @synchronized(self)
-    {
-        if (shareApConfigMiddleIphone5Instance == nil) {
-            
-            shareApConfigMiddleIphone5Instance = [[self alloc] init];
-            
-            [shareApConfigMiddleIphone5Instance initImageArray];
-            
-            [shareApConfigMiddleIphone5Instance initImageSelectArray];
-            
-            [shareApConfigMiddleIphone5Instance initBtnArray];
-            
-            [shareApConfigMiddleIphone5Instance initViewArray];
-
-        }
-    }
-    return shareApConfigMiddleIphone5Instance;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (shareApConfigMiddleIphone5Instance == nil) {
-            
-            shareApConfigMiddleIphone5Instance = [super allocWithZone: zone];
-            
-            return shareApConfigMiddleIphone5Instance;
-        }
-    }
-    return nil;
-}
-
-
-
-/**
  *  这个方法之前，一定要设置view的frame
  *  显示音频监听、云台、远程回放view
  *
@@ -86,10 +44,15 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray
 {
-    for (UIView *viewContent in self.subviews) {
-        
-        [viewContent removeFromSuperview];
-    }
+   
+    [self initImageArray];
+    
+    [self initImageSelectArray];
+    
+    [self initBtnArray];
+    
+    [self initViewArray];
+
     
 //    [_arrayBtnList removeAllObjects];
     
@@ -326,6 +289,20 @@ static JVCAPConfingMiddleIphone5 *shareApConfigMiddleIphone5Instance = nil;
     
     return bgView;
     
+}
+
+- (void)dealloc
+{
+    
+    [_arrayList release];
+    
+    [_arrayImageSelect release];
+    
+    [_arrayBtnList release];
+    
+    [_arrayViewList release];
+    
+    [super dealloc];
 }
 
 /*

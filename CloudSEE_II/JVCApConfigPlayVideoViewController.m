@@ -22,6 +22,8 @@
     
     UIView *talkView;
     BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
+    
+    JVCAPConfingMiddleIphone5 *middleView;
 }
 
 @end
@@ -115,7 +117,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  */
 -(void)initLayoutWithOperationView:(CGRect )frame{
 
-    JVCAPConfingMiddleIphone5 *middleView = [JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance];
+    middleView = [[JVCAPConfingMiddleIphone5 alloc] init];
     middleView.frame = frame;
     middleView.delegateIphone5BtnCallBack = self;
     NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"megaphone", nil), nil];
@@ -124,6 +126,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     
     [middleView updateViewWithTitleArray:title detailArray:info];
     [self.view addSubview:middleView];
+    [middleView release];
     
     UIView *talkViewBtn = [middleView getSelectbgView:OPERATIONAPBTNCLICKTYPE_Talk];
     DDLogVerbose(@"%s---%@",__FUNCTION__,talkViewBtn);
@@ -903,19 +906,19 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
  */
 - (BOOL)getMiddleBtnSelectState:(int)index
 {
-    return  [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] getBtnSelectState: index];
+    return  [middleView getBtnSelectState: index];
 }
 
 - (void)setApBtnUnSelect:(int)index
 {
-    [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnUnSelect:index];
+    [middleView setBtnUnSelect:index];
 }
 
 - (void)setApBtnSelect:(int)index
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [[JVCAPConfingMiddleIphone5 shareApConfigMiddleIphone5Instance] setBtnSelect:index ];
+        [middleView setBtnSelect:index ];
 
     });
 }

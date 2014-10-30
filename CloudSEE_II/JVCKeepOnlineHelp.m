@@ -97,6 +97,8 @@ UIAlertView *alertView;
          *  上传报警信息
          */
         [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+        
+        _iErrorNUm = 0;
 
     });
     
@@ -165,6 +167,7 @@ UIAlertView *alertView;
 {
     int result = resultNum.intValue;
     
+    
     if (KEEPONLINE_SUCCESS == result) {
         
         _iErrorNUm = 0;
@@ -193,6 +196,9 @@ UIAlertView *alertView;
             //弹出提掉线提示
             [self userOffLineNerWorkError];
             _iErrorNUm=0;
+        }else{
+        
+          //  [self loginInWithOffLine];
         }
         
     }
