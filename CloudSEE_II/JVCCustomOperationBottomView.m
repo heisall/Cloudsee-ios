@@ -11,12 +11,13 @@
 
 static const NSString *BUNDLENAMEButtom = @"customBottomView_cloudsee.bundle";//bundle的名称
 
-static const double  IOS_SYSTEM_7_A = 7.0;           //ios7
-static const int     TAGADD = 100000;                //起始tag
-static const int     kButtomImageSeperateCount = 2;  //png图片被.分开的时候的数组个数
-static const CGFloat kButtonWithTop            = 0.0;//按钮距父类的上边框间距
-static const CGFloat kButtonTitleWithTop       = -5.0;//按钮距父类的上边框间距
-static const CGFloat kButtonTitleWithFontSize  = 12.0;//按钮字体的大小
+static const double  IOS_SYSTEM_7_A            = 7.0;        //ios7
+static const int     TAGADD                    = 100000;   //起始tag
+static const int     kTitleWithTag             = 1000000;  //起始tag
+static const int     kButtomImageSeperateCount = 2;        //png图片被.分开的时候的数组个数
+static const CGFloat kButtonWithTop            = 0.0;      //按钮距父类的上边框间距
+static const CGFloat kButtonTitleWithTop       = -5.0;     //按钮距父类的上边框间距
+static const CGFloat kButtonTitleWithFontSize  = 12.0;     //按钮字体的大小
 static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;//按钮标签的高度
 
 @interface JVCCustomOperationBottomView (){
@@ -135,6 +136,7 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
         titleLbl.frame              = CGRectMake(0.0, btn.bottom+kButtonTitleWithTop, bgView.frame.size.width, kButtonTitleWithHeight);
         titleLbl.backgroundColor    = [UIColor clearColor];
         titleLbl.font               = font;
+        titleLbl.tag                = kTitleWithTag + i;
         
         UIColor *titleColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KPlayVideoBottomTitleDefaultFontColor];
         
@@ -349,10 +351,11 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
         return;
     }
     
-    UIButton *btn = [_arrayButtons objectAtIndex:BUTTON_TYPE_MORE];
-    NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",stremType];
-    [btn setTitle:NSLocalizedString(bundString, nil) forState:UIControlStateNormal];
-
+    UILabel *streamTitleTV = (UILabel *)[self viewWithTag:kTitleWithTag + BUTTON_TYPE_MORE];
+    
+    NSString *bundString   =  [ NSString stringWithFormat: @"stream_%d",stremType];
+    
+    streamTitleTV.text    = NSLocalizedString(bundString, nil);
 }
 
 /**

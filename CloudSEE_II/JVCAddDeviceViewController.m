@@ -81,8 +81,6 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             
             [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
         }
-
-        
     }
     
 }
@@ -109,14 +107,15 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     //用户名
     textFieldUserName = [contentView textFieldWithIndex:1];
     textFieldUserName.delegate = self;
-    textFieldPassWord.text = (NSString *)DefaultPassWord;
+    textFieldUserName.text = (NSString *)DefaultUserName;
 
-    //ip用户名
+    //密码
     textFieldPassWord = [contentView textFieldWithIndex:2];
-    textFieldPassWord.text =(NSString *)DefaultUserName;
+    textFieldPassWord.text =(NSString *)DefaultPassWord;
     textFieldPassWord.delegate = self;
     textFieldPassWord.secureTextEntry = YES;
-    textFieldUserName.text = (NSString *)DefaultUserName;
+    
+    
     textFieldYST.keyboardType = UIKeyboardTypeASCIICapable;
 
 }
@@ -126,7 +125,6 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
  */
 - (void)saveDevice
 {
-    DDLogVerbose(@"%s---pw=%@",__FUNCTION__,textFieldPassWord.text);
     int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:textFieldYST.text andUserName:textFieldUserName.text andPassWord:textFieldPassWord.text];
     
     if (ADDPREDICATE_SUCCESS == result) {

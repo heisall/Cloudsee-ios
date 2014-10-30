@@ -360,7 +360,7 @@ BOOL isAllLinkRun;
     int _views                 = self.imageViewNums;
     self.imageViewNums         = self._iBigNumbers;
     self._iBigNumbers          = _views;
-    self.nSelectedChannelIndex =viewimage.view.tag-WINDOWSFLAG;
+    self.nSelectedChannelIndex =viewimage.view.tag-KWINDOWSFLAG;
     [self changeContenView];
 }
 
@@ -384,7 +384,7 @@ BOOL isAllLinkRun;
     
 	UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
     
-    if (viewimage.view.tag==WINDOWSFLAG+self.nSelectedChannelIndex) {
+    if (viewimage.view.tag==KWINDOWSFLAG+self.nSelectedChannelIndex) {
         
         return;
     }
@@ -483,7 +483,7 @@ BOOL isAllLinkRun;
  */
 -(JVCMonitorConnectionSingleImageView *)singleViewAtIndex:(int)index {
     
-     return (JVCMonitorConnectionSingleImageView*)[self viewWithTag:WINDOWSFLAG+index];
+     return (JVCMonitorConnectionSingleImageView*)[self viewWithTag:KWINDOWSFLAG+index];
 }
 
 /**
@@ -595,7 +595,7 @@ BOOL isAllLinkRun;
             return;
         }
         
-        [self connectVideoByLocalChannelID:WINDOWSFLAG+i];
+        [self connectVideoByLocalChannelID:KWINDOWSFLAG+i];
         
         if (i!=endIndex-1){
             
@@ -619,7 +619,7 @@ BOOL isAllLinkRun;
             
             if (isAllLinkRun) {
                 
-                usleep(500);
+                usleep(CONNECTINTERVAL);
                 
             }else{
                 
@@ -718,12 +718,12 @@ BOOL isAllLinkRun;
         
         JVCChannelScourseHelper             *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
         NSMutableArray                      *channels            = [channelSourceObj channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
-        int                                  channelID           = nlocalChannelID - WINDOWSFLAG + 1;
-        JVCMonitorConnectionSingleImageView *singleView          = [self singleViewAtIndex:nlocalChannelID - WINDOWSFLAG];
+        int                                  channelID           = nlocalChannelID - KWINDOWSFLAG + 1;
+        JVCMonitorConnectionSingleImageView *singleView          = [self singleViewAtIndex:nlocalChannelID - KWINDOWSFLAG];
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:channelID];
         JVCDeviceModel                      *deviceModel         = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
-        int                                  channelIndex        = nlocalChannelID - WINDOWSFLAG;
+        int                                  channelIndex        = nlocalChannelID - KWINDOWSFLAG;
         
         [channels retain];
         
@@ -951,7 +951,7 @@ BOOL isAllLinkRun;
  */
 - (void)hiddenEffectView
 {
-    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+_operationController._iSelectedChannelIndex];
     [singleVideoShow hidenEffectBtn];
     
 }
@@ -961,7 +961,7 @@ BOOL isAllLinkRun;
  */
 - (void)showEffectView
 {
-    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:WINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+_operationController._iSelectedChannelIndex];
     [singleVideoShow showEffectBtn];
     
 }

@@ -332,7 +332,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            if (result ) {//成功
+            if (result) {//成功
                 
                 [[JVCChannelScourseHelper shareChannelScourseHelper]deleteChannelsWithDeviceYstNumber:self.YstNum];
                 
@@ -422,19 +422,19 @@ static const    int     kTextFieldSeperate       = 30;//间隔
 - (void)deleteDeviceWhenNoChannels:(JVCChannelModel *)channelModelDelete
 {
     
-            [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:channelModelDelete.strDeviceYstNumber];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:channelModelDelete.strDeviceYstNumber];
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-                    
-                    [self handleDeleteDeviceWithNoChannel:result channelModel:channelModelDelete];
-                });
-                
+                [self handleDeleteDeviceWithNoChannel:result channelModel:channelModelDelete];
             });
+            
+        });
 }
 
 /**

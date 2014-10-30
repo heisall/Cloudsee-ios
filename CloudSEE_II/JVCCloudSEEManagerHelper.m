@@ -212,11 +212,10 @@ char          pcmBuffer[1024] ={0};
     
     frame *decodervideoFrame = (frame *)bufferData;
     
-    [self saveRecordVideoDataToLocal:(char *)decodervideoFrame->buf isVideoDataI:decodervideoFrame->is_i_frame isVideoDataB:decodervideoFrame->is_b_frame videoDataSize:decodervideoFrame->nSize];
-    
     int nDecoderStatus = [self decodeOneVideoFrame:decodervideoFrame VideoOutFrame:jvcOutVideoFrame];
     
-    //DDLogInfo(@"%s----popodata,nDecoderStatus=%d",__FUNCTION__,nDecoderStatus);
+    [self saveRecordVideoDataToLocal:(char *)decodervideoFrame->buf isVideoDataI:decodervideoFrame->is_i_frame isVideoDataB:decodervideoFrame->is_b_frame videoDataSize:decodervideoFrame->nSize];
+    
     
     if ( nDecoderStatus >= 0) {
         
@@ -555,6 +554,20 @@ char          pcmBuffer[1024] ={0};
 -(void)saveRecordVideoDataToLocal:(char *)videoData isVideoDataI:(BOOL)isVideoDataI isVideoDataB:(BOOL)isVideoDataB videoDataSize:(int)videoDataSize{
     
     [self.jvcRecodVideoHelper saveRecordVideoDataToLocal:videoData isVideoDataI:isVideoDataI isVideoDataB:isVideoDataB videoDataSize:videoDataSize];
+}
+
+/**
+ *  如果画质改变，正在录像重新打包继续录像
+ */
+-(void)qualityChangeContinueRecoderVideo{
+    
+    
+    if (self.jvcRecodVideoHelper.isRecordVideo) {
+        
+        [self stopRecordVideo];
+        
+        [self openRecordVideo:self.jvcRecodVideoHelper.strPath];
+    }
 }
 
 /**

@@ -22,7 +22,7 @@ static NSString *const kAPPIDNUM  = @"673070046";
 
 static const int  kOPENGLMAXCOUNT = 17;//opengl数量
 
-static const int  KWINDOWSFLAG  = 1000;//tag
+static const int  KWINDOWSFLAG  = 1000000000;//tag
 
 static const int OPENGLMAXCOUNT  = 16;//opengl显示最大值
 
