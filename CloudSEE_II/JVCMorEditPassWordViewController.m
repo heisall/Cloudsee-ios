@@ -31,6 +31,8 @@ static const int TEXTFIELD_SEPERATE     = 20;//间距
 static const int KEDITPWDSLIDEHEIGINT   = 100;//滑动距离
 static const NSTimeInterval KANIMATIN_DURARTION = 0.5;//动画时间
 static const int kPredicateSuccess   = 0;//正则校验成功
+static const int kDelayTimer         = 3;//弹出提示的时间
+
 
 @interface JVCMorEditPassWordViewController ()
 {
@@ -207,7 +209,7 @@ static const int kPredicateSuccess   = 0;//正则校验成功
                     
                     [delegateApp presentLoginViewController];
                     
-                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_pwSuccess")];
+                    [[JVCAlertHelper shareAlertHelper]  alertToastOnWindowWithText:LOCALANGER(@"jvc_mor_pwSuccess") delayTime:kDelayTimer];
                     
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     

@@ -59,6 +59,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     [self convertOldUserInfoToDatebase];
     
     [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] converOldDeviceListInDateFame];
@@ -403,6 +404,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 - (void)addCurrentAlarmInalarmMessageViewController:(JVCAlarmModel*)alarmModel
 {
     [alarmMessageViewController.arrayAlarmList insertObject:alarmModel atIndex:0];
+    [alarmMessageViewController.tableView reloadData];
 }
 
 /**
