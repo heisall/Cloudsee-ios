@@ -84,12 +84,12 @@ static NSString const *  kJVCRGBColorMacroVoiceConfigSend     = @"VoiceConfigSen
 //ios6 Tab标题颜色
 static NSString const *  kJVCRGBColorMacroTabarItemTitleColor = @"TabarItemTitleColor";
 
-
-
-
+//设备管理
 static NSString const *  KLickTypeLeftLabelColor        = @"LickTypeLeftLabelColor";//连接模式界面，左侧label
 static NSString const *  KLickTypeTextFieldColor        = @"LickTypeTextFieldColor";//连接模式界面文本框
 static NSString const *  KMoreUserLabeTextColor         = @"MoreUserLabeTextColor";//更多界面，用户名字体
 
+//视频观看
+static NSString const *  KPlayVideoBottomTitleDefaultFontColor    = @"PlayVideoBottomTitleDefaultFontColor";//视频播放界面底部功能按钮字体默认的颜色
 
 #endif

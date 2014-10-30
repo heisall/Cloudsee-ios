@@ -31,6 +31,9 @@ static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bu
 static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString * kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
 
+static const CGFloat    kTalkViewWithHeight     = 60.0f;
+static const CGFloat    kTalkViewWithWidth      = 200.0;
+
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
 
 bool selectState_sound ; // yes  选中   no：没有选中
@@ -356,14 +359,14 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  抓拍、对讲、录像、更多按钮的view
      */
-    NSString *pathSamllImage = [UIImage getBundleImagePath:@"smallItem__Normal.png" bundleName:(NSString *)BUNDLENAMEBottom];
-    UIImage *_smallItemBgImage = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
+    NSString *pathSamllImage    =  [UIImage imageBundlePath:@"tabbar_bg.png"];
+    UIImage *_smallItemBgImage  = [[UIImage alloc]initWithContentsOfFile:pathSamllImage];
     CGRect frameBottom ;
 
     frameBottom = CGRectMake(0.0, self.view.frame.size.height-_smallItemBgImage.size.height, self.view.frame.size.width, _smallItemBgImage.size.height);
     [_smallItemBgImage release];
 
-    NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"MoreOper", nil), nil];
+    NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"Capture", nil),NSLocalizedString(@"megaphone", nil),NSLocalizedString(@"video", nil) ,NSLocalizedString(@"stream_0", nil), nil];
     
     /**
      *  底部的按钮
@@ -422,8 +425,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)initTalkView {
     
-    int width  = 200.0 ;
-    int height = 60.0 ;
+    int width  = kTalkViewWithWidth ;
+    int height = kTalkViewWithHeight ;
     
     talkView = [[UIView alloc] init];
     talkView.backgroundColor = [UIColor blackColor];

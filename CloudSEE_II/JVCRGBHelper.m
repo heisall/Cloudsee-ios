@@ -49,6 +49,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initLickTypeViewRGBColors];
         [self initMoreUserLabelViewRGBColors];
         [self initWithVoiceConfig];
+        [self initPlayBackCellLabelColor];
     }
     
     return self;
@@ -508,9 +509,19 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     moreViewColor.b = 229.0f;
     [mdicRgbModelList setObject:moreViewColor forKey:KMoreUserLabeTextColor];
     [moreViewColor release];
-    
+}
 
+/**
+ *  初始化视频播放的
+ */
+-(void)initWithPlayVideo{
     
+    JVCRGBModel *titleColor  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    titleColor.r = 96.0;
+    titleColor.g = 103.0f;
+    titleColor.b = 114.0f;
+    [mdicRgbModelList setObject:titleColor forKey:KPlayVideoBottomTitleDefaultFontColor];
+    [titleColor release];
 }
 
 /**
@@ -534,6 +545,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         return nil;
     }
 }
+
 
 /**
  *  初始化声波配置流程

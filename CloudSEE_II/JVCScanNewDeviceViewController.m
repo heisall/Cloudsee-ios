@@ -396,7 +396,6 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         
         if (amLanSearchModelList.count >= self.nScanfDeviceMaxCont) {
             
-            DDLogVerbose(@"%s-------------endLanSearch=hahah",__FUNCTION__);
             [self stopScanfDeviceTimer];
             break;
         }
@@ -410,6 +409,14 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         if ( ADDDEVICE_HAS_EXIST == [[JVCDeviceSourceHelper shareDeviceSourceHelper] addDevicePredicateHaveYSTNUM:model.strYstNumber]){
         
             continue;
+        }
+        
+        if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+            
+            if (!model.iNetMod) {
+                
+                continue;
+            }
         }
        
         [amLanSearchModelList addObject:model];

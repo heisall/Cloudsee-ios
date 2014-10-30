@@ -7,12 +7,18 @@
 //
 
 #import "JVCCustomOperationBottomView.h"
+#import "JVCRGBHelper.h"
 
 static const NSString *BUNDLENAMEButtom = @"customBottomView_cloudsee.bundle";//bundle的名称
 
-static const double IOS_SYSTEM_7_A = 7.0; //ios7
-static const int TAGADD = 100000;         //起始tag
-static const int kButtomImageSeperateCount = 2;//png图片被.分开的时候的数组个数
+static const double  IOS_SYSTEM_7_A = 7.0;           //ios7
+static const int     TAGADD = 100000;                //起始tag
+static const int     kButtomImageSeperateCount = 2;  //png图片被.分开的时候的数组个数
+static const CGFloat kButtonWithTop            = 0.0;//按钮距父类的上边框间距
+static const CGFloat kButtonTitleWithTop       = -5.0;//按钮距父类的上边框间距
+static const CGFloat kButtonTitleWithFontSize  = 12.0;//按钮字体的大小
+static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;//按钮标签的高度
+
 @interface JVCCustomOperationBottomView (){
     
     /**
@@ -85,7 +91,19 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
  */
 - (void)updateViewWithTitleArray:(NSArray *)titileArray Frame:(CGRect)frame SkinType:(int)skinType
 {
+    
     _shareInstance.frame = frame;
+    
+    NSString      *tabbarString = [UIImage imageBundlePath:@"tabbar_bg.png"];
+    UIImage       *bgImage      = [UIImage imageWithContentsOfFile:tabbarString];
+    UIImageView   *bgImageView  = [[UIImageView alloc] init];
+    
+    bgImageView.frame           = CGRectMake(0.0, 0.0, bgImage.size.width, bgImage.size.height);
+    bgImageView.image           = bgImage;
+    bgImageView.backgroundColor = [UIColor clearColor];
+    
+    [self addSubview:bgImageView];
+    [bgImageView release];
     
     /**
      *  初始化按钮数组
@@ -101,13 +119,14 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
      */
     [self setSelectImageListWithType:skinType];
     
-    UIFont *font = [UIFont systemFontOfSize:12];
+    UIFont *font = [UIFont systemFontOfSize:kButtonTitleWithFontSize];
     
     // Initialization code
     
     for (int i=0; i<titileArray.count; i++) {
         
-        UIImage *imageNormal  =[UIImage imageWithContentsOfFile:[self getBundleImagePath: [_amUnSelectedImageNameListData  objectAtIndex:i]]];
+       
+        UIImage *imageNormal  = [UIImage imageWithContentsOfFile:[self getBundleImagePath: [_amUnSelectedImageNameListData  objectAtIndex:i]]];
         
         UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]];
         
@@ -129,37 +148,48 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
             
         }
         
+        UIView *bgView         = [[UIView alloc] init];
+        bgView.frame           =  CGRectMake(i*(frame.size.width/titileArray.count), 0.0, frame.size.width/titileArray.count, frame.size.height);
+        bgView.backgroundColor = [UIColor clearColor];
+        
+        
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        btn.frame = CGRectMake(i*(frame.size.width/titileArray.count), 0, frame.size.width/titileArray.count, frame.size.height);
+        btn.frame = CGRectMake((bgView.frame.size.width-imageNormal.size.width)/2.0, kButtonWithTop, imageNormal.size.width, imageNormal.size.height);
         
-        [btn setTitle:[titileArray objectAtIndex:i] forState:UIControlStateNormal];
-        
-        [btn setImage:imageNormal forState:UIControlStateNormal];
+        [btn setBackgroundImage:imageNormal forState:UIControlStateNormal];
+        btn.backgroundColor = [UIColor clearColor];
         
         btn.tag =TAGADD+i;
         
-        [btn setImage:imageHover forState:UIControlStateHighlighted];
-        
-        [btn setImage:imageHover forState:UIControlStateSelected];
-        
-        [btn.titleLabel setFont:font];
+        [btn setBackgroundImage:imageHover forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:imageHover forState:UIControlStateSelected];
         
         [btn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
         
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -size.width/2)];
+        UILabel *titleLbl = [[UILabel alloc] init];
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: @"smallItem__Normal.png"]] forState:UIControlStateNormal];
+        titleLbl.frame              = CGRectMake(0.0, btn.bottom+kButtonTitleWithTop, bgView.frame.size.width, kButtonTitleWithHeight);
+        titleLbl.backgroundColor    = [UIColor clearColor];
+        titleLbl.font               = font;
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
+        UIColor *titleColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KPlayVideoBottomTitleDefaultFontColor];
         
-        [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover_.png"]]] forState:UIControlStateSelected];
+        if (titleColor) {
+            
+            titleLbl.textColor = titleColor;
+        }
         
+        titleLbl.textAlignment      = NSTextAlignmentCenter;
+        titleLbl.text               = [titileArray objectAtIndex:i];
+        [bgView addSubview:titleLbl];
+        [titleLbl release];
         
-        [_shareInstance addSubview:btn];
+        [bgView addSubview:btn];
+        [_shareInstance addSubview:bgView];
+        [bgView release];
         
         [_arrayButtons addObject:btn];
-        
     }
     
 }
@@ -172,7 +202,6 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     if (BottomDelegate !=nil &&[BottomDelegate respondsToSelector:@selector(customBottomPressCallback:)]) {
         
         [BottomDelegate customBottomPressCallback:btn.tag - TAGADD];
-        
     }
 }
 
@@ -255,15 +284,12 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     UIButton *btn =  [_arrayButtons objectAtIndex:index];
     
-    
     [self setSelectImageListWithType:skinType];
     
     UIImage *imageHover   = [UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:index]]];
     
     [btn setImage:imageHover forState:UIControlStateSelected];
     [btn setImage:imageHover forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath: [ NSString stringWithFormat: @"smallItem_Hover.png"]]] forState:UIControlStateSelected];
     [btn setSelected:YES];
     
     return YES;
@@ -285,10 +311,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     }
     
     UIButton *btn =  [_arrayButtons objectAtIndex:index];
-    
-    
     btn.selected = NO;
-    
     
     return YES;
     
@@ -332,8 +355,6 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
             [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateHighlighted];
             [btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePath:[_amSelectedImageNameListData objectAtIndex:i]]] forState:UIControlStateSelected];
             
-            
-            
         }
         
     }
@@ -351,8 +372,6 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
         UIButton *btn = [_arrayButtons objectAtIndex:i];
         
         [btn setSelected:NO];
-        
-        //[btn setImage:[UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_amUnSelectedImageNameListData objectAtIndex:i]] ] forState:UIControlStateNormal];
     }
 }
 
@@ -384,7 +403,7 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
     
     NSString *main_image_dir_path=[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:(NSString *)BUNDLENAMEButtom];
     
-    NSString *image_path= nil;//[main_image_dir_path stringByAppendingPathComponent:ImageName];
+    NSString *image_path= nil;
     
     NSArray *array = [ImageName componentsSeparatedByString:@"."];
     
@@ -401,13 +420,9 @@ static JVCCustomOperationBottomView *_shareInstance = nil;
 
 - (void)dealloc
 {
-    
     [_arrayButtons release];
-    
     [_amUnSelectedImageNameListData release];
-    
     [_amSelectedImageNameListData release];
-    
     [super dealloc];
 }
 
