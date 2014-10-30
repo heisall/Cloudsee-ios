@@ -45,6 +45,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     BOOL   isShowUSerAndPW;//旋转的标志
     CGRect rectRectFrame;  //原始的数据
     JVCLabelFieldSView *contentView;
+    
+    int  nAddDeviceChanelCount;//添加通道的数量
 }
 
 @end
@@ -262,6 +264,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
+        nAddDeviceChanelCount = channelCount;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             
@@ -284,9 +288,13 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            
             if (ADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDeviceChannel_Error")];
+              //  [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDeviceChannel_Error")];
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+  
+                [self showAddChannelAlert];
        
                 
             }else{//成功后，获取设备的所有信息
@@ -475,6 +483,21 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     [self resignADDDeviceTextFields];
 }
 
+- (void)showAddChannelAlert
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil delegate:self  cancelButtonTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok")  otherButtonTitles:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") , nil];
+    [alertView show];
+    [alertView release];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex  == 0) {//重新添加
+        
+        [self addDeviceChannelToServerWithNum:nAddDeviceChanelCount];
+
+    }
+}
 /*
 #pragma mark - Navigation
 

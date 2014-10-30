@@ -171,14 +171,20 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备下拉刷新获取设备
         
-        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
+        [self getDeviceList];
+    }else{
+        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
+            
+            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
+            
+        });
 
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
-    
-    });
+    }
     
 }
 #pragma mark 弹出添加设备选项卡，用户选中相应按钮的回调

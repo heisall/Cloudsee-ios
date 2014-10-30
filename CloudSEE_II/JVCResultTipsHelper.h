@@ -51,4 +51,11 @@ static const int KAddTag  = 100;//判断用户的时候的返回值是负数，�
  *  @param result 相应的返回值
  */
 - (void)showModifyDevieLinkModelError:(int )result;
+
+/**
+ *  根据参数提示不同的信息
+ *
+ *  @param message 提示的信息
+ */
+- (void)showResultAlertOnModifyVCWithMessage:(int)result;
 @end

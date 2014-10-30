@@ -445,6 +445,8 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
                     [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:result];
+                    //清空自动登录的密码
+                    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:textFieldUser.text loginState:kLoginStateOFF];
                     
                 }
                 

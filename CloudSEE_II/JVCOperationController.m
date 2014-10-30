@@ -1040,11 +1040,16 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
+        int deleteSize = 0;
+        if (IOS_VERSION<IOS7) {
+            deleteSize = [UIApplication sharedApplication].statusBarFrame.size.height;
+        }
+        
         if (_splitViewCon.frame.size.height>0) {
             [self gotoShowSpltWindow];
         }
         self.navigationController.navigationBarHidden = YES;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, self.view.height , self.view.width);
+        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , self.view.width-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
         
         [_managerVideo changeContenView];
@@ -1055,7 +1060,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         //显示横屏的按钮
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
         [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
-        [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.frame.origin.y+_managerVideo.frame.size.height - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
         
         if (![self.view.constraints containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
             

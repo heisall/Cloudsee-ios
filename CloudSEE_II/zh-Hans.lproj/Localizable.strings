@@ -123,7 +123,7 @@
 "jvc_resign_user" = "邮箱/用户名/手机号";
 "jvc_resign_pw" = "密 码";
 "jvc_resign_enpw" ="确认密码";
-
+"jvc_resign_Resign_eror" = "注册失败";
 //jvcresulttiphelper
 "LOGINRESULT_USERNAME_NIL" = "请输入用户名";
 "LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
@@ -169,6 +169,7 @@
 "LINKMODEL_UNKONWN_ERROR"="连接服务器错误，代码：";
 "loginResign_passWord_error" = "密码由英文、数字及“-”、“_”组成且长度在6~20位字符之间";
 "home_login_resign_user_noFound"= "恭喜，用户名已被您收入囊中。";
+"home_login_resign_user_exit"= "亲， 用户名已经被别人占领，请修改。";
 
 //添加设备界面
 "jvc_addDevice_title" = "添加设备";
@@ -188,6 +189,11 @@
 "qrScan"="正在扫描设备，请等待...";
 "JDCSVC_GetDevice_Error"= "设备失败";
 "JDCSVC_GetDeviceChannel_Error"= "激活设备通道失败";
+"jvc_addDevicChannel_CountError" = "添加设备通道视频，是否重新激活";
+"jvc_addDevicChannel_CountError_ok" = "激活";
+"jvc_addDevicChannel_CountError_Cancel" = "取消";
+"binding_email_exist"="邮箱已被注册";
+
 
 //声波添加设备
 "jvc_voice_add_title" = "准备步骤";

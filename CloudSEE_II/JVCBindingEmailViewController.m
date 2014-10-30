@@ -238,6 +238,7 @@ static const int  KSUCCESS          = 0;//成功
     
 }
 
+
 - (void)handleBindEmailResult:(int )result
 {
     if (result == KSUCCESS) {//成功
@@ -247,7 +248,7 @@ static const int  KSUCCESS          = 0;//成功
     }else{
         [_textFieldEmail becomeFirstResponder];
 
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"binding_failt")];
+        [[JVCResultTipsHelper shareResultTipsHelper] showResultAlertOnModifyVCWithMessage:result];
     }
 }
 

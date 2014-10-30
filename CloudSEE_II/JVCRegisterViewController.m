@@ -542,7 +542,7 @@ static const int KLabelWith  = 10 ;//label的宽度
     }else{//失败
     
         DDLogError(@"=%s=注册失败收到的返回值=%d",__FUNCTION__,iResult);
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"注册失败"];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_resign_Resign_eror")];
     }
 }
 

@@ -276,4 +276,34 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
 }
 
 
+/**
+ *  根据参数提示不同的信息
+ *
+ *  @param message 提示的信息
+ */
+- (void)showResultAlertOnModifyVCWithMessage:(int)result
+{
+    NSString *aletString = nil;
+    
+    switch (result) {
+            
+        case USER_HAS_EXIST:
+            aletString = LOCALANGER(@"binding_email_exist");
+            break;
+        case CONN_OTHER_ERROR:
+            aletString=LOCALANGER(@"CONN_OTHER_ERROR") ;
+            break;
+            
+        case REQ_RES_TIMEOUT:
+            aletString=LOCALANGER(@"REQ_RES_TIMEOUT");
+            break;
+        default:
+            aletString = [NSString stringWithFormat:@"%@%d",LOCALANGER(@"Login_Default_error"),result];
+            break;
+            
+    }
+    
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:aletString];
+}
+
 @end

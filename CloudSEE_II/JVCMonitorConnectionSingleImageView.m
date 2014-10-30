@@ -674,6 +674,7 @@ float min_offset;
     
     NSMutableString *connectResultInfo = [[NSMutableString alloc] initWithCapacity:10];
     
+    DDLogVerbose(@"%s=====connectResultType=%d",__FUNCTION__,connectResultType);
     switch (connectResultType) {
             
         case  CONNECTRESULTTYPE_ConnectFailed:

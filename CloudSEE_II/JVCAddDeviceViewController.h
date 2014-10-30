@@ -36,7 +36,7 @@ enum DEVICEBIND
 
 @end
 
-@interface JVCAddDeviceViewController : JVCBaseSliderViewController<UITextFieldDelegate>
+@interface JVCAddDeviceViewController : JVCBaseSliderViewController<UITextFieldDelegate,UIAlertViewDelegate>
 {
     id<addDeviceDelegate>addDeviceDelegate;
 }

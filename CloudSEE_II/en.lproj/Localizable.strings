@@ -122,6 +122,7 @@
 "jvc_resign_user" = "Email/UserName";
 "jvc_resign_pw" = "PassWord";
 "jvc_resign_enpw" ="Confirm password";
+"jvc_resign_Resign_eror" = "Faild to register";
 
 //jvcresulttiphelper  正则判断的
 "LOGINRESULT_USERNAME_NIL" = "Please input username.";
@@ -168,6 +169,7 @@
 "LINKMODEL_UNKONWN_ERROR"="Unable to communicate with server,code:";
 "loginResign_passWord_error" = "Password should be 6-20 characters";
 "home_login_resign_user_noFound"= "Congratulations,username can register";
+"home_login_resign_user_exit"= "Username has been registered by others, please modify.";
 
 //添加设备界面
 "jvc_addDevice_title" = "Add device";
@@ -187,6 +189,9 @@
 "qrScan"="Scanning now,please wait...";
 "JDCSVC_GetDevice_Error"= "Faild to add device";
 "JDCSVC_GetDeviceChannel_Error"= "Channel added failed";
+"jvc_addDevicChannel_CountError" = "添加设备通道视频，是否重新激活";
+"jvc_addDevicChannel_CountError_ok" = "激活";
+"jvc_addDevicChannel_CountError_Cancel" = "取消";
 
 //声波添加设备
 "jvc_voice_add_title" = "准备步骤";
@@ -422,12 +427,12 @@
 "jvc_editDevice_title" = "Management";
 "jvc_editDevice_Editbtn_device" = "Management";
 "jvc_editDevice_Editbtn_licktype" = "Connection Mode";
-"jvc_editDevice_Editbtn_channels" = "通道管理";
+"jvc_editDevice_Editbtn_channels" = "Channel Management";
 "jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
-"jvc_editDevice_Editbtn_safe" = "安全防护";
-"jvc_editDevice_Editbtn_alarmseting" = "报警设置";
-"jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
-"jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
+"jvc_editDevice_Editbtn_safe" = "Security Protection";
+"jvc_editDevice_Editbtn_alarmseting" = "Alarm Device";
+"jvc_editDevice_Editbtn_safe_open" = "Enable Security Protection Successfully";
+"jvc_editDevice_Editbtn_safe_close" = "Failed to enable Security Protection.";
 "jvc_editDevice_noSupport" = "设备不支持此操作";
 "jvc_editDevice_lickError"= "连接失败请重试";
 "Jvc_editDeviceInfo_Title" = "编辑设备";
@@ -439,27 +444,27 @@
 
 
 //更多
-"jvc_more_title" = "更多";
+"jvc_more_title" = "More Function";
 "jvc_more_local_noSupport"="本地模式暂停使用";
-"networkError"                                    =  "网络连接异常，请检查网络";
-"jvc_more_loginout"="确定要注销吗";
-"jvc_more_loginout_ok"="确定";
-"jvc_more_loginout_quit"="取消";
-"jvc_more_loginout_error"="注销失败";
-"jvc_more_loginout_appStore"="您确定去APPStore评论吗？";
+"networkError"                                    =  "Network connection exception,please check the network";
+"jvc_more_loginout"="Are you sure to logout?";
+"jvc_more_loginout_ok"="Sure";
+"jvc_more_loginout_quit"="Cancel";
+"jvc_more_loginout_error"="Faild to logout";
+"jvc_more_loginout_appStore"="Go to AppStore to comment.";
 
 //门磁或手环报警
-"jvc_alarmDevice_title" = "添加设备";
+"jvc_alarmDevice_title" = "Add device";
 "jvc_alarmDevice_door" = "门磁设备";
 "jvc_alarmDevice_hand" = "手环设备";
 "jvc_alarmDevice_control" = "遥控器设备";
-"jvc_alarmDevice_addError" = "添加失败";
+"jvc_alarmDevice_addError" = "Faild to 门磁设备";
 "jvc_alarmDevice_addMaxNum" = "超过最大绑定值";
 "jvc_alarmDevice_addhasexist" = "重复绑定";
 
 //弹出报警信息的title
-"JVCAlarmCurrentView_title"= "报警信息";
-"JVCAlarmCurrentView_device"= "设备：";
+"JVCAlarmCurrentView_title"= "Alarm info";
+"JVCAlarmCurrentView_device"= "Device：";
 "JVCAlarmCurrentView_motion"= "移动检测报警";
 "JVCAlarmCurrentView_door"= "门磁或手环报警";
 "JVCAlarmCurrentView_another"= "未知报警";
@@ -468,29 +473,29 @@
 "JVCAlarmCurrentView_ignorce"= "忽略";
 
 //演示点
-"jvc_demo_title" = "演示点";
-"jvc_demo_GetDate_error" = "获取数据错误";
+"jvc_demo_title" = "Demo";
+"jvc_demo_GetDate_error" = "Failed to get data.";
 
 //JVCDeviceAlarmNoDeviceTableViewCell
-"JVCDeviceAlarmNoDeviceTableViewCell_labe"= "点击此处添加设备";
+"JVCDeviceAlarmNoDeviceTableViewCell_labe"= "Add Device";
 
 //JVCDeviceMathsHelper
-"JVCDeviceMathsHelper_addDevice_success" = "添加设备成功";
+"JVCDeviceMathsHelper_addDevice_success" = "Add device Successfully";
 "JVCDeviceMathsHelper_addDevice_HasExist" = "设备列表中已存在";
 "JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
-"JVCDeviceMathsHelper_addDevice_error" = "添加失败";
+"JVCDeviceMathsHelper_addDevice_error" = "Faild to add";
 "JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数错误";
 
 //JVCEditLockDeviceNickNameViewController
 "JVCEditLockDeviceNickNameViewController_title"= "修改昵称";
 "JVCEditLockDeviceNickNameViewController_Nickname"= "请输入昵称";
-"JVCEditLockDeviceNickNameViewController_Save"= "完成";
+"JVCEditLockDeviceNickNameViewController_Save"= "Finish";
 
 //JVCLabelFieldSView
-"JVCLabelFieldSView_save" = "完成";
+"JVCLabelFieldSView_save" = "Finish";
 
 //JVCLocalEditChannelInfoTableViewController
-"JVCLocalEditChannelInfoTableViewController_saveSuccess" = "添加成功";
+"JVCLocalEditChannelInfoTableViewController_saveSuccess" = "Add Successfully";
 
 //
 "JVCMonitorConnectionSingleImageView_connecting"="正在努力加载视频数据\n请等待...";
