@@ -140,12 +140,16 @@ static JVCOperationMiddleViewIphone5 *shareInstanc = nil;
         [contentView  addSubview:_titleInfo];
         [_titleInfo release];
         
-        UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"boderBigLine.png"]];
-        UIImageView *_boderImageView=[[UIImageView alloc] init];
-        _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
-        [_boderImageView setImage:boderImage];
-        [contentView addSubview:_boderImageView];
-        [_boderImageView release];
+        //最后一列 没有boderImage
+        if (i != titleArray.count -1) {
+            
+            UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"boderBigLine.png"]];
+            UIImageView *_boderImageView=[[UIImageView alloc] init];
+            _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
+            [_boderImageView setImage:boderImage];
+            [contentView addSubview:_boderImageView];
+            [_boderImageView release];
+        }
         
         contentView.tag = i;
         /**

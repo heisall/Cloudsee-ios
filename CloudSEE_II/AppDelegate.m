@@ -195,6 +195,7 @@ static  const   int      KSetHelpMaxCount    = 10;
         NSString *tabbarStringSec = [UIImage imageBundlePath:@"tabSec.png"];
         UIImage *tabbarBgIamgeSec = [[UIImage alloc] initWithContentsOfFile:tabbarStringSec];
         rootViewController.tabBar.selectionIndicatorImage = tabbarBgIamgeSec;
+        
         [tabbarBgIamge release];
         [tabbarBgIamgeSec release];
         
@@ -227,10 +228,6 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *) viewController {
     
-//    if ([viewController isKindOfClass:[UINavigationController class]]) {
-//        
-//        UINavigationController
-//    }
     
     if (tabBarController.selectedIndex !=  tabarViewItem_editDevice) {
         
