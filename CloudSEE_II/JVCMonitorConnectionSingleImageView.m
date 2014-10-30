@@ -793,12 +793,13 @@ float min_offset;
     if (connectInfo.length > 0 ) {
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
-        connectInfoTV.text     = LOCALANGER(@"JVCMonitorConnectionSingleImageView_connecting");
+        connectInfoTV.text     = @"";
+        connectInfoTV.hidden   = YES;
         
     }else{
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
-        connectInfoTV.text     = @"正在努力加载视频数据,请等待...";
+       connectInfoTV.text     = LOCALANGER(@"JVCMonitorConnectionSingleImageView_connecting");
     }
 
 	UILabel *selectedSourceTV=(UILabel*)[self viewWithTag:102];
@@ -824,7 +825,6 @@ float min_offset;
     [slider setHidden:YES];
     [self._glView hiddenWithOpenGLView];
     [self bringSubviewToFront:imgView];
-    
 }
 
 /**
