@@ -361,6 +361,7 @@ BOOL isAllLinkRun;
     self.imageViewNums         = self._iBigNumbers;
     self._iBigNumbers          = _views;
     self.nSelectedChannelIndex =viewimage.view.tag-KWINDOWSFLAG;
+    
     [self changeContenView];
 }
 
@@ -371,18 +372,19 @@ BOOL isAllLinkRun;
  */
 -(void)handleSingelTabFrom_FOUR:(id)sender{
     
+    UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
+    
     if (showWindowNumberType_One ==self.imageViewNums) {
         
         if ([_operationController returnIsplayBackVideo]) {
             
-            UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
             JVCMonitorConnectionSingleImageView *_clickSingleView=(JVCMonitorConnectionSingleImageView*)viewimage.view;
             _clickSingleView._isPlayBackState=!_clickSingleView._isPlayBackState;
         }
+        
         return;
     }
     
-	UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
     
     if (viewimage.view.tag==KWINDOWSFLAG+self.nSelectedChannelIndex) {
         
@@ -491,6 +493,8 @@ BOOL isAllLinkRun;
  */
 -(void)changeContenView{
     
+    self.isShowVideo  = TRUE;
+    
     int channelCount              = [self channelCountAtSelectedYstNumber];
     JVCAppHelper *apphelper       = [JVCAppHelper shareJVCAppHelper];
 
@@ -557,6 +561,8 @@ BOOL isAllLinkRun;
     [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
+    
+    self.isShowVideo  = FALSE;
 }
 
 #pragma mark 全连接处理

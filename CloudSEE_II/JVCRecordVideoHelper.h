@@ -12,13 +12,10 @@
 
     BOOL      isRecordVideo;
     BOOL      isRecordVideoWaitingFrameI;
-    NSString  *strPath;  //录像保存的地址
-
 }
 
 @property (nonatomic,assign) BOOL isRecordVideo;
 @property (nonatomic,assign) BOOL isRecordVideoWaitingFrameI;
-@property (nonatomic,retain) NSString *strPath;
 
 /**
  *  打开录像的编码器

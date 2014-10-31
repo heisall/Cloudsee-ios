@@ -1223,6 +1223,7 @@ char remoteSendSearchFileBuffer[29] = {0};
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_VIDEO];
                 
             }else{
+                
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
                 
             }
@@ -1989,6 +1990,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark 开启本地录像
 -(void)operationPlayVideo:(UIButton*)button{
     
+    JVCCloudSEENetworkHelper *jvcCloudObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    jvcCloudObj.videoDelegate             = self;
+    
     if (button.selected) {
         
         /**
@@ -2032,7 +2036,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             _strSaveVideoPath = [videoPath retain];
             
-           [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
+           [jvcCloudObj openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
             
         };
         
@@ -2043,8 +2047,24 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] stopRecordVideo:_managerVideo.nSelectedChannelIndex+1];
+        [jvcCloudObj stopRecordVideo:_managerVideo.nSelectedChannelIndex+1  withIsContinueVideo:NO];
+    }
+}
+
+/**
+ *   录像结束的回调函数
+ *
+ *  @param isContinue 是否结束后继续录像 YES：继续
+ */
+-(void)videoEndCallBack:(BOOL)isContinueVideo{
+    
+    if (!isContinueVideo) {
+        
         [self saveLocalVideo:_strSaveVideoPath];
+        
+    }else {
+    
+    
     }
 }
 
@@ -2053,18 +2073,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)stopAudioMonitor
 {
-//    if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
-//        
-//        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
-//        
-//        [[JVCOperationMiddleView shareInstance] setButtonSunSelect];
-//        
-//        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-//        ystNetworkObj.ystNWADelegate    =  self;
-//        [self audioButtonClick];
-//        
-//    }
-    
+
     if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -2078,9 +2087,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [[JVCOperationMiddleView  shareInstance] setButtonSunSelect];
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
-        
     }
-
 }
 
 #pragma mark  语音对讲的回调

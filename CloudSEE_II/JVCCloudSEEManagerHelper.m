@@ -13,7 +13,6 @@
 #import "JVCPlaySoundHelper.h"
 #import "JVCVoiceIntercomHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
-#import "JVCRecordVideoHelper.h"
 
 @interface JVCCloudSEEManagerHelper (){
     
@@ -554,20 +553,6 @@ char          pcmBuffer[1024] ={0};
 -(void)saveRecordVideoDataToLocal:(char *)videoData isVideoDataI:(BOOL)isVideoDataI isVideoDataB:(BOOL)isVideoDataB videoDataSize:(int)videoDataSize{
     
     [self.jvcRecodVideoHelper saveRecordVideoDataToLocal:videoData isVideoDataI:isVideoDataI isVideoDataB:isVideoDataB videoDataSize:videoDataSize];
-}
-
-/**
- *  如果画质改变，正在录像重新打包继续录像
- */
--(void)qualityChangeContinueRecoderVideo{
-    
-    
-    if (self.jvcRecodVideoHelper.isRecordVideo) {
-        
-        [self stopRecordVideo];
-        
-        [self openRecordVideo:self.jvcRecodVideoHelper.strPath];
-    }
 }
 
 /**

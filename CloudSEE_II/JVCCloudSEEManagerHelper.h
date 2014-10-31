@@ -10,11 +10,11 @@
 #import "JVCQueueHelper.h"
 #import "JVCVideoDecoderHelper.h"
 #import "JVCAudioQueueHelper.h"
+#import "JVCRecordVideoHelper.h"
 
 @class JVCRemotePlayBackWithVideoDecoderHelper;
 @class JVCPlaySoundHelper;
 @class JVCVoiceIntercomHelper;
-@class JVCRecordVideoHelper;
 
 @protocol JVCCloudSEEManagerHelperDelegate <NSObject>
 
@@ -265,11 +265,6 @@
  *  @param dRate              录像的帧率
  */
 -(void)openRecordVideo:(NSString *)strRecordVideoPath;
-
-/**
- *  如果画质改变，正在录像重新打包继续录像
- */
--(void)qualityChangeContinueRecoderVideo;
 
 /**
  *  停止录像
