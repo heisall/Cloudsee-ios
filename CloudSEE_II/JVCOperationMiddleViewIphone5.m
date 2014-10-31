@@ -35,7 +35,7 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
  */
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray skinType:(int )skinType
 {
-    
+    [self initImageArray];
     
     CGFloat height = self.frame.size.height/titleArray.count;
     

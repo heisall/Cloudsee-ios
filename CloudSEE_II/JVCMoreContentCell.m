@@ -14,7 +14,7 @@ static const int  moreContentCellOff_X  = 20;//距离组边框的距离
 static const int  moreContentCellSeperate  = 20;//距离图片的距离
 
 
-static const int  moreContentCellLabelWith  = 200;//label的宽
+static const int  moreContentCellLabelWith  = 300;//label的宽
 
 static const int  moreContentCellTextFont  = 16;//字体大小
 

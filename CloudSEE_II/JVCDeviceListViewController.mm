@@ -42,6 +42,7 @@ static const int             kTableViewSingleDeviceViewBeginTag      = 1000;  //
 static const int             kAlertTag                               = 10008; //设备视图的默认起始标志
 static const NSTimeInterval  kLanSearchTime                          = 5*60;  //局域网广播轮询的时间
 static const int             kScanfDeviceMaxCount                    = 5; //设备视图的默认起始标志
+static const NSTimeInterval  kAfterDelayTimer                        = 2;  //2秒之后的停止下拉刷新
 
 @interface JVCDeviceListViewController ()
 {
@@ -174,6 +175,7 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备下拉刷新获取设备
         
         [self getDeviceList];
+        [self.tableView performSelector:@selector(headerEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer inModes:nil];
     }else{
         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

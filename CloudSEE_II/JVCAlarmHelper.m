@@ -152,4 +152,27 @@ static JVCAlarmHelper *shareAlarmHelper = nil;
         return NO;
 }
 
+/**
+ *  删除报警信息
+ *
+ *  @return yes 成功  no 失败
+ */
+- (BOOL)deleteAkkAlarmHistory
+{
+    id result =  [[JVCDeviceHelper sharedDeviceLibrary]deleteAllAlarmHorisy];
+    
+    if ([result isKindOfClass:[NSDictionary class]]) {//是字典类型的
+        
+        NSDictionary *resultDic = (NSDictionary *)result;
+        
+        if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resultDic]) {//成功
+            
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+
 @end

@@ -371,8 +371,14 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
         }
             break;
         case JVCEditDeviceListViewControllerClickType_play:{
-            
-            [self gotoPlayViewController:0];
+            {//判断设备的通道号大于0，才让连接
+                NSString *titleYst = [titles objectAtIndex:self.nIndex];
+                NSArray *arrayList = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:titleYst];
+                if (arrayList.count>0) {
+                    [self gotoPlayViewController:0];
+
+                }
+            }
         }
             break;
             

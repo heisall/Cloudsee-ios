@@ -107,6 +107,71 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
         [self addNoAlarmDateView];
     }
     
+    [self addNavicationRightBarButton];
+    
+}
+
+- (void)addNavicationRightBarButton
+{
+    NSString *path= nil;
+    
+    path = [[NSBundle mainBundle] pathForResource:@"arm_clear" ofType:@"png"];
+    
+    if (path == nil) {
+        
+        path = [[NSBundle mainBundle] pathForResource:@"arm_clear@2x" ofType:@"png"];
+        
+    }
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    [btn addTarget:self action:@selector(clearALlAlarm) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    [barButtonItem release];
+    [image release];
+
+}
+
+- (void)clearALlAlarm
+{
+    if (arrayAlarmList.count == 0) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_noAlarm")];
+        
+    }else{
+        
+        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            BOOL result = [[JVCAlarmHelper shareAlarmHelper] deleteAkkAlarmHistory];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+                
+                if (result) {
+                    
+                    [arrayAlarmList removeAllObjects];
+                    
+                    [self.tableView reloadData];
+                    
+                    [self addNoAlarmDateView];
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_delete_success")];
+                    
+                    nAlarmOriginIndex =0;
+                    
+                }else{
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_delete_failt")];
+                }
+                
+            });
+        });
+    }
 }
 
 - (void)initLayoutWithViewWillAppear

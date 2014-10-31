@@ -398,6 +398,8 @@ static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
         return;
     };
     
+    textFieldUser.text = [textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
 
         //正则判断用户名、密码是否合法

@@ -32,4 +32,11 @@
  *  @return yes 成功  no 失败
  */
 - (BOOL)deleteAlarmHistoryWithGuid:(NSString *)deviceGuid;
+
+/**
+ *  删除报警信息
+ *
+ *  @return yes 成功  no 失败
+ */
+- (BOOL)deleteAkkAlarmHistory;
 @end

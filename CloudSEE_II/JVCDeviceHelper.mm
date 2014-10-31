@@ -1275,6 +1275,35 @@ char outTextBuffer[1280*720*3];
     // return [self ConvertAlarmlistToModelListData:resultID];
 }
 
+/**
+ *	删除报警信息的列表
+ *
+ *	@param	deleteIndexValue 删除
+*/
+-(id)deleteAllAlarmHorisy{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:ALARM_INFO_PROCESS] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    
+    [requestInfoMDict setValue:[NSNumber numberWithInt:JK_ALARM_MESSAGE_TYPE_Clear] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    NSLog(@"parseStr=%@",parseStr);
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    NSLog(@"resultID=%@",resultID);
+    return resultID;
+    // return [self ConvertAlarmlistToModelListData:resultID];
+}
+
 
 
 /**

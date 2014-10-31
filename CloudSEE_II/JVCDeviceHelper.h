@@ -328,4 +328,13 @@ enum DEVICEONLINESTATE
  */
 -(NSDictionary *)getDemoInfoList;
 
+/**
+ *	删除报警信息的列表
+ *
+ *	@param	deleteIndexValue 删除
+ *
+ *	@return	返回JK_ALARM_LISTCOUNT个
+ */
+-(id)deleteAllAlarmHorisy;
+
 @end
