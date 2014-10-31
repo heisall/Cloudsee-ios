@@ -494,7 +494,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)longPressedStartTalk:(UILongPressGestureRecognizer *)longGestureRecognizer{
     
     JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
     
     DDLogCVerbose(@"%s-----talk",__FUNCTION__);
     
@@ -511,8 +510,23 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if ([longGestureRecognizer state] == UIGestureRecognizerStateBegan) {
         
+        [self beginTalk];
         
-        [self initTalkView];
+    }else if ([longGestureRecognizer state] == UIGestureRecognizerStateEnded){
+        
+        [self stopTalk];
+    }
+}
+
+/**
+ *  停止语音请求
+ */
+-(void)beginTalk {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
         
         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Talk];
@@ -521,20 +535,40 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         isLongPressedStartTalk = TRUE;
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self initTalkView];
+            
+        });
         
-    }else if ([longGestureRecognizer state] == UIGestureRecognizerStateEnded){
+    });
+}
+
+/**
+ *  停止语音请求
+ */
+-(void)stopTalk {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [self RemoveTalkView];
+        JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        AQSController            *aqCon           = [AQSController shareAQSControllerobjInstance];
         
         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
-         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
-         [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
+        [jvcCloudseeObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_setTalkModel remoteOperationCommand:DEVICETALKMODEL_Notalk];
         
-         [aqCon changeRecordState:FALSE];
+        [aqCon changeRecordState:FALSE];
         
         isLongPressedStartTalk = FALSE;
         
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [self RemoveTalkView];
+        
+        });
+    
+    });
 }
 
 #pragma mark -------------- JVCManagePalyVideoComtroller delegate
@@ -914,9 +948,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     //复制代码注：startPoint是起点，endPoint是终点，150，30是x,y轴的控制点，自行调整数值可以出现理想弧度效果
     
     bounceAnimation.path = thePath;
-    
     bounceAnimation.duration =0.7;
-    
     
     //缩放
     CABasicAnimation *transform = [CABasicAnimation animationWithKeyPath:@"transform"];
@@ -935,7 +967,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [self performSelector:@selector(hideencapAnimations) withObject:nil afterDelay:0.5f];
     [self performSelector:@selector(stopcapAnimations) withObject:nil afterDelay:0.7f];
-    CFRelease(thePath);
+     CFRelease(thePath);
     
 }
 
@@ -1022,6 +1054,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
     _managerVideo.isShowVideo = TRUE;
+
     [self shouldAutorotate];
     [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
     
@@ -1050,6 +1083,11 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
 
     _managerVideo.isShowVideo = FALSE;
+    
+    if (isLongPressedStartTalk) {
+        
+        [self stopTalk];
+    }
 }
 
 
@@ -1073,7 +1111,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     }else{
         
         int deleteSize = 0;
+        
         if (IOS_VERSION<IOS7) {
+            
             deleteSize = [UIApplication sharedApplication].statusBarFrame.size.height;
         }
         
@@ -1099,6 +1139,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             [self.view addSubview:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
             
         }
+        
         [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
     }
 }
