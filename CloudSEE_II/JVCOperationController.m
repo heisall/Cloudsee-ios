@@ -1246,11 +1246,12 @@ char remoteSendSearchFileBuffer[29] = {0};
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_VIDEO];
                 
             }else{
+                
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
                 
             }
             
-            [self operationPlayVideo:btn];
+            [self operationPlayVideo:btn.selected];
             
         }
             break;
@@ -1991,7 +1992,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (btn.selected) {
         
         btn.selected = NO;
-        [self operationPlayVideo:btn];
+        [self operationPlayVideo:btn.selected];
     }
     
     [self initwithRightButton:nil withTitle:nil];
@@ -2010,9 +2011,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 
 #pragma mark 开启本地录像
--(void)operationPlayVideo:(UIButton*)button{
+-(void)operationPlayVideo:(BOOL)buttonState{
     
-    if (button.selected) {
+    JVCCloudSEENetworkHelper *jvcCloudObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    jvcCloudObj.videoDelegate             = self;
+    
+    if (buttonState) {
         
         /**
          *  保存录像的回调
@@ -2055,7 +2059,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             _strSaveVideoPath = [videoPath retain];
             
-           [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
+           [jvcCloudObj openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
             
         };
         
@@ -2066,8 +2070,23 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] stopRecordVideo:_managerVideo.nSelectedChannelIndex+1];
-        [self saveLocalVideo:_strSaveVideoPath];
+        [jvcCloudObj stopRecordVideo:_managerVideo.nSelectedChannelIndex+1  withIsContinueVideo:NO];
+    }
+}
+
+/**
+ *   录像结束的回调函数
+ *
+ *  @param isContinue 是否结束后继续录像 YES：继续
+ */
+-(void)videoEndCallBack:(BOOL)isContinueVideo{
+    
+    DDLogVerbose(@"==%@=",_strSaveVideoPath);
+    [self saveLocalVideo:_strSaveVideoPath];
+
+    if (isContinueVideo) {
+   
+        [self operationPlayVideo:YES];
     }
 }
 
@@ -2076,18 +2095,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)stopAudioMonitor
 {
-//    if ([[JVCOperationMiddleView shareInstance] getAudioBtnState]) {
-//        
-//        [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
-//        
-//        [[JVCOperationMiddleView shareInstance] setButtonSunSelect];
-//        
-//        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-//        ystNetworkObj.ystNWADelegate    =  self;
-//        [self audioButtonClick];
-//        
-//    }
-    
+
     if ([_operationBigItemBg getAudioBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -2101,9 +2109,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [_operationBigItemBg setButtonSunSelect];
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
-        
     }
-
 }
 
 #pragma mark  语音对讲的回调
@@ -2286,7 +2292,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
             }
             
-            [self  operationPlayVideo:btn];
+            [self  operationPlayVideo:btn.selected];
             
             
         }

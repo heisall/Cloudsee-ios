@@ -48,7 +48,10 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
 {
     [self initReceiveDate];
     
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    if (!self.bShowNetWorkError) {
+        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
+    }
     
     NSMutableDictionary *paramer = [[NSMutableDictionary alloc] init];
     [paramer setObject:KRequestTypeValue forKey:KRequestType];

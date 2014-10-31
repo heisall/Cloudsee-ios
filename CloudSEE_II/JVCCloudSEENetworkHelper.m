@@ -14,6 +14,7 @@
 #import "JVCVideoDecoderHelper.h"
 #import "JVCRemotePlayBackWithVideoDecoderHelper.h"
 
+
 @interface JVCCloudSEENetworkHelper () {
 
 
@@ -109,6 +110,7 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 @synthesize ystNWADelegate;
 @synthesize ystNWRPVDelegate;
 @synthesize ystNWTDDelegate;
+@synthesize videoDelegate;
 
 
 char          ppszPCMBuf[640] ={0};
@@ -588,7 +590,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 JVCVideoDecoderHelperObj.nVideoWidth          = width;
                 JVCVideoDecoderHelperObj.nVideoHeight         = height;
                 
-                [currentChannelObj qualityChangeContinueRecoderVideo];
+                [jvcCloudSEENetworkHelper qualityChangeContinueRecoderVideo:nLocalChannel];
                 
             }
             
@@ -708,15 +710,34 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
 }
 
 /**
- *  关闭本地录像
- *
- *  @param nLocalChannel 本地连接的通道地址
+ *  如果画质改变，正在录像重新打包继续录像
  */
--(void)stopRecordVideo:(int)nLocalChannel{
+-(void)qualityChangeContinueRecoderVideo:(int)nLocalChannel{
     
     JVCCloudSEEManagerHelper  *currentChannelObj = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
     
-    [currentChannelObj retain];
+    if (currentChannelObj == nil) {
+        
+        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is null",__FUNCTION__,nLocalChannel);
+        
+    }
+    
+    if (currentChannelObj.jvcRecodVideoHelper.isRecordVideo) {
+        
+        [self stopRecordVideo:nLocalChannel withIsContinueVideo:YES];
+    }
+}
+
+/**
+ *  关闭本地录像
+ *
+ *  @param nLocalChannel 本地连接的通道地址
+ *  @param isContinue    是否停止后继续录像
+ */
+-(void)stopRecordVideo:(int)nLocalChannel withIsContinueVideo:(BOOL)isContinue{
+    
+    JVCCloudSEEManagerHelper  *currentChannelObj = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
     
     if (currentChannelObj == nil) {
         
@@ -724,10 +745,15 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         
         return;
     }
+    
     [currentChannelObj stopRecordVideo];
     
-    [currentChannelObj release];
+    if (self.videoDelegate !=nil && [self.videoDelegate respondsToSelector:@selector(videoEndCallBack:)]) {
+        
+        [self.videoDelegate videoEndCallBack:isContinue];
+    }
 }
+
 
 #pragma mark VideoDataCallBack 逻辑处理模块
 
@@ -1149,7 +1175,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
             int     width       = -1;
             int     height      = -1;
             double  frameRate   = 0 ;
-             DDLogCVerbose(@"%s--------playBack###################00000001",__FUNCTION__);
+            
             currentChannelObj.nConnectDeviceType         = currentChannelObj.nConnectDeviceType;
             
             playBackDecoderObj.nPlayBackFrametotalNumber = [ystNetworkHelperCMObj getRemotePlaybackTotalFrameAndframeFrate:pBuffer buffer_O_size:nSize videoWidth:&width videoHeight:&height dFrameRate:&frameRate];
@@ -1161,7 +1187,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
                  */
                 playBackDecoderObj.nVideoWidth       = width;
                 playBackDecoderObj.nVideoHeight      = height;
-                [currentChannelObj qualityChangeContinueRecoderVideo];
+                [jvcCloudSEENetworkHelper qualityChangeContinueRecoderVideo:nLocalChannel];
             }
             
             playBackDecoderObj.dVideoframeFrate      = frameRate;

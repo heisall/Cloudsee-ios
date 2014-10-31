@@ -91,7 +91,7 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
 
         case MoreSettingCellType_Switch:
         {
-            switchCell.tag = MoreSettingCellType_AccountSwith;
+            switchCell.tag = MoreSettingCellType_Switch;
             switchCell.hidden = NO;
 
         }

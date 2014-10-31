@@ -143,6 +143,17 @@
 
 @end
 
+@protocol  ystNetWorkHelpVideoDelegate <NSObject>
+
+/**
+ *   录像结束的回调函数
+ *
+ *  @param isContinue 是否结束后继续录像 YES：继续
+ */
+-(void)videoEndCallBack:(BOOL)isContinueVideo;
+
+@end
+
 @interface JVCCloudSEENetworkHelper : NSObject <JVCCloudSEEManagerHelperDelegate>{
 
     id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
@@ -150,6 +161,7 @@
     id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
     id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
     id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
+    id <ystNetWorkHelpVideoDelegate>                 videoDelegate;      //录像
 }
 
 enum DEVICETYPE {
@@ -169,6 +181,7 @@ enum DEVICETALKMODEL {
 @property(nonatomic,assign)id <ystNetWorkAudioDelegate>                     ystNWADelegate;
 @property(nonatomic,assign)id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;
 @property(nonatomic,assign)id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;
+@property(nonatomic,assign)id <ystNetWorkHelpVideoDelegate>                 videoDelegate;
 
 /**
  *  单例
@@ -284,8 +297,9 @@ enum DEVICETALKMODEL {
  *  关闭本地录像
  *
  *  @param nLocalChannel 本地连接的通道地址
+ *  @param isContinue    是否停止后继续录像
  */
--(void)stopRecordVideo:(int)nLocalChannel;
+-(void)stopRecordVideo:(int)nLocalChannel withIsContinueVideo:(BOOL)isContinue;
 
 /**
  *  远程发送音频数据（对讲）
