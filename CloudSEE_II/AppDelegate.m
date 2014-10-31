@@ -37,6 +37,8 @@
 #import "JVCAlarmCurrentView.h"
 #import "JVCOperationController.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
+#import "JVCSignleAlarmDisplayView.h"
+#import "JVCURlRequestHelper.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -137,6 +139,8 @@ static  const   int      KSetHelpMaxCount    = 10;
     self.window.rootViewController = rootNav;
     [loginVC release];
     [rootNav release];
+    
+    [self checkNewVersion];
 }
 
 /**
@@ -242,7 +246,12 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 -(void)UpdateTabarViewControllers{
     
-   
+    //清除弹出来的view
+    [alarmMessageViewController removeJVHAlarmShowView];
+    
+    //关闭报警的
+    JVCAlarmCurrentView *viewCurrent = [JVCAlarmCurrentView shareCurrentAlarmInstance];
+    [viewCurrent CloseCurrentView];
     
     UITabBarController *tabbar =(UITabBarController *)self.window.rootViewController;
     
@@ -704,6 +713,18 @@ static  const   int      KSetHelpMaxCount    = 10;
 {
     [[JVCUserInfoManager shareUserInfoManager]convertOldUserInfoToDateBase ];
     
+}
+
+- (void)checkNewVersion
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCURlRequestHelper *jvcRequest = [[[JVCURlRequestHelper alloc] init] autorelease];
+        jvcRequest.bShowNetWorkError = YES;
+        [jvcRequest requeAppVersion];
+    
+    });
+   
 }
 
 @end

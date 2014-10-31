@@ -80,30 +80,16 @@ static const NSTimeInterval KPushApConfigControllerWithDuration  = 0.5;  //动�
 static const CGFloat        KDemoPointWithFontSize               = 16.0; //下拉view的高度
 static const CGFloat        KDemoPointTitleWithOffsetBottom      = 10.0; //下拉view的高度
 
-static const CGFloat  KSeperateSpan      = 15.0f;//控件之间的间隔
-static const CGFloat  KTitleSeperateSpan = 5.0f;//控件之间的间隔
+static const CGFloat        KSeperateSpan      = 15.0f;//控件之间的间隔
+static const CGFloat        KTitleSeperateSpan = 5.0f;//控件之间的间隔
 //static const CGFloat  KLineHeight   = 1.0f;//横线的高度
-static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
+static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
-//        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"设备列表", nil) image:nil tag:1];
-//        
-//        NSString *pathSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
-//        UIImage *imageSelect = [[UIImage alloc] initWithContentsOfFile:pathSelectimage];
-//        
-//        NSString *pathUnSelectimage = [UIImage imageBundlePath:@"tab_device_unselect.png"];
-//        UIImage *imageUbSelect = [[UIImage alloc] initWithContentsOfFile:pathUnSelectimage];
-//        
-//        [moreItem setFinishedSelectedImage: imageSelect withFinishedUnselectedImage: imageUbSelect];
-//        self.tabBarItem = moreItem;
-//        [moreItem release];
-//        [imageSelect release];
-//        [imageUbSelect release];
     }
     return self;
 }
@@ -140,7 +126,6 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
 
 - (void)viewDidLoad
 {
-    
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
     self.navigationController.navigationBarHidden = YES;
@@ -598,7 +583,7 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
  */
 - (void)loginInSuccessToChangeRootController
 {
-    [self getUserAccountState];
+    [self getUserAccountState];//发送设备的报警开关状态
     
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
     if (self.presentingViewController !=nil) {
@@ -624,8 +609,6 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
      */
     textFieldUser.text  = kkUserName;
     textFieldPW.text    = kkPassword;
-
-    DDLogInfo(@"=%@=%@==%@=USER=%@",kkUserName,kkPassword,textFieldUser.text,[[NSUserDefaults standardUserDefaults] objectForKey:@"USER"]);
     
     /**
      *  登录
@@ -648,6 +631,8 @@ static const NSString *KFISTOPEN  =@"fistOpen";//第一次打开
  */
 - (void)demoPointClick
 {
+    [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_LOCAL;
+
     JVCDemoViewController *DemoVC = [[JVCDemoViewController alloc] init];
     [self.navigationController pushViewController:DemoVC animated:YES];
     [DemoVC release];

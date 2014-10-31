@@ -22,4 +22,9 @@
  */
 - (void)headerRereshingDataAlarmDate;
 
+/**
+ *  去除弹出view
+ */
+-(void)removeJVHAlarmShowView;
+
 @end

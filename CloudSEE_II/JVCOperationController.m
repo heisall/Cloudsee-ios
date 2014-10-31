@@ -225,6 +225,10 @@ char remoteSendSearchFileBuffer[29] = {0};
             self.navigationController.navigationBarHidden = NO;
         }
         
+    }else{
+    
+        [_splitViewBtn setHidden:YES];
+        [_splitViewCon setHidden:YES];
     }
     
 }
@@ -407,7 +411,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_splitViewBtn addTarget:self action:@selector(gotoShowSpltWindow) forControlEvents:UIControlEventTouchUpInside];
     [_splitViewBtn setBackgroundImage:_splitShow forState:UIControlStateNormal];
     [self.navigationController.navigationBar addSubview:_splitViewBtn];
-
+    if (!self.isPlayBackVideo) {//远程回放，隐藏此按钮
+        
+        _splitViewBtn.hidden = YES;
+    }
     
     /**
      *  中间的语音对讲、云台、远程回放按钮

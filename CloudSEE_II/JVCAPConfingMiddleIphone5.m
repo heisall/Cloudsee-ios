@@ -53,9 +53,6 @@ static const int  KlabeAddHeight        =  4;       //label的高度添加值（
     
     [self initViewArray];
 
-    
-//    [_arrayBtnList removeAllObjects];
-    
     CGFloat height = self.frame.size.height/titleArray.count;
     
     for (int i = 0;i<titleArray.count;i++) {

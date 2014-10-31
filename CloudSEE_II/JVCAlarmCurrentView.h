@@ -53,4 +53,9 @@ enum  {
 + (JVCAlarmCurrentView *)shareCurrentAlarmInstance;
 
 - (void)initCurrentAlarmView:(JVCAlarmModel *)alarmModel;
+
+/**
+ *  关闭报警
+ */
+- (void)CloseCurrentView;
 @end

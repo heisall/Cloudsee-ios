@@ -185,6 +185,9 @@ static JVCAlarmCurrentView *_shareInstance = nil;
 
 }
 
+/**
+ *  关闭报警
+ */
 - (void)CloseCurrentView
 {
     [UIView animateWithDuration:KAnimationTimer

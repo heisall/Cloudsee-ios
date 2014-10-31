@@ -155,7 +155,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     if ([userInfoSqlite open]) {
         
-        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
         
         FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
         

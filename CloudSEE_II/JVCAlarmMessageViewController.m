@@ -59,6 +59,7 @@ static const int KChannelNum = 1;//通道连接
 static const int KNoAlarmTag = 10003;//没有报警的view的tag
 static const int KNoAlarmLabelHeight = 50;//没有报警的view的tag
 static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的距离
+static const int KJVCSignleAlarmDisplayView     = 138354;
 @synthesize arrayAlarmList;
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -464,7 +465,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
     [model retain];
     
     JVCSignleAlarmDisplayView *alarmView = [[JVCSignleAlarmDisplayView alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.frame];
-    alarmView.tag = 138354;
+    alarmView.tag = KJVCSignleAlarmDisplayView;
     alarmView.tAlarmModel = model;
     alarmView.palyVideoDelegate = self;
     [alarmView initView];
@@ -496,7 +497,7 @@ static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的�
 
 -(void)removeJVHAlarmShowView
 {
-    JVCSignleAlarmDisplayView *viewContent = (JVCSignleAlarmDisplayView *)[self.view.window viewWithTag:138354];
+    JVCSignleAlarmDisplayView *viewContent = (JVCSignleAlarmDisplayView *)[self.view.window viewWithTag:KJVCSignleAlarmDisplayView];
     if (viewContent) {
         [viewContent removeFromSuperview];
     }

@@ -289,16 +289,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             [self userLoginOut];
             
         }
-    }else  if(alertView.tag == kAlertNEWVersionTag)
-    {
-        if (buttonIndex == 0) {//跟新
-//            NSString *iTunesString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", kHarpyAppID];
-//            NSURL *iTunesURL = [NSURL URLWithString:iTunesString];
-//            [[UIApplication sharedApplication] openURL:iTunesURL];
-        }
-        
     }
-
 }
 
 /**
@@ -416,103 +407,11 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
         
     }else{
     
-        [JVCURlRequestHelper shareJVCUrlRequestHelper].delegateUrl = self;
+      JVCURlRequestHelper *moreCheckVersion =  [[[JVCURlRequestHelper alloc] init] autorelease];
 
-        [[JVCURlRequestHelper shareJVCUrlRequestHelper] requeAppVersion];
+        [moreCheckVersion requeAppVersion];
+    
     }
-}
-/**
- *  请求成功的回调
- */
-- (void)URlRequestSuccessCallBack:(NSMutableData *)receive
-{
-    if (receive.length<=0) {
-        return;
-    }
-    NSArray *tReceiveArray = [receive objectFromJSONData];
-    NSString *getVersionInteger =nil;
-    
-    //判断当前版本与获取到得版本得信息
-   
-    NSDictionary *versionDic=nil;
-    for (int i=0; i<tReceiveArray.count; i++) {
-        NSDictionary *tempDic = [tReceiveArray objectAtIndex:i];
-        NSInteger  tStringVersionInt = [[tempDic objectForKey:KNUm] integerValue];
-        if (tStringVersionInt == 1) {//内容
-            versionDic = tempDic;
-            continue;
-        }else if(tStringVersionInt == 0)//版本号
-        {
-            getVersionInteger= [tempDic objectForKey:KContentK];
-            
-        }
-    }
-    
-    NSArray *arrayRemote = [getVersionInteger componentsSeparatedByString:@"."];
-    
-    NSString *versionCurrent = [[[NSBundle mainBundle] infoDictionary] objectForKey:KCFBundleVersion];
-    NSArray *arrayVersionCurrent = [versionCurrent componentsSeparatedByString:@"."];
-    
-    [JVCConfigModel shareInstance]._bNewVersion = NO;
-    
-    if (arrayRemote.count<3) {//有错
-        
-        [self alertVithVersionUpdate];
-        
-        return;
-        
-    }
-    /**
-     *  远端数据
-     */
-    NSString *remoteItem1 = [arrayRemote objectAtIndex:0];
-    NSString *remoteItem2 = [arrayRemote objectAtIndex:1];
-    NSString *remoteItem3 = [arrayRemote objectAtIndex:2];
-    
-    /**
-     *  本地保存数据
-     */
-    NSString *VersionCurrentItem1 = [arrayVersionCurrent objectAtIndex:0];
-    NSString *VersionCurrentItem2 = [arrayVersionCurrent objectAtIndex:1];
-    NSString *VersionCurrentItem3 = [arrayVersionCurrent objectAtIndex:2];
-    
-    /**
-     *  跟新消息
-     */
-    NSString *versionString = [versionDic objectForKey:KContentK];
-    
-    if (remoteItem1.intValue>VersionCurrentItem1.intValue) {
-        
-        [JVCConfigModel shareInstance]._bNewVersion = YES;
-    }else{
-        
-        if (remoteItem2.intValue>VersionCurrentItem2.intValue) {
-            
-            [JVCConfigModel shareInstance]._bNewVersion = YES;
-            
-        }else{
-            
-            if (remoteItem3.intValue>VersionCurrentItem3.intValue) {
-                
-                [JVCConfigModel shareInstance]._bNewVersion = YES;
-                
-            }
-        }
-    }
-    
-    if ([JVCConfigModel shareInstance]._bNewVersion) {
-        
-        
-        NSString *alertString = [versionString stringByReplacingOccurrencesOfString:@"&" withString:@"\n"];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"UpdateBtn",nil ) otherButtonTitles:NSLocalizedString(@"local_location", nil), nil];
-        alertView.tag = kAlertNEWVersionTag;
-        [alertView show];
-        [alertView release];
-    }else{
-        
-        [self alertVithVersionUpdate];
-    }
-
 }
 
 - (void)managerRequestListSuccess:(NSData *)tData

@@ -9,6 +9,7 @@
 #import "JVCMoreSettingHelper.h"
 #import "JVCMoreSettingModel.h"
 #import "JVCMoreUserSettingModel.h"
+#import "JVCConfigModel.h"
 
 @implementation JVCMoreSettingHelper
 
@@ -78,7 +79,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
      *  第一部分
      */
     NSMutableArray *FistSectionArray = [[NSMutableArray alloc] init];
-    //帮助界面
+    //报警
     JVCMoreSettingModel *modelHelp = [[JVCMoreSettingModel alloc] init];
     modelHelp.itemName = LOCALANGER(@"jvc_more_alarm");
     modelHelp.iconImageName = @"mor_Iconalarm.png";
@@ -88,7 +89,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [FistSectionArray addObject:modelHelp];
     [modelHelp release];
     
-    //账号信息
+    //修改密码
     JVCMoreSettingModel *modelUser = [[JVCMoreSettingModel alloc] init];
     modelUser.itemName = LOCALANGER(@"jvc_more_editPw");
     modelUser.iconImageName = @"mor_Iconmdy.png";
@@ -113,16 +114,16 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
      *  第2部分
      */
     NSMutableArray *secondSectionArray = [[NSMutableArray alloc] init];
-    //摇一摇加设备
+    //检测更新
     JVCMoreSettingModel *modeShark = [[JVCMoreSettingModel alloc] init];
     modeShark.itemName = LOCALANGER(@"jvc_more_checkVersion");
     modeShark.iconImageName = @"mor_IconCheck.png";
     modeShark.bBtnState = NO;
-    modeShark.bNewState = YES;
+    modeShark.bNewState =  [JVCConfigModel shareInstance]._bNewVersion ;;
     [secondSectionArray addObject:modeShark];
     [modeShark release];
     
-    //关于我们
+    //帮助
     JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
     modelHelpSwitch.itemName = LOCALANGER(@"jvc_more_help");
     modelHelpSwitch.iconImageName = @"mor_IconHelp.png";
@@ -131,7 +132,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [modelHelpSwitch release];
 
     
-    //关于我们
+    //版本号
     JVCMoreSettingModel *modelAbout = [[JVCMoreSettingModel alloc] init];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];

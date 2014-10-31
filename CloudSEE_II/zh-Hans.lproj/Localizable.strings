@@ -257,7 +257,7 @@
 //ap配置@"开始添加"
 "jvc_ap_title" = "添加无线设备";
 "jvc_ap_start_add" = "开始添加";
-"home_ap_Alert_message_ios7"= "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网路到IPC-X-XXXX格式的无线网路下。具体步骤：设置->无线局域网->选取无线网路";
+"home_ap_Alert_message_ios7"= "您的手机系统版本是IOS5.0以上，需要您手动退出软件，切换手机无线网络到IPC-X-XXXX格式的无线网路下。具体步骤：设置->无线局域网->选取无线网路";
 "selectedWifi"="选取网络...";
 "ap_Setting_Detail"= "快速配置";
 "ResignPassWord" = "密码";

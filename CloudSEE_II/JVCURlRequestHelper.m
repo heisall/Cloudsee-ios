@@ -7,6 +7,8 @@
 //
 
 #import "JVCURlRequestHelper.h"
+#import "JSONKit.h"
+#import "JVCConfigModel.h"
 
 @interface JVCURlRequestHelper ()
 {
@@ -17,59 +19,22 @@
 
 @implementation JVCURlRequestHelper
 @synthesize delegateUrl;
-static  const NSString *KMODELTYPEGETUPDATEINFO  =  @"1006";//版本号
-static  const  NSString  *KVersion =  @"Version";
-static  const  NSString  *KRequestType =  @"RequestType";
-static  const  NSString  *KRequestTypeValue =  @"3";
+@synthesize bShowNetWorkError;
+static  const   NSString *KMODELTYPEGETUPDATEINFO  =  @"1006";//版本号
+static  const   NSString  *KVersion =  @"Version";
+static  const   NSString  *KRequestType =  @"RequestType";
+static  const   NSString  *KRequestTypeValue =  @"3";
 
-static  const  NSString  *KLanguage =  @"Language";
-static  const  NSString  *KMobileType=  @"MobileType";
-static  const  NSString  *KMobileTypeValue=  @"2";
-static const  int  KAnimationTimer  = 5;//超时时间
-
-static JVCURlRequestHelper *shareJVCUrlRequestHelper = nil;
+static  const   NSString  *KLanguage =  @"Language";
+static  const   NSString  *KMobileType=  @"MobileType";
+static  const   NSString  *KMobileTypeValue=  @"2";
+static const    int        KAnimationTimer  = 5;//超时时间
+static const    NSString   *KNUm                       = @"Num";//检测更新的返回值
+static const    NSString   *KContentK                  = @"Content";//检测更新的返回值
+static const    NSString   *KCFBundleVersion           = @"CFBundleVersion";//版本号
+static const    int        kAlertNEWVersionTag         = 3000;   //新版本的tag
 
 static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/MobileWeb.aspx";//请求版本更新的
-
-
-/**
- *  单例
- *
- *  @return 返回JVCResultTipsHelper 对象
- */
-+(JVCURlRequestHelper *)shareJVCUrlRequestHelper
-{
-    @synchronized(self)
-    {
-        if (shareJVCUrlRequestHelper == nil) {
-            
-            shareJVCUrlRequestHelper = [[self alloc] init];
-            
-            [shareJVCUrlRequestHelper initReceiveDate];
-            
-        }
-        
-        return shareJVCUrlRequestHelper;
-    }
-    
-    return shareJVCUrlRequestHelper;
-    
-}
-
-+ (id)allocWithZone:(struct _NSZone *)zone
-{
-    @synchronized(self)
-    {
-        if (shareJVCUrlRequestHelper == nil) {
-            
-            shareJVCUrlRequestHelper = [super allocWithZone:zone];
-            
-            return shareJVCUrlRequestHelper;
-        }
-    }
-    
-    return nil;
-}
 
 - (void)initReceiveDate
 {
@@ -81,6 +46,10 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
  */
 - (void)requeAppVersion
 {
+    [self initReceiveDate];
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
     NSMutableDictionary *paramer = [[NSMutableDictionary alloc] init];
     [paramer setObject:KRequestTypeValue forKey:KRequestType];
     if ([[JVCSystemUtility shareSystemUtilityInstance]judgeAPPSystemLanguage]) {
@@ -108,7 +77,11 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
       
     }else{
         
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"网路超时"];
+        if (!self.bShowNetWorkError) {
+            
+            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"networkError")];
+
+        }
     }
     [paramer release];
 
@@ -140,16 +113,104 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:@"网路超时"];
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+    if (!self.bShowNetWorkError) {
+
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"networkError")];
+    }
 }
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    if (delegateUrl !=nil  && [delegateUrl respondsToSelector:@selector(URlRequestSuccessCallBack:)]) {
-        
-        [delegateUrl URlRequestSuccessCallBack:receivedata];
+    
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+    if (receivedata.length<=0) {
+        return;
     }
+    NSArray *tReceiveArray = [receivedata objectFromJSONData];
+    NSString *getVersionInteger =nil;
+    
+    //判断当前版本与获取到得版本得信息
+    
+    NSDictionary *versionDic=nil;
+    for (int i=0; i<tReceiveArray.count; i++) {
+        NSDictionary *tempDic = [tReceiveArray objectAtIndex:i];
+        NSInteger  tStringVersionInt = [[tempDic objectForKey:KNUm] integerValue];
+        if (tStringVersionInt == 1) {//内容
+            versionDic = tempDic;
+            continue;
+        }else if(tStringVersionInt == 0)//版本号
+        {
+            getVersionInteger= [tempDic objectForKey:KContentK];
+            
+        }
+    }
+    
+    NSArray *arrayRemote = [getVersionInteger componentsSeparatedByString:@"."];
+    
+    NSString *versionCurrent = [[[NSBundle mainBundle] infoDictionary] objectForKey:KCFBundleVersion];
+    NSArray *arrayVersionCurrent = [versionCurrent componentsSeparatedByString:@"."];
+    
+    [JVCConfigModel shareInstance]._bNewVersion = NO;
+    
+    if (arrayRemote.count<3) {//有错
+        
+        [self alertVithVersionUpdate];
+        
+        return;
+        
+    }
+    /**
+     *  远端数据
+     */
+    NSString *remoteItem1 = [arrayRemote objectAtIndex:0];
+    NSString *remoteItem2 = [arrayRemote objectAtIndex:1];
+    NSString *remoteItem3 = [arrayRemote objectAtIndex:2];
+    
+    /**
+     *  本地保存数据
+     */
+    NSString *VersionCurrentItem1 = [arrayVersionCurrent objectAtIndex:0];
+    NSString *VersionCurrentItem2 = [arrayVersionCurrent objectAtIndex:1];
+    NSString *VersionCurrentItem3 = [arrayVersionCurrent objectAtIndex:2];
+    
+    /**
+     *  跟新消息
+     */
+    NSString *versionString = [versionDic objectForKey:KContentK];
+    
+    if (remoteItem1.intValue>VersionCurrentItem1.intValue) {
+        
+        [JVCConfigModel shareInstance]._bNewVersion = YES;
+    }else{
+        
+        if (remoteItem2.intValue>VersionCurrentItem2.intValue) {
+            
+            [JVCConfigModel shareInstance]._bNewVersion = YES;
+            
+        }else{
+            
+            if (remoteItem3.intValue>VersionCurrentItem3.intValue) {
+                
+                [JVCConfigModel shareInstance]._bNewVersion = YES;
+                
+            }
+        }
+    }
+    
+    if ([JVCConfigModel shareInstance]._bNewVersion) {
+        
+        [JVCConfigModel shareInstance]._bNewVersion = YES;
+        [self showUpdateVeiwAlert:versionString];
+    
+    }else{
+        
+        [self alertVithVersionUpdate];
+    }
+
     
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -157,5 +218,48 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
     // NSLog(@"receive");
 }
 
+- (void)showUpdateVeiwAlert:(NSString *)versionString
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        NSString *alertString = [versionString stringByReplacingOccurrencesOfString:@"&" withString:@"\n"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"UpdateBtn",nil ) otherButtonTitles:NSLocalizedString(@"local_location", nil), nil];
+        alertView.tag = kAlertNEWVersionTag;
+        [alertView show];
+        [alertView release];
+    
+    });
+}
+
+/**
+ *  没有版本升级时的提示
+ */
+- (void)alertVithVersionUpdate
+{
+    if (!self.bShowNetWorkError) {
+
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"home_version_last_count3", nil) ];
+    }
+}
+
+- (void)openItunes
+{
+    [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+        [self openItunes];
+    }
+}
+
+- (void)dealloc
+{
+    [receivedata release];
+    
+    [super dealloc];
+}
 
 @end
