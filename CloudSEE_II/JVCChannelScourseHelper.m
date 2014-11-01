@@ -77,6 +77,34 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 }
 
 /**
+ *  把从服务器收到的数据转化成model
+ *
+ *  @param tdicDevice 服务器收到的数据
+ */
+- (void)addChannelsMDicToChannelList:(NSDictionary *)channelsInfo
+{
+    
+    [channelsInfo retain];
+    
+    [self removeAllchannelsObject];
+    
+    NSArray *array = [channelsInfo objectForKey:JK_DEVICES_CHANNELS];
+    
+    for (int i=0; i<array.count; i++) {
+        
+        NSDictionary *channelInfo = [array objectAtIndex:i];
+    
+        JVCChannelModel *channelModel=[[JVCChannelModel alloc] initWithChannelDic:channelInfo ystNumber:[channelInfo objectForKey:DEVICE_JSON_DGUID]];
+        
+        [channelArray addObject:channelModel];
+        
+        [channelModel release];
+    }
+    
+    [channelsInfo release];
+}
+
+/**
  *  获取通道数组
  */
 - (NSMutableArray *)ChannelListArray

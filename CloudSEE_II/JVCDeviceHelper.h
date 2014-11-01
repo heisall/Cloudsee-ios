@@ -58,6 +58,13 @@ enum DEVICEONLINESTATE
 -(NSDictionary *)getAccountByDeviceList;
 
 /**
+ *	获取帐号下面的所有通道信息
+ *
+ *	@return	JSON格式的设备列表 注:返回为Nil 时，为请求超时
+ */
+-(NSDictionary *)getAccountByChannelList;
+
+/**
  *	获取帐号下面的设备的详细信息
  *
  *  @param  deviceGuidStr 云视通号

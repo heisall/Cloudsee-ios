@@ -48,6 +48,7 @@ static JVCHorizontalScreenBar *shareInstance = nil;
             [shareInstance initWithItems];
             
             [shareInstance initStreamBtn];
+            shareInstance.hidden = YES;
         }
         
     }

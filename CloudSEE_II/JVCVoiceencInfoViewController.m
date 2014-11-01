@@ -76,7 +76,7 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
  */
 -(void)playSound {
     
-    NSString *path = [[NSBundle mainBundle ] pathForResource:@"voi_info" ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle ] pathForResource:NSLocalizedString(@"jvc_voice_next", nil) ofType:@"mp3"];
     
     if (path) {
         

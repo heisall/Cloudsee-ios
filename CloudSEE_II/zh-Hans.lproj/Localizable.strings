@@ -204,6 +204,10 @@
 "jvc_voice_add_Voiceconfig" = "声波配置";
 "jvc_voice_add_Voiceconfig_see" = "观看操作演示";
 "jvc_voice_add_Voiceconfig_clicktosend" = "点击发送声波";
+"jvc_voice_next"  ="voi_next";
+"jvc_voice_add_send"  ="voi_send";
+"jvc_voice_add_info"  ="voi_info";
+"jvc_scanf_finshed"   ="sca_finshed";
 
 //连接模式
 "jvc_licktype_title" = "连接模式";

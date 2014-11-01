@@ -160,8 +160,38 @@ char outTextBuffer[1280*720*3];
     NSDictionary *resultInfoDic=(NSDictionary *)resultID;
     
     return resultInfoDic;
-    
 }
+
+/**
+ *	获取帐号下面的所有通道信息
+ *
+ *	@return	JSON格式的设备列表 注:返回为Nil 时，为请求超时
+ */
+-(NSDictionary *)getAccountByChannelList{
+    
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSION) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:DEV_INFO_PRO] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:GET_USER_CHANNELS] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    
+    if(resultID==nil||![resultID isKindOfClass:[NSDictionary class]]){
+        
+        return nil;
+    }
+    
+    NSDictionary *resultInfoDic=(NSDictionary *)resultID;
+    
+    return resultInfoDic;
+}
+
 
 /**
  *	获取帐号下面的设备的详细信息
@@ -194,7 +224,6 @@ char outTextBuffer[1280*720*3];
     NSDictionary *resultInfoDic=(NSDictionary *)resultID;
     
     return resultInfoDic;
-    
 }
 
 /**

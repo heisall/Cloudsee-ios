@@ -499,7 +499,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 -(void)playConfigSound{
     
-    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:@"sca_finshed" ofType:@"mp3"];
+    NSString *soundPath = [[NSBundle mainBundle ] pathForResource:NSLocalizedString(@"jvc_scanf_finshed", nil) ofType:@"mp3"];
     
     JVCSystemSoundHelper *soundHelperObj = [JVCSystemSoundHelper shareJVCSystemSoundHelper];
     

@@ -543,11 +543,15 @@
 		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
+		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */; };
 		ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266F19FA56D800BD877F /* sto_auto@2x.png */; };
 		ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267119FBC8C700BD877F /* voi_exit@2x.png */; };
 		ADD6267419FBCDFB00BD877F /* voi_info.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267319FBCDFB00BD877F /* voi_info.mp3 */; };
-		ADD626761A023BB800BD877F /* libGlView_v2.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD626751A023BB800BD877F /* libGlView_v2.0.1.a */; };
+		ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */; };
+		ADD6267A1A046D7F00BD877F /* voi_info_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADD626791A046D7F00BD877F /* voi_info_en.mp3 */; };
+		ADD6267D1A046DA300BD877F /* voi_send_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267C1A046DA300BD877F /* voi_send_en.mp3 */; };
+		ADD6267F1A046DAB00BD877F /* voi_next_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267E1A046DAB00BD877F /* voi_next_en.mp3 */; };
 		ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */; };
 /* End PBXBuildFile section */
 
@@ -1210,11 +1214,15 @@
 		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_alarm@2x.png"; sourceTree = "<group>"; };
 		ADD6266F19FA56D800BD877F /* sto_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_auto@2x.png"; sourceTree = "<group>"; };
 		ADD6267119FBC8C700BD877F /* voi_exit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_exit@2x.png"; sourceTree = "<group>"; };
 		ADD6267319FBCDFB00BD877F /* voi_info.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_info.mp3; sourceTree = "<group>"; };
-		ADD626751A023BB800BD877F /* libGlView_v2.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGlView_v2.0.1.a; sourceTree = "<group>"; };
+		ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGlView_v2.0.2.a; sourceTree = "<group>"; };
+		ADD626791A046D7F00BD877F /* voi_info_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_info_en.mp3; sourceTree = "<group>"; };
+		ADD6267C1A046DA300BD877F /* voi_send_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_send_en.mp3; sourceTree = "<group>"; };
+		ADD6267E1A046DAB00BD877F /* voi_next_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voi_next_en.mp3; sourceTree = "<group>"; };
 		ADE03D0719D7B945002F65DA /* JVCAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationHelper.h; sourceTree = "<group>"; };
 		ADE03D0819D7B945002F65DA /* JVCAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAnimationHelper.m; sourceTree = "<group>"; };
 		ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAnimationMacro.h; sourceTree = "<group>"; };
@@ -1226,6 +1234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F5E25A19D4424B00609BC3 /* libsqlite3.dylib in Frameworks */,
+				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
 				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
 				A7F4059F19E55A260070945F /* CoreMedia.framework in Frameworks */,
 				A7F4059D19E55A1C0070945F /* CoreVideo.framework in Frameworks */,
@@ -1239,7 +1248,6 @@
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
 				ADA22D2319DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a in Frameworks */,
-				ADD626761A023BB800BD877F /* libGlView_v2.0.1.a in Frameworks */,
 				A7F4059219E556160070945F /* libzxingLibrary.a in Frameworks */,
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
@@ -2307,9 +2315,9 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */,
 				AD3FB61919F6A18800034461 /* libtransSing.a */,
 				A7EFAB5719F3347D0092AE9C /* libSystem.dylib */,
-				ADD626751A023BB800BD877F /* libGlView_v2.0.1.a */,
 				A7EFAB5519F32FDF0092AE9C /* CFNetwork.framework */,
 				A709697C19F27AE600C191F8 /* libsystem_network.dylib */,
 				AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */,
@@ -2358,15 +2366,14 @@
 		ADA77BFA19D0250E003EE7A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ADD6267B1A046D8200BD877F /* voi */,
 				A7FC002619FCD874006B31FA /* learn_2.mp3 */,
 				A7FC002719FCD874006B31FA /* learn_3.mp3 */,
 				A7FC002819FCD874006B31FA /* learn_1.mp3 */,
-				ADD6267319FBCDFB00BD877F /* voi_info.mp3 */,
-				AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */,
 				AD3FB61719F682F700034461 /* sca_sound.mp3 */,
+				ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */,
 				AD014DFE19F66B1400E3D0FB /* sca_finshed.mp3 */,
 				AD014DFC19F66B0F00E3D0FB /* sca_new.mp3 */,
-				AD014DF319F65CF800E3D0FB /* voi_next.mp3 */,
 				AD014DE019F4FA2E00E3D0FB /* shake_match_2.mp3 */,
 				AD014DD719F4C00E00E3D0FB /* apConfigHomeIPC.bundle */,
 				ADA77BFB19D0250E003EE7A1 /* CloudSEE_II-Info.plist */,
@@ -2572,6 +2579,19 @@
 			name = InterfaceFiles;
 			sourceTree = "<group>";
 		};
+		ADD6267B1A046D8200BD877F /* voi */ = {
+			isa = PBXGroup;
+			children = (
+				AD014DF519F65CFD00E3D0FB /* voi_send.mp3 */,
+				AD014DF319F65CF800E3D0FB /* voi_next.mp3 */,
+				ADD6267319FBCDFB00BD877F /* voi_info.mp3 */,
+				ADD6267C1A046DA300BD877F /* voi_send_en.mp3 */,
+				ADD6267E1A046DAB00BD877F /* voi_next_en.mp3 */,
+				ADD626791A046D7F00BD877F /* voi_info_en.mp3 */,
+			);
+			name = voi;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2672,6 +2692,7 @@
 				A7F6C5FC19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png in Resources */,
 				A7F50A4219FA534F004D061F /* tab_more_select@2x.png in Resources */,
 				A7F50A4819FA7B5B004D061F /* Default.png in Resources */,
+				ADD6267F1A046DAB00BD877F /* voi_next_en.mp3 in Resources */,
 				A7FC003319FD0D9A006B31FA /* effect_4@2x.png in Resources */,
 				A7F51E7919EBC0F30052F878 /* arm_new_en@2x.png in Resources */,
 				A7F6C5F619F89B570090B6F0 /* HorizontalScreenBar_4@2x.png in Resources */,
@@ -2691,6 +2712,7 @@
 				A7F50A0B19FA017A004D061F /* welcome_02_en4.jpg in Resources */,
 				AD014DE419F5024F00E3D0FB /* ap_playVideo_next@2x.png in Resources */,
 				A7F50A4919FA7B5B004D061F /* Default@2x.png in Resources */,
+				ADD6267A1A046D7F00BD877F /* voi_info_en.mp3 in Resources */,
 				AD348C5619F92768006C8A15 /* edi_safe_un@2x.png in Resources */,
 				A7F5EF3019D2621B009B797A /* MJRefresh.bundle in Resources */,
 				A7F5013B19D50DDA00AA78F0 /* mor_logOut@2x.png in Resources */,
@@ -2810,10 +2832,12 @@
 				A7FC002419FCD49C006B31FA /* add_lock_door@2x.png in Resources */,
 				A7F5015219D5352700AA78F0 /* mor_IconAbout@2x.png in Resources */,
 				A7F46A6F19F933AB00AC1B1F /* wel_hor@2x.png in Resources */,
+				ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */,
 				A7F50A2A19FA47C3004D061F /* arm_device_1@2x.png in Resources */,
 				A7F5013819D50A8A00AA78F0 /* mor_line@2x.png in Resources */,
 				A7F424FA19D0FD7500D96475 /* log_btn@2x.png in Resources */,
 				A7EFF9EE19F4AB8D00DF783D /* play_dwn@2x.png in Resources */,
+				ADD6267D1A046DA300BD877F /* voi_send_en.mp3 in Resources */,
 				A7F4458519F62C3D002C984F /* arm_loc_cellbg@2x.png in Resources */,
 				A7F51E7519EBBAA50052F878 /* arm_exc@2x.png in Resources */,
 				AD2BDB1719D28F0600AA6D73 /* edi_RemoteSetup@2x.png in Resources */,

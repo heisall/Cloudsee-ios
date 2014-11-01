@@ -1219,17 +1219,13 @@ char remoteSendSearchFileBuffer[29] = {0};
             [self closeAudioAndTalkAndVideoFuction];
         }
         
-//        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(splitViewWindow:)]) {
-//            
-//            [self.delegate splitViewWindow:_splitWindows];
-//        }
-        
         _managerVideo._iBigNumbers = 1;
         _managerVideo.imageViewNums = _splitWindows;
-        [_managerVideo changeContenView];
         
+        _managerVideo.isShowVideo = YES;
+        [_managerVideo changeContenView];
+        _managerVideo.isShowVideo = FALSE;
     }
-    
 }
 
 #pragma mark －－－－－－－－－－－－－－语音对讲、抓拍、本地录像、码流切换模块
@@ -1934,11 +1930,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if (_isOpen) {
         
-        if (_managerVideo.imageViewNums>1) {
-            _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
-            _managerVideo.imageViewNums=1;
-            [_managerVideo changeContenView];
-        }
+        [self changeManagePalyVideoComtrollerViewsToSingeView];
         [_splitViewBgClick setHidden:YES];
         [_splitViewBtn setHidden:YES];
         self.navigationItem.title = NSLocalizedString(@"Play back", nil);
@@ -2256,9 +2248,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     
     if (_managerVideo.imageViewNums>1) {
+        
         _managerVideo._iBigNumbers=_managerVideo.imageViewNums;
         _managerVideo.imageViewNums=1;
+        _managerVideo.isShowVideo  = TRUE;
         [_managerVideo changeContenView];
+        _managerVideo.isShowVideo  = FALSE;
     }
 }
 
