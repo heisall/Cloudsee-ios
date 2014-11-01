@@ -25,6 +25,9 @@
 #import "JVCHorizontalStreamView.h"
 #import "JVCControlHelper.h"
 #import "JVCCustomOperationBottomView.h"
+#import "JVCOperationModifyViewController.h"
+#import "JVCConfigModel.h"
+#import "JVCLocaOperationModifyViewController.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -33,6 +36,9 @@ static const NSString * kRecoedVideoFileFormat  = @".mp4";                      
 
 static const CGFloat    kTalkViewWithHeight     = 60.0f;
 static const CGFloat    kTalkViewWithWidth      = 200.0;
+static const int        kAlertTag               = 19384324;
+
+
 
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
 
@@ -47,10 +53,7 @@ bool selectState_audio ;
      */
     int iModifyIndex;
     
-    /**
-     *  标志修改用户名密码的alert是否弹出来的标志位
-     */
-    BOOL bStateModifyDeviceInfo;
+
     
     JVCCustomOperationBottomView *_operationItemSmallBg;
     
@@ -993,6 +996,15 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
+#pragma mark  用户名密码错误的时候的回调
+/**
+ *  因为用户名密码错误视频连接失败的回调函数
+ */
+- (void)connectFailWithUserAndPassWordErrorCallBack
+{
+    
+    [self  showAlertWithUserOrPassWordError];
+}
 
 /**
  *  用户名或密码错误后，要跳转到相应的节目
@@ -1004,32 +1016,64 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if ( _managerVideo.imageViewNums == 1) {//只有单屏的时候才显示
         
-        if (!bStateModifyDeviceInfo) {
-            
+        
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"Connection Failed ID_and_modify_user_and password") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_ok"), nil];
-            alertView.tag = 19384324;
+            alertView.tag = kAlertTag;
             [alertView show];
             [alertView release];
-            bStateModifyDeviceInfo=YES;
-        }
+     
     }
     
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 19384324) {
+    
+
+    if (alertView.tag == kAlertTag) {
         
         if (buttonIndex == 0) {
             [alertView dismissWithClickedButtonIndex:0 animated:YES];
-        }else{///区分本地跟账号
-            
-        }
-        
-        bStateModifyDeviceInfo=NO ;
+        }else{//跳转到修改用户名密码的界面
     
+            [self gotoModifyUserAndPassWordViewcontroller];
+        }
+            
     }
 }
+
+- (void)gotoModifyUserAndPassWordViewcontroller
+{
+    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
+
+    if ([ JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
+        
+        JVCLocaOperationModifyViewController *viewController = [[JVCLocaOperationModifyViewController alloc] init];
+        viewController.modifyDelegate = self;
+        viewController.modifyModel = model;
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    }else{
+    
+        JVCOperationModifyViewController *viewController = [[JVCOperationModifyViewController alloc] init];
+        viewController.modifyDelegate = self;
+        viewController.modifyModel = model;
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    }
+    
+}
+
+/**
+ *  修改完之后的返回事件
+ */
+- (void)modifyDeviceInfoCallBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [_managerVideo connectVideoByLocalChannelID:KWINDOWSFLAG+self._iSelectedChannelIndex];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
@@ -1194,14 +1238,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 //    }
 }
 
-/**
- *  修改完之后的返回事件,连接视频的时候，用户名密码不正确，跳转到修改用户名密码界面，修改完成之后的回调
- */
-- (void)modifyDeviceInfoCallBack
-{
-    //[self connectSingleScrollChannel:iModifyIndex selectedChannel:iModifyIndex];
-    
-}
 
 
 

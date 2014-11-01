@@ -180,7 +180,7 @@
 "jvc_addDevice_back" = "back";
 "jvc_addDevice_advance" = "Advance";
 "jvc_addDevice_has_Device" = "No need to add the same device";
-"jvc_addDevice_has_Device_totalNum" = "超过最大值";//////////////
+"jvc_addDevice_has_Device_totalNum" = "over maxmium";//////////////
 "jvc_addDevice_add_error" = "Failed to add";
 "adddevice_net_error"= "Connection timeout.";
 "adddevice_net_success"= "added device successfully";
@@ -189,20 +189,20 @@
 "qrScan"="Scanning now,please wait...";
 "JDCSVC_GetDevice_Error"= "Faild to add device";
 "JDCSVC_GetDeviceChannel_Error"= "Channel added failed";
-"jvc_addDevicChannel_CountError" = "添加设备通道失败，是否重新激活";
-"jvc_addDevicChannel_CountError_ok" = "激活";
+"jvc_addDevicChannel_CountError" = "Add channels failed, activated or not ";
+"jvc_addDevicChannel_CountError_ok" = "Activated";
 "jvc_addDevicChannel_CountError_Cancel" = "Cancel";
 
 //声波添加设备
-"jvc_voice_add_title" = "准备步骤";
+"jvc_voice_add_title" = "Preparating steps";
 "jvc_voice_add_help" = "Please use a needle to insert the Reset at the backside of the device until you hear the beeping.
 ";
-"jvc_voice_add_next" = "下一步";
-"jvc_voice_add_prepareconfig" = "准备配置";
-"jvc_voice_add_prepareconfig_help" = "请输入摄像头要连接的无线网络密码";
-"jvc_voice_add_Voiceconfig" = "声波配置";
-"jvc_voice_add_Voiceconfig_see" = "观看操作演示";
-"jvc_voice_add_Voiceconfig_clicktosend" = "点击发送声波";
+"jvc_voice_add_next" = "Next step ";
+"jvc_voice_add_prepareconfig" = "Preparing configuration";
+"jvc_voice_add_prepareconfig_help" = "Please enter password of the camera connected wireless network";
+"jvc_voice_add_Voiceconfig" = "Sound-wave Configuration";
+"jvc_voice_add_Voiceconfig_see" = "View operation demo ";
+"jvc_voice_add_Voiceconfig_clicktosend" = "Click to send sound-wave";
 
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
@@ -215,14 +215,14 @@
 "jvc_DeviceList_add_eq" = "QR Scanning";
 "jvc_DeviceList_add_wlan" = "Wireless Device";
 "jvc_DeviceList_add_scan" = "Devices in LAN";
-"jvc_DeviceList_add_volce" = "声波配置";
+"jvc_DeviceList_add_volce" = "Sound-wave Configuration";
 "jvc_DeviceList_add_ip" = "IP/Domain Name";
 "jvc_DeviceList_offline" = "Offline";
 "jvc_DeviceList_online" = "Online";
 "jvc_DeviceList_APadd" = "Add";
 "jvc_DeviceList_APquit" = "Cancel";
 "jvc_DeviceList_no_device" = "Wireless Device";
-"jvc_DeviceList_has_device" = "有线设备";
+"jvc_DeviceList_has_device" = "Wireline device";
 
 //ip/域名添加设备
 "jvc_addDevice_ipadd_titile"="IP/Domain Name";
@@ -279,12 +279,12 @@
 "add_channel_fail"="Faild to add channel";
 "edit_falt"="Faild to edit";
 "edit_success"="Edit successfully";
-"MAX_ERROR" = "该设备的通道数量达到上限，无法继续添加!";
+"MAX_ERROR" = "Channle number list to upper limit, cannot add more";
 
 //报警界面
 "jvc_alarmList_Title" = "Alarm Message";
 "jvc_alarmlist_noMore" = "No more alerts";
-"jvc_alarmlist_getAlarmError" = "获取报警信息失败";
+"jvc_alarmlist_getAlarmError" = "Failed to get alarm information";
 "jvc_alarmlist_noAlarm" = "No alarm now";
 "jvc_alarmlist_noAlarm_PIC" = "no alarm picture";
 "jvc_alarmlist_delete_success" = "Delete successfully";
@@ -304,14 +304,14 @@
 
 
 //下拉刷新
-"jvc_PullToRefreshText" = "下拉刷新";
+"jvc_PullToRefreshText" = "Drop-down to refresh";
 "jvc_PullReleaseToRefreshText" = "Release to refresh...";
 "jvc_PullRefreshingText" = "Loading...";
-"jvc_PullfooterToRefreshText" = "上拉加载更多";
-"jvc_PullfooterReleaseToRefreshText" = "松开马上加载";
-"jvc_PullfooterRefreshingText" = "正在加载...";
-"jvc_PullfooterRefreshingDate" = "今天";
-"jvc_PullfooterRefreshinglastDate" = "最后更新：";
+"jvc_PullfooterToRefreshText" = "Pull-up to load more";
+"jvc_PullfooterReleaseToRefreshText" = "Loosen to load immediately";
+"jvc_PullfooterRefreshingText" = "Loading...";
+"jvc_PullfooterRefreshingDate" = "Toady";
+"jvc_PullfooterRefreshinglastDate" = "Latest Update:";
 
 //报警设备
 "jvc_alarmmanage_title" = "Alarm Device";
@@ -330,8 +330,8 @@
 "PTZ Control"="PTZ Control";
 "Playback"="Playback";
 "ResetDeviceInfotitile"= "Resert Device";
-"jvcoper_autoRecord"="报警录像";
-"jvcoper_Record"="手动录像";
+"jvcoper_autoRecord"="Alarm recording";
+"jvcoper_Record"="Manual recording ";
 "Learn audio info at any time"="Learn audio info at any time";
 "Adjust PTZ at any time"="Adjust PTZ at any time";
 "Check Playback info at any time"="Check Playback info at any time";
@@ -348,7 +348,7 @@
 "Disconnecting nowPlease Wait"="Disconnecting now\nPlease wait...";
 "Exiting NowPlease Wait"="Exiting now\nPlease wait...";
 "Connection Failed ID"="Failed to verify ID.";
-"Connection Failed ID_and_modify_user_and password"= "Username or password is incorrect";
+"Connection Failed ID_and_modify_user_and password"= "Failed to verify indentification, do you need to modify username and password?";
 "operation"="This function is suspended during remote playback.";
 "home_operation_talk"="This function is not available during two-way talk.";
 "This video source doesn't support image resolution switch."="This video source doesn't support image resolution switch.";
@@ -370,13 +370,13 @@
 "CloudSEE Service Has Been Stopped"="Device service has been stopped.";
 "Play back"="Play back";
 "Serach"="Search";
-"Playback_Finish"= "远程回放结束";
-"Playback_error" = "远程回放错误";
-"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
+"Playback_Finish"= "Remote playback finish";
+"Playback_error" = "Remote playback error";
+"PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "Device has been opened voice intercom in another client-end, please try again later";
 "connectResultInfo_4"  = "Connection Failed.";
 "connectResultInfo_6"  = "Disconnected Due To Abnormal Network.";
 "connectResultInfo_7"  = "Disconnected due to Device service has been stopped.";
-"connectResultInfo_8"  = "断开连接失败.";
+"connectResultInfo_8"  = "Faild to disconnected";
 "connectResultInfo_9"  = "Disconnected Due To CloudSEE Service Has Been Stopped.";
 "connectResultInfo_10" = "CloudSEE Service Has Been Stopped.";
 "connectResultInfo_11" = "Connections have exceeded limitations!";
@@ -391,7 +391,7 @@
 //更多界面
 "jvc_more_alarm"= "Alarm";
 "jvc_more_editPw"="Modify Password";
-"jvc_more_checkVersion"="检测更新";
+"jvc_more_checkVersion"="Check for update";
 "jvc_more_help"="Help";
 "jvc_more_suggest"="Feedback";
 "jvc_more_appStore"="Go to AppStore to comment.";
@@ -428,7 +428,7 @@
 "jvc_editDevice_Editbtn_device" = "Management";
 "jvc_editDevice_Editbtn_licktype" = "Connection Mode";
 "jvc_editDevice_Editbtn_channels" = "Channel Management";
-"jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
+"jvc_editDevice_Editbtn_SeeImedity" = "View Instantly";
 "jvc_editDevice_Editbtn_safe" = "Security Protection";
 "jvc_editDevice_Editbtn_alarmseting" = "Alarm Device";
 "jvc_editDevice_Editbtn_safe_open" = "Enable Security Protection Successfully";
@@ -465,11 +465,11 @@
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "Alarm info";
 "JVCAlarmCurrentView_device"= "Device：";
-"JVCAlarmCurrentView_motion"= "移动检测报警";
-"JVCAlarmCurrentView_door"= "门磁或手环报警";
-"JVCAlarmCurrentView_another"= " unknown alarm type";
-"JVCAlarmCurrentView_type"= "类型：";
-"JVCAlarmCurrentView_see"= "check";
+"JVCAlarmCurrentView_motion"= "Motion detection alarm";
+"JVCAlarmCurrentView_door"= "Door magnetic or hand ring alarm ";
+"JVCAlarmCurrentView_another"= "Unknown alarm type";
+"JVCAlarmCurrentView_type"= "Type：";
+"JVCAlarmCurrentView_see"= "Check";
 "JVCAlarmCurrentView_ignorce"= "Ignore";
 
 //演示点
@@ -481,8 +481,8 @@
 
 //JVCDeviceMathsHelper
 "JVCDeviceMathsHelper_addDevice_success" = "Add device Successfully";
-"JVCDeviceMathsHelper_addDevice_HasExist" = "设备列表中已存在";
-"JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
+"JVCDeviceMathsHelper_addDevice_HasExist" = "Already exsit in the device list";
+"JVCDeviceMathsHelper_addDevice_max" = "Over maxmium";
 "JVCDeviceMathsHelper_addDevice_error" = "Faild to add";
 "JVCDeviceMathsHelper_addDeviceChannel_error" = "Faild to add Channel";
 
@@ -501,7 +501,10 @@
 "JVCMonitorConnectionSingleImageView_connecting"="Asking for video data now, please wait...";
 
 //JVCVoiceencHelpViewController
-"JVCVoiceencHelpViewController_title" = "操作演示";
+"JVCVoiceencHelpViewController_title" = "Operation demo";
 
-"JVCVoiceencHelpViewController_helpString" = "请将手机靠近设备，点击声波发送按钮，配置设备";
+"JVCVoiceencHelpViewController_helpString" = "Please put the phone near device,click sound-wave sending button, configure the device.";
+
+"wifi-change"="Modify";
+"jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
 

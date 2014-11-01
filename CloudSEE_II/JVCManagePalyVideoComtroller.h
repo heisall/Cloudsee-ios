@@ -19,6 +19,11 @@
 - (void)connectVideoFailCallBack;
 
 /**
+ *  因为用户名密码错误视频连接失败的回调函数
+ */
+- (void)connectFailWithUserAndPassWordErrorCallBack;
+
+/**
  *  改变当前视频窗口下方码流的显示文本 以及是否是家用的IPC(用于单双向语音对讲切换)
  *
  *  @param nStreamType 码流类型
@@ -103,5 +108,13 @@ enum CONNECTALLDEVICE{
  *  显示旋转按钮
  */
 - (void)showEffectView;
+
+/**
+ *  根据所选显示视频的窗口的编号连接通道集合中指定索引的通道对象
+ *
+ *  @param nlocalChannelID 本地显示窗口的编号
+ */
+-(void)connectVideoByLocalChannelID:(int)nlocalChannelID;
+
 
 @end

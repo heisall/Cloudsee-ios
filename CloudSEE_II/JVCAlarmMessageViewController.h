@@ -9,7 +9,7 @@
 #import "JVCBaseGeneralTableViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
 
-@interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController <ystNetWorkHelpDelegate,ystNetWorkHelpRemotePlaybackVideoDelegate>
+@interface JVCAlarmMessageViewController : JVCBaseGeneralTableViewController <ystNetWorkHelpDelegate,ystNetWorkHelpRemotePlaybackVideoDelegate,UIAlertViewDelegate>
 {
     int bStateReload;
     

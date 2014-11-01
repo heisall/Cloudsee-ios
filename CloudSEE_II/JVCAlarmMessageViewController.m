@@ -125,13 +125,37 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    [btn addTarget:self action:@selector(clearALlAlarm) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(showAlertWithClearAllAlarm) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = barButtonItem;
     [barButtonItem release];
     [image release];
 
+}
+
+#pragma mark  显示弹出清空所有报警信息的列表
+
+- (void)showAlertWithClearAllAlarm
+{
+    if (arrayAlarmList.count == 0) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_noAlarm")];
+        
+    }else{
+
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvcAlarm_cleanAlll") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_ok"), nil];
+        [alertView show];
+        [alertView release];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        [self clearALlAlarm];
+    }
 }
 
 - (void)clearALlAlarm

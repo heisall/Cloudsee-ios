@@ -109,7 +109,7 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
     //设备添加到设备数组中
     [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldIP.text port:textFieldPort.text deviceUserName:textFieldIPName.text devicePassWord:textFieldIPPassWord.text];
     //添加通道
-    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:textFieldIP.text];
+    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:textFieldIP.text channelNums:1];
     
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
     

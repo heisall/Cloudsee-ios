@@ -343,14 +343,14 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
         deviceModel.userName = devieUserName.text;
         deviceModel.passWord =  devicePassWord.text;
         
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_Success", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"edit_success", nil)];
         
         [self.navigationController popViewControllerAnimated:YES];
         
         
     }else{//修改不成功
         
-        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"Edit_failt", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"edit_falt", nil)];
         
     }
 }

@@ -353,7 +353,7 @@
 "Disconnecting nowPlease Wait"="正在断开\n请等待...";
 "Exiting NowPlease Wait"="正在退出\n请等待...";
 "Connection Failed ID"="身份验证失败.";
-"Connection Failed ID_and_modify_user_and password"= "用户名或密码错误";
+"Connection Failed ID_and_modify_user_and password"= "身份验证不成功，是否修改用户名密码";
 "operation"="该功能在远程回放时暂停使用.";
 "home_operation_talk"="该功能在语音对讲时暂停使用.";
 "This video source doesn't support image resolution switch."="该视频源不支持画质切换";
@@ -510,5 +510,7 @@
 
 "JVCVoiceencHelpViewController_helpString" = "请将手机靠近设备，点击声波发送按钮，配置设备";
 
+"wifi-change"="修改口令";
+"jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
 
 

@@ -203,8 +203,6 @@
 		A7F5015D19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */; };
 		A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015E19D5412600AA78F0 /* dev_add@2x.png */; };
 		A7F5016019D5412600AA78F0 /* dev_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5015E19D5412600AA78F0 /* dev_add@2x.png */; };
-		A7F5016419D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */; };
-		A7F5016519D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */; };
 		A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5016219D5447C00AA78F0 /* addDev_btnNor@2x.png */; };
 		A7F5016719D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5016219D5447C00AA78F0 /* addDev_btnNor@2x.png */; };
 		A7F5016819D5447C00AA78F0 /* addDev_textFiedlBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5016319D5447C00AA78F0 /* addDev_textFiedlBg@2x.png */; };
@@ -283,6 +281,9 @@
 		A7F58BFB1A0367F400EA0C4F /* arm_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F58BF81A0367F400EA0C4F /* arm_clear@2x.png */; };
 		A7F58BFC1A0367F400EA0C4F /* arn_new_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F58BF91A0367F400EA0C4F /* arn_new_ch@2x.png */; };
 		A7F58BFD1A0367F400EA0C4F /* arn_new_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F58BFA1A0367F400EA0C4F /* arn_new_en@2x.png */; };
+		A7F58C001A03863C00EA0C4F /* JVCOperationModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F58BFF1A03863C00EA0C4F /* JVCOperationModifyViewController.m */; };
+		A7F58C031A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F58C021A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m */; };
+		A7F58C051A03B3C200EA0C4F /* addDev_btnHor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F58C041A03B3C200EA0C4F /* addDev_btnHor@2x.png */; };
 		A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */; };
 		A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
@@ -774,7 +775,6 @@
 		A7F5015A19D5399C00AA78F0 /* JVCAddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAddDeviceViewController.h; sourceTree = "<group>"; };
 		A7F5015B19D5399C00AA78F0 /* JVCAddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAddDeviceViewController.m; sourceTree = "<group>"; };
 		A7F5015E19D5412600AA78F0 /* dev_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_add@2x.png"; sourceTree = "<group>"; };
-		A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addDev_btnHor@2x.png"; sourceTree = "<group>"; };
 		A7F5016219D5447C00AA78F0 /* addDev_btnNor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addDev_btnNor@2x.png"; sourceTree = "<group>"; };
 		A7F5016319D5447C00AA78F0 /* addDev_textFiedlBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addDev_textFiedlBg@2x.png"; sourceTree = "<group>"; };
 		A7F5016F19D5521E00AA78F0 /* JVCDeviceSourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceSourceHelper.h; sourceTree = "<group>"; };
@@ -862,6 +862,11 @@
 		A7F58BF81A0367F400EA0C4F /* arm_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_clear@2x.png"; sourceTree = "<group>"; };
 		A7F58BF91A0367F400EA0C4F /* arn_new_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arn_new_ch@2x.png"; sourceTree = "<group>"; };
 		A7F58BFA1A0367F400EA0C4F /* arn_new_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arn_new_en@2x.png"; sourceTree = "<group>"; };
+		A7F58BFE1A03863C00EA0C4F /* JVCOperationModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationModifyViewController.h; sourceTree = "<group>"; };
+		A7F58BFF1A03863C00EA0C4F /* JVCOperationModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationModifyViewController.m; sourceTree = "<group>"; };
+		A7F58C011A03A49400EA0C4F /* JVCLocaOperationModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLocaOperationModifyViewController.h; sourceTree = "<group>"; };
+		A7F58C021A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLocaOperationModifyViewController.m; sourceTree = "<group>"; };
+		A7F58C041A03B3C200EA0C4F /* addDev_btnHor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addDev_btnHor@2x.png"; sourceTree = "<group>"; };
 		A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devWire@2x.png"; sourceTree = "<group>"; };
 		A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devBtn@2x.png"; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
@@ -1532,6 +1537,10 @@
 				A7F6C5E019F8977D0090B6F0 /* JVCHorizontalScreenBar.m */,
 				A7F6C60119F8A8160090B6F0 /* JVCHorizontalStreamView.h */,
 				A7F6C60219F8A8160090B6F0 /* JVCHorizontalStreamView.m */,
+				A7F58BFE1A03863C00EA0C4F /* JVCOperationModifyViewController.h */,
+				A7F58BFF1A03863C00EA0C4F /* JVCOperationModifyViewController.m */,
+				A7F58C011A03A49400EA0C4F /* JVCLocaOperationModifyViewController.h */,
+				A7F58C021A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m */,
 			);
 			name = operation;
 			sourceTree = "<group>";
@@ -1823,6 +1832,7 @@
 		A7F5EF4A19D26D67009B797A /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
+				A7F58C041A03B3C200EA0C4F /* addDev_btnHor@2x.png */,
 				A7F509F919F9FEAB004D061F /* devAdv_default_0.jpg */,
 				A7F4459E19F69438002C984F /* devAdv_default_1.jpg */,
 				A7F2210B19F383F600447853 /* no_devWlan@2x.png */,
@@ -1840,7 +1850,6 @@
 				A7F7177F19D8323F008DB1C5 /* add_ApConfig_ch@2x.png */,
 				A7F7178019D8323F008DB1C5 /* add_ApConfig_en@2x.png */,
 				AD1673BE19D8277A0021CD1B /* dev_channelList_button_bg@2x.png */,
-				A7F5016119D5447C00AA78F0 /* addDev_btnHor@2x.png */,
 				A7F5016219D5447C00AA78F0 /* addDev_btnNor@2x.png */,
 				A7F5016319D5447C00AA78F0 /* addDev_textFiedlBg@2x.png */,
 				A7F5015E19D5412600AA78F0 /* dev_add@2x.png */,
@@ -2840,11 +2849,11 @@
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
 				A7F6C5F419F89B570090B6F0 /* HorizontalScreenBar_2@2x.png in Resources */,
 				A7F5EF4F19D26D77009B797A /* devAdv_white@2x.png in Resources */,
+				A7F58C051A03B3C200EA0C4F /* addDev_btnHor@2x.png in Resources */,
 				A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */,
 				A7F50A3C19FA534F004D061F /* tab_device_select@2x.png in Resources */,
 				AD2BDB1319D28F0600AA6D73 /* edi_channelManager@2x.png in Resources */,
 				AD348C5C19F95545006C8A15 /* voi_info_icon@2x.png in Resources */,
-				A7F5016419D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
 				A7F51E7319EBB7250052F878 /* arm_def@2x.png in Resources */,
 				A7EFF9F319F4DD0500DF783D /* tabbar_bg@2x.png in Resources */,
 				A7F50A4719FA7B5B004D061F /* Default-568h@2x.png in Resources */,
@@ -2907,7 +2916,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F5014D19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
-				A7F5016519D5447C00AA78F0 /* addDev_btnHor@2x.png in Resources */,
 				A7F4347219DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				A7F5EF5019D26D77009B797A /* devAdv_white@2x.png in Resources */,
 				A7FAF5AE19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
@@ -2991,6 +2999,7 @@
 				A7EFFA6B19F520E700DF783D /* JVCAddDevieAlarmViewController.m in Sources */,
 				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
 				A7F6C60319F8A8160090B6F0 /* JVCHorizontalStreamView.m in Sources */,
+				A7F58C031A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m in Sources */,
 				A709696E19F2450D00C191F8 /* JVCAlarmCurrentView.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
 				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
@@ -3009,6 +3018,7 @@
 				AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m in Sources */,
 				A709697819F2468900C191F8 /* JVCControlHelper.m in Sources */,
 				A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */,
+				A7F58C001A03863C00EA0C4F /* JVCOperationModifyViewController.m in Sources */,
 				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
 				ADA22D5919DA613E0092F8B9 /* DDTTYLogger.m in Sources */,
 				AD3BDCAD19EBFEFF001B16D7 /* JVCVoiceencViewController.m in Sources */,

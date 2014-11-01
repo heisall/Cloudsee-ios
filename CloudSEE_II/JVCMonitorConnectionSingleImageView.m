@@ -682,7 +682,7 @@ float min_offset;
         case  CONNECTRESULTTYPE_ServiceStop:                    //"Disconnected Due To CloudSEE Service Has Been Stopped"
         case  CONNECTRESULTTYPE_DisconnectFailed:               //Connection Failed
         case  CONNECTRESULTTYPE_YstServiceStop:                  //CloudSEE Service Has Been Stopped
-        case  CONNECTRESULTTYPE_VerifyFailed:
+        case  CONNECTRESULTTYPE_VerifyFailed:                      //身份验证不成功
         case  CONNECTRESULTTYPE_ConnectMaxNumber:{
             
             NSString *localInfoKey=[NSString  stringWithFormat:@"connectResultInfo_%d",connectResultType];
@@ -692,9 +692,16 @@ float min_offset;
             [self runStopActivity:connectResultInfo];
             [self performSelectorOnMainThread:@selector(playButtonShow) withObject:nil waitUntilDone:YES];
             
-            
+            if (CONNECTRESULTTYPE_VerifyFailed == connectResultType) {
+               
+                if (delegate !=nil &&[delegate respondsToSelector:@selector(connectFaildWithUserNameOrPassWordCallBack)]) {
+                    
+                    [delegate connectFaildWithUserNameOrPassWordCallBack];
+                }
+            }
         }
             
+            break;
         case CONNECTRESULTTYPE_Succeed:{
             
             [self runStopActivity:connectResultInfo];

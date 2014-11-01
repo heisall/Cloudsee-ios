@@ -147,11 +147,18 @@
         self.passWord       = devicePassWord;
         self.onLineState    = onlineState;
         self.hasWifi        = hasWifiValue;
-        self.ip             = deviceIp;
+        if (ipAddState) {
+            self.ip             = [[JVCSystemUtility shareSystemUtilityInstance] getIPAddressForHostString:deviceIp];
+            self.linkType       = CONNECTTYPE_IP;
+
+        }else{
+            self.ip             = deviceIp;
+            self.linkType       = CONNECTTYPE_YST;
+
+        }
         self.port           = devicePort;
         self.onLineState    = DEVICESTATUS_ONLINE;
         self.hasWifi        = DEVICESTATUS_OFFLINE;
-        self.linkType       = CONNECTTYPE_YST;
         self.isCustomLinkModel = DeviceLickModel;
         self.bIpOrDomainAdd = ipAddState;
     }
@@ -181,11 +188,11 @@
         self.nickName       = deviceIp;
         self.userName       = deviceUserName;
         self.passWord       = devicePassWord;
-        self.ip             = deviceIp;
+        self.ip             = [[JVCSystemUtility shareSystemUtilityInstance] getIpOrNetHostString:deviceIp];
         self.port           = devicePort;
         self.onLineState    = DEVICESTATUS_ONLINE;
         self.hasWifi        = DEVICESTATUS_OFFLINE;
-        self.linkType       = CONNECTTYPE_YST;
+        self.linkType       = CONNECTTYPE_IP;
         self.isCustomLinkModel = 1;
         self.bIpOrDomainAdd = YES;
     }

@@ -33,7 +33,10 @@ typedef NS_ENUM(int, EffectType)
  */
 - (void)effectTypeClickCallBack;
 
-
+/**
+ *  用户名密码错误的回调
+ */
+- (void)connectFaildWithUserNameOrPassWordCallBack;
 /**
  *  远程回放的快进
  *

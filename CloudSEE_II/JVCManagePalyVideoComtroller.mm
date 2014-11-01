@@ -876,7 +876,7 @@ BOOL isAllLinkRun;
 
     }
     
-    DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
+    DDLogCVerbose(@"%s----nStreamType=%d==iEffectType=%d",__FUNCTION__,nStreamType,effectType);
 
 }
 
@@ -984,6 +984,20 @@ BOOL isAllLinkRun;
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
 
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:(singleVideoShow.iEffectType&0x04) == EffectType_UP ? singleVideoShow.iEffectType|0x04:(singleVideoShow.iEffectType&(~0x04))];
+    
+}
+
+/**
+ *  用户名密码错误的回调
+ */
+- (void)connectFaildWithUserNameOrPassWordCallBack
+{
+    
+    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(connectFailWithUserAndPassWordErrorCallBack)]) {
+        
+        [self.delegate connectFailWithUserAndPassWordErrorCallBack];
+    }
+
     
 }
 
