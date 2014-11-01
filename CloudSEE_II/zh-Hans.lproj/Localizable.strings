@@ -514,7 +514,13 @@
 
 "JVCVoiceencHelpViewController_helpString" = "请将手机靠近设备，点击声波发送按钮，配置设备";
 
+"starttime" ="开始时间";
+"disk" ="盘符";
+
 "wifi-change"="修改口令";
+"wifi_ap_setting_error"="配置Wi-Fi不成功，请重试!";
+"Cancel"="取消";
+"Sure"="确定";
 "jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
 
 

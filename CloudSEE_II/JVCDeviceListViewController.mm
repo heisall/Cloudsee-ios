@@ -169,13 +169,19 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
     self.tableView.headerRefreshingText =NSLocalizedString(@"jvc_PullRefreshingText", nil) ;
 }
 
+- (void)TableheaderEndRefreshing
+{
+    [self.tableView headerEndRefreshing];
+}
+
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
     if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备下拉刷新获取设备
         
+        [self performSelector:@selector(TableheaderEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer];
+
         [self getDeviceList];
-        [self.tableView performSelector:@selector(headerEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer inModes:nil];
     }else{
         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

@@ -234,6 +234,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         [_splitViewCon setHidden:YES];
     }
     
+    [self setAlarmTypeButton];
+    
 }
 
 /**
@@ -616,34 +618,43 @@ char remoteSendSearchFileBuffer[29] = {0};
                 break;
         }
         
+        [self setAlarmTypeButton];
         
-        if (_managerVideo.imageViewNums > kDefaultShowWidnowCount) {
-            
-            [self initwithRightButton:nil withTitle:nil];
-            
-        }else {
-            
-            switch (nStorageType) {
-                    
-                case StorageType_alarm:{
-                    
-                    [self initwithRightButton:@"sto_alarm.png" withTitle:LOCALANGER(@"jvcoper_autoRecord")];
-                }
-                    break;
-                case StorageType_auto:{
-                    
-                    [self initwithRightButton:@"sto_auto.png" withTitle:LOCALANGER(@"jvcoper_Record")];
-                }
-                    break;
-                    
-                default:{
-                    
-                    [self initwithRightButton:nil withTitle:nil];
-                }
-                    break;
-            }
-        }
     });
+}
+
+/**
+ *  设置报警的类型
+ */
+- (void)setAlarmTypeButton
+{
+    if (_managerVideo.imageViewNums > kDefaultShowWidnowCount || _isPlayBackVideo) {
+        
+        [self initwithRightButton:nil withTitle:nil];
+        
+    }else {
+        
+        switch (nStorageType) {
+                
+            case StorageType_alarm:{
+                
+                [self initwithRightButton:@"sto_alarm.png" withTitle:LOCALANGER(@"jvcoper_autoRecord")];
+            }
+                break;
+            case StorageType_auto:{
+                
+                [self initwithRightButton:@"sto_auto.png" withTitle:LOCALANGER(@"jvcoper_Record")];
+            }
+                break;
+                
+            default:{
+                
+                [self initwithRightButton:nil withTitle:nil];
+            }
+                break;
+        }
+    }
+
 }
 
 /**
@@ -1998,6 +2009,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         [self.navigationController.view.layer addAnimation:transition forKey:nil];
         JVCMonitorConnectionSingleImageView  *_singView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
         [_singView hiddenSlider];
+        
+        [self setAlarmTypeButton];
     }
 }
 
