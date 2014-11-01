@@ -575,13 +575,11 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             
-            DDLogVerbose(@"设备列表=%@",tdicDevice);
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                 
-                if (![[JVCSystemUtility shareSystemUtilityInstance]judgeDictionIsNil:tdicDevice]) {//非空
+                if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:tdicDevice]) {//非空
                 
                     //把从服务器获取到的数据存放到数组中
                     [[JVCDeviceSourceHelper shareDeviceSourceHelper] addServerDateToDeviceList:tdicDevice];
@@ -593,8 +591,14 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                     
                     [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelListConvertLocalCacheModel]];
                     
-                    //获取设备通道
-                    [self getAllChannelsWithDeviceList:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray]];
+                    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count > 0) {
+                        
+                        //加载设备通道弹出的提示
+                        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+                        
+                        [self getAllChannelsList];
+                        
+                    }
                     
                     [self showaddAPConfigDevice];
                     
@@ -603,7 +607,6 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
                     [self showaddAPConfigDevice];
 
                     [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDevice_Error")];
-                    
                 }
             });
         });
@@ -624,33 +627,26 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
 /**
  *  获取通道
  */
-- (void)getAllChannelsWithDeviceList:(NSArray *)deviceListData
+- (void)getAllChannelsList
 {
-    [deviceListData retain];
-    
-    dispatch_queue_t queue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        dispatch_apply([deviceListData count], queue, ^(size_t index){
+        JVCDeviceHelper *deviceSourceObj = [JVCDeviceHelper sharedDeviceLibrary];
+        NSDictionary    *channelMDic     = [deviceSourceObj getAccountByChannelList];
+        
+        if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:channelMDic]) {//非
             
-            NSMutableArray *singleDeviceChannelListMArray=[[NSMutableArray alloc] init];
-            JVCDeviceModel *model=[deviceListData objectAtIndex:index];
+            JVCChannelScourseHelper *channelsHelperObj = [JVCChannelScourseHelper shareChannelScourseHelper];
             
-            NSDictionary *channelInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:model.yunShiTongNum];
+            [channelsHelperObj addChannelsMDicToChannelList:channelMDic];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([channelInfoMdic isKindOfClass:[NSDictionary class]]) {
-                
-                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelInfoMdic deviceYstNumber:model.yunShiTongNum];
-            }
-            
-            [singleDeviceChannelListMArray release];
-            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
         });
         
     });
-    
-    [deviceListData release];
 }
 
 /**

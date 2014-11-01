@@ -26,6 +26,13 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
 - (NSMutableArray *)ChannelListArray;
 
 /**
+ *  把从服务器收到的数据转化成model
+ *
+ *  @param tdicDevice 服务器收到的数据
+ */
+- (void)addChannelsMDicToChannelList:(NSDictionary *)channelsList;
+
+/**
  *  清楚通道列表的所有数据
  */
 - (void)removeAllchannelsObject;

@@ -308,7 +308,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
  */
 -(void)playSound {
     
-    NSString *path = [[NSBundle mainBundle ] pathForResource:@"voi_send" ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle ] pathForResource:NSLocalizedString(@"jvc_voice_add_send", nil) ofType:@"mp3"];
     
     if (path) {
         

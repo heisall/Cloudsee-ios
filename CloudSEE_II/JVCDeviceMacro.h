@@ -112,7 +112,7 @@ enum DEVICESERVICERESPONSE{
 #define JK_DEVICES_ONLINE_STATUS	"dsls"
 #define JK_ONLINE_STATUS			"ols"
 
-#define JK_DEVICES_PIC			"dspic"
+#define JK_DEVICES_PIC			    "dspic"
 
 
 #define JK_DEVICE_TEMPERATURE		"dtem"
@@ -207,6 +207,7 @@ enum DEVICESERVICERESPONSE{
 #define JK_DEVICE_Demo_USERNAME		@"dusername"
 #define JK_DEVICE_Demo_PASSWORD		@"dpassword"
 #define DEVICE_DEVICE_ServiceState  @"dimols"
+#define JK_DEVICES_CHANNELS         @"clist"
 
 /**
  *  ap 的密码
@@ -345,15 +346,17 @@ enum MessageType_DeviceInfo
     GET_DEVICE_CHANNEL = 2043,
     GET_DEVICE_CHANNEL_RESPONSE = 2044,
     
-    MODIFY_DEVICE_CHANNEL_NAME = 2045,
+    MODIFY_DEVICE_CHANNEL_NAME          = 2045,
     MODIFY_DEVICE_CHANNEL_NAME_RESPONSE = 2046,
     
-    MODIFY_DEVICE_WIFI_FLAG=2047,
-    MODIFY_DEVICE_WIFI_FLAG_RESPONSE=2048,
+    MODIFY_DEVICE_WIFI_FLAG          = 2047,
+    MODIFY_DEVICE_WIFI_FLAG_RESPONSE = 2048,
     
-    GET_DEVICE_Info_stateAndBing  = 2051,
-
-    GET_DEMO_LIST               = 2057,
+    GET_USER_CHANNELS                = 2049,
+	GET_USER_CHANNELS_RESPONSE       = 2050,
+    
+    GET_DEVICE_Info_stateAndBing     = 2051,
+    GET_DEMO_LIST                    = 2057,
 
     
     

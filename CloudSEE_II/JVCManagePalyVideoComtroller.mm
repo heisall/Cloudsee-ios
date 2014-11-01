@@ -342,7 +342,7 @@ BOOL isAllLinkRun;
 }
 
 /**
- *  单击选中事件
+ *  双击选中事件
  *
  *  @param sender 选中的视频显示窗口
  */
@@ -362,7 +362,9 @@ BOOL isAllLinkRun;
     self._iBigNumbers          = _views;
     self.nSelectedChannelIndex =viewimage.view.tag-KWINDOWSFLAG;
     
+    self.isShowVideo = TRUE;
     [self changeContenView];
+    self.isShowVideo = FALSE;
 }
 
 /**
@@ -493,8 +495,6 @@ BOOL isAllLinkRun;
  */
 -(void)changeContenView{
     
-    self.isShowVideo  = TRUE;
-    
     int channelCount              = [self channelCountAtSelectedYstNumber];
     JVCAppHelper *apphelper       = [JVCAppHelper shareJVCAppHelper];
 
@@ -562,7 +562,6 @@ BOOL isAllLinkRun;
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
-    self.isShowVideo  = FALSE;
 }
 
 #pragma mark 全连接处理
@@ -661,19 +660,6 @@ BOOL isAllLinkRun;
 
 }
 
-/**
- *  切割窗口的处理函数
- *
- *  @param singeShowViewNumber 一个视图窗口同时显示监控窗口的数量
- */
--(void)splitViewWindow:(int)singeShowViewNumber{
-    
-    self.imageViewNums=singeShowViewNumber;
-    
-    self._iBigNumbers=1;
-    
-    [self changeContenView];
-}
 
 #pragma mark 与网络库交互的功能模块 ystNetWorkHeper delegate
 
@@ -871,6 +857,8 @@ BOOL isAllLinkRun;
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
         [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
+        
+        DDLogVerbose(@"%s----effectType=%d",__FUNCTION__,effectType&0x04);
         
         [self refreshEffectType:nLocalChannel effectType:effectType&0x04];
 

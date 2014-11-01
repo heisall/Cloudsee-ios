@@ -847,14 +847,12 @@ float min_offset;
     if (self.iEffectType<0) {
         return;
     }
-    if (effectBtn) {
         
-        effectBtn.hidden=state;
-    }
+    effectBtn.hidden=state;
+   
     [self bringSubviewToFront:effectBtn];
 
 }
-
 
 /**
  *  横屏的时候隐藏旋转按钮

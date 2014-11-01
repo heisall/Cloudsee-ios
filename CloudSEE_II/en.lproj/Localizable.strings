@@ -203,6 +203,10 @@
 "jvc_voice_add_Voiceconfig" = "Sound-wave Configuration";
 "jvc_voice_add_Voiceconfig_see" = "View operation demo ";
 "jvc_voice_add_Voiceconfig_clicktosend" = "Click to send sound-wave";
+"jvc_voice_next"  ="voi_next_en";
+"jvc_voice_add_send"  ="voi_send_en";
+"jvc_voice_add_info"  ="voi_info_en";
+"jvc_scanf_finshed"   ="sca_finshed_en";
 
 //连接模式
 "jvc_licktype_title" = "Connection Mode";

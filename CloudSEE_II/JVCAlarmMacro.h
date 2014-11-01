@@ -47,9 +47,9 @@
 #define JK_ALARM_MESSAGE		@"amsg"
 #define JK_ALARM_TIMESTAMP		@"ats"
 #define JK_ALARM_INFO			@"ainfo"
-#define JK_ALARM_FTP_CHANNEL_NO	@"dcn"
+#define JK_ALARM_FTP_CHANNEL_NO	 @"dcn"
 #define JK_ALARM_FTP_DEVICE_GUID @"dguid"
-#define JK_ALARM_DEVICE_NAME    @"dname"
+#define JK_ALARM_DEVICE_NAME     @"dname"
 
 static const NSString *Alarm_Lock_Guid  = @"guid";//报警的guid
 static const NSString *Alarm_Lock_Enable  = @"enable";//报警的enable
