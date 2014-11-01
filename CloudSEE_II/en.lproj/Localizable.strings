@@ -510,5 +510,9 @@
 "JVCVoiceencHelpViewController_helpString" = "Please put the phone near device,click sound-wave sending button, configure the device.";
 
 "wifi-change"="Modify";
+"starttime" ="Start time";
+"disk" ="Disk";
+"get_WIFI_list_timeOut"="Timeout during getting Wi-Fi list of host-end";
 "jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
-
+"Cancel"="Cancel";
+"Sure"="Confirm";
