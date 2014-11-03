@@ -167,7 +167,6 @@ UIAlertView *alertView;
 {
     int result = resultNum.intValue;
     
-    
     if (KEEPONLINE_SUCCESS == result) {
         
         _iErrorNUm = 0;
@@ -198,7 +197,7 @@ UIAlertView *alertView;
             _iErrorNUm=0;
         }else{
         
-          //  [self loginInWithOffLine];
+            [self loginInWithOffLine];
         }
         
     }
@@ -396,17 +395,8 @@ UIAlertView *alertView;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (RESERT_USER_AND_PASSWORD == resultOldType) {//重置用户名和密码
-                
-                
-            }else if(RESERT_PASSWORD == resultOldType)//重置密码的，再后台自动重置
-            {
-              //  [self modifyPassWordInbackGround];
-                
-            }else
-            {
-                [self keepOnLineErrorToPresentLoginViewController];
-            }
+            [self keepOnLineErrorToPresentLoginViewController];
+            
         });
     });
 }

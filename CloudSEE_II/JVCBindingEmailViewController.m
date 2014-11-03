@@ -22,7 +22,7 @@
 @implementation JVCBindingEmailViewController
 @synthesize delegateEmail;
 
-static const int  KSYSTEM_FONT      = 14;//font字体大小
+static const int  KSYSTEM_FONT      = 16;//font字体大小
 static const int  KLabelOriginX     = 20;//距离左侧的距离
 static const int  KLabelOriginY     = 30;//距离顶端的距离
 static const int  KLabelWith        = 60;//labe的宽度

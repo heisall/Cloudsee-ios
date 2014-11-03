@@ -199,7 +199,7 @@
 ";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
-"jvc_voice_add_prepareconfig_help" = "Please enter password of the camera connected wireless network";
+"jvc_voice_add_prepareconfig_help" = "Please enter password of the wireless network";
 "jvc_voice_add_Voiceconfig" = "Sound-wave Configuration";
 "jvc_voice_add_Voiceconfig_see" = "View operation demo ";
 "jvc_voice_add_Voiceconfig_clicktosend" = "Click to send sound-wave";

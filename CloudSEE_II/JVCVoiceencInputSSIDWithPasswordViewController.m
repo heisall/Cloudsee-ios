@@ -119,7 +119,6 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     password.frame           = rectPassword;
     password.returnKeyType   = UIReturnKeyDone;
     password.borderStyle     = UITextBorderStyleNone;
-    password.secureTextEntry = YES;
     password.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     password.delegate        = self;
     password.keyboardType = UIKeyboardTypeASCIICapable;
