@@ -47,6 +47,7 @@ static NSString const *  kJVCRGBColorMacroBlue    = @"Blue";
 //登录界面
 static NSString const *  kJVCRGBColorMacroLoginGray     = @"LoginGray";//登录界面label的灰色
 static NSString const *  kJVCRGBColorMacroLoginBlue     = @"LoginBlue";//登录界面演示点的颜色值
+static NSString const *  kJVCRGBColorMacroLoginBottomButtonTitleColor     = @"LoginBottomButtonTitleColor";//登录界面底部按钮的标题颜色
 //选择通道列表界面
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListLakeBlue     = @"deviceListWithChannelListLakeBlue";
 static NSString const *  kJVCRGBColorMacroDeviceListWithChannelListMediumYellow = @"deviceListWithChannelListMediumYellow";

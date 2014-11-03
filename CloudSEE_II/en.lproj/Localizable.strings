@@ -55,7 +55,6 @@
 "apSetting_new_device_next"    = "Next";
 "new_d"                        = "new_c.png";
 "remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to the last version ";
-"home_operation_talk"          = "This function is not available during two-way talk.";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";
@@ -268,6 +267,8 @@
 "wifi-name-nil"="Wi-Fi name can not be null.";
 "ap_configer"= "Done";
 "wifi-name-selected"="Please select Wi-Fi ...";
+"jvc_ap_old_info"="You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version V1.1.0.31.";
+"home_operation_talk"="该功能在语音对讲时暂停使用.";
 
 //扫描加设备界面
 "jvc_adddevcie_sacn_back" = "Quiting";
@@ -354,7 +355,6 @@
 "Connection Failed ID"="Failed to verify ID.";
 "Connection Failed ID_and_modify_user_and password"= "Failed to verify indentification, do you need to modify username and password?";
 "operation"="This function is suspended during remote playback.";
-"home_operation_talk"="This function is not available during two-way talk.";
 "This video source doesn't support image resolution switch."="This video source doesn't support image resolution switch.";
 "TalkInfo"="Applying to talk with host-end,pls wait...";
 "Asking for video data now, please wait..."="Asking for video data now, please wait...";

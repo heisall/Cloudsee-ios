@@ -26,6 +26,13 @@
     JVCAPConfingMiddleIphone5 *middleView;
 }
 
+enum DEVICE_AP_LEVEL {
+    
+    DEVICE_AP_OLD = 0,
+    DEVICE_AP_NEW = 1,
+    
+};
+
 @end
 
 @implementation JVCApConfigPlayVideoViewController
@@ -39,6 +46,7 @@ static NSString const *kConnectDefaultIP             = @"10.10.0.1";
 static const  int      kConnectDefaultPort           = 9101;
 static const CGFloat   kNextButtonWithBottom         = 20.0f;
 static const CGFloat   kNextButtonWithTop            = 20.0f;
+static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -675,10 +683,7 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
     singleVideoShow.isHomeIPC                            = isHomeIPC;
     singleVideoShow.iEffectType                          = effectType;
     
-    DDLogCVerbose(@"%s----nStreamType=%d",__FUNCTION__,nStreamType);
-    
     [self refreshAPEffectType:nLocalChannel effectType:effectType];
-
 }
 /**
  *  刷新当前图片翻转状态
@@ -744,8 +749,30 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
                NSMutableDictionary *networkInfo = (NSMutableDictionary *)objYstNetWorkHelpSendData;
             
                if (networkInfo) {
-    
-                  [self gotoApConfigDevice:networkInfo];
+     
+                  int deviceAPFlag = [[networkInfo objectForKey:kHomeIPCOldFlag] intValue];
+                   
+                  if (deviceAPFlag == DEVICE_AP_NEW) {
+                      
+                       [self gotoApConfigDevice:networkInfo];
+                      
+                  }else{
+                  
+                      
+                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                          
+                          [self apConfigDisconnect];
+                         
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              
+                              [self configFinshed];
+                              [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
+                              
+                          });
+                      });
+                  
+                  }
+                  
                }
         }
             break;
@@ -771,8 +798,6 @@ static const CGFloat   kNextButtonWithTop            = 20.0f;
             break;
     }
     
-    DDLogVerbose(@"%s----%@",__FUNCTION__,objYstNetWorkHelpSendData);
-
 }
 
 /**

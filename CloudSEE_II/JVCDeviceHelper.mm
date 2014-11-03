@@ -579,7 +579,7 @@ char outTextBuffer[1280*720*3];
     
     if (resultID==nil||![resultID isKindOfClass:[NSDictionary class]]) {
         
-        return nil;
+        return -1;
     }
     
     NSDictionary *resultDict=(NSDictionary *)resultID;
@@ -771,7 +771,7 @@ char outTextBuffer[1280*720*3];
     
     if (resultID==nil||![resultID isKindOfClass:[NSDictionary class]]) {
         
-        return nil;
+        return -1;
     }
     
     NSMutableDictionary *resultMDic=(NSMutableDictionary *)resultID;

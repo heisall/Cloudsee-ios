@@ -545,6 +545,7 @@
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
+		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
 		ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */; };
 		ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266F19FA56D800BD877F /* sto_auto@2x.png */; };
 		ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267119FBC8C700BD877F /* voi_exit@2x.png */; };
@@ -1220,6 +1221,7 @@
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
+		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
 		ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_alarm@2x.png"; sourceTree = "<group>"; };
 		ADD6266F19FA56D800BD877F /* sto_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_auto@2x.png"; sourceTree = "<group>"; };
 		ADD6267119FBC8C700BD877F /* voi_exit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_exit@2x.png"; sourceTree = "<group>"; };
@@ -2172,6 +2174,7 @@
 			isa = PBXGroup;
 			children = (
 				ADD6267119FBC8C700BD877F /* voi_exit@2x.png */,
+				ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */,
 				A7F509FB19F9FEE9004D061F /* sca_device@2x.png */,
 				AD3BDCB219EC0546001B16D7 /* sca_log@2x.png */,
 				AD3BDCB319EC0546001B16D7 /* sca_ani@2x.png */,
@@ -2792,6 +2795,7 @@
 				A7F6C60019F89B570090B6F0 /* HorizontalScreenStreambgSelect@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7FB595019E91C12005E2E6D /* bin_btn@2x.png in Resources */,
+				ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */,
 				A7FC003219FD0D9A006B31FA /* effect_0@2x.png in Resources */,
 				A7F50A3D19FA534F004D061F /* tab_device_unselect@2x.png in Resources */,
 				A7F5557E19D9361B0009F75C /* mor_editPwdBtnBg@2x.png in Resources */,

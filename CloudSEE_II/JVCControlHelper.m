@@ -19,7 +19,6 @@ static const int KFontSizeAdd         = 6;//高度比fontsize大6
 static const int KFontSize            = 14;//label的默认size
 static const float KLabelOriginX      = 10;//距离左侧的距离
 static const float KLabelOriginY      = 10;//距离顶端的距离
-static const float KTextFieldHeight   = 37;//textfield 默认高度
 static const float KTextSpan          = 5;//textfield 与leftLabel的距离
 static const float KLeftViewWith      = 10;//左侧view的宽度
 static JVCControlHelper *shareJVCControlHelper = nil;
@@ -244,6 +243,22 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     [image release];
     
     return [textField autorelease];
+}
+
+/**
+ *  根据文字和字体大小、高度动态生成文本所占的长度
+ *
+ *  @param text     文本
+ *  @param fontSize 字体大小
+ *  @param height   高度
+ *
+ *  @return 动态生成的长度
+ */
+- (CGSize)textWidthWithText:(NSString *)text  withFontSize:(CGFloat)fontSize withHeight:(CGFloat)height{
+
+     CGSize titleWithSize = [text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:CGSizeMake(MAXFLOAT, height)];
+    
+    return titleWithSize;
 }
 
 @end

@@ -370,11 +370,18 @@ static JVCRGBHelper *jvcRGBHelper = nil;
     loginDemoBlue.g = 122.0f;
     loginDemoBlue.b = 255.0f;
     
+    JVCRGBModel *bottomTitleColor  = [[JVCRGBModel alloc] init];
+    bottomTitleColor.r = 247.0f;
+    bottomTitleColor.g = 246.0f;
+    bottomTitleColor.b = 240.0f;
+    
     [mdicRgbModelList setObject:loginUserGray forKey:kJVCRGBColorMacroLoginGray];
     [mdicRgbModelList setObject:loginDemoBlue forKey:kJVCRGBColorMacroLoginBlue];
+    [mdicRgbModelList setObject:bottomTitleColor forKey:kJVCRGBColorMacroLoginBottomButtonTitleColor];
     
     [loginUserGray release];
     [loginDemoBlue release];
+    [bottomTitleColor release];
     
 }
 

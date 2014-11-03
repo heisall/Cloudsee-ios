@@ -35,6 +35,7 @@
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCGetPassWordViewController.h"
+
 enum LOGINBTNTYPE
 {
     LOGINBTNGTYPE_LOGININ   = 0,//登录
@@ -81,9 +82,12 @@ static const CGFloat        KDemoPointWithFontSize               = 16.0; //下�
 static const CGFloat        KDemoPointTitleWithOffsetBottom      = 10.0; //下拉view的高度
 
 static const CGFloat        KSeperateSpan      = 15.0f;//控件之间的间隔
-static const CGFloat        KTitleSeperateSpan = 5.0f;//控件之间的间隔
-//static const CGFloat  KLineHeight   = 1.0f;//横线的高度
+static const CGFloat        KTitleSeperateSpan = 15.0f;//控件之间的间隔
 static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
+static const CGFloat        kBottomButtonTitleFont              = 16.0f;
+static const CGFloat        kBottomButtonTitleHeight            = kBottomButtonTitleFont + 6.0;
+static const CGFloat        kRegisterButtonWithLocalButtonLeft  = 30.0f;
+static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线的高度
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -276,25 +280,49 @@ static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
     [self.view addSubview:btnDemo];
     [btnDemo release];
     
+    JVCControlHelper *controlObj = [JVCControlHelper shareJVCControlHelper];
+    
+    CGSize btnResignSize         = [controlObj textWidthWithText:LOCALANGER(@"jvc_log_resign") withFontSize:kBottomButtonTitleFont withHeight:kBottomButtonTitleHeight];
+    
+     UIColor *bottomColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBottomButtonTitleColor];
+    
     /**
      *  注册
      */
     UIButton *btnResign = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_resign") normalImage:nil horverimage:nil];
     [btnResign retain];
-    btnResign.frame = CGRectMake((self.view.width-2*btnResign.width)/3.0,btnLocal.bottom+KTitleSeperateSpan, btnResign.width, btnResign.height);
+    
+    btnResign.frame = CGRectMake(btnLocal.frame.origin.x + kRegisterButtonWithLocalButtonLeft,btnLocal.bottom+KTitleSeperateSpan, btnResignSize.width, btnResignSize.height);
+     btnResign.titleLabel.font   = [UIFont systemFontOfSize:kBottomButtonTitleFont];
     [btnResign addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (bottomColor) {
+        
+        [btnResign setTitleColor:bottomColor forState:UIControlStateNormal];
+    }
     [self.view addSubview:btnResign];
     [btnResign release];
+    
+    [self initBottomButtonWithLineView:btnResign];
+    
+     CGSize btnreSetPwSize         = [controlObj textWidthWithText:LOCALANGER(@"jvc_log_fot") withFontSize:kBottomButtonTitleFont withHeight:kBottomButtonTitleHeight];
     
     /**
      *  忘记密码
      */
     UIButton *btnreSetPw = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_fot") normalImage:nil horverimage:nil];
     [btnreSetPw retain];
-    btnreSetPw.frame = CGRectMake(btnResign.right+(self.view.width-2*btnreSetPw.width)/3.0,btnResign.frame.origin.y, btnreSetPw.width, btnreSetPw.height);
+    btnreSetPw.frame = CGRectMake(btnLocal.frame.origin.x + btnLocal.frame.size.width - kRegisterButtonWithLocalButtonLeft - btnreSetPwSize.width,btnResign.frame.origin.y, btnreSetPwSize.width, btnreSetPwSize.height);
+    btnreSetPw.titleLabel.font   = [UIFont systemFontOfSize:kBottomButtonTitleFont];
+    if (bottomColor) {
+        
+        [btnreSetPw setTitleColor:bottomColor forState:UIControlStateNormal];
+    }
     [btnreSetPw addTarget:self  action:@selector(getPassWord) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnreSetPw];
     [btnreSetPw release];
+    
+    [self initBottomButtonWithLineView:btnreSetPw];
     
     /**
      *  下拉view视图
@@ -319,6 +347,27 @@ static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
         [self.view.layer addAnimation:transition forKey:nil];
         [self.navigationController pushViewController:popApViewcontroller animated:NO];
     }
+}
+
+/**
+ *  初始化加载底部按钮的下划线
+ *
+ *  @param button 被添加的按钮
+ */
+-(void)initBottomButtonWithLineView:(UIButton *)button {
+
+    UIView *line = [[UIView alloc] init];
+    
+    CGRect lineRect = button.frame;
+    
+    lineRect.size.height = kBottomButtonWithLineHeight;
+    lineRect.origin.x    = 0.0;
+    lineRect.origin.y    = button.frame.size.height - kBottomButtonWithLineHeight;
+    
+    line.frame   = lineRect;
+    line.backgroundColor = button.titleLabel.textColor;
+    [button addSubview:line];
+    [line release];
 }
 
 /**
