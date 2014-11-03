@@ -200,6 +200,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
                          _shareInstance.bShowState = NO;
                          if (alarmModelSelect != nil) {
                              [alarmModelSelect release];
+                             alarmModelSelect = nil;
                          }
                          [self removeFromSuperview];
                      }];

@@ -521,6 +521,11 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmlist_delete_success")];
                 
                 nAlarmOriginIndex -- ;
+                
+                if (nAlarmOriginIndex <=0) {
+                    nAlarmOriginIndex = 0;
+                    [self.tableView headerBeginRefreshing];
+                }
 
             }else{
             

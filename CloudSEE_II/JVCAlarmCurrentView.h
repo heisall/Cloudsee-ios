@@ -58,4 +58,10 @@ enum  {
  *  关闭报警
  */
 - (void)CloseCurrentView;
+
+
+/**
+ *  清空报警图片
+ */
+- (void)removeCurrentView;
 @end
