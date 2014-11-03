@@ -563,6 +563,7 @@ static  const   int      KSetHelpMaxCount    = 10;
                 if ([chView isKindOfClass:[JVCOperationController class]]) {//断开视频连接
                     
                     JVCOperationController *opView = (JVCOperationController *)chView;
+                
                     [opView  BackClick];
                  }
             }

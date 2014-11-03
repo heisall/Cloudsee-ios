@@ -161,7 +161,7 @@ static JVCControlHelper *shareJVCControlHelper = nil;
         NSString *path = [UIImage imageBundlePath:horverImage];
         UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
         btn.frame  = CGRectMake(0, 0, image.size.width, image.size.height);
-        [btn setBackgroundImage:image forState:UIControlStateNormal];
+        [btn setBackgroundImage:image forState:UIControlStateSelected];
         [image release];
 
 
@@ -244,6 +244,40 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     [image release];
     
     return [textField autorelease];
+}
+
+/**
+ *  根据字体 获取带下划线的label
+ *
+ *  @param titleString  字符串
+ *  @param fontSize     字体号
+ *
+ *  @return 相应的label
+ */
+- (UILabel *)labelWithUnderLine:(NSString *)titleString  fontSize:(int)fontSize
+{
+    UILabel *label = [self labelWithText:titleString textFontSize:fontSize];
+    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:titleString];
+    NSRange contentRange = {0, [content length]};
+    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+    label.attributedText = content;
+    [content release];
+    return label;
+}
+
+/**
+ *  给label添加下划线
+ *
+ *  @param label label下划线
+ */
+- (void)labelWithDownLine:(UILabel *)label
+{
+    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:label.text];
+    NSRange contentRange = {0, [content length]};
+    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+    label.attributedText = content;
+    [content release];
+
 }
 
 @end

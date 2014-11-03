@@ -92,4 +92,6 @@ static NSString const *  KMoreUserLabeTextColor         = @"MoreUserLabeTextColo
 //视频观看
 static NSString const *  KPlayVideoBottomTitleDefaultFontColor    = @"PlayVideoBottomTitleDefaultFontColor";//视频播放界面底部功能按钮字体默认的颜色
 
+//视频观看
+static NSString const *  KJVCresigDownLabecolor    = @"KJVCresigDownLabecolor";//注册底部的
 #endif

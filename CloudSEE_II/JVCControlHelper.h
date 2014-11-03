@@ -80,4 +80,15 @@
  */
 - (UITextField *)textFieldWithPlaceHold:(NSString *)placeString
                         backGroundImage:(NSString *)imageName;
+
+/**
+ *  根据字体 获取带下划线的label
+ *
+ *  @param titleString  字符串
+ *  @param fontSize     字体号
+ *
+ *  @return 相应的label
+ */
+- (UILabel *)labelWithUnderLine:(NSString *)titleString
+                       fontSize:(int)fontSize;
 @end

@@ -50,6 +50,7 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         [self initMoreUserLabelViewRGBColors];
         [self initWithVoiceConfig];
         [self initPlayBackCellLabelColor];
+        [self initWithResignDownLineLabe];
     }
     
     return self;
@@ -525,6 +526,19 @@ static JVCRGBHelper *jvcRGBHelper = nil;
 }
 
 /**
+ *  初始化视频播放的
+ */
+-(void)initWithResignDownLineLabe{
+    
+    JVCRGBModel *DownLineLabe  = [[JVCRGBModel alloc] init]; //视频编辑的功能按钮的颜色
+    DownLineLabe.r = 67.0;
+    DownLineLabe.g = 102.0f;
+    DownLineLabe.b = 160.0f;
+    [mdicRgbModelList setObject:DownLineLabe forKey:KJVCresigDownLabecolor];
+    [DownLineLabe release];
+}
+
+/**
  *  根据RGBModel的键值获取UIColor对象
  *
  *  @param strkeyName RGBModel的键
@@ -545,7 +559,6 @@ static JVCRGBHelper *jvcRGBHelper = nil;
         return nil;
     }
 }
-
 
 /**
  *  初始化声波配置流程

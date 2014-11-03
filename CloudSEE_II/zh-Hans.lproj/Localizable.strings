@@ -124,6 +124,12 @@
 "jvc_resign_pw" = "密 码";
 "jvc_resign_enpw" ="确认密码";
 "jvc_resign_Resign_eror" = "注册失败";
+"jvc_resign_Resign_Text" = "阅读并同意";
+"jvc_resign_Resign_DownLineText" = "用户协议";
+"jvc_resign_Resign_AgreeResign" = "请勾选用户协议";
+"jvc_resign_userResign"="userResign";
+
+
 //jvcresulttiphelper
 "LOGINRESULT_USERNAME_NIL" = "请输入用户名";
 "LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
@@ -494,6 +500,10 @@
 "JVCDeviceMathsHelper_addDevice_max" = "超过最大值";
 "JVCDeviceMathsHelper_addDevice_error" = "添加失败";
 "JVCDeviceMathsHelper_addDeviceChannel_error" = "添加设备通道数失败";
+"qrContinue"="继续";
+"qrDevice"="发现设备";
+"qrNoDevice"="不属于设备";
+"qrAdd"="添加";
 
 //JVCEditLockDeviceNickNameViewController
 "JVCEditLockDeviceNickNameViewController_title"= "修改昵称";

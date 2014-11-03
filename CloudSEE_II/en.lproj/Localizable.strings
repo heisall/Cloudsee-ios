@@ -123,6 +123,14 @@
 "jvc_resign_pw" = "PassWord";
 "jvc_resign_enpw" ="Confirm password";
 "jvc_resign_Resign_eror" = "Faild to register";
+"jvc_resign_Resign_Text" = "Read and agree";
+"jvc_resign_Resign_DownLineText" = "User agreement";
+"jvc_resign_Resign_AgreeResign" = "Users must agree the agreement to finish the registeration.";
+"qrAdd"="Add";
+"qrContinue"="Continue";
+"qrDevice"="Found Device ID";
+"qrNoDevice"="Not Device ID";
+"jvc_resign_userResign"="userResignE";
 
 //jvcresulttiphelper  正则判断的
 "LOGINRESULT_USERNAME_NIL" = "Please input username.";

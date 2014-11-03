@@ -197,7 +197,7 @@ UIAlertView *alertView;
             _iErrorNUm=0;
         }else{
         
-            [self loginInWithOffLine];
+           // [self loginInWithOffLine];
         }
         
     }

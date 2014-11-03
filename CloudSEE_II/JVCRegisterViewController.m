@@ -14,6 +14,8 @@
 #import "JVCRGBHelper.h"
 #import "JVCDataBaseHelper.h"
 #import "JVCPredicateHelper.h"
+#import "JVCControlHelper.h"
+#import "JVCUserResignTextViewController.h"
 
 static const int ORIGIN_Y  = 40;//第一个textfield距离顶端的距离
 
@@ -32,6 +34,8 @@ static const int RESIGNFONT  = 14;//font 的大小
 static const int PREDICATESECCESS  = 0 ;//正则校验成功
 
 static const int KLabelWith  = 10 ;//label的宽度
+
+static const int KUserRESIGNFONT  = 18;//font 的大小
 
 @interface JVCRegisterViewController ()
 {
@@ -64,6 +68,11 @@ static const int KLabelWith  = 10 ;//label的宽度
      *  密码的提示label
      */
     UILabel *labEnPassWord;
+    
+    /**
+     *  是否同意的btn
+     */
+    UIButton *btnAgree;
     
 }
 
@@ -200,12 +209,42 @@ static const int KLabelWith  = 10 ;//label的宽度
     labEnPassWord.font = [UIFont systemFontOfSize:RESIGNFONT];
     [self.view addSubview:labEnPassWord];
     
+    /**
+     *  同意按钮
+     */
+    JVCControlHelper *controlHelp = [JVCControlHelper shareJVCControlHelper];
+    btnAgree = [controlHelp buttonWithTitile:nil normalImage:@"reg_btn_nor.png" horverimage:@"reg_btn_hor.png"];
+    btnAgree.frame = CGRectMake(labEnPassWord.left, labEnPassWord.bottom, btnAgree.width, btnAgree.height);
+    [btnAgree addTarget:self  action:@selector(changeUserAgreeState) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnAgree];
+    btnAgree.selected = YES;
+    
+//    "jvc_resign_Resign_Text" = "Read and agree";
+//    "jvc_resign_Resign_DownLineText" = "User agreement";
+    UILabel *labelUser = [controlHelp labelWithText:LOCALANGER(@"jvc_resign_Resign_Text") textFontSize:KUserRESIGNFONT];
+    labelUser.frame = CGRectMake(btnAgree.right, labEnPassWord.bottom-7, labelUser.width, labelUser.height);
+    [self.view addSubview:labelUser];
+    
+    UILabel *labelUserText = [controlHelp labelWithUnderLine:LOCALANGER(@"jvc_resign_Resign_DownLineText") fontSize:KUserRESIGNFONT];
+    labelUserText.frame = CGRectMake(labelUser.right, labelUser.top, labelUserText.width, labelUserText.height);
+    [self.view addSubview:labelUserText];
+    UIColor *colorDown = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KJVCresigDownLabecolor];
+    if (colorDown) {
+        
+        labelUserText.textColor = colorDown;
+    }
+    labelUserText.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserDetailTextView)];
+    [labelUserText addGestureRecognizer:gesture];
+    [gesture release];
+    
+
     //注册按钮
     UIImage *imageBtn = [UIImage imageNamed:@"btn_Bg.png"];
     
     UIButton *btnResign = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    btnResign.frame = CGRectMake((self.view.width - imageBtn.size.width)/2.0, textFieldEnSurePassWord.bottom+SEPERATE, imageBtn.size.width, imageBtn.size.height);
+    btnResign.frame = CGRectMake((self.view.width - imageBtn.size.width)/2.0, btnAgree.bottom+SEPERATE, imageBtn.size.width, imageBtn.size.height);
     
     [btnResign setBackgroundImage:imageBtn forState:UIControlStateNormal];
     
@@ -215,6 +254,22 @@ static const int KLabelWith  = 10 ;//label的宽度
     
     [self.view addSubview:btnResign];
     
+}
+
+- (void)gotoUserDetailTextView
+{
+    JVCUserResignTextViewController *textVC = [[JVCUserResignTextViewController alloc] init];
+    [self.navigationController pushViewController:textVC animated:YES];
+    [textVC release];
+}
+
+- (void)changeUserAgreeState
+{
+    if (btnAgree.selected) {
+        btnAgree.selected = NO;
+    }else{
+        btnAgree.selected = YES;
+    }
 }
 
 #pragma mark textfieldDelegate
@@ -449,6 +504,11 @@ static const int KLabelWith  = 10 ;//label的宽度
 #pragma mark 注册按钮按下时间
 - (void)signUp
 {
+    if (!btnAgree.selected) {
+    
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_resign_Resign_AgreeResign")];
+        return;
+    }
     
     /**
      *  检索用户输入的字符串是否合法

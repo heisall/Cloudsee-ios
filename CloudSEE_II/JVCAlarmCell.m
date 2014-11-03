@@ -141,7 +141,7 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     for(int i=0;i<6;i++)
     {
         UIImageView *imageAlarm = [[UIImageView alloc] initWithFrame:CGRectMake(foff_x+i*(fWith+3), labelALarmType.frame.origin.y+(labelALarmType.frame.size.height-fHeight)/2.0+1, fWith, fHeight)];
-        if (i<=model.iAlarmType*2) {
+        if (i<=model.iAlarmType/2) {
             imageAlarm.image = imgHover;
         }else{
             imageAlarm.image = imgNormal;

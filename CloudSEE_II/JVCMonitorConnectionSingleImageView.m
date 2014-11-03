@@ -691,14 +691,6 @@ float min_offset;
             
             [self runStopActivity:connectResultInfo];
             [self performSelectorOnMainThread:@selector(playButtonShow) withObject:nil waitUntilDone:YES];
-            
-            if (CONNECTRESULTTYPE_VerifyFailed == connectResultType) {
-               
-                if (delegate !=nil &&[delegate respondsToSelector:@selector(connectFaildWithUserNameOrPassWordCallBack)]) {
-                    
-                    [delegate connectFaildWithUserNameOrPassWordCallBack];
-                }
-            }
         }
             
             break;

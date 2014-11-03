@@ -688,9 +688,9 @@ BOOL isAllLinkRun;
          */
         if ( nlocalChannel-1 == self.nSelectedChannelIndex  ) {
             
-            if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(connectVideoFailCallBack)]) {
+            if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(connectVideoFailCallBack:)]) {
                 
-                [self.delegate connectVideoFailCallBack];
+                [self.delegate connectVideoFailCallBack:connectResultType==CONNECTRESULTTYPE_VerifyFailed];
             }
         }
     }
@@ -975,18 +975,5 @@ BOOL isAllLinkRun;
     
 }
 
-/**
- *  用户名密码错误的回调
- */
-- (void)connectFaildWithUserNameOrPassWordCallBack
-{
-    
-    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(connectFailWithUserAndPassWordErrorCallBack)]) {
-        
-        [self.delegate connectFailWithUserAndPassWordErrorCallBack];
-    }
-
-    
-}
 
 @end

@@ -15,13 +15,11 @@
 
 /**
  *  视频连接失败的回调函数
+ *
+ *  @param isPassword YES密码错误
  */
-- (void)connectVideoFailCallBack;
+- (void)connectVideoFailCallBack:(BOOL)isPassword;
 
-/**
- *  因为用户名密码错误视频连接失败的回调函数
- */
-- (void)connectFailWithUserAndPassWordErrorCallBack;
 
 /**
  *  改变当前视频窗口下方码流的显示文本 以及是否是家用的IPC(用于单双向语音对讲切换)

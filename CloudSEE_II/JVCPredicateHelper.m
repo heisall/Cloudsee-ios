@@ -181,6 +181,12 @@ static JVCPredicateHelper *_shareInstance = nil;
     int kk=0;
     for (kk=0; kk<ystNum.length; kk++) {
 		unsigned char c=[ystNum characterAtIndex:kk];
+        
+        if ((c>='Z' && c<='A')||(c>='z'&&c<='a')) {
+            
+            return NO;
+            
+        }
 		if (c<='9' && c>='0') {
 			break;
 		}

@@ -37,6 +37,7 @@ static const NSString * kRecoedVideoFileFormat  = @".mp4";                      
 static const CGFloat    kTalkViewWithHeight     = 60.0f;
 static const CGFloat    kTalkViewWithWidth      = 200.0;
 static const int        kAlertTag               = 19384324;
+static const NSTimeInterval        kPopAfterTimer       = 0.3;//退出时的延迟
 
 
 
@@ -588,15 +589,24 @@ char remoteSendSearchFileBuffer[29] = {0};
 /**
  *  视频连接失败的回调函数
  */
-- (void)connectVideoFailCallBack{
+- (void)connectVideoFailCallBack:(BOOL)isPassword{
     
-  [self closeAudioAndTalkAndVideoFuction];
-    
-  if (self.isPlayBackVideo) {
+      [self closeAudioAndTalkAndVideoFuction];
         
-    [self.navigationController popToRootViewControllerAnimated:YES];
-  }
-
+      if (self.isPlayBackVideo) {
+            
+        [self.navigationController popToRootViewControllerAnimated:YES];
+          
+      }else{
+      
+          if (isPassword) {
+              
+              dispatch_async(dispatch_get_main_queue(), ^{
+              
+                [self  showAlertWithUserOrPassWordError];
+              });
+          }
+     }
 }
 
 /**
@@ -785,7 +795,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 #pragma mark 返回上一级
 -(void)BackClick{
-    
+    DDLogVerbose(@"___%s==========000",__FUNCTION__);
+
     //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
     [self closeAudioAndTalkAndVideoFuction];
     
@@ -809,7 +820,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         wheelAlterInfo=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disconnecting nowPlease Wait", nil)
                                                   message:nil
-                                                 delegate:self
+                                                 delegate:nil
                                         cancelButtonTitle:nil
                                         otherButtonTitles:nil];
         UIActivityIndicatorView *activity=[[UIActivityIndicatorView alloc] init];
@@ -831,13 +842,15 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)unAllLink{
     
+    DDLogVerbose(@"___%s==========001",__FUNCTION__);
     [_managerVideo CancelConnectAllVideoByLocalChannelID];
     
 	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:i+1];
 	}
-    
+    DDLogVerbose(@"___%s==========002",__FUNCTION__);
+
     [self performSelectorOnMainThread:@selector(closeAlterViewAllDic) withObject:nil waitUntilDone:NO];
 }
 
@@ -862,9 +875,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)closeAlterViewAllDic{
     
-    
+    DDLogVerbose(@"___%s==========003",__FUNCTION__);
+
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
     
+    DDLogVerbose(@"___%s==========004",__FUNCTION__);
+
     if (self.isPlayBackVideo) {
         
         [self.navigationController popToRootViewControllerAnimated:NO];
@@ -872,6 +888,23 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     [self.navigationController popViewControllerAnimated:YES];
+    
+    //[self performSelector:@selector(popToPreviousViewController) withObject:nil afterDelay:kPopAfterTimer];
+
+}
+
+- (void)popToPreviousViewController
+{
+    
+    DDLogVerbose(@"___%s==========005",__FUNCTION__);
+
+    if (self.isPlayBackVideo) {
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        return;
+    }
+    
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 #pragma mark 保存本地录像的文件
@@ -984,16 +1017,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-#pragma mark  用户名密码错误的时候的回调
-/**
- *  因为用户名密码错误视频连接失败的回调函数
- */
-- (void)connectFailWithUserAndPassWordErrorCallBack
-{
-    
-    [self  showAlertWithUserOrPassWordError];
-}
-
 /**
  *  用户名或密码错误后，要跳转到相应的节目
  *
@@ -1021,7 +1044,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (alertView.tag == kAlertTag) {
         
         if (buttonIndex == 0) {
-            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        
+            
         }else{//跳转到修改用户名密码的界面
     
             [self gotoModifyUserAndPassWordViewcontroller];
