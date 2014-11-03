@@ -551,6 +551,7 @@ static  const   int      KSetHelpMaxCount    = 10;
 - (void)presentLoginViewController
 {
     UITabBarController *controller = (UITabBarController *)self.window.rootViewController;
+    
     for (UIViewController *con in controller.viewControllers) {
         
         if ([con isKindOfClass:[UINavigationController class]]) {
@@ -558,6 +559,7 @@ static  const   int      KSetHelpMaxCount    = 10;
             UINavigationController *navCon=(UINavigationController*)con;
             
             for (UIViewController *chView in navCon.viewControllers) {
+                
                 if ([chView isKindOfClass:[JVCOperationController class]]) {//断开视频连接
                     
                     JVCOperationController *opView = (JVCOperationController *)chView;

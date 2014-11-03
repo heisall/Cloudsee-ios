@@ -97,11 +97,17 @@ enum StorageType {
 
 };
 
+enum DISCONNECT_STATUS {
+
+    DISCONNECT_CONNECT = 0,
+    DISCONNECT_ALL = 1,
+
+};
+
 @end
 
 @implementation JVCOperationController
 @synthesize _iSelectedChannelIndex,strSelectedDeviceYstNumber;
-@synthesize _iViewState;
 @synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack;
 @synthesize _playBackVideoDataArray,_playBackDateString;
 @synthesize showSingeleDeviceLongTap;
@@ -192,7 +198,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     _amUnSelectedImageNameListData=nil;
     
     [scrollview release];
-    DDLogVerbose(@"%s----",__FUNCTION__);
+    DDLogVerbose(@"%s--#############################--",__FUNCTION__);
     [super dealloc];
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -311,6 +317,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    unAllLinkFlag = DISCONNECT_CONNECT;
     
     [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;
     
@@ -799,14 +807,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        NSMutableString *_sAltertitle=[NSMutableString stringWithCapacity:10];
-        
-        if (self._iViewState==0) {
-            [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Disconnecting nowPlease Wait", nil)];
-        }else{
-            [_sAltertitle appendFormat:@"%@",NSLocalizedString(@"Exiting NowPlease Wait", nil)];
-        }
-        wheelAlterInfo=[[UIAlertView alloc] initWithTitle:_sAltertitle
+        wheelAlterInfo=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disconnecting nowPlease Wait", nil)
                                                   message:nil
                                                  delegate:self
                                         cancelButtonTitle:nil
@@ -819,7 +820,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [activity release];
         [wheelAlterInfo show];
         [wheelAlterInfo release];
-        unAllLinkFlag=1;
+        unAllLinkFlag = DISCONNECT_ALL;
         
         [NSThread detachNewThreadSelector:@selector(unAllLink) toTarget:self withObject:nil];
     }
@@ -870,31 +871,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
     }
     
-    if (self._iViewState==0||self._iViewState==2) {
-        
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        
-    }else if(self._iViewState==1){
-        
-//        for (UIViewController *v_con in self.navigationController.viewControllers) {
-//            if ([v_con isKindOfClass:[settingViewController class]]) {
-//                settingViewController *settingMon=(settingViewController*)v_con;
-//                [settingMon loginOut];
-//            }
-//        }
-    }else if(self._iViewState==4){
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-//        JDCSAppDelegate *delegate = (JDCSAppDelegate*)[UIApplication sharedApplication].delegate;
-//        [delegate initLoginVCToRootVC];
-        
-    }else if(self._iViewState==5){
-        
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        
-    }
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark 保存本地录像的文件
@@ -1053,6 +1030,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
 }
 
+#pragma mark ---------------- 当连接设备时身份验证失败弹出的修改提示
 - (void)gotoModifyUserAndPassWordViewcontroller
 {
     JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
@@ -1087,12 +1065,15 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        
         return NO;
     }
     
     [self removHelpView];
-    return YES;
+    
+    return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;;
 }
 -(NSUInteger)supportedInterfaceOrientations{
     
@@ -1102,7 +1083,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;
 }
 
 

@@ -40,7 +40,6 @@
     bool             _isTalk;
     bool             _isLocalVideo;
     bool             _isPlayBack;
-    int              _iViewState;  // 0：正常 1: 注销登陆 2: 地图登陆
     NSMutableArray  *_playBackVideoDataArray;//远程回放视频列表
     NSMutableString *_playBackDateString;
     UIScrollView    *scrollview;
@@ -57,7 +56,6 @@
 @property (nonatomic,assign) int             _iSelectedChannelIndex;
 @property (nonatomic,retain) NSString        *strSelectedDeviceYstNumber;     //选择的设备的云视通号
 @property (nonatomic,assign) bool            _issound,_isTalk,_isLocalVideo,_isPlayBack;
-@property (nonatomic,assign) int             _iViewState;
 @property (nonatomic,retain) NSMutableString *_playBackDateString;
 @property (nonatomic,retain) NSMutableArray  *_playBackVideoDataArray;
 @property (nonatomic,assign) BOOL             showSingeleDeviceLongTap;

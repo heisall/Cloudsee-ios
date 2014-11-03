@@ -8,6 +8,7 @@
 
 #import "JVCBaseSliderViewController.h"
 @class JVCDeviceModel;
+
 static const int kOperationMofifyTypeSUCCESS      = 0;//成功
 
 @protocol JVCOperationModifyViewControllerDelegate <NSObject>
@@ -26,5 +27,6 @@ static const int kOperationMofifyTypeSUCCESS      = 0;//成功
     id<JVCOperationModifyViewControllerDelegate>modifyDelegate;
 }
 @property(nonatomic,retain) JVCDeviceModel *modifyModel;
-@property(nonatomic,retain)id<JVCOperationModifyViewControllerDelegate>modifyDelegate;
+@property(nonatomic,assign)id<JVCOperationModifyViewControllerDelegate>modifyDelegate;
+
 @end

@@ -256,6 +256,14 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)connectAllWithSelectedDevice{
     
+    for (UIViewController *con in self.navigationController.viewControllers) {
+        
+        
+        DDLogVerbose(@"%s-----viewContro=%@",__FUNCTION__,con);
+        
+    }
+    
+    return;
     [self gotoPlayViewController:kJVCChannelScourseHelperAllConnectFlag];
 }
 
