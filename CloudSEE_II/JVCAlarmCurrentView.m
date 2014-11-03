@@ -197,9 +197,13 @@ static JVCAlarmCurrentView *_shareInstance = nil;
                      }
                      completion:^(BOOL finish){
                          self.transform = CGAffineTransformIdentity;
+                         
                          _shareInstance.bShowState = NO;
+                         
                          if (alarmModelSelect != nil) {
+                             
                              [alarmModelSelect release];
+                             alarmModelSelect = nil;
                          }
                          [self removeFromSuperview];
                      }];

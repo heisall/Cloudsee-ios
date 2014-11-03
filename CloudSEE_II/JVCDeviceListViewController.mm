@@ -28,6 +28,9 @@
 #import "JVCIPAddViewController.h"
 #import "JVCScanNewDeviceViewController.h"
 #import "JVCVoiceencInfoViewController.h"
+#import "JVCOperationController.h"
+#import "JVCChannelScourseHelper.h"
+#import "JVCOperationControllerIphone5.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -54,7 +57,8 @@ static const NSTimeInterval  kAfterDelayTimer                        = 2;  //2�
 
 @implementation JVCDeviceListViewController
 
-static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
+static const NSTimeInterval kAimationAfterDalay      = 0.3; //延迟时间
+static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默认通道数
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -544,12 +548,41 @@ static const NSTimeInterval kAimationAfterDalay  = 0.3;//延迟时间
  */
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
-    JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
-    //deviceChannelList.hidesBottomBarWhenPushed                    = YES;
-    deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
-    [self.navigationController pushViewController:deviceChannelList animated:YES];
-    [deviceChannelList release];
+    JVCDeviceSourceHelper    *deviceSourceHelperObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    JVCChannelScourseHelper  *channelSourceHelperObj = [JVCChannelScourseHelper shareChannelScourseHelper];
     
+    JVCDeviceModel           *deviceModel = (JVCDeviceModel *) [[deviceSourceHelperObj deviceListArray] objectAtIndex:gesture.view.tag - kTableViewSingleDeviceViewBeginTag];
+    
+    NSMutableArray           *channels    = [channelSourceHelperObj channelValuesWithDeviceYstNumber:deviceModel.yunShiTongNum];
+    
+    
+    if (channels.count == kPlayVideoChannelsCount) {
+        
+        JVCOperationController *tOPVC;
+        
+        if (iphone5) {
+            
+            tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+            
+        }else
+        {
+            tOPVC = [[JVCOperationController alloc] init];
+            
+        }
+        
+        tOPVC.strSelectedDeviceYstNumber = deviceModel.yunShiTongNum;
+        tOPVC._iSelectedChannelIndex     = 0;
+        [self.navigationController pushViewController:tOPVC animated:YES];
+        [tOPVC release];
+        
+    }else{
+    
+        JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
+        deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
+        [self.navigationController pushViewController:deviceChannelList animated:YES];
+        [deviceChannelList release];
+    
+    }
 }
 
 #pragma mark 获取设备

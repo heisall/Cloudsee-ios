@@ -375,6 +375,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
                 NSString *titleYst = [titles objectAtIndex:self.nIndex];
                 NSArray *arrayList = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:titleYst];
                 if (arrayList.count>0) {
+                    
                     [self gotoPlayViewController:0];
 
                 }
