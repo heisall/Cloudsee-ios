@@ -49,7 +49,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
  */
 -(void)playSound {
     
-    NSString *path = [[NSBundle mainBundle ] pathForResource:NSLocalizedString(@"jvc_voice_add_info", nil) ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle ] pathForResource:NSLocalizedString(@"jvc_voice_next", nil) ofType:@"mp3"];
     
     if (path) {
         

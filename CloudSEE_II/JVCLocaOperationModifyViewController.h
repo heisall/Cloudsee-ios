@@ -7,7 +7,7 @@
 //
 
 #import "JVCOperationModifyViewController.h"
-@class JVCDeviceModel;
+
 @interface JVCLocaOperationModifyViewController : JVCOperationModifyViewController
 
 @end
