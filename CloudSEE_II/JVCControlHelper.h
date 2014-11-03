@@ -91,4 +91,15 @@
  */
 - (UILabel *)labelWithUnderLine:(NSString *)titleString
                        fontSize:(int)fontSize;
+
+/** 
+ 根据文字和字体大小、高度动态生成文本所占的长度
+ *
+ *  @param text     文本
+ *  @param fontSize 字体大小
+ *  @param height   高度
+ *
+ *  @return 动态生成的长度
+ */
+- (CGSize)textWidthWithText:(NSString *)text  withFontSize:(CGFloat)fontSize withHeight:(CGFloat)height;
 @end

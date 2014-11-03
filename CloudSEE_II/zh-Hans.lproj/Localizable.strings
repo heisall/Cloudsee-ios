@@ -56,7 +56,6 @@
 "apSetting_new_device_next"    = "下一步";
 "new_d"                        = "new_c.png";
 "remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
-"home_operation_talk"          = "该功能在语音对讲时暂停使用.";
 "setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";
 "Learn audio info at any time" = "随时了解音频信息";
 "Adjust PTZ at any time"       = "随时调整监控画面信息";
@@ -276,6 +275,8 @@
 "ap_configer"= "配置";
 "wifi-name-nil"="请输入无线网络名称";
 "wifi-name-selected"="请选择无线网络名称";
+"jvc_ap_old_info"    ="亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本到V1.1.0.311以上";
+"home_operation_talk"="该功能在语音对讲时暂停使用.";
 
 //扫描加设备界面
 "jvc_adddevcie_sacn_back" = "退出";
@@ -365,7 +366,6 @@
 "Connection Failed ID"="身份验证失败.";
 "Connection Failed ID_and_modify_user_and password"= "身份验证不成功，是否修改用户名密码";
 "operation"="该功能在远程回放时暂停使用.";
-"home_operation_talk"="该功能在语音对讲时暂停使用.";
 "This video source doesn't support image resolution switch."="该视频源不支持画质切换";
 "TalkInfo"="正在与主控请求对讲，请等待...";
 "Asking for video data now, please wait..."="正在加载数据，请等待...";
