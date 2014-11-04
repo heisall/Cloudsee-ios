@@ -757,18 +757,11 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
                        [self gotoApConfigDevice:networkInfo];
                       
                   }else{
-                  
                       
                       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                           
-                          [self apConfigDisconnect];
-                         
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              
-                              [self configFinshed];
-                              [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
-                              
-                          });
+                          [self showOldHomeIPCUpdateAlert];
+
                       });
                   
                   }
@@ -1013,9 +1006,63 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
     }
 }
 
+/**
+ *  老的家用IPC升级提示
+ */
+-(void)showOldHomeIPCUpdateAlert{
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:NSLocalizedString(@"remoteApSettingOldVersion", nil)
+                              message:nil
+                              delegate:self
+                              cancelButtonTitle:LOCALANGER(@"customAlert_update")
+                              otherButtonTitles:LOCALANGER(@"customAlert_sure"), nil];
+    [alertView show];
+    [alertView release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+        
+        if (buttonIndex == 1) {
+            
+            
+            [self oldHomeIPCDisconnect];
+           // [self ];
+            
+        }else{
+            
+//            HelpImageViewController *helpImageVC = [[HelpImageViewController alloc] init];
+//            helpImageVC.devieUpdateDelegate = self;
+//            helpImageVC.ImageType = HELPTYPE_DEVICE_UPDATE_AP;
+//            [self.navigationController pushViewController:helpImageVC animated:YES];
+//            [helpImageVC release];
+            
+            
+        }
+        
+        
+    DDLogError(@"%s----buttonIndex=%d",__FUNCTION__,buttonIndex);
+}
 
 
-
-
+//老设备的断开
+-(void)oldHomeIPCDisconnect {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+       [self apConfigDisconnect];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self configFinshed];
+            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
+            
+        });
+        
+    });
+}
 
 @end
