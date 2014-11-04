@@ -14,6 +14,7 @@
 static JVCCloudSEENetworkGeneralHelper *jvcCloudSEENetworkGeneralHelper = nil;
 static NSString const * kCloudSEENetworkWithConnectedPassWord =  @"password is wrong!";
 static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count limit!";
+static const    float   kDefaultFrameRate                     = 25.0f;
 
 /**
  *  单例
@@ -175,7 +176,7 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
  */
 -(double)getPlayVideoframeFrate:(int)startCode buffer_O:(char *)buffer_O buffer_O_size:(int)buffer_O_size nAudioType:(int *)nAudionType{
     
-    double frameRate = 12.5;
+    double frameRate = kDefaultFrameRate;
     
     if ([self IsFILE_HEADER_EX:buffer_O dwSize:buffer_O_size]) {
         
@@ -326,7 +327,7 @@ static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count 
     
     int    nWidth                    = 0;
     int    nHeight                   = 0;
-    double dPlayBackVideoframeFrate  =12.5;
+    double dPlayBackVideoframeFrate  = kDefaultFrameRate;
     
     //判断新头
     if([self IsFILE_HEADER_EX:buffer_O dwSize:buffer_O_size]){
