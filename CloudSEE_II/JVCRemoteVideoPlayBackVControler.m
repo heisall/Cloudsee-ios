@@ -97,12 +97,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     [selectTimeLabel release];
     
     [_tableview release];
-    
-    //    if (strDateSelect) {
-    //
-    //        [strDateSelect release];
-    //
-    //    }
+
     
     [super dealloc];
 }
@@ -115,26 +110,6 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     
     self.iSelectRow = -1;
     
-    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-    //        NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
-    //int week=0;
-
-    formatter.dateFormat = @"YYYY-MM-dd";
-    formatter.locale     = [NSLocale currentLocale];
-    NSDate *_date=[formatter dateFromString:@"2014-10-26"];
-
-    [formatter release];
-    
-    DDLogError(@"%s-----date01=%@",__FUNCTION__,_date);
-
     
     /**
      *  标题
@@ -169,6 +144,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     [searchBtn addTarget:self action:@selector(btnSearchAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:searchBtn];
     [searchBtn release];
+
     
     /**
      *  uitableview
@@ -314,17 +290,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{   
-//    self.iSelectRow = indexPath.row;
-//    
-//    NSMutableDictionary *dicInfo = [self.arrayDateList objectAtIndex:indexPath.row];
-//    
-//    if (self.remoteDelegat != nil && [self.remoteDelegat respondsToSelector:@selector(remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:requestPlayBackFileDate:requestPlayBackFileIndex:)]) {
-//        
-//        [self.remoteDelegat remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:dicInfo
-//                                                           requestPlayBackFileDate:[self getFormateDateWtihString:selectTimeLabel.text] requestPlayBackFileIndex:indexPath.row];
-//    }
-    
+{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -399,22 +365,15 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
 #pragma mark  UIActionSheet 的delegate以及方法
 -(void) showDatePicker{
     
+    if (IOS8) {
+        
+        [self showIOS8DatePicker];
+        
+    }else{
     
-    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",nil) destructiveButtonTitle:NSLocalizedString(@"Sure",nil) otherButtonTitles:nil] autorelease];
-    
-    actionSheet.userInteractionEnabled = YES;
-    UIDatePicker *datePicker = [[[UIDatePicker alloc] init] autorelease];
-    datePicker.datePickerMode = UIDatePickerModeDate;
-    [datePicker setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedString(@"NSLocalString", nil)] autorelease]];
-    datePicker.tag = 101;
-    datePicker.locale  = [NSLocale currentLocale];
-    datePicker.calendar = [NSCalendar currentCalendar];
-    [actionSheet addSubview:datePicker];
-    [actionSheet showInView:self.view];
-    // [actionSheet release];
-    //NSLog(@"this is pic click");
-    
-    
+        [self showOtherDatePicker];
+    }
+
 }
 
 //日期选择回调
@@ -432,15 +391,12 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
             NSString *timestamp = [formatter stringFromDate:datePicker0.date];
             selectTimeLabel.text = timestamp;
             [formatter release];
-            
-            //[self btnSearchAction];
 		}
 			break;
             
 		default:
 			break;
 	}
-	//[actionSheet release];
     
 }
 
@@ -475,14 +431,53 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     }
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+-(void)showIOS8DatePicker {
+
+    RMDateSelectionViewController *dateSelectionVC = [RMDateSelectionViewController dateSelectionController];
+    dateSelectionVC.delegate                       = self;
+        dateSelectionVC.datePicker.datePickerMode  =  UIDatePickerModeDate; //设置日期格式的样式
+    dateSelectionVC.datePicker.locale              = [NSLocale currentLocale];
+    dateSelectionVC.datePicker.calendar            = [NSCalendar currentCalendar];
+    dateSelectionVC.datePicker.minuteInterval      = 5;
+    dateSelectionVC.datePicker.date                = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
+    
+    [dateSelectionVC show];
+}
+
+-(void)showOtherDatePicker{
+
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",nil) destructiveButtonTitle:NSLocalizedString(@"Sure",nil) otherButtonTitles:nil] autorelease];
+    actionSheet.userInteractionEnabled = YES;
+    UIDatePicker *datePicker = [[[UIDatePicker alloc] init] autorelease];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    [datePicker setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedString(@"NSLocalString", nil)] autorelease]];
+    datePicker.tag = 101;
+    datePicker.locale  = [NSLocale currentLocale];
+    datePicker.calendar = [NSCalendar currentCalendar];
+    [actionSheet addSubview:datePicker];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - RMDAteSelectionViewController Delegates
+
+- (void)dateSelectionViewController:(RMDateSelectionViewController *)vc didSelectDate:(NSDate *)aDate {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
+        formatter.timeZone = [NSTimeZone systemTimeZone];
+        formatter.dateFormat = KDateFormatFlag;
+        
+        NSString *timestamp = [formatter stringFromDate:aDate];
+        selectTimeLabel.text = timestamp;
+        [formatter release];
+
+    });
+}
+
+- (void)dateSelectionViewControllerDidCancel:(RMDateSelectionViewController *)vc{
+
+}
+
 @end

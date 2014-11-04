@@ -8,6 +8,7 @@
 
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCOperationController.h"
+#import "RMDateSelectionViewController.h"
 
 @protocol RemotePlayBackVideodelegate <NSObject>
 //
@@ -31,7 +32,7 @@
 
 @end
 
-@interface JVCRemoteVideoPlayBackVControler : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>{
+@interface JVCRemoteVideoPlayBackVControler : JVCBaseWithGeneralViewController<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,RMDateSelectionViewControllerDelegate>{
     /**
      *  存放数据的数组
      */

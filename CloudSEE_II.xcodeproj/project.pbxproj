@@ -493,6 +493,7 @@
 		AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */; };
 		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
 		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
+		AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -1134,6 +1135,8 @@
 		AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.17_2014_10_16.a; sourceTree = "<group>"; };
 		AD3FB61719F682F700034461 /* sca_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_sound.mp3; sourceTree = "<group>"; };
 		AD3FB61919F6A18800034461 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
+		AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
+		AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -2228,6 +2231,15 @@
 			name = voi_helper;
 			sourceTree = "<group>";
 		};
+		AD59EFE21A086228001688FC /* RMDateSelectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */,
+				AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */,
+			);
+			name = RMDateSelectionViewController;
+			sourceTree = "<group>";
+		};
 		ADA22D4A19DA612C0092F8B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2254,9 +2266,9 @@
 				ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */,
 				ADA22D6219DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.h */,
 				ADA22D6319DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m */,
-				ADA22D7019DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.h */,
 				ADA22D7119DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m */,
 				ADA22D7319DA816C0092F8B9 /* JVCPlaySoundHelper.h */,
+				ADA22D7019DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.h */,
 				ADA22D7419DA816C0092F8B9 /* JVCPlaySoundHelper.m */,
 				ADA22D7C19DA84500092F8B9 /* JVCVoiceIntercomHelper.h */,
 				ADA22D7D19DA84500092F8B9 /* JVCVoiceIntercomHelper.m */,
@@ -2531,6 +2543,7 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AD59EFE21A086228001688FC /* RMDateSelectionViewController */,
 				A7F5559119D97E2F0009F75C /* tabbarautoRotate */,
 				A7F5558D19D95E140009F75C /* UINavicationRotation_IOS6 */,
 				A7F5556019D90F9B0009F75C /* GestureSecreat */,
@@ -3187,6 +3200,7 @@
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A72DCD2519EBF79500C9A1ED /* JVCLocalAddDeviceViewController.m in Sources */,
 				A7263C4C19E7FB91003C22DE /* JVCMoreViewController.m in Sources */,
+				AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */,
 				A7F4457C19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m in Sources */,
 				ADA22D7519DA816C0092F8B9 /* JVCPlaySoundHelper.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,

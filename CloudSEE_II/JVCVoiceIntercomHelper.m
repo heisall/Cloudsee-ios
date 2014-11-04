@@ -39,10 +39,10 @@ char          decodeAudioCache[76]    = {0};
  *
  *  @return YES 转换失败 NO:转换失败
  */
--(BOOL)convertSoundBufferByNetworkBuffer:(int)nConnectDeviceType isExistStartCode:(BOOL)isExistStartCode networkBuffer:(char *)networkBuffer nBufferSize:(int *)nBufferSize isBufferType:(BOOL *)isBufferType audioDecoderOutBuffer:(char *)audioDecoderOutBuffer{
+-(BOOL)convertSoundBufferByNetworkBuffer:(int)nConnectDeviceType isExistStartCode:(BOOL)isExistStartCode networkBuffer:(char *)networkBuffer nBufferSize:(int *)nBufferSize isBufferType:(BOOL *)isBufferType audioDecoderOutBuffer:(char *)audioDecoderOutBuffer audioDecoderOutBufferSize:(int)audioDecoderOutBufferSize {
 
     int              nSize                 = *nBufferSize;
-    
+   // DDLogVerbose(@"%s-----",__FUNCTION__);
     switch (nConnectDeviceType) {
             
         case DEVICEMODEL_SoftCard:
@@ -50,8 +50,9 @@ char          decodeAudioCache[76]    = {0};
         case DEVICEMODEL_HardwareCard_951:{
             
             int outLen;
-            outLen = sizeof(audioDecoderOutBuffer);
-            DecodeAudioData(networkBuffer+16,nBufferSize-16,audioDecoderOutBuffer,&outLen);
+            outLen = audioDecoderOutBufferSize;
+            
+            DecodeAudioData(networkBuffer+16,nSize-16,audioDecoderOutBuffer,&outLen);
             *nBufferSize   = outLen;
             *isBufferType  = YES;
         }
@@ -180,7 +181,7 @@ char          decodeAudioCache[76]    = {0};
  *
  *  @return 成功返回YES
  */
--(BOOL)encoderLocalRecorderData:(char *)Audiodata nEncodeAudioOutdataSize:(int *)nEncodeAudioOutdataSize encodeOutAudioData:(char *)encodeOutAudioData{
+-(BOOL)encoderLocalRecorderData:(char *)Audiodata nEncodeAudioOutdataSize:(int *)nEncodeAudioOutdataSize encodeOutAudioData:(char *)encodeOutAudioData encodeOutAudioDataSize:(int)encodeOutAudioDataSize{
     
     BOOL isEncoderStatus  = TRUE;
     
@@ -205,14 +206,17 @@ char          decodeAudioCache[76]    = {0};
             break;
         case AudioSize_AMR:{
             
-            int ndecoderAudioSize = sizeof(encodeOutAudioData);
+            int ndecoderAudioSize = encodeOutAudioDataSize;
             
             [self lock];
-            EncodeAudioData((char *)Audiodata,AudioSize_AMR,encodeOutAudioData,&ndecoderAudioSize);
+            EncodeAudioData(Audiodata,AudioSize_AMR,encodeOutAudioData,&ndecoderAudioSize);
             audioFrame->iIndex ++;
             memcpy(decodeAudioCache, audioFrame, sizeof(struct AudioFrame));
             //复制音频格式信息
             memcpy(decodeAudioCache + sizeof(struct AudioFrame),encodeOutAudioData,ndecoderAudioSize);
+            
+            memcpy(encodeOutAudioData, decodeAudioCache, ndecoderAudioSize +sizeof(struct AudioFrame));
+            
             [self unLock];
             *nEncodeAudioOutdataSize = ndecoderAudioSize +sizeof(struct AudioFrame);
             
