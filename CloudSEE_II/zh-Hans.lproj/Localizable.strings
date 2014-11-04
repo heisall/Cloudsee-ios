@@ -55,7 +55,6 @@
 "apSetting_new_device_sKip"    = "跳过";
 "apSetting_new_device_next"    = "下一步";
 "new_d"                        = "new_c.png";
-"remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
 "setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";
 "Learn audio info at any time" = "随时了解音频信息";
 "Adjust PTZ at any time"       = "随时调整监控画面信息";
@@ -536,5 +535,10 @@
 "jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
 //远程回放
 "jvc_remote_playBack_Now"= "现在";
-
+//老设备帮助
+"device_old_update"="device_old_update_ch.png";
+"device_old_update_title"="设备升级教程";
+"customAlert_update" = "升级教程";
+"customAlert_sure"="确定";
+"remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
 

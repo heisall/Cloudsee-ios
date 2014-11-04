@@ -13,6 +13,7 @@
 #import "OpenALBufferViewcontroller.h"
 #import "JVCSystemUtility.h"
 #import "JVCAlertHelper.h"
+#import "JVCOldDeviceHelpViewController.h"
 
 @interface JVCApConfigPlayVideoViewController () {
 
@@ -758,7 +759,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
                       
                   }else{
                       
-                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                      dispatch_async(dispatch_get_main_queue(), ^{
                           
                           [self showOldHomeIPCUpdateAlert];
 
@@ -1024,22 +1025,15 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
-        
         if (buttonIndex == 1) {
             
-            
             [self oldHomeIPCDisconnect];
-           // [self ];
             
         }else{
             
-//            HelpImageViewController *helpImageVC = [[HelpImageViewController alloc] init];
-//            helpImageVC.devieUpdateDelegate = self;
-//            helpImageVC.ImageType = HELPTYPE_DEVICE_UPDATE_AP;
-//            [self.navigationController pushViewController:helpImageVC animated:YES];
-//            [helpImageVC release];
-            
+            JVCOldDeviceHelpViewController *helpImageVC = [[JVCOldDeviceHelpViewController alloc] init];
+            [self.navigationController pushViewController:helpImageVC animated:YES];
+            [helpImageVC release];
             
         }
         

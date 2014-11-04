@@ -54,7 +54,6 @@
 "apSetting_new_device_sKip"    = "Skip";
 "apSetting_new_device_next"    = "Next";
 "new_d"                        = "new_c.png";
-"remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to the last version ";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";
@@ -524,9 +523,16 @@
 "starttime" ="Start time";
 "disk" ="Disk";
 "get_WIFI_list_timeOut"="Timeout during getting Wi-Fi list of host-end";
-"jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
+"jvcAlarm_cleanAlll"="Delete all alarm infomation.Are you sure?";
 "Cancel"="Cancel";
 "Sure"="Confirm";
 
 //远程回放
 "jvc_remote_playBack_Now"= "Now";
+
+//老设备帮助
+"device_old_update"="device_old_update_en.png";
+"device_old_update_title"="Device update demo";
+"customAlert_update" = "Update tutorial";
+"remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to the last version ";
+"customAlert_sure"="Sure";
