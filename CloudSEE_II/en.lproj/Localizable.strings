@@ -127,7 +127,7 @@
 "jvc_resign_Resign_AgreeResign" = "Users must agree the agreement to finish the registeration.";
 "qrAdd"="Add";
 "qrContinue"="Continue";
-"qrDevice"="Found Device ID";
+"qrDevice"="Device ID";
 "qrNoDevice"="Not Device ID";
 "jvc_resign_userResign"="userResignE";
 
@@ -180,7 +180,7 @@
 
 //添加设备界面
 "jvc_addDevice_title" = "Add device";
-"jvc_addDevice_YstNUm" = "  CloudSEE ID";
+"jvc_addDevice_YstNUm" = "  CloudSEE";
 "jvc_addDevice_userName" = "  UserName";
 "jvc_addDevice_password" = "  PassWord";
 "jvc_addDevice_save" = "Save";
@@ -206,7 +206,7 @@
 ";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
-"jvc_voice_add_prepareconfig_help" = "Please enter password of the wireless network";
+"jvc_voice_add_prepareconfig_help" = "Please enter password of the network";
 "jvc_voice_add_Voiceconfig" = "Sound-wave Configuration";
 "jvc_voice_add_Voiceconfig_see" = "View operation demo ";
 "jvc_voice_add_Voiceconfig_clicktosend" = "Click to send sound-wave";
@@ -217,7 +217,7 @@
 
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
-"jvc_licktype_Ip" = "IP/Domain Name";
+"jvc_licktype_Ip" = "IP/DN";
 "jvc_licktype_YST" = "CloudSEE";
 
 //设备列表界面
@@ -227,7 +227,7 @@
 "jvc_DeviceList_add_wlan" = "Wireless Device";
 "jvc_DeviceList_add_scan" = "Devices in LAN";
 "jvc_DeviceList_add_volce" = "Sound-wave Configuration";
-"jvc_DeviceList_add_ip" = "IP/Domain Name";
+"jvc_DeviceList_add_ip" = "IP/DN";
 "jvc_DeviceList_offline" = "Offline";
 "jvc_DeviceList_online" = "Online";
 "jvc_DeviceList_APadd" = "Add";
@@ -236,7 +236,7 @@
 "jvc_DeviceList_has_device" = "Wireline device";
 
 //ip/域名添加设备
-"jvc_addDevice_ipadd_titile"="IP/Domain Name";
+"jvc_addDevice_ipadd_titile"="IP/DN";
 "jvc_addDevice_ipadd_Port"="Port";
 "jvc_addDevice_ipadd_user"="UserName";
 "jvc_addDevice_ipadd_pw"="Password";
@@ -284,7 +284,7 @@
 "jvc_channelSelect_title"="Channel List";
 "jvc_channelSelect_Num" = "";
 "jvc_channelSelect_channel"="channel";
-"jvc_channelSelect_linkAll"="全连";
+"jvc_channelSelect_linkAll"="Connect All";
 //设备编辑界面
 "delete_success"= "Delete successfully";
 "delete_failt"= "Failed to delete";
@@ -293,7 +293,8 @@
 "edit_falt"="Faild to edit";
 "edit_success"="Edit successfully";
 "MAX_ERROR" = "Channle number list to upper limit, cannot add more";
-
+"sum" = "Total of ";
+"Device" = " device";
 //报警界面
 "jvc_alarmList_Title" = "Alarm Message";
 "jvc_alarmlist_noMore" = "No more alerts";
@@ -423,6 +424,8 @@
 "version" = "version：";
 "suggestAndFeedBack" = "Feedback";
 "more_help_title"="Help";
+"jvc_more_LogOut" = "Log Out";
+
 //修改密码的
 "oldPW" = "Old Password";
 "newPW" = "New Password";
@@ -448,9 +451,9 @@
 "jvc_editDevice_noSupport" = "No support for this device";
 "jvc_editDevice_lickError"= "Connection timeout.";
 "Jvc_editDeviceInfo_Title" = "Edit device";
-"Jvc_editDeviceInfo_nickName" = "  NickName";
-"Jvc_editDeviceInfo_userName" = "  UserName";
-"Jvc_editDeviceInfo_PW" = "  PassWord";
+"Jvc_editDeviceInfo_nickName" = " NickName";
+"Jvc_editDeviceInfo_userName" = " UserName";
+"Jvc_editDeviceInfo_PW" = " PassWord";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
 

@@ -31,6 +31,7 @@
 #import "JVCOperationController.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCOperationControllerIphone5.h"
+#import "JVCLocalQRAddDeviceViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -349,10 +350,21 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 {
     [controller dismissViewControllerAnimated:YES completion:^{
         
-        JVCQRAddDeviceViewController *qrAddDeviceVC = [[JVCQRAddDeviceViewController alloc] init];
-        [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
-        [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
-        [qrAddDeviceVC release];
+        if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
+            
+            JVCLocalQRAddDeviceViewController *qrAddDeviceVC = [[JVCLocalQRAddDeviceViewController alloc] init];
+            [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
+            [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
+            [qrAddDeviceVC release];
+
+        }else{
+            
+            JVCQRAddDeviceViewController *qrAddDeviceVC = [[JVCQRAddDeviceViewController alloc] init];
+            [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
+            [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
+            [qrAddDeviceVC release];
+
+        }
     }];
 }
 
@@ -639,7 +651,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                         
                     }
                     
-                    [self showaddAPConfigDevice];
                     
                 }else{//空
                     
@@ -683,6 +694,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            [self showaddAPConfigDevice];
+
         });
         
     });
@@ -739,6 +753,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
             [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
+            [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
 
         });
 

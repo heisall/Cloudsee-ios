@@ -30,7 +30,7 @@
     
     self.navigationItem.title=NSLocalizedString(@"jvc_resign_Resign_DownLineText", nil);
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    NSString *tPath = [[NSBundle mainBundle] pathForResource:NSLocalizedString(@"userResign", nil) ofType:@"txt"];
+    NSString *tPath = [[NSBundle mainBundle] pathForResource:NSLocalizedString(@"jvc_resign_userResign", nil) ofType:@"txt"];
     
     NSString *body = [NSString stringWithContentsOfFile:tPath encoding:NSUTF8StringEncoding error:nil];
     if(!body)

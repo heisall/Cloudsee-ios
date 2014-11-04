@@ -148,7 +148,7 @@ static JVCPredicateHelper *_shareInstance = nil;
  */
 -(BOOL)predicateDeviceName:(NSString *)strDeviceName
 {
-    NSString * regex = @"^[A-Za-z0-9_\\-]{1,16}$";
+    NSString * regex = @"^[A-Za-z0-9_\\-.]{1,16}$";
     
     return [self judgeLegalWithPredicateString:regex andCompareString:strDeviceName];
 }
@@ -182,17 +182,20 @@ static JVCPredicateHelper *_shareInstance = nil;
     for (kk=0; kk<ystNum.length; kk++) {
 		unsigned char c=[ystNum characterAtIndex:kk];
         
-        if ((c>='Z' && c<='A')||(c>='z'&&c<='a')) {
-            
-            return NO;
-            
-        }
-		if (c<='9' && c>='0') {
+        if (c<='9' && c>='0') {
 			break;
 		}
+        
+        if (c=='A'||c=='a'||c== 'B'||c=='b'||c=='s'||c== 'S') {//合法
+            
+        }else{
+        
+            return NO;
+        }
+		
 	}
     
-    if (kk>3||kk==0) {//超过4个字母或者没有字母
+    if (kk != 1) {//超过1个字母或者没有字母
         
         return NO;
     }

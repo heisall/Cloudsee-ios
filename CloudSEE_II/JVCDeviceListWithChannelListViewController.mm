@@ -263,7 +263,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
     }
     
-    return;
     [self gotoPlayViewController:kJVCChannelScourseHelperAllConnectFlag];
 }
 

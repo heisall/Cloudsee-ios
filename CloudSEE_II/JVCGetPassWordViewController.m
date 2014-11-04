@@ -70,7 +70,7 @@ static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com/findpwd/ind
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
      if (!_boolHUBstate) {
-         [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+         [[JVCAlertHelper shareAlertHelper] alertToastWithController:self.view];
          _boolHUBstate = YES;
      }
     

@@ -227,8 +227,8 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
         
         CGRect position;
         
-        position.size.width  = viewBgImage.size.width;
-        position.size.height = viewBgImage.size.height;
+        position.size.width  = viewBgImage.size.width*1.2;
+        position.size.height = viewBgImage.size.height*1.2;
         
         [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         

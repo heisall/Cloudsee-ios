@@ -28,6 +28,7 @@ static const float KLabelWith       = 70;//距离顶端的距离
 static const float KSpan            = 15;//label之间的距离
 static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
 static const int   KLabelFont       = 16;//label的字体大小
+static const int   KLabelFontEN       = 14;//label的字体（英文环境下）
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -74,7 +75,16 @@ static const int   KLabelFont       = 16;//label的字体大小
         if (colorlabel) {
             label.textColor = colorlabel;
         }
-        label.font = [UIFont systemFontOfSize:KLabelFont];
+        if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+            
+            label.font = [UIFont systemFontOfSize:KLabelFont];
+
+        }else{
+            label.font = [UIFont systemFontOfSize:KLabelFontEN];
+            label.frame = CGRectMake(KLabelOriginX-8, KLabelOriginY+(image.size.height+KSpan)*i, KLabelWith+8, image.size.height);
+
+
+        }
         [self addSubview:label];
         [label release];
         

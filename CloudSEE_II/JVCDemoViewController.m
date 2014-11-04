@@ -14,6 +14,8 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelModel.h"
 #import "JVCChannelScourseHelper.h"
+#import "JVCOperationControllerIphone5.h"
+#import "JVCOperationController.h"
 @interface JVCDemoViewController ()
 {
     NSMutableArray *arrayDemoeList;
@@ -22,6 +24,8 @@
 @end
 
 @implementation JVCDemoViewController
+static const  int  KNum  = 3;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -47,7 +51,7 @@
 
     // Do any additional setup after loading the view.
     [self initDemoArrayList];
-    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self getDemoList];
 
 }
@@ -91,15 +95,17 @@
                     if (channelNum>0) {
                         NSMutableArray *arrayChannel = [[JVCChannelScourseHelper shareChannelScourseHelper] ChannelListArray];
                         for (int i=0; i<channelNum; i++) {
-                            NSString *nickName = [NSString stringWithFormat:@"%@_%d",model.yunShiTongNum,i];
+                            NSString *nickName = [NSString stringWithFormat:@"%@_%d",model.yunShiTongNum,i+1];
                             
-                            JVCChannelModel *modelChannel = [[JVCChannelModel alloc] initChannelWithystNum:model.yunShiTongNum nickName:nickName channelNum:i idNum:i];
+                            JVCChannelModel *modelChannel = [[JVCChannelModel alloc] initChannelWithystNum:model.yunShiTongNum nickName:nickName channelNum:i+1 idNum:i];
                             [arrayChannel addObject:modelChannel];
                             [modelChannel release];
                         }
                     }
                 }
-                
+                NSMutableArray *arrayChannel = [[JVCChannelScourseHelper shareChannelScourseHelper] ChannelListArray];
+
+                NSLog(@"%d=====",arrayChannel.count);
                 [self.tableView reloadData];
 
             }else{
@@ -140,28 +146,55 @@
         
         cell = [[[JVCDemoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentify] autorelease];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray] objectAtIndex:indexPath.row];
     [cell initCellWithModel:modelCell];
     NSString *imageName= nil;
-    switch (indexPath.row%3) {
+    switch (indexPath.row%KNum) {
         case 0:
             imageName = @"dem_def0.png";
             break;
         case 1:
-            imageName = @"dem_def0.png";
+            imageName = @"dem_def1.png";
             break;
         case 2:
-            imageName = @"dem_def0.png";
+            imageName = @"dem_def2.png";
             break;
         default:
             break;
             
-        NSString *imagePath = [UIImage imageBundlePath:@"imageName"];
-        UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-        cell.imageView.image = image;
-        [image release];
+       
     }
+    NSString *imagePath = [UIImage imageBundlePath:imageName];
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    cell.imageView.image = image;
+    [image release];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSMutableArray *array =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray];
+    
+    JVCDeviceModel *mode = [array objectAtIndex:indexPath.row];
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+        
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = mode.yunShiTongNum;
+    tOPVC._iSelectedChannelIndex     = 0;
+
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
 }
 
 - (void)didReceiveMemoryWarning

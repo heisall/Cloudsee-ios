@@ -1082,6 +1082,7 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
  */
 -(void)returnVoiceIntercomCallBack:(JVCCloudSEEManagerHelper *)currentChannelObj nVoiceInterStateType:(int)nVoiceInterStateType{
     
+    DDLogVerbose(@"%@==============",currentChannelObj);
     [currentChannelObj retain];
     
     if (self.ystNWADelegate !=nil && [self.ystNWADelegate respondsToSelector:@selector(VoiceInterComCallBack:)]) {

@@ -129,9 +129,9 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     titleLbl.textAlignment   = NSTextAlignmentCenter;
     titleLbl.numberOfLines   = 1;
     titleLbl.font            = [UIFont systemFontOfSize:kTitleLableFontSize];
-    titleLbl.frame           = CGRectMake(backGroud.frame.origin.x, backGroud.frame.origin.y + kTitleLableWithBgViewTop + backGroud.frame.size.height, backGroud.frame.size.width,kTitleLableFontHeight);
+    titleLbl.frame           = CGRectMake(0, backGroud.frame.origin.y + kTitleLableWithBgViewTop + backGroud.frame.size.height, self.view.frame.size.width,kTitleLableFontHeight);
     titleLbl.text            = LOCALANGER(@"jvc_voice_add_Voiceconfig_clicktosend");
-    
+
     UIColor *titleTVColor     = [rgbHelper rgbColorForKey:kJVCRGBColorMacroVoiceConfigSend];
     
     if (titleColor) {

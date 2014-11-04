@@ -306,4 +306,6 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:aletString];
 }
 
+
+
 @end

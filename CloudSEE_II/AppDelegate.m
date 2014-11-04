@@ -550,6 +550,11 @@ static  const   int      KSetHelpMaxCount    = 10;
  */
 - (void)presentLoginViewController
 {
+    /**
+     *  如果显示等待框，直接让其消失
+     */
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
     UITabBarController *controller = (UITabBarController *)self.window.rootViewController;
     
     for (UIViewController *con in controller.viewControllers) {

@@ -290,7 +290,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"发现设备：%@",model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
     alert.delegate = self;
     [alert show];
     [alert release];

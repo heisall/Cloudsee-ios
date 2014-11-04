@@ -207,7 +207,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             UIButton *btnLoginOut = [UIButton buttonWithType:UIButtonTypeCustom];
             btnLoginOut.frame =CGRectMake((self.view.width - iamgeBtn.size.width)/2.0, (cell.height- iamgeBtn.size.height)/2.0, iamgeBtn.size.width, iamgeBtn.size.height);
             [btnLoginOut addTarget:self action:@selector(showUserLoginOutAlert) forControlEvents:UIControlEventTouchUpInside];
-            [btnLoginOut setTitle:@"注销" forState:UIControlStateNormal];
+            [btnLoginOut setTitle:LOCALANGER(@"jvc_more_LogOut") forState:UIControlStateNormal];
             [btnLoginOut setBackgroundImage:iamgeBtn forState:UIControlStateNormal];
             [cell.contentView addSubview:btnLoginOut];
             

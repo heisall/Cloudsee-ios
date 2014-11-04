@@ -335,7 +335,7 @@ static const CGFloat  kViewWithAnimationSwipe = 0.7f;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;    {
     
-    return [NSString stringWithFormat:@"共%d个设备", titles.count];
+    return [NSString stringWithFormat:@"%@%d%@",LOCALANGER(@"sum"), titles.count,LOCALANGER(@"Device")];
     
 }
 

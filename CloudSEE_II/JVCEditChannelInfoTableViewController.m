@@ -45,7 +45,7 @@ static const    int     kSeperate                = 10;//间隔
 static const    int     kTextFieldOff_y          = 40;//text的y坐标
 static const    int     kTextFieldHeight         = 50;//text的高度
 static const    int     kTextFieldborderWidth    = 1;//text的边框
-static const    int     kTextFieldLeftViewWith   = 60;//左侧lable的宽度
+static const    int     kTextFieldLeftViewWith   = 70;//左侧lable的宽度
 static const    NSTimeInterval  kAmimationTimer  = 0.75;//动画时间
 static const    int     kTextFieldSeperate       = 30;//间隔
 
@@ -116,11 +116,16 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     channelNickNameField.background = iamgeboard;
     [iamgeboard release];
    
+    int textLeftLabelWith = kTextFieldLeftViewWith;
+    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+        textLeftLabelWith  = textLeftLabelWith +10;
+    }
     
-    UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTextFieldLeftViewWith, kTextFieldHeight)];
+    UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textLeftLabelWith, kTextFieldHeight)];
     labelLeft.backgroundColor = [UIColor clearColor];
     labelLeft.textAlignment = UITextAlignmentCenter;
     labelLeft.text = LOCALANGER(@"jvc_editChannel_nick");
+    labelLeft.font = [UIFont systemFontOfSize:15];
     if (colortextfield) {
         labelLeft.textColor = colortextfield;
     }
@@ -453,7 +458,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         //删除通道
         [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
         
-        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"jvc_editChannel_delete_success", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"jvc_editChannel_delete_success", nil)];
 
         [self.navigationController popViewControllerAnimated:YES];
         

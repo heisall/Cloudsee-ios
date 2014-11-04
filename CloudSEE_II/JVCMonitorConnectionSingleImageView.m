@@ -834,6 +834,10 @@ float min_offset;
  */
 - (void)setEffectBtnState:(BOOL)state
 {
+    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden != YES) {
+        
+        return;
+    }
     UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
     
     if (self.iEffectType<0) {

@@ -118,8 +118,9 @@ enum DISCONNECT_STATUS {
 static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
 static const int      kDefaultShowWidnowCount         = 1 ;
 static const CGFloat  kRightButtonViewWithHeight      = 38.0f ;
-static const CGFloat  kRightButtonViewWithWidth       = 50.0f ;
-static const CGFloat  kRightButtonViewWithTitleFont   = 6.0f ; //右侧报警录像和手动录像 标题lab的字体间距
+static const CGFloat  kRightButtonViewWithWidth       = 80.0f ;
+static const CGFloat  kRightButtonViewWithTitleFont   = 8.0f ; //右侧报警录像和手动录像 标题lab的字体间距
+static const CGFloat  kRightButtonViewWithTitleHeight = 16.0f ; //右侧报警录像和手动录像 标题lab的字体间距
 
 
 int unAllLinkFlag;
@@ -278,12 +279,12 @@ char remoteSendSearchFileBuffer[29] = {0};
     CGRect titleRect      = titleLbl.frame;
     titleRect.origin.y    = rightRectBtn.size.height;
     titleRect.size.width  = rightImageView.frame.size.width;
-    titleRect.size.height = rightImageView.frame.size.height - rightRectBtn.size.height;
+    titleRect.size.height = kRightButtonViewWithTitleHeight;
     titleLbl.frame        = titleRect;
     titleLbl.textAlignment = NSTextAlignmentCenter;
     titleLbl.text         = title;
     titleLbl.textColor    = [UIColor whiteColor];
-    titleLbl.font         = [UIFont systemFontOfSize:titleRect.size.height-kRightButtonViewWithTitleFont];
+    titleLbl.font         = [UIFont systemFontOfSize:kRightButtonViewWithTitleFont];
     [rightImageView addSubview:titleLbl];
     
     UITapGestureRecognizer *singleRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoOrAlarmVideoModeSwitch)];
@@ -796,11 +797,14 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark 返回上一级
 -(void)BackClick{
     DDLogVerbose(@"___%s==========000",__FUNCTION__);
+    
+    
 
-    //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
-    [self closeAudioAndTalkAndVideoFuction];
     
     if (_isPlayBackVideo&&!self.isPlayBackVideo) {
+        //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
+
+        [self closeAudioAndTalkAndVideoFuction];
         
         _isPlayBackVideo=FALSE;
         
@@ -818,6 +822,14 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
+        //关闭文本、视频的回调
+        JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        ystNetWorkObj.ystNWHDelegate    = nil;
+        ystNetWorkObj.ystNWTDDelegate   = nil;
+        //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
+
+        [self closeAudioAndTalkAndVideoFuction];
+        
         wheelAlterInfo=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disconnecting nowPlease Wait", nil)
                                                   message:nil
                                                  delegate:nil
@@ -834,6 +846,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         unAllLinkFlag = DISCONNECT_ALL;
         
         [NSThread detachNewThreadSelector:@selector(unAllLink) toTarget:self withObject:nil];
+       
     }
     
 }
@@ -1181,7 +1194,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             [self gotoShowSpltWindow];
         }
         self.navigationController.navigationBarHidden = YES;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , self.view.width-deleteSize);
+        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
         
         [_managerVideo changeContenView];
@@ -1316,7 +1329,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         case BUTTON_TYPE_TALK:
             
             //远程回放时，屏蔽掉此功能
-            if (_isPlayBackVideo) {
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
                 
@@ -1346,6 +1359,15 @@ char remoteSendSearchFileBuffer[29] = {0};
             break;
             
         case BUTTON_TYPE_MORE:
+            
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
+
             [self showChangeStreamView:btn];
             break;
             
@@ -1463,7 +1485,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         /**
          *  使选中的button变成默认
          */
-        [_operationItemSmallBg setAllButtonUnselect];
+        [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
     }
@@ -1618,7 +1640,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         case TYPEBUTTONCLI_YTOPERATION:
             
             //远程回放时，屏蔽掉此功能
-            if (_isPlayBackVideo) {
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
                 
@@ -2093,7 +2115,13 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  关闭对讲
      */
-    [self closeChatVoiceIntercom];
+   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       
+        [self closeChatVoiceIntercom];
+
+    });
+    
+    [[JVCHorizontalScreenBar shareHorizontalBarInstance] setALlBtnNormal];
 }
 
 
@@ -2250,10 +2278,21 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 /**
- *  关闭音频监听
+ *  关闭对讲
  */
 - (void)closeChatVoiceIntercom
 {
+    JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    ystNetWorkObj.ystNWADelegate    = nil;
+  
+//    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
+//    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
+//    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
+//    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
+//    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
+    
+    [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+    
     OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
     
@@ -2263,7 +2302,11 @@ char remoteSendSearchFileBuffer[29] = {0};
     [aqControllerobj stopRecord];
     aqControllerobj.delegate = nil;
     
-    [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+
+    });
     
 }
 
@@ -2321,6 +2364,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)HorizontalScreenBarBtnClickCallBack:(UIButton *)btn
 {
+    
     
     /**
      *  是否有画面
@@ -2424,6 +2468,13 @@ char remoteSendSearchFileBuffer[29] = {0};
         case HORIZONTALBAR_STREAM://画质切换
         {
             //画质
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
             
             [self setHorbarStreamView:btn];
             
@@ -2440,6 +2491,13 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 - (void)setHorbarStreamView:(UIButton *)btn
 {
+    
+    if (VideoStreamType_Default == nCurrentStreamType ||VideoStreamType_NoSupport == nCurrentStreamType) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
+        return;
+    }
+    
     if(!horizonView)
     {
         horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType -1:0];

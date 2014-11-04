@@ -51,7 +51,15 @@
     titleLbl.textColor    = titleColor;
     titleLbl.text = title;
     titleLbl.textAlignment = NSTextAlignmentCenter;
-    titleLbl.frame = CGRectMake(0.0,iconImageView.frame.size.height + iconImageView.frame.origin.y - 5.0, self.frame.size.width, 20.0);
+    int  subOffy = 5;
+    int  heigin = 20;
+    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+        subOffy = 15;
+        heigin = 40;
+    }
+    titleLbl.frame = CGRectMake(0.0,iconImageView.frame.size.height + iconImageView.frame.origin.y - subOffy, self.frame.size.width, heigin);
+    titleLbl.numberOfLines = 0;
+    titleLbl.lineBreakMode = UILineBreakModeWordWrap;
     titleLbl.font  = [UIFont systemFontOfSize:12];
     [self addSubview:titleLbl];
     [titleLbl release];

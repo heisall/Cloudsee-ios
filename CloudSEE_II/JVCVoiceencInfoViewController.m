@@ -19,8 +19,10 @@
 
 static const CGFloat kImageIconWithTop       = 100.0f;
 static const CGFloat kInfoTVWithFontSize     = 14.0f;
-static const int     kInfoTVWithNumberOfLine = 2;
+static const int     kInfoTVWithNumberOfLine = 3;
 static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
+static const int     kInfoTVOffx             = 20;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,9 +54,11 @@ static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
     [self.view addSubview:imageView];
     
     UILabel *infoTV        = [controlHelperObj labelWithText:LOCALANGER(@"jvc_voice_add_help")];
-    infoTV.frame           = CGRectMake(imageView.origin.x, 30.0, imageView.frame.size.width, kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
+    infoTV.frame           = CGRectMake(kInfoTVOffx, 30.0, self.view.width -2*kInfoTVOffx , kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
     infoTV.textAlignment   = NSTextAlignmentCenter;
     infoTV.numberOfLines   = kInfoTVWithNumberOfLine;
+    infoTV.lineBreakMode   = NSLineBreakByWordWrapping;
+
     infoTV.font            = [UIFont systemFontOfSize:kInfoTVWithFontSize];
     
     [self.view addSubview:infoTV];

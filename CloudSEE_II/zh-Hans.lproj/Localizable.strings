@@ -158,7 +158,7 @@
 "DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
 "DEVICE_PASSWORLD_ERROR" = "密码格式不正确,密码由0-16位字符组成";
 "yunshitongNIl" = "设备号不能为空";
-"nolegalYushitongadd" = "设备号由字母、数字组成";
+"nolegalYushitongadd" = "云视通号不合法";
 "UserNameNil" = "用户名不能为空";
 "DEVICE_USERNAME_ERROR" = "用户名格式不正确,用户名只能由1-16位字母、数字及特殊-_组成";
 "LOGINRESULT_PASSWORLD_NIL" = "请输入密码";
@@ -293,7 +293,8 @@
 "edit_falt"="修改失败";
 "edit_success"="修改成功";
 "MAX_ERROR" = "该设备的通道数量达到上限，无法继续添加!";
-
+"sum" = "共有";
+"Device" = "个设备";
 //报警界面
 "jvc_alarmList_Title" = "报警消息";
 "jvc_alarmlist_noMore" = "没有更多信息";
@@ -467,6 +468,7 @@
 "jvc_more_loginout_quit"="取消";
 "jvc_more_loginout_error"="注销失败";
 "jvc_more_loginout_appStore"="您确定去APPStore评论吗？";
+"jvc_more_LogOut" = "注销";
 
 //门磁或手环报警
 "jvc_alarmDevice_title" = "添加设备";
