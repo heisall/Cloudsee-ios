@@ -1066,9 +1066,10 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
         return;
     }
     
-    BOOL isEncoderSuccessFul = [currentChannelObj encoderLocalRecorderData:Audiodata nEncodeAudioOutdataSize:&nAudiodataSize encodeOutAudioData:encodeLocalRecordeData];
+    BOOL isEncoderSuccessFul = [currentChannelObj encoderLocalRecorderData:Audiodata nEncodeAudioOutdataSize:&nAudiodataSize encodeOutAudioData:(char *)encodeLocalRecordeData encodeOutAudioDataSize:sizeof(encodeLocalRecordeData)];
     
     if (isEncoderSuccessFul) {
+        
         
         [ystRemoteOperationHelperObj SendAudioDataToDevice:currentChannelObj.nLocalChannel Audiodata:(char *)encodeLocalRecordeData AudiodataSize:nAudiodataSize];
     }

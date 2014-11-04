@@ -422,7 +422,7 @@ char          pcmBuffer[1024] ={0};
         isConvertStatus= [self.jvcPlaySound convertSoundBufferByNetworkBuffer:self.nConnectDeviceType isExistStartCode:self.decodeModelObj.isExistStartCode networkBuffer:(char *)decoderAudioFrame->buf nBufferSize:&decoderAudioFrame->nSize isBufferType:&isSoundType audioDecoderOutBuffer:(char *)pcmBuffer];
     }else {
         
-        isConvertStatus= [self.jvcVoiceIntercomHelper convertSoundBufferByNetworkBuffer:self.nConnectDeviceType isExistStartCode:self.decodeModelObj.isExistStartCode networkBuffer:(char *)decoderAudioFrame->buf nBufferSize:&decoderAudioFrame->nSize isBufferType:&isSoundType audioDecoderOutBuffer:(char *)pcmBuffer];
+        isConvertStatus= [self.jvcVoiceIntercomHelper convertSoundBufferByNetworkBuffer:self.nConnectDeviceType isExistStartCode:self.decodeModelObj.isExistStartCode networkBuffer:(char *)decoderAudioFrame->buf nBufferSize:&decoderAudioFrame->nSize isBufferType:&isSoundType audioDecoderOutBuffer:(char *)pcmBuffer audioDecoderOutBufferSize:sizeof(pcmBuffer)];
     }
     
     if (isConvertStatus) {
@@ -502,9 +502,9 @@ char          pcmBuffer[1024] ={0};
  *
  *  @return 成功返回YES
  */
--(BOOL)encoderLocalRecorderData:(char *)Audiodata nEncodeAudioOutdataSize:(int *)nEncodeAudioOutdataSize encodeOutAudioData:(char *)encodeOutAudioData{
+-(BOOL)encoderLocalRecorderData:(char *)Audiodata nEncodeAudioOutdataSize:(int *)nEncodeAudioOutdataSize encodeOutAudioData:(char *)encodeOutAudioData encodeOutAudioDataSize:(int)encodeOutAudioDataSize{
     
-    return [self.jvcVoiceIntercomHelper encoderLocalRecorderData:Audiodata nEncodeAudioOutdataSize:nEncodeAudioOutdataSize encodeOutAudioData:encodeOutAudioData];
+    return [self.jvcVoiceIntercomHelper encoderLocalRecorderData:Audiodata nEncodeAudioOutdataSize:nEncodeAudioOutdataSize encodeOutAudioData:encodeOutAudioData encodeOutAudioDataSize:encodeOutAudioDataSize];
 }
 
 /**

@@ -157,6 +157,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 -(void)SendAudioDataToDevice:(int)nJvChannelID Audiodata:(char *)Audiodata AudiodataSize:(int)AudiodataSize {
     
     JVC_SendData(nJvChannelID,JVN_RSP_CHATDATA,(unsigned char *)Audiodata,AudiodataSize);
+    
+   
 }
 
 /**

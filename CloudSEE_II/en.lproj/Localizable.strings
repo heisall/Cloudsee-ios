@@ -524,3 +524,6 @@
 "jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
 "Cancel"="Cancel";
 "Sure"="Confirm";
+
+//远程回放
+"jvc_remote_playBack_Now"= "Now";
