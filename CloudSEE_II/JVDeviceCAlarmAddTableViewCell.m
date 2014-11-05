@@ -54,7 +54,7 @@ static const int KCellLabelOriginY = 10;//距离顶端的距离
     [self.contentView addSubview:imageViewDevice];
     
     //uilabel
-    UILabel *labelDevice = [controlHelper labelWithText:@"设备名称" textFontSize:KCellLabelFont];
+    UILabel *labelDevice = [controlHelper labelWithText:LOCALANGER(@"jvCAlarmAddTableViewCellDevice") textFontSize:KCellLabelFont];
     labelDevice.frame = CGRectMake(imageViewDevice.right+KCellSpan, KCellLabelOriginY, labelDevice.width, KCellLabelHeight);
     [self.contentView addSubview:labelDevice];
 

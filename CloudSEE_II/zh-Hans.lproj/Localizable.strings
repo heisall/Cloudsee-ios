@@ -473,6 +473,10 @@
 "jvc_alarmDevice_addError" = "添加失败";
 "jvc_alarmDevice_addMaxNum" = "超过最大绑定值";
 "jvc_alarmDevice_addhasexist" = "重复绑定";
+"jvCAlarmAddTableViewCellDevice" = "设备名称";
+"learn_3" = "learn_1_ch";
+"learn_2" = "learn_2_ch";
+"learn_1" = "learn_3_ch";
 
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "报警信息";

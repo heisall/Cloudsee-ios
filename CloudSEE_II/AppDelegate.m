@@ -360,17 +360,18 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     int netLinkType = NETLINTYEPE_NONET;
     
+    DDLogVerbose(@"%d======000",configObj._netLinkType);
+
     if([reach isReachableViaWWAN]){
         
         netLinkType = NETLINTYEPE_3G;
     }
 	if([reach isReachableViaWiFi]){
-        
+
 		netLinkType = NETLINTYEPE_WIFI;
     }
     
     configObj._netLinkType = netLinkType;
-    
     
     if (selectedSSID.length <= 0) {
         
@@ -391,7 +392,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     if (configObj._netLinkType != NETLINTYEPE_NONET && configObj._bInitAccountSDKSuccess != 0) {
         
-        
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             BOOL isLocation = [self checkLocalLocation];
@@ -402,10 +403,10 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
                 
                 configObj._bInitAccountSDKSuccess = 0;
             }
-        
+
         });
     }
-    
+
 }
 
 /**
