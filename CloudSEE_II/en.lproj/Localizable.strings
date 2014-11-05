@@ -276,6 +276,7 @@
 "wifi-name-selected"="Please select Wi-Fi ...";
 "jvc_ap_old_info"="You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version V1.1.0.31.";
 "home_operation_talk"="该功能在语音对讲时暂停使用.";
+"get_WIFI_list_timeOut"="Timeout during getting Wi-Fi list of host-end";
 
 //扫描加设备界面
 "jvc_adddevcie_sacn_back" = "Quiting";
@@ -536,3 +537,11 @@
 "customAlert_update" = "Update tutorial";
 "remoteApSettingOldVersion"    = "You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to the last version ";
 "customAlert_sure"="Sure";
+
+
+//帮助界面的
+"JVCOperationHelp_add" = "Add device";
+
+//新品帮助图
+"devAdv_default_0"= "devAdv_default_en0.jpg";
+"devAdv_default_1"= "devAdv_default_en1.jpg";

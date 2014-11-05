@@ -290,33 +290,43 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
-    alert.delegate = self;
-    [alert show];
-    [alert release];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
+//    alert.delegate = self;
+//    [alert show];
+//    [alert release];
+    
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") ];
+    
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         
-        JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
-        
-        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
-        
-        if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
-            
-            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                        userName:(NSString *)DefaultHomeUserName
-                                                                        passWord:(NSString *)DefaultHomePassWord];
-        }else {
-        
-            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                        userName:(NSString *)DefaultUserName
-                                                                        passWord:(NSString *)DefaultPassWord];
-        }
-        
+        [self addQRdevice];
     }
+}
+
+- (void)addQRdevice
+{
+    JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
+    
+    [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
+    
+    if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+        
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                    userName:(NSString *)DefaultHomeUserName
+                                                                    passWord:(NSString *)DefaultHomePassWord];
+    }else {
+        
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                    userName:(NSString *)DefaultUserName
+                                                                    passWord:(NSString *)DefaultPassWord];
+    }
+    
+
 }
 
 /**

@@ -274,21 +274,38 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
  */
 - (void)showUserLoginOutAlert
 {
-    UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_quit"), nil];
-    [alertUser show];
-    alertUser.tag = kAlertTag;
-    alertUser.delegate = self;
-    [alertUser release];
+//    if (IOS8) {
+//        
+//        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self userLoginOut];
+//            
+//        }]];
+//        
+//        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_quit") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            
+//        }]];
+//        
+//        [self presentViewController:controlAlert animated:YES completion:nil];
+//        
+//    }else{
+//        
+//        UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_quit"), nil];
+//        [alertUser show];
+//        alertUser.tag = kAlertTag;
+//        alertUser.delegate = self;
+//        [alertUser release];
+//    }
+    
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") delegate:self selectAction:@selector(userLoginOut) cancelAction:nil selectTitle:LOCALANGER(@"jvc_more_loginout_ok") cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == kAlertTag) {
-        
+    
         if (buttonIndex == 0) {//确定
             
             [self userLoginOut];
             
-        }
     }
 }
 
@@ -347,11 +364,32 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
 #pragma mark  评论的事件
 - (void)moreOperItunsComment
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout_appStore") delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") destructiveButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles: nil];
-    [sheet showInView:self.view.window];
-    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [sheet release];
+  
+    if (IOS8) {
+   
+        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout_appStore") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_quit") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        }]];
+        
+        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
+
+        }]];
+        
+        [self presentViewController:controlAlert animated:YES completion:nil];
+        
+    }else{
+        
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout_appStore") delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") destructiveButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles: nil];
+        [sheet showInView:self.view.window];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        [sheet release];
+    }
+
 }
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {//确定

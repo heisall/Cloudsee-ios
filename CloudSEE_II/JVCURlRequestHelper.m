@@ -226,10 +226,12 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
     dispatch_async(dispatch_get_main_queue(), ^{
     
         NSString *alertString = [versionString stringByReplacingOccurrencesOfString:@"&" withString:@"\n"];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"UpdateBtn",nil ) otherButtonTitles:NSLocalizedString(@"local_location", nil), nil];
-        alertView.tag = kAlertNEWVersionTag;
-        [alertView show];
-        [alertView release];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"UpdateBtn",nil ) otherButtonTitles:NSLocalizedString(@"local_location", nil), nil];
+//        alertView.tag = kAlertNEWVersionTag;
+//        [alertView show];
+//        [alertView release];
+        
+        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)];
     
     });
 }

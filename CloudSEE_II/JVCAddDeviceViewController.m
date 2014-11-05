@@ -489,9 +489,27 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
 - (void)showAddChannelAlert
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil delegate:self  cancelButtonTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok")  otherButtonTitles:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") , nil];
-    [alertView show];
-    [alertView release];
+    if (IOS8) {
+        
+        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self addDeviceChannelToServerWithNum:nAddDeviceChanelCount];
+
+        }]];
+        
+        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        }]];
+        
+        [self presentViewController:controlAlert animated:YES completion:nil];
+        
+    }else{
+    
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil delegate:self  cancelButtonTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok")  otherButtonTitles:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") , nil];
+        [alertView show];
+        [alertView release];
+    }
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -502,6 +520,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
     }
 }
+
+
 /*
 #pragma mark - Navigation
 

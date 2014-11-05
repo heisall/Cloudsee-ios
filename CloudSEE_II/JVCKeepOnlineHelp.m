@@ -46,6 +46,8 @@ static const int KTAGADDNUM         = 1000;//tag最大值
 int _iErrorNUm = 0;//保持在线的统计次数
 NSTimer *timerCuntDown;//倒计时的
 UIAlertView *alertView;
+ UIAlertController*alertViewIOS8;
+
 /**
  *  单例
  *
@@ -243,10 +245,41 @@ UIAlertView *alertView;
 {
     [self closeAlertView];
     
-    alertView  = [[UIAlertView alloc] initWithTitle:@"15" message:LOCALANGER(@"AlertkeepLineError_title") delegate:self cancelButtonTitle:LOCALANGER(@"AlertkeepLineError_LoginIn") otherButtonTitles:LOCALANGER(@"AlertkeepLineError_userOut"), nil];
-    alertView.tag = 2*KTAGADDNUM;
-    alertView.delegate = self;
-    [alertView show];
+    if (IOS8) {
+        
+       alertViewIOS8 = [UIAlertController alertControllerWithTitle:@"15" message:LOCALANGER(@"AlertkeepLineError_title")  preferredStyle:UIAlertControllerStyleAlert];
+        
+        alertViewIOS8.view.tag = 2*KTAGADDNUM;
+        
+            [alertViewIOS8 addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"AlertkeepLineError_LoginIn") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self stopTimerCountDown];
+
+                [self loginInWithOffLine];
+
+                
+            }]];
+        
+            [alertViewIOS8 addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"AlertkeepLineError_userOut") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self stopTimerCountDown];
+
+                [self keepOnLineErrorToPresentLoginViewController];
+
+                           }]];
+    
+        AppDelegate *delegateApp  = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+        UITabBarController *controller = (UITabBarController *)delegateApp.window.rootViewController;
+        
+        [controller presentViewController:alertViewIOS8 animated:YES completion:nil];
+        
+    }else{
+        
+        alertView  = [[UIAlertView alloc] initWithTitle:@"15" message:LOCALANGER(@"AlertkeepLineError_title") delegate:self cancelButtonTitle:LOCALANGER(@"AlertkeepLineError_LoginIn") otherButtonTitles:LOCALANGER(@"AlertkeepLineError_userOut"), nil];
+        alertView.tag = 2*KTAGADDNUM;
+        alertView.delegate = self;
+        [alertView show];
+
+    }
     
     [self startTimerCountDown];
 
@@ -260,44 +293,115 @@ UIAlertView *alertView;
     
     [self closeAlertView];
 
-    alertView  = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"AlertkeepLineError_network_title") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"Alert_btn_sure") otherButtonTitles: nil];
-    alertView.delegate = self;
-    [alertView show];
+   
+    
+    if (IOS8) {
+        
+        alertViewIOS8 = [UIAlertController alertControllerWithTitle:LOCALANGER(@"AlertkeepLineError_network_title")  message:nil  preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        [alertViewIOS8 addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"Alert_btn_sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+            [self stopTimerCountDown];
+            
+            [alertViewIOS8 dismissModalViewControllerAnimated:NO];
+
+            [self closeAlertView];
+
+            [self keepOnLineErrorToPresentLoginViewController];
+
+            
+        }]];
+        
+        
+        AppDelegate *delegateApp  = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+        UITabBarController *controller = (UITabBarController *)delegateApp.window.rootViewController;
+        
+        [controller presentViewController:alertViewIOS8 animated:YES completion:nil];
+        
+    }else{
+        
+        alertView  = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"AlertkeepLineError_network_title") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"Alert_btn_sure") otherButtonTitles: nil];
+        alertView.delegate = self;
+        [alertView show];
+    }
+
+    
+    
     
 }
 
 - (void)closeAlertView
 {
-    if (alertView!=nil) {
-        [alertView release];
-        alertView = nil;
+    if (IOS8) {
+    
+        if (alertViewIOS8!=nil) {
+            alertViewIOS8 = nil;
+        }
+        
+    }else{
+    
+        if (alertView!=nil) {
+            [alertView release];
+            alertView = nil;
+        }
     }
+    
+    
 }
 
 - (void)timerCountDown
 {
-    if(alertView)
-    {
-        if(alertView.title.intValue >0)
-        {
-            alertView.title = [NSString stringWithFormat:@"%d",alertView.title.intValue-1];
+    if (IOS8) {
+        
+        if (alertViewIOS8) {
             
-        }else{
-            
-            [self stopTimerCountDown];
-            
-            [alertView dismissWithClickedButtonIndex:0 animated:YES];
-            if (alertView.tag==(2*KTAGADDNUM)) {
-                
-                [self alertView:alertView clickedButtonAtIndex:1];
+            if(alertViewIOS8.title.intValue >0)
+            {
+                alertViewIOS8.title = [NSString stringWithFormat:@"%d",alertViewIOS8.title.intValue-1];
                 
             }else{
-                [self alertView:alertView clickedButtonAtIndex:0];
                 
+                [self stopTimerCountDown];
+                
+                [alertViewIOS8 dismissModalViewControllerAnimated:NO];
+
+                [self closeAlertView];
+                
+                [self keepOnLineErrorToPresentLoginViewController];
+
+
+            }
+
+        }
+        
+    }else{
+    
+        if(alertView)
+        {
+            if(alertView.title.intValue >0)
+            {
+                alertView.title = [NSString stringWithFormat:@"%d",alertView.title.intValue-1];
+                
+            }else{
+                
+                [self stopTimerCountDown];
+                
+                [alertView dismissWithClickedButtonIndex:0 animated:YES];
+                if (alertView.tag==(2*KTAGADDNUM)) {
+                    
+                    [self alertView:alertView clickedButtonAtIndex:1];
+                    
+                }else{
+                    [self alertView:alertView clickedButtonAtIndex:0];
+                    
+                }
             }
         }
-    }
 
+    }
+    
 }
 
 /**

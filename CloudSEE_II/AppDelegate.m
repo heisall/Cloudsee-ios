@@ -455,7 +455,7 @@ static  const   int      KSetHelpMaxCount    = 10;
             
             [rootNav popToRootViewControllerAnimated:NO];
             
-            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"ap_change_net_work", nil)];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"ap_change_net_work", nil)];
 
         }
         

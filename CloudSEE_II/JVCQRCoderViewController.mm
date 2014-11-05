@@ -19,6 +19,8 @@
     UILabel *_resultText;
     BOOL _isType;  //FALSE:向下 反之向上
     float _ysize;
+    
+    BOOL BshowAlertView;
 }
 
 
@@ -26,6 +28,7 @@
 
 @implementation JVCQRCoderViewController
 
+static const int KAlertTagNum     =  10024493;//alert的tag
 //@synthesize delegate = _delegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -339,17 +342,32 @@
     self.isScanning = NO;
     [self.captureSession stopRunning];
     
+    DDLogVerbose(@"================二维码扫描");
     if ([[JVCPredicateHelper shareInstance] predicateYSTIsLegal:decoderResultText]) {
-        _resultText.text=[NSString stringWithFormat:@"%@",decoderResultText];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@［ %@ ］",NSLocalizedString(@"qrDevice", nil),decoderResultText] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"qrAdd", nil) otherButtonTitles:NSLocalizedString(@"qrContinue", nil),nil];
-        [alertView show];
-        [alertView release];
-    }else{
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"qrNoDevice", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"qrContinue", nil) otherButtonTitles:nil];
-        alertView.tag=100;
-        [alertView show];
-        [alertView release];
+            if (!BshowAlertView) {
+                
+                _resultText.text=[NSString stringWithFormat:@"%@",decoderResultText];
+              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@［ %@ ］",NSLocalizedString(@"qrDevice", nil),decoderResultText] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"qrAdd", nil) otherButtonTitles:NSLocalizedString(@"qrContinue", nil),nil];
+                [alertView show];
+                alertView.tag = KAlertTagNum;
+                [alertView release];
+                
+                BshowAlertView = YES;
+
+            }
+        
+        }else{
+        
+              if (!BshowAlertView) {
+                  
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"qrNoDevice", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"qrContinue", nil) otherButtonTitles:nil];
+                alertView.tag=100;
+                [alertView show];
+                [alertView release];
+                BshowAlertView = YES;
+              }
+
     }
     
     [decoderResultText release];
@@ -360,11 +378,15 @@
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    BshowAlertView = NO;
+
     if (alertView.tag==100) {
         self.isScanning = YES;
         [self.captureSession startRunning];
         _resultText.text=@"";
     }else{
+        
+        
         if (buttonIndex==0) {
             
             if (_delegate && [_delegate respondsToSelector:@selector(customViewController:didScanResult:)]) {

@@ -465,7 +465,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     }else{//失败
         
         
-        [[JVCAlertHelper shareAlertHelper]alertWithMessage:NSLocalizedString(@"jvc_editChannel_delete_error", nil)];
+        [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"jvc_editChannel_delete_error", nil)];
 
         
     }

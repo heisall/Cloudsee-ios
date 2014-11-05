@@ -533,6 +533,8 @@
 "Cancel"="取消";
 "Sure"="确定";
 "jvcAlarm_cleanAlll"="你确定要清空所有的报警信息吗";
+"get_WIFI_list_timeOut"="获取主控Wi-Fi列表超时";
+
 //远程回放
 "jvc_remote_playBack_Now"= "现在";
 //老设备帮助
@@ -542,3 +544,9 @@
 "customAlert_sure"="确定";
 "remoteApSettingOldVersion"    = "亲,发现您设备使用的软件版本较低，无法使用最新的配置流程，建议您手动更新摄像机的软件版本";
 
+//帮助界面的
+"JVCOperationHelp_add" = "添加设备";
+
+//新品帮助图
+"devAdv_default_0"= "devAdv_default_ch0.jpg";
+"devAdv_default_1"= "devAdv_default_ch1.jpg";

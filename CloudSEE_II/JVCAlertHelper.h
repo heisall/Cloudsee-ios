@@ -91,4 +91,13 @@
  *  @timer 消失时间
  */
 - (void)alertToastWithMessage:(NSString *)message  andTimer:(NSTimeInterval )timer;
+
+
+///处理ios8 aletview的问题
+- (void)alertControllerWithTitle:(NSString *)title
+                        delegate:(id)delegate
+                    selectAction:(SEL)selectActon
+                    cancelAction:(SEL)cancelActon
+                     selectTitle:(NSString *)selectTitle
+                     cancelTitle:(NSString *)titlecancel;
 @end

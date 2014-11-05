@@ -859,7 +859,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
             [self configFinshed];
             
             DDLogVerbose(@"%s-----apConfigResult=%d",__FUNCTION__,nResult);
-            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"wifi-Successful", nil)];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"wifi-Successful", nil)];
             
         });
     });
@@ -1013,32 +1013,30 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 -(void)showOldHomeIPCUpdateAlert{
     
     
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:NSLocalizedString(@"remoteApSettingOldVersion", nil)
-                              message:nil
-                              delegate:self
-                              cancelButtonTitle:LOCALANGER(@"customAlert_update")
-                              otherButtonTitles:LOCALANGER(@"customAlert_sure"), nil];
-    [alertView show];
-    [alertView release];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"remoteApSettingOldVersion", nil) delegate:self selectAction:@selector(oldHomeIPCDisconnect) cancelAction:@selector(showOldDeviceHelpView) selectTitle:LOCALANGER(@"customAlert_sure") cancelTitle:LOCALANGER(@"customAlert_update")];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-        if (buttonIndex == 1) {
+        if (buttonIndex == 0) {
             
             [self oldHomeIPCDisconnect];
             
         }else{
             
-            JVCOldDeviceHelpViewController *helpImageVC = [[JVCOldDeviceHelpViewController alloc] init];
-            [self.navigationController pushViewController:helpImageVC animated:YES];
-            [helpImageVC release];
-            
+            [self showOldDeviceHelpView];
         }
         
         
     DDLogError(@"%s----buttonIndex=%d",__FUNCTION__,buttonIndex);
+}
+
+- (void)showOldDeviceHelpView
+{
+    JVCOldDeviceHelpViewController *helpImageVC = [[JVCOldDeviceHelpViewController alloc] init];
+    [self.navigationController pushViewController:helpImageVC animated:YES];
+    [helpImageVC release];
+
 }
 
 
@@ -1052,7 +1050,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self configFinshed];
-            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
             
         });
         

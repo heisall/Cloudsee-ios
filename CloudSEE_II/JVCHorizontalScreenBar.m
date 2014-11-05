@@ -29,6 +29,7 @@
 @end
 @implementation JVCHorizontalScreenBar
 @synthesize HorizontalDelegate;
+@synthesize bStateHorigin;
 /**
  *  单例
  */
@@ -49,6 +50,8 @@ static JVCHorizontalScreenBar *shareInstance = nil;
             
             [shareInstance initStreamBtn];
             shareInstance.hidden = YES;
+            shareInstance.bStateHorigin = NO;
+
         }
         
     }
@@ -60,7 +63,7 @@ static JVCHorizontalScreenBar *shareInstance = nil;
     @synchronized(self)
     {
         shareInstance = [super allocWithZone:zone];
-        
+
         return shareInstance;
     }
     
@@ -163,6 +166,8 @@ static JVCHorizontalScreenBar *shareInstance = nil;
         
         btn.selected = NO;
     }
+    
+    bStateHorigin = NO;
 }
 
 /**

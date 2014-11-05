@@ -128,10 +128,12 @@ static JVCCustomYTOView *_shareInstance = nil;
 	float y_padding=10.0;
     float y_paddingSize=7.5;
     float x_padding=25.0;
+    float subX = 0;
     
     if (!iphone5) {
-        y_padding=5.0;
-        y_paddingSize=4.5;
+        y_padding=3.0;
+        y_paddingSize=3.5;
+        subX = 10;
     }
     
 	for (int i=0; i<[imageNameList count]; i++) {
@@ -155,7 +157,7 @@ static JVCCustomYTOView *_shareInstance = nil;
                     if ([[info objectAtIndex:1] intValue]>1) {
                         
                         x_value=40.0;
-                        y_value=10.0;
+                        y_value=8.0;
                         
                         if ([[info objectAtIndex:1] intValue]>=2) {
                             
@@ -166,7 +168,7 @@ static JVCCustomYTOView *_shareInstance = nil;
                                 _x=45.0;
                             }
                             
-                            y_value=15.0;
+                            y_value=10.0;
                         }
                         
                     }
@@ -182,7 +184,7 @@ static JVCCustomYTOView *_shareInstance = nil;
                     if ([[info objectAtIndex:1] intValue]>1) {
                         
                         x_value=40.0;
-                        y_value=10.0;
+                        y_value=25.0;
                         
                         if ([[info objectAtIndex:1] intValue]>=2) {
                             
@@ -193,9 +195,11 @@ static JVCCustomYTOView *_shareInstance = nil;
                                 _x=45.0;
                             }
                             
-                            y_value=15.0;
+                            y_value=25.0;
                         }
                         
+                    }else{
+                        y_value = 3;
                     }
 					menuBtn.frame=CGRectMake(x_padding+(image.size.width+padding)*[[info objectAtIndex:1] intValue]+x_value+_x,  y_paddingSize+(image.size.height+y_padding)*([[info objectAtIndex:0] intValue]-1)-y_value+_iphonePadding, image.size.width, image.size.height);
 				}

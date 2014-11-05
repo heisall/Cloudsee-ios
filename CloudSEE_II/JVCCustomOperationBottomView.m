@@ -377,8 +377,8 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
         
         NSString *imageName = [array objectAtIndex:0];
         imageName  = [imageName stringByAppendingString:@"@2x."];
-        imageName = [ImageName stringByAppendingString:[array objectAtIndex:1]];
-        image_path = [main_image_dir_path stringByAppendingPathComponent:ImageName];
+        imageName = [imageName stringByAppendingString:[array objectAtIndex:1]];
+        image_path = [main_image_dir_path stringByAppendingPathComponent:imageName];
     }
     return image_path;
 }

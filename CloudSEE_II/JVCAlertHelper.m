@@ -76,6 +76,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
                               otherButtonTitles:nil, nil];
     [alertView show];
     [alertView release];
+
 }
 
 /**
@@ -252,5 +253,58 @@ static JVCAlertHelper *shareAlertHelper = nil;
         return NO;
     }
     return YES;
+}
+
+///处理ios8 aletview的问题
+- (void)alertControllerWithTitle:(NSString *)title
+                        delegate:(id)delegate
+                    selectAction:(SEL)selectActon
+                    cancelAction:(SEL)cancelActon
+                     selectTitle:(NSString *)selectTitle
+                     cancelTitle:(NSString *)titlecancel
+{
+    [delegate retain];
+    
+    if (IOS8) {
+        
+        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        if (selectTitle !=nil) {
+            
+            [controlAlert addAction:[UIAlertAction actionWithTitle:selectTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                if (selectActon !=nil && delegate !=nil) {
+                    
+                    [delegate performSelector:selectActon withObject:nil];
+
+                }
+                
+            }]];
+        }
+       
+        if (titlecancel!=nil) {
+            
+            [controlAlert addAction:[UIAlertAction actionWithTitle:titlecancel style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                if (cancelActon !=nil && delegate !=nil) {
+                    
+                    [delegate performSelector:cancelActon withObject:nil];
+                    
+                }
+
+            }]];
+        }
+        
+        
+        [delegate presentViewController:controlAlert animated:YES completion:nil];
+        
+    }else{
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:delegate cancelButtonTitle:selectTitle otherButtonTitles:titlecancel, nil];
+        [alertView show];
+        alertView.delegate = delegate;
+        [alertView release];
+    }
+    
+    [delegate release];
+
 }
 @end

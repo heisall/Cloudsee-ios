@@ -35,9 +35,12 @@ enum TYPEHORIZONTAL
 @interface JVCHorizontalScreenBar : UIView
 {
     id<HorizontalScreenBarDelegate>HorizontalDelegate;
+    
+    BOOL bStateHorigin;//用于横屏隐藏
+    
 }
 @property(nonatomic,assign)id<HorizontalScreenBarDelegate>HorizontalDelegate;
-
+@property(nonatomic,assign)BOOL bStateHorigin;
 +(JVCHorizontalScreenBar *)shareHorizontalBarInstance;
 
 /**

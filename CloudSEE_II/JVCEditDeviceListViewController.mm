@@ -28,6 +28,7 @@
 #import "JVCDeviceHelper.h"
 
 #import "JVCAlarmCurrentView.h"
+#import "JVCOperationHelpView.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -101,6 +102,11 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     }
     
     [self changeCurrentSafeWithAlarmOperationView];
+    
+//    JVCOperationHelpView *helpView = [[JVCOperationHelpView alloc] init];
+//    [helpView operationEditDeviceHelpView];
+//    [self.view addSubview:helpView];
+//    [helpView release];
     
 }
 
@@ -227,8 +233,8 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
         
         CGRect position;
         
-        position.size.width  = viewBgImage.size.width*1.2;
-        position.size.height = viewBgImage.size.height*1.2;
+        position.size.width  = viewBgImage.size.width*1.05;
+        position.size.height = viewBgImage.size.height*1.05;
         
         [[JVCAppHelper shareJVCAppHelper] viewInThePositionOfTheSuperView:self.view.frame.size.width viewCGRect:position nColumnCount:kInitWithLayoutColumnCount viewIndex:i+1];
         

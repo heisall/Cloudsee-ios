@@ -36,7 +36,7 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
 /**
  *  初始化cell
  */
-- (void)initCellWithModel:(JVCDeviceModel *)model
+- (void)initCellWithModel:(JVCDeviceModel *)model  imageName:(NSString *)imageName
 {
     for ( UIView *_tVC in self.contentView.subviews) {
         [_tVC removeFromSuperview];
@@ -61,7 +61,7 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     [labelLine release];
     
     UIColor *colorDefault = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroLoginGray];
-    NSString *imagePath = [UIImage imageBundlePath:@"dem_def.png"];
+    NSString *imagePath = [UIImage imageBundlePath:imageName];
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
 
     UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KMYVIDEOCELLHEIGHTADDHEIGH, KLabelWith, KLabelHeight)];
@@ -86,6 +86,7 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     [labelTimer release];
     
     UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KLabelHeight, image.size.width,image.size.height)];
+    
     self.imageView = imageViewBg;
     imageViewBg.image = image;
     [self.contentView addSubview:imageViewBg];

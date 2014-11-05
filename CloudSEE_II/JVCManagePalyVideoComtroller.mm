@@ -14,10 +14,12 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCAppHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
+#import "JVCHorizontalScreenBar.h"
 
 @interface JVCManagePalyVideoComtroller () {
 
     UIScrollView            *WheelShowListView;
+    
 }
 
 enum showWindowNumberType{
@@ -139,8 +141,13 @@ BOOL isAllLinkRun;
         recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
         [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
         [singleVideoShow  addGestureRecognizer:recognizer];
+        
         [recognizer release];
         
+        //横屏隐藏横屏底端按钮
+        UITapGestureRecognizer *tapGesture  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenHorizontalScreenBar)];
+        [singleVideoShow addGestureRecognizer:tapGesture];
+        [tapGesture release];
         /**
          *  捏合的手势
          */
@@ -155,6 +162,25 @@ BOOL isAllLinkRun;
     [self isConnectAllStatus];
     
     [self changeContenView];
+}
+
+//隐藏下面的横屏帝都按钮
+- (void)hidenHorizontalScreenBar
+{
+    JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
+
+    if (horiBar.bStateHorigin) {
+        
+        if (horiBar.hidden) {
+            
+            horiBar.hidden = NO;
+            
+        }else{
+        
+            horiBar.hidden = YES;
+        }
+
+    }
 }
 
 /**

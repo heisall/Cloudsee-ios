@@ -38,7 +38,8 @@
         
         for (int i=0; i<2; i++) {
             
-            [_arrayDefaultImage addObject:[NSString stringWithFormat:@"devAdv_default_%d.jpg",i]];
+            NSString *stringPic = [NSString stringWithFormat:@"devAdv_default_%d",i];
+            [_arrayDefaultImage addObject:LOCALANGER(stringPic)];
         }
     }
     return self;

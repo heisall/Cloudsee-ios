@@ -144,15 +144,16 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
         
     }else{
 
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvcAlarm_cleanAlll") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_quit") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_ok"), nil];
-        [alertView show];
-        [alertView release];
+
+        
+        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvcAlarm_cleanAlll")  delegate:self selectAction:@selector(clearALlAlarm) cancelAction:nil  selectTitle:LOCALANGER(@"jvc_more_loginout_ok" )  cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")];
+    
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
+    if (buttonIndex == 0) {
         
         [self clearALlAlarm];
     }

@@ -17,6 +17,6 @@ static const  int  KCellHeight  = 225;//邓静给的值
 /**
  *  初始化cell
  */
-- (void)initCellWithModel:(JVCDeviceModel *)model;
+- (void)initCellWithModel:(JVCDeviceModel *)model  imageName:(NSString *)imageName;
 
 @end
