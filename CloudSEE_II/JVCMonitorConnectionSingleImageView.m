@@ -825,6 +825,8 @@ float min_offset;
     [slider setHidden:YES];
     [self._glView hiddenWithOpenGLView];
     [self bringSubviewToFront:imgView];
+
+    [self hidenEffectBtn];
 }
 
 /**
@@ -834,13 +836,10 @@ float min_offset;
  */
 - (void)setEffectBtnState:(BOOL)state
 {
-    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden != YES) {
-        
-        return;
-    }
+    
     UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
     
-    if (self.iEffectType<0) {
+    if ((self.iEffectType&0x04)<0) {
         return;
     }
         
@@ -868,7 +867,6 @@ float min_offset;
         [self setEffectBtnState:NO];
 
     }
-
 }
 
 /**

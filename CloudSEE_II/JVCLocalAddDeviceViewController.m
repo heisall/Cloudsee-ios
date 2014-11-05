@@ -31,7 +31,6 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 /**
@@ -51,10 +50,8 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
             
              channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNum nTimeOut:kAddLocalDeviceWithWlanTimeOut];
             
-        };
+        }
 
-        DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
-        
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,28 +81,12 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
         });
         
     });
-
-   
-    
-   
-
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

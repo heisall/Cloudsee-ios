@@ -1176,9 +1176,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         self.navigationController.navigationBarHidden = NO;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
         [_managerVideo setManagePlayViewScrollState:YES];
-
-        [_managerVideo showEffectView];
-
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
         UIView *_smallView=(UIView*)[self.view viewWithTag:101];
@@ -1208,7 +1205,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
         [ straemView removeFromSuperview];
-        [_managerVideo hiddenEffectView];
 
         //显示横屏的按钮
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
@@ -2288,7 +2284,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
 
     
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
+    [[JVCAlertHelper shareAlertHelper] alertToastOnWindowWithText:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil) delayTime:3 ];
 }
 
 /**

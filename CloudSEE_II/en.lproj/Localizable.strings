@@ -391,10 +391,10 @@
 "connectResultInfo_11" = "Connections have exceeded limitations!";
 
 //***语音对讲**
-"talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
+"talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-click.";
 "talkingOther"   = "Intercom function has started successfully, speak to him please.";
 "talkStart"      = "You can speak to the other now.";
-"talking"        = "Audio talk is enabled successfully.You can speak to the other through long-ckick.";
+"talking"        = "Audio talk is enabled successfully.You can speak to the other through long-click.";
 "Intercom function has started successfully, speak to him please."="Intercom function has started successfully, speak to him please.";
 
 //更多界面

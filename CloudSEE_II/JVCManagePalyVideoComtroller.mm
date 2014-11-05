@@ -588,18 +588,6 @@ BOOL isAllLinkRun;
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
-    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
-        
-        if (self.imageViewNums >1) {//只有单屏的时候才显示
-            
-            [self hiddenEffectView];
-        }else{
-            
-            [self showEffectView];
-            
-        }
-
-    }
 
 }
 
@@ -810,6 +798,33 @@ BOOL isAllLinkRun;
     //05版显示
     if (isVideoType) {
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+                
+                if (self.imageViewNums > showWindowNumberType_One) {//只有单屏的时候才显示
+                    
+                    [singleView hidenEffectBtn];
+                    
+                }else{
+                    
+                    if (nLocalChannel == self.nSelectedChannelIndex + 1) {
+                        
+                        [singleView showEffectBtn];
+                        
+                    }else{
+                        
+                        [singleView hidenEffectBtn];
+                    }
+                }
+                
+            }else{
+            
+                 [singleView hidenEffectBtn];
+            }
+        
+        });
+        
         [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
     }else{
         
@@ -903,21 +918,9 @@ BOOL isAllLinkRun;
         
     }
     
-    [self refreshEffectType:nLocalChannel effectType:effectType&0x04];
+    //[self refreshEffectType:nLocalChannel effectType:effectType&0x04];
     
-    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
-        
-        if (self.imageViewNums >1) {//只有单屏的时候才显示
-            
-            [self hiddenEffectView];
-        }else{
-            
-            [self showEffectView];
-            
-        }
-        
-    }
-    
+   
     DDLogCVerbose(@"%s----nStreamType=%d==iEffectType=%d",__FUNCTION__,nStreamType,effectType);
 
 }
@@ -1028,6 +1031,7 @@ BOOL isAllLinkRun;
     [singleVideoShow showEffectBtn];
     
 }
+
 /**
  *  图像翻转按钮的回调
  */
