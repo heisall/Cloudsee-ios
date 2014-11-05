@@ -139,7 +139,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
 {
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    self.navigationController.navigationBarHidden = YES;
 
     [super viewDidLoad];
     
@@ -414,7 +413,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
  */
 -(void)gotoApConfigPlayVideo{
     
-    self.navigationController.navigationBarHidden = NO;
     
     if (iphone5) {
         
@@ -641,17 +639,15 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
  */
 - (void)loginInSuccessToChangeRootController
 {
+    
     [self getUserAccountState];//发送设备的报警开关状态
     
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
     if (self.presentingViewController !=nil) {
         
         [self dismissModalViewControllerAnimated:YES];
-        
         [self updaeeRootViewController];
-        
     }else{
-        
         [self changeWindowRootViewController];
     }
 }

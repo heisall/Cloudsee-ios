@@ -202,9 +202,10 @@
 /**
  *  初始化账号服务器域名
  *
- *  @param state TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ *  @param state      TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ *  @param Islocation TRUE  :中国
  */
-- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state;
+- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state withIslocation:(BOOL)Islocation;
 
 /**
  *	激活token

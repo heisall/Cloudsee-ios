@@ -67,15 +67,24 @@ static const int kDelayTimer         = 3;//弹出提示的时间
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
+}
+
+-(void)dealloc{
+
+    [self resignEditPWDTextFields];
+    [_textFieldOldPassWord release];
+    [_textFieldNewPassWord release];
+    [_textFieldEnSurePassWord release];
+    [mControll release];
+    [super dealloc];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.title = LOCALANGER(@"jvc_more_editPw");
     
@@ -123,6 +132,7 @@ static const int kDelayTimer         = 3;//弹出提示的时间
      *  用户名
      */
     UIImage *tImage = [UIImage imageNamed:@"tex_field.png"];
+    
     UITextField  * _textFieldUserName = [[UITextField alloc] initWithFrame:CGRectMake(20, 20+textFieldType*(tImage.size.height+TEXTFIELD_SEPERATE), tImage.size.width, tImage.size.height) ];
     _textFieldUserName.delegate = self;
     _textFieldUserName.borderStyle = UITextBorderStyleNone;
@@ -188,7 +198,6 @@ static const int kDelayTimer         = 3;//弹出提示的时间
     int result =[[JVCPredicateHelper shareInstance] predicateUserOldPassWord:_textFieldOldPassWord.text
                                                      NewPassWord:_textFieldNewPassWord.text
                                                   EnsurePassWord:_textFieldEnSurePassWord.text UserSavePassWord:kkPassword];
-    NSLog(@"%d===%d",kkLoginState,kkGustureStgate);
     
     if (result == kPredicateSuccess) {//正则判断成功，修改功能调用
         
@@ -214,6 +223,7 @@ static const int kDelayTimer         = 3;//弹出提示的时间
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                     
                     [self loginOutUser];
+                    [self.navigationController popViewControllerAnimated:NO];
                     
                 }else{//失败
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -319,7 +329,7 @@ static const int kDelayTimer         = 3;//弹出提示的时间
 {
     [UIView animateWithDuration:KANIMATIN_DURARTION animations:^{
         
-    self.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+      self.view.frame = CGRectMake(0, 0, self.view.width, self.view.height);
 
     }];
     
@@ -328,18 +338,6 @@ static const int kDelayTimer         = 3;//弹出提示的时间
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

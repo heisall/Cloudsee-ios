@@ -17,7 +17,12 @@
 
 static JVCAccountHelper *sharedjvcAccountHelper = nil;
 
-static  NSString *const ACCOUNTSERVICELOG     =   @"accountServiceLog.md";
+
+static  NSString *const ACCOUNTSERVICELOG              =   @"accountServiceLog.md";
+static  NSString *const kAppChannelServiceAddressC     =   @"appchannel.afdvr.com";
+static  NSString *const kAppOnlineServiceAddressC      =   @"apponline.afdvr.com";
+static  NSString *const kAppChannelServiceAddressE     =   @"appchannelen.afdvr.com";
+static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.com";
 
 
 #define CONNECTTIMEOUTSECOND 10
@@ -430,9 +435,10 @@ void ServerPushCallBack(const int message_type, const c_SERVER_PUSH_INFO serverP
 /**
  *  初始化账号服务器域名
  *
- *  @param state TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ *  @param state      TRUE  :忽略本地缓存解析IP,为TRUE的时候不会在调用初始化SDK和设置超时的函数
+ *  @param Islocation TRUE  :中国
  */
-- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state {
+- (int)intiAccountSDKWithIsLocalCheck:(BOOL )state withIslocation:(BOOL)Islocation{
     
     NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     
@@ -440,19 +446,17 @@ void ServerPushCallBack(const int message_type, const c_SERVER_PUSH_INFO serverP
     
     NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:ACCOUNTSERVICELOG];
     
-    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPCHANNELSERVICEADDRESS")];
+    NSString *APPCHANNELSERVICEADDRESSPATHPATH =[pathAccountHome stringByAppendingPathComponent:Islocation == YES ? (NSString *)kAppChannelServiceAddressC:(NSString *)kAppChannelServiceAddressE];
     
-    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:LOCALANGER(@"APPONLINESERVICEADDRESS")];
+    NSString *AccountAPPONLINESERVICEADDRESSPATH =[pathAccountHome stringByAppendingPathComponent:Islocation == YES ? (NSString *)kAppOnlineServiceAddressC:(NSString *)kAppOnlineServiceAddressE];
     
     int result = [self InitSdk:pathAccount
-       channelServerAddressStr:LOCALANGER(@"APPCHANNELSERVICEADDRESS")
+       channelServerAddressStr:Islocation == YES?(NSString *)kAppChannelServiceAddressC:(NSString *)kAppChannelServiceAddressE
 channelServerAddressStrLocalPath:APPCHANNELSERVICEADDRESSPATHPATH
-        onlineServerAddressStr:LOCALANGER(@"APPONLINESERVICEADDRESS")
+        onlineServerAddressStr:Islocation == YES ?(NSString *)kAppOnlineServiceAddressC:(NSString *)kAppOnlineServiceAddressE
 onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
                   islocalCheck:state
                    isLogAppend:YES];
-    
-    DDLogInfo(@"=%s=注册账号收到的返回值=%d==%@",__FUNCTION__,result,NSLocalizedString(@"APPCHANNELSERVICEADDRESS", nil));
     
     return result;
 }

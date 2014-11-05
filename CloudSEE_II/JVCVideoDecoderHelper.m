@@ -178,31 +178,8 @@ char  captureImageBuffer[1280*720*3] ={0};
                     
                     self.isCaptureImage = FALSE;
                 }
-                
-            }else {
-            
-                [self videoLock];
-                outVideoFrame->nHeight = self.nVideoHeight;
-                outVideoFrame->nWidth  = self.nVideoWidth;
-                ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,outVideoFrame->decoder_y,videoFrame->nSize, nDecoderID, videoFrame->nFrameType,nSystemVersion);
-                
-                if (self.isCaptureImage) {
-                    
-                    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
-                        
-                        NSData *captureImageData=[NSData dataWithBytes:outVideoFrame->decoder_y length:self.nVideoWidth*self.nVideoHeight*2+66];
-                        
-                        [self.delegate decoderModelCaptureImageCallBack:captureImageData];
-                    }
-                    
-                    self.isCaptureImage = FALSE;
-                }
-                [self VideoUnlock];
-            
             }
         }
-        
-        //DDLogVerbose(@"%s-------outVideoFrame->nWidth=%d---outVideoFrame->nHeigh=%d",__FUNCTION__,outVideoFrame->nWidth,outVideoFrame->nHeight);
         
     }else{
         
@@ -211,6 +188,56 @@ char  captureImageBuffer[1280*720*3] ={0};
     
     *VideoOutFrame = *outVideoFrame;
     
+    return ndecoderStatus;
+}
+
+
+/**
+ *  解码一帧
+ *
+ *  @param h264Buffer    网络传的H264数据
+ *  @param outBuffer     当前手机系统的版本
+ *  @param nSize         网络传的H264数据大小
+ *  @param nVersion      当前设备的操作系统版本
+ *  @param nFrameType    帧类型
+ *  @param isFrameI      YES是I帧 关键帧
+ *
+ *  @return 解码成功返回 0 否则失败
+ */
+-(int)decoder04Device:(char *)h264Buffer withOutDecoderBuffer:(char *)outBuffer withBufferSize:(int)nSize withSystemVersion:(int)nVersion withFrameType:(int)nFrameType withIsFrameI:(BOOL)isFrameI{
+
+    int ndecoderStatus = -1;
+    
+    if (self.isOpenDecoder) {
+        
+        //等待I帧处理
+        [self waitingIFrameByVideoFrameType:isFrameI];
+        
+        if (self.isWaitIFrame) {
+            
+            if (!self.isDecoderModel) {
+                
+                [self videoLock];
+                
+                ndecoderStatus = JVD04_DecodeOneFrame(h264Buffer,outBuffer,nSize, nDecoderID, nFrameType,nVersion);
+                
+                if (self.isCaptureImage) {
+                    
+                    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
+                        
+                        NSData *captureImageData=[NSData dataWithBytes:outBuffer length:self.nVideoWidth*self.nVideoHeight*2+66];
+                        
+                        [self.delegate decoderModelCaptureImageCallBack:captureImageData];
+                    }
+                    
+                    self.isCaptureImage = FALSE;
+                }
+                
+                [self VideoUnlock];
+            }
+        }
+    }
+   
     return ndecoderStatus;
 }
 

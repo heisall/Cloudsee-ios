@@ -56,8 +56,11 @@ static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 @synthesize _amOpenGLViewListData;
 @synthesize QRViewController;
 
-static NSString const *kAPPLocalCaheKey = @"localDeviceListData";
-static  const   int      KSetHelpMaxCount    = 10;
+static NSString const *kAPPLocalCaheKey          = @"localDeviceListData";
+static  const   int    KSetHelpMaxCount          = 5;
+static  const   int    KCheckLocationRequestTime = 5;
+static NSString const *KCheckLocationFlag        = @"中国";
+static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -271,8 +274,6 @@ static  const   int      KSetHelpMaxCount    = 10;
         [alarmMessageViewController  headerRereshingDataAlarmDate];
         
     }
-
-
     
     for (id idControler in tabbar.viewControllers) {
         
@@ -390,16 +391,51 @@ static  const   int      KSetHelpMaxCount    = 10;
     
     if (configObj._netLinkType != NETLINTYEPE_NONET && configObj._bInitAccountSDKSuccess != 0) {
         
-       int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO];
         
-        if ( result == 0) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            configObj._bInitAccountSDKSuccess = 0;
-        }
+            BOOL isLocation = [self checkLocalLocation];
+            
+            int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:isLocation];
+            
+            if ( result == 0) {
+                
+                configObj._bInitAccountSDKSuccess = 0;
+            }
         
-        DDLogInfo(@"%s---- hahha....==%d",__FUNCTION__,result);
+        });
     }
     
+}
+
+/**
+ *  判断当前手机所在的位置(中国YES:否则是国外)
+ *
+ */
+-(BOOL)checkLocalLocation{
+    
+    BOOL findStatus = FALSE;
+    
+    NSURL *url = [NSURL URLWithString:(NSString *)KCheckLocationURL];
+    
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:KCheckLocationRequestTime];
+    
+    NSData *received = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    [request release];
+    
+    NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    
+    NSString *requsetString = [[NSString alloc]initWithData:received encoding:gbkEncoding];
+
+    if([requsetString rangeOfString:(NSString *)KCheckLocationFlag].location != NSNotFound)//_roaldSearchText
+    {
+        findStatus = TRUE;
+    }
+
+    [requsetString release];
+    
+    return findStatus;
 }
 
 /**
