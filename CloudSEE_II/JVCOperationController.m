@@ -1778,7 +1778,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         ystNetworkHelperObj.ystNWRPVDelegate           = self;
         
-        [ystNetworkHelperObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:JVN_REQ_CHECK remoteOperationCommandData:remoteSendSearchFileBuffer nRequestCount:4];
+        [ystNetworkHelperObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:JVN_REQ_CHECK remoteOperationCommandData:remoteSendSearchFileBuffer nRequestCount:1];
         
         [dateStr release];
     
@@ -1794,8 +1794,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)remoteplaybackSearchFileListInfoCallBack:(NSMutableArray *)playbackSearchFileListMArray{
     
     
-    DDLogVerbose(@"%s----list=%@",__FUNCTION__,playbackSearchFileListMArray);
-    
     [self performSelectorOnMainThread:@selector(popRemoteVideoPlayBackVControlerWithData:) withObject:playbackSearchFileListMArray waitUntilDone:NO];
 }
 
@@ -1807,6 +1805,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)popRemoteVideoPlayBackVControlerWithData:(NSMutableArray *)arrayList
 {
     [arrayList retain];
+    
     
     id viewController = [self.navigationController.viewControllers lastObject];
     
