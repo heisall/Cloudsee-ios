@@ -136,16 +136,14 @@ static const int            kRepeatRequestCount      = 6;
     middleView = [[JVCAPConfingMiddleIphone5 alloc] init];
     middleView.frame = frame;
     middleView.delegateIphone5BtnCallBack = self;
-    NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"megaphone", nil), nil];
     
-     NSArray *info = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Learn audio info at any time", nil),NSLocalizedString(@"Adjust PTZ at any time", nil),NSLocalizedString(@"AudioTalkInfo", nil), nil];
+    NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"apSetting_playVideo_talk", nil), nil];
     
-    [middleView updateViewWithTitleArray:title detailArray:info];
+    [middleView updateViewWithTitleArray:title detailArray:nil];
     [self.view addSubview:middleView];
     [middleView release];
     
     UIView *talkViewBtn = [middleView getSelectbgView:OPERATIONAPBTNCLICKTYPE_Talk];
-    DDLogVerbose(@"%s---%@",__FUNCTION__,talkViewBtn);
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(aplongPressedStartTalk:)];
     longPress.allowableMovement = NO;

@@ -281,19 +281,8 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 {
     nSelectedIndex               = button.tag - kNewDeviceButtonWithTag;
     
-    for (int i = 0; i< amLanSearchModelList.count; i++) {
-        
-         JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
-        
-        DDLogVerbose(@"%s################%d#######ystNumber=%@",__FUNCTION__,nSelectedIndex,model.strYstNumber);
-    }
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
-    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
-//    alert.delegate = self;
-//    [alert show];
-//    [alert release];
     
     [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") ];
     

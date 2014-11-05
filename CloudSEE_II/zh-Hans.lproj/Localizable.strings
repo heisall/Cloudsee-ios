@@ -51,6 +51,7 @@
 "apSetting_new_device_next"    = "下一步";
 "new_d"                        = "new_c.png";
 "apSetting_playVideo_title"    = "视频检测";
+"apSetting_playVideo_talk"    = "语音对讲";
 "setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";
 "Learn audio info at any time" = "随时了解音频信息";
 "Adjust PTZ at any time"       = "随时调整监控画面信息";
@@ -405,7 +406,7 @@
 "jvc_more_checkVersion"="检测更新";
 "jvc_more_help"="帮助";
 "jvc_more_suggest"="意见与反馈";
-"jvc_more_appStore"="亲,去AppStore评论一下吧";
+"jvc_more_appStore"="亲,去App Store评论一下吧";
 "jvc_more_userOut"="账号注销";
 "home_version_found"= "发现";
 "home_version_new" = "版本";
@@ -419,7 +420,7 @@
 "Found new version"="发现新版本 ";
 "update now"=",现在是否更新?";
 "emailHelp" = "该手机不支持邮件发送或者是邮件发送功能没有被设置，请发送邮件到feedbackandsuggestion@gmail.com以请求进一步的协助";
-"version" = "版本号:";
+"version" = "版本";
 "suggestAndFeedBack" = "建议与反馈";
 "more_help_title"="帮助";
 //修改密码的

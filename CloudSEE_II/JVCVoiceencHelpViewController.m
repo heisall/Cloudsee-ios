@@ -18,11 +18,11 @@ static const CGFloat KGesturesViewWithTop                      = 130.0f;
 static const CGFloat KDeviceImageViewWithGesturesViewWithLeft  = 22.0f;
 static const CGFloat KDeviceImageViewWithGesturesViewWithTop   = 100.0f;
 static const CGFloat KTitleViewWithGesturesViewBottom          = 75.0f;
-static const CGFloat KTitleViewWithSuperViewLeft               = 10.0f;
-static const CGFloat KTitleTvWithFontSize                      = 16.0f;
+static const CGFloat KTitleViewWithSuperViewLeft               = 5.0f;
+static const CGFloat KTitleTvWithFontSize                      = 12.0f;
 static const CGFloat KTitleTvWithLineHeight                    = KTitleTvWithFontSize + 4.0;
-static const int     KTitleTvWithNumberOfLines                 = 2;
-static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
+static const int     KTitleTvWithNumberOfLines                 = 3;
+static const CGFloat KTitleTvWithSuperViewTop                  = 5.0f;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,7 +77,6 @@ static const CGFloat KTitleTvWithSuperViewTop                  = 10.0f;
     titleLbl.backgroundColor = [UIColor clearColor];
     titleLbl.textColor       = [UIColor whiteColor];
     titleLbl.textAlignment   = NSTextAlignmentLeft;
-    titleLbl.numberOfLines   = 1;
     titleLbl.font            = [UIFont systemFontOfSize:KTitleTvWithFontSize];
     titleLbl.numberOfLines   = KTitleTvWithNumberOfLines;
     titleLbl.frame           = CGRectMake( KTitleViewWithSuperViewLeft,KTitleTvWithSuperViewTop , titleView.frame.size.width - KTitleViewWithSuperViewLeft * 2,KTitleTvWithLineHeight * KTitleTvWithNumberOfLines);
