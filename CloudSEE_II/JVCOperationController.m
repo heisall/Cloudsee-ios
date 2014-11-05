@@ -2288,7 +2288,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
 
     
-    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
+    [[JVCAlertHelper shareAlertHelper] alertToastOnWindowWithText:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil) delayTime:3 ];
 }
 
 /**

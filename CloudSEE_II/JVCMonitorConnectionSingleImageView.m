@@ -840,7 +840,7 @@ float min_offset;
     }
     UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
     
-    if (self.iEffectType<0) {
+    if ((self.iEffectType&0x04)<0) {
         return;
     }
         
