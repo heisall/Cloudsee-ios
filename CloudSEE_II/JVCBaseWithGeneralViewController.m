@@ -127,9 +127,7 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
     {
         
         CGRect contentRect = self.view.frame;
-        
-        DDLogVerbose(@"开始之前的=%@",NSStringFromCGRect(contentRect));
-        
+
         //减去导航条的高度
         if (!self.navigationController.navigationBarHidden) {
             
@@ -141,7 +139,6 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
                 contentRect.size.height = contentRect.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
             }
             
-            DDLogVerbose(@"中间去导航条的=%@",NSStringFromCGRect(contentRect));
         }
     
         if (!self.hidesBottomBarWhenPushed) {
@@ -149,41 +146,25 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
             contentRect.size.height = contentRect.size.height - self.tabBarController.tabBar.height;
         }
         
-        DDLogVerbose(@"中间的=%@",NSStringFromCGRect(contentRect));
 
         self.view.frame = contentRect;
-        
-        DDLogVerbose(@"最后的frame=%@",NSStringFromCGRect(contentRect));
 
     }else{
         
         CGRect contentRect = self.view.frame;
         
-        DDLogVerbose(@"开始之前的=%@",NSStringFromCGRect(contentRect));
         
         //减去导航条的高度
         if (!self.navigationController.navigationBarHidden) {
             contentRect.size.height = contentRect.size.height - self.navigationController.navigationBar.frame.size.height;
         }
-            //减去状态栏的高度
-            if (![UIApplication sharedApplication].statusBarHidden) {
-                
-               // contentRect.size.height = contentRect.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
-            }
-            
-            DDLogVerbose(@"中间去导航条的=%@",NSStringFromCGRect(contentRect));
-        
         
         if (!self.hidesBottomBarWhenPushed) {
             
             contentRect.size.height = contentRect.size.height - self.tabBarController.tabBar.height;
         }
         
-        DDLogVerbose(@"中间的=%@",NSStringFromCGRect(contentRect));
-        
         self.view.frame = contentRect;
-        
-        DDLogVerbose(@"最后的frame=%@",NSStringFromCGRect(contentRect));
 
     }
 }
@@ -197,7 +178,7 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
  */
 -(UIImageView *)imageViewWithImageName:(NSString *)imageName{
     
-    UIImage *image              = [UIImage imageNamed:imageName];
+    UIImage *image              = [UIImage imageWithContentsOfFile:[UIImage imageBundlePath:imageName]];
     
     UIImageView *imageView      = [[UIImageView alloc] initWithImage:image];
     imageView.image             = image;

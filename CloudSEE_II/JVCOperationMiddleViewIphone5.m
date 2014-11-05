@@ -59,7 +59,7 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
         
         
         UIImage *image = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_arrayList objectAtIndex:i]]];
-        NSLog(@"%@==%@",[self getBundleImagePaht:[_arrayList objectAtIndex:i]],image);
+        
         UIImage *imageHover = image;
         //只有第一个按钮有选中状态
         if (i == 0) {
@@ -85,7 +85,7 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
         
         
         UILabel *_titleName=[[UILabel alloc] init];
-        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - 43)/2.0, 210.0, 20.0);
+        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - 20.0)/2.0, 210.0, 20.0);
         _titleName.textAlignment=UITextAlignmentLeft;
         _titleName.text= strTitle;
         _titleName.font= [UIFont systemFontOfSize:16];

@@ -1747,7 +1747,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         [self playBackSendPlayVideoDate:[NSDate date]];
         
     }
-    
 }
 
 /**
@@ -1889,6 +1888,7 @@ char remoteSendSearchFileBuffer[29] = {0};
      */
     _isPlayBackVideo = YES;
     [_splitViewBgClick setHidden:YES];
+    [_managerVideo setScrollViewEnable:!_isPlayBackVideo];
     [_splitViewBtn setHidden:YES];
     self.navigationItem.title = NSLocalizedString(@"Play back", nil);
     [_bYTOBtn setEnabled:NO];
@@ -2006,6 +2006,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 #pragma mark 远程回放界面操作 NO关闭 YES是开启
 - (void)showPlayBackVideo:(bool)_isOpen{
+    
+    [_managerVideo setScrollViewEnable:!_isOpen];
     
     if (_isOpen) {
         

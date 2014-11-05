@@ -92,7 +92,7 @@ static const int  KlabeAddHeight        =  4;       //label的高度添加值（
         [_arrayBtnList addObject:btnImage];
         
         UILabel *_titleName=[[UILabel alloc] init];
-        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - 43)/2.0, KlabeWith, KlabeTextTitleFont+KlabeAddHeight);
+        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - KlabeTextTitleFont+KlabeAddHeight)/2.0, KlabeWith, KlabeTextTitleFont+KlabeAddHeight);
         _titleName.textAlignment=NSTextAlignmentLeft;
         _titleName.text= strTitle;
         _titleName.font= [UIFont systemFontOfSize:KlabeTextTitleFont];

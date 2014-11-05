@@ -50,6 +50,7 @@
 "apSetting_new_device_next"    = "Next";
 "new_d"                        = "new_e.png";
 "apSetting_playVideo_title"    = "Video detecting";
+"apSetting_playVideo_talk"    = "AudioTalk";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";
@@ -197,8 +198,7 @@
 
 //声波添加设备
 "jvc_voice_add_title" = "Preparating steps";
-"jvc_voice_add_help" = "Please use a needle to insert the Reset at the backside of the device until you hear the beeping.
-";
+"jvc_voice_add_help" = "Please input password of the netword";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
 "jvc_voice_add_prepareconfig_help" = "Please enter password of the network";
@@ -219,10 +219,10 @@
 "jvc_DeviceList_title" = "My device";
 "jvc_DeviceList_add_yst" = "CloudSEE";
 "jvc_DeviceList_add_eq" = "QR Scanning";
-"jvc_DeviceList_add_wlan" = "Wireless Device";
-"jvc_DeviceList_add_scan" = "Devices in LAN";
-"jvc_DeviceList_add_volce" = "Sound-wave Configuration";
-"jvc_DeviceList_add_ip" = "IP/DN";
+"jvc_DeviceList_add_wlan" = "Add Wi_Fi Device";
+"jvc_DeviceList_add_scan" = "Scan devices in LAN";
+"jvc_DeviceList_add_volce" = "Add by sound wave";
+"jvc_DeviceList_add_ip"    = "DDNS";
 "jvc_DeviceList_offline" = "Offline";
 "jvc_DeviceList_online" = "Online";
 "jvc_DeviceList_APadd" = "Add";
@@ -403,21 +403,21 @@
 "jvc_more_checkVersion"="Check for update";
 "jvc_more_help"="Help";
 "jvc_more_suggest"="Feedback";
-"jvc_more_appStore"="Go to AppStore to comment.";
+"jvc_more_appStore"="Go to App Store to comment.";
 "jvc_more_userOut"="Log Out";
 "home_version_found"= "Found";
-"home_version_new" = "version";
+"home_version_new" = "Version";
 "home_version_last"= "It's already the lastest version";
 "home_version_last_count3"= "No more, please wait.";
 "local_location" = "Ignore";
 "local_ccLogin" = "Switch";
-"Update Available"="Update Tip";
+"Update Available"="Software Update";
 "Not now"="Next Time ";
 "UpdateBtn"="Update";
 "Found new version"="Found new version ";
 "update now"="\n update now?";
 "emailHelp" = "This mobile phone does't support Email function or Email function hasn't been set on this mobile phone, please write Email to: feedbackandsuggestion@gmail.com for further support.";
-"version" = "version：";
+"version" = "version";
 "suggestAndFeedBack" = "Feedback";
 "more_help_title"="Help";
 "jvc_more_LogOut" = "Log Out";

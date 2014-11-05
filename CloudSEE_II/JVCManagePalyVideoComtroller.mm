@@ -960,6 +960,16 @@ BOOL isAllLinkRun;
 }
 
 /**
+ *  刷新当前图片翻转状态
+ *
+ *  @param enable   当前滚动视图是否可以滚动
+ */
+-(void)setScrollViewEnable:(BOOL)enable {
+
+    WheelShowListView.scrollEnabled = enable;
+}
+
+/**
  *  音频监听回调
  *
  *  @param soundBuffer     音频数据
