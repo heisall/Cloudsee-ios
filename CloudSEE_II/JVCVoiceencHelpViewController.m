@@ -23,6 +23,7 @@ static const CGFloat KTitleTvWithFontSize                      = 12.0f;
 static const CGFloat KTitleTvWithLineHeight                    = KTitleTvWithFontSize + 4.0;
 static const int     KTitleTvWithNumberOfLines                 = 3;
 static const CGFloat KTitleTvWithSuperViewTop                  = 5.0f;
+static const CGFloat KTitleTvWithFontSizeDown                  = 10.0f;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,7 +78,7 @@ static const CGFloat KTitleTvWithSuperViewTop                  = 5.0f;
     titleLbl.backgroundColor = [UIColor clearColor];
     titleLbl.textColor       = [UIColor whiteColor];
     titleLbl.textAlignment   = NSTextAlignmentLeft;
-    titleLbl.font            = [UIFont systemFontOfSize:KTitleTvWithFontSize];
+    titleLbl.font            = [UIFont systemFontOfSize:KTitleTvWithFontSizeDown];
     titleLbl.numberOfLines   = KTitleTvWithNumberOfLines;
     titleLbl.frame           = CGRectMake( KTitleViewWithSuperViewLeft,KTitleTvWithSuperViewTop , titleView.frame.size.width - KTitleViewWithSuperViewLeft * 2,KTitleTvWithLineHeight * KTitleTvWithNumberOfLines);
     titleLbl.text            = LOCALANGER(@"JVCVoiceencHelpViewController_helpString");

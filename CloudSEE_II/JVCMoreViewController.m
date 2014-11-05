@@ -256,7 +256,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             
             [self checkNewVersion];
             
-        }else if (indexPath.row == 3) {//意见与反馈
+        }else if (indexPath.row == 2) {//意见与反馈
             
             if ([JVCConfigModel shareInstance ]._netLinkType !=NETLINTYEPE_NONET) {
                 //弹出发邮件的视图

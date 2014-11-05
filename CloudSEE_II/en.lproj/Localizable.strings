@@ -115,7 +115,7 @@
 //注册界面
 "jvc_resign_Title" = "Register";
 "jvc_resign_user" = "Email/Username";
-"jvc_resign_pw" = "PassWord";
+"jvc_resign_pw" = "Password";
 "jvc_resign_enpw" ="Confirm password";
 "jvc_resign_Resign_eror" = "Faild to register";
 "jvc_resign_Resign_Text" = "Read and agree";
@@ -178,7 +178,7 @@
 "jvc_addDevice_title" = "Add device";
 "jvc_addDevice_YstNUm" = "  CloudSEE";
 "jvc_addDevice_userName" = "  Username";
-"jvc_addDevice_password" = "  PassWord";
+"jvc_addDevice_password" = "  Password";
 "jvc_addDevice_save" = "Save";
 "jvc_addDevice_back" = "back";
 "jvc_addDevice_advance" = "Advance";
@@ -202,7 +202,7 @@
 "jvc_voice_add_help" = "Please use a needle into the Reset hole at the backside/bttom of the device until you hear the beeping";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
-"jvc_voice_add_prepareconfig_help" = "Please enter password of the network";
+"jvc_voice_add_prepareconfig_help" = "Please input password of the network";
 "jvc_voice_add_Voiceconfig" = "Sound-wave Configuration";
 "jvc_voice_add_Voiceconfig_see" = "View operation demo ";
 "jvc_voice_add_Voiceconfig_clicktosend" = "Click to send sound-wave";
@@ -213,17 +213,17 @@
 
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
-"jvc_licktype_Ip" = "IP/DNNS";
+"jvc_licktype_Ip" = "IP/DNS";
 "jvc_licktype_YST" = "CloudSEE";
 
 //设备列表界面
 "jvc_DeviceList_title" = "My device";
-"jvc_DeviceList_add_yst" = "CloudSEE";
+"jvc_DeviceList_add_yst" = "Add by CloudSEE ID";
 "jvc_DeviceList_add_eq" = "Scan QR Code";
 "jvc_DeviceList_add_wlan" = "Add Wi_Fi Device";
 "jvc_DeviceList_add_scan" = "Scan devices in LAN";
 "jvc_DeviceList_add_volce" = "Add by sound wave";
-"jvc_DeviceList_add_ip" = "IP/DNNS";
+"jvc_DeviceList_add_ip" = "IP/DNS";
 "jvc_DeviceList_offline" = "Offline";
 "jvc_DeviceList_online" = "Online";
 "jvc_DeviceList_APadd" = "Add";
@@ -232,7 +232,7 @@
 "jvc_DeviceList_has_device" = "Wireline device";
 
 //ip/域名添加设备
-"jvc_addDevice_ipadd_titile"="IP/DNNS";
+"jvc_addDevice_ipadd_titile"="IP/DNS";
 "jvc_addDevice_ipadd_Port"="Port";
 "jvc_addDevice_ipadd_user"="Username";
 "jvc_addDevice_ipadd_pw"="Password";
@@ -267,7 +267,7 @@
 "selectedWifi"="Choose a network...";
 "ap_Setting_Detail"= "Quick configuration";
 "ResignPassWord" = "Password";
-"wifi_select_loading"= "ploading datas, please wait...";
+"wifi_select_loading"= "Loading datas, please wait...";
 "wifi-name-nil"="Wi-Fi name can not be null.";
 "ap_configer"= "Done";
 "wifi-name-selected"="Please select Wi-Fi ...";
@@ -367,7 +367,7 @@
 "Connected with server "="Connected with server ";
 " successfully..."=" Successfully...";
 "Asking for video data now..."="Asking for video data now...";
-"Asking for video data now, please wait..."="Asking for video data now, please wait...";
+"Asking for video data now, please wait..."="Asking for video data now..";
 
 "pictureLibraynoAutor" = "Can not visit photo album. Please set it open in[ Settings->Privacy->Photos ].";
 "picturelibrayError" = "Failed to save the picture.";
@@ -449,7 +449,7 @@
 "Jvc_editDeviceInfo_Title" = "Edit device";
 "Jvc_editDeviceInfo_nickName" = " Nickname";
 "Jvc_editDeviceInfo_userName" = " Username";
-"Jvc_editDeviceInfo_PW" = " PassWord";
+"Jvc_editDeviceInfo_PW" = " Password";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
 

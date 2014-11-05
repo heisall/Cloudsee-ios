@@ -123,13 +123,13 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [secondSectionArray addObject:modeShark];
     [modeShark release];
     
-    //帮助
-    JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
-    modelHelpSwitch.itemName = LOCALANGER(@"jvc_more_help");
-    modelHelpSwitch.iconImageName = @"mor_IconHelp.png";
-    modelHelpSwitch.bBtnState = MoreSettingCellType_Switch;
-    [secondSectionArray addObject:modelHelpSwitch];
-    [modelHelpSwitch release];
+//    //帮助
+//    JVCMoreSettingModel *modelHelpSwitch = [[JVCMoreSettingModel alloc] init];
+//    modelHelpSwitch.itemName = LOCALANGER(@"jvc_more_help");
+//    modelHelpSwitch.iconImageName = @"mor_IconHelp.png";
+//    modelHelpSwitch.bBtnState = MoreSettingCellType_Switch;
+//    [secondSectionArray addObject:modelHelpSwitch];
+//    [modelHelpSwitch release];
 
     
     //版本号

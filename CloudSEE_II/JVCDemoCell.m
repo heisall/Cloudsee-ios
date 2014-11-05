@@ -64,8 +64,10 @@ static const  int KLabelTimerWith             = 300;
     UIColor *colorDefault = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroLoginGray];
     NSString *imagePath = [UIImage imageBundlePath:imageName];
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-
-    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KMYVIDEOCELLHEIGHTADDHEIGH, KLabelWith, KLabelHeight)];
+    
+    NSString *iamgecellpath = [UIImage imageBundlePath:@"dem_def.png"];
+    UIImage *iamgecellBg = [[UIImage alloc] initWithContentsOfFile:iamgecellpath];
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - iamgecellBg.size.width)/2, KMYVIDEOCELLHEIGHTADDHEIGH, KLabelWith, KLabelHeight)];
     if (colorDefault) {
         labelTitle.textColor = colorDefault;
     }
@@ -86,9 +88,7 @@ static const  int KLabelTimerWith             = 300;
     labelTimer.text = @"";
     [labelTimer release];
     
-    
-    NSString *iamgecellpath = [UIImage imageBundlePath:@"dem_def.png"];
-    UIImage *iamgecellBg = [[UIImage alloc] initWithContentsOfFile:iamgecellpath];
+  
     
     UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - iamgecellBg.size.width)/2, KLabelHeight, iamgecellBg.size.width,iamgecellBg.size.height)];
     
