@@ -32,6 +32,7 @@
 #import "JVCChannelScourseHelper.h"
 #import "JVCOperationControllerIphone5.h"
 #import "JVCLocalQRAddDeviceViewController.h"
+#import "JVCOperationHelpView.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -142,6 +143,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         [self setupRefresh];
 
     }
+    
+   
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -156,6 +159,10 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         
         [self StartLANSerchAllDevice];
     }
+    
+//    JVCOperationHelpView *helpView = [[JVCOperationHelpView alloc] init];
+//    [helpView AddDeviceHelpView];
+//    [self.view.window addSubview:helpView];
 }
 
 /**
@@ -829,10 +836,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         NSString *ystNum = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kSAVEYSTNUM];
         
         if (ystNum.length>0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_DeviceList_APadd") otherButtonTitles:LOCALANGER(@"jvc_DeviceList_APquit"), nil];
-            [alert show];
-            alert.tag = kAlertTag;
-            [alert release];
+            
+            [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") delegate:self selectAction:@selector(AddDevice) cancelAction:@selector(removeAddapNum) selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit")];
         }
     }
 }
@@ -846,11 +851,15 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 
     }else{
     
-        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
-
+        [self removeAddapNum];
     }
 }
 
+- (void)removeAddapNum
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kSAVEYSTNUM];
+
+}
 
 #pragma mark 刷新设备成功的回调
 /**

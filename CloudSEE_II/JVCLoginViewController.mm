@@ -103,6 +103,21 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
     self.navigationController.navigationBarHidden = YES;
 
     [super viewWillAppear:animated];
+    
+    
+    NSString *fistOpen = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOME];
+    
+    if (fistOpen.length<=0) {
+        
+        JVCHelpVIew *viewHelp = [[JVCHelpVIew alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [self.view addSubview:viewHelp];
+        viewHelp.delegateWelcome = self;
+        [viewHelp release];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:(NSString *)KFISTOPEN forKey:(NSString *)kAPPWELCOME];
+    }
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,14 +131,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         
         [self autoLoginIn];
         
-    }else{
-    
-        JVCHelpVIew *viewHelp = [[JVCHelpVIew alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        [self.view addSubview:viewHelp];
-        viewHelp.delegateWelcome = self;
-        [viewHelp release];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:(NSString *)KFISTOPEN forKey:(NSString *)kAPPWELCOME];
     }
     
 }

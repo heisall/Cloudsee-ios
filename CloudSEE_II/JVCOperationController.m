@@ -232,6 +232,12 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         }
         
+        if (self.isPlayBackVideo) {
+            [_splitViewBtn setHidden:YES];
+            [_splitViewCon setHidden:YES];
+        }
+        
+        
         if (self.navigationController.navigationBarHidden) {
             self.navigationController.navigationBarHidden = NO;
         }
@@ -426,7 +432,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_splitViewBtn addTarget:self action:@selector(gotoShowSpltWindow) forControlEvents:UIControlEventTouchUpInside];
     [_splitViewBtn setBackgroundImage:_splitShow forState:UIControlStateNormal];
     [self.navigationController.navigationBar addSubview:_splitViewBtn];
-    if (!self.isPlayBackVideo) {//远程回放，隐藏此按钮
+    if (self.isPlayBackVideo) {//远程回放，隐藏此按钮
         
         _splitViewBtn.hidden = YES;
     }
@@ -798,9 +804,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)BackClick{
     DDLogVerbose(@"___%s==========000",__FUNCTION__);
     
-    
-
-    
     if (_isPlayBackVideo&&!self.isPlayBackVideo) {
         //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
 
@@ -822,6 +825,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
+        self.navigationController.navigationBarHidden = NO;
         //关闭文本、视频的回调
         JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         ystNetWorkObj.ystNWHDelegate    = nil;
@@ -1167,7 +1171,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)changeRotateFromInterfaceOrientationFrame:(BOOL)IsRotateFrom{
     
     if (IsRotateFrom) {
-        
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin = NO;
+
         self.navigationController.navigationBarHidden = NO;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
         [_managerVideo setManagePlayViewScrollState:YES];
@@ -1193,6 +1198,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         if (_splitViewCon.frame.size.height>0) {
             [self gotoShowSpltWindow];
         }
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin = YES;
+
         self.navigationController.navigationBarHidden = YES;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
@@ -1204,6 +1211,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
         //显示横屏的按钮
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
+
         [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
         [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
         
@@ -2017,6 +2025,10 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
+        if ([JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin) {
+            
+            [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
+        }
         _isPlayBackVideo = NO;
         
         [_splitViewBgClick setHidden:NO];
@@ -2390,6 +2402,13 @@ char remoteSendSearchFileBuffer[29] = {0};
     switch (switchCase) {
         case HORIZONTALBAR_TACK://对讲
         {
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
             
             [self chatRequest:btn];
             

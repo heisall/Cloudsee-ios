@@ -32,8 +32,8 @@
         
         [btn.superview.superview addSubview:self];
         
-        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.height - tInputImage.size.width-30, btn.superview.superview.frame.size.height -tInputImage.size.height-49, tInputImage.size.width, 0);
-        
+        self.frame = CGRectMake(btn.origin.x , btn.superview.superview.frame.size.height -tInputImage.size.height-49, tInputImage.size.width, 0);
+        DDLogVerbose(@"=%@====%@",self,btn);
         UIImageView *imageBG = [[UIImageView alloc] initWithImage:tInputImage];
         imageBG.frame = CGRectMake(0,0, tInputImage.size.width, tInputImage.size.height);
         [self addSubview:imageBG];
@@ -66,7 +66,7 @@
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
-        self.frame = CGRectMake([UIScreen mainScreen].bounds.size.height - tInputImage.size.width-30, btn.superview.superview.frame.size.height -tInputImage.size.height-49, tInputImage.size.width, tInputImage.size.height);
+        self.frame = CGRectMake(self.origin.x, btn.superview.superview.frame.size.height -tInputImage.size.height-49, tInputImage.size.width, tInputImage.size.height);
         [UIView commitAnimations];
         
     }

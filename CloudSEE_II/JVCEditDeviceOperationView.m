@@ -60,7 +60,7 @@
     titleLbl.frame = CGRectMake(0.0,iconImageView.frame.size.height + iconImageView.frame.origin.y - subOffy, self.frame.size.width, heigin);
     titleLbl.numberOfLines = 0;
     titleLbl.lineBreakMode = UILineBreakModeWordWrap;
-    titleLbl.font  = [UIFont systemFontOfSize:12];
+    titleLbl.font  = [UIFont systemFontOfSize:11];
     [self addSubview:titleLbl];
     [titleLbl release];
     

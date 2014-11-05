@@ -300,9 +300,9 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     [_mTableView headerEndRefreshing];
 
     getWifiListTimer = nil;
-    UIAlertView *alertViewTimeOut = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"get_WIFI_list_timeOut", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Sure", nil) otherButtonTitles: nil];
-    [alertViewTimeOut show];
-    [alertViewTimeOut release];
+
+    
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"get_WIFI_list_timeOut", nil) delegate:self selectAction:nil cancelAction:nil  selectTitle:NSLocalizedString(@"Sure", nil) cancelTitle:nil];
 }
 
 

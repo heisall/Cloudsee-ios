@@ -48,7 +48,11 @@ static const  int  KNum  = 3;
     [super viewDidLoad];
     
     self.title = LOCALANGER(@"jvc_demo_title");
+    
+   [[[JVCChannelScourseHelper shareChannelScourseHelper] ChannelListArray] removeAllObjects];
 
+    [[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray] removeAllObjects];
+    
     // Do any additional setup after loading the view.
     [self initDemoArrayList];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -148,28 +152,25 @@ static const  int  KNum  = 3;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     JVCDeviceModel *modelCell = [[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray] objectAtIndex:indexPath.row];
-    [cell initCellWithModel:modelCell];
     NSString *imageName= nil;
     switch (indexPath.row%KNum) {
         case 0:
-            imageName = @"dem_def0.png";
+            imageName = @"dem_def0.jpg";
             break;
         case 1:
-            imageName = @"dem_def1.png";
+            imageName = @"dem_def1.jpg";
             break;
         case 2:
-            imageName = @"dem_def2.png";
+            imageName = @"dem_def2.jpg";
             break;
         default:
             break;
             
        
     }
-    NSString *imagePath = [UIImage imageBundlePath:imageName];
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    cell.imageView.image = image;
-    [image release];
-    return cell;
+    
+    [cell initCellWithModel:modelCell imageName:imageName];
+       return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

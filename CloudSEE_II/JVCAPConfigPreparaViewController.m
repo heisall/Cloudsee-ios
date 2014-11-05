@@ -65,10 +65,8 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
  */
 - (void)exitToAPPConfig
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"home_ap_Alert_message_ios7") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"home_ap_Alert_GOON") otherButtonTitles:LOCALANGER(@"home_ap_Alert_NO"), nil];
-    alertView.delegate = self;
-    [alertView show];
-    [alertView release];
+  
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_ap_Alert_message_ios7")  delegate:self selectAction:@selector(exist) cancelAction:nil  selectTitle:LOCALANGER(@"home_ap_Alert_GOON") cancelTitle:LOCALANGER(@"home_ap_Alert_NO")];
 
 }
 
@@ -77,8 +75,14 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     
     if (buttonIndex == 0) {//继续
         
-        exit(0);
+        [self exist];
+        
     }
+}
+
+- (void)exist
+{
+    exit(0);
 }
 
 - (void)didReceiveMemoryWarning
