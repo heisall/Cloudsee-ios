@@ -156,7 +156,7 @@ static JVCAlarmCurrentView *_shareInstance = nil;
 
     UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_type"),titleString]];
     [labelArmType retain];
-    CGSize labelSize = [labelArmType.text sizeWithFont:KLableDeatilFont constrainedToSize:CGSizeMake(labelArmType.width, 200) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize labelSize = [labelArmType.text sizeWithFont:[UIFont systemFontOfSize:KLableDeatilFont] constrainedToSize:CGSizeMake(labelArmType.width, 200) lineBreakMode:UILineBreakModeWordWrap];
 
     labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelSize.height);
     labelArmType.font = [UIFont systemFontOfSize:KLableDeatilFont];
