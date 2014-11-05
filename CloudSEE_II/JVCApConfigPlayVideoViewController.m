@@ -158,8 +158,39 @@ static const int            kRepeatRequestCount      = 6;
 -(void)nextBtnClick{
     
     JVCCloudSEENetworkHelper *ystNetWorkHelpObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     
     if ([ystNetWorkHelpObj checknLocalChannelIsDisplayVideo:kConnectDefaultLocalChannel]) {
+        
+        
+        /**
+         *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
+         */
+        if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_AUDIO]) {
+            
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [ystNetWorkHelpObj  RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
+                
+                
+            });
+            
+            [openAlObj stopSound];
+            [openAlObj cleanUpOpenALMath];
+            
+            [self setApBtnUnSelect:OPERATIONAPBTNCLICKTYPE_AUDIO];
+        }
+        
+        if ([self getMiddleBtnSelectState:OPERATIONAPBTNCLICKTYPE_Talk]) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [ystNetWorkHelpObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+                
+            });
+            
+        }
         
         if (nRepeatRequestCount <=0) {
             
