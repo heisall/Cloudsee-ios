@@ -8,11 +8,6 @@
 
 "ch"="中国";
 
-/*******************************************************/
-
-"APPCHANNELSERVICEADDRESS" = "appchannel.afdvr.com";
-"APPONLINESERVICEADDRESS" =  "apponline.afdvr.com";
-
 //ALert
 "Alert_btn_sure"="确定";
 
@@ -55,6 +50,7 @@
 "apSetting_new_device_sKip"    = "跳过";
 "apSetting_new_device_next"    = "下一步";
 "new_d"                        = "new_c.png";
+"apSetting_playVideo_title"    = "视频检测";
 "setWifiStep"                  = "1.体验视频、音频、对讲以及云台功能\n2.设置设备接入的无线网络环境\n3.配置设备，当听到“配置成功”声后，表示配置成功";
 "Learn audio info at any time" = "随时了解音频信息";
 "Adjust PTZ at any time"       = "随时调整监控画面信息";

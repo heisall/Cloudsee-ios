@@ -107,4 +107,19 @@ typedef struct DecoderVideoFrame{
 -(int)decodeOneVideoFrame:(frame *)videoFrame nSystemVersion:(int)nSystemVersion VideoOutFrame:(DecoderOutVideoFrame *)VideoOutFrame;
 
 
+/**
+ *  解码一帧
+ *
+ *  @param h264Buffer    网络传的H264数据
+ *  @param outBuffer     当前手机系统的版本
+ *  @param nSize         网络传的H264数据大小
+ *  @param nVersion      当前设备的操作系统版本
+ *  @param nFrameType    帧类型
+ *  @param isFrameI      YES是I帧 关键帧
+ *
+ *  @return 解码成功返回 0 否则失败
+ */
+-(int)decoder04Device:(char *)h264Buffer withOutDecoderBuffer:(char *)outBuffer withBufferSize:(int)nSize withSystemVersion:(int)nVersion withFrameType:(int)nFrameType withIsFrameI:(BOOL)isFrameI;
+
+
 @end

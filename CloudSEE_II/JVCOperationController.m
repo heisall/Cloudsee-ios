@@ -214,7 +214,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if (!_isPlayBackVideo) {
+    if (!_isPlayBackVideo && !self.isPlayBackVideo) {
         /**
          *  获取当前设备的通道数组，一个不让显示
          */

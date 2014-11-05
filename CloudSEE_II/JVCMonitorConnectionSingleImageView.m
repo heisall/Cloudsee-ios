@@ -593,7 +593,7 @@ float min_offset;
     
     [self getGlViewmodel];
     
-    if (!self._isConnectType) {
+    if (self._isConnectType) {
         
         [self startChangeTimer];
         

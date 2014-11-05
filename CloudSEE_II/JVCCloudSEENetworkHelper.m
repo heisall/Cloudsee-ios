@@ -114,11 +114,10 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 
 
 char          ppszPCMBuf[640] ={0};
-char          encodeLocalRecordeData[1024]  = {0}; //语音对讲编码后的数据
-char          remotePlaybackBuffer[64*1024] = {0}; //存放远程回放数据原始值
-BOOL          isRequestTimeoutSecondFlag;          //远程请求用于跳出请求的标志位 TRUE  :跳出
-BOOL          isRequestRunFlag;                    //远程请求用于正在请求的标志位 FALSE :执行结束
-
+char          encodeLocalRecordeData[1024]    = {0}; //语音对讲编码后的数据
+char          remotePlaybackBuffer[64*1024]   = {0}; //存放远程回放数据原始值
+BOOL          isRequestTimeoutSecondFlag;            //远程请求用于跳出请求的标志位 TRUE  :跳出
+BOOL          isRequestRunFlag;                      //远程请求用于正在请求的标志位 FALSE :执行结束
 static NSString const *kCheckHomeFlagKey = @"MobileCH";
 static NSString const *kBindAlarmFlagKey = @"$";
 
@@ -655,12 +654,11 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                 
                 if (uType < JVN_DATA_A) {
                     
-                     unsigned int nLen = (i_data>>4) & 0xFFFFF;
+                    unsigned int nLen = (i_data>>4) & 0xFFFFF;
                     
-                     [currentChannelObj pushVideoData:(unsigned char *)pBuffer+8 nVideoDataSize:nLen isVideoDataIFrame:uType ==JVN_DATA_I isVideoDataBFrame:uType == JVN_DATA_B frameType:uType];
+                    [currentChannelObj decoder04Device:pBuffer+8  withBufferSize:nLen withFrameType:uType];
                   
                 }
-            
             }
         }
             break;

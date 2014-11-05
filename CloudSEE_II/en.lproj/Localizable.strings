@@ -6,11 +6,6 @@
   Copyright (c) 2014 Yanghu. All rights reserved.
 */
 "ch"="ch";
-/*******************************************************/
-//域名
-"APPCHANNELSERVICEADDRESS" = "appchannelen.afdvr.com";
-"APPONLINESERVICEADDRESS" =  "apponlineen.afdvr.com";
-
 
 //ALert
 "Alert_btn_sure"="Sure";
@@ -53,7 +48,8 @@
 "apSetting_new_device_setting" = "Configure";
 "apSetting_new_device_sKip"    = "Skip";
 "apSetting_new_device_next"    = "Next";
-"new_d"                        = "new_c.png";
+"new_d"                        = "new_e.png";
+"apSetting_playVideo_title"    = "Video detecting";
 "setWifiStep"                  = "1. Experience  video, audio, two-way talk and PTZ function.\n2.Choose the network.\n3.Configure the device and the configuration is completed successfully when you hear configured.";
 "Learn audio info at any time" = "Learn audio info at any time";
 "Adjust PTZ at any time"       = "Adjust PTZ at any time";

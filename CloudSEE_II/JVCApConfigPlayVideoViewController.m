@@ -25,6 +25,8 @@
     BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
     
     JVCAPConfingMiddleIphone5 *middleView;
+    NSTimer *requestTimer;
+    int      nRepeatRequestCount;
 }
 
 enum DEVICE_AP_LEVEL {
@@ -49,13 +51,17 @@ static const CGFloat   kNextButtonWithBottom         = 20.0f;
 static const CGFloat   kNextButtonWithTop            = 20.0f;
 static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 
+static const NSTimeInterval kRequestTimerValue       = 0.5f;
+static const int            kRepeatRequestCount      = 6;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
         
-        self.title = @"视频检测";
+        self.title = NSLocalizedString(@"apSetting_playVideo_title", nil);
+
         
     }
     
@@ -64,6 +70,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 
 -(void)dealloc{
 
+    DDLogVerbose(@"%s----dealloc",__FUNCTION__);
     [strYstNumber release];
     [super dealloc];
 
@@ -71,8 +78,9 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
 
 - (void)viewDidLoad
 {
+    self.navigationController.navigationBarHidden = NO;
     [super viewDidLoad];
-   
+    
     self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     
     [self initLayoutWithSingVidew];
@@ -106,7 +114,6 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
  *  初始化底部下一步按钮
  */
 -(void)initLayoutWithNextButton{
-    
     
     UIImage *nextBtnImage = [UIImage imageNamed:@"ap_playVideo_next.png"];
     
@@ -152,22 +159,77 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
  */
 -(void)nextBtnClick{
     
-    DDLogVerbose(@"%s---begin config",__FUNCTION__);
+    JVCCloudSEENetworkHelper *ystNetWorkHelpObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
-    JVCCloudSEENetworkHelper *netWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    netWorkHelperObj.ystNWTDDelegate           = self;
-    
-    if ([[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+    if ([ystNetWorkHelpObj checknLocalChannelIsDisplayVideo:kConnectDefaultLocalChannel]) {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-            [netWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
+        if (nRepeatRequestCount <=0) {
             
-            [netWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_NetWorkInfo remoteOperationCommand:-1];
-            
-        });
+            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+            nRepeatRequestCount = kRepeatRequestCount;
+            requestTimer = [NSTimer scheduledTimerWithTimeInterval:kRequestTimerValue
+                                                            target:self
+                                                          selector:@selector(RequestNetWorkInfo:)
+                                                          userInfo:nil
+                                                           repeats:YES];
+            [requestTimer fire];
+        }
     }
 }
+
+-(void)RequestNetWorkInfo:(NSTimer*)timer{
+    
+    if (nRepeatRequestCount > 0) {
+        
+        JVCCloudSEENetworkHelper *netWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkHelperObj.ystNWTDDelegate           = self;
+        
+        if ([[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [netWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
+                
+                [netWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:TextChatType_NetWorkInfo remoteOperationCommand:-1];
+                
+            });
+        }
+        
+        nRepeatRequestCount --;
+        
+    }else{
+        
+        [self stopRepeatRequestTimer];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self oldHomeIPCDisconnect];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"adddevice_net_error", nil)];
+            
+        });
+        
+    }
+
+}
+
+/**
+ *  停止请求网络参数Timer
+ */
+-(void)stopRepeatRequestTimer {
+    
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+    if (requestTimer != nil) {
+        
+        if ([requestTimer isValid]) {
+            
+            [requestTimer invalidate];
+            requestTimer = nil;
+        }
+    }
+    
+    nRepeatRequestCount = 0;
+}
+
 
 /**
  *  初始化长按对讲提示界面
@@ -597,6 +659,8 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
     //如果在WIFI配置界面直接返回
     if (connectResultType != CONNECTRESULTTYPE_Succeed) {
         
+       [self performSelectorOnMainThread:@selector(stopRepeatRequestTimer) withObject:nil waitUntilDone:NO];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
         
             if ([self checkApconfigDeviceIsExist]) {
@@ -747,6 +811,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
             
         case TextChatType_NetWorkInfo:{
         
+            [self performSelectorOnMainThread:@selector(stopRepeatRequestTimer) withObject:nil waitUntilDone:NO];
                NSMutableDictionary *networkInfo = (NSMutableDictionary *)objYstNetWorkHelpSendData;
             
                if (networkInfo) {
@@ -1037,8 +1102,7 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
             
         }
         
-        
-    DDLogError(@"%s----buttonIndex=%d",__FUNCTION__,buttonIndex);
+    
 }
 
 
@@ -1052,7 +1116,6 @@ static NSString const *kHomeIPCOldFlag               = @"DEV_VERSION";
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self configFinshed];
-            [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"jvc_ap_old_info", nil)];
             
         });
         
