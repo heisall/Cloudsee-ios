@@ -462,6 +462,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	label.textColor = self.labelColor;
 	label.font = self.labelFont;
 	label.text = self.labelText;
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
 	[self addSubview:label];
 	
 	detailsLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -474,6 +476,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	detailsLabel.numberOfLines = 0;
 	detailsLabel.font = self.detailsLabelFont;
 	detailsLabel.text = self.detailsLabelText;
+    detailsLabel.numberOfLines = 0;
+    detailsLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	[self addSubview:detailsLabel];
 }
 
@@ -544,7 +548,13 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	totalSize.width = MAX(totalSize.width, indicatorF.size.width);
 	totalSize.height += indicatorF.size.height;
 	
-	CGSize labelSize = MB_TEXTSIZE(label.text, label.font);
+    CGFloat remainingHeight2 = bounds.size.height - totalSize.height - kPadding - 4 * margin;
+    CGSize maxSize2 = CGSizeMake(maxWidth, remainingHeight2);
+//	CGSize labelSize = MB_TEXTSIZE(label.text, label.font);
+    CGSize labelSize = MB_MULTILINE_TEXTSIZE(label.text, label.font, maxSize2, label.lineBreakMode);
+
+    
+//     CGSize labelSize = [label.text sizeWithFont:label.font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
 	labelSize.width = MIN(labelSize.width, maxWidth);
 	totalSize.width = MAX(totalSize.width, labelSize.width);
 	totalSize.height += labelSize.height;

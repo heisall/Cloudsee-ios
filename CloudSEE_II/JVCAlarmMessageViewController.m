@@ -871,11 +871,33 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
         
     }else {
         
+        NSString *localInfoKey = nil;
+        
+        switch (connectResultType) {
+                
+            case  CONNECTRESULTTYPE_ConnectFailed:
+            case  CONNECTRESULTTYPE_AbnormalConnectionDisconnected: //Disconnected Due To CloudSEE Service Has Been Stopped
+            case  CONNECTRESULTTYPE_ServiceStop:                    //"Disconnected Due To CloudSEE Service Has Been Stopped"
+            case  CONNECTRESULTTYPE_DisconnectFailed:               //Connection Failed
+            case  CONNECTRESULTTYPE_YstServiceStop:                  //CloudSEE Service Has Been Stopped
+            case  CONNECTRESULTTYPE_VerifyFailed:                      //身份验证不成功
+            case  CONNECTRESULTTYPE_ConnectMaxNumber:{
+                
+                NSString *localstring=[NSString  stringWithFormat:@"connectResultInfo_%d",connectResultType];
+                
+                localInfoKey = LOCALANGER(localstring);
+            }
+                break;
+                default:
+                localInfoKey = LOCALANGER(@"jvc_alarmlist_getAlarmError");
+                break;
+        }
+        
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
 
         [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
         
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:localInfoKey];
         
     }
     

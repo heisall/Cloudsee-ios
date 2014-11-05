@@ -186,9 +186,6 @@ static JVCCustomCoverView *_shareInstance = nil;
     
     [UIView commitAnimations];
     
-    
-    
-    
 }
 
 /**

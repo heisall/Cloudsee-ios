@@ -18,6 +18,9 @@
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
 
+
+
+
 #define IOS7    7.0
 
 #define IOS8    [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO

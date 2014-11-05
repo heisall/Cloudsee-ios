@@ -23,7 +23,7 @@
 
 //播放界面
 "stream"="  Quality  ";
-"stream_0"="Default";
+"stream_0"="Stream";
 "stream_3"="Fluent";
 "stream_1"="HD";
 "stream_2"="SD";
@@ -56,7 +56,7 @@
 "AudioTalkInfo"                = "You can talk with the other end";
 "wifi-Successful"              = "Wi-Fi has been set finished!";
 "ap_change_net_work"           = "NetWork has been seitched,unable to continue the operation";
-"home_ap_Alert_GOON"           = "Quiting";
+"home_ap_Alert_GOON"           = "Back";
 "home_ap_Alert_NO"             = "Cancel";
 "home_ap_Alert_message_ios7"   = "The OS version of your mobile phone is iOS 5.0 or above, and you need to quit the APP and change the Wi-Fi network to the AP of the IP camera with the format: IPC-X-XXX. Steps: Settings-WLAN-Choose a Network-IPC-X-XXX";
 "JDCSViewController_ap_setting"= "A new device has been configured by you";
@@ -73,7 +73,7 @@
 "home_alarm_8"="Power Off Alarm";
 "home_alarm_9"="Manual Alarm";
 "home_alarm_10"="GPS Alarm";
-"home_alarm_11"="alarm";
+"home_alarm_11"=" alarm";
 "home_alarm_12"="It's safe.Don't worry.";
 "home_alarm_13"="Some abnormal, please take action quickly.";
 "home_alarm_14"="Temp too high.";
@@ -86,7 +86,7 @@
 "home_alarm_21"="Temp and RH too low.";
 
 //登录界面
-"jvc_log_user" = "Email/UserName";
+"jvc_log_user" = "Email/Username";
 "jvc_log_pw" = "Password";
 "jvc_log_log" = "Login";
 "jvc_log_local" ="Visitor Login";
@@ -96,9 +96,9 @@
 
 //不合法用户名用户密码修改
 "jvc_Unmod_titile"="Complete the user info";
-"jvc_Unmod_user"="UserName";
+"jvc_Unmod_user"="Username";
 "jvc_Unmod_pw"="Password";
-"jvc_Unmod_btntit"="Finish";
+"jvc_Unmod_btntit"="Save";
 "jvc_Unmod_resultError"="Failed to edit";
 
 //绑定邮箱界面
@@ -108,12 +108,12 @@
 "binding_email_exist"="This Email address has been registered.";
 "binding_failt"= "Failed to combine with the Email address.";
 "DeviceModifyViewController_binding" = "One Email address is suggested to be combined for account security and for more functions.";
-"binding_finish"= "Finish";
+"binding_finish"= "Save";
 "DeviceModifyViewController_bindingDevice"="Note\n1.Please make sure the power on and network stable\n2.Password mustn't be too simple in order to keep your privacy\n3.Please remember your username and password which shall be a must to view your videos.";
 
 //注册界面
 "jvc_resign_Title" = "Register";
-"jvc_resign_user" = "Email/UserName";
+"jvc_resign_user" = "Email/Username";
 "jvc_resign_pw" = "PassWord";
 "jvc_resign_enpw" ="Confirm password";
 "jvc_resign_Resign_eror" = "Faild to register";
@@ -176,7 +176,7 @@
 //添加设备界面
 "jvc_addDevice_title" = "Add device";
 "jvc_addDevice_YstNUm" = "  CloudSEE";
-"jvc_addDevice_userName" = "  UserName";
+"jvc_addDevice_userName" = "  Username";
 "jvc_addDevice_password" = "  PassWord";
 "jvc_addDevice_save" = "Save";
 "jvc_addDevice_back" = "back";
@@ -196,8 +196,8 @@
 "jvc_addDevicChannel_CountError_Cancel" = "Cancel";
 
 //声波添加设备
-"jvc_voice_add_title" = "Preparating steps";
-"jvc_voice_add_help" = "Please use a needle to insert the Reset at the backside of the device until you hear the beeping.
+"jvc_voice_add_title" = "Preparating";
+"jvc_voice_add_help" = "Please use a needle into the Reset hole at the backside/bttom of the device until you hear the beeping.
 ";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
@@ -212,17 +212,17 @@
 
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
-"jvc_licktype_Ip" = "IP/DN";
+"jvc_licktype_Ip" = "IP/DNNS";
 "jvc_licktype_YST" = "CloudSEE";
 
 //设备列表界面
 "jvc_DeviceList_title" = "My device";
 "jvc_DeviceList_add_yst" = "CloudSEE";
-"jvc_DeviceList_add_eq" = "QR Scanning";
+"jvc_DeviceList_add_eq" = "Scan QR Code";
 "jvc_DeviceList_add_wlan" = "Wireless Device";
 "jvc_DeviceList_add_scan" = "Devices in LAN";
 "jvc_DeviceList_add_volce" = "Sound-wave Configuration";
-"jvc_DeviceList_add_ip" = "IP/DN";
+"jvc_DeviceList_add_ip" = "IP/DNNS";
 "jvc_DeviceList_offline" = "Offline";
 "jvc_DeviceList_online" = "Online";
 "jvc_DeviceList_APadd" = "Add";
@@ -231,9 +231,9 @@
 "jvc_DeviceList_has_device" = "Wireline device";
 
 //ip/域名添加设备
-"jvc_addDevice_ipadd_titile"="IP/DN";
+"jvc_addDevice_ipadd_titile"="IP/DNNS";
 "jvc_addDevice_ipadd_Port"="Port";
-"jvc_addDevice_ipadd_user"="UserName";
+"jvc_addDevice_ipadd_user"="Username";
 "jvc_addDevice_ipadd_pw"="Password";
 "jvc_addDevice_ipadd_yst"="CloudSEE";
 
@@ -271,15 +271,15 @@
 "ap_configer"= "Done";
 "wifi-name-selected"="Please select Wi-Fi ...";
 "jvc_ap_old_info"="You are unable to use the latest functions due to version is not the latest.Suggest you update the camera software over to version V1.1.0.31.";
-"home_operation_talk"="该功能在语音对讲时暂停使用.";
+"home_operation_talk"="This function is not available during two-way talk.";
 "get_WIFI_list_timeOut"="Timeout during getting Wi-Fi list of host-end";
 
 //扫描加设备界面
-"jvc_adddevcie_sacn_back" = "Quiting";
+"jvc_adddevcie_sacn_back" = "Back";
 //通道选择界面
 "jvc_channelSelect_title"="Channel List";
-"jvc_channelSelect_Num" = "";
-"jvc_channelSelect_channel"="channel";
+"jvc_channelSelect_Num" = "CH";
+"jvc_channelSelect_channel"="";
 "jvc_channelSelect_linkAll"="Connect All";
 //设备编辑界面
 "delete_success"= "Delete successfully";
@@ -331,13 +331,13 @@
 "jvc_alarmmanage_edit_error" = "Faild to edit";
 
 //------播放视频界面
-"Video Display"="Video Display";
+"Video Display"="Video";
 "Capture"="Capture ";
-"megaphone"="AudioTalk";
-"video"="  Video  ";
+"megaphone"="Talk";
+"video"="  Record  ";
 "MoreOper"=" More";
 "Audio"="Audio";
-"PTZ Control"="PTZ Control";
+"PTZ Control"="PTZ";
 "Playback"="Playback";
 "ResetDeviceInfotitile"= "Resert Device";
 "jvcoper_autoRecord"="Alarm recording";
@@ -362,7 +362,6 @@
 "operation"="This function is suspended during remote playback.";
 "This video source doesn't support image resolution switch."="This video source doesn't support image resolution switch.";
 "TalkInfo"="Applying to talk with host-end,pls wait...";
-"Asking for video data now, please wait..."="Asking for video data now, please wait...";
 "Connecting with server now..."="Connecting with server now...";
 "Connected with server "="Connected with server ";
 " successfully..."=" Successfully...";
@@ -377,7 +376,7 @@
 "Disconnected Due To Abnormal Network"="Disconnected Due To Abnormal Network.";
 "Disconnected Due To CloudSEE Service Has Been Stopped"="Disconnected Due To CloudSEE Service Has Been Stopped.";
 "CloudSEE Service Has Been Stopped"="Device service has been stopped.";
-"Play back"="Play back";
+"Play back"="Playback";
 "Serach"="Search";
 "Playback_Finish"= "Remote playback finish";
 "Playback_error" = "Remote playback error";
@@ -387,7 +386,7 @@
 "connectResultInfo_7"  = "Disconnected due to Device service has been stopped.";
 "connectResultInfo_8"  = "Faild to disconnected";
 "connectResultInfo_9"  = "Disconnected Due To CloudSEE Service Has Been Stopped.";
-"connectResultInfo_10" = "CloudSEE Service Has Been Stopped.";
+"connectResultInfo_10" = "Connection Failed ID";
 "connectResultInfo_11" = "Connections have exceeded limitations!";
 
 //***语音对讲**
@@ -399,7 +398,7 @@
 
 //更多界面
 "jvc_more_alarm"= "Alarm";
-"jvc_more_editPw"="Modify Password";
+"jvc_more_editPw"="Change Password";
 "jvc_more_checkVersion"="Check for update";
 "jvc_more_help"="Help";
 "jvc_more_suggest"="Feedback";
@@ -435,11 +434,11 @@
 "Modify_LinkType_fail"    = "Faild to Edit";
 
 //设备管理界面
-"jvc_editDevice_title" = "Management";
-"jvc_editDevice_Editbtn_device" = "Management";
+"jvc_editDevice_title" = "Setting";
+"jvc_editDevice_Editbtn_device" = "Device";
 "jvc_editDevice_Editbtn_licktype" = "Connection Mode";
-"jvc_editDevice_Editbtn_channels" = "Channel Management";
-"jvc_editDevice_Editbtn_SeeImedity" = "View Instantly";
+"jvc_editDevice_Editbtn_channels" = "Channel";
+"jvc_editDevice_Editbtn_SeeImedity" = "Video";
 "jvc_editDevice_Editbtn_safe" = "Security Protection";
 "jvc_editDevice_Editbtn_alarmseting" = "Alarm Device";
 "jvc_editDevice_Editbtn_safe_open" = "Enable Security Protection Successfully";
@@ -447,8 +446,8 @@
 "jvc_editDevice_noSupport" = "No support for this device";
 "jvc_editDevice_lickError"= "Connection timeout.";
 "Jvc_editDeviceInfo_Title" = "Edit device";
-"Jvc_editDeviceInfo_nickName" = " NickName";
-"Jvc_editDeviceInfo_userName" = " UserName";
+"Jvc_editDeviceInfo_nickName" = " Nickname";
+"Jvc_editDeviceInfo_userName" = " Username";
 "Jvc_editDeviceInfo_PW" = " PassWord";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
@@ -477,7 +476,7 @@
 "JVCAlarmCurrentView_title"= "Alarm info";
 "JVCAlarmCurrentView_device"= "Device：";
 "JVCAlarmCurrentView_motion"= "Motion detection alarm";
-"JVCAlarmCurrentView_door"= "Door magnetic or hand ring alarm ";
+"JVCAlarmCurrentView_door"= "Door magnetic or hand ring alarm";
 "JVCAlarmCurrentView_another"= "Unknown alarm type";
 "JVCAlarmCurrentView_type"= "Type：";
 "JVCAlarmCurrentView_see"= "Check";
@@ -500,10 +499,10 @@
 //JVCEditLockDeviceNickNameViewController
 "JVCEditLockDeviceNickNameViewController_title"= "Edit NickName";
 "JVCEditLockDeviceNickNameViewController_Nickname"= "NickName";
-"JVCEditLockDeviceNickNameViewController_Save"= "Finish";
+"JVCEditLockDeviceNickNameViewController_Save"= "Save";
 
 //JVCLabelFieldSView
-"JVCLabelFieldSView_save" = "Finish";
+"JVCLabelFieldSView_save" = "Save";
 
 //JVCLocalEditChannelInfoTableViewController
 "JVCLocalEditChannelInfoTableViewController_saveSuccess" = "Add Successfully";

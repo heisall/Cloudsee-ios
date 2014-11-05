@@ -288,6 +288,10 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 
     JVCDeviceSourceHelper *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
     
+    if (self.nIndex >=[deviceSourceObj deviceListArray].count) {
+        
+        self.nIndex -- ;
+    }
     return (JVCDeviceModel *)[[deviceSourceObj deviceListArray] objectAtIndex:self.nIndex];
 }
 

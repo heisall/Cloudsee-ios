@@ -424,7 +424,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         _x=190-_splitShow.size.width/2.0;
     }else
     {
-        _x= 215-_splitShow.size.width/2.0;
+        _x= 190-_splitShow.size.width/2.0;
     }
     
     _splitViewBtn.frame=CGRectMake(_x, (self.navigationController.navigationBar.frame.size.height-_splitShow.size.height-5.0)/2.0+3.0, _splitShow.size.width-5.0, _splitShow.size.height-2.0);
@@ -1177,6 +1177,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
         [_managerVideo setManagePlayViewScrollState:YES];
 
+        [_managerVideo showEffectView];
+
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
         UIView *_smallView=(UIView*)[self.view viewWithTag:101];
@@ -1184,7 +1186,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = YES;
 
-        [_managerVideo showEffectView];
         
     }else{
         
@@ -1290,6 +1291,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         if (_splitWindows>1) {
             
             [self closeAudioAndTalkAndVideoFuction];
+            
+            [_managerVideo hiddenEffectView];
         }
         
         _managerVideo._iBigNumbers = 1;

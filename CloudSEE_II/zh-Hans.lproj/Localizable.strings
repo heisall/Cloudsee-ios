@@ -24,7 +24,7 @@
 "JVCArm_New"="arm_new_ch.png";
 
 //播放界面，底端
-"stream_0"="默认";
+"stream_0"="码流";
 "stream_3"="流畅";
 "stream_1"="高清";
 "stream_2"="标清";
@@ -362,7 +362,7 @@
 "Connection Failed ID"="身份验证失败.";
 "Connection Failed ID_and_modify_user_and password"= "身份验证不成功，是否修改用户名密码";
 "operation"="该功能在远程回放时暂停使用.";
-"This video source doesn't support image resolution switch."="该视频源不支持画质切换";
+"This video source doesn't support image resolution switch."="该视频源不支持码流切换";
 "TalkInfo"="正在与主控请求对讲，请等待...";
 "Asking for video data now, please wait..."="正在加载数据，请等待...";
 "Connecting with server now..."="正在连接服务器...";
@@ -435,7 +435,7 @@
 "Modify_LinkType_fail"    = "修改失败";
 
 //设备管理界面
-"jvc_editDevice_title" = "设备管理";
+"jvc_editDevice_title" = "配置";
 "jvc_editDevice_Editbtn_device" = "设备管理";
 "jvc_editDevice_Editbtn_licktype" = "连接模式";
 "jvc_editDevice_Editbtn_channels" = "通道管理";

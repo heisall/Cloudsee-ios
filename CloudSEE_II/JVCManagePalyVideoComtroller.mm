@@ -588,6 +588,19 @@ BOOL isAllLinkRun;
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
+    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+        
+        if (self.imageViewNums >1) {//只有单屏的时候才显示
+            
+            [self hiddenEffectView];
+        }else{
+            
+            [self showEffectView];
+            
+        }
+
+    }
+
 }
 
 #pragma mark 全连接处理

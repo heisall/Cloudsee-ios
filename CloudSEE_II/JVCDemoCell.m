@@ -85,7 +85,7 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     labelTimer.text = @"";
     [labelTimer release];
     
-    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KLabelHeight, image.size.width,image.size.height)];
+    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KLabelHeight, image.size.width/2.0,image.size.height/2.0)];
     
     self.imageView = imageViewBg;
     imageViewBg.image = image;

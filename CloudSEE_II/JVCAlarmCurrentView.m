@@ -153,11 +153,15 @@ static JVCAlarmCurrentView *_shareInstance = nil;
             break;
     }
     //类型
+
     UILabel *labelArmType = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_type"),titleString]];
     [labelArmType retain];
-    labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelTitle.height);
-    labelArmType.font = [UIFont systemFontOfSize:KLableDeatilFont];
+    CGSize labelSize = [labelArmType.text sizeWithFont:KLableDeatilFont constrainedToSize:CGSizeMake(labelArmType.width, 200) lineBreakMode:UILineBreakModeWordWrap];
 
+    labelArmType.frame = CGRectMake(nSpan, labelDevice.bottom+KOriginY, imageView.width-nSpan, labelSize.height);
+    labelArmType.font = [UIFont systemFontOfSize:KLableDeatilFont];
+    labelArmType.numberOfLines = 0;
+    labelArmType.lineBreakMode = NSLineBreakByCharWrapping;
     if (btnColorGray) {
         labelArmType.textColor = btnColorGray;
     }
