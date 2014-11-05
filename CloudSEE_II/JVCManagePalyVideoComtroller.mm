@@ -897,10 +897,25 @@ BOOL isAllLinkRun;
     
         [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
         
+        
         DDLogVerbose(@"%s----effectType=%d",__FUNCTION__,effectType&0x04);
         
-        [self refreshEffectType:nLocalChannel effectType:effectType&0x04];
-
+        
+    }
+    
+    [self refreshEffectType:nLocalChannel effectType:effectType&0x04];
+    
+    if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+        
+        if (self.imageViewNums >1) {//只有单屏的时候才显示
+            
+            [self hiddenEffectView];
+        }else{
+            
+            [self showEffectView];
+            
+        }
+        
     }
     
     DDLogCVerbose(@"%s----nStreamType=%d==iEffectType=%d",__FUNCTION__,nStreamType,effectType);

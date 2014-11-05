@@ -34,6 +34,9 @@ static const int KOriginX = 40;
 
 static const int KOriginAddHeight = 30;
 
+static const int KbtnLabel = 14;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -69,6 +72,7 @@ static const int KOriginAddHeight = 30;
     int seperateSize = (self.view.width - 2*btn.width)/3.0;
     btn.frame = CGRectMake(seperateSize, KOriginX, btn.width, btn.height);
     btn.tag = KBtnTagDoor;
+    btn.titleLabel.font = [UIFont systemFontOfSize:KbtnLabel];
     [btn addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
@@ -76,6 +80,8 @@ static const int KOriginAddHeight = 30;
     btnBra.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     btnBra.frame = CGRectMake(btn.right+seperateSize, btn.top, btn.width, btn.height);
     btnBra.tag = KBtnTagBra;
+    btnBra.titleLabel.font = [UIFont systemFontOfSize:KbtnLabel];
+
     [btnBra addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnBra];
     
@@ -83,6 +89,7 @@ static const int KOriginAddHeight = 30;
     btnhand.titleEdgeInsets = UIEdgeInsetsMake(kEdgeOff, 0, 0, 0);
     btnhand.frame = CGRectMake(btn.left , btn.bottom+KOriginAddHeight, btn.width, btn.height);
     btnhand.tag = KBtnTagHand;
+    btnhand.titleLabel.font = [UIFont systemFontOfSize:KbtnLabel];
     [btnhand addTarget:self action:@selector(addLockDevice:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnhand];
 
@@ -97,12 +104,12 @@ static const int KOriginAddHeight = 30;
     switch (btn.tag) {
         case KBtnTagDoor:
             imageName = @"add_lock_door.png" ;
-            voiceString = @"learn_1";
+            voiceString =  LOCALANGER(@"learn_1");
             break;
         case KBtnTagBra:
         {
             imageName = @"add_lock_Bra.png" ;
-            voiceString = @"learn_2";
+            voiceString =  LOCALANGER(@"learn_2");
 
             addDeviceType=2;
         }
@@ -110,7 +117,7 @@ static const int KOriginAddHeight = 30;
             case KBtnTagHand:
         {
             imageName = @"add_lock_Hand.png" ;
-            voiceString = @"learn_3";
+            voiceString = LOCALANGER(@"learn_3");
 
             addDeviceType=3;
         }

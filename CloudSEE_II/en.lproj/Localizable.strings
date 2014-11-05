@@ -199,7 +199,7 @@
 //声波添加设备
 
 "jvc_voice_add_title" = "Preparating";
-"jvc_voice_add_help" = "Please input password of the netword";
+"jvc_voice_add_help" = "Please use a needle into the Reset hole at the backside/bttom of the device until you hear the beeping";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";
 "jvc_voice_add_prepareconfig_help" = "Please enter password of the network";
@@ -400,7 +400,7 @@
 //更多界面
 "jvc_more_alarm"= "Alarm";
 "jvc_more_editPw"="Change Password";
-"jvc_more_checkVersion"="Check for update";
+"jvc_more_checkVersion"="Software Update";
 "jvc_more_help"="Help";
 "jvc_more_suggest"="Feedback";
 "jvc_more_appStore"="Go to App Store to comment.";
@@ -417,7 +417,7 @@
 "Found new version"="Found new version ";
 "update now"="\n update now?";
 "emailHelp" = "This mobile phone does't support Email function or Email function hasn't been set on this mobile phone, please write Email to: feedbackandsuggestion@gmail.com for further support.";
-"version" = "version";
+"version" = "Version";
 "suggestAndFeedBack" = "Feedback";
 "more_help_title"="Help";
 "jvc_more_LogOut" = "Log Out";
@@ -466,13 +466,16 @@
 
 //门磁或手环报警
 "jvc_alarmDevice_title" = "Add device";
-"jvc_alarmDevice_door" = "Door magnetic devices";
-"jvc_alarmDevice_hand" = "Hand ring devices";
-"jvc_alarmDevice_control" = "Remote control devices";
+"jvc_alarmDevice_door" = "Door magnetic";
+"jvc_alarmDevice_hand" = "Hand ring";
+"jvc_alarmDevice_control" = "Remote control";
 "jvc_alarmDevice_addError" = "Faild to add door magnetic devices";
 "jvc_alarmDevice_addMaxNum" = "More than maximum connection number";
 "jvc_alarmDevice_addhasexist" = "The device has been bound, cannot repeat binding";
-
+"jvCAlarmAddTableViewCellDevice" = "Device name";
+"learn_3" = "learn_1_en";
+"learn_2" = "learn_2_en";
+"learn_1" = "learn_3_en";
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "Alarm info";
 "JVCAlarmCurrentView_device"= "Device：";

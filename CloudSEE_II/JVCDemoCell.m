@@ -17,6 +17,7 @@ static const  int KLabelHeight                = 40;//label的高度
 static const  int KLabelLineHeight            = 1;//labelLIne的高度
 static const  int KLabelTitleFont             = 16;//label字体
 static const  int KLabelTimerHeight           = 14;//labeltimer的字体
+static const  int KLabelTimerWith             = 300;
 @synthesize imageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -85,7 +86,11 @@ static const  int KLabelTimerHeight           = 14;//labeltimer的字体
     labelTimer.text = @"";
     [labelTimer release];
     
-    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - image.size.width)/2, KLabelHeight, image.size.width/2.0,image.size.height/2.0)];
+    
+    NSString *iamgecellpath = [UIImage imageBundlePath:@"dem_def.png"];
+    UIImage *iamgecellBg = [[UIImage alloc] initWithContentsOfFile:iamgecellpath];
+    
+    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - iamgecellBg.size.width)/2, KLabelHeight, iamgecellBg.size.width,iamgecellBg.size.height)];
     
     self.imageView = imageViewBg;
     imageViewBg.image = image;
