@@ -452,6 +452,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         return;
     };
     
+    [self resiginTextFields];
+    
     textFieldUser.text = [textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_ACCOUNT;
@@ -470,8 +472,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
             int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:textFieldUser.text ];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                DDLogInfo(@"=%s=%d",__FUNCTION__,result);
                 
                 if (result == USERTYPE_OLD) {
                     
@@ -500,10 +500,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
     }
-    
-    
-    [self resiginTextFields];
-
 }
 
 #pragma mark 老账号登录
@@ -841,7 +837,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc
@@ -878,6 +873,16 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         }
     }
 
+}
+
+
+/**
+ *  关闭键盘事件
+ */
+-(void)deallocWithViewDidDisappear{
+    
+     [self resiginTextFields];
+    
 }
 
 /**

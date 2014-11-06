@@ -27,15 +27,12 @@ typedef enum {
     UIImageView *imageViewSlide ;//滚动的横线
     
     UIButton *btnIP;
-    
     UIButton *btnYst;
-
-
     
     UITextField *textFieldYst;
     UITextField *textFieldYstName;
     UITextField *textFieldYstPassWord;
-    
+
     UITextField *textFieldIP;
     UITextField *textFieldPort;
     UITextField *textFieldIPName;
@@ -48,12 +45,13 @@ typedef enum {
 @synthesize YStLinkView;
 @synthesize IPLinkView;
 @synthesize deviceModel;
-static const int KHeadViewHeigin    = 44;//head头的高度
-static const NSTimeInterval   KLinkTypeAnimationTimer  = 0.5;//动画时间
-static const int KLabelFont      = 16;//距离左边框的位置
-static const int KLinkTypeSUCCESS      = 0;//成功
-static const NSTimeInterval KANIMATIONTIME = 0.5;//动画时间
-static const int KSLIDEHEIGINT  = -100;//动画的时间
+
+static const int              KHeadViewHeigin          = 44;   //head头的高度
+static const NSTimeInterval   KLinkTypeAnimationTimer  = 0.5;  //动画时间
+static const int              KLabelFont               = 16;   //距离左边框的位置
+static const int              KLinkTypeSUCCESS         = 0;    //成功
+static const NSTimeInterval   KANIMATIONTIME           = 0.5;  //动画时间
+static const int              KSLIDEHEIGINT            = -100; //动画的时间
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,25 +65,25 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     //头模块
     [self initHeadView];
     //滑动模块
     [self initSlideView];
-    
     [self initIPView];
-    
     [self initYSTView];
     
     if (deviceModel.linkType == CONNECTTYPE_IP) {//ip连接
+        
         [self.view bringSubviewToFront:IPLinkView];
         YStLinkView.hidden = YES;
         IPLinkView.hidden = NO;
+        
     }else{
+        
         [self.view bringSubviewToFront:YStLinkView];
         IPLinkView.hidden = YES;
         YStLinkView.hidden = NO;
-
     }
     
     self.title = LOCALANGER(@"jvc_licktype_title");
@@ -162,9 +160,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     }else{
         
         [self animationSlideView:btnYst];
-
     }
-
 }
 
 /**
@@ -189,11 +185,16 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     textFieldIP.delegate = self;
     //ip端口
     textFieldPort = [IPLinkView textFieldWithIndex:1];
+    
     if (deviceModel.port.length>0) {
+        
         textFieldPort.text = deviceModel.port;
+        
     }else{
+        
         textFieldPort.text = @"9101";
     }
+    
     textFieldPort.keyboardType = UIKeyboardTypeNumberPad;
     textFieldPort.delegate = self;
     //ip用户名
@@ -271,7 +272,9 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     animation.duration = 0.5;
     animation.type = @"rippleEffect";
     
+    
     if (IPLinkView.hidden) {//ip连接
+        
         [self.view bringSubviewToFront:IPLinkView];
         YStLinkView.hidden = YES;
         IPLinkView.hidden = NO;
@@ -280,6 +283,7 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         YStLinkView.hidden = NO;
         IPLinkView.hidden = YES;
     }
+    
     [self.view.layer addAnimation:animation forKey:nil];
 
 }
@@ -290,7 +294,6 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     btnYst.transform = CGAffineTransformIdentity;
     btnIP.selected  = NO;
     btnIP.transform = CGAffineTransformIdentity;
-
 }
 
 
@@ -305,13 +308,10 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
         int result = [[JVCPredicateHelper shareInstance] predicateModifyLinkModelYSTWithName:textFieldYstName.text andPassWord:textFieldYstPassWord.text];
         
         if (KLinkTypeSUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
-            
-            
+        
             [self modiyDeviceLinkModelToServer:CONNECTTYPE_YST];
             
-            
         }else{//正则校验失败，提示相应的错误
-            
             
             [[JVCResultTipsHelper shareResultTipsHelper] showModifyDevieLinkModelError:result];
         }
@@ -319,8 +319,8 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     }else//修改改的是ip
     {
         
-        NSLog(@"textFieldIPPassWord.text= %@",textFieldIPPassWord.text);
         int result = [[JVCPredicateHelper shareInstance] PredicateLinkTypeUserName:textFieldIPName.text PassWord:textFieldIPPassWord.text Ip:textFieldIP.text port:textFieldPort.text];
+        
         if (KLinkTypeSUCCESS == result) {//正则校验用户名密码合法，调用判断用户名强度的方法
             
             
@@ -457,13 +457,20 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+/**
+ *  关闭键盘事件
+ */
+-(void)deallocWithViewDidDisappear{
+
+    [self resiginLinkTypeTextFields];
+
+}
+
 - (void)dealloc
 {
     [YStLinkView release];
     [IPLinkView release];
-    
     [deviceModel release];
-    
     [imageViewSlide release];
 
     [super dealloc];
@@ -471,7 +478,6 @@ static const int KSLIDEHEIGINT  = -100;//动画的时间
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
