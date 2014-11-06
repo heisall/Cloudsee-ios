@@ -45,6 +45,23 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     return self;
 }
 
+- (void)dealloc
+{
+    DDLogVerbose(@"=====%s",__FUNCTION__);
+    [userTextField  release];
+    [userLabel      release];
+    [passWordField  release];
+    [passWordLabel  release];
+    [super dealloc];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignTextFields];
+    
+    [super viewDidDisappear:animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -329,6 +346,11 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     
 }
 
+- (void)deallocWithViewDidDisappear
+{
+    [super deallocWithViewDidDisappear];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -358,6 +380,11 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     }
 }
 
+- (void)resignTextFields
+{
+    [userTextField  resignFirstResponder];
+    [passWordField  resignFirstResponder];
+}
 
 /*
 #pragma mark - Navigation

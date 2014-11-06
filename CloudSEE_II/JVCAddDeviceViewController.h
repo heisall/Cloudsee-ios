@@ -1,7 +1,7 @@
 //
 //  JVCAddDeviceViewController.h
 //  CloudSEE_II
-//
+//  云视通添加设备
 //  Created by Yanghu on 9/26/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //

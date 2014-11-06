@@ -38,6 +38,13 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
     return self;
 }
 
+- (void)deallocWithViewDidDisappear
+{
+    [self resiginIpAddDeviceTextFields];
+
+    [super deallocWithViewDidDisappear];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,6 +63,7 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
     //ip
     textFieldIP = [IPLinkView textFieldWithIndex:0];
     textFieldIP.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    [textFieldIP becomeFirstResponder];
     textFieldIP.delegate = self;
     //ip端口
     textFieldPort = [IPLinkView textFieldWithIndex:1];
@@ -186,6 +194,8 @@ static const NSTimeInterval KIPAddDeviceAnimationTimer = 0.5;//动画时间
 
 - (void)dealloc
 {
+    DDLogVerbose(@"%@======%s",[self class],__FUNCTION__);
+    
     [deviceModel release];
     [super dealloc];
 }

@@ -89,4 +89,11 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
 }
 
 
+- (void)dealloc
+{
+    DDLogVerbose(@"%@========%s=",[self class],__FUNCTION__);
+    
+    [super dealloc];
+}
+
 @end

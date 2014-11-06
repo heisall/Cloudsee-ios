@@ -65,6 +65,13 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     return self;
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignADDDeviceTextFields];
+
+    [super viewDidDisappear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -466,6 +473,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 
 - (void)dealloc
 {
+    DDLogVerbose(@"%@========%s=",[self class],__FUNCTION__);
+    
     [contentView release];
     
     [super dealloc];

@@ -44,7 +44,7 @@ static const CGFloat         kTableViewIconImageViewCornerRadius     = 6.0f;
 static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ;  //动画延迟时间
 static const int             kPopViewOffx                            = 290 ;  //popview弹出的x坐标
 static const int             kTableViewSingleDeviceViewBeginTag      = 1000;  //设备视图的默认起始标志
-static const int             kAlertTag                               = 10008; //设备视图的默认起始标志
+static const int             kPOPViewTag                             = 1000248;
 static const NSTimeInterval  kLanSearchTime                          = 5*60;  //局域网广播轮询的时间
 static const int             kScanfDeviceMaxCount                    = 5; //设备视图的默认起始标志
 static const NSTimeInterval  kAfterDelayTimer                        = 2;  //2秒之后的停止下拉刷新
@@ -86,6 +86,13 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             
             [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabarTitleColor, UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
         }
+        
+        if (IOS8) {
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tab_device_unselect.png"] selectedImage:[UIImage imageNamed:@"tab_device_select.png"]];
+            self.tabBarItem.selectedImage = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            self.tabBarItem.image = [self.tabBarItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        }
+
     }
     
     return self;
@@ -317,6 +324,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)popAddDeviceItems
 {
+    DDLogVerbose(@"======");
     CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
     NSArray *titles = nil;
     NSArray *images = nil;
@@ -334,10 +342,16 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce")];
         images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
     }
-    JVCAddDevicePopView *pop = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
-    pop.popDelegate = self;
-    [pop show];
-    [pop release];
+    
+    JVCAddDevicePopView *pop = (JVCAddDevicePopView *)[self.view viewWithTag:kPOPViewTag];
+    if (!pop) {
+        
+        pop    = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
+        pop.popDelegate             = self;
+        pop.tag                     = kPOPViewTag;
+        [pop show];
+        [pop release];
+    }
 }
 
 /**

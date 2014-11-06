@@ -80,6 +80,12 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
             
             [self.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tabarTitleColor, UITextAttributeTextColor, nil] forState:UIControlStateSelected];//高亮状态。
         }
+        
+        if (IOS8) {
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tab_message_unselect.png"] selectedImage:[UIImage imageNamed:@"tab_message_select.png"]];
+            self.tabBarItem.selectedImage = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            self.tabBarItem.image = [self.tabBarItem.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        }
     }
     return self;
 }

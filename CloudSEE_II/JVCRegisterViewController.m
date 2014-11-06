@@ -93,6 +93,7 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
 
 - (void)dealloc
 {
+    DDLogVerbose(@"%@====%s",[self class],__FUNCTION__);
     [textFieldUser release];
     textFieldUser = nil;
     
@@ -112,6 +113,13 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
     labEnPassWord = nil;
     
     [super dealloc];
+}
+
+-(void)deallocWithViewDidDisappear
+{
+    [self resignTextFields];
+
+    [super deallocWithViewDidDisappear];
 }
 
 - (void)viewDidLoad

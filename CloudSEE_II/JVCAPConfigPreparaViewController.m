@@ -91,6 +91,12 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    DDLogVerbose(@"%@=======%s",[self class],__FUNCTION__);
+    [super dealloc];
+}
+
 /*
 #pragma mark - Navigation
 
