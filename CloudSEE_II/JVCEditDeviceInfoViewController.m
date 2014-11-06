@@ -1,7 +1,7 @@
 //
 //  JVCEditDeviceInfoViewController.m
 //  CloudSEE_II
-//
+//  设备编辑界面 网络用户名、密码管理
 //  Created by Yanghu on 10/9/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
@@ -24,6 +24,7 @@ static const int    DEFAULTCHANNELCOUNT         = 4;//莫仍的通道数
 static const int    DEFAULRESIGNTFONTSIZE       = 15;//默认的字体大小
 static const int    DEFAULTLABELWITH            = 80;//textfield的lefitwiew对应的label的宽度
 static const int    kADDDEVICESLIDEHEIGIT       = 100;//向上滑动的高度
+
 static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;//动画时间
 
 static const int    DEVICE_SUCCESSS         = 0;    //删除设备成功
@@ -168,7 +169,6 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     devicePassWord.text = deviceModel.passWord;
     [labelPassRight release];
     
-    
     UIImage *imgBtnNor = [UIImage imageNamed:@"addDev_btnHor.png"];
     UIImage *imgBtnHor = [UIImage imageNamed:@"addDev_btnNor.png"];
     int seperate = (self.view.width -2*imgBtnNor.size.width)/3.0;
@@ -190,10 +190,6 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     [btnSave setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Save") forState:UIControlStateNormal];
     [btnSave addTarget:self action:@selector(saveDeviceInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnSave];
-
-    
-    
-    
 }
 
 #pragma mark textfield的委托方法
@@ -201,6 +197,7 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
 {
     [self setTextFieldStateNormal];
     [self setTextFieldStateSelect:textField];
+    
     if (textField == devicePassWord) {
         [self editDeviceSlideUp];
     }
@@ -287,7 +284,6 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     }else{//失败
         
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"delete_Failt", nil)];
-        
     }
 }
 /**
@@ -392,6 +388,11 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
 {
     [deviceModel release];
     [super dealloc];
+}
+
+-(void)deallocWithViewDidDisappear{
+
+    [self resignEditDeviceTextFields];
 }
 
 - (void)didReceiveMemoryWarning

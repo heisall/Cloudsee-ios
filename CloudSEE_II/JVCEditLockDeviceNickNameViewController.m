@@ -18,10 +18,13 @@
 @end
 
 @implementation JVCEditLockDeviceNickNameViewController
+
 @synthesize alertmodel;
-static const  int  KTextFieldOriginY  = 30;//textfield距离左侧的距离
-static const  int  KSpan              = 30;//间距
-static const  int  KAlarmState        = 1;//绑定alarm的状态
+
+static const  int  KTextFieldOriginY  = 30; //textfield距离左侧的距离
+static const  int  KSpan              = 30; //间距
+static const  int  KAlarmState        = 1;  //绑定alarm的状态
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

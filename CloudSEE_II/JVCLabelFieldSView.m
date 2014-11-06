@@ -12,10 +12,10 @@
 
 @interface JVCLabelFieldSView ()
 {
-    NSArray *arrayLabelTitiles;  //存放label名称的数组
-    NSArray *arrayTextFields;    //存放textfiel的数组
-    UIButton *btnClick;                 // 按钮
-    NSMutableArray *textFieldAllocArray;     //存放textfield的数组
+    NSArray *arrayLabelTitiles;           //存放label名称的数组
+    NSArray *arrayTextFields;             //存放textfiel的数组
+    UIButton *btnClick;                   // 按钮
+    NSMutableArray *textFieldAllocArray;  //存放textfield的数组
 }
 
 @end
