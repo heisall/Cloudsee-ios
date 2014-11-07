@@ -1408,14 +1408,13 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)changeStreamViewCallBack:(int)index
 {
     [self removeStreamView];
-    
+
     if (nCurrentStreamType != index) {
         
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index];
+        JVCCloudSEENetworkHelper *netWorkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        netWorkObj.ystNWRODelegate            = _managerVideo;
+        [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index];
     }
-  
-    //[[JVCCustomOperationBottomView shareInstance] setVideoStreamState:index];
-
 }
 
 #pragma mark 保存图片
@@ -2557,9 +2556,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 //选中那个按钮
 - (void)horizontalStreamViewCallBack:(UIButton *)btn
 {
-    
     [self changeStreamViewCallBack:btn.tag];
-    
     
 }
 
