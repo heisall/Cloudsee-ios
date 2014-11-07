@@ -105,9 +105,9 @@ static const    int     kTextFieldSeperate       = 30;//间隔
    
     channelNickNameField = [[UITextField alloc] initWithFrame:CGRectMake(kOffSet_x, kTextFieldOff_y, self.view.width-2*kOffSet_x, kTextFieldHeight)];
     channelNickNameField.delegate = self;
-    if (colortextfield) {
-        channelNickNameField.textColor = colortextfield;
-    }
+//    if (colortextfield) {
+//        channelNickNameField.textColor = colortextfield;
+//    }
     channelNickNameField.layer.borderWidth = kTextFieldborderWidth;
     
    
@@ -170,6 +170,13 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     // Dispose of any resources that can be recreated.
 }
 
+- (void)deallocWithViewDidDisappear
+{
+    [channelNickNameField resignFirstResponder];
+
+    [super deallocWithViewDidDisappear];
+}
+
 - (void)dealloc
 {
     [channelModel release];
@@ -203,7 +210,7 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     for (UIView *contentView in cell.contentView.subviews) {
         [contentView removeFromSuperview];
     }
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //摄像头
     NSString *pathImage = [UIImage imageBundlePath:@"edi_camer.png" ];
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:pathImage];

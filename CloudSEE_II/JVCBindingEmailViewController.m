@@ -57,6 +57,12 @@ static const int  KSUCCESS          = 0;//成功
     [self initRightBtn];
 }
 
+- (void)dealloc
+{
+    [_textFieldEmail    release];
+    [super              dealloc];
+}
+
 - (void) viewDidLayoutSubviews {
     if (IOS_VERSION>=IOS7) {
         CGRect viewBounds = self.view.bounds;
@@ -65,6 +71,13 @@ static const int  KSUCCESS          = 0;//成功
         self.view.bounds = viewBounds;
     }
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self resignTextField];
+    
+    [super viewDidDisappear:animated];
 }
 
 

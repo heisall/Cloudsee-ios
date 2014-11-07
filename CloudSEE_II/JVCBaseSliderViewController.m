@@ -39,7 +39,7 @@ static const int  NavicationSlideViewControllersCount = 1;//navicationbar的view
 
 - (void) viewDidLayoutSubviews {
     
-    if (IOS_VERSION>=IOS7) {
+    if (IOS_VERSION>=IOS7 ) {
         
         CGRect viewBounds = self.view.bounds;
         
