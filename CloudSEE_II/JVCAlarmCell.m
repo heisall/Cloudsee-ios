@@ -12,6 +12,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
 #import "JVCAlarmMacro.h"
+#import "JVCSystemConfigMacro.h"
 @implementation JVCAlarmCell
 static const int KLabelOriginX   = 10;//距离左边界的距离
 static const int KLabelSpan      = 0;//labe之间的距离
@@ -89,9 +90,9 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     if (model.iAlarmType == ALARM_DOOR) {
         strShow =model.strAlarmMsgNickname;
     }
-    
     NSString *stringlangue = [NSString stringWithFormat:@"home_alarm_%d",model.iAlarmType];
-    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",strShow,LOCALANGER(stringlangue)] textFontSize:KLabelSizeTitle];
+    NSString *labelString = [NSString stringWithFormat:@"%@%@",strShow,LOCALANGER(stringlangue)];
+    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:labelString textFontSize:KLabelSizeTitle];
     [label retain];
     label.numberOfLines = 0;
     label.lineBreakMode = UILineBreakModeWordWrap;
@@ -99,7 +100,9 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     if (color) {
         label.textColor = color;
     }
-    label.frame = CGRectMake(imgViewAlerm.frame.size.width+imgViewAlerm.frame.origin.x+10, imgViewAlerm.frame.origin.y, label.width, label.height);
+    
+    CGSize size = LABEL_MULTILINE_TEXTSIZE(labelString, label.font, CGSizeMake(150, 100), label.lineBreakMode)
+    label.frame = CGRectMake(imgViewAlerm.frame.size.width+imgViewAlerm.frame.origin.x+10, imgViewAlerm.frame.origin.y, size.width, label.height);
     [self.contentView addSubview:label];
     [label release];
     

@@ -764,7 +764,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     DDLogVerbose(@"%s----endCallback",__FUNCTION__);
     JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
     [alertObj alertHidenToastOnWindow];
-    [alertObj alertToastMainThreadOnWindow:@"请求超时，请重试..."];
+    [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"REQ_RES_TIMEOUT")];
     [self disAlarmRemoteLink];
     
     

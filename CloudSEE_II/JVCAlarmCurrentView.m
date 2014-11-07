@@ -125,7 +125,12 @@ static JVCAlarmCurrentView *_shareInstance = nil;
     
     //设备
 //    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",@"设备：",alarmModel.strYstNumber]];
-    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_device"),alarmModel.strYstNumber]];
+    NSString *strShowAlert = alarmModel.strALarmDeviceNickName;
+    if (alarmModel.iAlarmType == ALARM_DOOR) {
+        strShowAlert = alarmModel.strAlarmMsgNickname;
+
+    }
+    UILabel *labelDevice = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"JVCAlarmCurrentView_device"),strShowAlert]];
     labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
     labelDevice.font = [UIFont systemFontOfSize:KLableDeatilFont];
 
