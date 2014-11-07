@@ -200,6 +200,7 @@
 //声波添加设备
 
 "jvc_voice_add_title" = "Preparating";
+"jvc_voice_add_tick"  = "Tick";
 "jvc_voice_add_help" = "Please use a needle into the Reset hole at the backside/bttom of the device until you hear the beeping";
 "jvc_voice_add_next" = "Next step ";
 "jvc_voice_add_prepareconfig" = "Preparing configuration";

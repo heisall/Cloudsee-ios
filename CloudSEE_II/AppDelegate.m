@@ -360,7 +360,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     int netLinkType = NETLINTYEPE_NONET;
     
-    DDLogVerbose(@"%d======000",configObj._netLinkType);
 
     if([reach isReachableViaWWAN]){
         
@@ -408,7 +407,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
 
         });
     }
-
 }
 
 /**
@@ -629,7 +627,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
 - (void)stopDeviceListTimer
 {
     [deviceListController stopTimer];
-
 }
 
 /**
@@ -673,8 +670,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [saveCacheDeviceListData release];
     
     [[NSUserDefaults standardUserDefaults] setObject:cacheDeviceData forKey:(NSString *)kAPPLocalCaheKey];
-    
-    
 }
 
 #pragma mark 绑定小助手功能
@@ -702,7 +697,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     if (![[JVCDeviceSourceHelper shareDeviceSourceHelper] judgeDeviceHasExist:alarmModelSelect.strYstNumber]) {
         
-        DDLogVerbose(@"%s--- nil",__FUNCTION__);
         return;
     }
     
@@ -732,9 +726,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     }
     
     [tOPVC release];
-
 }
-
 
 - (void)dealloc
 {

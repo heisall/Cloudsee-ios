@@ -839,7 +839,8 @@ float min_offset;
     
     UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
     
-    if ((self.iEffectType&0x04)<0) {
+    if ( self.iEffectType == -1 ) {
+        
         return;
     }
         
@@ -862,10 +863,15 @@ float min_offset;
  */
 - (void)showEffectBtn
 {
-    if([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden == YES)
+    UISlider *slider = (UISlider*)[self viewWithTag:107];
+    
+    if([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden == YES && slider.hidden)
     {
         [self setEffectBtnState:NO];
 
+    }else{
+    
+        [self setEffectBtnState:YES];
     }
 }
 

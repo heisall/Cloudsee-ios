@@ -86,7 +86,7 @@ static const CGFloat        KTitleSeperateSpan = 15.0f;//控件之间的间隔
 static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
 static const CGFloat        kBottomButtonTitleFont              = 16.0f;
 static const CGFloat        kBottomButtonTitleHeight            = kBottomButtonTitleFont + 6.0;
-static const CGFloat        kRegisterButtonWithLocalButtonLeft  = 30.0f;
+static const CGFloat        kRegisterButtonWithLocalButtonLeft  = 15.0f;
 static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线的高度
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

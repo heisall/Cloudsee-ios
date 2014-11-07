@@ -200,6 +200,7 @@
 //声波添加设备
 "jvc_voice_add_title" = "准备步骤";
 "jvc_voice_add_help" = "用顶针轻插配置孔\n直到您听到嘀的一声";
+"jvc_voice_add_tick" = "滴";
 "jvc_voice_add_next" = "下一步";
 "jvc_voice_add_prepareconfig" = "准备配置";
 "jvc_voice_add_prepareconfig_help" = "请输入摄像头要连接的无线网络密码";

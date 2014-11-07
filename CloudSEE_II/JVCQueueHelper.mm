@@ -143,7 +143,6 @@ long long currentMillisSec() {
  */
 -(void)setDefaultFrameRate:(float)frameRateValue{
     
-    
     nDefaultFrameFps       = frameRateValue;
     
     //[self Lock];
@@ -151,8 +150,6 @@ long long currentMillisSec() {
     //[self Unlock];
     
     DDLogInfo(@"%s----frameRate=%lf",__FUNCTION__,param->video_frame_fps);
-    
-    
 }
 
 
@@ -179,9 +176,6 @@ long long currentMillisSec() {
     int  needDelay      = 0;
     bool need_jump      = true;
     BOOL isFastPlay     = FALSE;
-    
-    
-    DDLogInfo(@"%s-----start popDataCallBack",__FUNCTION__);
     
     while (TRUE) {
         
@@ -286,8 +280,6 @@ long long currentMillisSec() {
     delete dqueue;
     
     pthread_mutex_destroy(&mutex);
-    
-    DDLogInfo(@"%s",__FUNCTION__);
     
 	[super dealloc];
 }
