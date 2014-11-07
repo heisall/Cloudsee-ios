@@ -90,7 +90,7 @@ static const  int KLabelTimerWith             = 300;
     
   
     
-    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - iamgecellBg.size.width)/2, KLabelHeight, iamgecellBg.size.width,iamgecellBg.size.height)];
+    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - iamgecellBg.size.width)/2, KLabelHeight+5, iamgecellBg.size.width,iamgecellBg.size.height)];
     
     self.imageView = imageViewBg;
     imageViewBg.image = image;

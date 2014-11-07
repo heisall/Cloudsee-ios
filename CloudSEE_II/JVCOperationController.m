@@ -1181,7 +1181,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = YES;
 
-        
     }else{
         
         int deleteSize = 0;
@@ -1206,6 +1205,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
         //显示横屏的按钮
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = NO;
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].alpha =1.0f;
 
         [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
         [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);

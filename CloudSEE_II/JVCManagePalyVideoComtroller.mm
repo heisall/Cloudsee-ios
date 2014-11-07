@@ -169,18 +169,17 @@ BOOL isAllLinkRun;
 {
     JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
 
-    if (horiBar.bStateHorigin) {
-        
-        if (horiBar.hidden) {
+    
+        if (horiBar.alpha == 0.0) {
             
-            horiBar.hidden = NO;
+            horiBar.alpha = 1.0f;
             
         }else{
         
-            horiBar.hidden = YES;
+            horiBar.alpha = 0.0f;
         }
 
-    }
+
 }
 
 /**
@@ -800,6 +799,7 @@ BOOL isAllLinkRun;
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
+
             if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
                 
                 if (self.imageViewNums > showWindowNumberType_One) {//只有单屏的时候才显示
