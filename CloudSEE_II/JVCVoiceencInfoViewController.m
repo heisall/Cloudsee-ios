@@ -19,6 +19,9 @@
 
 static const CGFloat kImageIconWithTop       = 100.0f;
 static const CGFloat kInfoTVWithFontSize     = 14.0f;
+static const CGFloat kInfoTVWithTop          = 30.0f;
+static const CGFloat kVoiceTVWithWidth       = 50.0f;
+static const CGFloat kVoiceTVWithPading      = 60.0f;
 static const int     kInfoTVWithNumberOfLine = 3;
 static const CGFloat kInfoTVWithLineOfHeight = kInfoTVWithFontSize + 6.0f;
 static const int     kInfoTVOffx             = 20;
@@ -53,8 +56,19 @@ static const int     kInfoTVOffx             = 20;
     
     [self.view addSubview:imageView];
     
+    UILabel *voiceTV        = [controlHelperObj labelWithText:LOCALANGER(@"jvc_voice_add_tick")];
+    voiceTV.frame           = CGRectMake(imageView.frame.size.width-kVoiceTVWithPading, imageView.frame.size.height - kVoiceTVWithPading, kVoiceTVWithWidth , kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
+    voiceTV.textAlignment   = NSTextAlignmentCenter;
+    voiceTV.lineBreakMode   = NSLineBreakByWordWrapping;
+    voiceTV.textColor       = [UIColor whiteColor];
+    
+    voiceTV.font            = [UIFont systemFontOfSize:kInfoTVWithFontSize+2.0];
+    
+    [imageView addSubview:voiceTV];
+    
+    
     UILabel *infoTV        = [controlHelperObj labelWithText:LOCALANGER(@"jvc_voice_add_help")];
-    infoTV.frame           = CGRectMake(kInfoTVOffx, 30.0, self.view.width -2*kInfoTVOffx , kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
+    infoTV.frame           = CGRectMake(kInfoTVOffx, kInfoTVWithTop, self.view.width -2*kInfoTVOffx , kInfoTVWithLineOfHeight*kInfoTVWithNumberOfLine);
     infoTV.textAlignment   = NSTextAlignmentCenter;
     infoTV.numberOfLines   = kInfoTVWithNumberOfLine;
     infoTV.lineBreakMode   = NSLineBreakByWordWrapping;

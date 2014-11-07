@@ -252,6 +252,7 @@ UIAlertView *alertView;
         alertViewIOS8.view.tag = 2*KTAGADDNUM;
         
             [alertViewIOS8 addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"AlertkeepLineError_LoginIn") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                
                 [self stopTimerCountDown];
 
                 [self loginInWithOffLine];
@@ -260,6 +261,7 @@ UIAlertView *alertView;
             }]];
         
             [alertViewIOS8 addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"AlertkeepLineError_userOut") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                
                 [self stopTimerCountDown];
 
                 [self keepOnLineErrorToPresentLoginViewController];

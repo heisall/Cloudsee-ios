@@ -911,18 +911,13 @@ BOOL isAllLinkRun;
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
         [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
-        
-        
-        DDLogVerbose(@"%s----effectType=%d",__FUNCTION__,effectType&0x04);
-        
-        
     }
     
-    //[self refreshEffectType:nLocalChannel effectType:effectType&0x04];
-    
-   
-    DDLogCVerbose(@"%s----nStreamType=%d==iEffectType=%d",__FUNCTION__,nStreamType,effectType);
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [singleView updateEffectBtn:effectType&0x04];
+        
+    });
 }
 
 /**
