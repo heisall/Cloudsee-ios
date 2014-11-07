@@ -34,6 +34,11 @@
     return self;
 }
 
+- (void)deallocWithViewDidDisappear
+{
+    [self resinModifyTextFields];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

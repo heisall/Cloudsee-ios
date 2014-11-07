@@ -171,6 +171,7 @@
 "loginResign_passWord_error" = "密码由英文、数字及“-”、“_”组成且长度在6~20位字符之间";
 "home_login_resign_user_noFound"= "恭喜，用户名已被您收入囊中。";
 "home_login_resign_user_exit"= "亲， 用户名已经被别人占领，请修改。";
+"ERROR_DESC_UNREGISTER" = "初始化网络SDK错误，请检查网络";
 
 //添加设备界面
 "jvc_addDevice_title" = "添加设备";
@@ -477,6 +478,7 @@
 "learn_3" = "learn_1_ch";
 "learn_2" = "learn_2_ch";
 "learn_1" = "learn_3_ch";
+"jvcEditDeviceList_search_timeOut" = "查询主控绑定设备超时";
 
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "报警信息";

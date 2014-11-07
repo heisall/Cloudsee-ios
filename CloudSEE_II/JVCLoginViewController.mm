@@ -125,6 +125,7 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
     
     [super viewDidAppear:animated];
     
+    
    NSString *fistOpen = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOME];
 
     if (fistOpen.length>0) {
@@ -452,6 +453,12 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         return;
     };
     
+//    if ([JVCConfigModel shareInstance]._bInitAccountSDKSuccess != TYPEINITSDK_SETERROR) {
+//        
+//        [self alertToastWithKeyWindowWithMessage:LOCALANGER(@"ERROR_DESC_UNREGISTER")];
+//        return;
+//    }
+//    
     [self resiginTextFields];
     
     textFieldUser.text = [textFieldUser.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -867,9 +874,11 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         if (modeluse.bAutoLoginState) {
             
             textFieldPW.text =  modeluse.passWord;
-            
-            //太快延迟0.3秒
-            [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+            if (![[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+
+                //太快延迟0.3秒
+                [self performSelector:@selector(clickTologin) withObject:nil afterDelay:KAfterDalayTimer];
+            }
         }
     }
 

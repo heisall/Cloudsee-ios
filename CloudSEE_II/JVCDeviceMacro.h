@@ -418,3 +418,4 @@ enum DEVICESTATUS{
  */
 static const  NSString *AppDemoType = @"CloudSEE";
 #define JK_CUSTOM_TYPE              "custom_type"
+static const int    KNickNameLength             = 20;

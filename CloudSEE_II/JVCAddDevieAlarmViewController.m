@@ -211,7 +211,7 @@ static const  int KSuccess         = 1;
                     [self handleDeletateSuccessResult];
                     break;
                 case AlarmLockTypeRes_Fail:
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_delete_success")];
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_alarmmanage_delete_error")];
                     break;
                 default:
                     break;

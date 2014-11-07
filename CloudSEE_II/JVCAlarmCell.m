@@ -11,6 +11,7 @@
 #import "JVCControlHelper.h"
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
+#import "JVCAlarmMacro.h"
 @implementation JVCAlarmCell
 static const int KLabelOriginX   = 10;//距离左边界的距离
 static const int KLabelSpan      = 0;//labe之间的距离
@@ -84,8 +85,13 @@ static const int KLabelSizeTitle      = 20;//标题的字体大小
     /**
      *  文字时间
      */
+    NSString *strShow = model.strALarmDeviceNickName;
+    if (model.iAlarmType == ALARM_DOOR) {
+        strShow =model.strAlarmMsgNickname;
+    }
+    
     NSString *stringlangue = [NSString stringWithFormat:@"home_alarm_%d",model.iAlarmType];
-    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",model.strALarmDeviceNickName,LOCALANGER(stringlangue)] textFontSize:KLabelSizeTitle];
+    UILabel *label = [[JVCControlHelper shareJVCControlHelper] labelWithText:[NSString stringWithFormat:@"%@%@",strShow,LOCALANGER(stringlangue)] textFontSize:KLabelSizeTitle];
     [label retain];
     label.numberOfLines = 0;
     label.lineBreakMode = UILineBreakModeWordWrap;

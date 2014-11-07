@@ -9,7 +9,7 @@
 #import "JVCEditLockDeviceNickNameViewController.h"
 #import "JVCControlHelper.h"
 #import "JVCAlarmMacro.h"
-
+#import "JVCDeviceMacro.h"
 @interface JVCEditLockDeviceNickNameViewController ()
 {
     UITextField *textField;
@@ -41,6 +41,11 @@ static const  int  KAlarmState        = 1;  //绑定alarm的状态
     
     self.title = LOCALANGER(@"JVCEditLockDeviceNickNameViewController_title");
     [self initContentView];
+}
+
+- (void)deallocWithViewDidDisappear
+{
+    [textField resignFirstResponder];
 }
 
 - (void)initContentView
@@ -105,6 +110,15 @@ static const  int  KAlarmState        = 1;  //绑定alarm的状态
         
     });
     
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.location>=KNickNameLength) {
+        
+        return NO;
+    }
+    return YES;
 }
 
 

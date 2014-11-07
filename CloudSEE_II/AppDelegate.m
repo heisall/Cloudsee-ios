@@ -126,7 +126,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [self.window makeKeyAndVisible];
     
     //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
-    [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = -1;
+    [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = TYPEINITSDK_DEFAULT;
     
     //初始化sdk
     [self initAHReachSetting];
@@ -399,6 +399,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
             
             int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:isLocation];
             
+            configObj._bInitAccountSDKSuccess = result;
+            
             if ( result == 0) {
                 
                 configObj._bInitAccountSDKSuccess = 0;
@@ -447,6 +449,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
 - (void)addCurrentAlarmInalarmMessageViewController:(JVCAlarmModel*)alarmModel
 {
     [alarmMessageViewController.arrayAlarmList insertObject:alarmModel atIndex:0];
+    [alarmMessageViewController removeNoAlarmView];
     [alarmMessageViewController.tableView reloadData];
 }
 
@@ -771,5 +774,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     });
    
 }
+
+
+
 
 @end

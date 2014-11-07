@@ -38,6 +38,7 @@
 
 #define LOCALANGER(A)  NSLocalizedString(A, nil)
 
+
 #endif
 
 

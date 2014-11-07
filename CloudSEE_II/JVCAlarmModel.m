@@ -17,9 +17,9 @@
 @synthesize iAlarmTimer;
 @synthesize isDownLoad;
 @synthesize bNewAlarm;
-
+@synthesize strAlarmMsgNickname;
 -(void)dealloc{
-
+    [strAlarmMsgNickname release];
     [strYstNumber release];
     [strAlarmVideoUrl release];
     [strAlarmPicUrl release];
@@ -55,6 +55,7 @@
         
         self.iAlarmTimer = [[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue];
         self.iAlarmType =  [[dic objectForKey:JK_ALARM_TYPE] intValue];
+        self.strAlarmMsgNickname = [dic objectForKey:JK_ALARM_MESSAGE];
         self.strAlarmVideoUrl = [dic objectForKey:JK_ALARM_VIDEO];
         self.iYstChannel = [[dic objectForKey:JK_ALARM_FTP_CHANNEL_NO] intValue];
         self.strYstNumber = [dic objectForKey:JK_ALARM_FTP_DEVICE_GUID];

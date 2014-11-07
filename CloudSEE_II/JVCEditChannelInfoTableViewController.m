@@ -16,6 +16,7 @@
 #import "JVCRGBColorMacro.h"
 #import "JVCPredicateHelper.h"
 #import "JVCDeviceSourceHelper.h"
+#import "JVCDeviceMacro.h"
 
 @interface JVCEditChannelInfoTableViewController ()
 {
@@ -561,6 +562,18 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     return YES;
 }
 
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == channelNickNameField) {
+        
+        if (range.location>=KNickNameLength) {
+            return NO;
+        }
+        return YES;
+    }
+    return YES;
+}
 /*
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath

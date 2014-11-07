@@ -96,8 +96,6 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     
     arrayAlarmList  = [[NSMutableArray alloc] init];
     
-
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)

@@ -155,13 +155,13 @@ static const  int  KNum  = 3;
     NSString *imageName= nil;
     switch (indexPath.row%KNum) {
         case 0:
-            imageName = @"dem_def0.jpg";
-            break;
-        case 1:
             imageName = @"dem_def1.jpg";
             break;
-        case 2:
+        case 1:
             imageName = @"dem_def2.jpg";
+            break;
+        case 2:
+            imageName = @"dem_def3.jpg";
             break;
         default:
             break;

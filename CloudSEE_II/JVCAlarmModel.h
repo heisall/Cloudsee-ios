@@ -25,6 +25,7 @@ enum AlarmPlan
     int iAlarmLevel;                     //报警的级别
     NSString *strAlarmTime;             //报警的时间
     NSString *strAlarmPicUrl;           //报警图片的URL
+    NSString *strAlarmMsgNickname;      //设备的报警昵称 11 的时候用
 
     NSString *strAlarmVideoUrl;         //报警视频的URL
     NSString *strAlarmLocalVideoUrl;    //报警视频的本地URL
@@ -36,7 +37,7 @@ enum AlarmPlan
     BOOL bNewAlarm;                      //是否是新报警
 
 }
-
+@property(nonatomic,retain)NSString *strAlarmMsgNickname;
 @property(nonatomic,retain)NSString  *strAlarmGuid;
 @property(nonatomic,retain)NSString  *strYstNumber;
 @property(nonatomic,assign)int iYstChannel;

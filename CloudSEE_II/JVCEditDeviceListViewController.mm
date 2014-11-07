@@ -683,7 +683,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
             JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
             
             [alertObj alertHidenToastOnWindow];
-            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"jvc_editDevice_lickError")];
+            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"jvcEditDeviceList_search_timeOut")];
         });
       
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;

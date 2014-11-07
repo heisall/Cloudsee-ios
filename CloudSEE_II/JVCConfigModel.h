@@ -30,6 +30,14 @@ enum ACCOUNTTYPEWATCH
     TYPE_DEVICE_ALL_ONLINE=1,//设备全在线
 };
 
+typedef NS_ENUM(int , TYPEINITSDK)
+{
+    TYPEINITSDK_DEFAULT = -1,//默认值
+    TYPEINITSDK_SUCCESS = 0,//成功
+    TYPEINITSDK_ERROR = 1,//失败
+    TYPEINITSDK_SETERROR = 2,//配置域名（或IP）失败
+
+};
 @interface JVCConfigModel : NSObject
 {
     /**

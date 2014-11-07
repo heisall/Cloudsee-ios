@@ -316,15 +316,14 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)showAddDevicePopView:(UIButton *)sender
 {
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(popAddDeviceItems) object:sender];
-    [self performSelector:@selector(popAddDeviceItems) withObject:nil afterDelay:kAimationAfterDalay];
+    [self popAddDeviceItems];
 }
 /**
  *  弹出添加设备选项
  */
 - (void)popAddDeviceItems
 {
-    DDLogVerbose(@"======");
+    DDLogVerbose(@"===111111===");
     CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
     NSArray *titles = nil;
     NSArray *images = nil;
@@ -343,9 +342,14 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
     }
     
-    JVCAddDevicePopView *pop = (JVCAddDevicePopView *)[self.view viewWithTag:kPOPViewTag];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+
+    JVCAddDevicePopView *pop = (JVCAddDevicePopView *)[window viewWithTag:kPOPViewTag];
+    DDLogVerbose(@"===2222222===%@",pop);
+
     if (!pop) {
-        
+        DDLogVerbose(@"===333333===");
+
         pop    = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
         pop.popDelegate             = self;
         pop.tag                     = kPOPViewTag;

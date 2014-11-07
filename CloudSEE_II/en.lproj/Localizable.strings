@@ -94,6 +94,7 @@
 "jvc_log_resign" = "Register";
 "jvc_log_fot"= "Retrieve";
 "jvc_log_demo" = "Demo";
+"ERROR_DESC_UNREGISTER" = "SDK has not been initialized";
 
 //不合法用户名用户密码修改
 "jvc_Unmod_titile"="Complete the user info";
@@ -292,6 +293,8 @@
 "MAX_ERROR" = "Channle number list to upper limit, cannot add more";
 "sum" = "Total of ";
 "Device" = " device";
+"jvcEditDeviceList_search_timeOut" = "Query host-end binding devices timeout";
+
 //报警界面
 "jvc_alarmList_Title" = "Alarm Message";
 "jvc_alarmlist_noMore" = "No more alerts";

@@ -13,7 +13,7 @@
 @implementation JVCDemoCell
 static const  int KMYVIDEOCELLHEIGHTADDHEIGH  = 10.0;//左边距
 static const  int KLabelWith                  = 150;//label的宽度
-static const  int KLabelHeight                = 40;//label的高度
+static const  int KLabelHeight                = 30;//label的高度
 static const  int KLabelLineHeight            = 1;//labelLIne的高度
 static const  int KLabelTitleFont             = 16;//label字体
 static const  int KLabelTimerHeight           = 14;//labeltimer的字体

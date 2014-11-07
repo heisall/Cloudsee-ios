@@ -9,7 +9,7 @@
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCLockAlarmModel.h"
-@interface JVCEditLockDeviceNickNameViewController : JVCBaseWithGeneralViewController
+@interface JVCEditLockDeviceNickNameViewController : JVCBaseWithGeneralViewController<UITextFieldDelegate>
 {
     JVCLockAlarmModel *alertmodel;
 }

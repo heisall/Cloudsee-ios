@@ -400,7 +400,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_operationItemSmallBg updateViewWithTitleArray:arrayTitle Frame:frameBottom SkinType:skinSelect];
     _operationItemSmallBg.BottomDelegate = self;
     [_operationItemSmallBg setBackgroundColor:[UIColor clearColor]];
-    _operationItemSmallBg.tag=101;
     [self.view addSubview:_operationItemSmallBg];
     [_operationItemSmallBg release];
     
@@ -1178,8 +1177,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [_managerVideo setManagePlayViewScrollState:YES];
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
-        UIView *_smallView=(UIView*)[self.view viewWithTag:101];
-        [self.view bringSubviewToFront:_smallView];
+        [self.view bringSubviewToFront:_operationItemSmallBg];
         
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = YES;
 

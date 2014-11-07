@@ -27,4 +27,9 @@
  */
 -(void)removeJVHAlarmShowView;
 
+/**
+ *  从父视图删除
+ */
+-(void)removeNoAlarmView;
+
 @end

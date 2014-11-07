@@ -15,7 +15,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCChannelScourseHelper.h"
-
+#import "JVCDeviceMacro.h"
 static const int    ADDPREDICATE_SUCCESS        = 0;
 static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
 static const int    SEPERATE                    = 15;//控件之间的距离，纵向
@@ -225,6 +225,18 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
     [textField setBackground:image];
     [image release];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == deviceNickNameField) {
+        
+        if (range.location>=KNickNameLength) {
+            return NO;
+        }
+        return YES;
+    }
+    return YES;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
