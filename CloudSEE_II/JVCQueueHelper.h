@@ -16,8 +16,9 @@
  *
  *  @param bufferData 队列出队的Buffer
  *
+ *  @return >=时数据生效
  */
--(void)popDataCallBack:(void *)bufferData;
+-(int)popDataCallBack:(void *)bufferData;
 
 @end
 

@@ -252,12 +252,15 @@ long long currentMillisSec() {
                 need_jump = false;
             }
 
+            
+            int decoderStatus = -1;
+            
             if (self.jvcQueueHelperDelegate !=nil && [self.jvcQueueHelperDelegate respondsToSelector:@selector(popDataCallBack:)]) {
                 
-                [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
+                decoderStatus = [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
             }
             
-            if (! self.isOnlyIFrame) {
+            if (!self.isOnlyIFrame || decoderStatus ) {
                 
                 needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
                 msleep(needDelay);

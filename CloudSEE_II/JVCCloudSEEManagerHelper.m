@@ -207,7 +207,7 @@ char          pcmBuffer[1024] ={0};
  *
  *  @param bufferData 缓存队列的出队参数
  */
--(void)popDataCallBack:(void *)bufferData {
+-(int)popDataCallBack:(void *)bufferData {
     
     frame *decodervideoFrame = (frame *)bufferData;
     
@@ -225,6 +225,8 @@ char          pcmBuffer[1024] ={0};
             [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:self.decodeModelObj.isDecoderModel];
         }
     }
+    
+    return nDecoderStatus;
 }
 
 #pragma mark 解码处理模块
