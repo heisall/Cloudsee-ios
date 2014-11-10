@@ -313,19 +313,8 @@
 		A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */; };
 		A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
 		A7F5E23319D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */; };
-		A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
-		A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24119D43F6E00609BC3 /* FMDatabase.m */; };
-		A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24319D43F6E00609BC3 /* FMResultSet.m */; };
-		A7F5E24D19D43F6E00609BC3 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24319D43F6E00609BC3 /* FMResultSet.m */; };
-		A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24519D43F6E00609BC3 /* FMDatabaseQueue.m */; };
-		A7F5E24F19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24519D43F6E00609BC3 /* FMDatabaseQueue.m */; };
-		A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24719D43F6E00609BC3 /* FMDatabaseAdditions.m */; };
-		A7F5E25119D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24719D43F6E00609BC3 /* FMDatabaseAdditions.m */; };
-		A7F5E25219D43F6E00609BC3 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24919D43F6E00609BC3 /* FMDatabasePool.m */; };
-		A7F5E25319D43F6E00609BC3 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E24919D43F6E00609BC3 /* FMDatabasePool.m */; };
 		A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E25619D43FBD00609BC3 /* CommonFunc.m */; };
 		A7F5E25819D43FBD00609BC3 /* CommonFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E25619D43FBD00609BC3 /* CommonFunc.m */; };
-		A7F5E25A19D4424B00609BC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F5E25919D4424B00609BC3 /* libsqlite3.dylib */; };
 		A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */; };
 		A7F5E26219D4464C00609BC3 /* JVCUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */; };
 		A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F5EF1719D257D0009B797A /* Localizable.strings */; };
@@ -570,6 +559,12 @@
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
+		ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */; };
+		ADD3EFF71A10C72900C7F329 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFEE1A10C72900C7F329 /* FMDatabaseAdditions.m */; };
+		ADD3EFF81A10C72900C7F329 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFF01A10C72900C7F329 /* FMDatabasePool.m */; };
+		ADD3EFF91A10C72900C7F329 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFF21A10C72900C7F329 /* FMDatabaseQueue.m */; };
+		ADD3EFFA1A10C72900C7F329 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFF51A10C72900C7F329 /* FMResultSet.m */; };
+		ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD3EFFB1A10C74000C7F329 /* libsqlite3.dylib */; };
 		ADD6266E19FA56CB00BD877F /* sto_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */; };
 		ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6266F19FA56D800BD877F /* sto_auto@2x.png */; };
 		ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADD6267119FBC8C700BD877F /* voi_exit@2x.png */; };
@@ -929,20 +924,8 @@
 		A7F5D78419EA2F6600396AD9 /* no_devWire@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devWire@2x.png"; sourceTree = "<group>"; };
 		A7F5D78819EA311100396AD9 /* no_devBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_devBtn@2x.png"; sourceTree = "<group>"; };
 		A7F5E23119D41EBC00609BC3 /* mor_IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_IconHelp@2x.png"; sourceTree = "<group>"; };
-		A7F5E23F19D43F6E00609BC3 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		A7F5E24019D43F6E00609BC3 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		A7F5E24119D43F6E00609BC3 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		A7F5E24219D43F6E00609BC3 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		A7F5E24319D43F6E00609BC3 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		A7F5E24419D43F6E00609BC3 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		A7F5E24519D43F6E00609BC3 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		A7F5E24619D43F6E00609BC3 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		A7F5E24719D43F6E00609BC3 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		A7F5E24819D43F6E00609BC3 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		A7F5E24919D43F6E00609BC3 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
 		A7F5E25519D43FBD00609BC3 /* CommonFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonFunc.h; sourceTree = "<group>"; };
 		A7F5E25619D43FBD00609BC3 /* CommonFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonFunc.m; sourceTree = "<group>"; };
-		A7F5E25919D4424B00609BC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A7F5E25F19D4464C00609BC3 /* JVCUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserInfoModel.h; sourceTree = "<group>"; };
 		A7F5E26019D4464C00609BC3 /* JVCUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCUserInfoModel.m; sourceTree = "<group>"; };
 		A7F5EF1619D257D0009B797A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1276,6 +1259,18 @@
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
+		ADD3EFEB1A10C72900C7F329 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		ADD3EFED1A10C72900C7F329 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		ADD3EFEE1A10C72900C7F329 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		ADD3EFEF1A10C72900C7F329 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		ADD3EFF01A10C72900C7F329 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		ADD3EFF11A10C72900C7F329 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		ADD3EFF21A10C72900C7F329 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		ADD3EFF31A10C72900C7F329 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		ADD3EFF41A10C72900C7F329 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		ADD3EFF51A10C72900C7F329 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		ADD3EFFB1A10C74000C7F329 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		ADD6266D19FA56CB00BD877F /* sto_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_alarm@2x.png"; sourceTree = "<group>"; };
 		ADD6266F19FA56D800BD877F /* sto_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sto_auto@2x.png"; sourceTree = "<group>"; };
 		ADD6267119FBC8C700BD877F /* voi_exit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_exit@2x.png"; sourceTree = "<group>"; };
@@ -1294,7 +1289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7F5E25A19D4424B00609BC3 /* libsqlite3.dylib in Frameworks */,
+				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
 				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
 				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
 				A7F4059F19E55A260070945F /* CoreMedia.framework in Frameworks */,
@@ -1846,17 +1841,17 @@
 		A7F5E23E19D43F5600609BC3 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
-				A7F5E23F19D43F6E00609BC3 /* FMDB.h */,
-				A7F5E24019D43F6E00609BC3 /* FMDatabase.h */,
-				A7F5E24119D43F6E00609BC3 /* FMDatabase.m */,
-				A7F5E24219D43F6E00609BC3 /* FMResultSet.h */,
-				A7F5E24319D43F6E00609BC3 /* FMResultSet.m */,
-				A7F5E24419D43F6E00609BC3 /* FMDatabaseQueue.h */,
-				A7F5E24519D43F6E00609BC3 /* FMDatabaseQueue.m */,
-				A7F5E24619D43F6E00609BC3 /* FMDatabaseAdditions.h */,
-				A7F5E24719D43F6E00609BC3 /* FMDatabaseAdditions.m */,
-				A7F5E24819D43F6E00609BC3 /* FMDatabasePool.h */,
-				A7F5E24919D43F6E00609BC3 /* FMDatabasePool.m */,
+				ADD3EFEB1A10C72900C7F329 /* FMDatabase.h */,
+				ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */,
+				ADD3EFED1A10C72900C7F329 /* FMDatabaseAdditions.h */,
+				ADD3EFEE1A10C72900C7F329 /* FMDatabaseAdditions.m */,
+				ADD3EFEF1A10C72900C7F329 /* FMDatabasePool.h */,
+				ADD3EFF01A10C72900C7F329 /* FMDatabasePool.m */,
+				ADD3EFF11A10C72900C7F329 /* FMDatabaseQueue.h */,
+				ADD3EFF21A10C72900C7F329 /* FMDatabaseQueue.m */,
+				ADD3EFF31A10C72900C7F329 /* FMDB.h */,
+				ADD3EFF41A10C72900C7F329 /* FMResultSet.h */,
+				ADD3EFF51A10C72900C7F329 /* FMResultSet.m */,
 			);
 			name = FMDB;
 			sourceTree = "<group>";
@@ -2437,6 +2432,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADD3EFFB1A10C74000C7F329 /* libsqlite3.dylib */,
 				ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */,
 				AD3FB61919F6A18800034461 /* libtransSing.a */,
 				A7EFAB5719F3347D0092AE9C /* libSystem.dylib */,
@@ -2456,7 +2452,6 @@
 				ADA22D7819DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a */,
 				ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */,
 				ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */,
-				A7F5E25919D4424B00609BC3 /* libsqlite3.dylib */,
 				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
 				A7F4059119E556160070945F /* libzxingLibrary.a */,
 				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
@@ -3153,6 +3148,7 @@
 				A7F538CF19F3F20E00694CA5 /* JVCURlRequestHelper.m in Sources */,
 				A7FA43F319E4140700F7A8A4 /* JVCCustomYTOView.m in Sources */,
 				ADA22D7E19DA84500092F8B9 /* JVCVoiceIntercomHelper.m in Sources */,
+				ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
 				ADA22D4819DA611D0092F8B9 /* DDContextFilterLogFormatter.m in Sources */,
@@ -3161,6 +3157,7 @@
 				A7F9E04419ED0CD000C1D69C /* JVCDemoViewController.m in Sources */,
 				ADA22D6B19DA7CC30092F8B9 /* JVCRecordVideoHelper.m in Sources */,
 				ADA22DA519DA97B50092F8B9 /* OpenALBufferViewcontroller.m in Sources */,
+				ADD3EFFA1A10C72900C7F329 /* FMResultSet.m in Sources */,
 				A7EFFA6B19F520E700DF783D /* JVCAddDevieAlarmViewController.m in Sources */,
 				A7F5556F19D90FB10009F75C /* NormalCircle.m in Sources */,
 				A7F6C60319F8A8160090B6F0 /* JVCHorizontalStreamView.m in Sources */,
@@ -3210,8 +3207,8 @@
 				A7F5EF4819D26B31009B797A /* StyledPageControl.m in Sources */,
 				ADA22D6819DA7CBA0092F8B9 /* JVCRecordVideoInter.mm in Sources */,
 				A7FB594E19E919DB005E2E6D /* JVCBindingEmailViewController.m in Sources */,
+				ADD3EFF71A10C72900C7F329 /* FMDatabaseAdditions.m in Sources */,
 				A7B9FB8C1A08EF8E005F7928 /* JVCOldDeviceHelpViewController.m in Sources */,
-				A7F5E25019D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
 				A7F486BA19E6B31D00C10B2B /* JVCEditChannelInfoTableViewController.m in Sources */,
 				ADA22D2B19DA5C260092F8B9 /* JVCVideoDecoderInterface.mm in Sources */,
 				AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */,
@@ -3220,6 +3217,7 @@
 				A7F5EF8019D2F453009B797A /* JVCPredicateHelper.m in Sources */,
 				A7FA43E019E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */,
 				ADA22D5519DA613E0092F8B9 /* DDAbstractDatabaseLogger.m in Sources */,
+				ADD3EFF91A10C72900C7F329 /* FMDatabaseQueue.m in Sources */,
 				AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */,
 				AD348C5919F954FA006C8A15 /* JVCVoiceencInfoViewController.m in Sources */,
 				ADA22D3419DA5D990092F8B9 /* data_queue.mm in Sources */,
@@ -3245,7 +3243,6 @@
 				ADA22D2819DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.mm in Sources */,
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F4347519DA883500E7ECA1 /* UIImage+BundlePath.m in Sources */,
-				A7F5E24C19D43F6E00609BC3 /* FMResultSet.m in Sources */,
 				AD014DF919F65EF500E3D0FB /* JVCSystemSoundHelper.m in Sources */,
 				A7F51E6E19EBB4920052F878 /* JVCAlarmCell.m in Sources */,
 				A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
@@ -3279,6 +3276,7 @@
 				AD2BDB2019D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m in Sources */,
 				A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */,
 				A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */,
+				ADD3EFF81A10C72900C7F329 /* FMDatabasePool.m in Sources */,
 				AD014DDC19F4C05C00E3D0FB /* JVCAPConfigViewController.mm in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A72DCD2519EBF79500C9A1ED /* JVCLocalAddDeviceViewController.m in Sources */,
@@ -3289,7 +3287,6 @@
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
-				A7F5E24E19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
 				A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */,
 				ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */,
@@ -3306,7 +3303,6 @@
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7F5557319D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
-				A7F5E25219D43F6E00609BC3 /* FMDatabasePool.m in Sources */,
 				A70503211A076AC200A52E4C /* JVCUserResignTextViewController.m in Sources */,
 				A709697B19F2782300C191F8 /* JVCIPAddViewController.m in Sources */,
 				ADA22D6119DA78380092F8B9 /* JVCAudioQueueHelper.mm in Sources */,
@@ -3314,7 +3310,6 @@
 				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */,
 				A7F4457919F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m in Sources */,
-				A7F5E24A19D43F6E00609BC3 /* FMDatabase.m in Sources */,
 				A7F50A2019FA2D3F004D061F /* MJRefreshConst.m in Sources */,
 				A7263C4F19E80763003C22DE /* JVCLickTypeViewController.m in Sources */,
 				A7F4346E19DA499C00E7ECA1 /* JVCDeviceListNoDevieCell.m in Sources */,
@@ -3347,29 +3342,24 @@
 				A7F5EF4419D26A09009B797A /* JVCDeviceListAdvertCell.m in Sources */,
 				A7FA43DD19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				A7F0042419D45C030028533E /* AHReach.m in Sources */,
-				A7F5E24B19D43F6E00609BC3 /* FMDatabase.m in Sources */,
 				A7FA43E119E3CC3C00F7A8A4 /* JVCRemoteVideoPlayBackVControler.m in Sources */,
 				A7F5557419D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7F5013319D501A500AA78F0 /* JVCMoreContentCell.m in Sources */,
-				A7F5E24F19D43F6E00609BC3 /* FMDatabaseQueue.m in Sources */,
 				A7F4346F19DA499C00E7ECA1 /* JVCDeviceListNoDevieCell.m in Sources */,
 				A7F5012F19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				A7F5012B19D4F96A00AA78F0 /* JVCMoreSettingHelper.m in Sources */,
 				A7F5017A19D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
 				A72B4B7519D3FDE500760695 /* JVCMoreUserCell.m in Sources */,
 				A7F5015D19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
-				A7F5E24D19D43F6E00609BC3 /* FMResultSet.m in Sources */,
 				A7F5557C19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
 				A7F0042819D45DC70028533E /* JVCConfigModel.m in Sources */,
 				A7F4250D19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
 				A7F5011119D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */,
-				A7F5E25319D43F6E00609BC3 /* FMDatabasePool.m in Sources */,
 				A72B4B6B19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
 				A7F5557219D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				A7FAF5BA19D11C4000B3F395 /* JVCAccountPredicateMaths.m in Sources */,
 				A7F5EF7819D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7FA43D919E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
-				A7F5E25119D43F6E00609BC3 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
