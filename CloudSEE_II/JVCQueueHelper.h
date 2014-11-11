@@ -26,10 +26,12 @@
     
     id<JVCQueueHelperDelegate> jvcQueueHelperDelegate;
     BOOL                       isOnlyIFrame;
+    BOOL                       isOldDevice;             //是否是老设备 04版的 默认是05的
 }
 
 @property (nonatomic,assign) id<JVCQueueHelperDelegate> jvcQueueHelperDelegate;
 @property (nonatomic,assign) BOOL                       isOnlyIFrame;
+@property (nonatomic,assign) BOOL                       isOldDevice;
 
 /**
  *   初始化缓存队列对象
@@ -79,5 +81,10 @@
  *  @return 成功返回YES
  */
 -(BOOL)exitPopDataThread;
+
+/**
+ *  04版的，开启下一帧(否则不生效)
+ */
+-(void)popVideoData;
 
 @end

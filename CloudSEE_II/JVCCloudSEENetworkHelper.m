@@ -656,9 +656,10 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                     
                     unsigned int nLen = (i_data>>4) & 0xFFFFF;
                     
-                    [currentChannelObj decoder04Device:pBuffer+8  withBufferSize:nLen withFrameType:uType];
-                  
+                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer+8 nVideoDataSize:nLen isVideoDataIFrame:uType ==JVN_DATA_I isVideoDataBFrame:uType == JVN_DATA_B frameType:uType];
+                    
                 }
+                
             }
         }
             break;
@@ -919,6 +920,13 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
         }
             break;
+            
+        case RemoteOperationType_oldDeviceNextVideoFrame:{
+            
+            [currentChannelObj nextVideoData];
+            
+        }
+
         default:
             break;
     }
@@ -1878,9 +1886,6 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
         
             DDLogCVerbose(@"%s---dataSize=%d",__FUNCTION__,nSize);
                 [jvcCloudSEENetworkHelper openDownFileHandle:pBuffer withSaveBufferSize:nSize];
-            
-            
-            
             
         }
             break;

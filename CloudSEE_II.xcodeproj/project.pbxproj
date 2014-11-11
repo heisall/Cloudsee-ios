@@ -509,7 +509,6 @@
 		AD99622D1A0C995300B96085 /* devAdv_default_en1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD99622B1A0C995300B96085 /* devAdv_default_en1.jpg */; };
 		ADA22D1D19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */; };
 		ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */; };
-		ADA22D2319DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */; };
 		ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */; };
 		ADA22D2819DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D2719DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.mm */; };
 		ADA22D2B19DA5C260092F8B9 /* JVCVideoDecoderInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA22D2A19DA5C260092F8B9 /* JVCVideoDecoderInterface.mm */; };
@@ -557,6 +556,14 @@
 		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
+		ADA9E43A1A11E514007EB209 /* JVCNetworkSettingWithTopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */; };
+		ADA9E43D1A11E58F007EB209 /* JVCNetworkSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */; };
+		ADA9E4411A11E865007EB209 /* nws_topItemBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */; };
+		ADA9E4421A11E865007EB209 /* nws_topItemSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4401A11E865007EB209 /* nws_topItemSelected@2x.png */; };
+		ADA9E4461A11FCFF007EB209 /* nws_wired_btnBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4431A11FCFF007EB209 /* nws_wired_btnBg@2x.png */; };
+		ADA9E4471A11FCFF007EB209 /* nws_wired_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */; };
+		ADA9E4481A11FCFF007EB209 /* nws_wired_IconSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */; };
+		ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */; };
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
 		ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */; };
@@ -1168,7 +1175,6 @@
 		ADA22D1B19DA58240092F8B9 /* JVCCloudSEENetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCloudSEENetworkHelper.h; sourceTree = "<group>"; };
 		ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCloudSEENetworkHelper.m; sourceTree = "<group>"; };
 		ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJDEC055V1.0.3_2014_3_25.a; sourceTree = "<group>"; };
-		ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvdecoder_01_2013_1_16.a; sourceTree = "<group>"; };
 		ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMp4PKT_2013_9_10_2.a; sourceTree = "<group>"; };
 		ADA22D2619DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCloudSEENetworkInterface.h; sourceTree = "<group>"; };
 		ADA22D2719DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCCloudSEENetworkInterface.mm; sourceTree = "<group>"; };
@@ -1257,6 +1263,16 @@
 		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		ADA9E4381A11E514007EB209 /* JVCNetworkSettingWithTopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingWithTopItem.h; sourceTree = "<group>"; };
+		ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCNetworkSettingWithTopItem.m; sourceTree = "<group>"; };
+		ADA9E43B1A11E58F007EB209 /* JVCNetworkSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingViewController.h; sourceTree = "<group>"; };
+		ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCNetworkSettingViewController.m; sourceTree = "<group>"; };
+		ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_topItemBg@2x.png"; sourceTree = "<group>"; };
+		ADA9E4401A11E865007EB209 /* nws_topItemSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_topItemSelected@2x.png"; sourceTree = "<group>"; };
+		ADA9E4431A11FCFF007EB209 /* nws_wired_btnBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wired_btnBg@2x.png"; sourceTree = "<group>"; };
+		ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wired_Icon@2x.png"; sourceTree = "<group>"; };
+		ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wired_IconSelected@2x.png"; sourceTree = "<group>"; };
+		ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvdecoder_01V1.0.2.a; sourceTree = "<group>"; };
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
 		ADD3EFEB1A10C72900C7F329 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -1297,13 +1313,13 @@
 				A7F4059B19E55A0B0070945F /* libiconv.dylib in Frameworks */,
 				A7F4059919E558040070945F /* AVFoundation.framework in Frameworks */,
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
+				ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
 				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
-				ADA22D2319DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a in Frameworks */,
 				A7F4059219E556160070945F /* libzxingLibrary.a in Frameworks */,
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
@@ -2141,6 +2157,7 @@
 		AD2BDB2219D2914600AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADA9E4311A11E052007EB209 /* remoteSetting */,
 				A7F9E03819ECB35D00C1D69C /* local */,
 				AD916BD119D543B400B925A2 /* JVCEditViewControllerDropListViewCell.h */,
 				AD916BD219D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m */,
@@ -2433,6 +2450,7 @@
 			isa = PBXGroup;
 			children = (
 				ADD3EFFB1A10C74000C7F329 /* libsqlite3.dylib */,
+				ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */,
 				ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */,
 				AD3FB61919F6A18800034461 /* libtransSing.a */,
 				A7EFAB5719F3347D0092AE9C /* libSystem.dylib */,
@@ -2447,7 +2465,6 @@
 				A7F4059819E558040070945F /* AVFoundation.framework */,
 				A7FA43EF19E411B200F7A8A4 /* AssetsLibrary.framework */,
 				ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */,
-				ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */,
 				ADA22D7A19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a */,
 				ADA22D7819DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a */,
 				ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */,
@@ -2637,6 +2654,7 @@
 		ADA77C2819D0282F003EE7A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ADA9E43E1A11E80E007EB209 /* networkSetting */,
 				A7B9FB901A08FABE005F7928 /* operationhelp */,
 				A7B9FB851A08EE39005F7928 /* olddevice */,
 				A78E401A1A076BD20055AE4B /* text */,
@@ -2697,6 +2715,29 @@
 				AD3BDC9719EBF79A001B16D7 /* JVCVoiceencInteface.h */,
 			);
 			name = InterfaceFiles;
+			sourceTree = "<group>";
+		};
+		ADA9E4311A11E052007EB209 /* remoteSetting */ = {
+			isa = PBXGroup;
+			children = (
+				ADA9E43B1A11E58F007EB209 /* JVCNetworkSettingViewController.h */,
+				ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */,
+				ADA9E4381A11E514007EB209 /* JVCNetworkSettingWithTopItem.h */,
+				ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */,
+			);
+			name = remoteSetting;
+			sourceTree = "<group>";
+		};
+		ADA9E43E1A11E80E007EB209 /* networkSetting */ = {
+			isa = PBXGroup;
+			children = (
+				ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */,
+				ADA9E4431A11FCFF007EB209 /* nws_wired_btnBg@2x.png */,
+				ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */,
+				ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */,
+				ADA9E4401A11E865007EB209 /* nws_topItemSelected@2x.png */,
+			);
+			name = networkSetting;
 			sourceTree = "<group>";
 		};
 		ADD6267B1A046D8200BD877F /* voi */ = {
@@ -2829,6 +2870,7 @@
 				A7F46A8419F960D600AC1B1F /* arm_dev_Bra@2x.png in Resources */,
 				A7F46A8019F933B400AC1B1F /* welcome_3_en.jpg in Resources */,
 				A7F442A119E7649B00519A4B /* add_scan@2x.png in Resources */,
+				ADA9E4471A11FCFF007EB209 /* nws_wired_Icon@2x.png in Resources */,
 				A7F46A7B19F933B400AC1B1F /* welcome_1_ch.jpg in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
 				A7F6C5FF19F89B570090B6F0 /* HorizontalScreenStreambg@2x.png in Resources */,
@@ -2851,6 +2893,7 @@
 				A7F43F6919FBD0A400C11109 /* mor_IconCheck@2x.png in Resources */,
 				A7F46A6E19F933AB00AC1B1F /* wel_btn@2x.png in Resources */,
 				A7F424F419D0FD7500D96475 /* log_bg@2x.png in Resources */,
+				ADA9E4411A11E865007EB209 /* nws_topItemBg@2x.png in Resources */,
 				A7F442A219E7649B00519A4B /* add_voice@2x.png in Resources */,
 				A7F5011A19D4EFB400AA78F0 /* Icon-Small.png in Resources */,
 				A7FAF60319D14C0C00B3F395 /* InfoPlist.strings in Resources */,
@@ -2897,6 +2940,7 @@
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
 				A7F46A7D19F933B400AC1B1F /* welcome_2_ch.jpg in Resources */,
+				ADA9E4421A11E865007EB209 /* nws_topItemSelected@2x.png in Resources */,
 				A7EFFA5219F5030100DF783D /* log_demBg@2x.png in Resources */,
 				A7F6C5F819F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png in Resources */,
 				A7F43F6119FBCA3F00C11109 /* edi_camerSec@2x.png in Resources */,
@@ -2986,6 +3030,7 @@
 				A78F221E1A0A5BA100BC0717 /* learn_1_en.mp3 in Resources */,
 				A78F22191A0A555B00BC0717 /* apcofig_2@2x.png in Resources */,
 				A7F8DE3119EE1C77006CE984 /* rem_bg@2x.png in Resources */,
+				ADA9E4481A11FCFF007EB209 /* nws_wired_IconSelected@2x.png in Resources */,
 				A7F51E7819EBC0F30052F878 /* arm_new_ch@2x.png in Resources */,
 				A7F5D78619EA2F6600396AD9 /* no_devWire@2x.png in Resources */,
 				A7F46A7E19F933B400AC1B1F /* welcome_2_en.jpg in Resources */,
@@ -3017,6 +3062,7 @@
 				A7FC002919FCD874006B31FA /* learn_2_ch.mp3 in Resources */,
 				A7F6C5F219F89B570090B6F0 /* HorizontalScreenBar_0@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
+				ADA9E4461A11FCFF007EB209 /* nws_wired_btnBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,
 				AD348C5219F92760006C8A15 /* edi_safe_se@2x.png in Resources */,
 				A7F50A4019FA534F004D061F /* tab_message_select@2x.png in Resources */,
@@ -3133,6 +3179,7 @@
 				A7F9E04A19ED0FB700C1D69C /* JVCDefaultViewController.m in Sources */,
 				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
+				ADA9E43A1A11E514007EB209 /* JVCNetworkSettingWithTopItem.m in Sources */,
 				A7F50A1F19FA2D3F004D061F /* MJRefreshBaseView.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,
 				AD3BDCC019ED4F81001B16D7 /* JVCVoiceencHelpViewController.m in Sources */,
@@ -3147,6 +3194,7 @@
 				ADA22D3119DA5D0A0092F8B9 /* JVCVideoDecoderHelper.m in Sources */,
 				A7F538CF19F3F20E00694CA5 /* JVCURlRequestHelper.m in Sources */,
 				A7FA43F319E4140700F7A8A4 /* JVCCustomYTOView.m in Sources */,
+				ADA9E43D1A11E58F007EB209 /* JVCNetworkSettingViewController.m in Sources */,
 				ADA22D7E19DA84500092F8B9 /* JVCVoiceIntercomHelper.m in Sources */,
 				ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,

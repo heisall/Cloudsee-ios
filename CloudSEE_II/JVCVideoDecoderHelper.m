@@ -178,8 +178,33 @@ char  captureImageBuffer[1280*720*3] ={0};
                     
                     self.isCaptureImage = FALSE;
                 }
+                
+            }else {
+                
+                [self videoLock];
+                
+                outVideoFrame->nHeight = self.nVideoHeight;
+                outVideoFrame->nWidth  = self.nVideoWidth;
+                
+//                ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,outVideoFrame->decoder_y,videoFrame->nSize, nDecoderID, videoFrame->nFrameType,nSystemVersion);
+                 ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,videoFrame->nSize, outVideoFrame->decoder_y,outVideoFrame->decoder_u,outVideoFrame->decoder_v,nDecoderID,videoFrame->nFrameType,nSystemVersion);
+                if (self.isCaptureImage) {
+                    
+                    if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
+                        
+                        NSData *captureImageData=[NSData dataWithBytes:outVideoFrame->decoder_y length:self.nVideoWidth*self.nVideoHeight*2+66];
+                        
+                        [self.delegate decoderModelCaptureImageCallBack:captureImageData];
+                    }
+                    
+                    self.isCaptureImage = FALSE;
+                }
+                [self VideoUnlock];
+                
             }
         }
+        
+        //DDLogVerbose(@"%s-------outVideoFrame->nWidth=%d---outVideoFrame->nHeigh=%d",__FUNCTION__,outVideoFrame->nWidth,outVideoFrame->nHeight);
         
     }else{
         

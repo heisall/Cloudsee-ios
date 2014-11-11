@@ -29,6 +29,7 @@
 
 #import "JVCAlarmCurrentView.h"
 #import "JVCOperationHelpView.h"
+#import "JVCNetworkSettingViewController.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -505,6 +506,13 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
  */
 - (void)editDeviceLinkType
 {
+    
+    JVCNetworkSettingViewController *networkViewControoler =  [[JVCNetworkSettingViewController alloc] init];
+    [self.navigationController pushViewController:networkViewControoler animated:YES];
+    [networkViewControoler release];
+    
+    return;
+    
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
     
     if (model.bIpOrDomainAdd) {

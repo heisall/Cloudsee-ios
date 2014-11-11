@@ -30,14 +30,15 @@ enum CONNECTRESULTTYPE{
 
 enum RemoteOperationType {
     
-    RemoteOperationType_YTO                   = 0, //云台操作
-    RemoteOperationType_CaptureImage          = 1, //抓拍
-    RemoteOperationType_LocalVideo            = 2, //本地录像
-    RemoteOperationType_AudioListening        = 3, //音频监听
-    RemoteOperationType_VoiceIntercom         = 4, //语音对讲
-    RemoteOperationType_RemotePlaybackSearch  = 5, //语音对讲
-    RemoteOperationType_RemotePlaybackSEEK    = 6, //远程回放快进
-    RemoteOperationType_TextChat              = 7, //文本聊天
+    RemoteOperationType_YTO                     = 0, //云台操作
+    RemoteOperationType_CaptureImage            = 1, //抓拍
+    RemoteOperationType_LocalVideo              = 2, //本地录像
+    RemoteOperationType_AudioListening          = 3, //音频监听
+    RemoteOperationType_VoiceIntercom           = 4, //语音对讲
+    RemoteOperationType_RemotePlaybackSearch    = 5, //语音对讲
+    RemoteOperationType_RemotePlaybackSEEK      = 6, //远程回放快进
+    RemoteOperationType_TextChat                = 7, //文本聊天
+    RemoteOperationType_oldDeviceNextVideoFrame = 8, //请求04版主控下一帧
     
     
 };

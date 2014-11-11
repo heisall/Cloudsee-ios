@@ -213,6 +213,7 @@ char          pcmBuffer[1024] ={0};
     
     int nDecoderStatus = [self decodeOneVideoFrame:decodervideoFrame VideoOutFrame:jvcOutVideoFrame];
     
+    
     [self saveRecordVideoDataToLocal:(char *)decodervideoFrame->buf isVideoDataI:decodervideoFrame->is_i_frame isVideoDataB:decodervideoFrame->is_b_frame videoDataSize:decodervideoFrame->nSize];
     
     
@@ -222,11 +223,19 @@ char          pcmBuffer[1024] ={0};
             
             jvcOutVideoFrame->nLocalChannelID = self.nLocalChannel;
             
-            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:self.decodeModelObj.isDecoderModel];
+            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:YES];
         }
     }
     
     return nDecoderStatus;
+}
+
+/**
+ *  04版主控获取下一帧
+ */
+-(void)nextVideoData {
+    
+   [self.jvcQueueHelper popVideoData];
 }
 
 #pragma mark 解码处理模块
@@ -305,7 +314,7 @@ char          pcmBuffer[1024] ={0};
             jvcOutVideoFrame->nLocalChannelID = self.nLocalChannel;
             jvcOutVideoFrame->nHeight         = self.decodeModelObj.nVideoHeight;
              jvcOutVideoFrame->nWidth         = self.decodeModelObj.nVideoWidth;
-            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:self.decodeModelObj.isDecoderModel];
+            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:YES];
         }
     }
     
