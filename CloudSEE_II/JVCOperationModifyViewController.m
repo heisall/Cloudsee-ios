@@ -44,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedString(@"wifi-change", nil);
+    self.title = self.modifyModel.yunShiTongNum;
 
     modifyView = [[JVCLabelFieldSView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     modifyView.delegate = self;

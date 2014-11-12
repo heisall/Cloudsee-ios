@@ -68,6 +68,15 @@ extern "C" {
                     const char* password);
     
     /**
+     *  获取登陆用户的Session
+     *
+     *  @param session 缓存空间
+     *
+     *  @return 成功返回0
+     */
+    int GetSession_C(char* session);
+    
+    /**
      * @brief 修改已注册非规范用户名及密码
      * @param [in] 新用户名
      * @param [in] 新密码
@@ -204,6 +213,8 @@ extern "C" {
 	 * @return
 	 */
     void SetServerIP_C(const char* appchannel_server_ip, const char* apponline_server_ip);
+    
+   
     
 };
 

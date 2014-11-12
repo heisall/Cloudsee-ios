@@ -94,7 +94,7 @@
 "jvc_log_resign" = "Register";
 "jvc_log_fot"= "Retrieve";
 "jvc_log_demo" = "Demo";
-"ERROR_DESC_UNREGISTER" = "SDK has not been initialized";
+"ERROR_DESC_UNREGISTER" = "Network connection exception,please login again.";
 
 //不合法用户名用户密码修改
 "jvc_Unmod_titile"="Complete the user info";
@@ -184,7 +184,7 @@
 "jvc_addDevice_back" = "back";
 "jvc_addDevice_advance" = "Advance";
 "jvc_addDevice_has_Device" = "No need to add the same device";
-"jvc_addDevice_has_Device_totalNum" = "over maxmium";//////////////
+"jvc_addDevice_has_Device_totalNum" = "Devices quantity has exceeded the limit, please delete the useless devices and add new one then.";//////////////
 "jvc_addDevice_add_error" = "Failed to add";
 "adddevice_net_error"= "Connection timeout.";
 "adddevice_net_success"= "added device successfully";
@@ -500,7 +500,6 @@
 //JVCDeviceMathsHelper
 "JVCDeviceMathsHelper_addDevice_success" = "Add device Successfully";
 "JVCDeviceMathsHelper_addDevice_HasExist" = "Already exsit in the device list";
-"JVCDeviceMathsHelper_addDevice_max" = "Over maxmium";
 "JVCDeviceMathsHelper_addDevice_error" = "Faild to add";
 "JVCDeviceMathsHelper_addDeviceChannel_error" = "Faild to add Channel";
 

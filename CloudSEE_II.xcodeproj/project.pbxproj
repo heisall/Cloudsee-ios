@@ -58,6 +58,7 @@
 		A78F221E1A0A5BA100BC0717 /* learn_1_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A78F221B1A0A5BA100BC0717 /* learn_1_en.mp3 */; };
 		A78F221F1A0A5BA100BC0717 /* learn_2_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A78F221C1A0A5BA100BC0717 /* learn_2_en.mp3 */; };
 		A78F22211A0A62E900BC0717 /* dem_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A78F22201A0A62E900BC0717 /* dem_def@2x.png */; };
+		A7A575F11A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575F01A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
 		A7B9FB881A08EE4B005F7928 /* device_old_update_en@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B9FB861A08EE4B005F7928 /* device_old_update_en@2x.png */; };
@@ -333,6 +334,7 @@
 		A7F5EF7819D2DC18009B797A /* JVCAlertHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF7619D2DC18009B797A /* JVCAlertHelper.m */; };
 		A7F5EF8019D2F453009B797A /* JVCPredicateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF7F19D2F453009B797A /* JVCPredicateHelper.m */; };
 		A7F5EF8119D2F453009B797A /* JVCPredicateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F5EF7F19D2F453009B797A /* JVCPredicateHelper.m */; };
+		A7F627E41A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F627E31A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m */; };
 		A7F6C5E119F8977D0090B6F0 /* JVCHorizontalScreenBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F6C5E019F8977D0090B6F0 /* JVCHorizontalScreenBar.m */; };
 		A7F6C5F219F89B570090B6F0 /* HorizontalScreenBar_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E319F89B570090B6F0 /* HorizontalScreenBar_0@2x.png */; };
 		A7F6C5F319F89B570090B6F0 /* HorizontalScreenBar_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E419F89B570090B6F0 /* HorizontalScreenBar_1@2x.png */; };
@@ -492,7 +494,6 @@
 		AD3BDCC719ED5ADD001B16D7 /* voi_help_ges@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCC619ED5ADD001B16D7 /* voi_help_ges@2x.png */; };
 		AD3BDCC919ED5AE3001B16D7 /* voi_help_dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */; };
 		AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */; };
-		AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */; };
 		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
 		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
 		AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -657,6 +658,7 @@
 		A78F221B1A0A5BA100BC0717 /* learn_1_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = learn_1_en.mp3; sourceTree = "<group>"; };
 		A78F221C1A0A5BA100BC0717 /* learn_2_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = learn_2_en.mp3; sourceTree = "<group>"; };
 		A78F22201A0A62E900BC0717 /* dem_def@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dem_def@2x.png"; sourceTree = "<group>"; };
+		A7A575F01A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.18_2014_11_12.a; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
 		A7B9FB861A08EE4B005F7928 /* device_old_update_en@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "device_old_update_en@2x.png"; sourceTree = "<group>"; };
@@ -941,6 +943,8 @@
 		A7F5EF7619D2DC18009B797A /* JVCAlertHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlertHelper.m; sourceTree = "<group>"; };
 		A7F5EF7E19D2F453009B797A /* JVCPredicateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPredicateHelper.h; sourceTree = "<group>"; };
 		A7F5EF7F19D2F453009B797A /* JVCPredicateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPredicateHelper.m; sourceTree = "<group>"; };
+		A7F627E21A122B7F008F46A7 /* JVCSuggestAndFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCSuggestAndFeedViewController.h; sourceTree = "<group>"; };
+		A7F627E31A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCSuggestAndFeedViewController.m; sourceTree = "<group>"; };
 		A7F6C5DF19F8977D0090B6F0 /* JVCHorizontalScreenBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCHorizontalScreenBar.h; sourceTree = "<group>"; };
 		A7F6C5E019F8977D0090B6F0 /* JVCHorizontalScreenBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCHorizontalScreenBar.m; sourceTree = "<group>"; };
 		A7F6C5E319F89B570090B6F0 /* HorizontalScreenBar_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_0@2x.png"; sourceTree = "<group>"; };
@@ -1146,7 +1150,6 @@
 		AD3BDCC619ED5ADD001B16D7 /* voi_help_ges@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_help_ges@2x.png"; sourceTree = "<group>"; };
 		AD3BDCC819ED5AE3001B16D7 /* voi_help_dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voi_help_dev@2x.png"; sourceTree = "<group>"; };
 		AD3BDCCC19EF5F18001B16D7 /* ope_long_talk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_long_talk@2x.png"; sourceTree = "<group>"; };
-		AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.17_2014_10_16.a; sourceTree = "<group>"; };
 		AD3FB61719F682F700034461 /* sca_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_sound.mp3; sourceTree = "<group>"; };
 		AD3FB61919F6A18800034461 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
 		AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
@@ -1300,6 +1303,7 @@
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
+				A7A575F11A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a in Frameworks */,
 				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
@@ -1309,7 +1313,6 @@
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
 				AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */,
 				AD014DEE19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a in Frameworks */,
-				AD3BDCFA19EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1395,6 +1398,8 @@
 				A7F5555619D8FEA50009F75C /* JVCMoreUserSettingViewController.m */,
 				A7F5557919D9340C0009F75C /* JVCMorEditPassWordViewController.h */,
 				A7F5557A19D9340C0009F75C /* JVCMorEditPassWordViewController.m */,
+				A7F627E21A122B7F008F46A7 /* JVCSuggestAndFeedViewController.h */,
+				A7F627E31A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m */,
 			);
 			name = more;
 			sourceTree = "<group>";
@@ -2439,7 +2444,6 @@
 				A7EFAB5519F32FDF0092AE9C /* CFNetwork.framework */,
 				A709697C19F27AE600C191F8 /* libsystem_network.dylib */,
 				AD014DED19F5E29C00E3D0FB /* libjvnetsdkV2.0.76.3.7_2014_10_20.a */,
-				AD3BDCF919EFA576001B16D7 /* libuserAcount_v1.0.17_2014_10_16.a */,
 				A7F486B619E6AC4600C10B2B /* QuartzCore.framework */,
 				A7F4059E19E55A260070945F /* CoreMedia.framework */,
 				A7F4059C19E55A1C0070945F /* CoreVideo.framework */,
@@ -2449,6 +2453,7 @@
 				ADA22DAB19DA98050092F8B9 /* AudioToolbox.framework */,
 				ADA22D2219DA59D90092F8B9 /* libjvdecoder_01_2013_1_16.a */,
 				ADA22D7A19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a */,
+				A7A575F01A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a */,
 				ADA22D7819DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a */,
 				ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */,
 				ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */,
@@ -3200,6 +3205,7 @@
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */,
+				A7F627E41A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,
 				ADA22D5E19DA78310092F8B9 /* JVCQueueHelper.mm in Sources */,

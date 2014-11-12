@@ -136,7 +136,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
         }else if(ADDDEVICE_MAX_MUX == result)//超过最大值
         {
             
-            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_max")];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"addDevice_Max_num")];
             
         }else{//开始添加
             

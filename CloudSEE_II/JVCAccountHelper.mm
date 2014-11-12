@@ -9,6 +9,7 @@
 #import "JVCAccountHelper.h"
 #import "JVCAccountInterface.h"
 #import "JVCSystemUtility.h"
+#import "JSONKit.h"
 
 
 @implementation JVCAccountHelper
@@ -17,6 +18,7 @@
 
 static JVCAccountHelper *sharedjvcAccountHelper = nil;
 
+char outAccountSessionBuffer[40];
 
 static  NSString *const ACCOUNTSERVICELOG              =   @"accountServiceLog.md";
 static  NSString *const kAppChannelServiceAddressC     =   @"appchannel.afdvr.com";
@@ -27,6 +29,8 @@ static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.c
 
 #define CONNECTTIMEOUTSECOND 10
 #define RQCONNECTTIMEOUTSECOND 10
+
+#define KSuccess 0
 
 -(id)init{
     
@@ -246,6 +250,33 @@ static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.c
     
     return UserLogin_C([username  UTF8String],[passWord UTF8String]);
     
+}
+
+/**
+ *  获取账号的sessionkey
+ *
+ *  @return nil 获取失败  其他的就是他的值
+ */
+- (id)getAccountSessionKey
+{
+    memset(outAccountSessionBuffer, 0, sizeof(outAccountSessionBuffer));
+    
+    int result = GetSession_C(outAccountSessionBuffer);
+    
+    if (result != KSuccess ) {
+        
+        return nil;
+    }
+    
+    if (strlen(outAccountSessionBuffer)<=0) {
+        
+        return nil;
+    }
+    
+    NSData *responseData=[NSData dataWithBytes:outAccountSessionBuffer length:strlen(outAccountSessionBuffer)];
+    
+    return [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
+
 }
 
 /**

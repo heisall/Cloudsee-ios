@@ -225,4 +225,11 @@
  */
 -(int)CancelServerPushToken:(NSString *)device_id;
 
+/**
+ *  获取账号的sessionkey
+ *
+ *  @return nil 获取失败  其他的就是他的值
+ */
+- (id)getAccountSessionKey;
+
 @end

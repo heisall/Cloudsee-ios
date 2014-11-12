@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString *strPassword;
 @property (nonatomic, retain) NSString *strLastLoginTimer;
 @property (nonatomic, retain) NSString *strToken;//
+@property (nonatomic, retain) NSString *strLoginToken;//
 @property (nonatomic, assign) BOOL bAutoLoginState;
 @property (nonatomic, assign) BOOL bGestureState;
 @property (nonatomic, assign) int  iUserAlarmState;
@@ -36,6 +37,7 @@
 #define kkGustureStgate [JVCUserInfoManager shareUserInfoManager].bGestureState
 #define kkToken         [JVCUserInfoManager shareUserInfoManager].strToken
 #define kkAlarmState    [JVCUserInfoManager shareUserInfoManager].iUserAlarmState
+#define kkLoginToken    [JVCUserInfoManager shareUserInfoManager].strLoginToken
 
 /**
  *  获取用户名

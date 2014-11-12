@@ -27,6 +27,7 @@
 #import "JVCConfigModel.h"
 #import "JSONKit.h"
 #import "JVCRGBHelper.h"
+#import "JVCSuggestAndFeedViewController.h"
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -267,7 +268,9 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
             
             if ([JVCConfigModel shareInstance ]._netLinkType !=NETLINTYEPE_NONET) {
                 //弹出发邮件的视图
-                [self sendEmail];
+              //  [self sendEmail];
+                
+                [self sendSuggestAndFeedBack];
                 
             }else{
                 [[JVCAlertHelper shareAlertHelper ]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"networkError", nil) ];
@@ -473,6 +476,13 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"home_version_last_count3", nil) ];
 }
 
+#pragma mark 意见与反馈
+- (void)sendSuggestAndFeedBack
+{
+    JVCSuggestAndFeedViewController *suggestVC = [[JVCSuggestAndFeedViewController alloc] init];
+    [self.navigationController pushViewController:suggestVC animated:YES];
+    [suggestVC release];
+}
 
 #pragma mark 发送意见与反馈
 - (void)sendEmail
