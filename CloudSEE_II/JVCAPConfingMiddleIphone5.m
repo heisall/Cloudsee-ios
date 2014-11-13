@@ -34,6 +34,7 @@ static const int  KlabeTextTitleFont    =  16;      //title的字体大小
 static const int  KlabeTextDetailFont   =  14;      //detail的字体大小
 static const int  KlabeWith             =  210;      //label的宽度
 static const int  KlabeAddHeight        =  4;       //label的高度添加值（比字体大4）
+static const int  KSeperateNum          =  3;       //中文的时候3个空  英文的时候2个（英文不显示描述）
 
 /**
  *  这个方法之前，一定要设置view的frame
@@ -52,6 +53,14 @@ static const int  KlabeAddHeight        =  4;       //label的高度添加值（
     [self initBtnArray];
     
     [self initViewArray];
+    
+    int seperateNum = KSeperateNum;
+    
+    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+        detailArray = nil;
+        seperateNum = KSeperateNum-1;
+    }
+
 
     CGFloat height = self.frame.size.height/titleArray.count;
     
@@ -92,7 +101,8 @@ static const int  KlabeAddHeight        =  4;       //label的高度添加值（
         [_arrayBtnList addObject:btnImage];
         
         UILabel *_titleName=[[UILabel alloc] init];
-        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - KlabeTextTitleFont+KlabeAddHeight)/2.0, KlabeWith, KlabeTextTitleFont+KlabeAddHeight);
+
+        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height -(seperateNum-1)*KlabeTextTitleFont)/seperateNum, KlabeWith, KlabeTextTitleFont+KlabeAddHeight);
         _titleName.textAlignment=NSTextAlignmentLeft;
         _titleName.text= strTitle;
         _titleName.font= [UIFont systemFontOfSize:KlabeTextTitleFont];

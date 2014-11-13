@@ -17,6 +17,7 @@
 
 static const  NSString *kRequestUrlHead = @"http://192.168.4.234/member.php?mod=mobile&session=";
 static const  NSString *kRequestUrlFoot = @"&username=";
+static const  NSString *kSuccessString  = @"viewthread";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,6 +73,19 @@ static const  NSString *kRequestUrlFoot = @"&username=";
 {
     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *urlString = [request.URL absoluteString];
+            
+    if([urlString rangeOfString:(NSString *)kSuccessString].location !=NSNotFound){
+
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_suggest_success")];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    return YES;
 }
 
 /*

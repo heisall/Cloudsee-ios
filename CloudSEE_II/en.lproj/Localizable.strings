@@ -407,6 +407,7 @@
 "jvc_more_checkVersion"="Software Update";
 "jvc_more_help"="Help";
 "jvc_more_suggest"="Feedback";
+"jvc_more_suggest_success" = "反馈信息我们已经收到，我们会第一时间就行修改";
 "jvc_more_appStore"="Go to App Store to comment.";
 "jvc_more_userOut"="Log Out";
 "home_version_found"= "Found";
@@ -456,6 +457,7 @@
 "Jvc_editDeviceInfo_PW" = " Password";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
+"Jvc_editDeviceInfo_Devivebusy" = "The device is busy, please try again...";
 
 
 //更多

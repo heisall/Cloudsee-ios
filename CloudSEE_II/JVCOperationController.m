@@ -28,6 +28,8 @@
 #import "JVCOperationModifyViewController.h"
 #import "JVCConfigModel.h"
 #import "JVCLocaOperationModifyViewController.h"
+#import "JVCTencentHelp.h"
+#import "JVCYTOperaitonView.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -72,6 +74,11 @@ bool selectState_audio ;
      *  遮罩的view
      */
     JVCCustomCoverView *_splitViewCon;
+    
+    /**
+     *  播放界面显示云台操作的view
+     */
+    JVCYTOperaitonView *ytOperationView;
 
     
     int  nCurrentStreamType;
@@ -324,6 +331,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_operationPlay;
     [super viewDidLoad];
     
     unAllLinkFlag = DISCONNECT_CONNECT;
@@ -372,6 +380,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_managerVideo setUserInteractionEnabled:YES];
     [self.view addSubview:_managerVideo];
      [_managerVideo initWithLayout];
+    
+     ytOperationView = [[JVCYTOperaitonView alloc] initContentViewWithFrame:_managerVideo.frame];
+    [self.view addSubview:ytOperationView];
+    [ytOperationView release];
 
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
@@ -446,6 +458,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     skinSelect = 0;
     
+    //云台点击后，再播放界面显示的图片
+    UIImage *topString = [UIImage imageBundlePath:@""];
 }
 
 /**
@@ -1014,6 +1028,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)hideencapAnimations{
     
     [self.view bringSubviewToFront:_managerVideo];
+    [self.view bringSubviewToFront:ytOperationView];
     [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
 
 }
@@ -1177,6 +1192,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [_managerVideo setManagePlayViewScrollState:YES];
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
+        [self.view bringSubviewToFront:ytOperationView];
         [self.view bringSubviewToFront:_operationItemSmallBg];
         
         [JVCHorizontalScreenBar shareHorizontalBarInstance].hidden = YES;
@@ -1201,6 +1217,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [_managerVideo changeContenView];
         [self.view bringSubviewToFront:_managerVideo];
+        [self.view bringSubviewToFront:ytOperationView];
         [ straemView removeFromSuperview];
 
         //显示横屏的按钮
@@ -1327,11 +1344,15 @@ char remoteSendSearchFileBuffer[29] = {0};
     switch (buttonPress) {
             
         case BUTTON_TYPE_CAPTURE:
-            
+        {
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationCaptur];
+
             [self smallCaptureTouchUpInside:btn];
+        }
             break;
             
         case BUTTON_TYPE_TALK:
+        {
             
             //远程回放时，屏蔽掉此功能
             if (_isPlayBackVideo ||self.isPlayBackVideo) {
@@ -1341,7 +1362,10 @@ char remoteSendSearchFileBuffer[29] = {0};
                 return;
             }
             
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationTalk];
+
             [self chatRequest:btn];
+        }
             break;
             
         case BUTTON_TYPE_VIDEO:
@@ -1357,13 +1381,15 @@ char remoteSendSearchFileBuffer[29] = {0};
                 [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_VIDEO];
                 
             }
-            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationVideo];
+
             [self operationPlayVideo:btn.selected];
             
         }
             break;
             
         case BUTTON_TYPE_MORE:
+        {
             
             //远程回放时，屏蔽掉此功能
             if (_isPlayBackVideo ||self.isPlayBackVideo) {
@@ -1372,8 +1398,10 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationSteam];
 
             [self showChangeStreamView:btn];
+        }
             break;
             
         default:
@@ -1623,6 +1651,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case TYPEBUTTONCLI_SOUND:{
             
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
             /**
              *  判断是否开启语音对讲,开启直接返回
              */
@@ -1648,11 +1677,17 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationYT];
+
             [self ytoClick:nil];
             break;
             
         case TYPEBUTTONCLI_PLAYBACK:
+        {
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationplaybac];
+
             [self remotePlaybackClick];
+        }
             break;
             
         default:
@@ -2060,6 +2095,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)YTOperationDelegateCallBackWithJVNYTCType:(int )YTJVNtype
 {
     DDLogInfo(@"==%s===%d",__FUNCTION__,YTJVNtype);
+    [ytOperationView showOperationTypeImageVIew:YTJVNtype];
     
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
 }

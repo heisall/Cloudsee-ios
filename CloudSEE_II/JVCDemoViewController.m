@@ -45,6 +45,7 @@ static const  int  KNum  = 3;
 }
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_Demo;
     [super viewDidLoad];
     
     self.title = LOCALANGER(@"jvc_demo_title");

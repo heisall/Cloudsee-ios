@@ -7,6 +7,13 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+
+@protocol editChannelInfoDeleteDelegate <NSObject>
+
+- (void)jvcEditChannelInfoDeleteSuccess;
+
+@end
+
 @class JVCChannelModel;
 @interface JVCEditChannelInfoTableViewController : JVCBaseGeneralTableViewController<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -15,6 +22,8 @@
      JVCChannelModel *channelModel;
     
     NSMutableArray *arrayChannelsList;//通道数组
+    
+    id<editChannelInfoDeleteDelegate>deleteDelegate;
 
 }
 
@@ -22,7 +31,7 @@
 @property(nonatomic,retain)NSString *YstNum;//云视通号
 @property(nonatomic,retain) JVCChannelModel *channelModel;
 @property(nonatomic,retain) NSMutableArray *arrayChannelsList;//通道数组
-
+@property(nonatomic,assign)id<editChannelInfoDeleteDelegate>deleteDelegate;
 /**
  *  修改通道昵称的方法
  */

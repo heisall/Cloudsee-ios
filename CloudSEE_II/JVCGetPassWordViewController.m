@@ -33,6 +33,7 @@ static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com/findpwd/ind
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_getPw;
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = NO;

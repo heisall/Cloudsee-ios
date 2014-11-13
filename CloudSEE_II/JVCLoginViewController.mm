@@ -35,6 +35,7 @@
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCGetPassWordViewController.h"
+#import "JVCTencentHelp.h"
 
 enum LOGINBTNTYPE
 {
@@ -125,7 +126,6 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
     
     [super viewDidAppear:animated];
     
-    
    NSString *fistOpen = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOME];
 
     if (fistOpen.length>0) {
@@ -140,6 +140,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
 {
     self.navigationController.navigationBarHidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
+    
+    self.tenCentKey = kTencentKey_login;
 
     [super viewDidLoad];
     
@@ -453,6 +455,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         return;
     };
     
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_login];
+
 //    if ([JVCConfigModel shareInstance]._bInitAccountSDKSuccess != TYPEINITSDK_SETERROR) {
 //        
 //        [self alertToastWithKeyWindowWithMessage:LOCALANGER(@"ERROR_DESC_UNREGISTER")];
@@ -642,7 +646,7 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
  */
 - (void)loginInSuccessToChangeRootController
 {
-    
+
     [self getUserAccountState];//发送设备的报警开关状态
     
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
@@ -688,6 +692,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
  */
 - (void)demoPointClick
 {
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_Demo];
+
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_LOCAL;
 
     JVCDemoViewController *DemoVC = [[JVCDemoViewController alloc] init];
@@ -701,6 +707,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
 - (void)localLogin
 {
     [JVCConfigModel shareInstance]._bISLocalLoginIn = TYPELOGINTYPE_LOCAL;
+    
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_Locallogin];
   
     //如果是present出来的，就让他dismiss掉，如果不是直接切换
     if (self.presentingViewController !=nil) {
@@ -808,7 +816,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         
         return;
     };
-    
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_resign];
+
     JVCRegisterViewController *resignVC = [[JVCRegisterViewController alloc] init];
     resignVC.resignDelegate = self;
     [self.navigationController pushViewController:resignVC animated:YES];
@@ -824,7 +833,8 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         
         return;
     };
-    
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_getpw];
+
     JVCGetPassWordViewController *getpw = [[JVCGetPassWordViewController alloc] init];
     [self.navigationController pushViewController:getpw animated:YES];
     [getpw release];
@@ -889,7 +899,7 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
  *  关闭键盘事件
  */
 -(void)deallocWithViewDidDisappear{
-    
+        
      [self resiginTextFields];
     
 }

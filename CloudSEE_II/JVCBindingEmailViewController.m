@@ -44,6 +44,7 @@ static const int  KSUCCESS          = 0;//成功
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_bindEamil;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.backBarButtonItem = nil;

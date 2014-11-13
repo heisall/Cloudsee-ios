@@ -39,6 +39,8 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCSignleAlarmDisplayView.h"
 #import "JVCURlRequestHelper.h"
+#import "MTA.h"
+#import "MTAConfig.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -77,6 +79,9 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     //云视通
     [self initYSTSDK];
+    
+    //腾讯云统计
+    [self initTencentSdk];
     
     //openglView
     [self initOpenGlView];
@@ -767,7 +772,12 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
    
 }
 
-
-
-
+/**
+ *  注册腾讯云统计
+ */
+- (void)initTencentSdk
+{
+    [MTA startWithAppkey:@"IJI3ZDS167IB"];
+    
+}
 @end

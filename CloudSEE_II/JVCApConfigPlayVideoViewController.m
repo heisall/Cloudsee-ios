@@ -14,6 +14,7 @@
 #import "JVCSystemUtility.h"
 #import "JVCAlertHelper.h"
 #import "JVCOldDeviceHelpViewController.h"
+#import "JVCYTOperaitonView.h"
 
 @interface JVCApConfigPlayVideoViewController () {
 
@@ -27,6 +28,8 @@
     JVCAPConfingMiddleIphone5 *middleView;
     NSTimer *requestTimer;
     int      nRepeatRequestCount;
+    
+    JVCYTOperaitonView *ytOperationView ;//云台帮助view
 }
 
 enum DEVICE_AP_LEVEL {
@@ -84,6 +87,7 @@ static const int            kRepeatRequestCount      = 6;
     self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     
     [self initLayoutWithSingVidew];
+    [self initYtOperationVeiw];
     [self initLayoutWithNextButton];
     [self initLayoutWithOperationView:CGRectMake(0, singleVideoShow.bottom, self.view.width ,nextBtn.origin.y - singleVideoShow.bottom -kNextButtonWithTop)];
     [self connectApDeviceWithVideo];
@@ -107,6 +111,13 @@ static const int            kRepeatRequestCount      = 6;
     [singleVideoShow initWithView];
     [self.view addSubview:singleVideoShow];
 
+}
+
+- (void)initYtOperationVeiw
+{
+    ytOperationView   = [[JVCYTOperaitonView alloc] initContentViewWithFrame:singleVideoShow.frame];
+    [self.view addSubview:ytOperationView];
+    [ytOperationView release];
 }
 
 
@@ -138,8 +149,9 @@ static const int            kRepeatRequestCount      = 6;
     middleView.delegateIphone5BtnCallBack = self;
     
     NSArray *title = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"apSetting_playVideo_talk", nil), nil];
+     NSArray *detailtitle = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Learn audio info at any time", nil),NSLocalizedString(@"Adjust PTZ at any time", nil),NSLocalizedString(@"Check Playback info at any time", nil), nil];
     
-    [middleView updateViewWithTitleArray:title detailArray:nil];
+    [middleView updateViewWithTitleArray:title detailArray:detailtitle];
     [self.view addSubview:middleView];
     [middleView release];
     
@@ -590,6 +602,7 @@ static const int            kRepeatRequestCount      = 6;
  */
 - (void)YTOperationDelegateCallBackWithJVNYTCType:(int )YTJVNtype
 {
+    [ytOperationView showOperationTypeImageVIew:YTJVNtype];
     
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
 }

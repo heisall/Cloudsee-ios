@@ -92,6 +92,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_alarmList;
     [super viewDidLoad];
     
     arrayAlarmList  = [[NSMutableArray alloc] init];

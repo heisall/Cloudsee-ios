@@ -47,7 +47,7 @@
         self.modifyModel.userName = userName;
         self.modifyModel.passWord = passWord;
         
-        result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceNickNameWithYst:self.modifyModel.yunShiTongNum NickName:self.modifyModel.nickName deviceName:passWord passWord:passWord iscustomLinkModel:NO];
+        result = [[JVCDeviceSourceHelper shareDeviceSourceHelper] updateLocalDeviceNickNameWithYst:self.modifyModel.yunShiTongNum NickName:self.modifyModel.nickName deviceName:userName passWord:passWord iscustomLinkModel:NO];
 
         
         if (modifyDelegate !=nil && [modifyDelegate respondsToSelector:@selector(modifyDeviceInfoCallBack)]) {//修改成功 返回

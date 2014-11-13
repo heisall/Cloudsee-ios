@@ -36,6 +36,8 @@
 @synthesize YstNum;
 @synthesize arrayChannelsList;
 @synthesize channelModel;
+@synthesize deleteDelegate;
+
 static const    int     kOffSet_x                = 25;//左边距
 static const    int     KChannelTextFieldFont    = 16;//字体大小
 static const    int     kChannelTextFieldWith    = 200;//textfield的宽度
@@ -467,6 +469,10 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         [[JVCChannelScourseHelper shareChannelScourseHelper] deleteSingleChannelWithDeviceYstNumber:channelModelDelete];
         
         [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"jvc_editChannel_delete_success", nil)];
+        if (deleteDelegate !=nil && [deleteDelegate respondsToSelector:@selector(jvcEditChannelInfoDeleteSuccess)]) {
+            
+            [deleteDelegate jvcEditChannelInfoDeleteSuccess];
+        }
 
         [self.navigationController popViewControllerAnimated:YES];
         

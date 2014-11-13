@@ -12,12 +12,10 @@
 #import "JVCEditDeviceOperationView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
-#import "JVCEditChannelInfoTableViewController.h"
 #import "JVCLickTypeViewController.h"
 #import "JVCConfigModel.h"
 #import "JVCLocalEditDeviceInfoViewController.h"
 #import "JVCLocalLickTypeViewController.h"
-#import "JVCLocalEditChannelInfoTableViewController.h"
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVNetConst.h"
 #import "JVCOperationController.h"
@@ -29,6 +27,7 @@
 
 #import "JVCAlarmCurrentView.h"
 #import "JVCOperationHelpView.h"
+#import "JVCTencentHelp.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -295,10 +294,6 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 
     JVCDeviceSourceHelper *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
     
-    if (self.nIndex >=[deviceSourceObj deviceListArray].count) {
-        
-        self.nIndex -- ;
-    }
     return (JVCDeviceModel *)[[deviceSourceObj deviceListArray] objectAtIndex:self.nIndex];
 }
 
@@ -371,19 +366,30 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     {
         case JVCEditDeviceListViewControllerClickType_alarm:{
             
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_safeManager];
+
             [self connetDeviceWithYSTNum];
             
         }
             break;
         case JVCEditDeviceListViewControllerClickType_deviceManager:{
+            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_DeviceManager];
+
             [self editDeviceInfo];
         }
             break;
         case JVCEditDeviceListViewControllerClickType_linkModel:{
+            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_LickType];
+
             [self editDeviceLinkType];
         }
             break;
         case JVCEditDeviceListViewControllerClickType_channelManage:{
+            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_channelManager];
+
             [self editChannelsInfo];
         }
             break;
@@ -397,10 +403,16 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 
                 }
             }
+            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_EditView];
+
         }
             break;
             
         case JVCEditDeviceListViewControllerClickType_safe:{
+            
+            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_AlarmDevieManage];
+
             
             [self safeWithChangeStatus];
             
@@ -544,13 +556,26 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     DDLogVerbose(@"%s---",__FUNCTION__);
 }
 
+/**
+ *  删除通道的时候，删除最后一个通道的时候，同时删除设备的回调
+ */
+- (void)jvcEditChannelInfoDeleteSuccess
+{
+    if (self.nIndex == titles.count -1) {
+        
+        self.nIndex --;
+    }
+    
+    DDLogVerbose(@"%s---",__FUNCTION__);
+}
+
 #pragma 通道管理
 - (void)editChannelsInfo
 {
      if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
          
          JVCLocalEditChannelInfoTableViewController *editChannelVC = [[JVCLocalEditChannelInfoTableViewController alloc] init];
-         
+         editChannelVC.deleteDelegate = self;
          editChannelVC.YstNum = [self currentYstTitles];
          [editChannelVC initChannelist];
          editChannelVC.hidesBottomBarWhenPushed = YES;
@@ -560,7 +585,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
      }else{
          
          JVCEditChannelInfoTableViewController *editChannelVC = [[JVCEditChannelInfoTableViewController alloc] init];
-         
+         editChannelVC.deleteDelegate = self;
          editChannelVC.YstNum = [self currentYstTitles];
          [editChannelVC initChannelist];
          editChannelVC.hidesBottomBarWhenPushed = YES;
@@ -579,6 +604,8 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_deviceConfig;
+
     [self initWithRgbListArray];
     [self initWithIconTitleListArray];
     [self initWithIconImageNameListArray];
@@ -739,7 +766,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
            JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
         
             [alertObj alertHidenToastOnWindow];
-            [alertObj alertToastMainThreadOnWindow:@"主控忙碌，请重试..."];
+            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"Jvc_editDeviceInfo_Devivebusy")];
             [self disAlarmRemoteLink];
         });
     }

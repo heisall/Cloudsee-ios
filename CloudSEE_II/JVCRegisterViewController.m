@@ -125,6 +125,8 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
 - (void)viewDidLoad
 {
     self.navigationController.navigationBarHidden = NO;
+    
+    self.tenCentKey = kTencentKey_resign;
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -7,6 +7,7 @@
 //
 
 #import "JVCOperationMiddleViewIphone5.h"
+#import "JVCSystemUtility.h"
 
 static const int  OFF_X  =  20;                      //距离左边距的距离
 static const int OPERATIONBIGITEM  = 20.0;           //距离
@@ -36,6 +37,13 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray skinType:(int )skinType
 {
     [self initImageArray];
+    
+    int seperateNum = 3;
+    
+    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+        detailArray = nil;
+        seperateNum = 2;
+    }
     
     CGFloat height = self.frame.size.height/titleArray.count;
     
@@ -85,7 +93,7 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
         
         
         UILabel *_titleName=[[UILabel alloc] init];
-        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - 20.0)/2.0, 210.0, 20.0);
+        _titleName.frame=CGRectMake(btnImage.frame.origin.x+btnImage.frame.size.width+OPERATIONBIGITEM, (height - (seperateNum-1)*20.0)/seperateNum, 210.0, 20.0);
         _titleName.textAlignment=UITextAlignmentLeft;
         _titleName.text= strTitle;
         _titleName.font= [UIFont systemFontOfSize:16];

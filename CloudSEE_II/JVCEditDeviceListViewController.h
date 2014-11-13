@@ -9,9 +9,10 @@
 #import "JVCBaseWithTopToolViewAndDropListViewController.h"
 #import "JVCEditDeviceInfoViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "JVCEditChannelInfoTableViewController.h"
+#import "JVCLocalEditChannelInfoTableViewController.h"
 
-
-@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate,ystNetWorkHelpDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate>
+@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate,ystNetWorkHelpDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,editChannelInfoDeleteDelegate>
 
 
 @end

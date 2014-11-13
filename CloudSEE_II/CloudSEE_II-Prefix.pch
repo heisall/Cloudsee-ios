@@ -36,6 +36,9 @@
 
     #import"JVCSystemConfigMacro.h"
 
+    #import"MTA.h"
+    #import"MTAConfig.h"
+
 #define LOCALANGER(A)  NSLocalizedString(A, nil)
 
 

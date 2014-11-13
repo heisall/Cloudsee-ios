@@ -22,6 +22,7 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
 @end
 
 @implementation JVCBaseGeneralTableViewController
+@synthesize tenCentKey;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -62,6 +63,7 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
     }
 }
 
+
 - (void)headerRereshingData
 {
     DDLogVerbose(@"ä¸‹æ‹‰åˆ·æ–°");
@@ -84,6 +86,13 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
         isViewDidDisappear = TRUE;
         
         [self deallocWithViewDidDisappear];
+    }
+    
+    if (self.tenCentKey.length>0) {
+        
+        [MTA trackPageViewEnd:self.tenCentKey];
+        
+        
     }
 }
 
@@ -112,6 +121,15 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
         //self.navigationItem.hidesBackButton = YES;
         self.navigationItem.leftBarButtonItem.customView.hidden = YES;
     }
+    [super viewDidAppear:animated];
+
+    if (self.tenCentKey.length>0) {
+        
+        [MTA trackPageViewBegin:self.tenCentKey];
+        
+        
+    }
+
 }
 - (void)viewDidLoad
 {
@@ -201,5 +219,10 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbarç
     return UIInterfaceOrientationPortrait;
 }
 
-
+- (void)dealloc
+{
+    [self.tenCentKey release];
+    
+    [super dealloc];
+}
 @end

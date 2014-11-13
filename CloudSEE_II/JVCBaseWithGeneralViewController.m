@@ -19,6 +19,7 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
 @end
 
 @implementation JVCBaseWithGeneralViewController
+@synthesize tenCentKey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,13 +57,31 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    if (self.tenCentKey.length>0) {
+        
+        [MTA trackPageViewBegin:self.tenCentKey];
+        
+    }
+}
+
+- (void) disMissTencentView
+{
+    if (self.tenCentKey.length>0) {
+        
+        [MTA trackPageViewEnd:self.tenCentKey];
+        
+    }
+}
+
 /**
  *  视图可见时加载的view
  */
 - (void)initLayoutWithViewWillAppear{
-    
-    
-
 
 }
 
@@ -75,9 +94,10 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
         isViewDidDisappear = TRUE;
         
         [self deallocWithViewDidDisappear];
-        
-        
+                
     }
+    
+    [self disMissTencentView];
 }
 
 /**
@@ -217,5 +237,11 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
     return UIInterfaceOrientationPortrait;
 }
 
+- (void)dealloc
+{
+    [self.tenCentKey release];
+    
+    [super dealloc];
+}
 
 @end

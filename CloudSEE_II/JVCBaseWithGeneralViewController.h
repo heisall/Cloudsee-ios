@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface JVCBaseWithGeneralViewController : UIViewController
-
+{
+    NSString *tenCentKey;
+}
+@property(nonatomic,retain)  NSString *tenCentKey;
 /**
  *  视图可见时加载的view
  */

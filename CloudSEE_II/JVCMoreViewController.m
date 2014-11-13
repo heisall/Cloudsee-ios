@@ -79,6 +79,7 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//ç‰ˆæœ
 
 - (void)viewDidLoad
 {
+    self.tenCentKey = kTencentKey_more;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
