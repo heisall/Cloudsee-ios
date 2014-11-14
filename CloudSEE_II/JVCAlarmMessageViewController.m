@@ -793,7 +793,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     
     JVCAlarmVideoPlayViewController *view = [[JVCAlarmVideoPlayViewController alloc] init];
     view._StrViedoPlay = filePath;
-
+    view.title = LOCALANGER(@"jvc_alarmVideo_title");
     [self.navigationController pushViewController:view animated:YES];
     
     [filePath release];

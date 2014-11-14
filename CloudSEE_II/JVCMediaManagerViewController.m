@@ -177,13 +177,13 @@
     ALER.AseeetDelegate=self;
     switch (typeIntge) {
         case 0:
-            [ALER returnAblumGroupNameArrayDatas:kKYCustomPhotoAlbumName mathType:MATH_TYPE_PHOTO];
+            [ALER returnAblumGroupNameArrayDatas:(NSString *)kKYCustomPhotoAlbumName mathType:MATH_TYPE_PHOTO];
             break;
         case 1:
-            [ALER returnAblumGroupNameArrayDatas:kKYCustomVideoAlbumName mathType:MATH_TYPE_VIDEO];
+            [ALER returnAblumGroupNameArrayDatas:(NSString *)kKYCustomVideoAlbumName mathType:MATH_TYPE_VIDEO];
             break;
         default:
-            [ALER returnAblumGroupNameArrayDatas:kKShare_Photo mathType:MATH_TYPE_PHOTO];
+            [ALER returnAblumGroupNameArrayDatas:(NSString *)kKShare_Photo mathType:MATH_TYPE_PHOTO];
             break;
     }
     //    [ALER returnAblumGroupNameArrayDatas:kKYCustomPhotoAlbumName];

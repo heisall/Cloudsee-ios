@@ -15,7 +15,7 @@
 
 @implementation JVCSuggestAndFeedViewController
 
-static const  NSString *kRequestUrlHead = @"http://192.168.4.234/member.php?mod=mobile&session=";
+static const  NSString *kRequestUrlHead = @"http://182.92.242.230/member.php?mod=mobile&session=";
 static const  NSString *kRequestUrlFoot = @"&username=";
 static const  NSString *kSuccessString  = @"viewthread";
 

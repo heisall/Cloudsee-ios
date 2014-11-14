@@ -236,26 +236,33 @@ static const int KSeperateAdd       = 6.0;//
         [thumbnailView addTarget:self action:@selector(clickPic:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:thumbnailView];
         iStart++;
-        
+        NSString *imagebgstring = [UIImage imageBundlePath:@"mor_pmbg.png"];
+        UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:imagebgstring];
         if (photoObj.selectState) {
             
-            NSString *imagebgstring = [UIImage imageBundlePath:@"mor_pmbg.png"];
-            UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:imagebgstring];
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.left-1, thumbnailView.top-1, imagebg.size.width+2, imagebg.size.height+2)];
+ 
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.left-2, thumbnailView.top-2, imagebg.size.width+4, imagebg.size.height+4)];
+            imageView.image = imagebg;
+            [cell.contentView addSubview:imageView];
             [cell.contentView insertSubview:imageView belowSubview:thumbnailView];
             [imageView release];
-            [imagebg release];
             
         }
         
         
         if (self.typeTitle == TYPE_VIDEO) {
-            UIImage *imgPlay = [UIImage imageNamed:@"home_video_play_photos.png"];
-            UIImageView *imageviewPlay = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.frame.size.width - imgPlay.size.width, thumbnailView.frame.size.height-imgPlay.size.height, imgPlay.size.width, imgPlay.size.height)];
+            
+            //
+            NSString *playString = [UIImage imageBundlePath:@"play_1.png"];
+            UIImage  *imgPlay  = [[UIImage alloc] initWithContentsOfFile:playString];
+            UIImageView *imageviewPlay = [[UIImageView alloc] initWithFrame:CGRectMake((imagebg.size.width-imgPlay.size.width)/2.0,(imagebg.size.height -imgPlay.size.height)/2.0, imgPlay.size.width, imgPlay.size.height)];
             imageviewPlay.image = imgPlay;
             [thumbnailView addSubview:imageviewPlay];
             [imageviewPlay release];
+            
         }
+        [imagebg release];
+
     }
     
     return cell;
@@ -430,10 +437,11 @@ static const int KSeperateAdd       = 6.0;//
     DDLogVerbose(@"=======%s",__FUNCTION__);
     JVCAlarmVideoPlayViewController *videoPlay= [[JVCAlarmVideoPlayViewController alloc] init];
     videoPlay._StrViedoPlay = fileName;
-//    videoPlay.title = LOCALANGER(@"home_videos");
 //    videoPlay.hidesBottomBarWhenPushed =YES;
 //    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController pushViewController:videoPlay animated:NO];
+    [self.navigationController pushViewController:videoPlay animated:YES];
+    videoPlay.title = LOCALANGER(@"home_videos");
+
         [videoPlay release];
 }
 

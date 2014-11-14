@@ -180,7 +180,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     //账号注销
     JVCMoreSettingModel *mediaBtn = [[JVCMoreSettingModel alloc] init];
     mediaBtn.itemName = LOCALANGER(@"jvc_more_media_title");
-    mediaBtn.iconImageName = @"mor_IconItuns.png";
+    mediaBtn.iconImageName = @"mor_pm1.png";
     mediaBtn.bBtnState = MoreSettingCellType_index;
     [FiveArray addObject:mediaBtn];
     [arrayList addObject:FiveArray];
