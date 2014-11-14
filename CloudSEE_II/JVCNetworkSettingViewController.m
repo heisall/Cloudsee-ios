@@ -77,7 +77,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     
     [super viewDidLoad];
     
-    self.title = @"网络设置";
+    self.title = NSLocalizedString(@"JVCNetworkSettingViewController_title", nil);
     
     titles = [[NSMutableArray alloc] initWithCapacity:10];
     [self initLayoutWithTopView];
@@ -172,8 +172,8 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
  */
 -(void)initLayoutWithTopView {
     
-    [titles addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"有线连接",nil)]];
-    [titles addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"无线连接", nil)]];
+    [titles addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"JVCNetworkSettingViewController_item1",nil)]];
+    [titles addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"JVCNetworkSettingViewController_item2", nil)]];
     
     UIImage *topViewBgImage = [UIImage imageNamed:@"nws_topItemBg.png"];
     
@@ -223,7 +223,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     finshBtn.titleLabel.font = [UIFont systemFontOfSize:kNavRightItemWithFontSize];
     finshBtn.frame = CGRectMake(0, 0, tImageScan.size.width, tImageScan.size.height);
     [finshBtn addTarget:self action:@selector(configFinshed) forControlEvents:UIControlEventTouchUpInside];
-    [finshBtn setTitle:NSLocalizedString(@"完成", nil) forState:UIControlStateNormal];
+    [finshBtn setTitle:NSLocalizedString(@"JVCNetworkSettingViewController_save", nil) forState:UIControlStateNormal];
     [finshBtn setBackgroundImage:tImageScan forState:UIControlStateNormal];
     
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithCustomView:finshBtn];
@@ -242,7 +242,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     finshBtn.titleLabel.font = [UIFont systemFontOfSize:kNavRightItemWithFontSize];
     finshBtn.frame = CGRectMake(0, 0, tImageScan.size.width, tImageScan.size.height);
     [finshBtn addTarget:self action:@selector(configWifiFinshed) forControlEvents:UIControlEventTouchUpInside];
-    [finshBtn setTitle:NSLocalizedString(@"保存", nil) forState:UIControlStateNormal];
+    [finshBtn setTitle:NSLocalizedString(@"JVCNetworkSettingViewController_finish", nil) forState:UIControlStateNormal];
     [finshBtn setBackgroundImage:tImageScan forState:UIControlStateNormal];
     
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithCustomView:finshBtn];
@@ -379,7 +379,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     
     JVCControlHelper *controlHelperObj = [JVCControlHelper shareJVCControlHelper];
     
-    autoBtn                            = [controlHelperObj buttonWithTitile:@"自动获取" normalImage:@"nws_wired_btnBg.png" horverimage:nil];
+    autoBtn                            = [controlHelperObj buttonWithTitile:NSLocalizedString(@"JVCNetworkSettingViewController_wired_item1", nil) normalImage:@"nws_wired_btnBg.png" horverimage:nil];
     
     [autoBtn setImage:[UIImage imageNamed:@"nws_wired_Icon.png"] forState:UIControlStateNormal];
     [autoBtn setImage:[UIImage imageNamed:@"nws_wired_IconSelected.png"] forState:UIControlStateSelected];
@@ -396,7 +396,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     
     [wiredView addSubview:autoBtn];
     
-    inputBtn              = [controlHelperObj buttonWithTitile:@"手动输入" normalImage:@"nws_wired_btnBg.png" horverimage:nil];
+    inputBtn              = [controlHelperObj buttonWithTitile:NSLocalizedString(@"JVCNetworkSettingViewController_wired_item2", nil)  normalImage:@"nws_wired_btnBg.png" horverimage:nil];
     
     [inputBtn setTitleColor:SETLABLERGBCOLOUR(74.0f, 87.0f, 108.0f) forState:UIControlStateNormal];
     CGRect inputRect      = autoBtn.frame;
@@ -530,8 +530,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastOnWindowWithText:@"权限不够,无法修改" delayTime:kPowerInfoWithDuration];
-            
+               [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:NSLocalizedString(@"JVCNetworkSettingViewController_power", nil)];
             
             });
             

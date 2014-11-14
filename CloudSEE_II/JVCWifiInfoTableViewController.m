@@ -23,6 +23,7 @@ NSString const *kWiFiWithMAC               = @"WIFI_MAC";   //网卡地址
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.title = NSLocalizedString(@"JVCWifiInfoTableViewController_title", nil);
 }
 
 /**

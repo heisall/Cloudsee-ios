@@ -224,7 +224,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"网络设置"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
+    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"JVCNetworkSettingViewController_title"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
 }
 
 
@@ -511,6 +511,14 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             networkSettingObj = nil;
         }
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            NSString *strkey = [NSString stringWithFormat:@"JVCNetworkSettingViewController_error%d",errorType];
+            [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:NSLocalizedString(strkey, nil)];
+        
+        
+        });
+        
     };
     
     JVCNetworkSettingResultSSIDListBlock networkSettingResultSSIDListBlock = ^(NSMutableArray *SSIDList){
@@ -646,6 +654,13 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+        
+        if (connectResultType != CONNECTRESULTTYPE_Disconnect) {
+            
+            NSString *localInfoKey=[NSString  stringWithFormat:@"connectResultInfo_%d",connectResultType];
+            [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:NSLocalizedString(localInfoKey, nil)];
+        }
+      
         [self.navigationController popToRootViewControllerAnimated:NO];
     });
 
@@ -939,7 +954,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
            JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
         
             [alertObj alertHidenToastOnWindow];
-            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"Jvc_editDeviceInfo_Devivebusy")];
+            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"JVCNetworkSettingViewController_error0")];
             [self disAlarmRemoteLink];
         });
     }
