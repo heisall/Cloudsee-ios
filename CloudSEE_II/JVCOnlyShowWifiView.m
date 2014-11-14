@@ -83,7 +83,7 @@ static const CGFloat        kDetailButtonWithTop               = 40.0f;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake((self.frame.size.width-tBtnBg.size.width)/2.0, _tfContentInfoPw.frame.size.height+_tfContentInfoPw.origin.y+kDetailButtonWithTop, tBtnBg.size.width, tBtnBg.size.height);
-    [button setTitle:NSLocalizedString(@"wifi_detail_infn", nil) forState:UIControlStateNormal];
+    [button setTitle:NSLocalizedString(@"jvcOnlyShowWiFiView_detail", nil) forState:UIControlStateNormal];
     [button addTarget:self action:@selector(showWifiDetail) forControlEvents:UIControlEventTouchUpInside];
     [button setBackgroundImage:tBtnBg forState:UIControlStateNormal];
     [self addSubview:button];

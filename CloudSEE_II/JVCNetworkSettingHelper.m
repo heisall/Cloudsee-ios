@@ -55,9 +55,9 @@
     if (nDeviceType != DEVICEMODEL_IPC) {
         
         DDLogVerbose(@"不是IPC,不支持此操作！");
-        [self disconnect];
-        
         [self error:ErrorTypeNotSupport];
+        
+        [self disconnect];
         
     }else {
         
@@ -89,9 +89,9 @@
             break;
         default:{
         
-            [self disconnect];
             DDLogVerbose(@"%s---------------------  主控忙碌",__FUNCTION__);
             [self error:ErrorTypeReject];
+            [self disconnect];
         
         }
             break;

@@ -463,7 +463,6 @@
 "Jvc_editDeviceInfo_PW" = "  密码";
 "Jvc_editDeviceInfo_Delete" = "删除";
 "Jvc_editDeviceInfo_Save" = "保存";
-"Jvc_editDeviceInfo_Devivebusy" = "主控忙碌，请重试...";
 
 
 //更多
@@ -562,4 +561,30 @@
 //新品帮助图
 "devAdv_default_0"= "devAdv_default_ch0.jpg";
 "devAdv_default_1"= "devAdv_default_ch1.jpg";
+
+//网络设置
+"ETH_IP"    = "IP地址";
+"ETH_NM"    = "子网掩码";
+"ETH_GW"    = "默认网关";
+"ETH_DNS"   = "域名服务器";
+"ETH_MAC"   = "网卡地址";
+"YSTID"     = "云视通号";
+"YSTSTATUS" = "云视通状态";
+"WIFI_IP"   = "IP地址";
+"WIFI_NM"   = "子网掩码";
+"WIFI_GW"   = "默认网关";
+"WIFI_DNS"  = "域名服务器";
+"WIFI_MAC"  = "网卡地址";
+"jvcOnlyShowWiFiView_detail" = "Wi-Fi详细信息";
+"JVCWifiInfoTableViewController_title" = "无线网络信息";
+"JVCNetworkSettingViewController_item1"="有线连接";
+"JVCNetworkSettingViewController_item2"="无线连接";
+"JVCNetworkSettingViewController_title"="网络设置";
+"JVCNetworkSettingViewController_wired_item1"="自动获取";
+"JVCNetworkSettingViewController_wired_item2"="手动输入";
+"JVCNetworkSettingViewController_finish"     ="完成";
+"JVCNetworkSettingViewController_save"       ="保存";
+"JVCNetworkSettingViewController_error0"     = "主控忙碌，请重试！";
+"JVCNetworkSettingViewController_error1"     = "暂不支持配置此设备,仅支持IPC设备";
+"JVCNetworkSettingViewController_power"      = "权限不够!";
 

@@ -148,7 +148,7 @@ static const int             kDeviceOnlineFlag          = 1;
             
         }else if([key isEqualToString:(NSString *)kWiredWithStatus]){
             
-            [cell initContentView:key withTextFiled:name.intValue == kDeviceOnlineFlag?@"在线":@"不在线" withIndex:indexPath.row withTextFiledEnabled:[self checkKeyIsExistInChangeCacheMdic:key]];
+            [cell initContentView:key withTextFiled:name.intValue == kDeviceOnlineFlag?NSLocalizedString(@"jvc_DeviceList_online", nil):NSLocalizedString(@"jvc_DeviceList_offline",nil) withIndex:indexPath.row withTextFiledEnabled:[self checkKeyIsExistInChangeCacheMdic:key]];
         
         }else{
         

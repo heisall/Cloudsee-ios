@@ -9,12 +9,10 @@
 #import "JVCWireTableViewCell.h"
 #import "JVCRGBHelper.h"
 
-static const float KLabelOriginX    = 15;//距离左侧的距离
-static const float KLabelOriginY    = 30;//距离顶端的距离
-static const float KLabelWith       = 70;//距离顶端的距离
-static const float KLabelFieldSpan  = 5;//label与textfield之间的距离
-static const int   KLabelFont       = 16;//label的字体大小
-static const int   KLabelFontEN       = 14;//label的字体（英文环境下）
+static const float KLabelOriginX    = 15.0f;//距离左侧的距离
+static const float KLabelWith       = 85.0f;//距离顶端的距离
+static const float KLabelFieldSpan  = 5.0f;//label与textfield之间的距离
+static const int   KLabelFont       = 14;//label的字体大小
 
 @interface JVCWireTableViewCell()
 {
@@ -67,16 +65,7 @@ static const int   KLabelFontEN       = 14;//label的字体（英文环境下）
         label.textColor = colorlabel;
     }
     
-    if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        
-        label.font = [UIFont systemFontOfSize:KLabelFont];
-        
-    }else{
-        
-        label.font = [UIFont systemFontOfSize:KLabelFontEN];
-        label.frame = CGRectMake(KLabelOriginX-8, KLabelOriginY, KLabelWith+8, image.size.height);
-    }
-    
+    label.font = [UIFont systemFontOfSize:KLabelFont];
     [self.contentView addSubview:label];
     [label release];
     

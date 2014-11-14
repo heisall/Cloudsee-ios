@@ -457,7 +457,6 @@
 "Jvc_editDeviceInfo_PW" = " Password";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
-"Jvc_editDeviceInfo_Devivebusy" = "The device is busy, please try again...";
 
 
 //更多
@@ -549,3 +548,29 @@
 //新品帮助图
 "devAdv_default_0"= "devAdv_default_en0.jpg";
 "devAdv_default_1"= "devAdv_default_en1.jpg";
+
+//网络设置
+"ETH_IP"    = "IP";
+"ETH_NM"    = "Netmask";
+"ETH_GW"    = "Gateway";
+"ETH_DNS"   = "DNS";
+"ETH_MAC"   = "MAC";
+"YSTID"     = "CloudSEE ID";
+"YSTSTATUS" = "Status";
+"WIFI_IP"   = "IP";
+"WIFI_NM"   = "Netmask";
+"WIFI_GW"   = "Gateway";
+"WIFI_DNS"  = "DNS";
+"WIFI_MAC"  = "MAC";
+"jvcOnlyShowWiFiView_detail" = "Wi-Fi detailed information";
+"JVCWifiInfoTableViewController_title" = "Wi-Fi Info";
+"JVCNetworkSettingViewController_item1"="Ethernet";
+"JVCNetworkSettingViewController_item2"="Wi-Fi";
+"JVCNetworkSettingViewController_title"="Net Setting";
+"JVCNetworkSettingViewController_wired_item1"="DHCP            ";
+"JVCNetworkSettingViewController_wired_item2"="Input Manually";
+"JVCNetworkSettingViewController_finish"     ="Finish";
+"JVCNetworkSettingViewController_save"       ="Save";
+"JVCNetworkSettingViewController_error0"     = "The device is busy, please try again...";
+"JVCNetworkSettingViewController_error1"     = "Doesn't support this device.Supports IPC only.";
+"JVCNetworkSettingViewController_power"      = "You have no permission of this operation!";
