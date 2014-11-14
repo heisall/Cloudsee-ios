@@ -60,7 +60,6 @@
 		A78F22211A0A62E900BC0717 /* dem_def@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A78F22201A0A62E900BC0717 /* dem_def@2x.png */; };
 		A7A575F11A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575F01A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a */; };
 		A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575F71A130A57000D0BBC /* libmtasdk.a */; };
-		A7A575FC1A130A96000D0BBC /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FB1A130A96000D0BBC /* libmtasdk.a */; };
 		A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FD1A130AA2000D0BBC /* libz.dylib */; };
 		A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FF1A130AB3000D0BBC /* AdSupport.framework */; };
 		A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A576011A130ABD000D0BBC /* CoreTelephony.framework */; };
@@ -80,6 +79,7 @@
 		A7B58B871A15D52C004D0E5B /* mor_pm3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */; };
 		A7B58B891A15DAEC004D0E5B /* mor_pmbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */; };
 		A7B58B8B1A15E003004D0E5B /* mor_pmImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */; };
+		A7B58B8D1A15E8A8004D0E5B /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B58B8C1A15E8A8004D0E5B /* libmtasdk.a */; };
 		A7B6EE131A149EC90024F836 /* JVCYTOperaitonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */; };
 		A7B6EE1E1A14A9030024F836 /* yt_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6EE151A14A9030024F836 /* yt_auto@2x.png */; };
 		A7B6EE1F1A14A9030024F836 /* yt_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6EE161A14A9030024F836 /* yt_bottom@2x.png */; };
@@ -709,7 +709,6 @@
 		A7A575F71A130A57000D0BBC /* libmtasdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmtasdk.a; sourceTree = "<group>"; };
 		A7A575F81A130A57000D0BBC /* MTA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTA.h; sourceTree = "<group>"; };
 		A7A575F91A130A57000D0BBC /* MTAConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAConfig.h; sourceTree = "<group>"; };
-		A7A575FB1A130A96000D0BBC /* libmtasdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmtasdk.a; path = "../../../../yh/SDK/腾讯云统计/mta-sdk-1.4.1/sdk/libmtasdk.a"; sourceTree = "<group>"; };
 		A7A575FD1A130AA2000D0BBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		A7A575FF1A130AB3000D0BBC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A7A576011A130ABD000D0BBC /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -737,6 +736,7 @@
 		A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm3@2x.png"; sourceTree = "<group>"; };
 		A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pmbg@2x.png"; sourceTree = "<group>"; };
 		A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mor_pmImage.jpg; sourceTree = "<group>"; };
+		A7B58B8C1A15E8A8004D0E5B /* libmtasdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmtasdk.a; sourceTree = "<group>"; };
 		A7B6EE111A149EC90024F836 /* JVCYTOperaitonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCYTOperaitonView.h; sourceTree = "<group>"; };
 		A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCYTOperaitonView.m; sourceTree = "<group>"; };
 		A7B6EE151A14A9030024F836 /* yt_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yt_auto@2x.png"; sourceTree = "<group>"; };
@@ -1413,7 +1413,6 @@
 				A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */,
 				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
 				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
-				A7A575FC1A130A96000D0BBC /* libmtasdk.a in Frameworks */,
 				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
 				A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */,
 				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
@@ -1423,6 +1422,7 @@
 				A7F4059919E558040070945F /* AVFoundation.framework in Frameworks */,
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */,
+				A7B58B8D1A15E8A8004D0E5B /* libmtasdk.a in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
@@ -2617,7 +2617,6 @@
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
 				A7A575FD1A130AA2000D0BBC /* libz.dylib */,
-				A7A575FB1A130A96000D0BBC /* libmtasdk.a */,
 				ADD3EFFB1A10C74000C7F329 /* libsqlite3.dylib */,
 				ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */,
 				ADD626771A0382B300BD877F /* libGlView_v2.0.2.a */,
@@ -2639,6 +2638,7 @@
 				ADA22D2419DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a */,
 				ADA22D2019DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a */,
 				ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */,
+				A7B58B8C1A15E8A8004D0E5B /* libmtasdk.a */,
 				A7F4059119E556160070945F /* libzxingLibrary.a */,
 				ADA77BF319D0250E003EE7A1 /* Foundation.framework */,
 				ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */,
