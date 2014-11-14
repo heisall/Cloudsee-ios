@@ -427,8 +427,11 @@
 "more_help_title"="帮助";
 
 //媒体的
-"home_picture_browse"="媒体";
-
+"jvc_more_media_title"="媒体";
+"home_photos"="图片";
+"home_videos"="视频";
+"home_anothers"="其他";
+"home_get_alum_error"= "获取资源失败,请到设置-隐私-照片中确认是否授权";
 
 //修改密码的
 "oldPW" = "旧密码";

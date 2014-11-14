@@ -173,19 +173,31 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [arrayList addObject:thirdSectionArray];
     
     [thirdSectionArray release];
-
+    
+    
     //第四部分
+    NSMutableArray *FiveArray = [[NSMutableArray alloc] init];
+    //账号注销
+    JVCMoreSettingModel *mediaBtn = [[JVCMoreSettingModel alloc] init];
+    mediaBtn.itemName = LOCALANGER(@"jvc_more_media_title");
+    mediaBtn.iconImageName = @"mor_IconItuns.png";
+    mediaBtn.bBtnState = MoreSettingCellType_index;
+    [FiveArray addObject:mediaBtn];
+    [arrayList addObject:FiveArray];
+    [mediaBtn release];
+    [FiveArray release];
+    
+    //第五部分
     NSMutableArray *fourthArray = [[NSMutableArray alloc] init];
     //账号注销
     JVCMoreSettingModel *modelBtn = [[JVCMoreSettingModel alloc] init];
     modelBtn.itemName = LOCALANGER(@"jvc_more_userOut");
-    modelBtn.iconImageName = @"mor_head_0.png";
+    modelBtn.iconImageName = @"mor_pm1.png";
     modelBtn.bBtnState = YES;
     [fourthArray addObject:modelBtn];
     [modelBtn release];
     
     [arrayList addObject:fourthArray];
-    
     [fourthArray release];
 
 

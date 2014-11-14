@@ -73,7 +73,7 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
  *  视图可见时加载的view
  */
 - (void)initLayoutWithViewWillAppear{
-    
+    DDLogVerbose(@"___%s===%@",__FUNCTION__,self.tableView);
     [self.tableView reloadData];
 }
 

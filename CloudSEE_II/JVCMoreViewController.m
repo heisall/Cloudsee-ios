@@ -28,6 +28,7 @@
 #import "JSONKit.h"
 #import "JVCRGBHelper.h"
 #import "JVCSuggestAndFeedViewController.h"
+#import "JVCMediaManagerViewController.h"
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
@@ -40,11 +41,7 @@
 static const int        CELLHEIGHT_CONTENTH         = 44;   //里面内容的cell高度
 static const int        CELLHEIGHT_HEADSECTION      = 20;   //section的高度
 static const int        KUserLoginOutState_Success  = 0;   //账号注册成功
-static const int        kAlertTag                   = 200;   //alert的tag
-static const int        kAlertNEWVersionTag         = 3000;   //新版本的tag
-static const NSString   *KNUm                       = @"Num";//检测更新的返回值
-static const NSString   *KContentK                  = @"Content";//检测更新的返回值
-static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版本号
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -277,6 +274,9 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
                 [[JVCAlertHelper shareAlertHelper ]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"networkError", nil) ];
             }
         }
+    }else if(indexPath.section == 4)//媒体
+    {
+        [self mediaManagerViewController];
     }
 }
 
@@ -285,28 +285,6 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
  */
 - (void)showUserLoginOutAlert
 {
-//    if (IOS8) {
-//        
-//        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil preferredStyle:UIAlertControllerStyleAlert];
-//        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            [self userLoginOut];
-//            
-//        }]];
-//        
-//        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_more_loginout_quit") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//            
-//        }]];
-//        
-//        [self presentViewController:controlAlert animated:YES completion:nil];
-//        
-//    }else{
-//        
-//        UIAlertView *alertUser = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_more_loginout") message:nil delegate:self cancelButtonTitle:LOCALANGER(@"jvc_more_loginout_ok") otherButtonTitles:LOCALANGER(@"jvc_more_loginout_quit"), nil];
-//        [alertUser show];
-//        alertUser.tag = kAlertTag;
-//        alertUser.delegate = self;
-//        [alertUser release];
-//    }
     
     [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") delegate:self selectAction:@selector(userLoginOut) cancelAction:nil selectTitle:LOCALANGER(@"jvc_more_loginout_ok") cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")];
 }
@@ -440,7 +418,6 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
         }
     }else{//打开帮助
     
-    
     }
     
 }
@@ -483,6 +460,13 @@ static const NSString   *KCFBundleVersion           = @"CFBundleVersion";//版�
     JVCSuggestAndFeedViewController *suggestVC = [[JVCSuggestAndFeedViewController alloc] init];
     [self.navigationController pushViewController:suggestVC animated:YES];
     [suggestVC release];
+}
+
+- (void)mediaManagerViewController
+{
+    JVCMediaManagerViewController  *mediVC = [[JVCMediaManagerViewController alloc] init];
+    [self.navigationController pushViewController:mediVC animated:YES];
+    [mediVC release];
 }
 
 #pragma mark 发送意见与反馈

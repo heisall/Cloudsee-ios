@@ -48,7 +48,6 @@
 {
     [movie stop];
     
-    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)viewDidLoad
 {
@@ -56,7 +55,6 @@
     
     self.title = LOCALANGER(@"jvc_alarmVideo_title");
     
-
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];
     //视频播放对象
     movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
@@ -81,6 +79,8 @@
 -(void)movieFinishedCallback:(NSNotification*)notify {
     
     [self BackClick];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 

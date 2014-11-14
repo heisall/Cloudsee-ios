@@ -7,16 +7,48 @@
 //
 
 #import "JVCPhotoViewController.h"
-#define headView_height 36
+#import "JVCAlarmVideoPlayViewController.h"
+#import "JVCPhotoModelObj.h"
+#import "JVCPhotoGroupObj.h"
+#import "JVCMediaMacro.h"
+#import "JVCShowLargeImageViewController.h"
+#import "JVCRGBHelper.h"
+#import "JVCRGBColorMacro.h"
+#import "UIImage+BundlePath.h"
 @interface JVCPhotoViewController ()
 
 @end
 
 @implementation JVCPhotoViewController
 @synthesize mArrayPhotoDatas,mArrayGroupDatas;
-
 @synthesize  typeTitle;
 
+static const int KHeadView_height   = 36;//headView 的高度
+static const int KSeperateAdd       = 6.0;//
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    
+    if (self) {
+        
+        NSMutableArray *groupDatas = [[NSMutableArray alloc] init];
+        self.mArrayGroupDatas=groupDatas;
+        [groupDatas release];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        
+    }
+    return self;
+}
+
+/**
+ *  视图可见时加载的view
+ */
+- (void)initLayoutWithViewWillAppear{
+    
+    [self.tableView reloadData];
+}
 
 - (id)initWithDatasource:(NSMutableArray *)datasource
 {
@@ -32,7 +64,6 @@
 
 -(void)dealloc{
     
-    
     [mArrayGroupDatas release];
     [mArrayPhotoDatas release];
     [super dealloc];
@@ -43,11 +74,6 @@
 {
     [super viewDidLoad];
     
-    NSMutableArray *groupDatas = [[NSMutableArray alloc] init];
-    self.mArrayGroupDatas=groupDatas;
-    [groupDatas release];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
 }
 
 -(void)getTableViewSourceData{
@@ -57,7 +83,7 @@
     
     for (NSObject *object in self.mArrayPhotoDatas) {
         
-        photoModelObj *photo = (photoModelObj *)object;
+        JVCPhotoModelObj *photo = (JVCPhotoModelObj *)object;
         
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit |
                                         NSMonthCalendarUnit | NSYearCalendarUnit fromDate:photo.dateCreateImageDate];
@@ -66,9 +92,9 @@
         NSUInteger year = [components year];
         NSUInteger day = [components day];
         
-        photoGroupObj *group = ^photoGroupObj *{
+        JVCPhotoGroupObj *group = ^JVCPhotoGroupObj *{
             
-            for (photoGroupObj *group in mArrayGroupDatas) {
+            for (JVCPhotoGroupObj *group in mArrayGroupDatas) {
                 
                 if (group.month == month && group.year == year&&group.day==day)
                     
@@ -79,7 +105,7 @@
         
         if (group == nil) {
             
-            group = [[photoGroupObj alloc] init];
+            group = [[JVCPhotoGroupObj alloc] init];
             group.month = month;
             group.year = year;
             group.day=day;
@@ -106,8 +132,8 @@
     
     [self.mArrayGroupDatas sortUsingComparator:^NSComparisonResult(id a, id b) {
         
-        photoGroupObj *firstGroup =(photoGroupObj *)a;
-        photoGroupObj *secondgroup =(photoGroupObj *)b;
+        JVCPhotoGroupObj *firstGroup =(JVCPhotoGroupObj *)a;
+        JVCPhotoGroupObj *secondgroup =(JVCPhotoGroupObj *)b;
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         
@@ -154,8 +180,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    photoGroupObj *group = (photoGroupObj *)[mArrayGroupDatas objectAtIndex:section];
-    return group.mArrayPhotos.count % COLUMVALUE!=0?(group.mArrayPhotos.count / COLUMVALUE)+1:(group.mArrayPhotos.count / COLUMVALUE);
+    JVCPhotoGroupObj *group = (JVCPhotoGroupObj *)[mArrayGroupDatas objectAtIndex:section];
+    return group.mArrayPhotos.count % KJVCMediaColumNUm!=0?(group.mArrayPhotos.count / KJVCMediaColumNUm)+1:(group.mArrayPhotos.count / KJVCMediaColumNUm);
 }
 
 
@@ -176,12 +202,12 @@
         [v removeFromSuperview];
         v=nil;
     }
-    photoGroupObj *group = (photoGroupObj *)[mArrayGroupDatas objectAtIndex:indexPath.section];
+    JVCPhotoGroupObj *group = (JVCPhotoGroupObj *)[mArrayGroupDatas objectAtIndex:indexPath.section];
     
     
-    int startIndex = indexPath.row * COLUMVALUE;
+    int startIndex = indexPath.row * KJVCMediaColumNUm;
     
-    int endIndex = (indexPath.row+1) * COLUMVALUE;
+    int endIndex = (indexPath.row+1) * KJVCMediaColumNUm;
     
     
     if (endIndex >= group.mArrayPhotos.count)
@@ -190,12 +216,19 @@
     
     int iStart=0;
     
+    NSString *imageString = [UIImage imageBundlePath:@"mor_pmImage.jpg"];
+
+  
+    UIImage *bgimge = [UIImage imageWithContentsOfFile:imageString];
+    
+    int seperateSpan = (self.view.width - bgimge.size.width*KJVCMediaColumNUm)/(KJVCMediaColumNUm+1);
+    
     for (int i = startIndex; i < endIndex; i++) {
         
-        photoModelObj *photoObj=(photoModelObj*)[group.mArrayPhotos objectAtIndex:i];
+        JVCPhotoModelObj *photoObj=(JVCPhotoModelObj*)[group.mArrayPhotos objectAtIndex:i];
         
         UIButton *thumbnailView = [UIButton  buttonWithType:UIButtonTypeCustom];
-        thumbnailView.frame = CGRectMake(PADDING+(72 * iStart + PADDING * iStart), PADDING, 72, 72);
+        thumbnailView.frame = CGRectMake(seperateSpan+(bgimge.size.width * iStart + seperateSpan * iStart), 3, bgimge.size.width, bgimge.size.height);
         thumbnailView.tag = i+[self getInPhotosByIndexValue:indexPath.section];
         thumbnailView.backgroundColor=[UIColor clearColor];
         //thumbnailView.image=photoObj.ImgSmall;
@@ -203,6 +236,18 @@
         [thumbnailView addTarget:self action:@selector(clickPic:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:thumbnailView];
         iStart++;
+        
+        if (photoObj.selectState) {
+            
+            NSString *imagebgstring = [UIImage imageBundlePath:@"mor_pmbg.png"];
+            UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:imagebgstring];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.left-1, thumbnailView.top-1, imagebg.size.width, imagebg.size.height)];
+            [cell.contentView insertSubview:imageView belowSubview:thumbnailView];
+            [imageView release];
+            [imagebg release];
+            
+        }
+        
         
         if (self.typeTitle == TYPE_VIDEO) {
             UIImage *imgPlay = [UIImage imageNamed:@"home_video_play_photos.png"];
@@ -220,13 +265,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return  headView_height;
+    return  KHeadView_height;
 }
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    photoGroupObj *group = (photoGroupObj *)[mArrayGroupDatas objectAtIndex:section];
+    JVCPhotoGroupObj *group = (JVCPhotoGroupObj *)[mArrayGroupDatas objectAtIndex:section];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
@@ -240,17 +285,25 @@
     
     [dateFormatter release];
     
-    UIView *v_headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView_height)] autorelease];
+    UIView *v_headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, KHeadView_height)] autorelease];
     v_headerView.backgroundColor=[UIColor clearColor];
     
     
-    UILabel *v_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(5.0, (headView_height-18.0)/2.0, v_headerView.frame.size.width-10.0, 18.0)];
+    UILabel *v_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(0, (KHeadView_height-18.0)/2.0, v_headerView.frame.size.width, 18.0)];
     v_headerLab.backgroundColor = [UIColor clearColor];//设置v_headerLab的背景颜色
     v_headerLab.textColor = [UIColor blackColor];//设置v_headerLab的字体颜色
     v_headerLab.font = [UIFont systemFontOfSize:18];
-    v_headerLab.textAlignment=UITextAlignmentLeft;
+    v_headerLab.textAlignment = UITextAlignmentCenter;
     v_headerLab.text=strDatetime;
     
+    /**
+     *  获取颜色值处理
+     */
+    JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    if (labColor) {
+        v_headerLab.textColor = labColor;
+    }
     [v_headerView addSubview:v_headerLab];
     [v_headerLab release];
     return v_headerView;
@@ -286,7 +339,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 84;
+    NSString *imageString = [UIImage imageBundlePath:@"mor_pmbg.png"];
+    UIImage *bgimge = [UIImage imageWithContentsOfFile:imageString];
+    return bgimge.size.height+6;
 }
 
 /**
@@ -299,7 +354,7 @@
     int returnIndexValue=0;
     
     for (int i=0; i<groupIndex; i++) {
-        photoGroupObj *groupObj=(photoGroupObj*)[mArrayGroupDatas objectAtIndex:i];
+        JVCPhotoGroupObj *groupObj=(JVCPhotoGroupObj*)[mArrayGroupDatas objectAtIndex:i];
         
         //        if (groupIndex>=i) {
         //
@@ -324,47 +379,64 @@
     
     for (int i=0; i<[mArrayGroupDatas count]; i++) {
         
-        photoGroupObj *groupObj=(photoGroupObj*)[mArrayGroupDatas objectAtIndex:i];
+        JVCPhotoGroupObj *groupObj=(JVCPhotoGroupObj*)[mArrayGroupDatas objectAtIndex:i];
         
         [photosMArrayDatas addObjectsFromArray:groupObj.mArrayPhotos];
     }
+    //设置为非选中状态
+    [self setPhontoModelObjSelectStateNormal];
     
-    photoModelObj *cellPhotoObj = [photosMArrayDatas objectAtIndex:index];
+    JVCPhotoModelObj *cellPhotoObj = [photosMArrayDatas objectAtIndex:index];
+    cellPhotoObj.selectState = YES;
+    
     if (self.typeTitle == TYPE_VIDEO) {
-        
+
         [self playMovie:[cellPhotoObj.videoUrl absoluteString]];
         return;
     }
     
-    ShareViewController *_tShareVC = [[ShareViewController alloc] init];
-    _tShareVC._index = index;
-    _tShareVC._mArrayPictures = photosMArrayDatas;
-    [self.navigationController pushViewController:_tShareVC animated:YES];
-    [_tShareVC release];
+    JVCShowLargeImageViewController *largeVC = [[JVCShowLargeImageViewController alloc] init];
+    
+    largeVC._index = index;
+    largeVC._mArrayPictures = photosMArrayDatas;
+    [self.navigationController pushViewController:largeVC animated:YES];
+    [largeVC release];
+    
     [photosMArrayDatas release];
     
+}
+
+/**
+ *  设置按钮为非选中状态
+ */
+- (void)setPhontoModelObjSelectStateNormal
+{
     
-    
+    for (int i=0; i<[mArrayGroupDatas count]; i++) {
+        
+        JVCPhotoGroupObj *groupObj=(JVCPhotoGroupObj*)[mArrayGroupDatas objectAtIndex:i];
+        
+        for (JVCPhotoModelObj *model in groupObj.mArrayPhotos) {
+            model.selectState = NO;
+        }
+        
+    }
+   
 }
 
 
 -(void)playMovie:(NSString *)fileName{
-    JDCSAppDelegate *delegate = (JDCSAppDelegate *)[UIApplication sharedApplication].delegate;
-    AlarmVideoPlayViewController *videoPlay= [[AlarmVideoPlayViewController alloc] init];
+    
+    DDLogVerbose(@"=======%s",__FUNCTION__);
+    JVCAlarmVideoPlayViewController *videoPlay= [[JVCAlarmVideoPlayViewController alloc] init];
     videoPlay._StrViedoPlay = fileName;
-    videoPlay.title = LOCALANGER(@"home_videos");
-    videoPlay.hidesBottomBarWhenPushed =YES;
-    self.navigationController.navigationBarHidden = NO;
-    [self.navigationController pushViewController:videoPlay animated:YES];
-    // [self.navigationController pushViewController:videoPlay animated:YES];
-    [videoPlay release];
+//    videoPlay.title = LOCALANGER(@"home_videos");
+//    videoPlay.hidesBottomBarWhenPushed =YES;
+//    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController pushViewController:videoPlay animated:NO];
+        [videoPlay release];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation

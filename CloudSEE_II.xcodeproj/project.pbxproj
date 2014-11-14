@@ -67,6 +67,19 @@
 		A7A576061A13929A000D0BBC /* JVCTencentHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A576051A13929A000D0BBC /* JVCTencentHelp.m */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
+		A7AF72BB1A1594CC0030D490 /* JVCPhotoModelObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */; };
+		A7AF72BE1A1595260030D490 /* JVCPhotoGroupObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BD1A1595260030D490 /* JVCPhotoGroupObj.m */; };
+		A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72C11A159C380030D490 /* JVCConstansALAssetsMathHelper.m */; };
+		A7AF72C81A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72C71A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A7AF72CE1A15A8C40030D490 /* moreOneCellBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF72C91A15A8C40030D490 /* moreOneCellBg@2x.png */; };
+		A7AF72CF1A15A8C40030D490 /* myVideo_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */; };
+		A7AF72D51A15ADF00030D490 /* JVCShowLargeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */; };
+		A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */; };
+		A7B58B851A15D52C004D0E5B /* mor_pm1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */; };
+		A7B58B861A15D52C004D0E5B /* mor_pm2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B831A15D52C004D0E5B /* mor_pm2@2x.png */; };
+		A7B58B871A15D52C004D0E5B /* mor_pm3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */; };
+		A7B58B891A15DAEC004D0E5B /* mor_pmbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */; };
+		A7B58B8B1A15E003004D0E5B /* mor_pmImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */; };
 		A7B6EE131A149EC90024F836 /* JVCYTOperaitonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */; };
 		A7B6EE1E1A14A9030024F836 /* yt_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6EE151A14A9030024F836 /* yt_auto@2x.png */; };
 		A7B6EE1F1A14A9030024F836 /* yt_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6EE161A14A9030024F836 /* yt_bottom@2x.png */; };
@@ -688,6 +701,26 @@
 		A7A576051A13929A000D0BBC /* JVCTencentHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTencentHelp.m; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
+		A7AF72B91A1594CC0030D490 /* JVCPhotoModelObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoModelObj.h; sourceTree = "<group>"; };
+		A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPhotoModelObj.m; sourceTree = "<group>"; };
+		A7AF72BC1A1595260030D490 /* JVCPhotoGroupObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoGroupObj.h; sourceTree = "<group>"; };
+		A7AF72BD1A1595260030D490 /* JVCPhotoGroupObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPhotoGroupObj.m; sourceTree = "<group>"; };
+		A7AF72BF1A1595D10030D490 /* JVCMediaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMediaMacro.h; sourceTree = "<group>"; };
+		A7AF72C01A159C380030D490 /* JVCConstansALAssetsMathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConstansALAssetsMathHelper.h; sourceTree = "<group>"; };
+		A7AF72C11A159C380030D490 /* JVCConstansALAssetsMathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConstansALAssetsMathHelper.m; sourceTree = "<group>"; };
+		A7AF72C61A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		A7AF72C71A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
+		A7AF72C91A15A8C40030D490 /* moreOneCellBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moreOneCellBg@2x.png"; sourceTree = "<group>"; };
+		A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myVideo_next@2x.png"; sourceTree = "<group>"; };
+		A7AF72D31A15ADF00030D490 /* JVCShowLargeImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCShowLargeImageViewController.h; sourceTree = "<group>"; };
+		A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCShowLargeImageViewController.m; sourceTree = "<group>"; };
+		A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCZoomScrollView.h; sourceTree = "<group>"; };
+		A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCZoomScrollView.m; sourceTree = "<group>"; };
+		A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm1@2x.png"; sourceTree = "<group>"; };
+		A7B58B831A15D52C004D0E5B /* mor_pm2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm2@2x.png"; sourceTree = "<group>"; };
+		A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm3@2x.png"; sourceTree = "<group>"; };
+		A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pmbg@2x.png"; sourceTree = "<group>"; };
+		A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mor_pmImage.jpg; sourceTree = "<group>"; };
 		A7B6EE111A149EC90024F836 /* JVCYTOperaitonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCYTOperaitonView.h; sourceTree = "<group>"; };
 		A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCYTOperaitonView.m; sourceTree = "<group>"; };
 		A7B6EE151A14A9030024F836 /* yt_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yt_auto@2x.png"; sourceTree = "<group>"; };
@@ -1524,6 +1557,16 @@
 				A7B6EE291A14D3CE0024F836 /* JVCMediaManagerViewController.m */,
 				A7B6EE2C1A14D7290024F836 /* JVCPhotoViewController.h */,
 				A7B6EE2D1A14D7290024F836 /* JVCPhotoViewController.m */,
+				A7AF72B91A1594CC0030D490 /* JVCPhotoModelObj.h */,
+				A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */,
+				A7AF72BC1A1595260030D490 /* JVCPhotoGroupObj.h */,
+				A7AF72BD1A1595260030D490 /* JVCPhotoGroupObj.m */,
+				A7AF72C01A159C380030D490 /* JVCConstansALAssetsMathHelper.h */,
+				A7AF72C11A159C380030D490 /* JVCConstansALAssetsMathHelper.m */,
+				A7AF72D31A15ADF00030D490 /* JVCShowLargeImageViewController.h */,
+				A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */,
+				A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */,
+				A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -1531,6 +1574,13 @@
 		A7B6EE2B1A14D4C20024F836 /* media */ = {
 			isa = PBXGroup;
 			children = (
+				A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */,
+				A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */,
+				A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */,
+				A7B58B831A15D52C004D0E5B /* mor_pm2@2x.png */,
+				A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */,
+				A7AF72C91A15A8C40030D490 /* moreOneCellBg@2x.png */,
+				A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -2686,6 +2736,7 @@
 				ADE03D0A19D7BC51002F65DA /* JVCAnimationMacro.h */,
 				ADA22D6519DA7C190092F8B9 /* JVCCloudSEENetworkMacro.h */,
 				A7F51E7E19EBC6720052F878 /* JVCAlarmMacro.h */,
+				A7AF72BF1A1595D10030D490 /* JVCMediaMacro.h */,
 			);
 			name = Macro;
 			sourceTree = "<group>";
@@ -2707,6 +2758,8 @@
 				A7F4347419DA883500E7ECA1 /* UIImage+BundlePath.m */,
 				A709696719F22E0A00C191F8 /* UINavigationBar+JVCCustomNavBar.h */,
 				A709696819F22E0A00C191F8 /* UINavigationBar+JVCCustomNavBar.m */,
+				A7AF72C61A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				A7AF72C71A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -3027,6 +3080,7 @@
 				A7F486A419E6256700C10B2B /* QdContentbg@2x.png in Resources */,
 				A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */,
 				A7F43F6719FBD01800C11109 /* mor_Iconmdy@2x.png in Resources */,
+				A7B58B8B1A15E003004D0E5B /* mor_pmImage.jpg in Resources */,
 				A7FB234619EFD52400A3FC01 /* alarmBG@2x.png in Resources */,
 				A7F6C5F719F89B570090B6F0 /* HorizontalScreenBar_5@2x.png in Resources */,
 				A7F43F6B19FBD49F00C11109 /* edi_deviceManger@2x.png in Resources */,
@@ -3078,6 +3132,7 @@
 				A7F6C5F519F89B570090B6F0 /* HorizontalScreenBar_3@2x.png in Resources */,
 				A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */,
 				A7F5558219D9498C0009F75C /* nav_back@2x.png in Resources */,
+				A7B58B861A15D52C004D0E5B /* mor_pm2@2x.png in Resources */,
 				A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */,
 				A7FC002A19FCD874006B31FA /* learn_1_ch.mp3 in Resources */,
 				A7F445A019F69438002C984F /* devAdv_default_ch1.jpg in Resources */,
@@ -3085,6 +3140,7 @@
 				AD2BDB1519D28F0600AA6D73 /* edi_linkModel@2x.png in Resources */,
 				A7F50A2F19FA480E004D061F /* arm_dev_btn@2x.png in Resources */,
 				A7F58BFB1A0367F400EA0C4F /* arm_clear@2x.png in Resources */,
+				A7AF72CF1A15A8C40030D490 /* myVideo_next@2x.png in Resources */,
 				AD916BD819D5445900B925A2 /* edi_drop_flag_select@2x.png in Resources */,
 				A7F6C5F319F89B570090B6F0 /* HorizontalScreenBar_1@2x.png in Resources */,
 				AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */,
@@ -3098,6 +3154,7 @@
 				A7F5013819D50A8A00AA78F0 /* mor_line@2x.png in Resources */,
 				A7F424FA19D0FD7500D96475 /* log_btn@2x.png in Resources */,
 				A7EFF9EE19F4AB8D00DF783D /* play_dwn@2x.png in Resources */,
+				A7B58B851A15D52C004D0E5B /* mor_pm1@2x.png in Resources */,
 				ADD6267D1A046DA300BD877F /* voi_send_en.mp3 in Resources */,
 				A7F4458519F62C3D002C984F /* arm_loc_cellbg@2x.png in Resources */,
 				A7F51E7519EBBAA50052F878 /* arm_exc@2x.png in Resources */,
@@ -3130,6 +3187,8 @@
 				A7F58C051A03B3C200EA0C4F /* addDev_btnHor@2x.png in Resources */,
 				A7FB234819EFD52400A3FC01 /* alarmBtnNormal@2x.png in Resources */,
 				A7F294D21A0CA00C0073D832 /* dem_def2.jpg in Resources */,
+				A7B58B891A15DAEC004D0E5B /* mor_pmbg@2x.png in Resources */,
+				A7B58B871A15D52C004D0E5B /* mor_pm3@2x.png in Resources */,
 				A7F294D11A0CA00C0073D832 /* dem_def3.jpg in Resources */,
 				A7F50A3C19FA534F004D061F /* tab_device_select@2x.png in Resources */,
 				AD2BDB1319D28F0600AA6D73 /* edi_channelManager@2x.png in Resources */,
@@ -3176,6 +3235,7 @@
 				A7F4429F19E7649B00519A4B /* add_popbg@2x.png in Resources */,
 				AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */,
 				A7F5014619D519FC00AA78F0 /* mor_aphelpen@2x.png in Resources */,
+				A7AF72CE1A15A8C40030D490 /* moreOneCellBg@2x.png in Resources */,
 				AD3BDCB619EC0546001B16D7 /* sca_ani@2x.png in Resources */,
 				A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */,
 				AD3BDCA319EBFA34001B16D7 /* voi_txt_bg@2x.png in Resources */,
@@ -3266,6 +3326,7 @@
 				A7FB234C19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m in Sources */,
 				A7FA43DE19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */,
 				A7B9FB8F1A08F8F6005F7928 /* JVCOperationHelpView.m in Sources */,
+				A7AF72BB1A1594CC0030D490 /* JVCPhotoModelObj.m in Sources */,
 				ADA22DFF19DAAE2A0092F8B9 /* AQRecorder.mm in Sources */,
 				AD1673BA19D80AF40021CD1B /* JVCDeviceListWithChannelListViewController.mm in Sources */,
 				A7F46A6919F92D5900AC1B1F /* JVCHelpVIew.m in Sources */,
@@ -3313,7 +3374,9 @@
 				AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */,
 				A7B6EE2A1A14D3CE0024F836 /* JVCMediaManagerViewController.m in Sources */,
 				ADA22D4919DA611D0092F8B9 /* DDDispatchQueueLogFormatter.m in Sources */,
+				A7AF72BE1A1595260030D490 /* JVCPhotoGroupObj.m in Sources */,
 				ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */,
+				A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */,
 				ADA22D5619DA613E0092F8B9 /* DDASLLogger.m in Sources */,
 				A7F5012A19D4F96A00AA78F0 /* JVCMoreSettingHelper.m in Sources */,
 				A7FB594919E900F7005E2E6D /* JVCModifyUnLegalViewController.m in Sources */,
@@ -3397,6 +3460,7 @@
 				ADA22D1D19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m in Sources */,
 				A72DCD2C19EC03C000C9A1ED /* JVCLocalChannelDateBaseHelp.m in Sources */,
 				AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */,
+				A7AF72C81A159F860030D490 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */,
 				A7F5017119D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				A7F4459219F6555A002C984F /* JVCEditLockDeviceNickNameViewController.m in Sources */,
@@ -3424,6 +3488,7 @@
 				AD014DE719F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
+				A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */,
 				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,
 				A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */,
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
@@ -3435,6 +3500,7 @@
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,
 				A70503211A076AC200A52E4C /* JVCUserResignTextViewController.m in Sources */,
 				A709697B19F2782300C191F8 /* JVCIPAddViewController.m in Sources */,
+				A7AF72D51A15ADF00030D490 /* JVCShowLargeImageViewController.m in Sources */,
 				ADA22D6119DA78380092F8B9 /* JVCAudioQueueHelper.mm in Sources */,
 				A7DFB29219ED5DB4002D9BF9 /* JVCOperationMiddleView.m in Sources */,
 				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,

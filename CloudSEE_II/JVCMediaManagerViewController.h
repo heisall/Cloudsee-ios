@@ -7,7 +7,8 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+#import "JVCConstansALAssetsMathHelper.h"
 
-@interface JVCMediaManagerViewController : JVCBaseGeneralTableViewController
+@interface JVCMediaManagerViewController : JVCBaseGeneralTableViewController<JVCConstansALAssetsDelegate>
 
 @end

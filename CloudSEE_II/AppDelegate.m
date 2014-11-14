@@ -41,6 +41,8 @@
 #import "JVCURlRequestHelper.h"
 #import "MTA.h"
 #import "MTAConfig.h"
+#import "JVCConstansALAssetsMathHelper.h"
+#import "JVCMediaMacro.h"
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -88,6 +90,9 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     //初始化二维码模块
     [self initQRViewController];
+    
+    //初始化相册
+    [self initPhotoAlbum];
     
     JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
@@ -777,7 +782,17 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
  */
 - (void)initTencentSdk
 {
-    [MTA startWithAppkey:@"IJI3ZDS167IB"];
+    [MTA startWithAppkey:kTencentKey];
     
+}
+
+/**
+ *  初始化相册
+ */
+- (void)initPhotoAlbum
+{
+    [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKYCustomPhotoAlbumName];
+    [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKYCustomVideoAlbumName];
+    [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKShare_Photo];
 }
 @end

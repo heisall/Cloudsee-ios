@@ -7,7 +7,10 @@
 //
 
 #import "JVCMediaManagerViewController.h"
-
+#import "JVCPhotoViewController.h"
+#import "JVCMediaMacro.h"
+#import "JVCRGBColorMacro.h"
+#import "JVCRGBHelper.h"
 @interface JVCMediaManagerViewController ()
 {
     NSMutableArray *_mArrayList;
@@ -24,16 +27,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title= LOCALANGER(@"home_picture_browse");
+    self.title= LOCALANGER(@"jvc_more_media_title");
     _mArrayList  = [[NSMutableArray alloc] init];
     [_mArrayList addObject:LOCALANGER(@"home_photos")];
     [_mArrayList addObject:LOCALANGER(@"home_videos")];
     [_mArrayList addObject:LOCALANGER(@"home_anothers")];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-//    self.tableView.backgroundView =nil;
-//    self.tableView.backgroundColor =[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
 
 }
 
@@ -52,23 +52,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return _mArrayList.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIImage *imageCellBg = [UIImage imageNamed:@"moreOneCellBg.png"];
-    return imageCellBg.size.height+20;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -85,37 +78,39 @@
     }
     
     cell.backgroundColor = [UIColor clearColor];
-    /**
-     *  背景
-     */
-    // Configure the cell...
-    UIImage *imageCellBg = [UIImage imageNamed:@"moreOneCellBg.png"];
+
     
-    UIImageView *imageViewBg = [[UIImageView alloc] initWithFrame:CGRectMake((cell.frame.size.width-imageCellBg.size.width)/2.0,10, imageCellBg.size.width,  imageCellBg.size.height)];
-    imageViewBg.image = imageCellBg;
-    imageViewBg.tag = 200;
-    [cell.contentView addSubview:imageViewBg];
-    [imageViewBg release];
-    
-    UIImage *ibgHeader = [UIImage imageNamed:[NSString stringWithFormat:@"photoManager%d",indexPath.row+1]];
-    UIImageView *imageViewHeader = [[UIImageView alloc] initWithFrame:CGRectMake(20,10+ (imageViewBg.frame.size.height-ibgHeader.size.height)/2.0, ibgHeader.size.width, ibgHeader.size.height)];
+    UIImage *ibgHeader = [UIImage imageNamed:[NSString stringWithFormat:@"mor_pm%d",indexPath.row+1]];
+    UIImageView *imageViewHeader = [[UIImageView alloc] initWithFrame:CGRectMake(20,(cell.height -ibgHeader.size.height )/2.0, ibgHeader.size.width, ibgHeader.size.height)];
     imageViewHeader.image = ibgHeader;
     [cell.contentView addSubview:imageViewHeader];
     [imageViewHeader release];
     
-    UILabel *_lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(imageViewHeader.frame.origin.x+imageViewHeader.frame.size.width+10,10+(imageViewBg.frame.size.height-25)/2.0, 100, 25)];
+    /**
+     *  获取颜色值处理
+     */
+    JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
+    UIColor *labColor  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    
+    UILabel *_lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(imageViewHeader.frame.origin.x+imageViewHeader.frame.size.width+10,imageViewHeader.top, cell.width, ibgHeader.size.height)];
     _lblTitle.backgroundColor = [UIColor clearColor];
+    if (labColor) {
+        _lblTitle.textColor = labColor;
+
+    }
     _lblTitle.text = [_mArrayList objectAtIndex:indexPath.row];
     [cell.contentView addSubview:_lblTitle];
     [_lblTitle release];
+
     
-    //箭头标识
-    UIImage *nextImage = [UIImage imageNamed:@"myVideo_next.png"];
-    UIImageView *nextImageView = [[UIImageView alloc] initWithFrame:CGRectMake(285, _lblTitle.frame.origin.y+(25-nextImage.size.height)/2.0, nextImage.size.width, nextImage.size.height)];
-    nextImageView.image = nextImage;
-    [cell.contentView addSubview:nextImageView];
-    [nextImageView release];
+    //横线
+    UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
+    UIImageView *HeadlineImageView = [[UIImageView alloc] initWithFrame:CGRectMake((cell.width- imgLine.size.width)/2.0, cell.height - imgLine.size.height, imgLine.size.width, imgLine.size.height)];
+    HeadlineImageView.image = imgLine;
+    [cell.contentView addSubview:HeadlineImageView];
+    [HeadlineImageView release];
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -130,13 +125,20 @@
     
 }
 
--(void)callBack:(NSMutableArray *)photoDatas{
+-(void)alAssetsDatecallBack:(NSMutableArray *)photoDatas;
+{
     
     if (!photoDatas) {
-        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
      
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_get_alum_error")];
         return;
+    }
+    if (photoDatas.count == 0) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"没有数据")];
+        return;
+
     }
     [self performSelectorOnMainThread:@selector(gotoPhotoData:) withObject:photoDatas waitUntilDone:NO];
     
@@ -144,12 +146,9 @@
 
 -(void)gotoPhotoData:(NSMutableArray *)photoDatas{
     
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    //    MBProgressHUD *huB = (MBProgressHUD *) [self.view viewWithTag:10000];
-    //    huB.hidden = YES;
-    //    [huB removeFromSuperview];
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
     
-    photoViewController *photoViewCon = [[photoViewController alloc] initWithDatasource:photoDatas];
+    JVCPhotoViewController *photoViewCon = [[JVCPhotoViewController alloc] initWithDatasource:photoDatas];
     //[self presentViewController:photoViewCon animated:YES completion:nil];
     photoViewCon.hidesBottomBarWhenPushed = YES;
     photoViewCon.typeTitle = iType;
@@ -174,10 +173,8 @@
 
 -(void)clickToShowPhoto:(NSInteger )typeIntge{
     
-    ConstansALAssetsMath *ALER=[[[ConstansALAssetsMath alloc] init] autorelease];
-    ALER.parent=self;
-    ALER.callBackMath=@selector(callBack:);
-    
+    JVCConstansALAssetsMathHelper *ALER=[[[JVCConstansALAssetsMathHelper alloc] init] autorelease];
+    ALER.AseeetDelegate=self;
     switch (typeIntge) {
         case 0:
             [ALER returnAblumGroupNameArrayDatas:kKYCustomPhotoAlbumName mathType:MATH_TYPE_PHOTO];
@@ -191,7 +188,7 @@
     }
     //    [ALER returnAblumGroupNameArrayDatas:kKYCustomPhotoAlbumName];
     
-    [OperationSet showMBprogress];
+    [[JVCAlertHelper shareAlertHelper ]alertShowToastOnWindow];
     
 }
 
