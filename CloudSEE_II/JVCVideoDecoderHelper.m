@@ -89,14 +89,14 @@ char  captureImageBuffer[1280*720*3] ={0};
                 memset(outVideoFrame->decoder_u, 0, sizeof(outVideoFrame->decoder_u));
                 memset(outVideoFrame->decoder_v, 0, sizeof(outVideoFrame->decoder_v));
                 
-                nDecoderID = nVideoDecodeID;
-                
                 JVD05_DecodeOpen(nVideoDecodeID);
                 
             }else {
                 
                  JVD04_DecodeOpen(self.nVideoWidth ,self.nVideoHeight ,nVideoDecodeID);
             }
+            
+            nDecoderID = nVideoDecodeID;
             
             self.isOpenDecoder   = TRUE;
         }
@@ -186,8 +186,7 @@ char  captureImageBuffer[1280*720*3] ={0};
                 outVideoFrame->nHeight = self.nVideoHeight;
                 outVideoFrame->nWidth  = self.nVideoWidth;
                 
-//                ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,outVideoFrame->decoder_y,videoFrame->nSize, nDecoderID, videoFrame->nFrameType,nSystemVersion);
-                 ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,videoFrame->nSize, outVideoFrame->decoder_y,outVideoFrame->decoder_u,outVideoFrame->decoder_v,nDecoderID,videoFrame->nFrameType,nSystemVersion);
+                ndecoderStatus = JVD04_DecodeOneFrame(videoFrame->buf,videoFrame->nSize, outVideoFrame->decoder_y,outVideoFrame->decoder_u,outVideoFrame->decoder_v,nDecoderID,videoFrame->nFrameType,nSystemVersion);
                 if (self.isCaptureImage) {
                     
                     if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(decoderModelCaptureImageCallBack:)]) {
@@ -199,6 +198,7 @@ char  captureImageBuffer[1280*720*3] ={0};
                     
                     self.isCaptureImage = FALSE;
                 }
+                
                 [self VideoUnlock];
                 
             }

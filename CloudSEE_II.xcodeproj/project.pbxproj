@@ -542,6 +542,9 @@
 		ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DF819DAAE2A0092F8B9 /* CADebugMacros.cpp */; };
 		ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DFB19DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp */; };
 		ADA22E0319DAAE2A0092F8B9 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADA22DFD19DAAE2A0092F8B9 /* CAXException.cpp */; };
+		ADA47C101A133AF8003AA90A /* JVCNetworkSettingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA47C0F1A133AF8003AA90A /* JVCNetworkSettingHelper.m */; };
+		ADA47C151A136E6A003AA90A /* JVCWiredInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA47C141A136E6A003AA90A /* JVCWiredInfoTableViewController.m */; };
+		ADA47C1B1A138466003AA90A /* JVCWireTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA47C1A1A138466003AA90A /* JVCWireTableViewCell.m */; };
 		ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF319D0250E003EE7A1 /* Foundation.framework */; };
 		ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */; };
 		ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77BF719D0250E003EE7A1 /* UIKit.framework */; };
@@ -564,8 +567,14 @@
 		ADA9E4471A11FCFF007EB209 /* nws_wired_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */; };
 		ADA9E4481A11FCFF007EB209 /* nws_wired_IconSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */; };
 		ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */; };
+		ADA9E49A1A12FE05007EB209 /* JVCConnectCallBackHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */; };
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
+		ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */; };
+		ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */; };
+		ADCF44CF1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */; };
+		ADCF44D11A15D7F600D1BF34 /* nws_wifiDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADCF44D01A15D7F600D1BF34 /* nws_wifiDetail@2x.png */; };
+		ADCF44D51A15DBD800D1BF34 /* JVCWifiInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44D41A15DBD800D1BF34 /* JVCWifiInfoTableViewController.m */; };
 		ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */; };
 		ADD3EFF71A10C72900C7F329 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFEE1A10C72900C7F329 /* FMDatabaseAdditions.m */; };
 		ADD3EFF81A10C72900C7F329 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3EFF01A10C72900C7F329 /* FMDatabasePool.m */; };
@@ -1242,6 +1251,12 @@
 		ADA22DFC19DAAE2A0092F8B9 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
 		ADA22DFD19DAAE2A0092F8B9 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
 		ADA22DFE19DAAE2A0092F8B9 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		ADA47C0E1A133AF8003AA90A /* JVCNetworkSettingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingHelper.h; sourceTree = "<group>"; };
+		ADA47C0F1A133AF8003AA90A /* JVCNetworkSettingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCNetworkSettingHelper.m; sourceTree = "<group>"; };
+		ADA47C131A136E6A003AA90A /* JVCWiredInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWiredInfoTableViewController.h; sourceTree = "<group>"; };
+		ADA47C141A136E6A003AA90A /* JVCWiredInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWiredInfoTableViewController.m; sourceTree = "<group>"; };
+		ADA47C191A138466003AA90A /* JVCWireTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWireTableViewCell.h; sourceTree = "<group>"; };
+		ADA47C1A1A138466003AA90A /* JVCWireTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWireTableViewCell.m; sourceTree = "<group>"; };
 		ADA77BF019D0250E003EE7A1 /* CloudSEE_II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudSEE_II.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA77BF319D0250E003EE7A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ADA77BF519D0250E003EE7A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1273,8 +1288,19 @@
 		ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wired_Icon@2x.png"; sourceTree = "<group>"; };
 		ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wired_IconSelected@2x.png"; sourceTree = "<group>"; };
 		ADA9E4491A120BF6007EB209 /* libjvdecoder_01V1.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvdecoder_01V1.0.2.a; sourceTree = "<group>"; };
+		ADA9E4981A12FE05007EB209 /* JVCConnectCallBackHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCConnectCallBackHelper.h; sourceTree = "<group>"; };
+		ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConnectCallBackHelper.m; sourceTree = "<group>"; };
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
+		ADCF44C71A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWiredInputInfoTableViewController.h; sourceTree = "<group>"; };
+		ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWiredInputInfoTableViewController.m; sourceTree = "<group>"; };
+		ADCF44CA1A14C20400D1BF34 /* JVCApConfigSSIDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigSSIDListView.h; sourceTree = "<group>"; };
+		ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCApConfigSSIDListView.m; sourceTree = "<group>"; };
+		ADCF44CD1A15D11D00D1BF34 /* JVCOnlyShowWifiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOnlyShowWifiView.h; sourceTree = "<group>"; };
+		ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOnlyShowWifiView.m; sourceTree = "<group>"; };
+		ADCF44D01A15D7F600D1BF34 /* nws_wifiDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nws_wifiDetail@2x.png"; sourceTree = "<group>"; };
+		ADCF44D31A15DBD800D1BF34 /* JVCWifiInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWifiInfoTableViewController.h; sourceTree = "<group>"; };
+		ADCF44D41A15DBD800D1BF34 /* JVCWifiInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWifiInfoTableViewController.m; sourceTree = "<group>"; };
 		ADD3EFEB1A10C72900C7F329 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		ADD3EFEC1A10C72900C7F329 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		ADD3EFED1A10C72900C7F329 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -2097,6 +2123,8 @@
 				AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m */,
 				AD014DE519F51C2E00E3D0FB /* JVCApConfigDeviceViewController.h */,
 				AD014DE619F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m */,
+				ADCF44CA1A14C20400D1BF34 /* JVCApConfigSSIDListView.h */,
+				ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */,
 				A7F4457D19F5FEA5002C984F /* JVCAPConfigMiddleView.h */,
 				A7F4457E19F5FEA5002C984F /* JVCAPConfigMiddleView.m */,
 			);
@@ -2329,30 +2357,8 @@
 		ADA22D6D19DA7D9D0092F8B9 /* CloudSEENetworkHelper */ = {
 			isa = PBXGroup;
 			children = (
-				ADA22D6919DA7CC30092F8B9 /* JVCRecordVideoHelper.h */,
-				ADA22D6A19DA7CC30092F8B9 /* JVCRecordVideoHelper.m */,
-				ADA22D2F19DA5D0A0092F8B9 /* JVCVideoDecoderHelper.h */,
-				ADA22D3019DA5D0A0092F8B9 /* JVCVideoDecoderHelper.m */,
-				ADA22D5F19DA78380092F8B9 /* JVCAudioQueueHelper.h */,
-				ADA22D6019DA78380092F8B9 /* JVCAudioQueueHelper.mm */,
-				ADA22D5C19DA78310092F8B9 /* JVCQueueHelper.h */,
-				ADA22D5D19DA78310092F8B9 /* JVCQueueHelper.mm */,
-				ADA22D1B19DA58240092F8B9 /* JVCCloudSEENetworkHelper.h */,
-				ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */,
-				ADA22D6219DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.h */,
-				ADA22D6319DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m */,
-				ADA22D7119DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m */,
-				ADA22D7319DA816C0092F8B9 /* JVCPlaySoundHelper.h */,
-				ADA22D7019DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.h */,
-				ADA22D7419DA816C0092F8B9 /* JVCPlaySoundHelper.m */,
-				ADA22D7C19DA84500092F8B9 /* JVCVoiceIntercomHelper.h */,
-				ADA22D7D19DA84500092F8B9 /* JVCVoiceIntercomHelper.m */,
-				ADA22D7F19DA85260092F8B9 /* JVCCloudSEEManagerHelper.h */,
-				ADA22D8019DA85260092F8B9 /* JVCCloudSEEManagerHelper.m */,
-				ADA22D8219DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.h */,
-				ADA22D8319DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m */,
-				AD3BDC7419EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.h */,
-				AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */,
+				ADA9E4971A12F894007EB209 /* UI */,
+				ADA9E4961A12F858007EB209 /* floor */,
 			);
 			name = CloudSEENetworkHelper;
 			sourceTree = "<group>";
@@ -2724,6 +2730,16 @@
 				ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */,
 				ADA9E4381A11E514007EB209 /* JVCNetworkSettingWithTopItem.h */,
 				ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */,
+				ADA47C131A136E6A003AA90A /* JVCWiredInfoTableViewController.h */,
+				ADA47C141A136E6A003AA90A /* JVCWiredInfoTableViewController.m */,
+				ADCF44D31A15DBD800D1BF34 /* JVCWifiInfoTableViewController.h */,
+				ADCF44D41A15DBD800D1BF34 /* JVCWifiInfoTableViewController.m */,
+				ADCF44C71A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.h */,
+				ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */,
+				ADA47C191A138466003AA90A /* JVCWireTableViewCell.h */,
+				ADA47C1A1A138466003AA90A /* JVCWireTableViewCell.m */,
+				ADCF44CD1A15D11D00D1BF34 /* JVCOnlyShowWifiView.h */,
+				ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */,
 			);
 			name = remoteSetting;
 			sourceTree = "<group>";
@@ -2732,12 +2748,55 @@
 			isa = PBXGroup;
 			children = (
 				ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */,
+				ADCF44D01A15D7F600D1BF34 /* nws_wifiDetail@2x.png */,
 				ADA9E4431A11FCFF007EB209 /* nws_wired_btnBg@2x.png */,
 				ADA9E4441A11FCFF007EB209 /* nws_wired_Icon@2x.png */,
 				ADA9E4451A11FCFF007EB209 /* nws_wired_IconSelected@2x.png */,
 				ADA9E4401A11E865007EB209 /* nws_topItemSelected@2x.png */,
 			);
 			name = networkSetting;
+			sourceTree = "<group>";
+		};
+		ADA9E4961A12F858007EB209 /* floor */ = {
+			isa = PBXGroup;
+			children = (
+				ADA22D6919DA7CC30092F8B9 /* JVCRecordVideoHelper.h */,
+				ADA22D6A19DA7CC30092F8B9 /* JVCRecordVideoHelper.m */,
+				ADA22D2F19DA5D0A0092F8B9 /* JVCVideoDecoderHelper.h */,
+				ADA22D3019DA5D0A0092F8B9 /* JVCVideoDecoderHelper.m */,
+				ADA22D5F19DA78380092F8B9 /* JVCAudioQueueHelper.h */,
+				ADA22D6019DA78380092F8B9 /* JVCAudioQueueHelper.mm */,
+				ADA22D5C19DA78310092F8B9 /* JVCQueueHelper.h */,
+				ADA22D5D19DA78310092F8B9 /* JVCQueueHelper.mm */,
+				ADA22D1B19DA58240092F8B9 /* JVCCloudSEENetworkHelper.h */,
+				ADA22D1C19DA58240092F8B9 /* JVCCloudSEENetworkHelper.m */,
+				ADA22D6219DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.h */,
+				ADA22D6319DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m */,
+				ADA22D7119DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m */,
+				ADA22D7319DA816C0092F8B9 /* JVCPlaySoundHelper.h */,
+				ADA22D7019DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.h */,
+				ADA22D7419DA816C0092F8B9 /* JVCPlaySoundHelper.m */,
+				ADA22D7C19DA84500092F8B9 /* JVCVoiceIntercomHelper.h */,
+				ADA22D7D19DA84500092F8B9 /* JVCVoiceIntercomHelper.m */,
+				ADA22D7F19DA85260092F8B9 /* JVCCloudSEEManagerHelper.h */,
+				ADA22D8019DA85260092F8B9 /* JVCCloudSEEManagerHelper.m */,
+				ADA22D8219DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.h */,
+				ADA22D8319DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m */,
+				AD3BDC7419EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.h */,
+				AD3BDC7519EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m */,
+			);
+			name = floor;
+			sourceTree = "<group>";
+		};
+		ADA9E4971A12F894007EB209 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				ADA9E4981A12FE05007EB209 /* JVCConnectCallBackHelper.h */,
+				ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */,
+				ADA47C0E1A133AF8003AA90A /* JVCNetworkSettingHelper.h */,
+				ADA47C0F1A133AF8003AA90A /* JVCNetworkSettingHelper.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		ADD6267B1A046D8200BD877F /* voi */ = {
@@ -2977,6 +3036,7 @@
 				A7F294D01A0CA00C0073D832 /* dem_def1.jpg in Resources */,
 				A7F4346A19DA44A800E7ECA1 /* log_user@2x.png in Resources */,
 				AD3BDC1119E8B2E9001B16D7 /* play_3@2x.png in Resources */,
+				ADCF44D11A15D7F600D1BF34 /* nws_wifiDetail@2x.png in Resources */,
 				A7F509F619F9DB52004D061F /* add_lock_door.jpg in Resources */,
 				A7F46A8519F960D600AC1B1F /* arm_dev_dor@2x.png in Resources */,
 				ADD6267219FBC8C700BD877F /* voi_exit@2x.png in Resources */,
@@ -3212,6 +3272,7 @@
 				A7F58C031A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m in Sources */,
 				A709696E19F2450D00C191F8 /* JVCAlarmCurrentView.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
+				ADA9E49A1A12FE05007EB209 /* JVCConnectCallBackHelper.m in Sources */,
 				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */,
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
@@ -3248,6 +3309,7 @@
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */,
+				ADCF44CF1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m in Sources */,
 				A7F0042719D45DC70028533E /* JVCConfigModel.m in Sources */,
 				A7F5555719D8FEA50009F75C /* JVCMoreUserSettingViewController.m in Sources */,
 				ADA22D5E19DA78310092F8B9 /* JVCQueueHelper.mm in Sources */,
@@ -3275,12 +3337,14 @@
 				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,
 				A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */,
+				ADA47C151A136E6A003AA90A /* JVCWiredInfoTableViewController.m in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7F50A2519FA2D3F004D061F /* UIScrollView+MJExtension.m in Sources */,
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
 				A7263C4919E7F921003C22DE /* JVCDeviceListViewController.mm in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F43BF81A00BB6700FC3CC3 /* JVCGetPassWordViewController.m in Sources */,
+				ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */,
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
 				ADA22D2E19DA5C8F0092F8B9 /* JVCAudioCodecInterface.mm in Sources */,
 				A72DCD2919EBF99600C9A1ED /* JVCLocalDeviceDateBaseHelp.m in Sources */,
@@ -3295,11 +3359,13 @@
 				A7F51E6E19EBB4920052F878 /* JVCAlarmCell.m in Sources */,
 				A7F5015C19D5399C00AA78F0 /* JVCAddDeviceViewController.m in Sources */,
 				A7F0042319D45C030028533E /* AHReach.m in Sources */,
+				ADCF44D51A15DBD800D1BF34 /* JVCWifiInfoTableViewController.m in Sources */,
 				A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */,
 				A7F5011019D4EE0C00AA78F0 /* JVCDataBaseHelper.m in Sources */,
 				AD2BDB1D19D28FAF00AA6D73 /* JVCRGBModel.m in Sources */,
 				A78E40271A07A4E00055AE4B /* JVCLocalQRAddDeviceViewController.m in Sources */,
 				AD3BDC7C19EB7C92001B16D7 /* JVCLocalCacheModel.m in Sources */,
+				ADA47C101A133AF8003AA90A /* JVCNetworkSettingHelper.m in Sources */,
 				A7FB234119EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m in Sources */,
 				ADA22D6419DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m in Sources */,
 				ADA22D5819DA613E0092F8B9 /* DDLog.m in Sources */,
@@ -3319,6 +3385,7 @@
 				AD3BDCB919EC055D001B16D7 /* JVCScanNewDeviceViewController.m in Sources */,
 				AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */,
 				A7F5017119D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
+				ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */,
 				A7F4459219F6555A002C984F /* JVCEditLockDeviceNickNameViewController.m in Sources */,
 				A72B4B7419D3FDE500760695 /* JVCMoreUserCell.m in Sources */,
 				AD2BDB2019D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m in Sources */,
@@ -3357,6 +3424,7 @@
 				A7DFB29219ED5DB4002D9BF9 /* JVCOperationMiddleView.m in Sources */,
 				A7FA43DC19E3CC3C00F7A8A4 /* JVCOperationController.m in Sources */,
 				ADA22D8419DA8B5F0092F8B9 /* JVCCloudSEESendGeneralHelper.m in Sources */,
+				ADA47C1B1A138466003AA90A /* JVCWireTableViewCell.m in Sources */,
 				A7F4457919F5E5E3002C984F /* JVDeviceCAlarmAddTableViewCell.m in Sources */,
 				A7F50A2019FA2D3F004D061F /* MJRefreshConst.m in Sources */,
 				A7263C4F19E80763003C22DE /* JVCLickTypeViewController.m in Sources */,

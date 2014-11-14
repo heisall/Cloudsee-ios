@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "JVCCloudSEEManagerHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
+#import "JVNetConst.h"
 
 @protocol ystNetWorkHelpDelegate <NSObject>
+
+@optional
 
 /**
  *  连接的回调代理
@@ -38,8 +41,9 @@
  *  开始请求文本聊天的回调
  *
  *  @param nLocalChannel 本地显示窗口的编号
+ *  @param nDeviceType   设备的类型
  */
--(void)RequestTextChatCallback:(int)nLocalChannel;
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType;
 
 /**
  *  文本聊天请求的结果回调
@@ -49,9 +53,12 @@
  */
 -(void)RequestTextChatStatusCallBack:(int)nLocalChannel withStatus:(int)nStatus;
 
+
 @end
 
 @protocol ystNetWorkAudioDelegate <NSObject>
+
+@optional
 
 /**
  *  音频播放的回调
@@ -80,6 +87,8 @@
 
 @protocol ystNetWorkHelpRemoteOperationDelegate <NSObject>
 
+@optional
+
 /**
  *  抓拍图片的委托代理
  *
@@ -102,6 +111,7 @@
 
 @protocol ystNetWorkHelpRemotePlaybackVideoDelegate <NSObject>
 
+@optional
 
 -(void)remoteplaybackState:(int)remoteplaybackState;
 
@@ -131,6 +141,7 @@
 
 @protocol ystNetWorkHelpTextDataDelegate <NSObject>
 
+@optional
 
 /**
  *  文本聊天返回的回调
@@ -144,6 +155,8 @@
 @end
 
 @protocol  ystNetWorkHelpVideoDelegate <NSObject>
+
+@optional
 
 /**
  *   录像结束的回调函数

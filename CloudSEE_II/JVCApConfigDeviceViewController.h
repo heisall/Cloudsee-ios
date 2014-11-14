@@ -33,7 +33,7 @@
 @end
 
 
-@interface JVCApConfigDeviceViewController : JVCBaseWithGeneralViewController <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+@interface JVCApConfigDeviceViewController : JVCBaseWithGeneralViewController {
 
     id<JVCApConfigDeviceViewControllerDelegate> delegate;
 }
@@ -51,7 +51,5 @@
  *  @param wifiListData 无线列表信息
  */
 -(void)refreshWifiViewShowInfo:(NSMutableArray*)wifiListData;
-
-
 
 @end
