@@ -216,7 +216,7 @@ static const int KSeperateAdd       = 6.0;//
     
     int iStart=0;
     
-    NSString *imageString = [UIImage imageBundlePath:@"mor_pmImage.jpg"];
+    NSString *imageString = [UIImage imageBundlePath:@"mor_pmbg.png"];
 
   
     UIImage *bgimge = [UIImage imageWithContentsOfFile:imageString];
@@ -241,7 +241,7 @@ static const int KSeperateAdd       = 6.0;//
             
             NSString *imagebgstring = [UIImage imageBundlePath:@"mor_pmbg.png"];
             UIImage *imagebg = [[UIImage alloc] initWithContentsOfFile:imagebgstring];
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.left-1, thumbnailView.top-1, imagebg.size.width, imagebg.size.height)];
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(thumbnailView.left-1, thumbnailView.top-1, imagebg.size.width+2, imagebg.size.height+2)];
             [cell.contentView insertSubview:imageView belowSubview:thumbnailView];
             [imageView release];
             [imagebg release];

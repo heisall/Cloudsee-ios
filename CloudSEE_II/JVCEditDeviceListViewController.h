@@ -14,7 +14,7 @@
 #import "JVCNetworkSettingHelper.h"
 
 
-@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate,ystNetWorkHelpDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,JVCNetworkSettingHelperDeleagte>{
+@interface JVCEditDeviceListViewController : JVCBaseWithTopToolViewAndDropListViewController<editDeviceInfoDelegate,ystNetWorkHelpDelegate,ystNetWorkHelpRemoteOperationDelegate,ystNetWorkHelpTextDataDelegate,JVCNetworkSettingHelperDeleagte,editChannelInfoDeleteDelegate>{
 
     int nConnectLocalChannel;  //连接的本地通道号
 }
