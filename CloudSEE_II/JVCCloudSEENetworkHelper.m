@@ -191,8 +191,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     NSString *sGroup=[ystNumber substringToIndex:i];
     NSString *iYstNum=[ystNumber substringFromIndex:i];
     
-    NSLog(@"%d",JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],nTimeOut));
-    
     return JVC_WANGetChannelCount([sGroup UTF8String],[iYstNum intValue],nTimeOut);
 }
 
@@ -608,9 +606,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             [currentChannelObj startPopVideoDataThread];
             
-            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:)]) {
+            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:withDeviceType:)]) {
                 
-                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1];
+                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1 withDeviceType:currentChannelObj.nConnectDeviceType];
             }
         }
             break;
@@ -656,9 +654,10 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
                     
                     unsigned int nLen = (i_data>>4) & 0xFFFFF;
                     
-                    [currentChannelObj decoder04Device:pBuffer+8  withBufferSize:nLen withFrameType:uType];
-                  
+                    [currentChannelObj pushVideoData:(unsigned char *)pBuffer+8 nVideoDataSize:nLen isVideoDataIFrame:uType ==JVN_DATA_I isVideoDataBFrame:uType == JVN_DATA_B frameType:uType];
+                    
                 }
+                
             }
         }
             break;
@@ -919,6 +918,13 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
         }
             break;
+            
+        case RemoteOperationType_oldDeviceNextVideoFrame:{
+            
+            [currentChannelObj nextVideoData];
+            
+        }
+
         default:
             break;
     }
@@ -1824,8 +1830,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         
         JVCCloudSEEManagerHelper *CloudSEEManagerHelperObj = jvChannel[i];
         
-        if (CloudSEEManagerHelperObj != nil) {
-            
+        if (CloudSEEManagerHelperObj != nil && CloudSEEManagerHelperObj.isDisplayVideo) {
             
             BOOL checkSendFrameStatus =CloudSEEManagerHelperObj.isOnlyIState == isOnltIFrame;
             
@@ -1878,9 +1883,6 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
         
             DDLogCVerbose(@"%s---dataSize=%d",__FUNCTION__,nSize);
                 [jvcCloudSEENetworkHelper openDownFileHandle:pBuffer withSaveBufferSize:nSize];
-            
-            
-            
             
         }
             break;

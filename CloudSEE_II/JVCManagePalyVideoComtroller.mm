@@ -751,7 +751,6 @@ BOOL isAllLinkRun;
         //重复连接
         if (!connectStatus) {
             
-            
             [singleView startActivity:connectInfo isConnectType:!deviceModel.linkType];
             
             if (deviceModel.linkType) {
@@ -840,7 +839,7 @@ BOOL isAllLinkRun;
  *
  *  @param nLocalChannel 本地显示的通道编号 需减去1
  */
--(void)RequestTextChatCallback:(int)nLocalChannel {
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         

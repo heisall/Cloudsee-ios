@@ -421,7 +421,7 @@ float min_offset;
  */
 -(void)setOldImageBuffer:(char *)imageBuffer decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         
         UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
         
@@ -438,6 +438,12 @@ float min_offset;
         UIImageView *imgView  = (UIImageView *)[self viewWithTag:101];
         
         [imgView setImage:image];
+        
+        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        DDLogVerbose(@"%s-----------------tag=%d",__FUNCTION__,self.tag -KWINDOWSFLAG + 1);
+        
+        [ystNetworkObj RemoteOperationSendDataToDevice:self.tag -KWINDOWSFLAG + 1 remoteOperationType:RemoteOperationType_oldDeviceNextVideoFrame remoteOperationCommand:-1];
     });
 }
 

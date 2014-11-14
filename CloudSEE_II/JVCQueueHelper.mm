@@ -18,6 +18,7 @@
     int             nDefaultFrameFps;
     BOOL            bm_exit;
     BOOL            playThreadExit;
+    BOOL            isPlayOldDeviceFrame;    //是否初次播放 针对04版生效，04启动线程置为YES
 }
 
 typedef struct queueServiceUtilityClassParam
@@ -46,16 +47,13 @@ typedef struct queueServiceUtilityClassParam
 
 @synthesize jvcQueueHelperDelegate;
 @synthesize isOnlyIFrame;
+@synthesize isOldDevice;
 
 queueServiceUtilityClassParam  *param;
 
 static const int  KFrameQueueMinCriticalValue = 2;                  //缓存帧的加快播放临界值最小
 static const int  KFrameQueueMaxCriticalValue = 5;                  //缓存帧的加快播放临界值最大
 static NSString * const kVideoQueueSemNameDefaultHead  = @"video";  //队列的名称前缀
-static const int  KOnlyIFrameWithFps                   = 1;         //启用关键帧播放的帧速率 每秒1帧
-
-
-
 
 /**
  * 毫秒级的睡觉
@@ -152,13 +150,14 @@ long long currentMillisSec() {
     DDLogInfo(@"%s----frameRate=%lf",__FUNCTION__,param->video_frame_fps);
 }
 
-
 /**
  *  启动出队线程（消费者）
  */
 -(void)startPopDataThread {
     
     if (!bm_exit) {
+        
+        isPlayOldDeviceFrame =  self.isOldDevice ;
         
         [NSThread detachNewThreadSelector:@selector(popDataCallBack) toTarget:self withObject:nil];
     }
@@ -235,6 +234,8 @@ long long currentMillisSec() {
             continue;
         }
         
+        int decoderStatus = -1;
+        
         //开启跳帧模式
         if(queueFrameCount > queue_fps ) {
             
@@ -243,6 +244,7 @@ long long currentMillisSec() {
         
         if(need_jump && !frameBuffer->is_i_frame) {
             
+              DDLogInfo(@"%s----jump000",__FUNCTION__);
             
         }else {
             
@@ -253,23 +255,31 @@ long long currentMillisSec() {
             }
 
             
-            int decoderStatus = -1;
-            
             if (self.jvcQueueHelperDelegate !=nil && [self.jvcQueueHelperDelegate respondsToSelector:@selector(popDataCallBack:)]) {
                 
                 decoderStatus = [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
             }
             
-            if (!self.isOnlyIFrame || decoderStatus ) {
+            if (!self.isOnlyIFrame && decoderStatus>=0 && !self.isOldDevice) {
                 
                 needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
                 msleep(needDelay);
                 timeStamp = currentMillisSec();
+                
             }
         }
         
         free(frameBuffer->buf);
         free(frameBuffer);
+        
+        if (self.isOldDevice) {
+            
+            if (decoderStatus < 0) {
+                
+                [self popVideoData];
+            }
+        }
+        
     }
     
     DDLogInfo(@"%s----playThread---end",__FUNCTION__);
@@ -314,6 +324,7 @@ long long currentMillisSec() {
         bufferFrame->is_i_frame = isIFrame;
         bufferFrame->is_b_frame = isBFrame;
         bufferFrame->nFrameType = frameType;
+        
         bufferFrame->buf = (unsigned char *)malloc(sizeof(unsigned char)*nSize);
         
         memcpy(bufferFrame->buf, data, nSize);
@@ -339,7 +350,19 @@ long long currentMillisSec() {
 //        [self Unlock];
     }
     
-    sem_post(dqueue->dataqueue_sem_);
+    if (self.isOldDevice) {
+        
+        if (isPlayOldDeviceFrame) {
+            
+            isPlayOldDeviceFrame = FALSE;
+            sem_post(dqueue->dataqueue_sem_);
+        }
+        
+    }else{
+    
+        sem_post(dqueue->dataqueue_sem_);
+    }
+    
     
     return result;
 }
@@ -432,6 +455,27 @@ long long currentMillisSec() {
 -(void)Unlock
 {
 	pthread_mutex_unlock(&mutex);
+}
+
+/**
+ *  04版的，开启下一帧(否则不生效)
+ */
+-(void)popVideoData{
+    
+    if (self.isOldDevice) {
+        
+        //获取当前缓存队列中当前帧的个数
+        int queueFrameCount = [self GetEnqueueDataCount];
+        
+        if (queueFrameCount > 0) {
+            
+            sem_post(dqueue->dataqueue_sem_);
+            
+        }else{
+            
+            isPlayOldDeviceFrame = TRUE;
+        }
+    }
 }
 
 /**

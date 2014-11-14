@@ -43,7 +43,9 @@ extern "C"
      */
     //int JVD04_DecodeOneFrame
     //  (unsigned char* inH264Data,int length,int nLocalChannel,int uchType);
-    int JVD04_DecodeOneFrame(unsigned char * inH264Data,unsigned char * outH264Data,int length,int nLocalChannel,int uchType,int systemVersion,int deviceType);
+    //int JVD04_DecodeOneFrame(unsigned char * inH264Data,unsigned char * outH264Data,int length,int nLocalChannel,int uchType,int systemVersion,int deviceType);
+    
+    int JVD04_DecodeOneFrame(unsigned char * inH264Data,int length, char * ydata,char *udata,char *vdata,int nLocalChannel,int uchType,int systemVersion);
     
     
     

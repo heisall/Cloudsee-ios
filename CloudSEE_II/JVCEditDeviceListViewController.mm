@@ -28,6 +28,8 @@
 #import "JVCAlarmCurrentView.h"
 #import "JVCOperationHelpView.h"
 #import "JVCTencentHelp.h"
+#import "JVCNetworkSettingViewController.h"
+
 
 @interface JVCEditDeviceListViewController (){
     
@@ -37,11 +39,14 @@
     __block BOOL    isAnimationFinshed;
     
     NSTimer        *requestTimer;
+    
+    __block JVCNetworkSettingHelper *networkSettingObj; //网络设置的句柄
 }
 
 typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
     
     JVCEditDeviceListViewControllerClickType_beganIndex = 1000,
+    JVCEditDeviceListViewControllerClickType_NetworkSetting,
     JVCEditDeviceListViewControllerClickType_deviceManager,
     JVCEditDeviceListViewControllerClickType_linkModel,
     JVCEditDeviceListViewControllerClickType_channelManage,
@@ -57,6 +62,7 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
 static const int             kInitWithLayoutColumnCount           = 3;
 static const CGFloat         kAlertTostViewTime                   = 2.0f;
 static const NSTimeInterval  kRequestTimeout                      = 15.0f;
+static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -176,8 +182,8 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     
     mArrayIconNames  = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconNames addObjectsFromArray:@[@"edi_deviceManger.png",@"edi_deviceModify.png",@"edi_linkModel.png",
-                                           @"edi_channelManager.png",@"edi_safe_un.png",@"edi_alarm.png"]];
+    [mArrayIconNames addObjectsFromArray:@[@"edi_RemoteSetup.png",@"edi_deviceModify.png",@"edi_linkModel.png",
+                                           @"edi_channelManager.png",@"edi_play.png",@"edi_safe_un.png",@"edi_alarm.png"]];
 }
 
 /**
@@ -218,7 +224,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
+    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"网络设置"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
 }
 
 
@@ -359,6 +365,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 -(void)opeartionClick:(int)type{
     
     if (titles.count<=0) {
+        
         return;
     }
     
@@ -416,6 +423,11 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
             
             [self safeWithChangeStatus];
             
+        }
+            break;
+        case JVCEditDeviceListViewControllerClickType_NetworkSetting:{
+        
+            [self gotoNetworkSetting];
         }
             break;
             
@@ -482,11 +494,175 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
             }
         });
     });
+}
 
+/**
+ *  前往网络设置模块
+ */
+-(void)gotoNetworkSetting {
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    JVCNetworkSettingErrorBlock networkSettingErrorBlock = ^(int errorType){
+    
+        if (networkSettingObj) {
+            
+            [networkSettingObj release];
+            networkSettingObj = nil;
+        }
+        
+    };
+    
+    JVCNetworkSettingResultSSIDListBlock networkSettingResultSSIDListBlock = ^(NSMutableArray *SSIDList){
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            for (UIViewController *viewCon in self.navigationController.viewControllers) {
+                
+                if ([viewCon isKindOfClass:[JVCNetworkSettingViewController class]]) {
+                    
+                    JVCNetworkSettingViewController *network = (JVCNetworkSettingViewController *)viewCon;
+                    
+                    [network refreshSSIDListData:SSIDList];
+                }
+            }
+        
+        
+        });
+    };
+    
+//    JVCNetworkSettingConnectResultBlock  networkSettingConnectResultBlock = ^(int connectResultType){
+//        
+//        switch (connectResultType) {
+//                
+//            case CONNECTRESULTTYPE_Disconnect:{
+//            
+//            }
+//                
+//                break;
+//                
+//            default:
+//                
+//                break;
+//        }
+//        
+//        if (networkSettingObj) {
+//            
+//            [networkSettingObj release];
+//            networkSettingObj = nil;
+//        }
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//            [self performSelector:@selector(popRootViewController) withObject:nil afterDelay:kPopRootTimeDelay];
+//        });
+//    };
 
+    JVCNetworkSettingGetNetworkInfoBlock networkSettingNetworkInfoBlock = ^(NSMutableDictionary *networkInfo){
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            JVCNetworkSettingBackBlock  networkSettingBackBlock = ^{
+                
+                if (networkSettingObj) {
+                    
+                    [networkSettingObj disconnect];
+                }
+            };
+            
+            JVCNetworkSettingGetSSIDListBlock  networkSettingGetSSIDListBlock = ^{
+            
+                if (networkSettingObj) {
+                    
+                    [networkSettingObj refreshWifiListInfo];
+                }
+            };
+            
+            JVCNetworkSettingSetWifiConnectTypeBlock  networkSettingSetWifiConnectTypeBlock = ^(NSString *strSSIDName ,NSString *strSSIDPassWord ,NSString *strWifiAuth,NSString *strWifiEncryp){
+            
+                if (networkSettingObj) {
+                    
+                    [networkSettingObj setWifiConnectType:strSSIDName withSSIDPassWord:strSSIDPassWord withWifiAuth:strWifiAuth withWifiEncrypt:strWifiEncryp];
+                }
+            
+            };
+        
+            JVCNetworkSettingSetWiredConnectTypeBlock networkSettingSetWiredConnectTypeBlock =^(int nDHCP,NSString *strIp,NSString *strSubnetMask,NSString *strDefaultGateway,NSString *strDns){
+                
+                if (networkSettingObj) {
+                    
+                    [networkSettingObj setWiredConnectType:nDHCP withIpAddress:strIp withSubnetMask:strSubnetMask withDefaultGateway:strDefaultGateway withDns:strDns];
+                }
+            };
+            
+            JVCNetworkSettingViewController *networkSettingViewController       = [[JVCNetworkSettingViewController alloc] init];
+            networkSettingViewController.mdDeviceNetworkInfo                    = networkInfo;
+            networkSettingViewController.networkSettingSetWiredConnectTypeBlock = networkSettingSetWiredConnectTypeBlock;
+            networkSettingViewController.networkSettingBackBlock                = networkSettingBackBlock;
+            networkSettingViewController.networkSettingGetSSIDListBlock         = networkSettingGetSSIDListBlock;
+            networkSettingViewController.networkSettingSetWifiConnectTypeBlock  = networkSettingSetWifiConnectTypeBlock;
+            [self.navigationController pushViewController:networkSettingViewController animated:YES];
+            [networkSettingViewController release];
+        
+        });
+    
+    };
+    
+    networkSettingObj                                    = [[JVCNetworkSettingHelper alloc] init];
+    networkSettingObj.networkSettingErrorBlock           = networkSettingErrorBlock;
+    networkSettingObj.networkSettingGetNetworkInfoBlock  = networkSettingNetworkInfoBlock;
+    networkSettingObj.networkSettingResultSSIDListBlock  = networkSettingResultSSIDListBlock;
+    networkSettingObj.networkSettingHelperDeleagte       = self;
+
+    JVCDeviceModel *model                                 = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
+    
+    [networkSettingObj connectVideoWithDeviceModel:model withChannel:1 withLocalChannel:1];
+}
+
+#pragma mark ------------- JVCNetworkSettingHelper delegate
+-(void)JVCNetworkSettingConnectResult:(int)connectResultType{
+    
+    switch (connectResultType) {
+            
+        case CONNECTRESULTTYPE_Disconnect:{
+            
+        }
+            
+            break;
+            
+        default:
+            
+            break;
+    }
+    
+    if (networkSettingObj) {
+        
+        [networkSettingObj release];
+        networkSettingObj = nil;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    });
 
 }
 
+/**
+ *  获取
+ */
+-(void)popRootViewController{
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+    
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    });
+}
 
 #pragma mark 设备管理
 //设备管理点击事件
@@ -517,6 +693,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
  */
 - (void)editDeviceLinkType
 {
+    
     JVCDeviceModel *model = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
     
     if (model.bIpOrDomainAdd) {
@@ -599,6 +776,7 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
     [mArrayIconNames release];
     [mArrayColors release];
     [mArrayIconTitles release];
+    [networkSettingObj release];
     [super dealloc];
 }
 
@@ -636,8 +814,6 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
  */
 - (void)connetDeviceWithYSTNum
 {
-    
-    
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
@@ -699,11 +875,9 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 -(void)ConnectMessageCallBackMath:(NSString *)connectCallBackInfo nLocalChannel:(int)nlocalChannel connectResultType:(int)connectResultType
 {
 
-    
     if (connectResultType == CONNECTRESULTTYPE_Succeed) {
         
     }else {
-        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -722,11 +896,11 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 *
 *  @param nLocalChannel 本地显示的通道编号 需减去1
 */
--(void)RequestTextChatCallback:(int)nLocalChannel {
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        JVCCloudSEENetworkHelper *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
         
@@ -754,7 +928,6 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
             netWorkHelper.ystNWTDDelegate = self;
             
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:AlarmLockChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
-            
         });
         
         [self performSelectorOnMainThread:@selector(startRequestCheckTimer) withObject:nil waitUntilDone:NO];
@@ -788,14 +961,10 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
 -(void)RequestTimeoutMath {
     
     requestTimer =nil;
-    DDLogVerbose(@"%s----endCallback",__FUNCTION__);
     JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
     [alertObj alertHidenToastOnWindow];
     [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"REQ_RES_TIMEOUT")];
     [self disAlarmRemoteLink];
-    
-    
-
 }
 
 /**
@@ -822,7 +991,6 @@ static const NSTimeInterval  kRequestTimeout                      = 15.0f;
  */
 -(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
 {
- 
     switch (nYstNetWorkHelpTextDataType) {
             
         case TextChatType_getAlarmType://获取列表的
