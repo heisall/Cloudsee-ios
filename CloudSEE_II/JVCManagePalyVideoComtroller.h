@@ -10,6 +10,8 @@
 #import "JVCOperationController.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCMonitorConnectionSingleImageView.h"
+#import "JVCDeviceSourceHelper.h"
+#import "JVCChannelScourseHelper.h"
 
 @protocol JVCManagePalyVideoComtrollerDelegate <NSObject>
 
@@ -54,7 +56,6 @@ enum CONNECTALLDEVICE{
     id<JVCManagePalyVideoComtrollerDelegate> delegate;
     
     BOOL                    isPlayBackVideo;          //YES 远程回放模式
-    
     BOOL                    isShowVideo;
 
 }
@@ -73,11 +74,17 @@ enum CONNECTALLDEVICE{
  */
 -(void)initWithLayout;
 
+/**
+ *  返回当前选择设备的通道个数
+ *
+ *  @return 当前选择设备的通道个数
+ */
+- (int)channelCountAtSelectedYstNumber;
+
 
 -(void)changeContenView;
 
 -(void)setScrollviewByIndex:(NSInteger)Index;
-
 
 /**
  *  取消全连事件 (子线程调用)
@@ -108,12 +115,21 @@ enum CONNECTALLDEVICE{
  */
 -(void)connectVideoByLocalChannelID:(int)nlocalChannelID;
 
+
+/**
+ *  获取指定索引的单个视图窗口
+ *
+ *  @param index 索引
+ *
+ *  @return 单个视图窗口
+ */
+-(JVCMonitorConnectionSingleImageView *)singleViewAtIndex:(int)index;
+
 /**
  *  刷新当前图片翻转状态
  *
  *  @param enable   当前滚动视图是否可以滚动
  */
 -(void)setScrollViewEnable:(BOOL)enable;
-
 
 @end

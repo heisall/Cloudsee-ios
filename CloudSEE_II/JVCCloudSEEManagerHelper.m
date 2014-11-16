@@ -293,37 +293,6 @@ char          pcmBuffer[1024] ={0};
 }
 
 /**
- *  解码一帧
- *
- *  @param h264Buffer    网络传的H264数据
- *  @param nSize         网络传的H264数据大小
- *  @param nFrameType    帧类型
- *
- *  @return 解码成功返回 0 否则失败
- */
--(int)decoder04Device:(char *)h264Buffer withBufferSize:(int)nSize  withFrameType:(int)nFrameType{
-    
-    int nDecoderStatus  = -1 ;
-    
-    nDecoderStatus = [self.decodeModelObj decoder04Device:h264Buffer withOutDecoderBuffer:jvcOutVideoFrame->decoder_y withBufferSize:nSize withSystemVersion:self.nSystemVersion withFrameType:nFrameType withIsFrameI:nFrameType==JVN_DATA_I];
-    
-    if ( nDecoderStatus == 0) {
-        
-        if (self.jvConnectDelegate != nil && [self.jvConnectDelegate respondsToSelector:@selector(decoderOutVideoFrameCallBack:nPlayBackFrametotalNumber:withVideoType:)]) {
-            
-            jvcOutVideoFrame->nLocalChannelID = self.nLocalChannel;
-            jvcOutVideoFrame->nHeight         = self.decodeModelObj.nVideoHeight;
-             jvcOutVideoFrame->nWidth         = self.decodeModelObj.nVideoWidth;
-            [self.jvConnectDelegate decoderOutVideoFrameCallBack:jvcOutVideoFrame nPlayBackFrametotalNumber:self.isPlaybackVideo==YES?self.playBackDecoderObj.nPlayBackFrametotalNumber:-1 withVideoType:YES];
-        }
-    }
-    
-    return nDecoderStatus;
-
-
-}
-
-/**
  *  抓拍图像
  */
 -(void)startWithCaptureImage{

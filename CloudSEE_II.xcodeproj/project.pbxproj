@@ -528,6 +528,9 @@
 		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
 		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
 		AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */; };
+		AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */; };
+		AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -1245,6 +1248,12 @@
 		AD3FB61919F6A18800034461 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
 		AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
+		AD616CD11A187F6F004214A5 /* JVCWheelShowOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWheelShowOperationController.h; sourceTree = "<group>"; };
+		AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWheelShowOperationController.m; sourceTree = "<group>"; };
+		AD616CD41A188051004214A5 /* JVCWheelShowOperationControllerIphone5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JVCWheelShowOperationControllerIphone5.h; path = ../JVCWheelShowOperationControllerIphone5.h; sourceTree = "<group>"; };
+		AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JVCWheelShowOperationControllerIphone5.m; path = ../JVCWheelShowOperationControllerIphone5.m; sourceTree = "<group>"; };
+		AD616CD71A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWheelShowManagePalyVideoComtroller.h; sourceTree = "<group>"; };
+		AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCWheelShowManagePalyVideoComtroller.mm; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1804,6 +1813,7 @@
 		A7F4347619DA9E7600E7ECA1 /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				AD616CDA1A1881F6004214A5 /* wheelshow */,
 				AD3BDC1F19E8BD00001B16D7 /* GlView.h */,
 				A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */,
 				A7FA43CB19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m */,
@@ -2500,6 +2510,19 @@
 				AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */,
 			);
 			name = RMDateSelectionViewController;
+			sourceTree = "<group>";
+		};
+		AD616CDA1A1881F6004214A5 /* wheelshow */ = {
+			isa = PBXGroup;
+			children = (
+				AD616CD41A188051004214A5 /* JVCWheelShowOperationControllerIphone5.h */,
+				AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */,
+				AD616CD11A187F6F004214A5 /* JVCWheelShowOperationController.h */,
+				AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */,
+				AD616CD71A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.h */,
+				AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */,
+			);
+			name = wheelshow;
 			sourceTree = "<group>";
 		};
 		ADA22D4A19DA612C0092F8B9 /* Extensions */ = {
@@ -3445,6 +3468,7 @@
 				ADD3EFF61A10C72900C7F329 /* FMDatabase.m in Sources */,
 				AD2BDB2E19D291B300AA6D73 /* JVCDeviceListDeviceVIew.m in Sources */,
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
+				AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */,
 				ADA22D4819DA611D0092F8B9 /* DDContextFilterLogFormatter.m in Sources */,
 				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
@@ -3464,6 +3488,7 @@
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
 				A7F51E6719EBAFF60052F878 /* JVCAlarmModel.m in Sources */,
 				A7F9E04719ED0E9600C1D69C /* TableViewControllerdd.m in Sources */,
+				AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */,
 				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
@@ -3578,6 +3603,7 @@
 				AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */,
 				A7F5017119D5521E00AA78F0 /* JVCDeviceSourceHelper.m in Sources */,
 				ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */,
+				AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */,
 				A7F4459219F6555A002C984F /* JVCEditLockDeviceNickNameViewController.m in Sources */,
 				A72B4B7419D3FDE500760695 /* JVCMoreUserCell.m in Sources */,
 				AD2BDB2019D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m in Sources */,

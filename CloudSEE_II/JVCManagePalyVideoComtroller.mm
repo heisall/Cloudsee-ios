@@ -10,8 +10,6 @@
 #import "JVCMonitorConnectionSingleImageView.h"
 #import "JVNetConst.h"
 #import "OpenALBufferViewcontroller.h"
-#import "JVCDeviceSourceHelper.h"
-#import "JVCChannelScourseHelper.h"
 #import "JVCAppHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCHorizontalScreenBar.h"
@@ -169,17 +167,14 @@ BOOL isAllLinkRun;
 {
     JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
 
-    
-        if (horiBar.alpha == 0.0) {
-            
-            horiBar.alpha = 1.0f;
-            
-        }else{
+    if (horiBar.alpha == 0.0) {
         
-            horiBar.alpha = 0.0f;
-        }
-
-
+        horiBar.alpha = 1.0f;
+        
+    }else{
+    
+        horiBar.alpha = 0.0f;
+    }
 }
 
 /**
@@ -257,12 +252,9 @@ BOOL isAllLinkRun;
         [self sendYTOperationWithOperationType:JVN_YTCTRL_BBD];
          usleep(200*1000);
         [self sendYTOperationWithOperationType:JVN_YTCTRL_BBDT];
-
-        
     }
     
 }
-
 
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer {
   
@@ -308,8 +300,6 @@ BOOL isAllLinkRun;
 
         
     }
-    
-    
 }
 
 -(void)longPressedOncell:(id)sender{
@@ -793,42 +783,37 @@ BOOL isAllLinkRun;
         return;
     }
     
-    //05版显示
-    if (isVideoType) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
 
-            if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+        if ([JVCHorizontalScreenBar shareHorizontalBarInstance].hidden) {
+            
+            if (self.imageViewNums > showWindowNumberType_One) {//只有单屏的时候才显示
                 
-                if (self.imageViewNums > showWindowNumberType_One) {//只有单屏的时候才显示
+                [singleView hidenEffectBtn];
+                
+            }else{
+                
+                if (nLocalChannel == self.nSelectedChannelIndex + 1) {
                     
-                    [singleView hidenEffectBtn];
+                    [singleView showEffectBtn];
                     
                 }else{
                     
-                    if (nLocalChannel == self.nSelectedChannelIndex + 1) {
-                        
-                        [singleView showEffectBtn];
-                        
-                    }else{
-                        
-                        [singleView hidenEffectBtn];
-                    }
+                    [singleView hidenEffectBtn];
                 }
-                
-            }else{
-            
-                 [singleView hidenEffectBtn];
             }
+            
+        }else{
         
-        });
+             [singleView hidenEffectBtn];
+        }
+    
+    });
         
-        [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
-    }else{
-        
-        [singleView setOldImageBuffer:imageBufferY decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
-    }
+    [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
+   
 
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
@@ -1011,7 +996,7 @@ BOOL isAllLinkRun;
  */
 - (void)hiddenEffectView
 {
-    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+self.nSelectedChannelIndex];
     [singleVideoShow hidenEffectBtn];
     
 }
@@ -1021,7 +1006,7 @@ BOOL isAllLinkRun;
  */
 - (void)showEffectView
 {
-    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+_operationController._iSelectedChannelIndex];
+    JVCMonitorConnectionSingleImageView *singleVideoShow=(JVCMonitorConnectionSingleImageView*)[WheelShowListView viewWithTag:KWINDOWSFLAG+self.nSelectedChannelIndex];
     [singleVideoShow showEffectBtn];
     
 }

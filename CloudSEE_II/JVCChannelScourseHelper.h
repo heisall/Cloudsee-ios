@@ -62,6 +62,15 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
 -(JVCChannelModel *)channelModelAtIndex:(int)index withDeviceYstNumber:(NSString *)ystNumber;
 
 /**
+ *  返回一个通道对象在通道集合的索引
+ *
+ *  @param channelModel 查询的通道对象
+ *
+ *  @return 通道对象在通道集合的索引  (-1没找到)
+ */
+-(int)IndexAtChannelModelInChannelList:(JVCChannelModel *)channelModel;
+
+/**
  *  根据云视通号返回一个设备的所有通道集合
  *
  *  @return 一个设备的所有通道集合

@@ -51,51 +51,32 @@ bool selectState_audio ;
 
 @interface JVCOperationController ()
 {
-    /**
-     *  当用户名密码错误时，要跳转到修个用户名。密码界面，此变量用于获取相应的index
-     */
-    int iModifyIndex;
     
-
-    
+    int                      iModifyIndex;               //当用户名密码错误时，要跳转到修个用户名。密码界面，此变量用于获取相应的index
     JVCCustomOperationBottomView *_operationItemSmallBg;
-    
-    /**
-     *  保存本地相册的path
-     */
-    NSString *_strSaveVideoPath;
-    
-    /**
-     *  音频监听、云台、远程回调的中间view
-     */
-    JVCOperationMiddleViewIphone5 *operationBigView;
-    
-    /**
-     *  遮罩的view
-     */
-    JVCCustomCoverView *_splitViewCon;
-    
-    /**
-     *  播放界面显示云台操作的view
-     */
-    JVCYTOperaitonView *ytOperationView;
-
-    
-    int  nCurrentStreamType;
-    BOOL isCurrentHomePC;
-    int  nStorageType;
-    
-    UIView *talkView;
-    BOOL   isLongPressedStartTalk; //判断当前是否在长按语音对讲
-    
-    UIButton *_splitViewBtn;//导航条上面的箭头，用于选则是否分屏
-
+    NSString                *_strSaveVideoPath;          // 保存本地相册的path
+    JVCOperationMiddleViewIphone5 *operationBigView;     //音频监听、云台、远程回调的中间view
+    JVCCustomCoverView      *_splitViewCon;              // 遮罩的view
+    JVCYTOperaitonView      *ytOperationView;            //播放界面显示云台操作的view
+    int                      nCurrentStreamType;
+    BOOL                     isCurrentHomePC;
+    int                      nStorageType;
+    UIView                  *talkView;
+    BOOL                     isLongPressedStartTalk;    //判断当前是否在长按语音对讲
+    UIButton                *_splitViewBtn;             //导航条上面的箭头，用于选则是否分屏
     JVCHorizontalStreamView *horizonView;
-    
-    JVCPopStreamView *straemView;
-    
-    JVCOperationMiddleView *_operationBigItemBg;//中间部分的问题
-
+    JVCPopStreamView        *straemView;
+    JVCOperationMiddleView  *_operationBigItemBg;       //中间部分的问题
+    UIView                  *_splitViewBgClick;
+    int                      unAllLinkFlag;
+    AVAudioPlayer           *_play;
+    UIButton                *_bSmallVideoBtn;
+    UIButton                *_bSoundBtn;
+    UIButton                *_bYTOBtn;
+    UIButton                *_bSmallCaptureBtn;
+    UIImageView             *capImageView;
+    bool                     _isPlayBackVideo;
+    bool                     _isCapState;
 }
 
 enum StorageType {
@@ -123,36 +104,10 @@ enum DISCONNECT_STATUS {
 @synthesize isPlayBackVideo,strPlayBackVideoPath;
 
 static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
-static const int      kDefaultShowWidnowCount         = 1 ;
 static const CGFloat  kRightButtonViewWithHeight      = 38.0f ;
 static const CGFloat  kRightButtonViewWithWidth       = 80.0f ;
 static const CGFloat  kRightButtonViewWithTitleFont   = 8.0f ; //右侧报警录像和手动录像 标题lab的字体间距
 static const CGFloat  kRightButtonViewWithTitleHeight = 16.0f ; //右侧报警录像和手动录像 标题lab的字体间距
-
-
-int unAllLinkFlag;
-AVAudioPlayer *_play;
-UIButton *_bSmallTalkBtn;
-UIButton *_bSmallVideoBtn;
-UIButton *_bSoundBtn;
-UIButton *_bYTOBtn;
-UIButton *_bSmallCaptureBtn;
-UIImageView * capImageView;
-
-JVCRemoteVideoPlayBackVControler *_remoteVideoPlayBackVControler;
-int linkFlag[JVCOPERATIONCONNECTMAXNUMS];
-int _iWindowsSelectedChannelIndex[JVCOPERATIONCONNECTMAXNUMS];
-
-bool _isPlayBackVideo;
-
-char m_cOut[1024]; //板卡语音对讲解码后的数据
-
-int _iPlayBackVideo;
-bool _isCapState;
-int connectAllFlag;
-//splitWindowView *splitWindow;
-UIView *_splitViewBgClick;
-bool _isConnectdevcieOpenDecoder;
 
 char remoteSendSearchFileBuffer[29] = {0};
 
@@ -206,7 +161,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_amUnSelectedImageNameListData release];
     _amUnSelectedImageNameListData=nil;
     
-    [scrollview release];
     DDLogVerbose(@"%s--#############################--",__FUNCTION__);
     [super dealloc];
 }
@@ -328,7 +282,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
 }
 
-
 - (void)viewDidLoad
 {
     self.tenCentKey = kTencentKey_operationPlay;
@@ -366,24 +319,11 @@ char remoteSendSearchFileBuffer[29] = {0};
      */
     self.navigationItem.title = self.isPlayBackVideo == YES ? NSLocalizedString(@"Play back", nil):NSLocalizedString(@"Video Display", nil);
     
-    /**
-     *  播放窗体
-     */
-    _managerVideo                            = [[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
-    _managerVideo.tag                        = 100;
-    _managerVideo.strSelectedDeviceYstNumber = self.strSelectedDeviceYstNumber;
-    _managerVideo._operationController       = self;
-    _managerVideo.delegate                   = self;
-    _managerVideo.isPlayBackVideo            = self.isPlayBackVideo;
-    _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
-    _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
-    [_managerVideo setUserInteractionEnabled:YES];
-    [self.view addSubview:_managerVideo];
-     [_managerVideo initWithLayout];
+    [self initLayoutWithShowVideoView];
     
-     ytOperationView = [[JVCYTOperaitonView alloc] initContentViewWithFrame:_managerVideo.frame];
-    [self.view addSubview:ytOperationView];
-    [ytOperationView release];
+//     ytOperationView = [[JVCYTOperaitonView alloc] initContentViewWithFrame:_managerVideo.frame];
+//    [self.view addSubview:ytOperationView];
+//    [ytOperationView release];
 
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
@@ -457,9 +397,28 @@ char remoteSendSearchFileBuffer[29] = {0};
     [self initOperationControllerMiddleViewwithFrame:frame];
     
     skinSelect = 0;
-    
-    //云台点击后，再播放界面显示的图片
-    UIImage *topString = [UIImage imageBundlePath:@""];
+}
+
+/**
+ *  初始化视频显示窗口视图
+ */
+-(void)initLayoutWithShowVideoView {
+
+    /**
+     *  播放窗体
+     */
+    _managerVideo                            = [[JVCManagePalyVideoComtroller alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width*0.75)];
+    _managerVideo.tag                        = 100;
+    _managerVideo.strSelectedDeviceYstNumber = self.strSelectedDeviceYstNumber;
+    _managerVideo._operationController       = self;
+    _managerVideo.delegate                   = self;
+    _managerVideo.isPlayBackVideo            = self.isPlayBackVideo;
+    _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
+    _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
+    [_managerVideo setUserInteractionEnabled:YES];
+    [self.view addSubview:_managerVideo];
+    [_managerVideo initWithLayout];
+
 }
 
 /**
@@ -2094,7 +2053,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)YTOperationDelegateCallBackWithJVNYTCType:(int )YTJVNtype
 {
-    DDLogInfo(@"==%s===%d",__FUNCTION__,YTJVNtype);
     [ytOperationView showOperationTypeImageVIew:YTJVNtype];
     
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];

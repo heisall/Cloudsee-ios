@@ -16,6 +16,8 @@
 #import "JVCOperationController.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCDeviceSourceHelper.h"
+#import "JVCWheelShowOperationController.h"
+#import "JVCWheelShowOperationControllerIphone5.h"
 
 @interface JVCDeviceListWithChannelListViewController () {
 
@@ -278,6 +280,8 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     int indexWithChannels =  channelTitleView.nChannelValueWithIndex;
     
+    DDLogVerbose(@"%s---------------------channelWithChannels=%d",__FUNCTION__,indexWithChannels);
+    
     [self gotoPlayViewController:indexWithChannels];
 }
 
@@ -289,11 +293,20 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 -(void)gotoPlayViewController:(int)index {
     
     
+    [self sortChannelListByDeviceList];
+    
+    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
+    
+     JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
+    
+    
+    DDLogVerbose(@"%s------yunshitonghao=%@,index=%d",__FUNCTION__,[titles objectAtIndex:self.nIndex],index);
+    
     JVCOperationController *tOPVC;
     
     if (iphone5) {
         
-        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        tOPVC = [[JVCWheelShowOperationControllerIphone5 alloc] init];
         
     }else
     {
@@ -302,12 +315,37 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     }
     
     tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
-    tOPVC._iSelectedChannelIndex     = index;
+    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
+}
 
 
+/**
+ *  根据设备集合的云视通号顺序排序通道集合数据
+ */
+-(void)sortChannelListByDeviceList{
+    
+    NSMutableArray          *channelList      = [[NSMutableArray alloc] initWithCapacity:10];
+    JVCDeviceSourceHelper   *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
+    
+    NSMutableArray        *deviceArray      = [deviceSourceObj deviceListArray];
+    
+    [deviceArray retain];
+    
+    
+    for (JVCDeviceModel *deviceModel in deviceArray) {
+        
+        [channelList addObjectsFromArray:[channelSourceObj channelModelWithDeviceYstNumber:deviceModel.yunShiTongNum]];
+    }
+    
 
+    [channelSourceObj removeAllchannelsObject];
+    
+    [[channelSourceObj ChannelListArray]  addObjectsFromArray:channelList];
+    
+    [deviceArray release];
 }
 
 - (void)didReceiveMemoryWarning

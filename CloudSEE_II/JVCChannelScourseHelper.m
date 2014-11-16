@@ -188,7 +188,7 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     
     if (index < channels.count  && index >= 0) {
         
-        JVCChannelModel *findModel = [channelArray objectAtIndex:index];
+        JVCChannelModel *findModel = [channels objectAtIndex:index];
         
         channelModel.strDeviceYstNumber = findModel.strDeviceYstNumber;
         channelModel.strNickName        = findModel.strNickName;
@@ -198,6 +198,31 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     [channels release];
 
     return [channelModel autorelease];
+}
+
+/**
+ *  返回一个通道对象在通道集合的索引
+ *
+ *  @param channelModel 查询的通道对象
+ *
+ *  @return 通道对象在通道集合的索引  (-1没找到)
+ */
+-(int)IndexAtChannelModelInChannelList:(JVCChannelModel *)channelModel{
+    
+    int nFindIndex = -1 ;
+    
+    for (int i = 0 ; i < channelArray.count ; i++) {
+        
+        
+        JVCChannelModel *channelModelObj = (JVCChannelModel *)[channelArray objectAtIndex:i];
+        
+        if ([channelModelObj.strDeviceYstNumber isEqualToString:channelModel.strDeviceYstNumber] && channelModel.nChannelValue == channelModelObj.nChannelValue) {
+            
+            nFindIndex = i;
+        }
+    }
+    
+    return nFindIndex;
 }
 
 /**
@@ -280,6 +305,8 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
         if ([channelModel.strDeviceYstNumber.uppercaseString isEqualToString:ystNumber.uppercaseString]) {
             
             [channnleValues addObject:channelModel];
+            
+            DDLogVerbose(@"%s--------channelModel yst=%@,channelValue=%d",__FUNCTION__,channelModel.strDeviceYstNumber,channelModel.nChannelValue);
         }
     }
     

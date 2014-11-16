@@ -157,17 +157,6 @@
 -(void)openVideoDecoder;
 
 /**
- *  解码一帧(04解码的主控)
- *
- *  @param h264Buffer    网络传的H264数据
- *  @param nSize         网络传的H264数据大小
- *  @param nFrameType    帧类型
- *
- *  @return 解码成功返回 0 否则失败
- */
--(int)decoder04Device:(char *)h264Buffer withBufferSize:(int)nSize  withFrameType:(int)nFrameType;
-
-/**
  *  关闭解码器
  *
  *  @param nVideoDecodeID 解码器编号

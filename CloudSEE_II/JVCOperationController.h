@@ -13,6 +13,7 @@
 #import "JVCCustomCoverView.h"
 #import "JVCPopStreamView.h"
 
+static const int      kDefaultShowWidnowCount         = 1;
 
 @class JVCManagePalyVideoComtroller;
 
@@ -42,7 +43,6 @@
     bool             _isPlayBack;
     NSMutableArray  *_playBackVideoDataArray;//远程回放视频列表
     NSMutableString *_playBackDateString;
-    UIScrollView    *scrollview;
     UIButton        *_bSmallMoreBtn;
     
     int              skinSelect;
@@ -62,6 +62,11 @@
 @property (nonatomic,assign) id <operationControllerDelegate> delegate;
 @property (nonatomic,assign) BOOL             isPlayBackVideo;
 @property (nonatomic,retain) NSString        *strPlayBackVideoPath;
+
+/**
+ *  初始化视频显示窗口视图
+ */
+-(void)initLayoutWithShowVideoView;
 
 - (void)saveLocalVideo:(NSString*)urlString;
 -(void)unAllLink;

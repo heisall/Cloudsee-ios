@@ -38,9 +38,6 @@ enum RemoteOperationType {
     RemoteOperationType_RemotePlaybackSearch    = 5, //语音对讲
     RemoteOperationType_RemotePlaybackSEEK      = 6, //远程回放快进
     RemoteOperationType_TextChat                = 7, //文本聊天
-    RemoteOperationType_oldDeviceNextVideoFrame = 8, //请求04版主控下一帧
-    
-    
 };
 
 enum DEVICEMODEL{

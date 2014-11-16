@@ -60,8 +60,6 @@ float min_offset;
 	UIImageView *imgView =[[UIImageView alloc] init];
     
 	imgView.frame=CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height);
-    
-    
 	imgView.userInteractionEnabled=YES;
 	imgView.backgroundColor=[UIColor clearColor];
 	imgView.tag=101;
@@ -411,41 +409,41 @@ float min_offset;
     [self setEffectBtnState:NO];
 }
 
-/**
- *  04版主控的显示方式
- *
- *  @param imageBuffer               YUV数据
- *  @param decoderFrameWidth         解码的宽
- *  @param decoderFrameHeight        解码的高
- *  @param nPlayBackFrametotalNumber 远程回放的数据
- */
--(void)setOldImageBuffer:(char *)imageBuffer decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
-        
-        if (!connectInfoTV.hidden) {
-            
-            connectInfoTV.hidden = !connectInfoTV.hidden;
-        }
-        
-        UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
-        [_bPlayVideoBtn setHidden:YES];
-        
-        NSData *imageData     = [NSData dataWithBytes:imageBuffer length:decoderFrameWidth*decoderFrameHeight*2+66];
-        UIImage *image        = [UIImage imageWithData:imageData];
-        UIImageView *imgView  = (UIImageView *)[self viewWithTag:101];
-        
-        [imgView setImage:image];
-        
-        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        
-        DDLogVerbose(@"%s-----------------tag=%d",__FUNCTION__,self.tag -KWINDOWSFLAG + 1);
-        
-        [ystNetworkObj RemoteOperationSendDataToDevice:self.tag -KWINDOWSFLAG + 1 remoteOperationType:RemoteOperationType_oldDeviceNextVideoFrame remoteOperationCommand:-1];
-    });
-}
+///**
+// *  04版主控的显示方式
+// *
+// *  @param imageBuffer               YUV数据
+// *  @param decoderFrameWidth         解码的宽
+// *  @param decoderFrameHeight        解码的高
+// *  @param nPlayBackFrametotalNumber 远程回放的数据
+// */
+//-(void)setOldImageBuffer:(char *)imageBuffer decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        UILabel *connectInfoTV = (UILabel*)[self viewWithTag:106];
+//        
+//        if (!connectInfoTV.hidden) {
+//            
+//            connectInfoTV.hidden = !connectInfoTV.hidden;
+//        }
+//        
+//        UIButton *_bPlayVideoBtn=(UIButton*)[self viewWithTag:105];
+//        [_bPlayVideoBtn setHidden:YES];
+//        
+//        NSData *imageData     = [NSData dataWithBytes:imageBuffer length:decoderFrameWidth*decoderFrameHeight*2+66];
+//        UIImage *image        = [UIImage imageWithData:imageData];
+//        UIImageView *imgView  = (UIImageView *)[self viewWithTag:101];
+//        
+//        [imgView setImage:image];
+//        
+//        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+//        
+//        DDLogVerbose(@"%s-----------------tag=%d",__FUNCTION__,self.tag -KWINDOWSFLAG + 1);
+//        
+//        [ystNetworkObj RemoteOperationSendDataToDevice:self.tag -KWINDOWSFLAG + 1 remoteOperationType:RemoteOperationType_oldDeviceNextVideoFrame remoteOperationCommand:-1];
+//    });
+//}
 
 
 /**
@@ -813,7 +811,6 @@ float min_offset;
 	[selectedSourceTV setHidden:NO];
     
     [self bringSubviewToFront:selectedSourceTV];
-    
 }
 
 /**

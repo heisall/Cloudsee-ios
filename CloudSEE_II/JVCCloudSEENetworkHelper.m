@@ -918,13 +918,6 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
         }
             break;
-            
-        case RemoteOperationType_oldDeviceNextVideoFrame:{
-            
-            [currentChannelObj nextVideoData];
-            
-        }
-
         default:
             break;
     }

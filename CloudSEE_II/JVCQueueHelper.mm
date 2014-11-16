@@ -18,7 +18,6 @@
     int             nDefaultFrameFps;
     BOOL            bm_exit;
     BOOL            playThreadExit;
-    BOOL            isPlayOldDeviceFrame;    //是否初次播放 针对04版生效，04启动线程置为YES
 }
 
 typedef struct queueServiceUtilityClassParam
@@ -47,7 +46,6 @@ typedef struct queueServiceUtilityClassParam
 
 @synthesize jvcQueueHelperDelegate;
 @synthesize isOnlyIFrame;
-@synthesize isOldDevice;
 
 queueServiceUtilityClassParam  *param;
 
@@ -157,7 +155,6 @@ long long currentMillisSec() {
     
     if (!bm_exit) {
         
-        isPlayOldDeviceFrame =  self.isOldDevice ;
         
         [NSThread detachNewThreadSelector:@selector(popDataCallBack) toTarget:self withObject:nil];
     }
@@ -230,7 +227,6 @@ long long currentMillisSec() {
        
         if (NULL == frameBuffer) {
             
-            DDLogInfo(@"%s------bufferisNull",__FUNCTION__);
             continue;
         }
         
@@ -244,7 +240,6 @@ long long currentMillisSec() {
         
         if(need_jump && !frameBuffer->is_i_frame) {
             
-              DDLogInfo(@"%s----jump000",__FUNCTION__);
             
         }else {
             
@@ -260,7 +255,7 @@ long long currentMillisSec() {
                 decoderStatus = [self.jvcQueueHelperDelegate popDataCallBack:frameBuffer];
             }
             
-            if (!self.isOnlyIFrame && decoderStatus>=0 && !self.isOldDevice) {
+            if (!self.isOnlyIFrame && decoderStatus>=0 ) {
                 
                 needDelay = full_delay - (int) (currentMillisSec() - timeStamp);
                 msleep(needDelay);
@@ -271,14 +266,6 @@ long long currentMillisSec() {
         
         free(frameBuffer->buf);
         free(frameBuffer);
-        
-        if (self.isOldDevice) {
-            
-            if (decoderStatus < 0) {
-                
-                [self popVideoData];
-            }
-        }
         
     }
     
@@ -350,20 +337,8 @@ long long currentMillisSec() {
 //        [self Unlock];
     }
     
-    if (self.isOldDevice) {
-        
-        if (isPlayOldDeviceFrame) {
-            
-            isPlayOldDeviceFrame = FALSE;
-            sem_post(dqueue->dataqueue_sem_);
-        }
-        
-    }else{
-    
-        sem_post(dqueue->dataqueue_sem_);
-    }
-    
-    
+    sem_post(dqueue->dataqueue_sem_);
+
     return result;
 }
 
@@ -455,27 +430,6 @@ long long currentMillisSec() {
 -(void)Unlock
 {
 	pthread_mutex_unlock(&mutex);
-}
-
-/**
- *  04版的，开启下一帧(否则不生效)
- */
--(void)popVideoData{
-    
-    if (self.isOldDevice) {
-        
-        //获取当前缓存队列中当前帧的个数
-        int queueFrameCount = [self GetEnqueueDataCount];
-        
-        if (queueFrameCount > 0) {
-            
-            sem_post(dqueue->dataqueue_sem_);
-            
-        }else{
-            
-            isPlayOldDeviceFrame = TRUE;
-        }
-    }
 }
 
 /**
