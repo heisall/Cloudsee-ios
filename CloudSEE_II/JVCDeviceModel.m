@@ -20,8 +20,18 @@
 @synthesize isDeviceSwitchAlarm;
 @synthesize isDeviceType;
 @synthesize bDeviceServiceOnlineState;
+@synthesize deviceType,deviceModelInt;
+@synthesize deviceVersion;
+@synthesize deviceUpdateType;
+
 - (void)dealloc
 {
+    [deviceUpdateType release];
+    deviceUpdateType = nil;
+    
+    [deviceVersion release];
+    deviceVersion = nil;
+    
     [userName release];
     userName = nil;
     
@@ -60,6 +70,13 @@
         self.nickName            = [info objectForKey:DEVICE_JSON_NICKNAME];
         self.linkType            = [[info objectForKey:DEVICE_JSON_LINKTYPE] intValue];
         self.ip                  = [info objectForKey:DEVICE_JSON_IP];
+        
+        self.deviceType            = [[info objectForKey:DEVICE_JSON_TYPE] intValue];
+        self.deviceModelInt      = [[info objectForKey:DEVICE_JSON_SUB_TYPE_INT] intValue];
+        self.deviceVersion       = [info objectForKey:DEVICE_JSON_SOFT_VERSION];
+        self.deviceUpdateType       = [info objectForKey:DEVICE_JSON_SUB_TYPE];
+
+        
         self.port                = [NSString stringWithFormat:@"%@",[info objectForKey:DEVICE_JSON_PORT]];
         self.isDeviceType        =[[info objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
         self.onLineState =[[info objectForKey:DEVICE_ONLINE_STATUS] intValue] == DEVICESTATUS_ONLINE?DEVICESTATUS_ONLINE:DEVICESTATUS_OFFLINE;

@@ -28,7 +28,12 @@
     BOOL isDeviceType;           //连接类型  NO：其他 YES:家用产品
     BOOL isDeviceSwitchAlarm;     //设备的安全防护开关
     BOOL bDeviceServiceOnlineState;     //设备服务器状态
-
+    
+    //设备升级
+    int  deviceModelInt;            //对应dstypeint
+    int  deviceType;                //对应dtype
+    NSString *deviceVersion;        //对应dsv
+    NSString *deviceUpdateType;     //设备的类型dstype
 }
 
 enum kJVCDeviceModelDeviceType {
@@ -53,6 +58,11 @@ enum kJVCDeviceModelDeviceType {
 @property(nonatomic,assign) BOOL isDeviceType;
 @property(nonatomic,assign) BOOL isDeviceSwitchAlarm;
 @property(nonatomic,assign) BOOL bDeviceServiceOnlineState;
+
+@property(nonatomic,assign) int  deviceModelInt;
+@property(nonatomic,assign) int  deviceType;
+@property(nonatomic,retain)  NSString *deviceVersion;
+@property(nonatomic,retain) NSString *deviceUpdateType;
 /**
  *  初始化
  *

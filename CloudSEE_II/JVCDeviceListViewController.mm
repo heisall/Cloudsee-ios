@@ -687,6 +687,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             
+            DDLogVerbose(@"设备==%@====",tdicDevice);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];

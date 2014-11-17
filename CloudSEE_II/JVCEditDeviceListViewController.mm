@@ -424,9 +424,9 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             break;
         case JVCEditDeviceListViewControllerClickType_NetworkSetting:{
         
-            [self gotoNetworkSetting];
+//            [self gotoNetworkSetting];
             
-//            [self gotoDeviceUpdateController];
+            [self gotoDeviceUpdateController];
         }
             break;
             
@@ -629,7 +629,10 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 //前往设备升级界面
 - (void)gotoDeviceUpdateController
 {
+    JVCDeviceModel *model                                  = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
+
     JVCDeviceUpdateViewController *devieUpdate = [[JVCDeviceUpdateViewController alloc] init];
+    devieUpdate.modelDevice = model;
     [self.navigationController pushViewController:devieUpdate animated:YES];
     [devieUpdate release];
 }

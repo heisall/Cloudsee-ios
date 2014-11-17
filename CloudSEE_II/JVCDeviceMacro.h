@@ -193,6 +193,9 @@ enum DEVICESERVICERESPONSE{
 #define DEVICE_JSON_LINKTYPE        @"dvlt"
 #define DEVICE_JSON_TYPE			@"dtype"
 #define DEVICE_JSON_ALARMSWITCH     @"aswitch"
+#define DEVICE_JSON_SUB_TYPE_INT    @"dstypeint"
+#define DEVICE_JSON_SOFT_VERSION    @"dsv"
+#define  DEVICE_JSON_SUB_TYPE       @"dstype"
 
 
 #define DEVICE_JSON_ONLINESTATE     @"dsls"//在线状态

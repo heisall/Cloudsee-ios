@@ -122,7 +122,7 @@ static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间�
         JVCSystemUtility *systemUtility  = [JVCSystemUtility shareSystemUtilityInstance];
         NSDictionary     *updateInfoMDic = (NSDictionary *)[mdUpdateInfo objectForKey:CONVERTCHARTOSTRING(JK_UPDATE_FILE_INFO)];
         
-        if ([systemUtility judgeDictionIsNil:updateInfoMDic]) {
+        if (![systemUtility judgeDictionIsNil:updateInfoMDic]) {
             
             JVCDeviceHelper *deviceHelperObj = [JVCDeviceHelper sharedDeviceLibrary];
             //开始更新
@@ -197,6 +197,7 @@ static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间�
             }
         }
         
+        DDLogVerbose(@"%s-----------------009",__FUNCTION__);
         if (isCancelDownload) {
             
             isCancelDownload = FALSE;

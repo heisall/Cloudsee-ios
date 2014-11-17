@@ -7,7 +7,11 @@
 //
 
 #import "JVCBaseSliderViewController.h"
+#import "JVCDeviceModel.h"
 
-@interface JVCDeviceUpdateViewController : JVCBaseSliderViewController<UITextFieldDelegate>
-
+@interface JVCDeviceUpdateViewController : JVCBaseSliderViewController<UITextFieldDelegate,UIAlertViewDelegate>
+{
+    JVCDeviceModel *modelDevice;
+}
+@property(nonatomic,retain)JVCDeviceModel *modelDevice;
 @end

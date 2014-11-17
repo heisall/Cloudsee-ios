@@ -94,6 +94,18 @@ enum JVCHomeIPCResetStatus{
 };
 
 /**
+ *  初始化连接回调的助手类
+ *
+ *  @return 连接回调的助手类
+ */
+-(id)init:(int)deviceType withDeviceModelInt:(int)deviceModelInt withDeviceVersion:(NSString *)strDeviceVersion withYstNumber:(NSString *)ystNumber withLoginUserName:(NSString *)userName;
+
+/**
+ *  检查当前的IPC版本是否有更新
+ */
+-(void)checkIpcIsNewVersion;
+
+/**
  *  下载更新
  */
 -(void)DownloadUpdatePacket;

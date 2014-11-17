@@ -777,6 +777,8 @@ char outTextBuffer[1280*720*3];
     
     int resultValue=-1;
     
+    DDLogVerbose(@"%s---0234---%@",__FUNCTION__,resultMDic);
+    
     if ([[resultMDic objectForKey:CONVERTCHARTOSTRING(JK_RESULT)] intValue]==DEVICESERVICERESPONSE_SUCCESS) {
         
         switch (deviceUpdateMathType) {
