@@ -106,8 +106,16 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
 //    [FistSectionArray addObject:modelFunction];
 //    [modelFunction release];
     
-    [arrayList addObject:FistSectionArray];
+    //报警
+    JVCMoreSettingModel *deviceHelp = [[JVCMoreSettingModel alloc] init];
+    deviceHelp.itemName = LOCALANGER(@"jvc_more_screen_set");
+    deviceHelp.iconImageName = @"mor_DevBrowse.png";
+    deviceHelp.bNewState = NO;
+    deviceHelp.bBtnState = MoreSettingCellType_CustomSwitc;
+    [FistSectionArray addObject:deviceHelp];
+    [deviceHelp release];
     
+    [arrayList addObject:FistSectionArray];
     [FistSectionArray release];
     
     /**
@@ -139,7 +147,7 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
         // app版本
     
     NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    modelAbout.itemName =[NSString stringWithFormat:@"%@                         V%@",LOCALANGER(@"version"),app_Version];
+    modelAbout.itemName =[NSString stringWithFormat:@"%@                                 V%@",LOCALANGER(@"version"),app_Version];
     modelAbout.iconImageName = @"mor_IconAbout.png";
     modelAbout.bBtnState = NO;
     [secondSectionArray addObject:modelAbout];

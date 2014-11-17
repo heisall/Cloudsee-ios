@@ -74,6 +74,12 @@
 		A7AF72CF1A15A8C40030D490 /* myVideo_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */; };
 		A7AF72D51A15ADF00030D490 /* JVCShowLargeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */; };
 		A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */; };
+		A7B2093B1A19C6370016E59B /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209351A19C6370016E59B /* DCRoundSwitch.m */; };
+		A7B2093C1A19C6370016E59B /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209361A19C6370016E59B /* DCRoundSwitchKnobLayer.m */; };
+		A7B2093D1A19C6370016E59B /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209381A19C6370016E59B /* DCRoundSwitchOutlineLayer.m */; };
+		A7B2093E1A19C6370016E59B /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B2093A1A19C6370016E59B /* DCRoundSwitchToggleLayer.m */; };
+		A7B209401A19D32A0016E59B /* mor_DevBrowse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */; };
+		A7B209441A19E55F0016E59B /* JVCDeviceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209431A19E55F0016E59B /* JVCDeviceUpdateViewController.m */; };
 		A7B58B851A15D52C004D0E5B /* mor_pm1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */; };
 		A7B58B861A15D52C004D0E5B /* mor_pm2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B831A15D52C004D0E5B /* mor_pm2@2x.png */; };
 		A7B58B871A15D52C004D0E5B /* mor_pm3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */; };
@@ -734,6 +740,17 @@
 		A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCShowLargeImageViewController.m; sourceTree = "<group>"; };
 		A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCZoomScrollView.h; sourceTree = "<group>"; };
 		A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCZoomScrollView.m; sourceTree = "<group>"; };
+		A7B209331A19C6370016E59B /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
+		A7B209341A19C6370016E59B /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
+		A7B209351A19C6370016E59B /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
+		A7B209361A19C6370016E59B /* DCRoundSwitchKnobLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchKnobLayer.m; sourceTree = "<group>"; };
+		A7B209371A19C6370016E59B /* DCRoundSwitchOutlineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchOutlineLayer.h; sourceTree = "<group>"; };
+		A7B209381A19C6370016E59B /* DCRoundSwitchOutlineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchOutlineLayer.m; sourceTree = "<group>"; };
+		A7B209391A19C6370016E59B /* DCRoundSwitchToggleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchToggleLayer.h; sourceTree = "<group>"; };
+		A7B2093A1A19C6370016E59B /* DCRoundSwitchToggleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitchToggleLayer.m; sourceTree = "<group>"; };
+		A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_DevBrowse@2x.png"; sourceTree = "<group>"; };
+		A7B209421A19E55E0016E59B /* JVCDeviceUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceUpdateViewController.h; sourceTree = "<group>"; };
+		A7B209431A19E55F0016E59B /* JVCDeviceUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceUpdateViewController.m; sourceTree = "<group>"; };
 		A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm1@2x.png"; sourceTree = "<group>"; };
 		A7B58B831A15D52C004D0E5B /* mor_pm2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm2@2x.png"; sourceTree = "<group>"; };
 		A7B58B841A15D52C004D0E5B /* mor_pm3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_pm3@2x.png"; sourceTree = "<group>"; };
@@ -1493,6 +1510,7 @@
 				A7B6EE2B1A14D4C20024F836 /* media */,
 				A7F43F6819FBD0A400C11109 /* mor_IconCheck@2x.png */,
 				A7F43F6619FBD01800C11109 /* mor_Iconmdy@2x.png */,
+				A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */,
 				A7F43F6419FBCFC100C11109 /* mor_Iconalarm@2x.png */,
 				A7F2211119F395F400447853 /* mor_usr_bg@2x.png */,
 				A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */,
@@ -1583,6 +1601,30 @@
 				A7A576051A13929A000D0BBC /* JVCTencentHelp.m */,
 			);
 			name = jvcTencentHelp;
+			sourceTree = "<group>";
+		};
+		A7B209321A19C61D0016E59B /* DCRoundSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				A7B209331A19C6370016E59B /* DCRoundSwitch.h */,
+				A7B209341A19C6370016E59B /* DCRoundSwitchKnobLayer.h */,
+				A7B209351A19C6370016E59B /* DCRoundSwitch.m */,
+				A7B209361A19C6370016E59B /* DCRoundSwitchKnobLayer.m */,
+				A7B209371A19C6370016E59B /* DCRoundSwitchOutlineLayer.h */,
+				A7B209381A19C6370016E59B /* DCRoundSwitchOutlineLayer.m */,
+				A7B209391A19C6370016E59B /* DCRoundSwitchToggleLayer.h */,
+				A7B2093A1A19C6370016E59B /* DCRoundSwitchToggleLayer.m */,
+			);
+			name = DCRoundSwitch;
+			sourceTree = "<group>";
+		};
+		A7B209411A19E50F0016E59B /* DeviceUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				A7B209421A19E55E0016E59B /* JVCDeviceUpdateViewController.h */,
+				A7B209431A19E55F0016E59B /* JVCDeviceUpdateViewController.m */,
+			);
+			name = DeviceUpdate;
 			sourceTree = "<group>";
 		};
 		A7B6EE141A14A8EF0024F836 /* ytoperation */ = {
@@ -2354,6 +2396,7 @@
 		AD2BDB2219D2914600AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A7B209411A19E50F0016E59B /* DeviceUpdate */,
 				ADA9E4311A11E052007EB209 /* remoteSetting */,
 				A7F9E03819ECB35D00C1D69C /* local */,
 				AD916BD119D543B400B925A2 /* JVCEditViewControllerDropListViewCell.h */,
@@ -2813,6 +2856,7 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				A7B209321A19C61D0016E59B /* DCRoundSwitch */,
 				A7A575F21A130A0C000D0BBC /* Tencent */,
 				AD59EFE21A086228001688FC /* RMDateSelectionViewController */,
 				A7F5559119D97E2F0009F75C /* tabbarautoRotate */,
@@ -3192,6 +3236,7 @@
 				AD014DEC19F52FD800E3D0FB /* ap_textBg@2x.png in Resources */,
 				A7F6C5FA19F89B570090B6F0 /* HorizontalScreenBarselect_2@2x.png in Resources */,
 				AD3BDCCD19EF5F18001B16D7 /* ope_long_talk@2x.png in Resources */,
+				A7B209401A19D32A0016E59B /* mor_DevBrowse@2x.png in Resources */,
 				A709697319F245B600C191F8 /* arm_close@2x.png in Resources */,
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
@@ -3504,11 +3549,13 @@
 				ADA22D5919DA613E0092F8B9 /* DDTTYLogger.m in Sources */,
 				AD3BDCAD19EBFEFF001B16D7 /* JVCVoiceencViewController.m in Sources */,
 				A7F5017919D5AA3800AA78F0 /* JVCChannelScourseHelper.m in Sources */,
+				A7B209441A19E55F0016E59B /* JVCDeviceUpdateViewController.m in Sources */,
 				A7FB233E19EFB64A00A3FC01 /* JVCAlarmHelper.m in Sources */,
 				AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */,
 				A7B6EE2A1A14D3CE0024F836 /* JVCMediaManagerViewController.m in Sources */,
 				ADA22D4919DA611D0092F8B9 /* DDDispatchQueueLogFormatter.m in Sources */,
 				A7AF72BE1A1595260030D490 /* JVCPhotoGroupObj.m in Sources */,
+				A7B2093D1A19C6370016E59B /* DCRoundSwitchOutlineLayer.m in Sources */,
 				ADA22DF419DAAE200092F8B9 /* AQPlayer.mm in Sources */,
 				A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */,
 				ADA22D5619DA613E0092F8B9 /* DDASLLogger.m in Sources */,
@@ -3549,6 +3596,7 @@
 				A7F50A2319FA2D3F004D061F /* UIScrollView+MJRefresh.m in Sources */,
 				A78F22031A09E80C00BC0717 /* MBProgressHUD.m in Sources */,
 				A7F8044319FF2E0900934507 /* JVCOldSouchModel.m in Sources */,
+				A7B2093E1A19C6370016E59B /* DCRoundSwitchToggleLayer.m in Sources */,
 				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,
 				A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */,
@@ -3588,6 +3636,7 @@
 				A7F50A2419FA2D3F004D061F /* UIView+MJExtension.m in Sources */,
 				AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */,
 				A7F424EB19D0FB5400D96475 /* JVCLoginViewController.mm in Sources */,
+				A7B2093B1A19C6370016E59B /* DCRoundSwitch.m in Sources */,
 				A7F9E04119ECCBF100C1D69C /* JVCLocalEditChannelInfoTableViewController.m in Sources */,
 				A7F405A219E563620070945F /* JVCQRCoderViewController.mm in Sources */,
 				ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */,
@@ -3632,6 +3681,7 @@
 				A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */,
 				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,
 				A7F4055819E4C67E0070945F /* JVCOperationControllerIphone5.m in Sources */,
+				A7B2093C1A19C6370016E59B /* DCRoundSwitchKnobLayer.m in Sources */,
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
 				A7F50A2219FA2D3F004D061F /* MJRefreshHeaderView.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,

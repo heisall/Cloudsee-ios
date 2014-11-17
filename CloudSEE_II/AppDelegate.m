@@ -91,6 +91,9 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     //初始化二维码模块
     [self initQRViewController];
     
+    //设置设备浏览模式
+    [self setDeviceBrowseModel];
+    
     //初始化相册
     [self initPhotoAlbum];
     
@@ -793,6 +796,20 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
 {
     [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKYCustomPhotoAlbumName];
     [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKYCustomVideoAlbumName];
-    [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKShare_Photo];
+//    [JVCConstansALAssetsMathHelper checkAlbumNameIsExist:(NSString *)kKShare_Photo];
+}
+
+/**
+ *  设置设备浏览模式
+ */
+- (void)setDeviceBrowseModel
+{
+   NSString *keyValue =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)deviceBrowseModelType];
+    
+    if (keyValue.length>0) {
+        
+        [JVCConfigModel shareInstance].iDeviceBrowseModel = YES;
+    }
+
 }
 @end

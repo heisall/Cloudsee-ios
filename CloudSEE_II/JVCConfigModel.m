@@ -17,6 +17,8 @@
 @synthesize _bInitAccountSDKSuccess;
 @synthesize _bNewVersion;
 @synthesize bSwitchSafe,isLanSearchDevices;
+@synthesize iDeviceBrowseModel;
+
 static JVCConfigModel *_shareInstance = nil;
 /**
  *  单例

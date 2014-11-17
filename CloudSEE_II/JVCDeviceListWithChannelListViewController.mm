@@ -18,6 +18,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCWheelShowOperationController.h"
 #import "JVCWheelShowOperationControllerIphone5.h"
+#import "JVCConfigModel.h"
 
 @interface JVCDeviceListWithChannelListViewController () {
 
@@ -293,7 +294,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)gotoPlayViewController:(int)index withIsConnectAll:(BOOL)isConnect{
     
-    BOOL isMoreDeviceShowVideo = TRUE;
+    BOOL isMoreDeviceShowVideo = [JVCConfigModel shareInstance].iDeviceBrowseModel;
     
     isMoreDeviceShowVideo == TRUE ? [self moreDeviceShowVideo:index withIsConnectAll:isConnect]:[self singleDeviceShowVideo:index withIsConnectAll:isConnect];
 }

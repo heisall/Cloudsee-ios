@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+static const  NSString *deviceBrowseModelType   = @"deviceBrowseModel";//设备浏览模式
+
 enum NETLINGTYPE{
     
     NETLINTYEPE_WIFI_init = -1,
@@ -38,6 +41,13 @@ typedef NS_ENUM(int , TYPEINITSDK)
     TYPEINITSDK_SETERROR = 2,//配置域名（或IP）失败
 
 };
+
+typedef NS_ENUM(int , DeviceBrowseModel)
+{
+    DeviceBrowseModel_Single    = 0,//单设备
+    DeviceBrowseModel_Mutal     = 1,//多设备
+};
+
 @interface JVCConfigModel : NSObject
 {
     /**
@@ -79,6 +89,8 @@ typedef NS_ENUM(int , TYPEINITSDK)
      *  声波配置是否开始广播的标志：YES:广播
      */
     BOOL isLanSearchDevices;
+    
+    int  iDeviceBrowseModel;//设备浏览模式
 }
 @property(nonatomic,assign) int _bISLocalLoginIn;
 
@@ -95,6 +107,9 @@ typedef NS_ENUM(int , TYPEINITSDK)
 @property(nonatomic,assign) BOOL bSwitchSafe;
 
 @property(nonatomic,assign) BOOL isLanSearchDevices;
+
+@property(nonatomic,assign) int  iDeviceBrowseModel;//设备浏览模式
+
 /**
  *  单例
  *

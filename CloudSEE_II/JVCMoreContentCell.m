@@ -8,6 +8,8 @@
 
 #import "JVCMoreContentCell.h"
 #import "JVCRGBHelper.h"
+#import "DCRoundSwitch.h"
+#import "JVCConfigModel.h"
 
 static const int  moreContentCellOff_X  = 20;//距离组边框的距离
 
@@ -21,6 +23,12 @@ static const int  moreContentCellTextFont  = 16;//字体大小
 static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
 static const int  KSwitchSubWitch= 79;//减去switch的宽度
+
+static const int  KdCRoudSwitchSwitchSubWitch   = 100;//减去switch的宽度
+static const int  KdCRoudSwitchSwitchSubHeight  = 29;//减去switch的宽度
+
+
+
 
 
 @implementation JVCMoreContentCell
@@ -79,14 +87,33 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
         [newImageView release];
 
     }
+
+    DCRoundSwitch *dCRoudSwitch = nil;
     
-    UISwitch *switchTempCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
-    self.switchCell = switchTempCell;
-    [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
-    [self.contentView addSubview:switchCell];
-    
-    self.accessoryType = UITableViewCellAccessoryNone;
-    switchCell.hidden = YES;
+    if (model.bBtnState == MoreSettingCellType_CustomSwitc) {
+        
+         dCRoudSwitch = [[DCRoundSwitch alloc] initWithFrame:CGRectMake(self.width -KdCRoudSwitchSwitchSubWitch-20, labelTitle.top,KdCRoudSwitchSwitchSubWitch , KdCRoudSwitchSwitchSubHeight)];
+        dCRoudSwitch.offText= NSLocalizedString(@"jvc_more_singel_device", nil);
+        dCRoudSwitch.onText = NSLocalizedString(@"jvc_more_muti_device", nil);
+        // [dCRoudSwitch setOn: delegate.isScreenMutable];
+        
+        [dCRoudSwitch setOn:[JVCConfigModel shareInstance].iDeviceBrowseModel animated:NO ignoreControlEvents:YES];
+        [dCRoudSwitch addTarget:self action:@selector(deviceBrowseSwitchalue:) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:dCRoudSwitch];
+        dCRoudSwitch.hidden = YES;
+        [dCRoudSwitch release];
+
+    }else{
+        
+        UISwitch *switchTempCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
+        self.switchCell = switchTempCell;
+        [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:switchCell];
+        self.accessoryType = UITableViewCellAccessoryNone;
+        switchCell.hidden = YES;
+
+    }
+ 
     switch (model.bBtnState) {
 
         case MoreSettingCellType_Switch:
@@ -108,7 +135,10 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
         case MoreSettingCellType_index:
             self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
-            
+        
+            case MoreSettingCellType_CustomSwitc:
+            dCRoudSwitch.hidden = NO;
+            break;
         default:
             self.accessoryType = UITableViewCellAccessoryNone;
             break;
@@ -128,6 +158,22 @@ static const int  KSwitchSubWitch= 79;//减去switch的宽度
     if (delegateSwitch !=nil && [delegateSwitch respondsToSelector:@selector(modifySwitchState:)]) {
         
         [delegateSwitch modifySwitchState:switchOn];
+    }
+}
+
+- (void)deviceBrowseSwitchalue:(DCRoundSwitch *)tempSwitch
+{
+    JVCConfigModel *configModel =   [JVCConfigModel shareInstance];
+    configModel.iDeviceBrowseModel = tempSwitch.on;
+    
+    if (tempSwitch.on) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:(NSString *)deviceBrowseModelType];
+        
+    }else{
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)deviceBrowseModelType];
+
     }
 }
 

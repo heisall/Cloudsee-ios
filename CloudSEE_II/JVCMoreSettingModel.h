@@ -10,12 +10,12 @@
 
 enum
 {
-    MoreSettingCellType_NO      =   0,//什么也没有的
-    MoreSettingCellType_Btn     =   1,//按钮的
-    MoreSettingCellType_Switch  =   2,//开关的
-    MoreSettingCellType_index   =   3,//指示的
-    
+    MoreSettingCellType_NO           =   0,//什么也没有的
+    MoreSettingCellType_Btn          =   1,//按钮的
+    MoreSettingCellType_Switch       =   2,//开关的
+    MoreSettingCellType_index        =   3,//指示的
     MoreSettingCellType_AccountSwith =   4,//自定义的cell的swith事件
+    MoreSettingCellType_CustomSwitc  =   5,//自定义的switch
 
 
 };

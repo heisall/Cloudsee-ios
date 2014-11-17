@@ -29,7 +29,7 @@
 #import "JVCOperationHelpView.h"
 #import "JVCTencentHelp.h"
 #import "JVCNetworkSettingViewController.h"
-
+#import "JVCDeviceUpdateViewController.h"
 
 @interface JVCEditDeviceListViewController (){
     
@@ -427,6 +427,8 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         case JVCEditDeviceListViewControllerClickType_NetworkSetting:{
         
             [self gotoNetworkSetting];
+            
+//            [self gotoDeviceUpdateController];
         }
             break;
             
@@ -513,7 +515,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         dispatch_async(dispatch_get_main_queue(), ^{
         
             NSString *strkey = [NSString stringWithFormat:@"JVCNetworkSettingViewController_error%d",errorType];
-            [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:NSLocalizedString(strkey, nil)];
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(strkey, nil)];
         
         
         });
@@ -626,6 +628,14 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     JVCDeviceModel *model                                 = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
     
     [networkSettingObj connectVideoWithDeviceModel:model withChannel:1 withLocalChannel:1];
+}
+
+//前往设备升级界面
+- (void)gotoDeviceUpdateController
+{
+    JVCDeviceUpdateViewController *devieUpdate = [[JVCDeviceUpdateViewController alloc] init];
+    [self.navigationController pushViewController:devieUpdate animated:YES];
+    [devieUpdate release];
 }
 
 #pragma mark ------------- JVCNetworkSettingHelper delegate

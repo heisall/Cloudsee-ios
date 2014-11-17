@@ -31,7 +31,7 @@
     _mArrayList  = [[NSMutableArray alloc] init];
     [_mArrayList addObject:LOCALANGER(@"home_photos")];
     [_mArrayList addObject:LOCALANGER(@"home_videos")];
-    [_mArrayList addObject:LOCALANGER(@"home_anothers")];
+  //  [_mArrayList addObject:LOCALANGER(@"home_anothers")];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -136,7 +136,7 @@
     }
     if (photoDatas.count == 0) {
         
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"没有数据")];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_media_no_date")];
         return;
 
     }

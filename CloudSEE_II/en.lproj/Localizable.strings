@@ -426,6 +426,9 @@
 "suggestAndFeedBack" = "Feedback";
 "more_help_title"="Help";
 "jvc_more_LogOut" = "Log Out";
+"jvc_more_screen_set" = "Viewing model";
+"jvc_more_singel_device" = "Single";
+"jvc_more_muti_device" = "Multi";
 
 //修改密码的
 "oldPW" = "Old Password";
@@ -574,3 +577,16 @@
 "JVCNetworkSettingViewController_error0"     = "The device is busy, please try again...";
 "JVCNetworkSettingViewController_error1"     = "Doesn't support this device.Supports IPC only.";
 "JVCNetworkSettingViewController_power"      = "You have no permission of this operation!";
+
+//媒体的
+"jvc_more_media_title"="Media";
+"home_photos"="Photo";
+"home_videos"="Video";
+"home_anothers"="Other";
+"home_get_alum_error"= "Failed to get the resources, please go to set-privacy-picture to enable the function";
+"pictureLibraynoAutor" = "Can not visit photo album. Please set it open in[ Settings->Privacy->Photos ].";
+"picturelibrayError" = "Failed to save the picture.";
+"videolibrayError" = "Failed to save the recording.";
+"userDefine" = "User refused to visit";
+"NSLocalString"="English";
+"jvc_more_media_no_date" = "相册中暂时没有图片或视频";

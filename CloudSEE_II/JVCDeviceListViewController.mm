@@ -574,7 +574,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
-    BOOL isMoreDevice = TRUE;
+    BOOL isMoreDevice = [JVCConfigModel shareInstance].iDeviceBrowseModel;
     
     int nIndex =  gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
     
