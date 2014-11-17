@@ -531,6 +531,7 @@
 		AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */; };
 		AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */; };
 		AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */; };
+		AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -1254,6 +1255,8 @@
 		AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JVCWheelShowOperationControllerIphone5.m; path = ../JVCWheelShowOperationControllerIphone5.m; sourceTree = "<group>"; };
 		AD616CD71A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWheelShowManagePalyVideoComtroller.h; sourceTree = "<group>"; };
 		AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCWheelShowManagePalyVideoComtroller.mm; sourceTree = "<group>"; };
+		AD616CDB1A19C9D1004214A5 /* JVCHomeIPCUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCHomeIPCUpdate.h; sourceTree = "<group>"; };
+		AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCHomeIPCUpdate.m; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -2987,6 +2990,8 @@
 				ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */,
 				ADA47C0E1A133AF8003AA90A /* JVCNetworkSettingHelper.h */,
 				ADA47C0F1A133AF8003AA90A /* JVCNetworkSettingHelper.m */,
+				AD616CDB1A19C9D1004214A5 /* JVCHomeIPCUpdate.h */,
+				AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -3493,6 +3498,7 @@
 				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
+				AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */,
 				A7F4458F19F6527B002C984F /* JVCAddLockDeviceViewController.m in Sources */,
 				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,
 				A7F6C5E119F8977D0090B6F0 /* JVCHorizontalScreenBar.m in Sources */,
