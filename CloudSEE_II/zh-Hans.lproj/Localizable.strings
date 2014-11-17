@@ -462,6 +462,7 @@
 "jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
 "jvc_editDevice_Editbtn_safe" = "安全防护";
 "jvc_editDevice_Editbtn_alarmseting" = "报警设置";
+"jvc_editDevice_Editbtn_update" = "升级设备";
 "jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
 "jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
 "jvc_editDevice_noSupport" = "设备不支持此操作";

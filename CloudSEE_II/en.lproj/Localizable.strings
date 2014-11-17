@@ -450,6 +450,7 @@
 "jvc_editDevice_Editbtn_SeeImedity" = "Video";
 "jvc_editDevice_Editbtn_safe" = "Security Protection";
 "jvc_editDevice_Editbtn_alarmseting" = "Alarm Device";
+"jvc_editDevice_Editbtn_update"      = "Update Device";
 "jvc_editDevice_Editbtn_safe_open" = "Enable Security Protection Successfully";
 "jvc_editDevice_Editbtn_safe_close" = "Failed to enable Security Protection.";
 "jvc_editDevice_noSupport" = "No support for this device";
