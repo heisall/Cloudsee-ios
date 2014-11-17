@@ -57,8 +57,6 @@
         DDLogVerbose(@"不是IPC,不支持此操作！");
         [self error:ErrorTypeNotSupport];
         
-        [self disconnect];
-        
     }else {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -91,7 +89,6 @@
         
             DDLogVerbose(@"%s---------------------  主控忙碌",__FUNCTION__);
             [self error:ErrorTypeReject];
-            [self disconnect];
         
         }
             break;

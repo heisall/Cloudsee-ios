@@ -216,7 +216,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 
 }
 
-
 /**
  *  初始化图片标题
  */
@@ -288,7 +287,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         [bgView release];
     }
 }
-
 
 /**
  *  获取当前的设备实体
@@ -508,8 +506,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
         if (networkSettingObj) {
             
-            [networkSettingObj release];
-            networkSettingObj = nil;
+            [networkSettingObj disconnect];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -535,7 +532,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
                     [network refreshSSIDListData:SSIDList];
                 }
             }
-        
         
         });
     };
