@@ -11,15 +11,12 @@
 #import "JVCDeviceMacro.h"
 #import "JVCAccountInterface.h"
 #import "JVCAlarmMacro.h"
-#import "JVCDeviceMacro.h"
 
 @implementation JVCDeviceHelper
 
 static JVCDeviceHelper *shareDevicelibrary=nil;
 
 char outTextBuffer[1280*720*3];
-
-#define CONVERTCHARTOSTRING(A) [NSString stringWithFormat:@"%s",A]
 
 
 /**
@@ -751,7 +748,7 @@ char outTextBuffer[1280*720*3];
  *
  *	@return	>=0成功 否则处理错误码
  */
--(int)deviceUpdateMath:(int)deviceUpdateMathType deviceGuidStr:(NSString *)deviceGuidStr updateText:(NSString *)updateText downloadSize:(int)downloadSize updateVer:(NSString *)updateVer{
+-(int)deviceUpdateMath:(NSString *)accountName deviceUpdateMathType:(int)deviceUpdateMathType deviceGuidStr:(NSString *)deviceGuidStr updateText:(NSString *)updateText downloadSize:(int)downloadSize updateVer:(NSString *)updateVer{
     
     
     NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
@@ -760,6 +757,8 @@ char outTextBuffer[1280*720*3];
     [requestInfoMDict setValue:[NSNumber numberWithInt:IM_SERVER_RELAY] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
     
     [self fillUpdateDeviceMdicByMathType:deviceUpdateMathType updateText:updateText fillInfoMDic:requestInfoMDict downloadSize:downloadSize updateVer:updateVer];
+    
+     [requestInfoMDict setValue:accountName forKey:CONVERTCHARTOSTRING(JK_USERNAME)];
     
     [requestInfoMDict setValue:deviceGuidStr forKey:CONVERTCHARTOSTRING(JK_DEVICE_GUID)];
     

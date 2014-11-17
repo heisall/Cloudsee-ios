@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JVCDeviceMacro.h"
 
 @interface JVCDeviceHelper : NSObject
 
@@ -187,11 +188,11 @@ enum DEVICEONLINESTATE
  *
  *	@param	accountName	            更新IPC的帐号
  
- UPDATEDEVICEMATH_CMD_UPDATE=0,        //IPC升级命令
- UPDATEDEVICEMATH_CMD_EXIT=1,        //IPC升级退出
- UPDATEDEVICEMATH_DOWNLOAD_VALUE, //IPC下载升级文件的进度
- UPDATEDEVICEMATH_WRITE_VALUE,    //IPC烧写文件的进度
- UPDATEDEVICEMATH_CMD_REBOOT     //IPC烧写完重启
+ UPDATEDEVICEMATH_CMD_UPDATE=0,     //IPC升级命令
+ UPDATEDEVICEMATH_CMD_EXIT=1,       //IPC升级退出
+ UPDATEDEVICEMATH_DOWNLOAD_VALUE,   //IPC下载升级文件的进度
+ UPDATEDEVICEMATH_WRITE_VALUE,      //IPC烧写文件的进度
+ UPDATEDEVICEMATH_CMD_REBOOT        //IPC烧写完重启
  
  *	@param	deviceUpdateMathType	更新的业务编号
  *	@param	deviceGuidStr	        更新的IPC的云通号
@@ -199,7 +200,7 @@ enum DEVICEONLINESTATE
  *
  *	@return	>=0成功 否则处理错误码
  */
--(int)deviceUpdateMath:(int)deviceUpdateMathType deviceGuidStr:(NSString *)deviceGuidStr updateText:(NSString *)updateText downloadSize:(int)downloadSize updateVer:(NSString *)updateVer;
+-(int)deviceUpdateMath:(NSString *)accountName deviceUpdateMathType:(int)deviceUpdateMathType deviceGuidStr:(NSString *)deviceGuidStr updateText:(NSString *)updateText downloadSize:(int)downloadSize updateVer:(NSString *)updateVer;
 
 /**
  *	修改设备的运视通连接的用户名和密码到设备服务器

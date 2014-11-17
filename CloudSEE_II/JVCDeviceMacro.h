@@ -25,6 +25,7 @@ enum DEVICESERVICERESPONSE{
     
 };
 
+#define CONVERTCHARTOSTRING(A) [NSString stringWithFormat:@"%s",A]
 
 
 #define TOKEN_LENGTH			5
