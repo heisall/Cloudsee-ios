@@ -293,11 +293,11 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 -(void)gotoPlayViewController:(int)index {
     
     
-    [self sortChannelListByDeviceList];
-    
-    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
-    
-     JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
+//    [self sortChannelListByDeviceList];
+//    
+//    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
+//    
+//     JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
     
     
     DDLogVerbose(@"%s------yunshitonghao=%@,index=%d",__FUNCTION__,[titles objectAtIndex:self.nIndex],index);
@@ -306,7 +306,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     if (iphone5) {
         
-        tOPVC = [[JVCWheelShowOperationControllerIphone5 alloc] init];
+        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
         
     }else
     {
@@ -315,7 +315,9 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     }
     
     tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
-    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
+    
+    tOPVC._iSelectedChannelIndex     = index;
+//    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
 }

@@ -306,7 +306,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
             
             [channnleValues addObject:channelModel];
             
-            DDLogVerbose(@"%s--------channelModel yst=%@,channelValue=%d",__FUNCTION__,channelModel.strDeviceYstNumber,channelModel.nChannelValue);
         }
     }
     
