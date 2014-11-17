@@ -17,16 +17,7 @@
 @interface JVCManagePalyVideoComtroller () {
 
     UIScrollView            *WheelShowListView;
-    
 }
-
-enum showWindowNumberType{
-    
-    showWindowNumberType_One     = 1,
-    showWindowNumberType_Four    = 4 ,
-    showWindowNumberType_Nine    = 9 ,
-    showWindowNumberType_Sixteen = 16,
-};
 
 @end
 
@@ -36,6 +27,7 @@ enum showWindowNumberType{
 @synthesize _iCurrentPage,_iBigNumbers,nSelectedChannelIndex;
 @synthesize strSelectedDeviceYstNumber,delegate;
 @synthesize isPlayBackVideo,isShowVideo;
+@synthesize isConnectAll;
 
 static const int  kPlayViewDefaultMaxValue            = showWindowNumberType_Four;
 static const int  kPlayVideoWithFullFramCriticalValue = 4;
@@ -184,7 +176,7 @@ BOOL isAllLinkRun;
     
     int count = [self channelCountAtSelectedYstNumber];
     
-    if (self.nSelectedChannelIndex == kJVCChannelScourseHelperAllConnectFlag) {
+    if (self.isConnectAll) {
         
         if (count > showWindowNumberType_One && count <= showWindowNumberType_Four ) {
             
@@ -210,9 +202,18 @@ BOOL isAllLinkRun;
         
             self.imageViewNums = showWindowNumberType_One;
         }
-        
-        self.nSelectedChannelIndex = 0 ;
     }
+}
+
+/**
+ *  根据当前的索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex{
+
+    return self.strSelectedDeviceYstNumber;
+
 }
 
 - (void)setScrollviewByIndex:(NSInteger)Index
@@ -720,7 +721,6 @@ BOOL isAllLinkRun;
  *  @param nlocalChannelID 本地显示窗口的编号
  */
 -(void)connectVideoByLocalChannelID:(int)nlocalChannelID{
-    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         

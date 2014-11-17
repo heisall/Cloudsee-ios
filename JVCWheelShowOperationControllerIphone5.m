@@ -32,6 +32,7 @@
     _managerVideo.isPlayBackVideo            = self.isPlayBackVideo;
     _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
     _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
+    _managerVideo.isConnectAll               = self.isConnectAll;
     [_managerVideo setUserInteractionEnabled:YES];
     [self.view addSubview:_managerVideo];
     [_managerVideo initWithLayout];

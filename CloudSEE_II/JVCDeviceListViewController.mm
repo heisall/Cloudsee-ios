@@ -34,6 +34,9 @@
 #import "JVCLocalQRAddDeviceViewController.h"
 #import "JVCOperationHelpView.h"
 
+#import "JVCWheelShowOperationController.h"
+#import "JVCWheelShowOperationControllerIphone5.h"
+
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellNODevice                  = 600;   //广告条的高度
@@ -59,7 +62,6 @@ static const NSTimeInterval  kAfterDelayTimer                        = 2;  //2�
 
 @implementation JVCDeviceListViewController
 
-static const NSTimeInterval kAimationAfterDalay      = 0.3; //延迟时间
 static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默认通道数
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -97,8 +99,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     return self;
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -150,8 +150,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         [self setupRefresh];
 
     }
-    
-   
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -167,9 +165,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         [self StartLANSerchAllDevice];
     }
     
-//    JVCOperationHelpView *helpView = [[JVCOperationHelpView alloc] init];
-//    [helpView AddDeviceHelpView];
-//    [self.view.window addSubview:helpView];
 }
 
 /**
@@ -212,8 +207,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         });
 
     }
-    
 }
+
 #pragma mark 弹出添加设备选项卡，用户选中相应按钮的回调
 /**
  *  选中item的回调
@@ -223,6 +218,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 - (void)didSelectItemRowAtIndex:(int)index
 {
     switch (index ) {
+            
         case AddDevicePopType_NormalAddDevice:
             [self AddDevice];
             break;
@@ -245,9 +241,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         case AddDevicePopType_IP:
             [self ipAddDevice];
             break;
-            
-            break;
-            
+    
         default:
             break;
     }
@@ -264,7 +258,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     [self.navigationController pushViewController:jvcVoiceencViewcontroller animated:YES];
     
     [jvcVoiceencViewcontroller release];
-
 }
 
 /**
@@ -323,7 +316,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)popAddDeviceItems
 {
-    DDLogVerbose(@"===111111===");
     CGPoint point = CGPointMake(kPopViewOffx, self.navigationController.navigationBar.frame.size.height+[UIApplication sharedApplication].statusBarFrame.size.height);
     NSArray *titles = nil;
     NSArray *images = nil;
@@ -345,11 +337,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
     JVCAddDevicePopView *pop = (JVCAddDevicePopView *)[window viewWithTag:kPOPViewTag];
-    DDLogVerbose(@"===2222222===%@",pop);
-
+    
     if (!pop) {
-        DDLogVerbose(@"===333333===");
-
+        
         pop    = [[JVCAddDevicePopView alloc] initWithPoint:point titles:titles images:images];
         pop.popDelegate             = self;
         pop.tag                     = kPOPViewTag;
@@ -484,7 +474,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             [cell initCellContent];
             
             return cell;
-        
         }
         
     }else{
@@ -585,47 +574,94 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)selectDeviceToPlay:(UITapGestureRecognizer *)gesture
 {
+    BOOL isMoreDevice = TRUE;
+    
+    int nIndex =  gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
+    
     JVCDeviceSourceHelper    *deviceSourceHelperObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
     JVCChannelScourseHelper  *channelSourceHelperObj = [JVCChannelScourseHelper shareChannelScourseHelper];
     
-    JVCDeviceModel           *deviceModel = (JVCDeviceModel *) [[deviceSourceHelperObj deviceListArray] objectAtIndex:gesture.view.tag - kTableViewSingleDeviceViewBeginTag];
+    JVCDeviceModel           *deviceModel = (JVCDeviceModel *) [[deviceSourceHelperObj deviceListArray] objectAtIndex:nIndex];
     
     NSMutableArray           *channels    = [channelSourceHelperObj channelValuesWithDeviceYstNumber:deviceModel.yunShiTongNum];
     
-    
     if (channels.count == kPlayVideoChannelsCount) {
         
-        JVCOperationController *tOPVC;
-        
-        if (iphone5) {
-            
-            tOPVC = [[JVCOperationControllerIphone5 alloc] init];
-            
-        }else
-        {
-            tOPVC = [[JVCOperationController alloc] init];
-            
-        }
-        
-        tOPVC.strSelectedDeviceYstNumber = deviceModel.yunShiTongNum;
-        tOPVC._iSelectedChannelIndex     = 0;
-        [self.navigationController pushViewController:tOPVC animated:YES];
-        [tOPVC release];
+        isMoreDevice == YES ? [self moreDeviceShowVideo:0 withYstNumber:deviceModel.yunShiTongNum]:[self singleDeviceShowVideo:0 withYstNumber:deviceModel.yunShiTongNum];
         
     }else{
-    
+        
         JVCDeviceListWithChannelListViewController *deviceChannelList = [[JVCDeviceListWithChannelListViewController alloc] init];
-        deviceChannelList.nIndex                                      = gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
+        deviceChannelList.nIndex                                      = nIndex;
         [self.navigationController pushViewController:deviceChannelList animated:YES];
         [deviceChannelList release];
-    
     }
+
+}
+
+
+/**
+ *   单设备观看模式
+ *
+ *  @param index     通道索引号（一个设备的有序通道集合中）
+ *  @param isConnect 是否全连
+ */
+-(void)singleDeviceShowVideo:(int)index withYstNumber:(NSString *)ystNumber{
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC =[[JVCOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCOperationController alloc] init];
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = ystNumber;
+    tOPVC._iSelectedChannelIndex     = index;
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
+}
+
+/**
+ *   多设备观看模式
+ *
+ *  @param index     通道索引号（一个设备的有序通道集合中）
+ *  @param isConnect 是否全连
+ */
+-(void)moreDeviceShowVideo:(int)index withYstNumber:(NSString *)ystNumber{
+    
+    JVCDeviceSourceHelper   *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
+    
+    [channelSourceObj sortChannelListByDeviceList:[deviceSourceObj deviceListArray]];
+    
+    JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:ystNumber];
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCWheelShowOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCWheelShowOperationController alloc] init];
+        
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = ystNumber;
+    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
 }
 
 #pragma mark 获取设备
 - (void)getDeviceList
 {
-    
+   
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
         
         /**

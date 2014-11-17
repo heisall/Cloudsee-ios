@@ -23,6 +23,20 @@
 }
 
 /**
+ *  根据当前的索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex{
+
+    JVCChannelScourseHelper  *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
+    JVCChannelModel          *channelModel  = (JVCChannelModel *)[[channelSourceObj ChannelListArray] objectAtIndex:self.nSelectedChannelIndex];
+    
+    return channelModel.strDeviceYstNumber;
+
+}
+
+/**
  *  根据所选显示视频的窗口的编号连接通道集合中指定索引的通道对象
  *
  *  @param nlocalChannelID 本地显示窗口的编号
