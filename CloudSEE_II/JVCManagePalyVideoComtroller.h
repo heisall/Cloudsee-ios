@@ -47,18 +47,26 @@ enum CONNECTALLDEVICE{
 @interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate>
 {
     JVCOperationController  *_operationController;
-    int                     imageViewNums;            //ScorllView每页视图显示的窗体个数
-    int                     _iCurrentPage;
-    int                     _iBigNumbers;
-    int                     nSelectedChannelIndex;
-    NSString               *strSelectedDeviceYstNumber;
+    int                      imageViewNums;            //ScorllView每页视图显示的窗体个数
+    int                      _iCurrentPage;
+    int                      _iBigNumbers;
+    int                      nSelectedChannelIndex;
+    NSString                *strSelectedDeviceYstNumber;
     
     id<JVCManagePalyVideoComtrollerDelegate> delegate;
     
-    BOOL                    isPlayBackVideo;          //YES 远程回放模式
-    BOOL                    isShowVideo;
-
+    BOOL                     isPlayBackVideo;          //YES 远程回放模式
+    BOOL                     isShowVideo;
+    BOOL                     isConnectAll;             //全连标志
 }
+
+enum showWindowNumberType{
+    
+    showWindowNumberType_One     = 1,
+    showWindowNumberType_Four    = 4 ,
+    showWindowNumberType_Nine    = 9 ,
+    showWindowNumberType_Sixteen = 16,
+};
 
 @property (nonatomic,retain) NSMutableArray         *amChannelListData;
 @property (nonatomic,assign) JVCOperationController *_operationController;
@@ -68,6 +76,7 @@ enum CONNECTALLDEVICE{
 @property (nonatomic,assign) BOOL                     isPlayBackVideo;
 @property (nonatomic,assign) id<JVCManagePalyVideoComtrollerDelegate> delegate;
 @property (nonatomic,assign) BOOL                     isShowVideo;
+@property (nonatomic,assign) BOOL                     isConnectAll;
 
 /**
  *  初始化视频播放的窗口布局
@@ -80,6 +89,14 @@ enum CONNECTALLDEVICE{
  *  @return 当前选择设备的通道个数
  */
 - (int)channelCountAtSelectedYstNumber;
+
+
+/**
+ *  根据当前的索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex;
 
 
 -(void)changeContenView;

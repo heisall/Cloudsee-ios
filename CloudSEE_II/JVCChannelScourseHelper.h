@@ -143,4 +143,12 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
  *  @param channelNum 通道个数
  */
 - (void)addLocalChannelsWithDeviceModel:(NSString *)ystNum  channelNums:(int)channelNum;
+
+/**
+ *  根据设备集合的云视通号顺序排序通道集合数据
+ *
+ *  @param deviceListArray 设备集合
+ */
+-(void)sortChannelListByDeviceList:(NSMutableArray *)deviceListArray;
+
 @end

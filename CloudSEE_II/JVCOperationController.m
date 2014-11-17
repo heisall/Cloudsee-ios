@@ -31,15 +31,15 @@
 #import "JVCTencentHelp.h"
 #import "JVCYTOperaitonView.h"
 
-static const int  STARTHEIGHTITEM =  40;
-static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
-static const NSString * kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
-static const NSString * kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
+static const int            STARTHEIGHTITEM         =  40;
+static const NSString      *BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
+static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
+static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
 
-static const CGFloat    kTalkViewWithHeight     = 60.0f;
-static const CGFloat    kTalkViewWithWidth      = 200.0;
-static const int        kAlertTag               = 19384324;
-static const NSTimeInterval        kPopAfterTimer       = 0.3;//退出时的延迟
+static const CGFloat         kTalkViewWithHeight     = 60.0f;
+static const CGFloat         kTalkViewWithWidth      = 200.0;
+static const int             kAlertTag               = 19384324;
+static const NSTimeInterval  kPopAfterTimer          = 0.3;//退出时的延迟
 
 
 
@@ -102,6 +102,7 @@ enum DISCONNECT_STATUS {
 @synthesize showSingeleDeviceLongTap;
 @synthesize delegate;
 @synthesize isPlayBackVideo,strPlayBackVideoPath;
+@synthesize isConnectAll;
 
 static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
 static const CGFloat  kRightButtonViewWithHeight      = 38.0f ;
@@ -179,9 +180,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         /**
          *  获取当前设备的通道数组，一个不让显示
          */
-        NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
+        int channelListCount = [_managerVideo channelCountAtSelectedYstNumber];
         
-        if ([channelListArray  count]<=1) {
+        if (channelListCount <= showWindowNumberType_One) {
             
             [_splitViewBtn setHidden:YES];
             [_splitViewCon setHidden:YES];
@@ -415,6 +416,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     _managerVideo.isPlayBackVideo            = self.isPlayBackVideo;
     _managerVideo.nSelectedChannelIndex      = self._iSelectedChannelIndex;
     _managerVideo.imageViewNums              = kDefaultShowWidnowCount;
+    _managerVideo.isConnectAll               = self.isConnectAll;
     [_managerVideo setUserInteractionEnabled:YES];
     [self.view addSubview:_managerVideo];
     [_managerVideo initWithLayout];
@@ -749,11 +751,14 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(NSMutableArray*)getSplitWindowMaxNumbers{
     
     NSMutableArray *_windowListData=[NSMutableArray arrayWithCapacity:10];
-    NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
-    if ([channelListArray count]<=4) {
+    
+    int channelListCount = [_managerVideo channelCountAtSelectedYstNumber];
+    
+    if (channelListCount <= showWindowNumberType_Four) {
+        
         [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
         
-    }else if([channelListArray count]<=9){
+    }else if(channelListCount <= showWindowNumberType_Nine){
         
         [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"four-Screen", nil)]];
         [_windowListData addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"nine-Screen", nil)]];
@@ -1047,7 +1052,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark ---------------- 当连接设备时身份验证失败弹出的修改提示
 - (void)gotoModifyUserAndPassWordViewcontroller
 {
-    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:self.strSelectedDeviceYstNumber];
+    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
 
     if ([ JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
         
@@ -1254,11 +1259,11 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark 切换窗口的布局
 -(void)changeSplitView:(int)_splitWindows{
     
-    NSArray *channelListArray = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:self.strSelectedDeviceYstNumber];
+    int channelListCount = [_managerVideo channelCountAtSelectedYstNumber];
 
-    if ([channelListArray count]>1) {
+    if (channelListCount > showWindowNumberType_One) {
         
-        if (_splitWindows>1) {
+        if (_splitWindows > showWindowNumberType_One) {
             
             [self closeAudioAndTalkAndVideoFuction];
             

@@ -265,7 +265,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         
     }
     
-    [self gotoPlayViewController:kJVCChannelScourseHelperAllConnectFlag];
+    [self gotoPlayViewController:0 withIsConnectAll:YES];
 }
 
 /**
@@ -282,46 +282,81 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     DDLogVerbose(@"%s---------------------channelWithChannels=%d",__FUNCTION__,indexWithChannels);
     
-    [self gotoPlayViewController:indexWithChannels];
+    [self gotoPlayViewController:indexWithChannels withIsConnectAll:NO];
 }
 
 /**
  *  前往视频播放界面
  *
- *  @param index 当前选择的通道索引
+ *  @param index     当前选择的通道索引
+ *  @param isConnect YES：全连
  */
--(void)gotoPlayViewController:(int)index {
+-(void)gotoPlayViewController:(int)index withIsConnectAll:(BOOL)isConnect{
     
+    BOOL isMoreDeviceShowVideo = TRUE;
     
-//    [self sortChannelListByDeviceList];
-//    
-//    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
-//    
-//     JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
-    
-    
-    DDLogVerbose(@"%s------yunshitonghao=%@,index=%d",__FUNCTION__,[titles objectAtIndex:self.nIndex],index);
+    isMoreDeviceShowVideo == TRUE ? [self moreDeviceShowVideo:index withIsConnectAll:isConnect]:[self singleDeviceShowVideo:index withIsConnectAll:isConnect];
+}
+
+/**
+ *   单设备观看模式
+ *
+ *  @param index     通道索引号（一个设备的有序通道集合中）
+ *  @param isConnect 是否全连
+ */
+-(void)singleDeviceShowVideo:(int)index withIsConnectAll:(BOOL)isConnect{
     
     JVCOperationController *tOPVC;
     
     if (iphone5) {
         
-        tOPVC = [[JVCOperationControllerIphone5 alloc] init];
+        tOPVC =[[JVCOperationControllerIphone5 alloc] init];
         
     }else
     {
         tOPVC = [[JVCOperationController alloc] init];
-        
     }
     
     tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
-    
     tOPVC._iSelectedChannelIndex     = index;
-//    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
+    tOPVC.isConnectAll               = isConnect;
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
 }
 
+/**
+ *   多设备观看模式
+ *
+ *  @param index     通道索引号（一个设备的有序通道集合中）
+ *  @param isConnect 是否全连
+ */
+-(void)moreDeviceShowVideo:(int)index withIsConnectAll:(BOOL)isConnect{
+    
+    JVCDeviceSourceHelper   *deviceSourceObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    JVCChannelScourseHelper *channelSourceObj = [JVCChannelScourseHelper shareChannelScourseHelper];
+    
+    [channelSourceObj sortChannelListByDeviceList:[deviceSourceObj deviceListArray]];
+    
+    JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
+    
+    JVCOperationController *tOPVC;
+    
+    if (iphone5) {
+        
+        tOPVC = [[JVCWheelShowOperationControllerIphone5 alloc] init];
+        
+    }else
+    {
+        tOPVC = [[JVCWheelShowOperationController alloc] init];
+    
+    }
+    
+    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC.isConnectAll               = isConnect;
+    tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
+    [self.navigationController pushViewController:tOPVC animated:YES];
+    [tOPVC release];
+}
 
 /**
  *  根据设备集合的云视通号顺序排序通道集合数据
@@ -336,12 +371,10 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     [deviceArray retain];
     
-    
     for (JVCDeviceModel *deviceModel in deviceArray) {
         
         [channelList addObjectsFromArray:[channelSourceObj channelModelWithDeviceYstNumber:deviceModel.yunShiTongNum]];
     }
-    
 
     [channelSourceObj removeAllchannelsObject];
     

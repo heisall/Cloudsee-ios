@@ -49,8 +49,9 @@ static const int      kDefaultShowWidnowCount         = 1;
     
     id <operationControllerDelegate>  delegate;
     JVCManagePalyVideoComtroller     *_managerVideo;
-    BOOL                               isPlayBackVideo;
+    BOOL                              isPlayBackVideo;
     NSString                         *strPlayBackVideoPath;
+    BOOL                              isConnectAll;
 }
 
 @property (nonatomic,assign) int             _iSelectedChannelIndex;
@@ -62,6 +63,8 @@ static const int      kDefaultShowWidnowCount         = 1;
 @property (nonatomic,assign) id <operationControllerDelegate> delegate;
 @property (nonatomic,assign) BOOL             isPlayBackVideo;
 @property (nonatomic,retain) NSString        *strPlayBackVideoPath;
+@property (nonatomic,assign) BOOL             isConnectAll;
+
 
 /**
  *  初始化视频显示窗口视图

@@ -11,6 +11,7 @@
 #import "JVCDeviceMacro.h"
 #import "JVCLocalChannelDateBaseHelp.h"
 #import "JVCSystemConfigMacro.h"
+#import "JVCDeviceModel.h"
 
 @interface JVCChannelScourseHelper ()
 {
@@ -458,7 +459,6 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
     [[JVCLocalChannelDateBaseHelp shareDataBaseHelper] addLocalChannelToDataBase:ystNum nickName:[NSString stringWithFormat:@"%@_%d",ystNum,KHomeChannelsNum] ChannelSortNum:KHomeChannelsNum];
 }
 
-
 /**
  *  获取本地通道所有列表
  */
@@ -506,9 +506,33 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 - (BOOL)deleteLocalChannelsWithYStNum:(NSString *)ystNum
 {
  
-    
-    return   [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]deleteLocalChannelFromDataBase:ystNum];
+   return   [[JVCLocalChannelDateBaseHelp shareDataBaseHelper]deleteLocalChannelFromDataBase:ystNum];
 
+}
+
+/**
+ *  根据设备集合的云视通号顺序排序通道集合数据
+ *
+ *  @param deviceListArray 设备集合
+ */
+-(void)sortChannelListByDeviceList:(NSMutableArray *)deviceListArray{
+    
+    NSMutableArray  *channelList = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [deviceListArray retain];
+    
+    for (JVCDeviceModel *deviceModel in deviceListArray) {
+        
+        [channelList addObjectsFromArray:[self channelModelWithDeviceYstNumber:deviceModel.yunShiTongNum]];
+    }
+    
+    [self removeAllchannelsObject];
+    
+    [channelArray  addObjectsFromArray:channelList];
+    
+    [channelList release];
+    
+    [deviceListArray release];
 }
 
 @end

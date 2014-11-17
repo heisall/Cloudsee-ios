@@ -146,7 +146,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
  */
 -(void)initWithRgbListArray {
     
-    mArrayColors                 = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroOrange,kJVCRGBColorMacroDeepRed,kJVCRGBColorMacroYellow,kJVCRGBColorMacroPurple,nil];
+    mArrayColors                 = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroOrange,kJVCRGBColorMacroDeepRed,kJVCRGBColorMacroYellow,kJVCRGBColorMacroPurple,kJVCRGBColorMacroSkyBlue,nil];
 }
 
 /**
@@ -226,7 +226,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"JVCNetworkSettingViewController_title"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
 }
-
 
 /**
  *  初始化功能区域按钮
