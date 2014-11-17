@@ -30,6 +30,8 @@
 #import "JVCLocaOperationModifyViewController.h"
 #import "JVCTencentHelp.h"
 #import "JVCYTOperaitonView.h"
+#include "JVCConstansALAssetsMathHelper.h"
+#import "JVCMediaMacro.h"
 
 static const int  STARTHEIGHTITEM =  40;
 static const NSString * BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
@@ -77,6 +79,8 @@ bool selectState_audio ;
     UIImageView             *capImageView;
     bool                     _isPlayBackVideo;
     bool                     _isCapState;
+    
+    NSData                  *saveImageDate; //保存图片的二进制文件
 }
 
 enum StorageType {
@@ -321,9 +325,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [self initLayoutWithShowVideoView];
     
-//     ytOperationView = [[JVCYTOperaitonView alloc] initContentViewWithFrame:_managerVideo.frame];
-//    [self.view addSubview:ytOperationView];
-//    [ytOperationView release];
+     ytOperationView = [[JVCYTOperaitonView alloc] initContentViewWithFrame:_managerVideo.frame];
+    [self.view addSubview:ytOperationView];
+    [ytOperationView release];
 
     /**
      *  抓拍完成之后图片有贝萨尔曲线动画效果的imageview
@@ -901,16 +905,38 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if (urlString) {
         
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library writeVideoAtPathToSavedPhotosAlbum:[NSURL fileURLWithPath:urlString]
-                                    completionBlock:^(NSURL *assetURL, NSError *error) {
-                                        
-                                        if (error) {
-                                            
-                                            DDLogVerbose(@"%s----save video error!",__FUNCTION__);
-                                        }
-                                    }];
-        [library release];;
+        
+        ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
+            
+            // NSLog(@"相册访问失败 =%@", [myerror localizedDescription]);
+            //  "pictureLibraynoAutor" = "无法访问相册.请在'设置->定位服务'设置为打开状态.";
+            //"picturelibrayError"
+            
+            
+            if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil) ];
+                    
+                    
+                    // NSLog(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
+                });
+                
+            }else{
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"videolibrayError", nil) ];
+                    //   NSLog(@"相册访问失败.");
+                });
+                
+            }
+            
+        };
+        
+        JVCConstansALAssetsMathHelper *alassetLibrary=[[[JVCConstansALAssetsMathHelper alloc] init] autorelease];
+        
+        [alassetLibrary saveVideoToAlbumPhoto:[NSURL URLWithString:urlString] albumGroupName:(NSString *)kKYCustomVideoAlbumName returnALAssetsLibraryAccessFailureBlock:failureblock];
+
     }
 }
 
@@ -1493,32 +1519,89 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [imageData retain];
     
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    saveImageDate = [imageData retain];
     
-    [library writeImageDataToSavedPhotosAlbum:imageData metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+    ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
         
-        if (!error) {
-            
+        [saveImageDate release];
+        
+        if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                UIImageView *imgView=capImageView;
-                [self.view bringSubviewToFront:imgView];
-                UIImage *image = [UIImage imageWithData:imageData];
-                [imgView setImage:image];
-                [capImageView setHidden:NO];
-                [UIView beginAnimations:@"superView" context:nil];
-                [UIView setAnimationDuration:0.4f];
-                imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., STARTHEIGHTITEM, STARTHEIGHTITEM);
-                [UIView commitAnimations];
-                [imageData release];
+                [[JVCAlertHelper shareAlertHelper ]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"pictureLibraynoAutor", nil) ];
                 
-                [self capAnimations];
-                
+                 DDLogVerbose(@"无法访问相册.请在'设置->定位服务'设置为打开状态.");
+            });
+            
+        }else{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[JVCAlertHelper shareAlertHelper ]alertToastWithKeyWindowWithMessage:NSLocalizedString(@"picturelibrayError", nil) ];
+            
             });
         }
-    }];
-    [library release];
+    };
+
     
+    JVCConstansALAssetsMathHelper  *alassetLibrary=[[[JVCConstansALAssetsMathHelper alloc] init] autorelease];
+    alassetLibrary.AseeetDelegate = self;
+    [alassetLibrary saveImageToAlbumPhoto:[UIImage imageWithData:imageData ] albumGroupName:(NSString *)kKYCustomPhotoAlbumName returnALAssetsLibraryAccessFailureBlock:failureblock];
+    
+    [imageData release];
+//    [alassetLibrary release];
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    
+//    [library writeImageDataToSavedPhotosAlbum:imageData metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+//        
+//        if (!error) {
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                UIImageView *imgView=capImageView;
+//                [self.view bringSubviewToFront:imgView];
+//                UIImage *image = [UIImage imageWithData:imageData];
+//                [imgView setImage:image];
+//                [capImageView setHidden:NO];
+//                [UIView beginAnimations:@"superView" context:nil];
+//                [UIView setAnimationDuration:0.4f];
+//                imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., STARTHEIGHTITEM, STARTHEIGHTITEM);
+//                [UIView commitAnimations];
+//                [imageData release];
+//                
+//                [self capAnimations];
+//                
+//            });
+//        }
+//    }];
+//    [library release];
+    
+}
+
+/**
+ * 保存图像到指点相册的返回值
+ *
+ *  @param result 1 成功  0 失败
+ */
+- (void)savePhotoToAlassertsWithResult:(NSString *)result 
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        UIImageView *imgView=capImageView;
+        [self.view bringSubviewToFront:imgView];
+        UIImage *image = [UIImage imageWithData:saveImageDate];
+        [imgView setImage:image];
+        [capImageView setHidden:NO];
+        [UIView beginAnimations:@"superView" context:nil];
+        [UIView setAnimationDuration:0.4f];
+        imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., STARTHEIGHTITEM, STARTHEIGHTITEM);
+        [UIView commitAnimations];
+        [self capAnimations];
+        
+        [saveImageDate release];
+        
+    });
+
+
 }
 
 /**

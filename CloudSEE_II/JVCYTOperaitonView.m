@@ -69,6 +69,8 @@ static const NSTimeInterval kTimerAfter  = 0.2;//距离各个边界的距离
             [image release];
         }
         
+        self.hidden = YES;
+
     }
     return self;
 }
@@ -80,6 +82,8 @@ static const NSTimeInterval kTimerAfter  = 0.2;//距离各个边界的距离
  */
 -(void)showOperationTypeImageVIew:(int)operationType
 {
+    self.hidden = NO;
+    
     switch (operationType) {
         case JVN_YTCTR_TYPE_U:
             [self setImageViewhoverimageTag:JVN_YTCTR_TYPE_U];
@@ -117,7 +121,9 @@ static const NSTimeInterval kTimerAfter  = 0.2;//距离各个边界的距离
             break;
             
         default:
+        {
             [self setImageViewhoverimageTag:-1];
+        }
             break;
            
 
@@ -131,6 +137,7 @@ static const NSTimeInterval kTimerAfter  = 0.2;//距离各个边界的距离
  */
 - (void)setImageViewhoverimageTag:(int )imageTag
 {
+   
     for ( id contentView in self.subviews) {
         
         if ([contentView isKindOfClass:[UIImageView class]]) {
@@ -147,6 +154,10 @@ static const NSTimeInterval kTimerAfter  = 0.2;//距离各个边界的距离
             
             }
         }
+    }
+    
+    if (imageTag == -1) {
+        self.hidden = YES;
     }
 }
 

@@ -18,6 +18,13 @@
  */
 -(void)alAssetsDatecallBack:(NSMutableArray *)photoDatas;
 
+/**
+ * 保存图像到指点相册的返回值
+ *
+ *  @param result 1 成功  0 失败
+ */
+- (void)savePhotoToAlassertsWithResult:(NSString *)result;
+
 @end
 
 @interface JVCConstansALAssetsMathHelper : NSObject

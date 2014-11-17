@@ -86,14 +86,14 @@ char videoCacheData[VideoCacheDataSize];
     
     
     void (^completion)(NSURL *, NSError *) = ^(NSURL *assetURL, NSError *error) {
-        
+    
         if (!error){
             
-            [self performSelectorOnMainThread:@selector(runCallBack:) withObject:[NSString stringWithFormat:@"%d",RESULT_SUCCESSFUL] waitUntilDone:NO];
+            [self performSelectorOnMainThread:@selector(saveImagetoCustomAlbum:) withObject:[NSString stringWithFormat:@"%d",RESULT_SUCCESSFUL] waitUntilDone:NO];
             
         }else{
             
-            [self performSelectorOnMainThread:@selector(runCallBack:) withObject:[NSString stringWithFormat:@"%d",RESULT_ERROR] waitUntilDone:NO];
+            [self performSelectorOnMainThread:@selector(saveImagetoCustomAlbum:) withObject:[NSString stringWithFormat:@"%d",RESULT_ERROR] waitUntilDone:NO];
         }
     };
     
@@ -475,6 +475,15 @@ char videoCacheData[VideoCacheDataSize];
     if (AseeetDelegate !=nil&&[AseeetDelegate respondsToSelector:@selector(alAssetsDatecallBack:)]) {
         
         [AseeetDelegate alAssetsDatecallBack:callbackData];
+        
+    }
+}
+
+- (void)saveImagetoCustomAlbum:(NSString *)result
+{
+    if (AseeetDelegate !=nil&&[AseeetDelegate respondsToSelector:@selector(savePhotoToAlassertsWithResult:)]) {
+        
+        [AseeetDelegate savePhotoToAlassertsWithResult:result];
         
     }
 }
