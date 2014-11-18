@@ -542,7 +542,6 @@
 		AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */; };
 		AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */; };
 		AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */; };
-		AD616CDF1A1A1E49004214A5 /* edi_deviceUpdate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD616CDE1A1A1E49004214A5 /* edi_deviceUpdate@2x.png */; };
 		AD616CE31A1AEB61004214A5 /* JVCLogShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
@@ -607,6 +606,7 @@
 		ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C2C19D02919003EE7A1 /* JVCAccountInterface.mm */; };
 		ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */; };
 		ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */; };
+		ADA7AFC21A1B7BB700587B53 /* edi_deviceUpdate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA7AFC11A1B7BB700587B53 /* edi_deviceUpdate@2x.png */; };
 		ADA9E43A1A11E514007EB209 /* JVCNetworkSettingWithTopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */; };
 		ADA9E43D1A11E58F007EB209 /* JVCNetworkSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */; };
 		ADA9E4411A11E865007EB209 /* nws_topItemBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */; };
@@ -1288,7 +1288,6 @@
 		AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCWheelShowManagePalyVideoComtroller.mm; sourceTree = "<group>"; };
 		AD616CDB1A19C9D1004214A5 /* JVCHomeIPCUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCHomeIPCUpdate.h; sourceTree = "<group>"; };
 		AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCHomeIPCUpdate.m; sourceTree = "<group>"; };
-		AD616CDE1A1A1E49004214A5 /* edi_deviceUpdate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_deviceUpdate@2x.png"; sourceTree = "<group>"; };
 		AD616CE11A1AEB61004214A5 /* JVCLogShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLogShowViewController.h; sourceTree = "<group>"; };
 		AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLogShowViewController.m; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
@@ -1402,6 +1401,7 @@
 		ADA77C2F19D029B4003EE7A1 /* JVCAccountHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAccountHelper.h; sourceTree = "<group>"; };
 		ADA77C3019D029B4003EE7A1 /* JVCAccountHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAccountHelper.mm; sourceTree = "<group>"; };
 		ADA77C3219D02AC3003EE7A1 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		ADA7AFC11A1B7BB700587B53 /* edi_deviceUpdate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_deviceUpdate@2x.png"; sourceTree = "<group>"; };
 		ADA9E4381A11E514007EB209 /* JVCNetworkSettingWithTopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingWithTopItem.h; sourceTree = "<group>"; };
 		ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCNetworkSettingWithTopItem.m; sourceTree = "<group>"; };
 		ADA9E43B1A11E58F007EB209 /* JVCNetworkSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingViewController.h; sourceTree = "<group>"; };
@@ -2407,8 +2407,8 @@
 		AD2BDB0919D28EEA00AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
-				AD616CDE1A1A1E49004214A5 /* edi_deviceUpdate@2x.png */,
 				A7F43F6C19FBD5B100C11109 /* edi_deviceModify@2x.png */,
+				ADA7AFC11A1B7BB700587B53 /* edi_deviceUpdate@2x.png */,
 				A7F43F6A19FBD49F00C11109 /* edi_deviceManger@2x.png */,
 				A7F43F5E19FBCA3F00C11109 /* edi_camer@2x.png */,
 				A7F43F5F19FBCA3F00C11109 /* edi_camerSec@2x.png */,
@@ -3298,7 +3298,7 @@
 				A7F7178619D8345E008DB1C5 /* add_ApConfig@2x.png in Resources */,
 				A7F4058A19E50DAB0070945F /* customBottomView_cloudsee.bundle in Resources */,
 				A7F46A7D19F933B400AC1B1F /* welcome_2_ch.jpg in Resources */,
-				AD616CDF1A1A1E49004214A5 /* edi_deviceUpdate@2x.png in Resources */,
+				ADA7AFC21A1B7BB700587B53 /* edi_deviceUpdate@2x.png in Resources */,
 				ADA9E4421A11E865007EB209 /* nws_topItemSelected@2x.png in Resources */,
 				A7EFFA5219F5030100DF783D /* log_demBg@2x.png in Resources */,
 				A7F6C5F819F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png in Resources */,
