@@ -38,7 +38,6 @@ static const int  kDownloadMaxSize        = 100;           //下载最大的值
 static const int  kDownloadMinSize        = 0;             //下载最小的值
 static const int  kWriteMaxSize           = 100;           //烧写最大的值
 static const int  kWriteMinSize           = 0;             //烧写最小的值
-static const int  kCancelDownloadTime     = 40;            //退出下载线程的时间间隔（毫秒级）
 static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等停顿的时间（毫秒级）
 
 /**
@@ -61,7 +60,6 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         [strLoginUserName appendString:userName];
         
         isCancelDownload  = FALSE;
-        [self checkIpcIsNewVersion];
     }
     
     return self;
@@ -82,8 +80,14 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         
         if (self.homeIPCUpdateCheckVersionStatusBlock) {
             
-            self.homeIPCUpdateCheckVersionStatusBlock([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:mdUpdateInfo] == YES ? JVCHomeIPCUpdateCheckoutNewVersionNew : JVCHomeIPCUpdateCheckoutNewVersionHighVersion);
+            NSDictionary     *updateInfoMDic = (NSDictionary *)[mdUpdateInfo objectForKey:CONVERTCHARTOSTRING(JK_UPDATE_FILE_INFO)];
             
+             JVCSystemUtility *systemUtility  = [JVCSystemUtility shareSystemUtilityInstance];
+            
+            if (![systemUtility judgeDictionIsNil:updateInfoMDic]) {
+                
+                self.homeIPCUpdateCheckVersionStatusBlock([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:mdUpdateInfo] == YES ? JVCHomeIPCUpdateCheckoutNewVersionNew : JVCHomeIPCUpdateCheckoutNewVersionHighVersion,[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]);
+            }
         }
     
     });
@@ -120,6 +124,8 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         if (![systemUtility judgeDictionIsNil:updateInfoMDic]) {
             
             JVCDeviceHelper *deviceHelperObj = [JVCDeviceHelper sharedDeviceLibrary];
+            
+            [deviceHelperObj deviceUpdateMath:strLoginUserName  deviceUpdateMathType:UPDATEDEVICEMATH_CMD_EXIT deviceGuidStr:strYstNumber updateText:nil downloadSize:0 updateVer:nil];
             //开始更新
             int resultValue = [deviceHelperObj deviceUpdateMath:strLoginUserName deviceUpdateMathType:UPDATEDEVICEMATH_CMD_UPDATE deviceGuidStr:strYstNumber updateText:[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_URL)] downloadSize:[[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_SIZE)] intValue] updateVer:[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]];
             
@@ -196,11 +202,10 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         DDLogVerbose(@"%s-----------------009",__FUNCTION__);
         if (isCancelDownload) {
             
-            isCancelDownload = FALSE;
-            
             if (nDownloadSize == kDownloadMaxSize) {
                 
                 [self finshedType:JVCHomeIPCFinshedDownload];
+                
                 [self updateDevice];
                 
             }else {
@@ -230,6 +235,11 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         int writeTempValue   = -2;
         
         while (true) {
+            
+            if (!isCancelDownload) {
+                
+                break;
+            }
             
             nWriteSize = [deviceHelperObj deviceUpdateMath:strLoginUserName  deviceUpdateMathType:UPDATEDEVICEMATH_WRITE_VALUE deviceGuidStr:strYstNumber updateText:nil downloadSize:0 updateVer:nil];
             
@@ -274,13 +284,22 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
             }
         }
         
-        if (nWriteSize == kWriteMaxSize) {
+        if (isCancelDownload) {
             
-            [self finshedType:JVCHomeIPCFinshedWrite];
+            isCancelDownload = FALSE;
             
-        }else {
+            if (nWriteSize == kWriteMaxSize) {
+                
+                [self finshedType:JVCHomeIPCFinshedWrite];
+                
+            }else {
+                
+                [self errorType:JVCHomeIPCErrorWriteError];
+            }
             
-            [self errorType:JVCHomeIPCErrorWriteError];
+        }else{
+        
+             [self finshedType:JVCHomeIPCFinshedCancelDownload];
         }
         
     });
@@ -299,7 +318,15 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         
         if (self.homeIPCResetBlock) {
             
-            self.homeIPCResetBlock(result == DEVICESERVICERESPONSE_SUCCESS ? JVCHomeIPCResetSuccess : JVCHomeIPCResetError);
+            NSDictionary     *updateInfoMDic = (NSDictionary *)[mdUpdateInfo objectForKey:CONVERTCHARTOSTRING(JK_UPDATE_FILE_INFO)];
+            
+            JVCSystemUtility *systemUtility  = [JVCSystemUtility shareSystemUtilityInstance];
+            
+            if (![systemUtility judgeDictionIsNil:updateInfoMDic]) {
+                
+                self.homeIPCResetBlock(result == DEVICESERVICERESPONSE_SUCCESS ? JVCHomeIPCResetSuccess : JVCHomeIPCResetError,[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]);
+            }
+            
         }
     
     });
@@ -345,6 +372,8 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
     [strLoginUserName release];
     [strYstNumber release];
     [strVersion release];
+    
+    DDLogVerbose(@"%s-------------##################",__FUNCTION__);
     [super dealloc];
 }
 

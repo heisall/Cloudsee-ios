@@ -14,27 +14,18 @@
 typedef NS_ENUM(int , deviceUpdateAlertType) {
     
     deviceUpdateAlertType_update    = 0,//设备更新的
-    
     deviceUpdateAlertType_reset     = 1,//设备重置的
-    
 };
 
 @interface JVCDeviceUpdateViewController ()
 {
     UITextField *textFieldDevice;
-    
     UITextField *textFieldVersion;
-    
     __block JVCHomeIPCUpdate *homeIPC;
-    
     UIAlertView *alertDown;
-    
-     UIAlertView *alertWrite;
-    
+    UIAlertView *alertWrite;
     UIProgressView *_progressView;
-    
     CustomIOS7AlertView *alertViewios7;
-
 }
 
 @end
@@ -42,8 +33,9 @@ typedef NS_ENUM(int , deviceUpdateAlertType) {
 @implementation JVCDeviceUpdateViewController
 @synthesize modelDevice;
 
-static const  kOriginOff_y      = 20;//距离顶端的距离
-static const  kSizeSeperate     = 20;//2个textfield的间距
+static const CGFloat  kOriginOff_y      = 20.0f;     //距离顶端的距离
+static const CGFloat  kSizeSeperate     = 20.0f;     //2个textfield的间距
+static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,34 +67,31 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 
 - (void)BackClick
 {
-    [homeIPC release];
-
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //升级
 - (void)updateDevieVersion
 {
-    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
-
-    DDLogVerbose(@"%d===0001=%d==",self.retainCount,homeIPC.retainCount);
-
-    JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result){
     
-        DDLogVerbose(@"__%s==%d",__FUNCTION__,result);
+    JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result,NSString *strNewVersion){
+        
+        
+        DDLogVerbose(@"%s---------retainCount = %d",__FUNCTION__,homeIPC.retainCount);
+    
         
         if (result == JVCHomeIPCUpdateCheckoutNewVersionHighVersion) {//最新
         
             dispatch_async(dispatch_get_main_queue(), ^{
             
+                [self dellocHomeIPCUpdateHelper];
+                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_no_new_version")];
                 
             });
             
         }else{//升级
 
-             [homeIPC CancelDownloadUpdate];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
@@ -111,20 +100,20 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         }
     };
     
-    
     JVCHomeIPCDownloadUpdateProgressBlock JVCHomeIPCDownloadUpdateProgressBlock = ^(int result){
         
         DDLogVerbose(@"__%s=JVCHomeIPCDownloadUpdateProgressBlock=%d",__FUNCTION__,result);
+        
         dispatch_async(dispatch_get_main_queue(), ^{
- 
-        if (alertViewios7 == nil ) {
             
-            [self creatAlertWithProgress:YES andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_downing")];
-        }else{
-            
-            [self updataPregressView:result];
-        }
-    });
+            if (alertViewios7 == nil ) {
+                
+                [self creatAlertWithProgress:YES andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_downing")];
+            }else{
+                
+                [self updataPregressView:result];
+            }
+       });
     
     };
     
@@ -132,7 +121,10 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         
         DDLogVerbose(@"__%s=JVCHomeIPCErrorBlock=%d",__FUNCTION__,result);
         
+        [self dellocHomeIPCUpdateHelper];
+        
         NSString *errorString = nil;
+        
         switch (result) {
             case JVCHomeIPCErrorUpdateError:
                 errorString = LOCALANGER(@"EditDeviceDetailViewController_device_down_upload_error");
@@ -159,31 +151,33 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
     
     JVCHomeIPCFinshedBlock FinshedBlock = ^(int result){
         
-        DDLogVerbose(@"__%s=JVCHomeIPCFinshedBlock=%d",__FUNCTION__,result);
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self dismissAlertViewAndProgressView];
 
+            switch (result) {
+                case JVCHomeIPCFinshedDownload:
+                    break;
+                case JVCHomeIPCFinshedWrite:
+                {
+                    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
 
-        switch (result) {
-            case JVCHomeIPCFinshedDownload:
-                break;
-            case JVCHomeIPCFinshedWrite:
-            {
-                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
-
-            }
-                break;
-            case JVCHomeIPCFinshedCancelDownload:
-                [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_cancel")];
-                break;
+                }
+                    break;
+                case JVCHomeIPCFinshedCancelDownload:{
+                    
+                    [self dellocHomeIPCUpdateHelper];
+                    [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_cancel")];
                 
-            default:
-                break;
-        }
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         
-     });
-};
+        });
+   };
     
     JVCHomeIPCWriteProgressBlock WriteProgressBlock = ^(int result){
         
@@ -201,26 +195,56 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         });
     };
     
-    JVCHomeIPCResetBlock ResetBlock = ^(int result){
+    JVCHomeIPCResetBlock ResetBlock = ^(int result,NSString *strNewVersion){
         
-        DDLogVerbose(@"__%s=JVCHomeIPCResetBlock=%d",__FUNCTION__,result);
+         [self dellocHomeIPCUpdateHelper];
+       
     };
 
+    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
     
     homeIPC.homeIPCUpdateCheckVersionStatusBlock = CheckVersionStatusBlock;
+    homeIPC.homeIPCErrorBlock                    = errorBlock;
+    homeIPC.homeIPCDownloadUpdateProgressBlock   = JVCHomeIPCDownloadUpdateProgressBlock;
+    homeIPC.homeIPCFinshedBlock                  = FinshedBlock;
+    homeIPC.homeIPCWriteProgressBlock            = WriteProgressBlock;
+    homeIPC.homeIPCResetBlock                    = ResetBlock;
     
-    homeIPC.homeIPCErrorBlock = errorBlock;
+    [homeIPC checkIpcIsNewVersion];
+}
+
+/**
+ *  释放升级IPC辅助类
+ */
+-(void)dellocHomeIPCUpdateHelper {
+
+    if (homeIPC != nil) {
+        
+        [homeIPC release];
+        homeIPC = nil;
+    }
+}
+
+/**
+ *  如果线程正在循环下载确保线程退出
+ */
+-(void)cancelHomeIPC {
     
-    homeIPC.homeIPCDownloadUpdateProgressBlock = JVCHomeIPCDownloadUpdateProgressBlock;
     
-    homeIPC.homeIPCFinshedBlock = FinshedBlock;
     
-    homeIPC.homeIPCWriteProgressBlock = WriteProgressBlock;
-    
-    homeIPC.homeIPCResetBlock = ResetBlock;
-    
-    DDLogVerbose(@"%d===0002=%d==",self.retainCount,homeIPC.retainCount);
-    
+    while (true) {
+        
+        if (homeIPC) {
+            
+            [homeIPC CancelDownloadUpdate];
+            
+            usleep(kCancelWithTime);
+            
+        }else {
+        
+            break;
+        }
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -230,16 +254,23 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
        if (buttonIndex == 0) {
            
            [self startDown];
+           
+       }else {
+       
+           [self dellocHomeIPCUpdateHelper];
        }
    }else if(alertView.tag == deviceUpdateAlertType_reset)
    {
        if (buttonIndex == 0) {
            
            [self startDown];
+           
+       }else{
+       
+           [self dellocHomeIPCUpdateHelper];
        }
    }
 }
-
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
@@ -272,7 +303,6 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
     [homeIPC CancelDownloadUpdate];
 }
 
-
 /**
  * 让alerview 取消
  */
@@ -294,14 +324,13 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
             [_progressView release];
             _progressView = nil;
         }
-        
     }
 }
 
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -312,7 +341,7 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 {
     _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     
-   // if (IOS_VERSION>=7.0) {
+   if (IOS_VERSION>=7.0) {
         
         if (hasProgress) {
             
@@ -346,31 +375,35 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         
         // You may use a Block, rather than a delegate.
         [alertViewios7 setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+            
             [homeIPC CancelDownloadUpdate];
             [alertView close];
         }];
+       
         [alertViewios7 setUseMotionEffects:true];
-        
-        // And launch the dialog
+       
         [alertViewios7 show];
         [alertViewios7 release];
         
-//    }else{
-//        if (hasProgress) {
-//            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:@"\n" delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles: nil];
-//            _progressView.frame = CGRectMake(30, 80, 230, 30);
-//            alertDown.tag = 100000;
-//        }else{
-//            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-//            _progressView.frame = CGRectMake(30, 90, 230, 30);
-//            
-//        }
-//        
-//        [alertDown addSubview:_progressView];
-//        
-//        [alertDown show];
-//        
-//    }
+    }else{
+        
+        if (hasProgress) {
+            
+            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:@"\n" delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles: nil];
+            _progressView.frame = CGRectMake(30, 80, 230, 30);
+            alertDown.tag = 100000;
+            
+        }else{
+            
+            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+            _progressView.frame = CGRectMake(30, 90, 230, 30);
+        }
+        
+        [alertDown addSubview:_progressView];
+        
+        [alertDown show];
+        
+    }
 }
 
 /**
@@ -382,20 +415,12 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)dealloc
 {
-    
+    [homeIPC release];
     [modelDevice release];
+    
+    DDLogVerbose(@"%s-------------##################",__FUNCTION__);
     
     [super dealloc];
 }

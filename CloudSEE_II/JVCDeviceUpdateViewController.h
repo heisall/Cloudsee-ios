@@ -14,4 +14,10 @@
     JVCDeviceModel *modelDevice;
 }
 @property(nonatomic,retain)JVCDeviceModel *modelDevice;
+
+
+/**
+ *  如果线程正在循环下载确保线程退出
+ */
+-(void)cancelHomeIPC;
 @end

@@ -11,11 +11,12 @@
 @class JVCHomeIPCUpdate;
 
 /**
- *  检查当前的版本是否可以更新
+ *   检查当前的版本是否可以更新
  *
- *  @param nStatus JVCHomeIPCUpdateCheckNewVersionStatus
+ *  @param nStatus       JVCHomeIPCUpdateCheckNewVersionStatus
+ *  @param strNewVersion 最新版本
  */
-typedef void (^JVCHomeIPCUpdateCheckVersionStatusBlock)(int nStatus);
+typedef void (^JVCHomeIPCUpdateCheckVersionStatusBlock)(int nStatus,NSString *strNewVersion);
 
 /**
  *  升级包下载进度回调块
@@ -51,7 +52,7 @@ typedef void (^JVCHomeIPCWriteProgressBlock)(int nProgressValue);
  *
  *  @param JVCHomeIPCFinshedType
  */
-typedef void (^JVCHomeIPCResetBlock)(int resetStatus);
+typedef void (^JVCHomeIPCResetBlock)(int resetStatus,NSString *strNewVersion);
 
 
 @interface JVCHomeIPCUpdate : NSObject
