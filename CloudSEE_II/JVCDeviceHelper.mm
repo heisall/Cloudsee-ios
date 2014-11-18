@@ -764,6 +764,8 @@ char outTextBuffer[1280*720*3];
     
     NSString *parseStr=[requestInfoMDict JSONString];
     
+    DDLogVerbose(@"%s--##################------%@",__FUNCTION__,parseStr);
+    
     [requestInfoMDict release];
     
     id resultID= [self getResponseLongByRequestBusinessServer:parseStr];

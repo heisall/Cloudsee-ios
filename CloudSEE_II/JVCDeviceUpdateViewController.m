@@ -58,7 +58,7 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 {
 //    homeIPC = [[JVCHomeIPCUpdate alloc] init:modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
     
-    homeIPC = [[JVCHomeIPCUpdate alloc] init:modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:@"V1.2.0.2" withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+    homeIPC = [[JVCHomeIPCUpdate alloc] init:modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
 
     
     JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result){
