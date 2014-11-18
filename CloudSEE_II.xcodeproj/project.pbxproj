@@ -539,6 +539,7 @@
 		AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */; };
 		AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */; };
 		AD616CDF1A1A1E49004214A5 /* edi_deviceUpdate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD616CDE1A1A1E49004214A5 /* edi_deviceUpdate@2x.png */; };
+		AD616CE31A1AEB61004214A5 /* JVCLogShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -1276,6 +1277,8 @@
 		AD616CDB1A19C9D1004214A5 /* JVCHomeIPCUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCHomeIPCUpdate.h; sourceTree = "<group>"; };
 		AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCHomeIPCUpdate.m; sourceTree = "<group>"; };
 		AD616CDE1A1A1E49004214A5 /* edi_deviceUpdate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_deviceUpdate@2x.png"; sourceTree = "<group>"; };
+		AD616CE11A1AEB61004214A5 /* JVCLogShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLogShowViewController.h; sourceTree = "<group>"; };
+		AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLogShowViewController.m; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -2574,6 +2577,15 @@
 			name = wheelshow;
 			sourceTree = "<group>";
 		};
+		AD616CE01A1AEAFE004214A5 /* log */ = {
+			isa = PBXGroup;
+			children = (
+				AD616CE11A1AEB61004214A5 /* JVCLogShowViewController.h */,
+				AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */,
+			);
+			name = log;
+			sourceTree = "<group>";
+		};
 		ADA22D4A19DA612C0092F8B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2884,6 +2896,7 @@
 		ADA77C2719D0281D003EE7A1 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				AD616CE01A1AEAFE004214A5 /* log */,
 				A7F46A6619F92D1000AC1B1F /* helpView */,
 				AD014DD919F4C02900E3D0FB /* apConfigHomeIPC */,
 				AD3BDC9819EBF7EB001B16D7 /* voiceenc */,
@@ -3651,6 +3664,7 @@
 				A7F405A219E563620070945F /* JVCQRCoderViewController.mm in Sources */,
 				ADA77C3119D029B4003EE7A1 /* JVCAccountHelper.mm in Sources */,
 				ADA22D8119DA85260092F8B9 /* JVCCloudSEEManagerHelper.m in Sources */,
+				AD616CE31A1AEB61004214A5 /* JVCLogShowViewController.m in Sources */,
 				A7F8044019FF2CD000934507 /* DBHelper.m in Sources */,
 				A709696919F22E0A00C191F8 /* UINavigationBar+JVCCustomNavBar.m in Sources */,
 				A7A576061A13929A000D0BBC /* JVCTencentHelp.m in Sources */,

@@ -36,6 +36,7 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCGetPassWordViewController.h"
 #import "JVCTencentHelp.h"
+#import "JVCLogShowViewController.h"
 
 enum LOGINBTNTYPE
 {
@@ -67,8 +68,6 @@ enum LOGINVIEWTAG
     UITextField     *textFieldPW;
     JVCDropDownView *dropDownView;//下拉view
     SystemSoundID    shake_sound_finish;
-    
-
 }
 
 @end
@@ -88,7 +87,8 @@ static const NSString       *KFISTOPEN  =@"fistOpen";//第一次打开
 static const CGFloat        kBottomButtonTitleFont              = 16.0f;
 static const CGFloat        kBottomButtonTitleHeight            = kBottomButtonTitleFont + 6.0;
 static const CGFloat        kRegisterButtonWithLocalButtonLeft  = 15.0f;
-static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线的高度
+static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;  //横线的高度
+static const CGFloat        kLongPressShowTime                  = 5.0f; //长按弹出日志的时间
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -172,6 +172,12 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
     NSString *imageLogoName = [UIImage imageBundlePath:@"log_logo.png"];
     UIImage *imageLogo = [[UIImage alloc] initWithContentsOfFile:imageLogoName];
     UIImageView *imageViewLogo = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width- imageLogo.size.width)/2.0,KlogoOffSet_y , imageLogo.size.width, imageLogo.size.height)];
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressClick:)];
+    longPress.minimumPressDuration = kLongPressShowTime;
+    [imageViewLogo addGestureRecognizer:longPress];
+    [longPress release];
+    imageViewLogo.userInteractionEnabled = YES;
     imageViewLogo.image = imageLogo;
     [self.view addSubview:imageViewLogo];
     [imageViewLogo release];
@@ -355,6 +361,22 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
         transition.delegate       = self;
         [self.view.layer addAnimation:transition forKey:nil];
         [self.navigationController pushViewController:popApViewcontroller animated:NO];
+    }
+}
+
+/**
+ *  长按弹出日志信息
+ *
+ *  @param gesture <#gesture description#>
+ */
+-(void)longPressClick:(UILongPressGestureRecognizer *)gesture
+{
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        JVCLogShowViewController *logShowViewController = [[JVCLogShowViewController alloc] init];
+        logShowViewController.strLogPath                = (NSString *)ACCOUNTSERVICELOG;
+        [self.navigationController pushViewController:logShowViewController animated:YES];
+        [logShowViewController release];
     }
 }
 

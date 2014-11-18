@@ -68,16 +68,16 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /**
+     *  设置ddlog
+     */
+    [self DDLogSettings];
     
     [self convertOldUserInfoToDatebase];
     
     [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] converOldDeviceListInDateFame];
     
     selectedSSID = [[NSMutableString alloc] init];
-    /**
-     *  设置ddlog
-     */
-    [self DDLogSettings];
     
     //云视通
     [self initYSTSDK];
