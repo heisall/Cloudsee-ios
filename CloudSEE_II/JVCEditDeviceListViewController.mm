@@ -430,7 +430,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             break;
         case JVCEditDeviceListViewControllerClickType_update:{
         
-        
             [self gotoDeviceUpdateController];
         }
             break;
