@@ -614,5 +614,8 @@
 "home_device_advance_titile"="升级内容";
 "home_device_advance_update"= "升级";
 "EditDeviceDetailViewController_device_cancel" = "下载取消";
-"JvcDeviceUpdateModel"= " 型号：";
-"JvcDeviceUpdatedevice"= " 设备号：";
+"JvcDeviceUpdateModel"= " 软件版本：";
+"JvcDeviceUpdatedevice"= " 型号：";
+"EditDeviceDetailViewController_device_title"="设备升级";
+"EditDeviceDetailViewController_device_updateSuccess"="设备升级成功";
+

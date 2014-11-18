@@ -61,7 +61,7 @@
 		A7A575F11A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575F01A12ED0C000D0BBC /* libuserAcount_v1.0.18_2014_11_12.a */; };
 		A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575F71A130A57000D0BBC /* libmtasdk.a */; };
 		A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FD1A130AA2000D0BBC /* libz.dylib */; };
-		A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FF1A130AB3000D0BBC /* AdSupport.framework */; };
+		A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FF1A130AB3000D0BBC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A576011A130ABD000D0BBC /* CoreTelephony.framework */; };
 		A7A576061A13929A000D0BBC /* JVCTencentHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A576051A13929A000D0BBC /* JVCTencentHelp.m */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };

@@ -199,7 +199,7 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
             }
         }
         
-        DDLogVerbose(@"%s-----------------009",__FUNCTION__);
+        DDLogVerbose(@"%s--------nDownloadSize=%d---------009",__FUNCTION__,nDownloadSize);
         if (isCancelDownload) {
             
             if (nDownloadSize == kDownloadMaxSize) {

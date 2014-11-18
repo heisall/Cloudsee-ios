@@ -197,13 +197,22 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     labelLeft.backgroundColor = [UIColor clearColor];
     labelLeft.font = [UIFont systemFontOfSize:KFontSize];
     
+    UILabel *labelright = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLeftViewWith, labelLeft.height)];
+    [labelright retain];
+    labelright.text =@" ";
+    labelright.textAlignment = UITextAlignmentCenter;
+    labelright.backgroundColor = [UIColor clearColor];
+    labelright.font = [UIFont systemFontOfSize:KFontSize];
+    
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(labelLeft.right, labelLeft.top, image.size.width, image.size.height)];
     textField.backgroundColor = [UIColor colorWithPatternImage:image];
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.keyboardType = UIKeyboardTypeASCIICapable;
     textField.returnKeyType = UIReturnKeyDone;
     textField.leftView = labelLeft;
-    
+    textField.rightViewMode = UITextFieldViewModeAlways;
+    textField.rightView = labelright;
+    [labelright release];
     [labelLeft release];
     [image release];
     

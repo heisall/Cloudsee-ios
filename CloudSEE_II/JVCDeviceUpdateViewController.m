@@ -10,6 +10,7 @@
 #import "JVCControlHelper.h"
 #import "JVCHomeIPCUpdate.h"
 #import "CustomIOS7AlertView.h"
+#import "LDProgressView.h"
 
 typedef NS_ENUM(int , deviceUpdateAlertType) {
     
@@ -22,9 +23,9 @@ typedef NS_ENUM(int , deviceUpdateAlertType) {
     UITextField *textFieldDevice;
     UITextField *textFieldVersion;
     __block JVCHomeIPCUpdate *homeIPC;
-    UIAlertView *alertDown;
-    UIAlertView *alertWrite;
-    UIProgressView *_progressView;
+        
+    LDProgressView *_progressView;
+    
     CustomIOS7AlertView *alertViewios7;
 }
 
@@ -39,22 +40,23 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-//    "EditDeviceDetailViewController_device_cancel" = "Download cancel";
-//    "JvcDeviceUpdateModel"= " model：";
-//    "JvcDeviceUpdatedevice"= " device：";
+    
+    self.title = LOCALANGER(@"EditDeviceDetailViewController_device_title");
+
     //设备的
     textFieldDevice = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdatedevice") backGroundImage:@"tex_field.png"];
     textFieldDevice.frame = CGRectMake((self.view.width - textFieldDevice.width)/2.0, kOriginOff_y, textFieldDevice.width, textFieldDevice.height);
-    textFieldDevice.textAlignment = UITextAlignmentLeft;
+    textFieldDevice.textAlignment = UITextAlignmentRight;
     textFieldDevice.text = modelDevice.deviceUpdateType;
+
+    
     textFieldDevice.userInteractionEnabled = NO;
     [self.view addSubview:textFieldDevice];
     //版本的
     textFieldVersion = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdateModel") backGroundImage:@"tex_field.png"];
     textFieldVersion.frame = CGRectMake((self.view.width - textFieldVersion.width)/2.0, textFieldDevice.bottom+kSizeSeperate, textFieldVersion.width, textFieldVersion.height);
     textFieldVersion.userInteractionEnabled = NO;
-    textFieldVersion.textAlignment = UITextAlignmentLeft;
+    textFieldVersion.textAlignment = UITextAlignmentRight;
     textFieldVersion.text = modelDevice.deviceVersion;
     [self.view addSubview:textFieldVersion];
     //升级的btn的
@@ -67,15 +69,17 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 
 - (void)BackClick
 {
+    self.modelDevice.deviceVersion =  textFieldVersion.text;
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //升级
 - (void)updateDevieVersion
 {
+    self.modelDevice.deviceVersion = textFieldVersion.text;
     
     JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result,NSString *strNewVersion){
-        
         
         DDLogVerbose(@"%s---------retainCount = %d",__FUNCTION__,homeIPC.retainCount);
     
@@ -84,6 +88,8 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
         
             dispatch_async(dispatch_get_main_queue(), ^{
             
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
                 [self dellocHomeIPCUpdateHelper];
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_no_new_version")];
@@ -94,7 +100,9 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
+                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:@selector(dellocHomeIPCUpdateHelper) selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
 
             });
         }
@@ -142,6 +150,11 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            [self dellocHomeIPCUpdateHelper];
         
             [self dismissAlertViewAndProgressView];
             
@@ -153,6 +166,9 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
             [self dismissAlertViewAndProgressView];
 
             switch (result) {
@@ -160,7 +176,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
                     break;
                 case JVCHomeIPCFinshedWrite:
                 {
-                    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
+                    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:@selector(dellocHomeIPCUpdateHelper) selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
 
                 }
                     break;
@@ -187,7 +203,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             
             if (alertViewios7 == nil ) {
                 
-                [self creatAlertWithProgress:NO andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_downing")];
+                [self creatAlertWithProgress:NO andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_setting")];
             }else{
                 
                 [self updataPregressView:result];
@@ -197,11 +213,28 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     
     JVCHomeIPCResetBlock ResetBlock = ^(int result,NSString *strNewVersion){
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            if (result == JVCHomeIPCResetSuccess) {
+                
+                textFieldVersion.text = strNewVersion;
+
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_updateSuccess")];
+            }else{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_update_error")];
+
+            }
+
+        });
          [self dellocHomeIPCUpdateHelper];
        
     };
 
     homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     
     homeIPC.homeIPCUpdateCheckVersionStatusBlock = CheckVersionStatusBlock;
     homeIPC.homeIPCErrorBlock                    = errorBlock;
@@ -263,7 +296,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
    {
        if (buttonIndex == 0) {
            
-           [self startDown];
+           [self startReset];
            
        }else{
        
@@ -275,8 +308,6 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
     [self cancelDeviceDown];
-    
-    [alertView close];
 }
 
 /**
@@ -284,6 +315,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
  */
 - (void)startReset
 {
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     [homeIPC resetDevice];
 }
 
@@ -310,21 +342,10 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
 {
     _progressView.progress = 0.0;
 
-    if (IOS_VERSION>=7.0) {
-        [alertViewios7 close];
-        alertViewios7 = nil;
-        
-    }else{
-        [alertDown dismissWithClickedButtonIndex:0 animated:YES];
-        
-        if (alertDown) {
-            [alertDown release];
-            alertDown = nil;
-            
-            [_progressView release];
-            _progressView = nil;
-        }
-    }
+    [alertViewios7 close];
+    [alertViewios7 setDelegate:nil];
+    alertViewios7 = nil;
+
 }
 
 
@@ -339,10 +360,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
  */
 - (void)creatAlertWithProgress:(BOOL)hasProgress  andTitle:(NSString *)title
 {
-    _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     
-   if (IOS_VERSION>=7.0) {
-        
         if (hasProgress) {
             
             alertViewios7= [[CustomIOS7AlertView alloc] initwithCancel:NO];
@@ -351,7 +369,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             alertViewios7= [[CustomIOS7AlertView alloc] initwithCancel:YES];
             
         }
-        UIView *_contentview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 100)];
+        UIView *_contentview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 120)];
         
         UILabel *_lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(10,20, 240, 40)];
         _lblTitle.numberOfLines = 0;
@@ -362,48 +380,26 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
         _lblTitle.backgroundColor = [UIColor clearColor];
         [_contentview addSubview:_lblTitle];
         [_lblTitle release];
-        
-        _progressView.frame = CGRectMake(20, 80, 220, 30);
+    
+        _progressView = [[LDProgressView alloc] initWithFrame:CGRectMake(20, 80, 220, 30)];
+        _progressView.color = [UIColor colorWithRed:0.00f green:0.64f blue:0.00f alpha:1.00f];
+        _progressView.flat = @YES;
+        _progressView.progress = 0.00;
+        _progressView.animate = @YES;
+
         alertViewios7.tag = 100000;
         [_contentview addSubview:_progressView];
-        
+        [_progressView release];
         // Add some custom content to the alert view
         [alertViewios7 setContainerView:_contentview];
         [_contentview release];
         
         [alertViewios7 setDelegate:self];
-        
-        // You may use a Block, rather than a delegate.
-        [alertViewios7 setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
-            
-            [homeIPC CancelDownloadUpdate];
-            [alertView close];
-        }];
-       
+    
         [alertViewios7 setUseMotionEffects:true];
-       
+        
         [alertViewios7 show];
         [alertViewios7 release];
-        
-    }else{
-        
-        if (hasProgress) {
-            
-            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:@"\n" delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles: nil];
-            _progressView.frame = CGRectMake(30, 80, 230, 30);
-            alertDown.tag = 100000;
-            
-        }else{
-            
-            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-            _progressView.frame = CGRectMake(30, 90, 230, 30);
-        }
-        
-        [alertDown addSubview:_progressView];
-        
-        [alertDown show];
-        
-    }
 }
 
 /**
