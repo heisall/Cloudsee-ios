@@ -53,6 +53,7 @@ typedef NS_ENUM (NSInteger,JVCEditDeviceListViewControllerClickType){
     JVCEditDeviceListViewControllerClickType_play,
      JVCEditDeviceListViewControllerClickType_safe,
     JVCEditDeviceListViewControllerClickType_alarm,
+    JVCEditDeviceListViewControllerClickType_update,
 };
 
 @end
@@ -146,7 +147,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
  */
 -(void)initWithRgbListArray {
     
-    mArrayColors                 = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroOrange,kJVCRGBColorMacroDeepRed,kJVCRGBColorMacroYellow,kJVCRGBColorMacroPurple,kJVCRGBColorMacroSkyBlue,nil];
+    mArrayColors                 = [[NSMutableArray alloc] initWithObjects:kJVCRGBColorMacroGreen,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroOrange,kJVCRGBColorMacroDeepRed,kJVCRGBColorMacroYellow,kJVCRGBColorMacroPurple,kJVCRGBColorMacroSkyBlue,kJVCRGBColorMacroGreen,nil];
 }
 
 /**
@@ -183,7 +184,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     mArrayIconNames  = [[NSMutableArray alloc] initWithCapacity:10];
     
     [mArrayIconNames addObjectsFromArray:@[@"edi_RemoteSetup.png",@"edi_deviceModify.png",@"edi_linkModel.png",
-                                           @"edi_channelManager.png",@"edi_play.png",@"edi_safe_un.png",@"edi_alarm.png"]];
+                                           @"edi_channelManager.png",@"edi_play.png",@"edi_safe_un.png",@"edi_alarm.png",@"edi_deviceUpdate.png"]];
 }
 
 /**
@@ -209,11 +210,13 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     JVCEditDeviceOperationView *alarmView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_alarm];
     
-    alarmView.hidden = isHidden;
-    safeView.hidden  = isHidden;
+     JVCEditDeviceOperationView *updateView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_update];
+    
+    alarmView.hidden  = isHidden;
+    safeView.hidden   = isHidden;
+    updateView.hidden = isHidden;
     
     [safeView setIconImage:isEanble == NO?[UIImage imageNamed:@"edi_safe_se.png"]:[UIImage imageNamed:@"edi_safe_un.png"]];
-
 }
 
 /**
@@ -223,7 +226,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     mArrayIconTitles              = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"JVCNetworkSettingViewController_title"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting")]];
+    [mArrayIconTitles addObjectsFromArray:@[LOCALANGER(@"JVCNetworkSettingViewController_title"),LOCALANGER(@"jvc_editDevice_Editbtn_device"),LOCALANGER(@"jvc_editDevice_Editbtn_licktype"),LOCALANGER(@"jvc_editDevice_Editbtn_channels"),LOCALANGER(@"jvc_editDevice_Editbtn_SeeImedity"),LOCALANGER(@"jvc_editDevice_Editbtn_safe"),LOCALANGER(@"jvc_editDevice_Editbtn_alarmseting"),LOCALANGER(@"jvc_editDevice_Editbtn_update")]];
 }
 
 /**
@@ -416,16 +419,18 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         case JVCEditDeviceListViewControllerClickType_safe:{
             
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_AlarmDevieManage];
-
             
             [self safeWithChangeStatus];
-            
         }
             break;
         case JVCEditDeviceListViewControllerClickType_NetworkSetting:{
         
-//            [self gotoNetworkSetting];
-            
+            [self gotoNetworkSetting];
+        }
+            break;
+        case JVCEditDeviceListViewControllerClickType_update:{
+        
+        
             [self gotoDeviceUpdateController];
         }
             break;
