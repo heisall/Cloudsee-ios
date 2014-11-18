@@ -519,7 +519,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             NSString *strkey = [NSString stringWithFormat:@"JVCNetworkSettingViewController_error%d",errorType];
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(strkey, nil)];
         
-        
         });
         
     };

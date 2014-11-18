@@ -611,3 +611,4 @@
 "JvcDeviceUpdateModel"= " model：";
 "JvcDeviceUpdatedevice"= " device：";
 "EditDeviceDetailViewController_device_title"="Device update";
+"EditDeviceDetailViewController_device_updateSuccess"="Device update success";

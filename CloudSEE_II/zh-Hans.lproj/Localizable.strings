@@ -617,4 +617,5 @@
 "JvcDeviceUpdateModel"= " 软件版本：";
 "JvcDeviceUpdatedevice"= " 型号：";
 "EditDeviceDetailViewController_device_title"="设备升级";
+"EditDeviceDetailViewController_device_updateSuccess"="设备升级成功";
 
