@@ -264,7 +264,6 @@ static JVCAlertHelper *shareAlertHelper = nil;
                      cancelTitle:(NSString *)titlecancel
                        alertTage:(int) alertTage
 {
-    [delegate retain];
     
     if (IOS8) {
         
@@ -306,7 +305,5 @@ static JVCAlertHelper *shareAlertHelper = nil;
         [alertView release];
     }
     
-    [delegate release];
-
 }
 @end

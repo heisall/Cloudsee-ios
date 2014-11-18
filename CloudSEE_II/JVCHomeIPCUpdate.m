@@ -83,6 +83,7 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         if (self.homeIPCUpdateCheckVersionStatusBlock) {
             
             self.homeIPCUpdateCheckVersionStatusBlock([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:mdUpdateInfo] == YES ? JVCHomeIPCUpdateCheckoutNewVersionNew : JVCHomeIPCUpdateCheckoutNewVersionHighVersion);
+            
         }
     
     });

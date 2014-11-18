@@ -25,7 +25,7 @@ typedef NS_ENUM(int , deviceUpdateAlertType) {
     
     UITextField *textFieldVersion;
     
-    JVCHomeIPCUpdate *homeIPC;
+    __block JVCHomeIPCUpdate *homeIPC;
     
     UIAlertView *alertDown;
     
@@ -73,12 +73,19 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
     
 }
 
+- (void)BackClick
+{
+    [homeIPC release];
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 //升级
 - (void)updateDevieVersion
 {
-//    homeIPC = [[JVCHomeIPCUpdate alloc] init:modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
-    
-    homeIPC = [[JVCHomeIPCUpdate alloc] init:modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+
+    DDLogVerbose(@"%d===0001=%d==",self.retainCount,homeIPC.retainCount);
 
     JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result){
     
@@ -93,7 +100,7 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
             });
             
         }else{//升级
-//
+
              [homeIPC CancelDownloadUpdate];
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -165,9 +172,6 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
             {
                 [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
 
-//            UIAlertView *alertView =  [[UIAlertView alloc]initWithTitle:@"是否重启设备" message:@"重启" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"重启", nil];
-//                [alertView show];
-//                [alertView release];
             }
                 break;
             case JVCHomeIPCFinshedCancelDownload:
@@ -178,9 +182,8 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
                 break;
         }
         
-    
- });
-    };
+     });
+};
     
     JVCHomeIPCWriteProgressBlock WriteProgressBlock = ^(int result){
         
@@ -215,6 +218,8 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
     homeIPC.homeIPCWriteProgressBlock = WriteProgressBlock;
     
     homeIPC.homeIPCResetBlock = ResetBlock;
+    
+    DDLogVerbose(@"%d===0002=%d==",self.retainCount,homeIPC.retainCount);
     
 }
 
@@ -307,7 +312,7 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 {
     _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     
-    if (IOS_VERSION>=7.0) {
+   // if (IOS_VERSION>=7.0) {
         
         if (hasProgress) {
             
@@ -350,22 +355,22 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         [alertViewios7 show];
         [alertViewios7 release];
         
-    }else{
-        if (hasProgress) {
-            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:@"\n" delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles: nil];
-            _progressView.frame = CGRectMake(30, 80, 230, 30);
-            alertDown.tag = 100000;
-        }else{
-            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-            _progressView.frame = CGRectMake(30, 90, 230, 30);
-            
-        }
-        
-        [alertDown addSubview:_progressView];
-        
-        [alertDown show];
-        
-    }
+//    }else{
+//        if (hasProgress) {
+//            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:@"\n" delegate:self cancelButtonTitle:LOCALANGER(@"Cancel") otherButtonTitles: nil];
+//            _progressView.frame = CGRectMake(30, 80, 230, 30);
+//            alertDown.tag = 100000;
+//        }else{
+//            alertDown = [[UIAlertView alloc] initWithTitle:LOCALANGER(title) message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+//            _progressView.frame = CGRectMake(30, 90, 230, 30);
+//            
+//        }
+//        
+//        [alertDown addSubview:_progressView];
+//        
+//        [alertDown show];
+//        
+//    }
 }
 
 /**
@@ -375,7 +380,6 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 {
     _progressView.progress =  progressNum/100.0;
 }
-
 
 
 /*
@@ -390,9 +394,6 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 
 - (void)dealloc
 {
-    if (homeIPC!=nil) {
-        [homeIPC release];
-    }
     
     [modelDevice release];
     
