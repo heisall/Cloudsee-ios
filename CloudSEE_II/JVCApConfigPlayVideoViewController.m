@@ -1120,7 +1120,7 @@ static const int            kRepeatRequestCount      = 6;
 -(void)showOldHomeIPCUpdateAlert{
     
     
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"remoteApSettingOldVersion", nil) delegate:self selectAction:@selector(oldHomeIPCDisconnect) cancelAction:@selector(showOldDeviceHelpView) selectTitle:LOCALANGER(@"customAlert_sure") cancelTitle:LOCALANGER(@"customAlert_update")];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"remoteApSettingOldVersion", nil) delegate:self selectAction:@selector(oldHomeIPCDisconnect) cancelAction:@selector(showOldDeviceHelpView) selectTitle:LOCALANGER(@"customAlert_sure") cancelTitle:LOCALANGER(@"customAlert_update")alertTage:0];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

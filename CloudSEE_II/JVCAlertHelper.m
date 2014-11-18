@@ -262,6 +262,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
                     cancelAction:(SEL)cancelActon
                      selectTitle:(NSString *)selectTitle
                      cancelTitle:(NSString *)titlecancel
+                       alertTage:(int) alertTage
 {
     [delegate retain];
     
@@ -301,6 +302,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:delegate cancelButtonTitle:selectTitle otherButtonTitles:titlecancel, nil];
         [alertView show];
         alertView.delegate = delegate;
+        alertView.tag = alertTage;
         [alertView release];
     }
     

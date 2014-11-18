@@ -591,3 +591,22 @@
 "userDefine" = "User refused to visit";
 "NSLocalString"="English";
 "jvc_more_media_no_date" = "相册中暂时没有图片或视频";
+
+//设备升级
+"EditDeviceDetailViewController_device_update_error"="Failed to load the firmware, please update again.";
+"EditDeviceDetailViewController_device_down_error"="Failed to update, please operate again";
+"EditDeviceDetailViewController_device_dhome_anothersown_upload_error"="Failed to update, please update again.";
+"EditDeviceDetailViewController_device_no_new_version"="Latest version now, no need to update";
+"EditDeviceDetailViewController_device_TIMEr_EQUAL"="End time can't be the same as start time";
+"EditDeviceDetailViewController_device_update_success"="Reboot successfully";
+"EditDeviceDetailViewController_device_update_error"="Failed to reboot, please reboot manually";
+"EditDeviceDetailViewController_device_restart"="Update successfully, do you want to reboot?";
+"EditDeviceDetailViewController_device_restart_click"="Reboot";
+"EditDeviceDetailViewController_device_no_newVirsion"="No need to click again for there is no new version";
+"EditDeviceDetailViewController_device_downing"="Loading firmware now, please wait...";
+"EditDeviceDetailViewController_device_setting"="Installing firmware now, please keep the power on and wait...";
+"home_device_advance_titile"="Update info";
+"home_device_advance_update"= "Update";
+"EditDeviceDetailViewController_device_cancel" = "Download cancel";
+"JvcDeviceUpdateModel"= " model：";
+"JvcDeviceUpdatedevice"= " device：";

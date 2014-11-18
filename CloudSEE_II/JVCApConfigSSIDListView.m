@@ -272,7 +272,7 @@ static NSString const *kWifiUserName     =  @"wifiUserName";
     getWifiListTimer = nil;
     
     
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"get_WIFI_list_timeOut", nil) delegate:self selectAction:nil cancelAction:nil  selectTitle:NSLocalizedString(@"Sure", nil) cancelTitle:nil];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:NSLocalizedString(@"get_WIFI_list_timeOut", nil) delegate:self selectAction:nil cancelAction:nil  selectTitle:NSLocalizedString(@"Sure", nil) cancelTitle:nil alertTage:0];
 }
 
 #pragma mark tableview delegate

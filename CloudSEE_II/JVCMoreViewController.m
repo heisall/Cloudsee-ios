@@ -286,7 +286,7 @@ static const int        KUserLoginOutState_Success  = 0;   //账号注册成功
 - (void)showUserLoginOutAlert
 {
     
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") delegate:self selectAction:@selector(userLoginOut) cancelAction:nil selectTitle:LOCALANGER(@"jvc_more_loginout_ok") cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvc_more_loginout") delegate:self selectAction:@selector(userLoginOut) cancelAction:nil selectTitle:LOCALANGER(@"jvc_more_loginout_ok") cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")alertTage:0];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

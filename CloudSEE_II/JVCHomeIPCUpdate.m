@@ -189,7 +189,6 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
                     break;
                 }
                 
-                usleep(1000*1000);
             }
         }
         

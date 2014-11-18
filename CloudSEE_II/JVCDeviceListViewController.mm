@@ -892,7 +892,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         
         if (ystNum.length>0) {
             
-            [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") delegate:self selectAction:@selector(AddDevice) cancelAction:@selector(removeAddapNum) selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit")];
+            [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"JDCSViewController_ap_setting") delegate:self selectAction:@selector(AddDevice) cancelAction:@selector(removeAddapNum) selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:0];
         }
     }
 }

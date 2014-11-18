@@ -284,7 +284,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") ];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:0];
     
     
 }

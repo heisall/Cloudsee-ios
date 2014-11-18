@@ -598,3 +598,21 @@
 "JVCNetworkSettingViewController_error1"     = "暂不支持配置此设备,仅支持IPC设备";
 "JVCNetworkSettingViewController_power"      = "权限不够!";
 
+//设备升级
+"EditDeviceDetailViewController_device_update_error"="设备加载新程序失败，请重新升级";
+"EditDeviceDetailViewController_device_down_error"="下载更新文件出错，请重新操作";
+"EditDeviceDetailViewController_device_down_upload_error"="更新出错，请重新更新";
+"EditDeviceDetailViewController_device_no_new_version"="设备已经是最新版本，无需更新";
+"EditDeviceDetailViewController_device_TIMEr_EQUAL"="亲，你有点小调皮哦，结束时间与开始时间不能相同";
+"EditDeviceDetailViewController_device_update_success"="重启设备";
+"EditDeviceDetailViewController_device_update_error"="设备重启失败，您可以手动重启设备。";
+"EditDeviceDetailViewController_device_restart"="设备版本更新成功，是否重启设备";
+"EditDeviceDetailViewController_device_restart_click"="重启";
+"EditDeviceDetailViewController_device_no_newVirsion"="不要点击我了，真的没有最新了";
+"EditDeviceDetailViewController_device_downing"="设备正在拼命的下载升级文件,请耐心等待...";
+"EditDeviceDetailViewController_device_setting"="设备升级中，请勿断电";
+"home_device_advance_titile"="升级内容";
+"home_device_advance_update"= "升级";
+"EditDeviceDetailViewController_device_cancel" = "下载取消";
+"JvcDeviceUpdateModel"= " 型号：";
+"JvcDeviceUpdatedevice"= " 设备号：";

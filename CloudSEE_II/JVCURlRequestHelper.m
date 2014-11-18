@@ -231,7 +231,7 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
 //        [alertView show];
 //        [alertView release];
         
-        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)];
+        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)alertTage:0];
     
     });
 }

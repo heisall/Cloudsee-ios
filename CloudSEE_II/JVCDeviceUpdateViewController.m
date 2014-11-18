@@ -10,6 +10,15 @@
 #import "JVCControlHelper.h"
 #import "JVCHomeIPCUpdate.h"
 #import "CustomIOS7AlertView.h"
+
+typedef NS_ENUM(int , deviceUpdateAlertType) {
+    
+    deviceUpdateAlertType_update    = 0,//设备更新的
+    
+    deviceUpdateAlertType_reset     = 1,//设备重置的
+    
+};
+
 @interface JVCDeviceUpdateViewController ()
 {
     UITextField *textFieldDevice;
@@ -39,23 +48,25 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+//    "EditDeviceDetailViewController_device_cancel" = "Download cancel";
+//    "JvcDeviceUpdateModel"= " model：";
+//    "JvcDeviceUpdatedevice"= " device：";
     //设备的
-    textFieldDevice = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:@"设备号：" backGroundImage:@"tex_field.png"];
+    textFieldDevice = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdatedevice") backGroundImage:@"tex_field.png"];
     textFieldDevice.frame = CGRectMake((self.view.width - textFieldDevice.width)/2.0, kOriginOff_y, textFieldDevice.width, textFieldDevice.height);
     textFieldDevice.textAlignment = UITextAlignmentLeft;
     textFieldDevice.text = modelDevice.deviceUpdateType;
     textFieldDevice.userInteractionEnabled = NO;
     [self.view addSubview:textFieldDevice];
     //版本的
-    textFieldVersion = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:@"型号：" backGroundImage:@"tex_field.png"];
+    textFieldVersion = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdateModel") backGroundImage:@"tex_field.png"];
     textFieldVersion.frame = CGRectMake((self.view.width - textFieldVersion.width)/2.0, textFieldDevice.bottom+kSizeSeperate, textFieldVersion.width, textFieldVersion.height);
     textFieldVersion.userInteractionEnabled = NO;
     textFieldVersion.textAlignment = UITextAlignmentLeft;
     textFieldVersion.text = modelDevice.deviceVersion;
     [self.view addSubview:textFieldVersion];
     //升级的btn的
-    UIButton *btnUpDate = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:@"一键升级" normalImage:@"btn_Bg.png" horverimage:nil];
+    UIButton *btnUpDate = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"home_device_advance_update") normalImage:@"btn_Bg.png" horverimage:nil];
     btnUpDate.frame = CGRectMake(textFieldVersion.left, textFieldVersion.bottom+kSizeSeperate, textFieldVersion.width, btnUpDate.height);
     [btnUpDate addTarget:self  action:@selector(updateDevieVersion) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnUpDate];
@@ -77,7 +88,7 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         
             dispatch_async(dispatch_get_main_queue(), ^{
             
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:@"没有最新版本"];
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_no_new_version")];
                 
             });
             
@@ -87,9 +98,8 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:nil delegate:self cancelButtonTitle:@"更新" otherButtonTitles:@"取消", nil];
-                [alertView show];
-                [alertView release];
+                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
+
             });
         }
     };
@@ -118,17 +128,17 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         NSString *errorString = nil;
         switch (result) {
             case JVCHomeIPCErrorUpdateError:
-                errorString = @"更新出错";
+                errorString = LOCALANGER(@"EditDeviceDetailViewController_device_down_upload_error");
                 break;
             case JVCHomeIPCErrorTimeout:
-                errorString = @"更新超时";
+                errorString = LOCALANGER(@"EditDeviceDetailViewController_device_down_upload_error");
                 break;
             case JVCHomeIPCErrorWriteError:
-                errorString = @"烧写出错";
+                errorString = LOCALANGER(@"EditDeviceDetailViewController_device_update_error");
                 break;
                 
             default:
-                   errorString = @"出错";
+                errorString = LOCALANGER(@"EditDeviceDetailViewController_device_down_upload_error");
                 break;
         }
         
@@ -144,11 +154,32 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
         
         DDLogVerbose(@"__%s=JVCHomeIPCFinshedBlock=%d",__FUNCTION__,result);
         dispatch_async(dispatch_get_main_queue(), ^{
-        
+            
             [self dismissAlertViewAndProgressView];
 
-        });
 
+        switch (result) {
+            case JVCHomeIPCFinshedDownload:
+                break;
+            case JVCHomeIPCFinshedWrite:
+            {
+                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
+
+//            UIAlertView *alertView =  [[UIAlertView alloc]initWithTitle:@"是否重启设备" message:@"重启" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"重启", nil];
+//                [alertView show];
+//                [alertView release];
+            }
+                break;
+            case JVCHomeIPCFinshedCancelDownload:
+                [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_cancel")];
+                break;
+                
+            default:
+                break;
+        }
+        
+    
+ });
     };
     
     JVCHomeIPCWriteProgressBlock WriteProgressBlock = ^(int result){
@@ -189,17 +220,43 @@ static const  kSizeSeperate     = 20;//2个textfield的间距
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   
-    [homeIPC DownloadUpdatePacket];
+   if(alertView.tag == deviceUpdateAlertType_update)
+   {
+       if (buttonIndex == 0) {
+           
+           [self startDown];
+       }
+   }else if(alertView.tag == deviceUpdateAlertType_reset)
+   {
+       if (buttonIndex == 0) {
+           
+           [self startDown];
+       }
+   }
 }
 
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
-    [self dismissAlertViewAndProgressView];
     [self cancelDeviceDown];
     
     [alertView close];
+}
+
+/**
+ *  重启设备
+ */
+- (void)startReset
+{
+    [homeIPC resetDevice];
+}
+
+/**
+ *  开始下载
+ */
+- (void)startDown
+{
+     [homeIPC DownloadUpdatePacket];
 }
 
 /**

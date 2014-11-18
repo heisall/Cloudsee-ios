@@ -66,7 +66,7 @@ static const int  ADDCONFIGHEIGIN = 64;//按钮多出来的那个高度
 - (void)exitToAPPConfig
 {
   
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_ap_Alert_message_ios7")  delegate:self selectAction:@selector(exist) cancelAction:nil  selectTitle:LOCALANGER(@"home_ap_Alert_GOON") cancelTitle:LOCALANGER(@"home_ap_Alert_NO")];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_ap_Alert_message_ios7")  delegate:self selectAction:@selector(exist) cancelAction:nil  selectTitle:LOCALANGER(@"home_ap_Alert_GOON") cancelTitle:LOCALANGER(@"home_ap_Alert_NO")alertTage:0];
 
 }
 

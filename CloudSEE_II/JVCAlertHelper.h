@@ -99,5 +99,6 @@
                     selectAction:(SEL)selectActon
                     cancelAction:(SEL)cancelActon
                      selectTitle:(NSString *)selectTitle
-                     cancelTitle:(NSString *)titlecancel;
+                     cancelTitle:(NSString *)titlecancel
+                       alertTage:(int) alertTage;
 @end

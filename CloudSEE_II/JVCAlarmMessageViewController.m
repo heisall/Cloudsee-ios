@@ -151,7 +151,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
 
 
         
-        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvcAlarm_cleanAlll")  delegate:self selectAction:@selector(clearALlAlarm) cancelAction:nil  selectTitle:LOCALANGER(@"jvc_more_loginout_ok" )  cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")];
+        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvcAlarm_cleanAlll")  delegate:self selectAction:@selector(clearALlAlarm) cancelAction:nil  selectTitle:LOCALANGER(@"jvc_more_loginout_ok" )  cancelTitle:LOCALANGER(@"jvc_more_loginout_quit")alertTage:0];
     
     }
 }
