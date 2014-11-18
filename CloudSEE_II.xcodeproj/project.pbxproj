@@ -74,6 +74,10 @@
 		A7AF72CF1A15A8C40030D490 /* myVideo_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */; };
 		A7AF72D51A15ADF00030D490 /* JVCShowLargeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */; };
 		A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */; };
+		A7B172A21A1AE6D700D364CB /* LDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B1729D1A1AE6D700D364CB /* LDProgressView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A7B172A31A1AE6D700D364CB /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B1729F1A1AE6D700D364CB /* UIColor+RGBValues.m */; };
+		A7B172A41A1AE6D700D364CB /* DXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B172A11A1AE6D700D364CB /* DXAlertView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A7B172A81A1AEBF900D364CB /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B172A71A1AEBF900D364CB /* CustomIOS7AlertView.m */; };
 		A7B2093B1A19C6370016E59B /* DCRoundSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209351A19C6370016E59B /* DCRoundSwitch.m */; };
 		A7B2093C1A19C6370016E59B /* DCRoundSwitchKnobLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209361A19C6370016E59B /* DCRoundSwitchKnobLayer.m */; };
 		A7B2093D1A19C6370016E59B /* DCRoundSwitchOutlineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209381A19C6370016E59B /* DCRoundSwitchOutlineLayer.m */; };
@@ -742,6 +746,14 @@
 		A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCShowLargeImageViewController.m; sourceTree = "<group>"; };
 		A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCZoomScrollView.h; sourceTree = "<group>"; };
 		A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCZoomScrollView.m; sourceTree = "<group>"; };
+		A7B1729C1A1AE6D700D364CB /* LDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDProgressView.h; sourceTree = "<group>"; };
+		A7B1729D1A1AE6D700D364CB /* LDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDProgressView.m; sourceTree = "<group>"; };
+		A7B1729E1A1AE6D700D364CB /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
+		A7B1729F1A1AE6D700D364CB /* UIColor+RGBValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBValues.m"; sourceTree = "<group>"; };
+		A7B172A01A1AE6D700D364CB /* DXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXAlertView.h; sourceTree = "<group>"; };
+		A7B172A11A1AE6D700D364CB /* DXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXAlertView.m; sourceTree = "<group>"; };
+		A7B172A61A1AEBF900D364CB /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		A7B172A71A1AEBF900D364CB /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		A7B209331A19C6370016E59B /* DCRoundSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitch.h; sourceTree = "<group>"; };
 		A7B209341A19C6370016E59B /* DCRoundSwitchKnobLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRoundSwitchKnobLayer.h; sourceTree = "<group>"; };
 		A7B209351A19C6370016E59B /* DCRoundSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRoundSwitch.m; sourceTree = "<group>"; };
@@ -1606,6 +1618,28 @@
 				A7A576051A13929A000D0BBC /* JVCTencentHelp.m */,
 			);
 			name = jvcTencentHelp;
+			sourceTree = "<group>";
+		};
+		A7B1729B1A1AE6CA00D364CB /* progressalwert */ = {
+			isa = PBXGroup;
+			children = (
+				A7B1729C1A1AE6D700D364CB /* LDProgressView.h */,
+				A7B1729D1A1AE6D700D364CB /* LDProgressView.m */,
+				A7B1729E1A1AE6D700D364CB /* UIColor+RGBValues.h */,
+				A7B1729F1A1AE6D700D364CB /* UIColor+RGBValues.m */,
+				A7B172A01A1AE6D700D364CB /* DXAlertView.h */,
+				A7B172A11A1AE6D700D364CB /* DXAlertView.m */,
+			);
+			name = progressalwert;
+			sourceTree = "<group>";
+		};
+		A7B172A51A1AEBE800D364CB /* customAlert */ = {
+			isa = PBXGroup;
+			children = (
+				A7B172A61A1AEBF900D364CB /* CustomIOS7AlertView.h */,
+				A7B172A71A1AEBF900D364CB /* CustomIOS7AlertView.m */,
+			);
+			name = customAlert;
 			sourceTree = "<group>";
 		};
 		A7B209321A19C61D0016E59B /* DCRoundSwitch */ = {
@@ -2862,6 +2896,8 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				A7B172A51A1AEBE800D364CB /* customAlert */,
+				A7B1729B1A1AE6CA00D364CB /* progressalwert */,
 				A7B209321A19C61D0016E59B /* DCRoundSwitch */,
 				A7A575F21A130A0C000D0BBC /* Tencent */,
 				AD59EFE21A086228001688FC /* RMDateSelectionViewController */,
@@ -3553,6 +3589,7 @@
 				A7F6C5E119F8977D0090B6F0 /* JVCHorizontalScreenBar.m in Sources */,
 				AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m in Sources */,
 				A709697819F2468900C191F8 /* JVCControlHelper.m in Sources */,
+				A7B172A31A1AE6D700D364CB /* UIColor+RGBValues.m in Sources */,
 				A7263C4619E7C792003C22DE /* JVCDropDownView.m in Sources */,
 				A7F58C001A03863C00EA0C4F /* JVCOperationModifyViewController.m in Sources */,
 				A7F5013F19D515C800AA78F0 /* JVCApHelpViewController.mm in Sources */,
@@ -3611,6 +3648,7 @@
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,
 				A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */,
 				ADA47C151A136E6A003AA90A /* JVCWiredInfoTableViewController.m in Sources */,
+				A7B172A81A1AEBF900D364CB /* CustomIOS7AlertView.m in Sources */,
 				A7F5EF7719D2DC18009B797A /* JVCAlertHelper.m in Sources */,
 				A7F50A2519FA2D3F004D061F /* UIScrollView+MJExtension.m in Sources */,
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
@@ -3682,6 +3720,7 @@
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
 				A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */,
+				A7B172A21A1AE6D700D364CB /* LDProgressView.m in Sources */,
 				ADA22E0119DAAE2A0092F8B9 /* CADebugMacros.cpp in Sources */,
 				A7B6EE131A149EC90024F836 /* JVCYTOperaitonView.m in Sources */,
 				A7F8DE3419EE4770006CE984 /* JVCPopStreamView.m in Sources */,
@@ -3696,6 +3735,7 @@
 				A7F50A2219FA2D3F004D061F /* MJRefreshHeaderView.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
 				A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */,
+				A7B172A41A1AE6D700D364CB /* DXAlertView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
 				A7F5557319D90FB10009F75C /* SPLockScreen.m in Sources */,
 				A7FAF5B219D1159500B3F395 /* UIView+ViewFrame.m in Sources */,

@@ -531,7 +531,7 @@ static const CGFloat        kBottomButtonWithLineHeight         = 1.0f;//横线�
 
                 JVCDataBaseHelper *fmdbHelp =  [JVCDataBaseHelper shareDataBaseHelper] ;
                 [fmdbHelp writeUserInfoToDataBaseWithUserName:textFieldUser.text passWord:textFieldPW.text];
-                
+               // kkUserName = kkUserName;
                 [self modifyUnLegalUserAndPw];
                 
                 

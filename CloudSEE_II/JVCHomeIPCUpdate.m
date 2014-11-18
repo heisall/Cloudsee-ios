@@ -98,16 +98,9 @@ static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间�
 
         [deviceHelperObj deviceUpdateMath:strLoginUserName  deviceUpdateMathType:UPDATEDEVICEMATH_CMD_EXIT deviceGuidStr:strYstNumber updateText:nil downloadSize:0 updateVer:nil];
         
-        while (TRUE) {
+        if (isCancelDownload == TRUE) {
             
-            if (isCancelDownload) {
-                
-                usleep(kCancelDownloadTime);
-                
-            }else{
-                
-                break;
-            }
+            isCancelDownload = FALSE;
         }
     });
 }
@@ -194,6 +187,8 @@ static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间�
                     
                     break;
                 }
+                
+                usleep(1000*1000);
             }
         }
         

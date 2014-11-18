@@ -13,6 +13,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCAccountHelper.h"
 #import "JVCDataBaseHelper.h"
+#import "JVCDataBaseHelper.h"
 @interface JVCModifyUnLegalViewController ()
 {
     
@@ -60,6 +61,14 @@ static const int   KlabelFont       = 14;//labbel的字体大小
     [self resignTextFields];
     
     [super viewDidDisappear:animated];
+}
+
+
+- (void)BackClick
+{
+    //并且把秘密置换成功
+    [[JVCDataBaseHelper shareDataBaseHelper] updateUserAutoLoginStateWithUserName:kkUserName loginState:kLoginStateOFF];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
