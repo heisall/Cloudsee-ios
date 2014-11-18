@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+static  NSString *const ACCOUNTSERVICELOG              =   @"accountServiceLog.md";
+static  NSString *const kAppChannelServiceAddressC     =   @"appchannel.afdvr.com";
+static  NSString *const kAppOnlineServiceAddressC      =   @"apponline.afdvr.com";
+static  NSString *const kAppChannelServiceAddressE     =   @"appchannelen.afdvr.com";
+static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.com";
 
 @protocol JVCAccountDelegate <NSObject>
 
@@ -231,5 +236,6 @@
  *  @return nil 获取失败  其他的就是他的值
  */
 - (id)getAccountSessionKey;
+
 
 @end

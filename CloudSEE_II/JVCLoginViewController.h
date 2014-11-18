@@ -13,7 +13,7 @@
 #import "JVCAPConfigViewController.h"
 #import "JVCHelpVIew.h"
 
-@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate,DropDownViewDelegate,modifyUnlegalUserAndPassWordDelegate,UITextFieldDelegate,JVCAPConfigViewControllerDelegate,JVCWelcomeDelegate>
+@interface JVCLoginViewController : JVCBaseWithGeneralViewController<RegisterUserDelegate,DropDownViewDelegate,modifyUnlegalUserAndPassWordDelegate,UITextFieldDelegate,JVCAPConfigViewControllerDelegate,JVCWelcomeDelegate,UIGestureRecognizerDelegate>
 
 
 @end

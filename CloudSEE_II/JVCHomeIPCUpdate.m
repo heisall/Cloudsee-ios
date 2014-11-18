@@ -33,12 +33,13 @@
 @synthesize homeIPCWriteProgressBlock;
 @synthesize homeIPCResetBlock;
 
-static const int  kKeepDownloadErrorCount = 6;   //持续下载出错的次数
-static const int  kDownloadMaxSize        = 100; //下载最大的值
-static const int  kDownloadMinSize        = 0;   //下载最小的值
-static const int  kWriteMaxSize           = 100; //烧写最大的值
-static const int  kWriteMinSize           = 0;   //烧写最小的值
-static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间间隔（毫秒级）
+static const int  kKeepDownloadErrorCount = 6;             //持续下载出错的次数
+static const int  kDownloadMaxSize        = 100;           //下载最大的值
+static const int  kDownloadMinSize        = 0;             //下载最小的值
+static const int  kWriteMaxSize           = 100;           //烧写最大的值
+static const int  kWriteMinSize           = 0;             //烧写最小的值
+static const int  kCancelDownloadTime     = 40;            //退出下载线程的时间间隔（毫秒级）
+static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等停顿的时间（毫秒级）
 
 /**
  *  初始化连接回调的助手类
@@ -268,6 +269,8 @@ static const int  kCancelDownloadTime     = 40;   //退出下载线程的时间�
                     
                     break;
                 }
+                
+                usleep(kWriteSleepTime);
             }
         }
         

@@ -20,12 +20,6 @@ static JVCAccountHelper *sharedjvcAccountHelper = nil;
 
 char outAccountSessionBuffer[40];
 
-static  NSString *const ACCOUNTSERVICELOG              =   @"accountServiceLog.md";
-static  NSString *const kAppChannelServiceAddressC     =   @"appchannel.afdvr.com";
-static  NSString *const kAppOnlineServiceAddressC      =   @"apponline.afdvr.com";
-static  NSString *const kAppChannelServiceAddressE     =   @"appchannelen.afdvr.com";
-static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.com";
-
 
 #define CONNECTTIMEOUTSECOND 10
 #define RQCONNECTTIMEOUTSECOND 10
@@ -492,7 +486,6 @@ onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
     return result;
 }
 
-
 -(int)InitSdk:(NSString *)sdkLogPath  channelServerAddressStr:(NSString *)channelServerAddressStr channelServerAddressStrLocalPath:(NSString *) channelServerAddressStrLocalPath onlineServerAddressStr:(NSString *)onlineServerAddressStr onlineServerAddressStrLocalPath:(NSString *)onlineServerAddressStrLocalPath islocalCheck:(BOOL)islocalCheck isLogAppend:(BOOL)isLogAppend{
     
     NSMutableString *mstrChannelServerPath=nil;
@@ -578,8 +571,6 @@ onlineServerAddressStrLocalPath:AccountAPPONLINESERVICEADDRESSPATH
     return SetCurrentAlarmFlag_C(ALARM_OFF,[device_id UTF8String]);
     
 }
-
-
 
 
 @end
