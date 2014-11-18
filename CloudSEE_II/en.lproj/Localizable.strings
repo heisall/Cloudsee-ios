@@ -610,3 +610,4 @@
 "EditDeviceDetailViewController_device_cancel" = "Download cancel";
 "JvcDeviceUpdateModel"= " model：";
 "JvcDeviceUpdatedevice"= " device：";
+"EditDeviceDetailViewController_device_title"="Device update";

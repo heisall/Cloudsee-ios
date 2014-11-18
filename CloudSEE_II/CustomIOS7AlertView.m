@@ -313,6 +313,10 @@ CGFloat buttonSpacerHeight = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    [self.containerView release];
+    
+    [super dealloc];
 }
 
 // Handle device orientation changes
