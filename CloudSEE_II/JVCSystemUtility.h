@@ -165,5 +165,15 @@
 - (BOOL )removeOldUserPlist;
 
 
+/**
+ *  根据文件名称 返回在document目录下面的路径
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return 路径
+ */
+-(NSString *)getDocumentpathAtFileName:(NSString *)fileName;
+
+
 
 @end

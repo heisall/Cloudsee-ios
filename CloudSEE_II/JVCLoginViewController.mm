@@ -36,7 +36,7 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCGetPassWordViewController.h"
 #import "JVCTencentHelp.h"
-#import "JVCLogShowViewController.h"
+#import "JVCLogListViewController.h"
 
 enum LOGINBTNTYPE
 {
@@ -367,16 +367,15 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
 /**
  *  长按弹出日志信息
  *
- *  @param gesture <#gesture description#>
+ *  @param gesture 
  */
 -(void)longPressClick:(UILongPressGestureRecognizer *)gesture
 {
     if(gesture.state == UIGestureRecognizerStateBegan)
     {
-        JVCLogShowViewController *logShowViewController = [[JVCLogShowViewController alloc] init];
-        logShowViewController.strLogPath                = (NSString *)ACCOUNTSERVICELOG;
-        [self.navigationController pushViewController:logShowViewController animated:YES];
-        [logShowViewController release];
+        JVCLogListViewController *loglistController = [[JVCLogListViewController alloc] init];
+        [self.navigationController pushViewController:loglistController animated:YES];
+        [loglistController release];
     }
 }
 

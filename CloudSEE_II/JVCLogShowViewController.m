@@ -7,6 +7,8 @@
 //
 
 #import "JVCLogShowViewController.h"
+#import  "JVCSystemUtility.h"
+#import "JVCAlertHelper.h"
 
 @interface JVCLogShowViewController ()
 
@@ -18,11 +20,27 @@
 
 - (void)viewDidLoad {
     
-    self.navigationController.navigationBarHidden = NO;
-    
     [super viewDidLoad];
     
-    self.title                = @"文本预览";
+    NSString *path= nil;
+    
+    path = [[NSBundle mainBundle] pathForResource:@"arm_clear" ofType:@"png"];
+    
+    if (path == nil) {
+        
+        path = [[NSBundle mainBundle] pathForResource:@"arm_clear@2x" ofType:@"png"];
+        
+    }
+    
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    [btn addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    [barButtonItem release];
+    [image release];
     
     UITextView  *textView     = [[UITextView alloc] initWithFrame:self.view.frame];
     textView.textColor        = [UIColor darkTextColor];
@@ -37,12 +55,15 @@
     [textView release];
 }
 
--(void)deallocWithViewDidDisappear {
+-(void)clear {
 
-
-    self.navigationController.navigationBarHidden  = YES;
-
+    NSString       *path= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:self.strLogPath];
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    [fileManager removeItemAtPath:path error:nil];
+    [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"JVCLog_clear", nil)];
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 /**
  *  获取日志文本内容
@@ -52,14 +73,8 @@
 -(NSString *)textWithLog {
     
     NSMutableString *returnText = [[NSMutableString alloc] initWithCapacity:10];
-    
-    NSArray *pathsAccount=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    
-    NSString *pathAccountHome=[pathsAccount objectAtIndex:0];
-    
-    NSString * pathAccount=[pathAccountHome stringByAppendingPathComponent:self.strLogPath];
-    
-    NSData *data = [NSData dataWithContentsOfFile:pathAccount];
+    NSString        *pathAccount= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:self.strLogPath];
+    NSData          *data = [NSData dataWithContentsOfFile:pathAccount];
     
     if (data.length > 0) {
         
@@ -69,13 +84,13 @@
         
         [result release];
     }
-    
-    
+
     return  [returnText autorelease];
 }
 
 -(void)dealloc {
 
+    DDLogVerbose(@"%s------------------",__FUNCTION__);
     [strLogPath release];
     [super dealloc];
 }

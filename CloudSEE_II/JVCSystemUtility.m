@@ -434,4 +434,21 @@ static JVCSystemUtility *shareInstance = nil;
     return YES;
 }
 
+/**
+ *  根据文件名称 返回在document目录下面的路径
+ *
+ *  @param fileName 文件名称
+ *
+ *  @return 路径
+ */
+-(NSString *)getDocumentpathAtFileName:(NSString *)fileName {
+
+    
+    NSArray  *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *path= [paths objectAtIndex:0];
+    
+   return [path stringByAppendingPathComponent:fileName];
+}
+
 @end

@@ -1885,9 +1885,6 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 }
 
 /**
- *
- */
-/**
  *  打开文件写入流句柄并写入数据
  *
  *  @param buffer 写入的数据
