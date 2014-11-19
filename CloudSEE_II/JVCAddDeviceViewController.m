@@ -19,7 +19,7 @@
 #import "JVCResultTipsHelper.h"
 #import "JVCConfigModel.h"
 #import "JVCLabelFieldSView.h"
-
+#import "JVCLogHelper.h"
 
 
 static const int         ADDPREDICATE_SUCCESS        = 0;
@@ -268,7 +268,11 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
      
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel Start====\n"]];
+
              channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel end====\n"]];
 
         };
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);

@@ -12,6 +12,7 @@
 #import "JVCDeviceSourceHelper.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCConfigModel.h"
+#import "JVCLogHelper.h"
 @interface JVCLocalAddDeviceViewController ()
 
 @end
@@ -48,7 +49,13 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
             
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel Start====\n"]];
+
+            
              channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNum nTimeOut:kAddLocalDeviceWithWlanTimeOut];
+            
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel end======\n"]];
+
             
         }
 
