@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 extern int JVCLogHelperLevel;
-static NSString const *kAppLogPath = @"applog.md";
-static NSString const *DeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
-static NSString const *LoginManagerLogPath = @"LoginManagerLog.md";//登录的log
-
+static NSString const *kAppLogPath           = @"applog.md";
+static NSString const *kDeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
+static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md";//登录的log
 
 
 @interface JVCLogHelper : NSObject
@@ -28,7 +27,7 @@ typedef NS_ENUM(int, LogType)
 {
     LogType_OperationPLayLogPath            = 0,  //系统的
     LogType_DeviceManagerLogPath            = 1,  //设备的
-    LogType_LoginManagerLogPath             = 2,   //登录的
+    LogType_LoginManagerLogPath             = 2,  //登录的
 };
 
 /**

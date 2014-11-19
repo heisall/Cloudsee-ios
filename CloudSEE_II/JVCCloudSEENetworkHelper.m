@@ -545,10 +545,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
     
     JVCCloudSEENetworkGeneralHelper *ystNetworkHelperCMObj = [JVCCloudSEENetworkGeneralHelper shareJVCCloudSEENetworkGeneralHelper];
-    JVCCloudSEEManagerHelper                    *currentChannelObj     = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
-    JVCVideoDecoderHelper                        *JVCVideoDecoderHelperObj       = currentChannelObj.decodeModelObj;
-    JVCRemotePlayBackWithVideoDecoderHelper                *playBackDecoderObj    = currentChannelObj.playBackDecoderObj;
-    
+    JVCCloudSEEManagerHelper                    *currentChannelObj         = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
+    JVCVideoDecoderHelper                       *JVCVideoDecoderHelperObj  = currentChannelObj.decodeModelObj;
+    JVCRemotePlayBackWithVideoDecoderHelper     *playBackDecoderObj        = currentChannelObj.playBackDecoderObj;
     
     if (currentChannelObj.isRunDisconnect) {
         

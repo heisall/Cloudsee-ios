@@ -11,12 +11,9 @@
 
 @implementation JVCLogHelper
 
-FILE *appLogHandle = NULL;
-
+FILE *appLogHandle    = NULL;
 FILE *deviceLogHandle = NULL;
-
-FILE *LoginLogHandle = NULL;
-
+FILE *LoginLogHandle  = NULL;
 
 static JVCLogHelper *jvcLogHelper = nil;
 
@@ -31,15 +28,9 @@ static JVCLogHelper *jvcLogHelper = nil;
         
         JVCSystemUtility  *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
 
-         appLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kAppLogPath] UTF8String], "ab+");
-        
-        deviceLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)DeviceManagerLogPath] UTF8String], "ab+");
-        
-        LoginLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)LoginManagerLogPath] UTF8String], "ab+");
-
-
-        
-
+        appLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kAppLogPath] UTF8String], "ab+");
+        deviceLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kDeviceManagerLogPath] UTF8String], "ab+");
+        LoginLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kLoginManagerLogPath] UTF8String], "ab+");
     }
     
     return self;
@@ -57,8 +48,8 @@ static JVCLogHelper *jvcLogHelper = nil;
         if (jvcLogHelper == nil) {
             
             jvcLogHelper = [[self alloc] init];
-            
         }
+        
         return jvcLogHelper;
     }
     return jvcLogHelper;
@@ -89,6 +80,7 @@ static JVCLogHelper *jvcLogHelper = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         switch (type) {
+                
             case LogType_OperationPLayLogPath:
                 [self writeHandleDataToFile:text handleType:appLogHandle];
                 break;
