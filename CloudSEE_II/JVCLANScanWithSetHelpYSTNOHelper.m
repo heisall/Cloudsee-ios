@@ -159,8 +159,6 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
             lanModel.iNetMod=YES;
         }
         
-        DDLogCVerbose(@"SerachLANAllDeviceInfo=%@,wifiStatue=%d",strYstNumber,lanModel.iNetMod);
-        
         [CacheMArrayDeviceList addObject:lanModel];
         
         [strYstNumber release];

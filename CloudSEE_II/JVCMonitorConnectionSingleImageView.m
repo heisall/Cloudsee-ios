@@ -17,7 +17,8 @@
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
-@synthesize iEffectType,nStorageType;
+@synthesize iEffectType,nStorageType,isNewDevice;
+
 int   _iConnectInfoIndex;
 float min_offset;
 

@@ -64,6 +64,7 @@ typedef NS_ENUM(int, EffectType)
     
     int             iEffectType;     //标示图像翻转的
     int             nStorageType;    //1：手动 0：报警
+    BOOL            isNewDevice;     //YES:05
 }
 
 @property (nonatomic,assign) int      singleViewType,wheelShowType;
@@ -75,6 +76,7 @@ typedef NS_ENUM(int, EffectType)
 @property (nonatomic,assign) BOOL     isHomeIPC;
 @property (nonatomic,assign) int      iEffectType;
 @property (nonatomic,assign) int      nStorageType;    //1：手动 0：报警
+@property (nonatomic,assign) BOOL     isNewDevice;
 
 -(void)initWithView;
 #pragma mark UIView中的UIImageView的选中与未选中边框颜色处理

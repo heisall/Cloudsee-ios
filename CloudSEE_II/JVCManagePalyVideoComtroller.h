@@ -126,6 +126,13 @@ enum showWindowNumberType{
 - (void)showEffectView;
 
 /**
+ *  获取当前设备是否是05版编码的设备
+ *
+ *  @return YES:05
+ */
+-(BOOL)getCurrentSelectedSingelViewIs05Device;
+
+/**
  *  根据所选显示视频的窗口的编号连接通道集合中指定索引的通道对象
  *
  *  @param nlocalChannelID 本地显示窗口的编号

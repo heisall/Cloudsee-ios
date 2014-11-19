@@ -820,6 +820,18 @@ BOOL isAllLinkRun;
 }
 
 /**
+ *  获取当前设备是否是05版编码的设备
+ *
+ *  @return YES:05
+ */
+-(BOOL)getCurrentSelectedSingelViewIs05Device{
+    
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex+KWINDOWSFLAG];
+    
+    return singleView.isNewDevice;
+}
+
+/**
  *  视频来O帧之后请求文本聊天
  *
  *  @param nLocalChannel 本地显示的通道编号 需减去1
@@ -829,6 +841,7 @@ BOOL isAllLinkRun;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+        singleView.isNewDevice                                    =  nDeviceType;
          JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         if (self.isPlayBackVideo) {

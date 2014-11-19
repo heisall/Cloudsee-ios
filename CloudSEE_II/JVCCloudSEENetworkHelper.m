@@ -608,7 +608,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:withDeviceType:)]) {
                 
-                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1 withDeviceType:currentChannelObj.nConnectDeviceType];
+                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1 withDeviceType:JVCVideoDecoderHelperObj.isDecoderModel];
             }
         }
             break;
