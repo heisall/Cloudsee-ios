@@ -14,6 +14,8 @@
 #import "JVCAccountHelper.h"
 #import "JVCDataBaseHelper.h"
 #import "JVCDataBaseHelper.h"
+#import "JVCLogHelper.h"
+
 @interface JVCModifyUnLegalViewController ()
 {
     
@@ -178,8 +180,8 @@ static const int   KlabelFont       = 14;//labbel的字体大小
             
             int exitResult = [[JVCAccountHelper sharedJVCAccountHelper] ResetUserNameAndPassword:userTextField.text newPassword:passWordField.text];
             
-            DDLogInfo(@"再这里就行了修改，回头要去掉==exitResult= 0;");
-            
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,exitResult] fileType:LogType_LoginManagerLogPath];
+
             dispatch_async(dispatch_get_main_queue(),^{
                 
                 [[JVCAlertHelper shareAlertHelper]alertHidenToastOnWindow];

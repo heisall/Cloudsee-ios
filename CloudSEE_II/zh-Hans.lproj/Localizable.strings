@@ -189,7 +189,7 @@
 "jvc_adddevice_addChannel_error" = "添加设备通道失败";
 "qrReturn"="  返回";
 "qrScan"="正在扫描设备，请等待...";
-"JDCSVC_GetDevice_Error"= "设备失败";
+"JDCSVC_GetDevice_Error"= "获取设备失败,请下来刷新设备";
 "JDCSVC_GetDeviceChannel_Error"= "添加设备通道失败";
 "jvc_addDevicChannel_CountError" = "添加设备通道视频，是否重新添加";
 "jvc_addDevicChannel_CountError_ok" = "添加";

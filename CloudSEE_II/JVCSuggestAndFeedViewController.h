@@ -7,7 +7,8 @@
 //
 
 #import "JVCBaseWithGeneralViewController.h"
+#import "JVCBaseGeneralTableViewController.h"
 
-@interface JVCSuggestAndFeedViewController : JVCBaseWithGeneralViewController<UIWebViewDelegate>
+@interface JVCSuggestAndFeedViewController : JVCBaseGeneralTableViewController<UITableViewDataSource,UITableViewDelegate>
 
 @end

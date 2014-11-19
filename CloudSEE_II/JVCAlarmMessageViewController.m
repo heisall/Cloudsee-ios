@@ -28,6 +28,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCOperationController.h"
 #import "JVCOperationControllerIphone5.h"
+#import "JVCLogHelper.h"
 
 enum {
     DownLoadType_PIC    = 0,//图片的
@@ -177,6 +178,8 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             BOOL result = [[JVCAlarmHelper shareAlarmHelper] deleteAkkAlarmHistory];
+            
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
@@ -511,6 +514,9 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
         BOOL result = [[JVCAlarmHelper shareAlarmHelper] deleteAlarmHistoryWithGuid:deviceGuid];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
+
         
         dispatch_async(dispatch_get_main_queue(), ^{
         

@@ -16,6 +16,7 @@
 #import "JVCResultTipsHelper.h"
 #import "JVCChannelScourseHelper.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLogHelper.h"
 static const int    ADDPREDICATE_SUCCESS        = 0;
 static const int    TESTORIIGIN_Y               = 30;//距离navicationbar的距离
 static const int    SEPERATE                    = 15;//控件之间的距离，纵向
@@ -258,6 +259,8 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
     
       int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:[deviceModel.yunShiTongNum uppercaseString]];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
         
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -327,6 +330,7 @@ static const int    KLeftLabelWith          = 0;    //删除设备成功
         
         int result =   [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceConnectInfo:deviceModel.yunShiTongNum userName:devieUserName.text password:devicePassWord.text nickName:deviceNickNameField.text ];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper ]alertHidenToastOnWindow];

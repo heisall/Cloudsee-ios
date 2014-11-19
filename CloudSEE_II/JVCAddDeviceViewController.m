@@ -134,6 +134,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 {
     int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:textFieldYST.text andUserName:textFieldUserName.text andPassWord:textFieldPassWord.text];
     
+
     if (ADDPREDICATE_SUCCESS == result) {
             
             [self resignADDDeviceTextFields];
@@ -174,6 +175,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
         int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@  save device =%@=\n",__FUNCTION__,kkUserName,textFieldYST.text]fileType:LogType_DeviceManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (ADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
@@ -201,6 +204,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:textFieldYST.text.uppercaseString ];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@   =%@=\n",__FUNCTION__,kkUserName,[resutlDic description]]fileType:LogType_DeviceManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             /**
@@ -300,6 +305,9 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //把通道数添加到服务器
       int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:textFieldYST.text.uppercaseString addChannelCount:channelNum];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%d=\n",__FUNCTION__,kkUserName,reusult]fileType:LogType_DeviceManagerLogPath];
+
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -336,6 +344,8 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%d=\n",__FUNCTION__,kkUserName,[channelAllInfoMdic description]]fileType:LogType_DeviceManagerLogPath];
+
             /**
              *  判断返回的字典是不是nil
              */

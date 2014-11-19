@@ -191,7 +191,7 @@
 "jvc_adddevice_addChannel_error" = "Channel added failed";
 "qrReturn"="  Back";
 "qrScan"="Scanning now,please wait...";
-"JDCSVC_GetDevice_Error"= "Faild to add device";
+"JDCSVC_GetDevice_Error"= "Faild to get device,please Drop-down to refresh";
 "JDCSVC_GetDeviceChannel_Error"= "Channel added failed";
 "jvc_addDevicChannel_CountError" = "Add channels failed, activated or not ";
 "jvc_addDevicChannel_CountError_ok" = "Activated";

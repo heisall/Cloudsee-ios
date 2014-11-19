@@ -17,6 +17,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLogHelper.h"
 
 @interface JVCEditChannelInfoTableViewController ()
 {
@@ -311,6 +312,9 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         
         int result = [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:YstNum addChannelCount:addNum];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
+
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -341,6 +345,9 @@ static const    int     kTextFieldSeperate       = 30;//间隔
         
         NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:self.YstNum];
         DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%@",__FUNCTION__,[channelAllInfoMdic description]] fileType:LogType_DeviceManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             BOOL result = [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelAllInfoMdic];
@@ -442,6 +449,9 @@ static const    int     kTextFieldSeperate       = 30;//间隔
             
             int result = [[JVCDeviceHelper sharedDeviceLibrary] deleteDeviceInAccount:channelModelDelete.strDeviceYstNumber];
             
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
+
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -513,6 +523,9 @@ static const    int     kTextFieldSeperate       = 30;//间隔
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         int result =  [[JVCDeviceHelper sharedDeviceLibrary] modifyDeviceChannelNickName:channelModel.strDeviceYstNumber channelNickName:channelNickNameField.text  channelValue:channelModel.nChannelValue];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_DeviceManagerLogPath];
+
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

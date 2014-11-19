@@ -1313,8 +1313,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)customBottomPressCallback:(NSUInteger )buttonPress
 {
-    
-    
     /**
      *  是否有画面
      */
@@ -1323,13 +1321,13 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
         
     }
-    
     /**
      *  是否多屏，多屏的时候，变成单屏
      */
     [self changeManagePalyVideoComtrollerViewsToSingeView];
     
     UIButton *btn = [_operationItemSmallBg getButtonWithIndex:buttonPress];
+
     
     switch (buttonPress) {
             
@@ -1344,6 +1342,14 @@ char remoteSendSearchFileBuffer[29] = {0};
         case BUTTON_TYPE_TALK:
         {
             
+            //04解码器不支持此操作
+            if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+                
+                return;
+            }
+            
             //远程回放时，屏蔽掉此功能
             if (_isPlayBackVideo ||self.isPlayBackVideo) {
                 
@@ -1351,6 +1357,8 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
+            
+            
             
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationTalk];
 
@@ -1360,6 +1368,16 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case BUTTON_TYPE_VIDEO:
         {
+            
+            
+            //04解码器不支持此操作
+            if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+                
+                return;
+            }
+            
             btn.selected = !btn.selected;
             
             if (btn.isSelected) {
@@ -1380,6 +1398,14 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case BUTTON_TYPE_MORE:
         {
+            
+            //04解码器不支持此操作
+            if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+                
+                return;
+            }
             
             //远程回放时，屏蔽掉此功能
             if (_isPlayBackVideo ||self.isPlayBackVideo) {
@@ -1687,6 +1713,14 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         return;
         
+    }
+    
+    //04解码器不支持此操作
+    if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+        
+        return;
     }
     
     /**

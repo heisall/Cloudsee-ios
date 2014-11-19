@@ -11,6 +11,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCResultTipsHelper.h"
 #import "JVCRGBHelper.h"
+#import "JVCLogHelper.h"
 
 @interface JVCBindingEmailViewController ()
 {
@@ -232,6 +233,8 @@ static const int  KSUCCESS          = 0;//成功
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             int exitResult = [[JVCAccountHelper sharedJVCAccountHelper] bindMailToAccount:_textFieldEmail.text];
+
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_LoginManagerLogPath];
 
             dispatch_async(dispatch_get_main_queue(),^{
                 

@@ -16,6 +16,7 @@
 #import "JVCPredicateHelper.h"
 #import "JVCControlHelper.h"
 #import "JVCUserResignTextViewController.h"
+#import "JVCLogHelper.h"
 
 static const int ORIGIN_Y  = 40;//第一个textfield距离顶端的距离
 
@@ -547,6 +548,8 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
         
         int result = [[JVCAccountHelper sharedJVCAccountHelper] UserRegister:textFieldUser.text passWord:textFieldPassWord.text appTypeName:APPNAME];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%d",__FUNCTION__,result] fileType:LogType_LoginManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];

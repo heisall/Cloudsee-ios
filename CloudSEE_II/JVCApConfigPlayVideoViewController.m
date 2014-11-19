@@ -395,6 +395,13 @@ static const int            kRepeatRequestCount      = 6;
         return;
     }
 
+    //04解码器不支持此操作
+    if (!singleVideoShow.isNewDevice) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+        
+        return;
+    }
     switch (clickBtnType) {
         case OPERATIONAPBTNCLICKTYPE_AUDIO:
             [self ApAudioBtnClick];
