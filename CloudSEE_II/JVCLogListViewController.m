@@ -28,7 +28,11 @@
     self.title  = NSLocalizedString(@"JVCLog_Title", nil);
     maLogList= [[NSMutableArray alloc] init];
     [maLogList addObject:(NSString *)kAppLogPath];
+    [maLogList addObject:(NSString *)DeviceManagerLogPath];
+    [maLogList addObject:(NSString *)LoginManagerLogPath];
+
     [maLogList addObject:(NSString *)ACCOUNTSERVICELOG];
+    
 
 }
 

@@ -268,11 +268,11 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
      
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel Start====\n"]];
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s===%@  get Device Channel StartystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
 
              channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
 
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"====local  get Device Channel end====\n"]];
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@==local  get Device Channel end====ystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
 
         };
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);

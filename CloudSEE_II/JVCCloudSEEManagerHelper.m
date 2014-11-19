@@ -116,7 +116,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.nRemotePort,self.strUserName,self.strPassWord);
     
-    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.nRemotePort,self.strUserName,self.strPassWord]];
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.nRemotePort,self.strUserName,self.strPassWord]fileType:LogType_OperationPLayLogPath];
     
     JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[@"" UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],self.nYstNumber, (char *)[self.strYstGroup UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,self.isConnectShowVideo);
 }
@@ -128,7 +128,7 @@ char          pcmBuffer[1024] ={0};
 {
     DDLogVerbose(@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,remoIP=%@,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.strRemoteIP,self.nRemotePort,self.strUserName,self.strPassWord);
     
-     [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,remoIP=%@,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.strRemoteIP,self.nRemotePort,self.strUserName,self.strPassWord]];
+     [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--RemoteChannel=%d,Group=%@,ystNumber=%d,remoIP=%@,port=%d,userName=%@,password=%@",__FUNCTION__,self.nRemoteChannel,self.strYstGroup,self.nYstNumber,self.strRemoteIP,self.nRemotePort,self.strUserName,self.strPassWord]fileType:LogType_OperationPLayLogPath];
     
     JVC_Connect(self.nLocalChannel, self.nRemoteChannel, (char *)[self.strRemoteIP UTF8String], self.nRemotePort, (char *)[self.strUserName UTF8String], (char *)[self.strPassWord UTF8String],-1, (char *)[@"" UTF8String], YES, JVN_TRYTURN,NO,TYPE_3GMOHOME_UDP,self.isConnectShowVideo);
 }

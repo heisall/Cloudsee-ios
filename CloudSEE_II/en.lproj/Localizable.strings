@@ -614,6 +614,8 @@
 "EditDeviceDetailViewController_device_updateSuccess"="Device update success";
 
 "accountServiceLog.md"= "Account Log";
-"applog.md"           = "App Log";
+"applog.md"           = "Video Log";
 "JVCLog_Title"        = "Log List";
 "JVCLog_clear"        = "Empty the success！";
+"DeviceManagerLog.md" = "Device&channel Log";//设备log
+"LoginManagerLog.md" = "Login Log";//登录的log

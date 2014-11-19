@@ -37,6 +37,7 @@
 #import "JVCGetPassWordViewController.h"
 #import "JVCTencentHelp.h"
 #import "JVCLogListViewController.h"
+#import "JVCLogHelper.h"
 
 enum LOGINBTNTYPE
 {
@@ -502,11 +503,15 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
             
             //判断用户的强度，119是用户的新密码加密规则，调用UserLogin接口登陆118是用户的老密码加密规则调用OldUserLogin接口登陆
             int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:textFieldUser.text ];
+            
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,result] fileType:LogType_LoginManagerLogPath];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (result == USERTYPE_OLD) {
                     
+                    kkUserName = textFieldUser.text;
+
                     [self loginInWithOldUserType];
                     
                 }else if(result == USERTYPE_NEW ){
@@ -544,6 +549,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
     
        int resultOldType = [[JVCAccountHelper sharedJVCAccountHelper] OldUserLogin:textFieldUser.text passWord:textFieldPW.text];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,resultOldType] fileType:LogType_LoginManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -586,6 +593,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
     
         int result = [[JVCAccountHelper sharedJVCAccountHelper] ResetUserPassword:textFieldUser.text username:textFieldPW.text];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,result] fileType:LogType_LoginManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
         
         if(LOGINRUSULT_SUCCESS == result)//成功
@@ -637,6 +646,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
         int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
         
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,resultnewType] fileType:LogType_LoginManagerLogPath];
+
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];

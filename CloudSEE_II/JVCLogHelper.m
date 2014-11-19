@@ -13,6 +13,11 @@
 
 FILE *appLogHandle = NULL;
 
+FILE *deviceLogHandle = NULL;
+
+FILE *LoginLogHandle = NULL;
+
+
 static JVCLogHelper *jvcLogHelper = nil;
 
 /**
@@ -27,6 +32,13 @@ static JVCLogHelper *jvcLogHelper = nil;
         JVCSystemUtility  *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
 
          appLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kAppLogPath] UTF8String], "ab+");
+        
+        deviceLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)DeviceManagerLogPath] UTF8String], "ab+");
+        
+        LoginLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)LoginManagerLogPath] UTF8String], "ab+");
+
+
+        
 
     }
     
@@ -72,37 +84,23 @@ static JVCLogHelper *jvcLogHelper = nil;
  *  @param buffer 写入的数据
  *  @param nSize  写入数据的大小
  */
--(void)writeDataToFile:(NSString *)text {
+-(void)writeDataToFile:(NSString *)text  fileType:(int)type{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        if (NULL != appLogHandle) {
-            
-            switch (JVCLogHelperLevel) {
-                    
-                case JVCLogHelperLevelRelease:{
-                    
-                    /**
-                     *  解决时差相差8个小时的问题
-                     */
-                    NSTimeZone *localZone =[NSTimeZone systemTimeZone];
-                     NSDate  *timestamp = [NSDate date];
-                    NSUInteger interval =[localZone secondsFromGMTForDate:timestamp];
-                    NSDate *date  = [timestamp dateByAddingTimeInterval:interval];
+
+        switch (type) {
+            case LogType_OperationPLayLogPath:
+                [self writeHandleDataToFile:text handleType:appLogHandle];
+                break;
+            case LogType_DeviceManagerLogPath:
+                [self writeHandleDataToFile:text handleType:deviceLogHandle];
+                break;
+            case LogType_LoginManagerLogPath:
+                [self writeHandleDataToFile:text handleType:LoginLogHandle];
+                break;
                 
-                    NSString *writeStr= [NSString stringWithFormat:@"%@%@\n",date,text];
-                    
-                    flockfile(appLogHandle);
-                    fwrite([writeStr UTF8String],1,writeStr.length, appLogHandle);
-                    fflush(appLogHandle);
-                    funlockfile(appLogHandle);
-                
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
+            default:
+                break;
         }
         
     });
@@ -118,6 +116,44 @@ static JVCLogHelper *jvcLogHelper = nil;
         fclose(appLogHandle);
         
         appLogHandle = NULL;
+    }
+}
+
+/**
+ *  往指定的handle写数据
+ *
+ *  @param dateString 写入的数据
+ *  @param fileHandle file名称
+ */
+-(void)writeHandleDataToFile:(NSString *)dateString  handleType:(FILE *)fileHandle
+{
+    if (NULL != fileHandle) {
+        
+        switch (JVCLogHelperLevel) {
+                
+            case JVCLogHelperLevelRelease:{
+                
+                /**
+                 *  解决时差相差8个小时的问题
+                 */
+                NSTimeZone *localZone =[NSTimeZone systemTimeZone];
+                NSDate  *timestamp = [NSDate date];
+                NSUInteger interval =[localZone secondsFromGMTForDate:timestamp];
+                NSDate *date  = [timestamp dateByAddingTimeInterval:interval];
+                
+                NSString *writeStr= [NSString stringWithFormat:@"%@%@\n",date,dateString];
+                
+                flockfile(fileHandle);
+                fwrite([writeStr UTF8String],1,writeStr.length, fileHandle);
+                fflush(fileHandle);
+                funlockfile(fileHandle);
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 

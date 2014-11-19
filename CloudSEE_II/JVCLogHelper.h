@@ -10,6 +10,10 @@
 
 extern int JVCLogHelperLevel;
 static NSString const *kAppLogPath = @"applog.md";
+static NSString const *DeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
+static NSString const *LoginManagerLogPath = @"LoginManagerLog.md";//登录的log
+
+
 
 @interface JVCLogHelper : NSObject
 
@@ -20,6 +24,13 @@ enum JVCLogHelperLevel {
     JVCLogHelperLevelRelease = 1,
 };
 
+typedef NS_ENUM(int, LogType)
+{
+    LogType_OperationPLayLogPath            = 0,  //系统的
+    LogType_DeviceManagerLogPath            = 1,  //设备的
+    LogType_LoginManagerLogPath             = 2,   //登录的
+};
+
 /**
  *  单例
  *
@@ -28,12 +39,12 @@ enum JVCLogHelperLevel {
 + (JVCLogHelper *)shareJVCLogHelper;
 
 /**
- *  打开文件写入流句柄并写入数据
+ *  打开文件举报并写数据
  *
- *  @param buffer 写入的数据
- *  @param nSize  写入数据的大小
+ *  @param text 内容
+ *  @param type 文件类型
  */
--(void)writeDataToFile:(NSString *)text;
+-(void)writeDataToFile:(NSString *)text  fileType:(int)type;
 
 /**
  *  关闭文件写入流句柄
