@@ -453,7 +453,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     if (!model.bDeviceServiceOnlineState) {
         
-       [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
+       [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
         return;
     }
     
@@ -634,6 +634,13 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 - (void)gotoDeviceUpdateController
 {
     JVCDeviceModel *model                                  = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[self currentYstTitles]];
+
+    if (!model.bDeviceServiceOnlineState) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
+        return;
+    }
+    
 
     JVCDeviceUpdateViewController *devieUpdate = [[JVCDeviceUpdateViewController alloc] init];
     devieUpdate.modelDevice = model;
@@ -846,7 +853,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     if (!model.bDeviceServiceOnlineState) {
         
-        [alertObj alertToastOnWindowWithText:NSLocalizedString(@"device_off_line", nil) delayTime:kAlertTostViewTime];
+        [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
         return;
     }
     [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;

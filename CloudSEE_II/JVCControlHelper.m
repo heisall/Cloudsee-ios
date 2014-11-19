@@ -208,6 +208,7 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     textField.backgroundColor = [UIColor colorWithPatternImage:image];
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.keyboardType = UIKeyboardTypeASCIICapable;
+    textField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
     textField.returnKeyType = UIReturnKeyDone;
     textField.leftView = labelLeft;
     textField.rightViewMode = UITextFieldViewModeAlways;

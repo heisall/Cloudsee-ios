@@ -324,6 +324,8 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
  */
 - (void)startDown
 {
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+    
      [homeIPC DownloadUpdatePacket];
 }
 

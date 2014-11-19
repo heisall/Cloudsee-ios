@@ -590,8 +590,8 @@
 "videolibrayError" = "Failed to save the recording.";
 "userDefine" = "User refused to visit";
 "NSLocalString"="English";
-"jvc_more_media_no_date" = "相册中暂时没有图片或视频";
-
+"jvc_more_media_no_pic" = "No Picture";
+"jvc_more_media_no_video" = "No Video";
 //设备升级
 "EditDeviceDetailViewController_device_update_error"="Failed to load the firmware, please update again.";
 "EditDeviceDetailViewController_device_down_error"="Failed to update, please operate again";

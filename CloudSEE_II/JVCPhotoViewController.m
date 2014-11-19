@@ -15,6 +15,7 @@
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
 #import "UIImage+BundlePath.h"
+#import "JVCMediaNoDateView.h"
 @interface JVCPhotoViewController ()
 
 @end
@@ -122,7 +123,23 @@ static const int KSeperateAdd       = 6.0;//
     }
     
     [self orderGroupNameListbyDate];
-    [self.tableView reloadData];
+    
+    if (mArrayGroupDatas.count == 0) {
+        
+        NSString *titleString = LOCALANGER(@"jvc_more_media_no_pic");
+        if (self.typeTitle == TYPE_VIDEO) {
+            
+            titleString = LOCALANGER(@"jvc_more_media_no_video");
+
+        }
+        JVCMediaNoDateView *mediaNodateView = [[JVCMediaNoDateView alloc] initWithFrame:self.view.frame Title:titleString];
+        [self.view addSubview:mediaNodateView];
+        [mediaNodateView release];
+        
+    }else{
+        [self.tableView reloadData];
+
+    }
 }
 
 /**

@@ -66,6 +66,8 @@
 		A7A576061A13929A000D0BBC /* JVCTencentHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A576051A13929A000D0BBC /* JVCTencentHelp.m */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
+		A7AF4C821A1C44A7006ADF87 /* JVCMediaNoDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */; };
+		A7AF4C841A1C491C006ADF87 /* med_noDate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */; };
 		A7AF72BB1A1594CC0030D490 /* JVCPhotoModelObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */; };
 		A7AF72BE1A1595260030D490 /* JVCPhotoGroupObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BD1A1595260030D490 /* JVCPhotoGroupObj.m */; };
 		A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72C11A159C380030D490 /* JVCConstansALAssetsMathHelper.m */; };
@@ -732,6 +734,9 @@
 		A7A576051A13929A000D0BBC /* JVCTencentHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTencentHelp.m; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
+		A7AF4C801A1C44A7006ADF87 /* JVCMediaNoDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMediaNoDateView.h; sourceTree = "<group>"; };
+		A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMediaNoDateView.m; sourceTree = "<group>"; };
+		A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "med_noDate@2x.png"; sourceTree = "<group>"; };
 		A7AF72B91A1594CC0030D490 /* JVCPhotoModelObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoModelObj.h; sourceTree = "<group>"; };
 		A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPhotoModelObj.m; sourceTree = "<group>"; };
 		A7AF72BC1A1595260030D490 /* JVCPhotoGroupObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoGroupObj.h; sourceTree = "<group>"; };
@@ -1702,6 +1707,8 @@
 				A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */,
 				A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */,
 				A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */,
+				A7AF4C801A1C44A7006ADF87 /* JVCMediaNoDateView.h */,
+				A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -1709,6 +1716,7 @@
 		A7B6EE2B1A14D4C20024F836 /* media */ = {
 			isa = PBXGroup;
 			children = (
+				A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */,
 				A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */,
 				A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */,
 				A7B58B821A15D52C004D0E5B /* mor_pm1@2x.png */,
@@ -3187,6 +3195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7AF4C841A1C491C006ADF87 /* med_noDate@2x.png in Resources */,
 				AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */,
 				A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */,
 				A7F8DE2F19EE1C19006CE984 /* rem_ser@2x.png in Resources */,
@@ -3724,6 +3733,7 @@
 				AD014DDC19F4C05C00E3D0FB /* JVCAPConfigViewController.mm in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A72DCD2519EBF79500C9A1ED /* JVCLocalAddDeviceViewController.m in Sources */,
+				A7AF4C821A1C44A7006ADF87 /* JVCMediaNoDateView.m in Sources */,
 				A7263C4C19E7FB91003C22DE /* JVCMoreViewController.m in Sources */,
 				AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */,
 				A7F4457C19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m in Sources */,

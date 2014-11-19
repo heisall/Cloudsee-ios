@@ -134,12 +134,12 @@
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_get_alum_error")];
         return;
     }
-    if (photoDatas.count == 0) {
-        
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_media_no_date")];
-        return;
-
-    }
+//    if (photoDatas.count == 0) {
+//        
+//        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_media_no_date")];
+//        return;
+//
+//    }
     [self performSelectorOnMainThread:@selector(gotoPhotoData:) withObject:photoDatas waitUntilDone:NO];
     
 }

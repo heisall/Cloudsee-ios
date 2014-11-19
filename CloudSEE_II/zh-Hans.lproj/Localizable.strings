@@ -441,6 +441,8 @@
 "userDefine" = "用户拒绝访问";
 "NSLocalString"="Chinese";
 "jvc_more_media_no_date" = "相册中暂时没有图片或视频";
+"jvc_more_media_no_pic" = "暂无图像";
+"jvc_more_media_no_video" = "暂无视频";
 
 //修改密码的
 "oldPW" = "旧密码";

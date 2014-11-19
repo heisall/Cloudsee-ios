@@ -49,10 +49,18 @@
     [movie stop];
     
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [movie play];
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
     NSURL *url = [NSURL fileURLWithPath:self._StrViedoPlay];
     //视频播放对象
     movie = [[MPMoviePlayerController alloc] initWithContentURL:url];
@@ -62,7 +70,6 @@
     movie.scalingMode = MPMovieScalingModeAspectFit;
     movie.initialPlaybackTime = -1;
     [self.view addSubview:movie.view];
-    [movie play];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
      
@@ -71,7 +78,8 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
      
                                                object:movie]; //播放完后的通知
-    
+
+        
 }
 
 -(void)movieFinishedCallback:(NSNotification*)notify {

@@ -129,11 +129,15 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
             //开始更新
             int resultValue = [deviceHelperObj deviceUpdateMath:strLoginUserName deviceUpdateMathType:UPDATEDEVICEMATH_CMD_UPDATE deviceGuidStr:strYstNumber updateText:[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_URL)] downloadSize:[[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_SIZE)] intValue] updateVer:[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]];
             
+            
             if (resultValue == DEVICESERVICERESPONSE_SUCCESS) {
                 
                 isCancelDownload = TRUE;
                 [self DownloadProgress];
                 
+            }else{
+            
+                [self errorType:JVCHomeIPCErrorUpdateError];
             }
         }
     });
@@ -160,6 +164,7 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
             
             nDownloadSize  =  [deviceHelperObj deviceUpdateMath:strLoginUserName deviceUpdateMathType:UPDATEDEVICEMATH_DOWNLOAD_VALUE deviceGuidStr:strYstNumber updateText:nil downloadSize:0 updateVer:nil];;
             
+            
             if (nDownloadSize >= kDownloadMinSize && nDownloadSize <= kDownloadMaxSize) {
                 
                 if (nDownloadSize != dowloadTempValue) {
@@ -177,7 +182,8 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
                         break;
                     }
                 }
-                
+                usleep(kWriteSleepTime);
+
                 //返回到UI层的下载进度
                 if (self.homeIPCDownloadUpdateProgressBlock) {
                     
