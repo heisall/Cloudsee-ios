@@ -612,3 +612,8 @@
 "JvcDeviceUpdatedevice"= " device：";
 "EditDeviceDetailViewController_device_title"="Device update";
 "EditDeviceDetailViewController_device_updateSuccess"="Device update success";
+
+"accountServiceLog.md"= "Account Log";
+"applog.md"           = "App Log";
+"JVCLog_Title"        = "Log List";
+"JVCLog_clear"        = "Empty the success！";

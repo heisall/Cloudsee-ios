@@ -393,7 +393,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
         sprintf(acBuffer, "nlDNS=%d;",HTONL(_uDns));
         strcat(m_pstExt->acData+nOffset, acBuffer);
     }
-    
+    DDLogVerbose(@"%s-----dadadadad-----%s",__FUNCTION__,m_pstExt->acData);
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
     
 }

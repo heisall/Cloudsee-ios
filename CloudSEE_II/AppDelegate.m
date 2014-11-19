@@ -43,6 +43,8 @@
 #import "MTAConfig.h"
 #import "JVCConstansALAssetsMathHelper.h"
 #import "JVCMediaMacro.h"
+#import "JVCLogHelper.h"
+
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -55,6 +57,8 @@
 
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
+
+int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
@@ -72,6 +76,23 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
      *  设置ddlog
      */
     [self DDLogSettings];
+    
+    NSMutableString *returnText = [[NSMutableString alloc] initWithCapacity:10];
+    NSString        *pathAccount= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:@"applog.md"];
+    NSData          *data = [NSData dataWithContentsOfFile:pathAccount];
+    
+    if (data.length > 0) {
+        
+        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        [returnText appendString:result];
+        
+        [result release];
+    }
+    
+    DDLogVerbose(@"%s------------############008--------%@",__FUNCTION__,returnText);
+    
+    [returnText release];
     
     [self convertOldUserInfoToDatebase];
     

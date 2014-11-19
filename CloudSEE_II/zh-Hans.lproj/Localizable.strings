@@ -620,4 +620,8 @@
 "JvcDeviceUpdatedevice"= " 型号：";
 "EditDeviceDetailViewController_device_title"="设备升级";
 "EditDeviceDetailViewController_device_updateSuccess"="设备升级成功";
+"accountServiceLog.md"= "账号日志";
+"applog.md"           = "程序日志";
+"JVCLog_Title"        = "日志列表";
+"JVCLog_clear"        = "清空成功!";
 

@@ -43,7 +43,7 @@ static const CGFloat         kNavRightItemWithFontSize  = 14.0f;
     
     if (self.wiredInfoTableViewSaveBlock) {
         
-        self.wiredInfoTableViewSaveBlock([self valueAtKey:(NSString *)kWiredWithIP],[self valueAtKey:(NSString *)kWiredWithGateway],[self valueAtKey:(NSString *)kWiredWithIP],[self valueAtKey:(NSString *)kWiredWithDNS]);
+        self.wiredInfoTableViewSaveBlock([self valueAtKey:(NSString *)kWiredWithIP],[self valueAtKey:(NSString *)kWiredWithSubnetMask],[self valueAtKey:(NSString *)kWiredWithGateway],[self valueAtKey:(NSString *)kWiredWithDNS]);
     }
 }
 
