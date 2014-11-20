@@ -18,9 +18,7 @@
 
 @interface JVCCloudSEENetworkHelper () {
 
-
     NSMutableString *remoteDownSavePath;
-
 }
 
 /**
@@ -89,7 +87,6 @@ void RemoteplaybackSearchCallBack(int nLocalChannel,char *pBuffer, int nSize);
  */
 void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *pBuffer, int nSize, int nWidth, int nHeight, int nTotalFrame);
 
-
 /**
  *  远程下载文件接口
  *
@@ -124,11 +121,9 @@ static NSString const *kBindAlarmFlagKey = @"$";
 
 FILE *downloadHandle = NULL;
 
-JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
+JVCCloudSEEManagerHelper *jvChannel[kJVCCloudSEENetworkHelperWithConnectMaxNumber];
 
 static const int          kDisconnectTimeDelay = 500;  //单位毫秒
-
-
 static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
 
 /**
@@ -205,7 +200,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
  */
 -(int)returnCurrentChannelBynLocalChannelID:(int)nLocalChannel{
     
-    return (nLocalChannel -1) % CONNECTMAXNUMS;
+    return (nLocalChannel -1) % kJVCCloudSEENetworkHelperWithConnectMaxNumber;
     
 }
 
@@ -1260,8 +1255,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
         case JVN_RSP_PLAYE:
         case JVN_RSP_PLAYOVER:
         case JVN_RSP_PLTIMEOUT:{
-            
-            DDLogCVerbose(@"%s--------playBack###################00000000",__FUNCTION__);
+        
             [jvcCloudSEENetworkHelper RemotePlayBackVideoEndCallBack:uchType currentChannelObj:currentChannelObj];
         }
             
@@ -1385,7 +1379,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         case JVN_RSP_TEXTACCEPT:
         case JVN_CMD_TEXTSTOP:{
             
-            DDLogCVerbose(@"%s-------**********************************",__FUNCTION__);
             if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatStatusCallBack:withStatus:)]) {
                 
                 [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatStatusCallBack:currentChannelObj.nShowWindowID+1 withStatus:uchType];
@@ -1826,7 +1819,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     
     JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
     
-    for (int i = 0 ; i< CONNECTMAXNUMS; i++) {
+    for (int i = 0 ; i< kJVCCloudSEENetworkHelperWithConnectMaxNumber; i++) {
         
         JVCCloudSEEManagerHelper *CloudSEEManagerHelperObj = jvChannel[i];
         

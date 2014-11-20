@@ -814,7 +814,6 @@ BOOL isAllLinkRun;
         
     [singleView setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
    
-
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
 }
@@ -826,7 +825,7 @@ BOOL isAllLinkRun;
  */
 -(BOOL)getCurrentSelectedSingelViewIs05Device{
     
-    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex+KWINDOWSFLAG];
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
     return singleView.isNewDevice;
 }
@@ -838,10 +837,11 @@ BOOL isAllLinkRun;
  */
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
+    JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+    singleView.isNewDevice                                    =  nDeviceType;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
-        singleView.isNewDevice                                    =  nDeviceType;
          JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         if (self.isPlayBackVideo) {
@@ -863,7 +863,6 @@ BOOL isAllLinkRun;
                 
                 [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
             }
-        
         }
     });
 }
