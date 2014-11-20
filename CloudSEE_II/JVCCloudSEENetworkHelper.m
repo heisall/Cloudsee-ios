@@ -1165,9 +1165,7 @@ void RemotePlaybackDataCallBack(int nLocalChannel, unsigned char uchType, char *
         [pool release];
         return;
     }
-    
-    
-    
+
     switch (uchType) {
             
         case JVN_DATA_O:{

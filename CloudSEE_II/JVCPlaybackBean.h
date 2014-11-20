@@ -10,8 +10,8 @@
 
 @interface JVCPlaybackBean : UITableViewCell
 {
- UILabel *timeLabel;//时间
- UILabel *sizeLabel;//盘符
+     UILabel *timeLabel;//时间
+     UILabel *sizeLabel;//盘符
 }
 
 @property (nonatomic, retain)  UILabel *timeLabel;

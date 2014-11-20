@@ -623,5 +623,12 @@
 "applog.md"           = "Video Log";
 "JVCLog_Title"        = "Log List";
 "JVCLog_clear"        = "Empty the success！";
-"DeviceManagerLog.md" = "Device&channel Log";//设备log
-"LoginManagerLog.md" = "Login Log";//登录的log
+"DeviceManagerLog.md" = "Device&channel Log";  //设备log
+"LoginManagerLog.md"  = "Login Log";           //登录的log
+
+"JVCRemoteVideoPlayBackVControler_alarmType_A" = "Alarm recording";
+"JVCRemoteVideoPlayBackVControler_alarmType_M" = "Motion detection";
+"JVCRemoteVideoPlayBackVControler_alarmType_T" = "Regular recording";
+"JVCRemoteVideoPlayBackVControler_alarmType_N" = "Manual recording";
+
+

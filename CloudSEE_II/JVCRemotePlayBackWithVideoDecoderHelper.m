@@ -134,6 +134,7 @@ char          remotePlaybackCacheBuffer[64*1024] = {0}; //存放远程回放数�
                 
                 remotePlaybackCacheBuffer[nIndex++] = acData[i];//录像所在盘
                 remotePlaybackCacheBuffer[nIndex++] = acData[i+7];//录像类型
+
                 
                 sprintf(acBuff,"%c%c",acData[i+8],acData[i+9]);//通道号
                 
@@ -154,6 +155,9 @@ char          remotePlaybackCacheBuffer[64*1024] = {0}; //存放远程回放数�
                 NSString *strRemoteDisk = [[NSString alloc] initWithUTF8String:acBuff];
                 [mdicAFile setValue:strRemoteDisk forKey:KJVCYstNetWorkMacroRemotePlayBackDisk];
                 [strRemoteDisk release];
+                
+                //远程回放文件的类型
+                [mdicAFile setValue:[NSString stringWithFormat:@"%c",acData[i+7]] forKey:KJVCYstNetWorkMacroRemotePlayBackType];
                 
                 [mArrayRemotePlaybackFileList  addObject:mdicAFile];
                 
