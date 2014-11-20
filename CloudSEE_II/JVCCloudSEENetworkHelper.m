@@ -13,6 +13,7 @@
 #import "JVCCloudSEESendGeneralHelper.h"
 #import "JVCVideoDecoderHelper.h"
 #import "JVCRemotePlayBackWithVideoDecoderHelper.h"
+#import "JVCLogHelper.h"
 
 
 @interface JVCCloudSEENetworkHelper () {
@@ -123,8 +124,9 @@ static NSString const *kBindAlarmFlagKey = @"$";
 
 FILE *downloadHandle = NULL;
 
-
 JVCCloudSEEManagerHelper *jvChannel[CONNECTMAXNUMS];
+
+static const int          kDisconnectTimeDelay = 500;  //单位毫秒
 
 
 static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
@@ -444,8 +446,12 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     if (currentChannelObj  != nil) {
         
         currentChannelObj.isRunDisconnect = YES;
+        
+         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--start nLocalChannel=%d",__FUNCTION__,nLocalChannel] fileType:LogType_OperationPLayLogPath];
         //断开远程连接
         [currentChannelObj disconnect];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--end nLocalChannel=%d",__FUNCTION__,nLocalChannel] fileType:LogType_OperationPLayLogPath];
         
         int nJvchannelID = nLocalChannel -1;
         
@@ -453,7 +459,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
             
             if (jvChannel[nJvchannelID] != nil) {
                 
-                usleep(500);
+                usleep(kDisconnectTimeDelay);
                 
             }else{
                 
@@ -484,6 +490,8 @@ void ConnectMessageCallBack(int nLocalChannel, unsigned char  uchType, char *pMs
     }
     
     NSString *connectResultInfo=[[NSString alloc] initWithCString:pMsg encoding:NSUTF8StringEncoding];
+    
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s--connectType=%d,connectInfo=%@,nlcalChannel=%d",__FUNCTION__,uchType,connectResultInfo,nLocalChannel] fileType:LogType_OperationPLayLogPath];
     DDLogCWarn(@"%s--connectType=%d,connectInfo=%@,nlcalChannel=%d",__FUNCTION__,uchType,connectResultInfo,nLocalChannel);
     [jvcCloudSEENetworkHelper runConnectMessageCallBackMath:connectResultInfo nLocalChannel:nLocalChannel connectResultType:uchType];
     
