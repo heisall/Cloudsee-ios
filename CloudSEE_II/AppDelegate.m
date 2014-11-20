@@ -45,6 +45,8 @@
 #import "JVCMediaMacro.h"
 #import "JVCLogHelper.h"
 
+#import "JVCTencentHelp.h"
+
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -58,7 +60,8 @@
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 
-int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;
+int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;  //输出热i
+int JVCTencentLeveal                          = JVCTencentTypeClose;      //腾讯的
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
@@ -90,7 +93,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [self initYSTSDK];
     
     //腾讯云统计
-    //[self initTencentSdk];
+    [self initTencentSdk];
     
     //openglView
     [self initOpenGlView];
@@ -794,7 +797,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
  */
 - (void)initTencentSdk
 {
-    [MTA startWithAppkey:kTencentKey];
+  
+    [[JVCTencentHelp shareTencentHelp] initTencentSDK];
     
 }
 

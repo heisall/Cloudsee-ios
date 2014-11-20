@@ -611,7 +611,7 @@
 "EditDeviceDetailViewController_device_no_newVirsion"="No need to click again for there is no new version";
 "EditDeviceDetailViewController_device_downing"="Loading firmware now, please wait...";
 "EditDeviceDetailViewController_device_setting"="Installing firmware now, please keep the power on and wait...";
-"home_device_advance_titile"="Update info";
+"home_device_advance_titile"="New Version:";
 "home_device_advance_update"= "Update";
 "EditDeviceDetailViewController_device_cancel" = "Download cancel";
 "JvcDeviceUpdateModel"= " model：";

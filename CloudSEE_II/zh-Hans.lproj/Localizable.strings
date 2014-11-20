@@ -618,7 +618,7 @@
 "EditDeviceDetailViewController_device_no_newVirsion"="不要点击我了，真的没有最新了";
 "EditDeviceDetailViewController_device_downing"="设备正在拼命的下载升级文件,请耐心等待...";
 "EditDeviceDetailViewController_device_setting"="设备升级中，请勿断电";
-"home_device_advance_titile"="升级内容";
+"home_device_advance_titile"="发现新版本：";
 "home_device_advance_update"= "升级";
 "EditDeviceDetailViewController_device_cancel" = "下载取消";
 "JvcDeviceUpdateModel"= " 软件版本：";

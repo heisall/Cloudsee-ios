@@ -63,9 +63,19 @@ static const NSString *kTenchetOne          = @"1";
  */
 - (void)tencenttrackCustomKeyValueEvent:(NSString *)tencentKey
 {
-    NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
-                                                    forKey:kTenchetValuekey];
-    [MTA trackCustomKeyValueEvent:tencentKey props:kvs];
+    switch (JVCTencentLeveal) {
+        case JVCTencentTypeOpen:
+        {
+            NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
+                                                            forKey:kTenchetValuekey];
+            [MTA trackCustomKeyValueEvent:tencentKey props:kvs];
+
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /**
@@ -75,9 +85,20 @@ static const NSString *kTenchetOne          = @"1";
  */
 - (void)tencenttrackCustomKeyValueEventBegin:(NSString *)tencentKey
 {
-    NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
-                                                    forKey:kTenchetValuekey];
-    [MTA trackCustomKeyValueEventBegin:tencentKey props:kvs];
+   
+    
+    switch (JVCTencentLeveal) {
+        case JVCTencentTypeOpen:
+        {
+            NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
+                                                            forKey:kTenchetValuekey];
+            [MTA trackCustomKeyValueEventBegin:tencentKey props:kvs];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /**
@@ -87,9 +108,21 @@ static const NSString *kTenchetOne          = @"1";
  */
 - (void)tencenttrackCustomKeyValueEventEnd:(NSString *)tencentKey
 {
-    NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
-                                                    forKey:kTenchetValuekey];
-    [MTA trackCustomKeyValueEventEnd :tencentKey props:kvs];
+    
+    switch (JVCTencentLeveal) {
+            
+        case JVCTencentTypeOpen:
+        {
+            NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
+                                                            forKey:kTenchetValuekey];
+            [MTA trackCustomKeyValueEventEnd :tencentKey props:kvs];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 /**
@@ -100,13 +133,46 @@ static const NSString *kTenchetOne          = @"1";
  */
 - (void)tencenttrackCustomKeyValueEvent:(NSString *)tencentKey  activityClass:(NSString *)activityViewString
 {
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:3];
-    [dictionary setObject:activityViewString forKey:kTenchetaty];
-    [dictionary setObject:kTenchetOK forKey:kTenchetbtn];
-    [dictionary setObject:kTenchetOne forKey:kTenchetgid];
-    [MTA trackCustomKeyValueEvent:tencentKey
-                            props:dictionary];
-    [dictionary release];
+    switch (JVCTencentLeveal) {
+            
+        case JVCTencentTypeOpen:
+        {
+            NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:3];
+            [dictionary setObject:activityViewString forKey:kTenchetaty];
+            [dictionary setObject:kTenchetOK forKey:kTenchetbtn];
+            [dictionary setObject:kTenchetOne forKey:kTenchetgid];
+            [MTA trackCustomKeyValueEvent:tencentKey
+                                    props:dictionary];
+            [dictionary release];
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+   }
+
+/**
+ *  初始腾讯sdk
+ */
+- (void)initTencentSDK
+{
+    switch (JVCTencentLeveal) {
+            
+        case JVCTencentTypeOpen:
+        {
+            [MTA startWithAppkey:kTencentKey];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
+
 
 @end
