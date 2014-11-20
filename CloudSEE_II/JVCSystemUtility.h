@@ -176,5 +176,17 @@
 -(NSString *)getDocumentpathAtFileName:(NSString *)fileName;
 
 
+/**
+ *  获取设备类型
+ *
+ *  @return 设备类型
+ */
+- (NSString*)getDeviceVersion;
 
+/**
+ *  设备类型
+ *
+ *  @return 设备类型
+ */
+- (NSString*)deviceString;
 @end

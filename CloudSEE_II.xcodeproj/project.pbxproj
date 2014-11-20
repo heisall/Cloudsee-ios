@@ -64,10 +64,17 @@
 		A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A575FF1A130AB3000D0BBC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A576011A130ABD000D0BBC /* CoreTelephony.framework */; };
 		A7A576061A13929A000D0BBC /* JVCTencentHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A576051A13929A000D0BBC /* JVCTencentHelp.m */; };
+		A7A6A5431A1D885F0087D6E4 /* mor_sug_texth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A6A5411A1D885F0087D6E4 /* mor_sug_texth@2x.png */; };
+		A7A6A5441A1D885F0087D6E4 /* mor_sug_textn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A6A5421A1D885F0087D6E4 /* mor_sug_textn@2x.png */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
 		A7AF4C821A1C44A7006ADF87 /* JVCMediaNoDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */; };
 		A7AF4C841A1C491C006ADF87 /* med_noDate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */; };
+		A7AF4C861A1C9BB6006ADF87 /* add_IP@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C851A1C9BB6006ADF87 /* add_IP@2x.png */; };
+		A7AF4C8B1A1CA468006ADF87 /* mor_sug_Horbg_iphone5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C871A1CA468006ADF87 /* mor_sug_Horbg_iphone5@2x.png */; };
+		A7AF4C8C1A1CA468006ADF87 /* mor_sug_Horbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C881A1CA468006ADF87 /* mor_sug_Horbg@2x.png */; };
+		A7AF4C8D1A1CA468006ADF87 /* mor_sug_Norbg_iphone5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C891A1CA468006ADF87 /* mor_sug_Norbg_iphone5@2x.png */; };
+		A7AF4C8E1A1CA468006ADF87 /* mor_sug_Norbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C8A1A1CA468006ADF87 /* mor_sug_Norbg@2x.png */; };
 		A7AF72BB1A1594CC0030D490 /* JVCPhotoModelObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */; };
 		A7AF72BE1A1595260030D490 /* JVCPhotoGroupObj.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72BD1A1595260030D490 /* JVCPhotoGroupObj.m */; };
 		A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72C11A159C380030D490 /* JVCConstansALAssetsMathHelper.m */; };
@@ -734,11 +741,18 @@
 		A7A576011A130ABD000D0BBC /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A7A576041A13929A000D0BBC /* JVCTencentHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCTencentHelp.h; sourceTree = "<group>"; };
 		A7A576051A13929A000D0BBC /* JVCTencentHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTencentHelp.m; sourceTree = "<group>"; };
+		A7A6A5411A1D885F0087D6E4 /* mor_sug_texth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_texth@2x.png"; sourceTree = "<group>"; };
+		A7A6A5421A1D885F0087D6E4 /* mor_sug_textn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_textn@2x.png"; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
 		A7AF4C801A1C44A7006ADF87 /* JVCMediaNoDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMediaNoDateView.h; sourceTree = "<group>"; };
 		A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMediaNoDateView.m; sourceTree = "<group>"; };
 		A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "med_noDate@2x.png"; sourceTree = "<group>"; };
+		A7AF4C851A1C9BB6006ADF87 /* add_IP@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_IP@2x.png"; sourceTree = "<group>"; };
+		A7AF4C871A1CA468006ADF87 /* mor_sug_Horbg_iphone5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_Horbg_iphone5@2x.png"; sourceTree = "<group>"; };
+		A7AF4C881A1CA468006ADF87 /* mor_sug_Horbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_Horbg@2x.png"; sourceTree = "<group>"; };
+		A7AF4C891A1CA468006ADF87 /* mor_sug_Norbg_iphone5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_Norbg_iphone5@2x.png"; sourceTree = "<group>"; };
+		A7AF4C8A1A1CA468006ADF87 /* mor_sug_Norbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_Norbg@2x.png"; sourceTree = "<group>"; };
 		A7AF72B91A1594CC0030D490 /* JVCPhotoModelObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoModelObj.h; sourceTree = "<group>"; };
 		A7AF72BA1A1594CC0030D490 /* JVCPhotoModelObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCPhotoModelObj.m; sourceTree = "<group>"; };
 		A7AF72BC1A1595260030D490 /* JVCPhotoGroupObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCPhotoGroupObj.h; sourceTree = "<group>"; };
@@ -1540,6 +1554,10 @@
 			children = (
 				A7B6EE2B1A14D4C20024F836 /* media */,
 				A7F43F6819FBD0A400C11109 /* mor_IconCheck@2x.png */,
+				A7AF4C871A1CA468006ADF87 /* mor_sug_Horbg_iphone5@2x.png */,
+				A7AF4C881A1CA468006ADF87 /* mor_sug_Horbg@2x.png */,
+				A7AF4C891A1CA468006ADF87 /* mor_sug_Norbg_iphone5@2x.png */,
+				A7AF4C8A1A1CA468006ADF87 /* mor_sug_Norbg@2x.png */,
 				A7F43F6619FBD01800C11109 /* mor_Iconmdy@2x.png */,
 				A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */,
 				A7F43F6419FBCFC100C11109 /* mor_Iconalarm@2x.png */,
@@ -1722,6 +1740,8 @@
 		A7B6EE2B1A14D4C20024F836 /* media */ = {
 			isa = PBXGroup;
 			children = (
+				A7A6A5411A1D885F0087D6E4 /* mor_sug_texth@2x.png */,
+				A7A6A5421A1D885F0087D6E4 /* mor_sug_textn@2x.png */,
 				A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */,
 				A7B58B8A1A15E003004D0E5B /* mor_pmImage.jpg */,
 				A7B58B881A15DAEC004D0E5B /* mor_pmbg@2x.png */,
@@ -2242,6 +2262,7 @@
 		A7F5EF4A19D26D67009B797A /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
+				A7AF4C851A1C9BB6006ADF87 /* add_IP@2x.png */,
 				A78F22041A0A0D2900BC0717 /* devAdv_default_en0.jpg */,
 				A7F58C041A03B3C200EA0C4F /* addDev_btnHor@2x.png */,
 				AD99622A1A0C995300B96085 /* devAdv_default_ch0.jpg */,
@@ -3230,6 +3251,7 @@
 				A7EFFA4E19F4FDE300DF783D /* arm_no@2x.png in Resources */,
 				A7F5E23219D41EBC00609BC3 /* mor_IconHelp@2x.png in Resources */,
 				A7F6C5FC19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png in Resources */,
+				A7A6A5431A1D885F0087D6E4 /* mor_sug_texth@2x.png in Resources */,
 				A7F50A4219FA534F004D061F /* tab_more_select@2x.png in Resources */,
 				ADD6267F1A046DAB00BD877F /* voi_next_en.mp3 in Resources */,
 				A7B9FB891A08EE4B005F7928 /* device_old_update_ch@2x.png in Resources */,
@@ -3262,6 +3284,7 @@
 				A7F50A4119FA534F004D061F /* tab_message_unselect@2x.png in Resources */,
 				A7EFFA6219F50C0300DF783D /* boderBigLine@2x.png in Resources */,
 				A78F22141A0A555B00BC0717 /* apcofig_0_sec@2x.png in Resources */,
+				A7A6A5441A1D885F0087D6E4 /* mor_sug_textn@2x.png in Resources */,
 				A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */,
 				A7F6C5FE19F89B570090B6F0 /* HorizontalScreenBarstreambtnbg@2x.png in Resources */,
 				A7F43F6919FBD0A400C11109 /* mor_IconCheck@2x.png in Resources */,
@@ -3278,6 +3301,7 @@
 				A78F22171A0A555B00BC0717 /* apcofig_1@2x.png in Resources */,
 				A7F4346819DA44A800E7ECA1 /* log_pw@2x.png in Resources */,
 				A7F509FC19F9FEE9004D061F /* sca_device@2x.png in Resources */,
+				A7AF4C8B1A1CA468006ADF87 /* mor_sug_Horbg_iphone5@2x.png in Resources */,
 				AD3BDCC719ED5ADD001B16D7 /* voi_help_ges@2x.png in Resources */,
 				A78F22181A0A555B00BC0717 /* apcofig_2_sec@2x.png in Resources */,
 				AD916BDA19D5445900B925A2 /* edi_drop_icon_unselect@2x.png in Resources */,
@@ -3449,6 +3473,7 @@
 				A7F2210C19F383F600447853 /* no_devWlan@2x.png in Resources */,
 				A7FC002919FCD874006B31FA /* learn_2_ch.mp3 in Resources */,
 				A7F6C5F219F89B570090B6F0 /* HorizontalScreenBar_0@2x.png in Resources */,
+				A7AF4C8D1A1CA468006ADF87 /* mor_sug_Norbg_iphone5@2x.png in Resources */,
 				A7F4347119DA4A4A00E7ECA1 /* dev_nodevBg@2x.png in Resources */,
 				ADA9E4461A11FCFF007EB209 /* nws_wired_btnBg@2x.png in Resources */,
 				A7F442A019E7649B00519A4B /* add_QR@2x.png in Resources */,
@@ -3467,8 +3492,10 @@
 				AD916BDB19D5445900B925A2 /* edi_drop_line@2x.png in Resources */,
 				AD3BDCA519EBFA3F001B16D7 /* voi_wifi@2x.png in Resources */,
 				A7F5013519D5039C00AA78F0 /* mor_cellnew@2x.png in Resources */,
+				A7AF4C861A1C9BB6006ADF87 /* add_IP@2x.png in Resources */,
 				AD3BDCC919ED5AE3001B16D7 /* voi_help_dev@2x.png in Resources */,
 				A7F5012619D4EFB400AA78F0 /* Icon-152.png in Resources */,
+				A7AF4C8E1A1CA468006ADF87 /* mor_sug_Norbg@2x.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
 				A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
 				A7B6EE241A14A9030024F836 /* yt_top@2x.png in Resources */,
@@ -3497,6 +3524,7 @@
 				A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */,
 				ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */,
 				A7F50A0919FA017A004D061F /* welcome_1_en4.jpg in Resources */,
+				A7AF4C8C1A1CA468006ADF87 /* mor_sug_Horbg@2x.png in Resources */,
 				AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */,
 				AD99622D1A0C995300B96085 /* devAdv_default_en1.jpg in Resources */,
 				A7F4429E19E7649B00519A4B /* add_normal@2x.png in Resources */,

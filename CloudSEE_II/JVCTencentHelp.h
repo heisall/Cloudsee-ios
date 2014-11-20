@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+extern int  JVCTencentLeveal ;//腾讯云统计的leveal
+
+enum JVCTencentLeveal {
+    
+    JVCTencentTypeClose = 0,    //默认关闭
+    JVCTencentTypeOpen  = 1,    //打开
+};
+
 @interface JVCTencentHelp : NSObject
 
 /**
@@ -17,6 +25,10 @@
  */
 +(JVCTencentHelp *)shareTencentHelp;
 
+/**
+ *  初始腾讯sdk
+ */
+- (void)initTencentSDK;
 /**
  *  点击事件的次数统计
  *

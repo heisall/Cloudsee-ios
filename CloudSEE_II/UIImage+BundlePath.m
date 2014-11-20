@@ -67,6 +67,14 @@ static const int kImageSeperateCount = 2;//图片的image.png 分割，数组大
                 NSString *nameImageHead = [NSString stringWithFormat:@"%@_iphone5",[array objectAtIndex:0]];
                 
                 path = [[NSBundle mainBundle] pathForResource:nameImageHead ofType:[array objectAtIndex:1]];
+                
+                if (path == nil) {
+                    
+                    
+                  NSString *imageName  = [nameImageHead stringByAppendingString:@"@2x"];
+                    
+                       path = [[NSBundle mainBundle] pathForResource:imageName ofType:[array objectAtIndex:1]];
+                }
 
             }
             

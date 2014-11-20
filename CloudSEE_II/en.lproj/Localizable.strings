@@ -429,6 +429,12 @@
 "jvc_more_screen_set" = "Viewing model";
 "jvc_more_singel_device" = "Single";
 "jvc_more_muti_device" = "Multi";
+"jvc_more_suggestion_content"= "Content can not be null";
+"jvc_more_suggestion_send_error"= "Failed to send message, please try again!";
+"jvc_more_suggestion_send_success"= "Send message successfully";
+"jvc_more_suggestion_send"= "Send";
+"jvc_more_suggestion_Phone_num" = "Your contact info(So we can contact you for feedback)";
+
 
 //修改密码的
 "oldPW" = "Old Password";
@@ -450,7 +456,7 @@
 "jvc_editDevice_Editbtn_SeeImedity" = "Video";
 "jvc_editDevice_Editbtn_safe" = "Security Protection";
 "jvc_editDevice_Editbtn_alarmseting" = "Alarm Device";
-"jvc_editDevice_Editbtn_update"      = "Update Device";
+"jvc_editDevice_Editbtn_update"      = "Device Version";
 "jvc_editDevice_Editbtn_safe_open" = "Enable Security Protection Successfully";
 "jvc_editDevice_Editbtn_safe_close" = "Failed to enable Security Protection.";
 "jvc_editDevice_noSupport" = "No support for this device";
@@ -605,7 +611,7 @@
 "EditDeviceDetailViewController_device_no_newVirsion"="No need to click again for there is no new version";
 "EditDeviceDetailViewController_device_downing"="Loading firmware now, please wait...";
 "EditDeviceDetailViewController_device_setting"="Installing firmware now, please keep the power on and wait...";
-"home_device_advance_titile"="Update info";
+"home_device_advance_titile"="New Version:";
 "home_device_advance_update"= "Update";
 "EditDeviceDetailViewController_device_cancel" = "Download cancel";
 "JvcDeviceUpdateModel"= " model：";

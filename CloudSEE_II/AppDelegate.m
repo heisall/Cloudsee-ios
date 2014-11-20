@@ -45,6 +45,8 @@
 #import "JVCMediaMacro.h"
 #import "JVCLogHelper.h"
 
+#import "JVCTencentHelp.h"
+
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -58,11 +60,13 @@
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 
-int JVCLogHelperLevel                              = JVCLogHelperLevelRelease;
+int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;  //输出热i
+int JVCTencentLeveal                          = JVCTencentTypeClose;      //腾讯的
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
 @synthesize QRViewController;
+@synthesize localtionString;
 
 static NSString const *kAPPLocalCaheKey          = @"localDeviceListData";
 static  const   int    KSetHelpMaxCount          = 5;
@@ -76,6 +80,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
      *  设置ddlog
      */
     [self DDLogSettings];
+    //初始化位置字符串
+    self.localtionString = @"";
     
     [self convertOldUserInfoToDatebase];
     
@@ -87,7 +93,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [self initYSTSDK];
     
     //腾讯云统计
-    //[self initTencentSdk];
+    [self initTencentSdk];
     
     //openglView
     [self initOpenGlView];
@@ -445,6 +451,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     
     NSString *requsetString = [[NSString alloc]initWithData:received encoding:gbkEncoding];
+    
+    self.localtionString = requsetString;
 
     if([requsetString rangeOfString:(NSString *)KCheckLocationFlag].location != NSNotFound)//_roaldSearchText
     {
@@ -789,7 +797,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
  */
 - (void)initTencentSdk
 {
-    [MTA startWithAppkey:kTencentKey];
+  
+    [[JVCTencentHelp shareTencentHelp] initTencentSDK];
     
 }
 

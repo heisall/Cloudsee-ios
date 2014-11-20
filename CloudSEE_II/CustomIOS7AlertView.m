@@ -175,7 +175,7 @@ CGFloat buttonSpacerHeight = 0;
 - (UIView *)createContainerView
 {
     if (containerView == NULL) {
-        containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 150)];
+        containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 140)];
     }
 
     CGSize screenSize = [self countScreenSize];

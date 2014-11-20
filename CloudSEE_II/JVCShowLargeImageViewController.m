@@ -73,7 +73,7 @@
         self.modalPresentationCapturesStatusBarAppearance = NO;
     }
     
-    self.title = LOCALANGER(@"home_share_pic");
+    self.title = LOCALANGER(@"home_photos");
     _iViewHeight = self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height;
     
     //    UIBarButtonItem *itemBar = [[UIBarButtonItem alloc] initWithTitle:LOCALANGER(@"home_share") style:UIBarButtonItemStyleBordered target:self action:@selector(buttonPressSharkNoView:)];

@@ -191,7 +191,7 @@
 "qrScan"="正在扫描设备，请等待...";
 "JDCSVC_GetDevice_Error"= "获取设备失败,请下来刷新设备";
 "JDCSVC_GetDeviceChannel_Error"= "添加设备通道失败";
-"jvc_addDevicChannel_CountError" = "添加设备通道视频，是否重新添加";
+"jvc_addDevicChannel_CountError" = "添加设备通道失败，是否重新添加";
 "jvc_addDevicChannel_CountError_ok" = "添加";
 "jvc_addDevicChannel_CountError_Cancel" = "取消";
 "binding_email_exist"="邮箱已被注册";
@@ -428,6 +428,11 @@
 "jvc_more_screen_set" = "观看模式";
 "jvc_more_singel_device" = "单设备";
 "jvc_more_muti_device" = "多设备";
+"jvc_more_suggestion_content"= "内容不能为空";
+"jvc_more_suggestion_send_error"= "发送失败";
+"jvc_more_suggestion_send_success"= "发送成功";
+"jvc_more_suggestion_send"= "发送";
+"jvc_more_suggestion_Phone_num" = "您的联系方式(方便我们跟踪问题和建议)";
 
 //媒体的
 "jvc_more_media_title"="媒体";
@@ -464,7 +469,7 @@
 "jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
 "jvc_editDevice_Editbtn_safe" = "安全防护";
 "jvc_editDevice_Editbtn_alarmseting" = "报警设置";
-"jvc_editDevice_Editbtn_update" = "升级设备";
+"jvc_editDevice_Editbtn_update" = "版本信息"; /////
 "jvc_editDevice_Editbtn_safe_open" = "设备的安全防护开关处于开启状态";
 "jvc_editDevice_Editbtn_safe_close" = "设备的安全防护开关处于关闭状态";
 "jvc_editDevice_noSupport" = "设备不支持此操作";
@@ -613,7 +618,7 @@
 "EditDeviceDetailViewController_device_no_newVirsion"="不要点击我了，真的没有最新了";
 "EditDeviceDetailViewController_device_downing"="设备正在拼命的下载升级文件,请耐心等待...";
 "EditDeviceDetailViewController_device_setting"="设备升级中，请勿断电";
-"home_device_advance_titile"="升级内容";
+"home_device_advance_titile"="发现新版本：";
 "home_device_advance_update"= "升级";
 "EditDeviceDetailViewController_device_cancel" = "下载取消";
 "JvcDeviceUpdateModel"= " 软件版本：";

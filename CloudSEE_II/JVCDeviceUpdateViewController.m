@@ -100,7 +100,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
-                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
+                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@%@",LOCALANGER(@"home_device_advance_titile"),strNewVersion] delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
 
             });
         }
@@ -348,7 +348,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
         [_contentview addSubview:_lblTitle];
         [_lblTitle release];
     
-        _progressView = [[LDProgressView alloc] initWithFrame:CGRectMake(20, 80, 220, 30)];
+        _progressView = [[LDProgressView alloc] initWithFrame:CGRectMake(20, 70, 220, 20)];
         _progressView.color = [UIColor colorWithRed:0.00f green:0.64f blue:0.00f alpha:1.00f];
         _progressView.flat = @YES;
         _progressView.progress = 0.00;
