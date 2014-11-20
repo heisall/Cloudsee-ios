@@ -325,13 +325,13 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地增加域名或ip添加设备
 
         titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce"),LOCALANGER(@"jvc_DeviceList_add_ip")];
-        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png",@"add_voice.png"];
+        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_wlan.png",@"add_voice.png", @"add_IP.png"];
         
     }else{
         
         
         titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce")];
-        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_voice.png", @"add_wlan.png"];
+        images = @[@"add_normal.png", @"add_QR.png", @"add_scan.png",@"add_wlan.png",@"add_voice.png" ];
     }
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;

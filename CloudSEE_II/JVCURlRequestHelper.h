@@ -28,4 +28,15 @@
  *  请求appVersion
  */
 - (void)requeAppVersion;
+
+/**
+ *  意见与反馈
+ *
+ *  @param content  内容
+ *  @param phoneNum 手机可以为空
+ *
+ *  @return 1成功 其他 失败
+ */
+- (int)sendSuggestWithMessage:(NSString *)content
+                     phoneNum:(NSString *)phoneNum;
 @end

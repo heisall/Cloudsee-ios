@@ -16,6 +16,8 @@
     
     JVCQRCoderViewController *QRViewController;//二维码扫描view
     
+    NSString *localtionString;
+    
 }
 
 enum tabarViewItem {
@@ -27,7 +29,7 @@ enum tabarViewItem {
 @property (strong, nonatomic)   UIWindow *window;
 @property(nonatomic,retain)     NSMutableArray *_amOpenGLViewListData;
 @property(nonatomic,retain)     JVCQRCoderViewController *QRViewController;
-
+@property(nonatomic,retain)     NSString *localtionString;
 /**
  *  初始化TabarViewControllers
  */

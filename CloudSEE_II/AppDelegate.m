@@ -63,6 +63,7 @@ int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
 @synthesize QRViewController;
+@synthesize localtionString;
 
 static NSString const *kAPPLocalCaheKey          = @"localDeviceListData";
 static  const   int    KSetHelpMaxCount          = 5;
@@ -76,6 +77,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
      *  设置ddlog
      */
     [self DDLogSettings];
+    //初始化位置字符串
+    self.localtionString = @"";
     
     NSMutableString *returnText = [[NSMutableString alloc] initWithCapacity:10];
     NSString        *pathAccount= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:@"applog.md"];
@@ -462,6 +465,8 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     
     NSString *requsetString = [[NSString alloc]initWithData:received encoding:gbkEncoding];
+    
+    self.localtionString = requsetString;
 
     if([requsetString rangeOfString:(NSString *)KCheckLocationFlag].location != NSNotFound)//_roaldSearchText
     {

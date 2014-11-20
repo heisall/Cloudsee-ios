@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
-#import "JVCBaseWithGeneralViewController.h"
-#import "JVCBaseGeneralTableViewController.h"
+#import "JVCBaseSliderViewController.h"
 
-@interface JVCSuggestAndFeedViewController : JVCBaseGeneralTableViewController<UITableViewDataSource,UITableViewDelegate>
+@interface JVCSuggestAndFeedViewController : JVCBaseSliderViewController<UITextFieldDelegate,UITextViewDelegate>
 
 @end

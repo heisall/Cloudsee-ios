@@ -9,6 +9,8 @@
 #import "JVCURlRequestHelper.h"
 #import "JSONKit.h"
 #import "JVCConfigModel.h"
+#import "AppDelegate.h"
+#import "JVCSystemUtility.h"
 
 @interface JVCURlRequestHelper ()
 {
@@ -35,6 +37,24 @@ static const    NSString   *KCFBundleVersion           = @"CFBundleVersion";//�
 static const    int        kAlertNEWVersionTag         = 3000;   //新版本的tag
 
 static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/MobileWeb.aspx";//请求版本更新的
+//意见与反馈的
+static  const   NSString  *KSuggestMod                  =  @"mod";
+static  const   NSString  *KSuggestModValue             =  @"mobile";
+static  const   NSString  *KSuggestPlatform             =  @"platform";//1 ios  2 安卓
+static  const   NSString  *KSuggestPlatformValue        =  @"1";
+static  const   NSString  *KSuggestModel                =  @"model";
+static  const   NSString  *KSuggestModelValue           =  @"ios";
+static  const   NSString  *KSuggestVersion              =  @"version";
+static  const   NSString  *KSuggestFingerprint          =  @"fingerprint";
+static  const   NSString  *KSuggestFingerprintValue     =  @"ios";
+static  const   NSString  *KSuggestCountry              =  @"country";
+static  const   NSString  *KSuggestCpu                  =  @"cpu";
+static  const   NSString  *KSuggestcpuValue             =  @"ios";
+static  const   NSString  *KSuggestSoftVersion          =  @"softversion";
+static  const   NSString  *KSuggestContent              =  @"content";
+static  const   NSString  *KSuggestContact              =  @"contact";
+static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.230/api.php?";
+
 
 - (void)initReceiveDate
 {
@@ -90,6 +110,50 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
 
 }
 
+/**
+ *  意见与反馈
+ *
+ *  @param content  内容
+ *  @param phoneNum 手机可以为空
+ *
+ *  @return 1成功 其他 失败
+ */
+- (int)sendSuggestWithMessage:(NSString *)content  phoneNum:(NSString *)phoneNum
+{
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSMutableDictionary *dicSuggest = [[NSMutableDictionary alloc] init];
+    [dicSuggest setObject: KSuggestModValue forKey:KSuggestMod];
+
+//    [dicSuggest setObject: [[UIDevice currentDevice] model] forKey:KSuggestMod];
+    [dicSuggest setObject:KSuggestPlatformValue forKey:KSuggestPlatform];
+    [dicSuggest setObject:[[JVCSystemUtility shareSystemUtilityInstance] deviceString] forKey:KSuggestModel];
+    [dicSuggest setObject:[NSString stringWithFormat:@"%lf",[[[UIDevice currentDevice] systemVersion] floatValue]] forKey:KSuggestVersion];
+    [dicSuggest setObject:KSuggestFingerprintValue forKey:KSuggestFingerprint];
+    [dicSuggest setObject:delegate.localtionString forKey:KSuggestCountry];
+    [dicSuggest setObject:[[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleShortVersionString"] forKey:KSuggestSoftVersion];
+    [dicSuggest setObject:content forKey:KSuggestContent];
+    [dicSuggest setObject:phoneNum forKey:KSuggestContact];
+    [dicSuggest setObject:KSuggestcpuValue forKey:KSuggestCpu];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",KSuggestUrl,[self getRequestKeyString:dicSuggest]];
+    [dicSuggest release];
+
+//    urlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)urlString, nil, nil, kCFStringEncodingUTF8));
+    
+    DDLogVerbose(@"%s===%@=\n=%@",__FUNCTION__,urlString,[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    
+    NSData *suggestReceivedata = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+ 
+    [request release];
+    
+   NSString *result =[[[NSString alloc] initWithData:suggestReceivedata encoding:NSUTF8StringEncoding] autorelease];
+    
+    int returnResult = result.intValue;
+
+    return returnResult;
+}
+
 - (NSString *)getRequestKeyString:(NSDictionary *)tDic
 {
     NSArray *keyArray =[tDic allKeys];
@@ -107,6 +171,7 @@ static const  NSString * KSErVER_URl_VERSION_HEADER  = @"http://wmap.yoosee.cc/M
     
     return singString;
 }
+
 
 #pragma mark 异步请求数据的delegate方法
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

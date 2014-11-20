@@ -220,11 +220,12 @@ static JVCControlHelper *shareJVCControlHelper = nil;
     return [textField autorelease];
 }
 
+
 /**
- *  获取textfield
+ *  返回指定的textfield  左右两侧个空出10
  *
- *  @param placeString 站位字符
- *  @param imageName   图片名称
+ *  @param placeHold 占位符
+ *  @param imageName 背景图
  *
  *  @return 相应的textfield
  */
@@ -232,27 +233,41 @@ static JVCControlHelper *shareJVCControlHelper = nil;
                         backGroundImage:(NSString *)imageName
 {
     if (!imageName||imageName.length == 0) {
-        DDLogError(@"传入图片错误");
+        
         imageName = @"con_fieldUnSec.png";
     }
     NSString *strImage = [UIImage imageBundlePath:imageName];
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:strImage];
     
-    UILabel *labeleft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLeftViewWith, image.size.height)];
-    labeleft.backgroundColor = [UIColor clearColor];
-    UITextField *textField  = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    textField.background    = image;
-    textField.keyboardType  = UIKeyboardTypeASCIICapable;
-    textField.placeholder   = placeString;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.leftView = labeleft;
-    [labeleft release];
-    textField.returnKeyType = UIReturnKeyDone;
     
+    UILabel *labelLeft = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLeftViewWith, KLabelSizeHeight)];
+    [labelLeft retain];
+    labelLeft.textAlignment = UITextAlignmentCenter;
+    labelLeft.backgroundColor = [UIColor clearColor];
+    labelLeft.font = [UIFont systemFontOfSize:KFontSize];
+    
+    UILabel *labelright = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KLeftViewWith, KLabelSizeHeight)];
+    [labelright retain];
+    labelright.textAlignment = UITextAlignmentCenter;
+    labelright.backgroundColor = [UIColor clearColor];
+    labelright.font = [UIFont systemFontOfSize:KFontSize];
+    
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(labelLeft.right, labelLeft.top, image.size.width, image.size.height)];
+    textField.backgroundColor = [UIColor colorWithPatternImage:image];
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.keyboardType = UIKeyboardTypeASCIICapable;
+    textField.placeholder = placeString;
+    textField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+    textField.returnKeyType = UIReturnKeyDone;
+    textField.leftView = labelLeft;
+    textField.rightViewMode = UITextFieldViewModeAlways;
+    textField.rightView = labelright;
+    [labelright release];
+    [labelLeft release];
     [image release];
     
     return [textField autorelease];
+
 }
 
 /**

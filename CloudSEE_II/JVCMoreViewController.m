@@ -29,6 +29,8 @@
 #import "JVCRGBHelper.h"
 #import "JVCSuggestAndFeedViewController.h"
 #import "JVCMediaManagerViewController.h"
+#import "JVCURlRequestHelper.h"
+
 @interface JVCMoreViewController ()
 {
     NSMutableArray *arrayList;
