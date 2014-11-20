@@ -81,7 +81,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     
     JVCHomeIPCUpdateCheckVersionStatusBlock CheckVersionStatusBlock = ^(int result,NSString *strNewVersion){
         
-        DDLogVerbose(@"%s---------retainCount = %d",__FUNCTION__,homeIPC.retainCount);
+        DDLogVerbose(@"%s---------retainCount = %d",__FUNCTION__,self.retainCount);
     
         
         if (result == JVCHomeIPCUpdateCheckoutNewVersionHighVersion) {//最新
@@ -90,8 +90,6 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
-                [self dellocHomeIPCUpdateHelper];
-                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_no_new_version")];
                 
             });
@@ -102,11 +100,97 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
-                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:@selector(dellocHomeIPCUpdateHelper) selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
+                [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"home_device_advance_titile") delegate:self selectAction:@selector(startDown) cancelAction:nil selectTitle:LOCALANGER(@"home_device_advance_update") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_update];
 
             });
         }
     };
+    
+    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    [homeIPC checkIpcIsNewVersion:CheckVersionStatusBlock];
+}
+
+/**
+ *  如果线程正在循环下载确保线程退出
+ */
+-(void)cancelHomeIPC {
+    
+    while (true) {
+        
+        if (homeIPC) {
+            
+            [homeIPC CancelDownloadUpdate];
+            
+            usleep(kCancelWithTime);
+            
+        }else {
+        
+            break;
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+   if(alertView.tag == deviceUpdateAlertType_update)
+   {
+       if (buttonIndex == 0) {
+           
+           [self startDown];
+       }
+       
+   }else if(alertView.tag == deviceUpdateAlertType_reset)
+   {
+       if (buttonIndex == 0) {
+           
+           [self startReset];
+       }
+   }
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    [self cancelDeviceDown];
+}
+
+/**
+ *  重启设备
+ */
+- (void)startReset
+{
+    JVCHomeIPCResetBlock ResetBlock = ^(int result,NSString *strNewVersion){
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            if (result == JVCHomeIPCResetSuccess) {
+                
+                textFieldVersion.text = strNewVersion;
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_updateSuccess")];
+            }else{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_update_error")];
+                
+            }
+            
+        });
+        
+    };
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+    
+    [homeIPC resetDevice:ResetBlock];
+}
+
+/**
+ *  开始下载
+ */
+- (void)startDown
+{
     
     JVCHomeIPCDownloadUpdateProgressBlock JVCHomeIPCDownloadUpdateProgressBlock = ^(int result){
         
@@ -121,15 +205,27 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
                 
                 [self updataPregressView:result];
             }
-       });
+        });
+        
+    };
     
+    JVCHomeIPCWriteProgressBlock WriteProgressBlock = ^(int result){
+        
+        DDLogVerbose(@"__%s=JVCHomeIPCWriteProgressBlock=%d",__FUNCTION__,result);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (alertViewios7 == nil ) {
+                
+                [self creatAlertWithProgress:NO andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_setting")];
+            }else{
+                
+                [self updataPregressView:result];
+            }
+        });
     };
     
     JVCHomeIPCErrorBlock errorBlock = ^(int result){
-        
-        DDLogVerbose(@"__%s=JVCHomeIPCErrorBlock=%d",__FUNCTION__,result);
-        
-        [self dellocHomeIPCUpdateHelper];
         
         NSString *errorString = nil;
         
@@ -154,8 +250,6 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            [self dellocHomeIPCUpdateHelper];
-        
             [self dismissAlertViewAndProgressView];
             
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:errorString];
@@ -170,163 +264,34 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
             [self dismissAlertViewAndProgressView];
-
+            
             switch (result) {
                 case JVCHomeIPCFinshedDownload:
                     break;
                 case JVCHomeIPCFinshedWrite:
                 {
-                    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:@selector(dellocHomeIPCUpdateHelper) selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
-
+                     DDLogVerbose(@"%s-----###############019--------relf.retainCount=%d",__FUNCTION__,self.retainCount);
+                    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart") delegate:self selectAction:@selector(startReset) cancelAction:nil selectTitle:LOCALANGER(@"EditDeviceDetailViewController_device_restart_click") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:deviceUpdateAlertType_reset];
+                    
                 }
                     break;
                 case JVCHomeIPCFinshedCancelDownload:{
                     
-                    [self dellocHomeIPCUpdateHelper];
                     [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_cancel")];
-                
+                    
                 }
                     break;
                     
                 default:
                     break;
             }
-        
-        });
-   };
-    
-    JVCHomeIPCWriteProgressBlock WriteProgressBlock = ^(int result){
-        
-        DDLogVerbose(@"__%s=JVCHomeIPCWriteProgressBlock=%d",__FUNCTION__,result);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (alertViewios7 == nil ) {
-                
-                [self creatAlertWithProgress:NO andTitle:LOCALANGER(@"EditDeviceDetailViewController_device_setting")];
-            }else{
-                
-                [self updataPregressView:result];
-            }
         });
     };
-    
-    JVCHomeIPCResetBlock ResetBlock = ^(int result,NSString *strNewVersion){
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
-            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-            
-            if (result == JVCHomeIPCResetSuccess) {
-                
-                textFieldVersion.text = strNewVersion;
 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_updateSuccess")];
-            }else{
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"EditDeviceDetailViewController_device_update_error")];
-
-            }
-
-        });
-         [self dellocHomeIPCUpdateHelper];
-       
-    };
-
-    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
-    
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
-    homeIPC.homeIPCUpdateCheckVersionStatusBlock = CheckVersionStatusBlock;
-    homeIPC.homeIPCErrorBlock                    = errorBlock;
-    homeIPC.homeIPCDownloadUpdateProgressBlock   = JVCHomeIPCDownloadUpdateProgressBlock;
-    homeIPC.homeIPCFinshedBlock                  = FinshedBlock;
-    homeIPC.homeIPCWriteProgressBlock            = WriteProgressBlock;
-    homeIPC.homeIPCResetBlock                    = ResetBlock;
-    
-    [homeIPC checkIpcIsNewVersion];
-}
-
-/**
- *  释放升级IPC辅助类
- */
--(void)dellocHomeIPCUpdateHelper {
-
-    if (homeIPC != nil) {
-        
-        [homeIPC release];
-        homeIPC = nil;
-    }
-}
-
-/**
- *  如果线程正在循环下载确保线程退出
- */
--(void)cancelHomeIPC {
-    
-    
-    
-    while (true) {
-        
-        if (homeIPC) {
-            
-            [homeIPC CancelDownloadUpdate];
-            
-            usleep(kCancelWithTime);
-            
-        }else {
-        
-            break;
-        }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-   if(alertView.tag == deviceUpdateAlertType_update)
-   {
-       if (buttonIndex == 0) {
-           
-           [self startDown];
-           
-       }else {
-       
-           [self dellocHomeIPCUpdateHelper];
-       }
-   }else if(alertView.tag == deviceUpdateAlertType_reset)
-   {
-       if (buttonIndex == 0) {
-           
-           [self startReset];
-           
-       }else{
-       
-           [self dellocHomeIPCUpdateHelper];
-       }
-   }
-}
-
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
-{
-    [self cancelDeviceDown];
-}
-
-/**
- *  重启设备
- */
-- (void)startReset
-{
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    [homeIPC resetDevice];
-}
-
-/**
- *  开始下载
- */
-- (void)startDown
-{
     [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
     
-     [homeIPC DownloadUpdatePacket];
+     [homeIPC DownloadUpdatePacket:FinshedBlock withDownloadUpdateProgress:JVCHomeIPCDownloadUpdateProgressBlock  withHomeIPCWriteProgress:WriteProgressBlock withDownloadUpdateProgressError:errorBlock];
 }
 
 /**

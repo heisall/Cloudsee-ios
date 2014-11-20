@@ -58,13 +58,6 @@ typedef void (^JVCHomeIPCResetBlock)(int resetStatus,NSString *strNewVersion);
 @interface JVCHomeIPCUpdate : NSObject
 
 
-@property (nonatomic,copy) JVCHomeIPCUpdateCheckVersionStatusBlock   homeIPCUpdateCheckVersionStatusBlock;
-@property (nonatomic,copy) JVCHomeIPCDownloadUpdateProgressBlock     homeIPCDownloadUpdateProgressBlock;
-@property (nonatomic,copy) JVCHomeIPCErrorBlock                      homeIPCErrorBlock;
-@property (nonatomic,copy) JVCHomeIPCFinshedBlock                    homeIPCFinshedBlock;
-@property (nonatomic,copy) JVCHomeIPCWriteProgressBlock              homeIPCWriteProgressBlock;
-@property (nonatomic,copy) JVCHomeIPCResetBlock                      homeIPCResetBlock;
-
 enum JVCHomeIPCUpdateCheckNewVersionStatus{
     
     JVCHomeIPCUpdateCheckoutNewVersionNew          = 0,  //存在新版本
@@ -99,17 +92,25 @@ enum JVCHomeIPCResetStatus{
  *
  *  @return 连接回调的助手类
  */
--(id)init:(int)deviceType withDeviceModelInt:(int)deviceModelInt withDeviceVersion:(NSString *)strDeviceVersion withYstNumber:(NSString *)ystNumber withLoginUserName:(NSString *)userName;
+-(id)init:(int)deviceType withDeviceModelInt:(int)deviceModelInt withDeviceVersion:(NSString *)strDeviceVersion withYstNumber:(NSString *)ystNumber withLoginUserName:(NSString *)userName ;
 
 /**
  *  检查当前的IPC版本是否有更新
+ *
+ *  @param jvcHomeIPCUpdateCheckVersionStatusBlock 检查更新的回调Block
  */
--(void)checkIpcIsNewVersion;
+-(void)checkIpcIsNewVersion:(JVCHomeIPCUpdateCheckVersionStatusBlock)jvcHomeIPCUpdateCheckVersionStatusBlock;
 
 /**
  *  下载更新
+ *
+ *  @param jvcHomeIPCFinshedBlock                操作完成的回调
+ *  @param jvcHomeIPCDownloadUpdateProgressBlock 更新进度的回调
+ *  @param jvcHomeIPCWriteProgressBlock          烧写进度的回调
+ *  @param jvcHomeIPCErrorBlock                  出错的回调
  */
--(void)DownloadUpdatePacket;
+-(void)DownloadUpdatePacket:(JVCHomeIPCFinshedBlock)jvcHomeIPCFinshedBlock withDownloadUpdateProgress:(JVCHomeIPCDownloadUpdateProgressBlock)jvcHomeIPCDownloadUpdateProgressBlock withHomeIPCWriteProgress:(JVCHomeIPCWriteProgressBlock)jvcHomeIPCWriteProgressBlock withDownloadUpdateProgressError:(JVCHomeIPCErrorBlock)jvcHomeIPCErrorBlock;
+
 
 /**
  *  取消下载更新
@@ -118,7 +119,9 @@ enum JVCHomeIPCResetStatus{
 
 /**
  *  重启设备
+ *
+ *  @param jvcHomeIPCResetBlock 重启设备的回调块
  */
--(void)resetDevice;
+-(void)resetDevice:(JVCHomeIPCResetBlock)jvcHomeIPCResetBlock;
 
 @end

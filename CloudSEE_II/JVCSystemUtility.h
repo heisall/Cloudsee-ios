@@ -11,6 +11,7 @@
 
 @interface JVCSystemUtility : NSObject
 
+
 + (JVCSystemUtility *)shareSystemUtilityInstance;
 
 /**

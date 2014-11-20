@@ -80,23 +80,6 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     //初始化位置字符串
     self.localtionString = @"";
     
-    NSMutableString *returnText = [[NSMutableString alloc] initWithCapacity:10];
-    NSString        *pathAccount= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:@"applog.md"];
-    NSData          *data = [NSData dataWithContentsOfFile:pathAccount];
-    
-    if (data.length > 0) {
-        
-        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        [returnText appendString:result];
-        
-        [result release];
-    }
-    
-    DDLogVerbose(@"%s------------############008--------%@",__FUNCTION__,returnText);
-    
-    [returnText release];
-    
     [self convertOldUserInfoToDatebase];
     
     [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] converOldDeviceListInDateFame];
@@ -107,7 +90,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [self initYSTSDK];
     
     //腾讯云统计
-    [self initTencentSdk];
+    //[self initTencentSdk];
     
     //openglView
     [self initOpenGlView];
