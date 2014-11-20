@@ -58,7 +58,7 @@
 static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 
-int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;
+int JVCLogHelperLevel                              = JVCLogHelperLevelRelease;
 
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;

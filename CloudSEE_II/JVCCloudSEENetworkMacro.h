@@ -9,7 +9,7 @@
 #ifndef CloudSEE_II_JVCCloudSEENetworkMacro_h
 #define CloudSEE_II_JVCCloudSEENetworkMacro_h
 
-#define CONNECTMAXNUMS 16
+static const int kJVCCloudSEENetworkHelperWithConnectMaxNumber = 16; //支持的连接路数
 
 enum CONNECTRESULTTYPE{
     

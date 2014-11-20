@@ -87,7 +87,6 @@ enum StorageType {
     
     StorageType_alarm = 2,
     StorageType_auto  = 1,
-
 };
 
 enum DISCONNECT_STATUS {
@@ -108,7 +107,6 @@ enum DISCONNECT_STATUS {
 @synthesize isPlayBackVideo,strPlayBackVideoPath;
 @synthesize isConnectAll;
 
-static const int      JVCOPERATIONCONNECTMAXNUMS      = 16;//
 static const CGFloat  kRightButtonViewWithHeight      = 38.0f ;
 static const CGFloat  kRightButtonViewWithWidth       = 80.0f ;
 static const CGFloat  kRightButtonViewWithTitleFont   = 8.0f ; //右侧报警录像和手动录像 标题lab的字体间距
@@ -840,14 +838,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)unAllLink{
     
-    DDLogVerbose(@"___%s==========001",__FUNCTION__);
     [_managerVideo CancelConnectAllVideoByLocalChannelID];
     
-	for (int i=0; i<JVCOPERATIONCONNECTMAXNUMS; i++) {
+	for (int i=0; i < kJVCCloudSEENetworkHelperWithConnectMaxNumber; i++) {
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:i+1];
 	}
-    DDLogVerbose(@"___%s==========002",__FUNCTION__);
 
     [self performSelectorOnMainThread:@selector(closeAlterViewAllDic) withObject:nil waitUntilDone:NO];
 }
@@ -868,12 +864,10 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)ytoHidenClick{
     
     [[JVCCustomYTOView shareInstance] HidenYTOperationView];
-    
 }
 
 -(void)closeAlterViewAllDic{
     
-    DDLogVerbose(@"___%s==========003",__FUNCTION__);
 
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
     
@@ -882,13 +876,11 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (self.isPlayBackVideo) {
         
         [self.navigationController popToRootViewControllerAnimated:NO];
+        
         return;
     }
     
     [self.navigationController popViewControllerAnimated:YES];
-    
-    //[self performSelector:@selector(popToPreviousViewController) withObject:nil afterDelay:kPopAfterTimer];
-
 }
 
 - (void)popToPreviousViewController
