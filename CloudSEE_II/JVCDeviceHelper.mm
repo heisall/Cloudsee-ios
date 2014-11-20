@@ -764,8 +764,6 @@ char outTextBuffer[1280*720*3];
     
     NSString *parseStr=[requestInfoMDict JSONString];
     
-    DDLogVerbose(@"%s--##################------%@",__FUNCTION__,parseStr);
-    
     [requestInfoMDict release];
     
     id resultID= [self getResponseLongByRequestBusinessServer:parseStr];
@@ -778,8 +776,6 @@ char outTextBuffer[1280*720*3];
     NSMutableDictionary *resultMDic=(NSMutableDictionary *)resultID;
     
     int resultValue=-1;
-    
-    DDLogVerbose(@"%s---0234---%@",__FUNCTION__,resultMDic);
     
     if ([[resultMDic objectForKey:CONVERTCHARTOSTRING(JK_RESULT)] intValue]==DEVICESERVICERESPONSE_SUCCESS) {
         

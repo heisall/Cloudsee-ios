@@ -87,7 +87,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     [self initYSTSDK];
     
     //腾讯云统计
-    [self initTencentSdk];
+    //[self initTencentSdk];
     
     //openglView
     [self initOpenGlView];

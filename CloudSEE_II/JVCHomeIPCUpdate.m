@@ -23,6 +23,13 @@
     __block BOOL         isCancelDownload;
 }
 
+@property (nonatomic,copy) JVCHomeIPCUpdateCheckVersionStatusBlock   homeIPCUpdateCheckVersionStatusBlock;
+@property (nonatomic,copy) JVCHomeIPCDownloadUpdateProgressBlock     homeIPCDownloadUpdateProgressBlock;
+@property (nonatomic,copy) JVCHomeIPCWriteProgressBlock              homeIPCWriteProgressBlock;
+@property (nonatomic,copy) JVCHomeIPCErrorBlock                      homeIPCErrorBlock;
+@property (nonatomic,copy) JVCHomeIPCFinshedBlock                    homeIPCFinshedBlock;
+@property (nonatomic,copy) JVCHomeIPCResetBlock                      homeIPCResetBlock;
+
 @end
 
 @implementation JVCHomeIPCUpdate
@@ -67,10 +74,14 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
 
 /**
  *  检查当前的IPC版本是否有更新
+ *
+ *  @param jvcHomeIPCUpdateCheckVersionStatusBlock 检查更新的回调Block
  */
--(void)checkIpcIsNewVersion{
+-(void)checkIpcIsNewVersion:(JVCHomeIPCUpdateCheckVersionStatusBlock)jvcHomeIPCUpdateCheckVersionStatusBlock{
     
     [mdUpdateInfo removeAllObjects];
+    
+    self.homeIPCUpdateCheckVersionStatusBlock = jvcHomeIPCUpdateCheckVersionStatusBlock;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
@@ -89,6 +100,8 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
                 self.homeIPCUpdateCheckVersionStatusBlock([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:mdUpdateInfo] == YES ? JVCHomeIPCUpdateCheckoutNewVersionNew : JVCHomeIPCUpdateCheckoutNewVersionHighVersion,[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]);
             }
         }
+        
+        [self deallocWithCheckNewVersion];
     
     });
 }
@@ -113,8 +126,18 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
 
 /**
  *  下载更新
+ *
+ *  @param jvcHomeIPCFinshedBlock                操作完成的回调
+ *  @param jvcHomeIPCDownloadUpdateProgressBlock 更新进度的回调
+ *  @param jvcHomeIPCWriteProgressBlock          烧写进度的回调
+ *  @param jvcHomeIPCErrorBlock                  出错的回调
  */
--(void)DownloadUpdatePacket {
+-(void)DownloadUpdatePacket:(JVCHomeIPCFinshedBlock)jvcHomeIPCFinshedBlock withDownloadUpdateProgress:(JVCHomeIPCDownloadUpdateProgressBlock)jvcHomeIPCDownloadUpdateProgressBlock withHomeIPCWriteProgress:(JVCHomeIPCWriteProgressBlock)jvcHomeIPCWriteProgressBlock withDownloadUpdateProgressError:(JVCHomeIPCErrorBlock)jvcHomeIPCErrorBlock{
+    
+    self.homeIPCFinshedBlock                = jvcHomeIPCFinshedBlock;
+    self.homeIPCDownloadUpdateProgressBlock = jvcHomeIPCDownloadUpdateProgressBlock;
+    self.homeIPCWriteProgressBlock          = jvcHomeIPCWriteProgressBlock;
+    self.homeIPCErrorBlock                  = jvcHomeIPCErrorBlock;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
         
@@ -205,7 +228,6 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
             }
         }
         
-        DDLogVerbose(@"%s--------nDownloadSize=%d---------009",__FUNCTION__,nDownloadSize);
         if (isCancelDownload) {
             
             if (nDownloadSize == kDownloadMaxSize) {
@@ -313,8 +335,12 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
 
 /**
  *  重启设备
+ *
+ *  @param jvcHomeIPCResetBlock 重启设备的回调块
  */
--(void)resetDevice {
+-(void)resetDevice:(JVCHomeIPCResetBlock)jvcHomeIPCResetBlock{
+    
+    self.homeIPCResetBlock = jvcHomeIPCResetBlock;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0),^{
         
@@ -333,10 +359,10 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
                 self.homeIPCResetBlock(result == DEVICESERVICERESPONSE_SUCCESS ? JVCHomeIPCResetSuccess : JVCHomeIPCResetError,[updateInfoMDic objectForKey:CONVERTCHARTOSTRING(JK_UPGRADE_FILE_VERSION)]);
             }
             
+            [self dellocWithReset];
         }
     
     });
-
 }
 
 /**
@@ -350,6 +376,8 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         
         self.homeIPCErrorBlock(errorType);
     }
+    
+    [self deallocWithUpdateProgress];
 }
 
 /**
@@ -363,23 +391,63 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
         
         self.homeIPCFinshedBlock(type);
     }
+    
+    if (type != JVCHomeIPCFinshedDownload) {
+        
+        [self deallocWithUpdateProgress];
+    }
+}
 
+/**
+ *  清除版本更新的block
+ */
+-(void)deallocWithCheckNewVersion{
+
+    [homeIPCUpdateCheckVersionStatusBlock release];
+    homeIPCUpdateCheckVersionStatusBlock =nil;
+}
+
+/**
+ *  清除下载更新过程中的Block
+ */
+-(void)deallocWithUpdateProgress {
+
+    [homeIPCDownloadUpdateProgressBlock release];
+    homeIPCDownloadUpdateProgressBlock =nil;
+    [homeIPCErrorBlock release];
+    homeIPCErrorBlock = nil;
+    [homeIPCFinshedBlock release];
+    homeIPCFinshedBlock =nil ;
+    [homeIPCWriteProgressBlock  release];
+    homeIPCWriteProgressBlock =nil;
+}
+
+/**
+ *  释放重置设备中的block
+ */
+-(void)dellocWithReset{
+
+    [homeIPCResetBlock release];
+    homeIPCResetBlock=nil;
+}
+
+/**
+ *  释放引用的Block
+ */
+-(void)deallocBlock{
+
+    [self deallocWithCheckNewVersion];
+    [self deallocWithUpdateProgress];
+    [self dellocWithReset];
 }
 
 -(void)dealloc {
 
-    [homeIPCDownloadUpdateProgressBlock release];
-    [homeIPCUpdateCheckVersionStatusBlock release];
-    [homeIPCErrorBlock release];
-    [homeIPCFinshedBlock release];
-    [homeIPCWriteProgressBlock  release];
-    [homeIPCResetBlock release];
+    [self deallocBlock];
     [mdUpdateInfo release];
     [strLoginUserName release];
     [strYstNumber release];
     [strVersion release];
-    
-    DDLogVerbose(@"%s-------------##################",__FUNCTION__);
     [super dealloc];
 }
 
