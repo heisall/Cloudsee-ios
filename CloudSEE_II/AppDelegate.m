@@ -101,6 +101,9 @@ static const   int     KCheckLocationResultValue = 1;
     //云视通
     [self initYSTSDK];
     
+    //初始化小助手
+    [self startCacheDevicesHelp];
+    
     //腾讯云统计
     [self initTencentSdk];
     
