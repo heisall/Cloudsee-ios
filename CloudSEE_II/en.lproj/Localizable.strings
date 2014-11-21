@@ -633,3 +633,5 @@
 "JVCRemoteVideoPlayBackVControler_alarmType_N" = "Manual recording";
 
 
+"JVC_Device_Open" = "Operation Open";
+"JVC_Device_Close" = "Operation close";

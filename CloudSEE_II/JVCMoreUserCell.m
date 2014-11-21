@@ -18,6 +18,8 @@ static const int moreLabWith  = 200;  //lab的宽度
 
 static const int moreLabHeigh  = 40;  //lab的高度
 
+static const int kLongPressShowTimeOperation  = 5;  //长按事件
+
 
 static const int moreLabUSernameFont  = 25;  //账号的font
 
@@ -64,6 +66,14 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
     [self.contentView addSubview:imageView];
     [imageView release];
     
+    imageView.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *presurtRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToOperationDeviceHelper:)];
+    
+    presurtRecognizer.minimumPressDuration = kLongPressShowTimeOperation;
+    [imageView addGestureRecognizer:presurtRecognizer];
+    [presurtRecognizer release];
+    
+    
     //账号名称
     UILabel *labUser = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right+moreSeperate, 0, moreLabWith, moreLabHeigh)];
     labUser.center = CGPointMake(labUser.center.x, imageView.center.y);
@@ -109,6 +119,30 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
 //    [btnGetPw.titleLabel setTextAlignment:NSTextAlignmentLeft];
 //    [self.contentView addSubview:btnGetPw];
     
+}
+
+- (void)longPressToOperationDeviceHelper:(UILongPressGestureRecognizer *)gesture
+{
+   NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
+
+    if(gesture.state == UIGestureRecognizerStateBegan)
+    {
+        NSString * string = LOCALANGER(@"JVC_Device_Open");
+
+        if (state.length ==0) {
+            
+
+            [[NSUserDefaults standardUserDefaults] setObject:@"close" forKey:(NSString *)kDeviceState];
+            
+        }else{
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kDeviceState];
+            string = LOCALANGER(@"JVC_Device_Close");
+
+        }
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:string];
+
+    }
 }
 
 - (void)awakeFromNib

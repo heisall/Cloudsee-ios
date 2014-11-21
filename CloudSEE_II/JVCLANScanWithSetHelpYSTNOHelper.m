@@ -206,6 +206,7 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        
         [devicesMArray retain];
         
         unsigned char bBuffer[([devicesMArray count])*sizeof(STBASEYSTNO)];
@@ -257,6 +258,7 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
                 memcpy(&bBuffer[i*sizeof(STBASEYSTNO)], &stinfo, sizeof(STBASEYSTNO));
             }
         }
+        
         
         JVC_SetHelpYSTNO((unsigned char *)bBuffer,devicesMArray.count*sizeof(STBASEYSTNO));
         

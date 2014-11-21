@@ -67,7 +67,7 @@
             NSString *savePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",saveIamgeName]];
             if (![manager fileExistsAtPath:savePath]) {
 
-            BOOL writeResult = [UIImageJPEGRepresentation([UIImage imageWithData:imageDate], 1.0) writeToFile:savePath options:NSAtomicWrite error:nil];
+            BOOL writeResult = [UIImagePNGRepresentation([UIImage imageWithData:imageDate]) writeToFile:savePath options:NSAtomicWrite error:nil];
                 
                 DDLogVerbose(@"写图片到本地结果=%d",writeResult);
                 if (writeResult) {
@@ -79,6 +79,14 @@
                     }
                 }
                 
+            }else{
+            
+                self.localDownUrl = savePath;
+                self.downSuccess = YES;
+                
+                if (self.downLoadAdverSuccess) {
+                    self.downLoadAdverSuccess();
+                }
             }
             
             [manager release];

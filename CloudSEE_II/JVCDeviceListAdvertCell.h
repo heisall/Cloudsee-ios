@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
 static const int             kTableViewCellAdeviceHeigit             = 140;   //广告条的高度
 
 @interface JVCDeviceListAdvertCell : UITableViewCell<UIScrollViewDelegate>

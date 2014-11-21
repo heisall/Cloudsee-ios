@@ -121,6 +121,18 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
         [contentView  addSubview:_titleInfo];
         [_titleInfo release];
         
+        if (i !=0) {
+            
+            NSString *imageNextName = [UIImage imageBundlePath:@"ope_midnext.png"];
+            UIImage *nextImage = [[UIImage alloc] initWithContentsOfFile:imageNextName];
+            
+            UIImageView *imageViewNextImage=[[UIImageView alloc] init];
+            imageViewNextImage.frame=CGRectMake(self.frame.size.width-4*nextImage.size.width, (height-nextImage.size.height)/2.0, nextImage.size.width, nextImage.size.height);
+            imageViewNextImage.userInteractionEnabled = YES;
+            [imageViewNextImage setImage:nextImage];
+            [contentView addSubview:imageViewNextImage];
+            [imageViewNextImage release];
+        }
         
         NSString *imageboardVC = [UIImage imageBundlePath:@"boderBigLine.png"];
         UIImage *boderImage = [[UIImage alloc] initWithContentsOfFile:imageboardVC];

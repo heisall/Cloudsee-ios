@@ -352,6 +352,6 @@ enum DEVICEONLINESTATE
  *
  *  @return 广告位的字典
  */
--(NSDictionary *)getAdverInfoList:(NSString *)type;
+-(NSDictionary *)getAdverInfoList:(int)type;
 
 @end

@@ -76,6 +76,7 @@ static const  NSString *kAPPWELCOME             = @"Welcomehelp";
 static NSString *const kAPPAderseVersion        = @"APPAderseVersion";
 static const  NSString *kAPPWELCOMEAlarmState   = @"kAPPWELCOMEAlarmState";//设备报警状态标识
 
+static const  NSString *kDeviceState            = @"DeviceState";//修改小助手问题
 
 #define RGBConvertColor(R,G,B,Alpha) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:Alpha]
 

@@ -545,7 +545,12 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     JVD05_InitSDK();
     InitDecode(); //板卡语音解码
     InitEncode(); //板卡语音编解]
-    JVC_EnableHelp(TRUE,3);  //手机端是3
+    NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
+
+    DDLogVerbose(@"===%d=====",state.length == 0?TRUE:FALSE);
+    JVC_EnableHelp(state.length == 0?TRUE:FALSE,3);  //手机端是3
+  //  JVC_EnableHelp(TRUE,3);  //手机端是3
+
 }
 
 /**

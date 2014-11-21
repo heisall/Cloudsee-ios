@@ -662,7 +662,7 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
         BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
 
-        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:textFieldUser.text passWord:textFieldPW.text tokenString:kkToken languageType:resultLanguage alarmFlag:[JVCConfigModel shareInstance].bSwitchSafe];
+        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:textFieldUser.text passWord:textFieldPW.text tokenString:kkToken languageType:resultLanguage alarmFlag:![JVCConfigModel shareInstance].bSwitchSafe];
 
         
         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,resultnewType] fileType:LogType_LoginManagerLogPath];

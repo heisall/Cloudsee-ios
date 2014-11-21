@@ -1395,11 +1395,8 @@ char outTextBuffer[1280*720*3];
  *
  *  @return 广告位的字典
  */
--(NSDictionary *)getAdverInfoList:(NSString *)type{
+-(NSDictionary *)getAdverInfoList:(int)type{
     
-    if (type.length == 0) {
-        type = @"";
-    }
     //请求的参数集合
     NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
     
@@ -1407,7 +1404,7 @@ char outTextBuffer[1280*720*3];
     [requestInfoMDict setValue:[NSNumber numberWithInt:Ad_Publish_process] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:AdverseInfo] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
     [requestInfoMDict setValue:[NSNumber numberWithInt:AdverType] forKey:CONVERTCHARTOSTRING(JK_PRODUCT_TYPE)];
-    [requestInfoMDict setValue:type forKey:CONVERTCHARTOSTRING(JK_AD_VERSION)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:type] forKey:CONVERTCHARTOSTRING(JK_AD_VERSION)];
 
     [requestInfoMDict setValue:[NSNumber numberWithInt:AdverTypeLocation] forKey:CONVERTCHARTOSTRING(JK_TERMINAL_TYPE)];
 
