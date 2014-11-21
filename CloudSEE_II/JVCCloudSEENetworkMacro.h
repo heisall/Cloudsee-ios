@@ -24,6 +24,7 @@ enum CONNECTRESULTTYPE{
     CONNECTRESULTTYPE_YstServiceStop                 = 9,  //云视通服务停止
     CONNECTRESULTTYPE_VerifyFailed                   = 10, //身份验证失败
     CONNECTRESULTTYPE_ConnectMaxNumber               = 11, //超过连接最大数
+    CONNECTRESULTTYPE_ChannelIsNotOpen               = 12, //通道不存在
     
 };
 

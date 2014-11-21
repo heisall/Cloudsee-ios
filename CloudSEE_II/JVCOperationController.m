@@ -606,6 +606,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     dispatch_async(dispatch_get_main_queue(), ^{
     
         switch (nStreamType) {
+                
             case VideoStreamType_Default:
             case VideoStreamType_HD:
             case VideoStreamType_SD:

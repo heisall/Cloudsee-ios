@@ -393,6 +393,7 @@
 "connectResultInfo_9"  = "Disconnected Due To CloudSEE Service Has Been Stopped.";
 "connectResultInfo_10" = "Connection Failed ID";
 "connectResultInfo_11" = "Connections have exceeded limitations!";
+"connectResultInfo_12" = "Invalid Channel.";
 
 //***语音对讲**
 "talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-click.";
