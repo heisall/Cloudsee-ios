@@ -36,6 +36,7 @@
 @end
 
 @implementation JVCDeviceListAdvertCell
+@synthesize JVCAdevrtDelegate;
 
 static NSString *kAdverInfo   = @"AdverDoucmentInfo";//保存广告位的目录
 static int  kAdverNoUpdate    = 19;//不用更新读取缓存
@@ -117,7 +118,8 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
         JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:i];
 
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
-        
+        imgView.userInteractionEnabled = YES;
+        imgView.tag = i;
         UIImage *imageName = nil;
         if (model.downSuccess) {
             
@@ -126,6 +128,10 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
         }
         imgView.image = imageName;
         [imageName release];
+        
+        UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAdvertImage:)];
+        [imgView addGestureRecognizer:tapRecognize];
+        [tapRecognize release];
         
         [_scrollView addSubview:imgView];
         [imgView release];
@@ -142,8 +148,24 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
     [self.contentView addSubview:_pageController];
     [_pageController release];
     
+  
+    
     if (_arrayDefaultImage.count == 1) {
         _pageController.hidden =YES;
+    }
+}
+
+- (void)clickAdvertImage:(UITapGestureRecognizer *)gesture
+{
+    int  i = gesture.view.tag;
+    
+    JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:i];
+    
+    if(model.AdLick)
+    {
+        if (JVCAdevrtDelegate !=nil &&[JVCAdevrtDelegate respondsToSelector:@selector(JVCAdvertClickImageWithIndex:)]) {
+            [JVCAdevrtDelegate JVCAdvertClickImageWithIndex:model.AdLick];
+        }
     }
 }
 

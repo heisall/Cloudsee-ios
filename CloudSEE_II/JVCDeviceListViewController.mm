@@ -9,7 +9,6 @@
 #import "JVCDeviceListViewController.h"
 #import "MJRefreshHeaderView.h"
 #import "UIScrollView+MJRefresh.h"
-#import "JVCDeviceListAdvertCell.h"
 #import "JVCRGBHelper.h"
 #import "JVCDeviceListDeviceVIew.h"
 #import "JVCAppHelper.h"
@@ -36,6 +35,7 @@
 
 #import "JVCWheelShowOperationController.h"
 #import "JVCWheelShowOperationControllerIphone5.h"
+#import "JVCOpenAdevitiseViewController.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -472,7 +472,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             [cell initCellContent];
-            
+            cell.JVCAdevrtDelegate = self;
             return cell;
         }
         
@@ -931,6 +931,19 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     });
   
+}
+
+/**
+ *  选中相应的图片
+ *
+ *  @param index 图片索引
+ */
+- (void)JVCAdvertClickImageWithIndex:(NSString *)urlString;
+{
+    JVCOpenAdevitiseViewController *openViewController = [[JVCOpenAdevitiseViewController alloc] init];
+    openViewController.openUrlString = urlString;
+    [self.navigationController pushViewController:openViewController animated:YES];
+    [openViewController release];
 }
 
 - (void)didReceiveMemoryWarning

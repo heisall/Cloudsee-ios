@@ -28,6 +28,7 @@
 		A7263C5719E8108D003C22DE /* con_Slide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7263C5319E8108D003C22DE /* con_Slide@2x.png */; };
 		A728B7711A1F23F3003359A1 /* devAdv_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A728B7701A1F23F3003359A1 /* devAdv_default@2x.png */; };
 		A728B7731A1F48D6003359A1 /* ope_midnext@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A728B7721A1F48D6003359A1 /* ope_midnext@2x.png */; };
+		A728B7761A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A728B7751A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m */; };
 		A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */; };
 		A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5D19D3A88B00760695 /* JVCResultTipsHelper.m */; };
 		A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B6019D3B85600760695 /* JVCDeviceHelper.mm */; };
@@ -693,6 +694,8 @@
 		A7263C5319E8108D003C22DE /* con_Slide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con_Slide@2x.png"; sourceTree = "<group>"; };
 		A728B7701A1F23F3003359A1 /* devAdv_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devAdv_default@2x.png"; sourceTree = "<group>"; };
 		A728B7721A1F48D6003359A1 /* ope_midnext@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_midnext@2x.png"; sourceTree = "<group>"; };
+		A728B7741A1F54A1003359A1 /* JVCOpenAdevitiseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOpenAdevitiseViewController.h; sourceTree = "<group>"; };
+		A728B7751A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOpenAdevitiseViewController.m; sourceTree = "<group>"; };
 		A72B4B5919D39E4500760695 /* JVCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceModel.h; sourceTree = "<group>"; };
 		A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceModel.m; sourceTree = "<group>"; };
 		A72B4B5C19D3A88B00760695 /* JVCResultTipsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCResultTipsHelper.h; sourceTree = "<group>"; };
@@ -2230,6 +2233,8 @@
 				A709697A19F2782300C191F8 /* JVCIPAddViewController.m */,
 				A7B9FB8A1A08EF8E005F7928 /* JVCOldDeviceHelpViewController.h */,
 				A7B9FB8B1A08EF8E005F7928 /* JVCOldDeviceHelpViewController.m */,
+				A728B7741A1F54A1003359A1 /* JVCOpenAdevitiseViewController.h */,
+				A728B7751A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m */,
 			);
 			name = DeviceList;
 			sourceTree = "<group>";
@@ -3804,6 +3809,7 @@
 				A7F4346519DA423400E7ECA1 /* JVCBaseSliderViewController.m in Sources */,
 				A7F50A2219FA2D3F004D061F /* MJRefreshHeaderView.m in Sources */,
 				AD1673BD19D8260E0021CD1B /* JVCDeviceListWithChannelListTitleView.m in Sources */,
+				A728B7761A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m in Sources */,
 				A7F9E03B19ECB37700C1D69C /* JVCLocalEditDeviceInfoViewController.m in Sources */,
 				A7B172A41A1AE6D700D364CB /* DXAlertView.m in Sources */,
 				A7FAF5AA19D108DB00B3F395 /* JVCRegisterViewController.m in Sources */,
