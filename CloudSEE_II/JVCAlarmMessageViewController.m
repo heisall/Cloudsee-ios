@@ -892,7 +892,8 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
             case  CONNECTRESULTTYPE_DisconnectFailed:               //Connection Failed
             case  CONNECTRESULTTYPE_YstServiceStop:                  //CloudSEE Service Has Been Stopped
             case  CONNECTRESULTTYPE_VerifyFailed:                      //身份验证不成功
-            case  CONNECTRESULTTYPE_ConnectMaxNumber:{
+            case  CONNECTRESULTTYPE_ConnectMaxNumber:
+            case CONNECTRESULTTYPE_ChannelIsNotOpen:{
                 
                 NSString *localstring=[NSString  stringWithFormat:@"connectResultInfo_%d",connectResultType];
                 

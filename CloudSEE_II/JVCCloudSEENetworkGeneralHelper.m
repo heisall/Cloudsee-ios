@@ -12,8 +12,9 @@
 
 @implementation JVCCloudSEENetworkGeneralHelper
 static JVCCloudSEENetworkGeneralHelper *jvcCloudSEENetworkGeneralHelper = nil;
-static NSString const * kCloudSEENetworkWithConnectedPassWord =  @"password is wrong!";
-static NSString const * kCloudSEENetworkWithConnectedLimit    =  @"client count limit!";
+static NSString const * kCloudSEENetworkWithConnectedPassWord           =  @"password is wrong!";
+static NSString const * kCloudSEENetworkWithConnectedLimit              =  @"client count limit!";
+static NSString const * kCloudSEENetworkWithConnectedChannelIsNotOpen   =  @"channel is not open!";
 static const    float   kDefaultFrameRate                     = 25.0f;
 
 /**
@@ -245,6 +246,10 @@ static const    float   kDefaultFrameRate                     = 25.0f;
         }else if([ConnectResultInfo isEqualToString:(NSString *)kCloudSEENetworkWithConnectedLimit])
         {
             *conenctResultType = CONNECTRESULTTYPE_ConnectMaxNumber;
+            
+        }else if([ConnectResultInfo isEqualToString:(NSString *)kCloudSEENetworkWithConnectedChannelIsNotOpen]){
+        
+            *conenctResultType = CONNECTRESULTTYPE_ChannelIsNotOpen;
         }
     }
 }

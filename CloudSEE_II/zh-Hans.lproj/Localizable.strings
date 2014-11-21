@@ -393,6 +393,7 @@
 "connectResultInfo_9"  = "云视通服务已停止.";
 "connectResultInfo_10" = "账号或密码错误";
 "connectResultInfo_11" = "超过设备最大连接数!";
+"connectResultInfo_12" = "该通道不存在或未开放!";
 
 //***语音对讲**
 "talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
