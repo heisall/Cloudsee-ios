@@ -81,7 +81,8 @@
     
     [self initContentView];
     
-    [self getAdverInfo];
+
+  //  [self getAdverInfo];
     
 }
 
@@ -138,6 +139,7 @@
 - (void)getAdverInfo
 {
     NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
         NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:@"V0.0.0.0"];

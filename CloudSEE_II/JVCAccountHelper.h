@@ -140,6 +140,23 @@ static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.c
 -(int)UserLogin:(NSString *)username passWord:(NSString *)passWord;
 
 /**
+ *  整合后的登录接口
+ *
+ *  @param username     用户名
+ *  @param passWord     密码
+ *  @param tokenStr     token
+ *  @param languageType language
+ *  @param alarmFlag    报警
+ *
+ *  @return 0 成功  1其他
+ */
+-(int)userLoginV2:(NSString *)username
+         passWord:(NSString *)passWord
+      tokenString:(NSString *)tokenStr
+     languageType:(int)languageType
+        alarmFlag:(int)alarmFlag;
+
+/**
  *  修改已注册非规范用户名及密码
  *
  *  @param newUserName 新用户

@@ -240,10 +240,52 @@ char outAccountSessionBuffer[40];
  *
  *	@return	成功返回0
  */
+-(int)oldUserLogin:(NSString *)username passWord:(NSString *)passWord{
+    
+    return OldUserLogin_C([username UTF8String],[passWord UTF8String]);
+    
+}
+
+/**
+ *	登陆
+ *
+ *	@param	username	用户名
+ *	@param	passWord	密码
+ *
+ *	@return	成功返回0
+ */
 -(int)UserLogin:(NSString *)username passWord:(NSString *)passWord {
     
     return UserLogin_C([username  UTF8String],[passWord UTF8String]);
     
+}
+
+/**
+ *  整合后的登录接口
+ *
+ *  @param username     用户名
+ *  @param passWord     密码
+ *  @param tokenStr     token
+ *  @param languageType language
+ *  @param alarmFlag    报警
+ *
+ *  @return 0 成功  1其他
+ */
+-(int)userLoginV2:(NSString *)username
+         passWord:(NSString *)passWord
+      tokenString:(NSString *)tokenStr
+     languageType:(int)languageType
+        alarmFlag:(int)alarmFlag{
+    
+    C_CLIENT_INFO clientIfo;
+    memset(clientIfo.moblie_id, 0, 80);
+    memcpy(clientIfo.moblie_id, [tokenStr UTF8String], strlen([tokenStr UTF8String]));
+    clientIfo.terminal_type=IPHONE_CLIENT;
+    clientIfo.language_type=languageType;
+    clientIfo.alarm_flag = alarmFlag;
+    return  UserLoginV2_C([username UTF8String],
+                      [passWord UTF8String],clientIfo);
+
 }
 
 /**
@@ -339,15 +381,15 @@ char outAccountSessionBuffer[40];
     
     RegisterServerPushFunc_C(ServerPushCallBack);
     
-    C_CLIENT_INFO clientIfo;
-    
-    memset(clientIfo.moblie_id, 0, 80);
-    memcpy(clientIfo.moblie_id, [tokenStr UTF8String], strlen([tokenStr UTF8String]));
-    
-    clientIfo.terminal_type=IPHONE_CLIENT;
-    clientIfo.language_type=languageType;
-    
-    ReportClientPlatformInfo_C(clientIfo);
+//    C_CLIENT_INFO clientIfo;
+//    
+//    memset(clientIfo.moblie_id, 0, 80);
+//    memcpy(clientIfo.moblie_id, [tokenStr UTF8String], strlen([tokenStr UTF8String]));
+//    
+//    clientIfo.terminal_type=IPHONE_CLIENT;
+//    clientIfo.language_type=languageType;
+//    
+//    ReportClientPlatformInfo_C(clientIfo);
     
     
     return Online_C(clientOnLine);

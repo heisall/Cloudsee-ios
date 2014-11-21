@@ -17,6 +17,7 @@
 #import "JVCControlHelper.h"
 #import "JVCUserResignTextViewController.h"
 #import "JVCLogHelper.h"
+#import "JVCConfigModel.h"
 
 static const int ORIGIN_Y  = 40;//第一个textfield距离顶端的距离
 
@@ -588,7 +589,12 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
+            
+//                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
+                BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
+
+                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:kkUserName passWord:kkPassword tokenString:kkToken languageType:resultLanguage alarmFlag:[JVCConfigModel shareInstance].bSwitchSafe];
+
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     

@@ -47,6 +47,8 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             shareDataBaseHelper = [[self alloc] init];
             
             [shareDataBaseHelper  createUserInfoTable];
+            
+            [shareDataBaseHelper createLoginUserInfoTable];
 
         }
         
@@ -143,6 +145,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     }
     
 }
+
 
 /**
  *  登录成功后，将用户名，密码存到数据库中，首先看看数据库中有这条数据吗，有更新，没有直接写入
@@ -428,6 +431,141 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     }
     return userArray;
 }
+
+
+#pragma mark 登录判断账号
+/**
+ *  创建用户表格
+ */
+- (void)createLoginUserInfoTable
+{
+    
+    //读取目录，如果目录下面没有这个数据库，创建，如果有什么也不处理
+    NSString *sqlName = (NSString *)FMDB_USERINF;
+    
+    NSString *path = [[JVCSystemUtility shareSystemUtilityInstance] getAppDocumentsPathWithName:sqlName];
+
+    
+    userInfoSqlite = [FMDatabase databaseWithPath:path];
+    
+    [userInfoSqlite retain];
+    
+    if ([userInfoSqlite open]) {//打开数据库
+        
+        NSString *sqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS JUDGEUSERINFOTABLE(ID INTEGER PRIMARY KEY,USERNAME TEXT)"];
+        
+        BOOL result = [userInfoSqlite executeUpdate:sqlCreateTable];
+        
+        if (!result) {
+            
+            NSLog(@"error 创建数据库错误");
+            
+        }else
+        {
+            NSLog(@"success 创建数据库成功");
+        }
+    }
+    
+    [userInfoSqlite close];
+
+
+}
+/**
+ *  登录成功后，将判断的用户名放到本地数据库中，只有新账号
+ *
+ *  @param userName 用户名
+ *  @param passWord 秘密
+ */
+- (void)writeJudgeUserInfoToDataBase:(NSString *)userName
+{
+    
+    if ([userInfoSqlite open]) {
+        
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  JUDGEUSERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
+        
+        FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
+        
+        while ([resultSet next]) {
+            
+            NSUInteger totalNum = [resultSet intForColumn:@"TOTALCOUNT"];
+            
+            DDLogInfo(@"查询数据库结果,数据库中共有==%d",totalNum);
+            
+            if (totalNum == 0) {//数据库没有，直接插入
+                
+                [self insertJudgeUserInfoWithUserName:userName ];
+                
+            }
+        
+        [userInfoSqlite close];
+        }
+    }
+}
+
+/**
+ *  判断账号是否判断过
+ *
+ *  @param userName 用户名
+ *
+ *  @return yes 判断过 no没有
+ */
+- (BOOL)getUserJudgeState:(NSString *)userName
+{
+    BOOL state = NO;
+    
+    if ([userInfoSqlite open]) {
+        
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  JUDGEUSERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
+        
+        FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
+        
+        while ([resultSet next]) {
+            
+            NSUInteger totalNum = [resultSet intForColumn:@"TOTALCOUNT"];
+            
+            DDLogInfo(@"查询数据库结果,数据库中共有==%d",totalNum);
+            
+            if (totalNum == 0) {//数据库没有，直接插入
+                
+                state = NO;
+                
+            }else{
+                state = YES;
+            }
+            
+            [userInfoSqlite close];
+        }
+    }
+    return state;
+}
+
+/**
+ *  更新判断用户名数据
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ */
+- (void)insertJudgeUserInfoWithUserName:(NSString *)userName
+{
+    if ([userInfoSqlite open]) {
+        //转化
+        
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO JUDGEUSERINFOTABLE(USERNAME)VALUES('%@')",userName];
+        
+        BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
+        if (!result) {
+            
+            NSLog(@"%s_插入数据错误",__FUNCTION__);
+        }else{
+            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            
+        }
+        
+        [userInfoSqlite close];
+    }
+}
+
+
 
 /**
  *  登录的账号个数

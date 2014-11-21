@@ -501,8 +501,15 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             
+            BOOL judgeState = [[JVCDataBaseHelper shareDataBaseHelper] getUserJudgeState:textFieldUser.text];
             //判断用户的强度，119是用户的新密码加密规则，调用UserLogin接口登陆118是用户的老密码加密规则调用OldUserLogin接口登陆
-            int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:textFieldUser.text ];
+            int result = USERTYPE_NEW;
+            
+            if (judgeState != YES) {
+                
+                result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:textFieldUser.text ];
+
+            }
             
             [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,result] fileType:LogType_LoginManagerLogPath];
 
@@ -515,7 +522,9 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
                     [self loginInWithOldUserType];
                     
                 }else if(result == USERTYPE_NEW ){
-                    
+                    //把判断好的数据写到数据库中
+                    [[JVCDataBaseHelper shareDataBaseHelper] writeJudgeUserInfoToDataBase:textFieldUser.text];
+
                     [self loginInWithNewUserType];
                     
                 }else {//超时以及其他的一些提示
@@ -600,6 +609,9 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         if(LOGINRUSULT_SUCCESS == result)//成功
         {
             [self changeWindowRootViewController];
+            
+            //把判断好的数据写到数据库中
+            [[JVCDataBaseHelper shareDataBaseHelper] writeJudgeUserInfoToDataBase:textFieldUser.text];
 
         }else{//修改失败之后，也要让用户切换试图
         
@@ -625,6 +637,9 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
  */
 - (void)modifyUserAndPWSuccessCallBack
 {
+    //把判断好的数据写到数据库中
+    [[JVCDataBaseHelper shareDataBaseHelper] writeJudgeUserInfoToDataBase:textFieldUser.text];
+    
     textFieldUser.text = kkUserName;
     textFieldPW.text   = kkPassword;
     
@@ -639,12 +654,16 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
  */
 - (void)loginInWithNewUserType
 {
-    
-    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
+      //  int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:textFieldUser.text passWord:textFieldPW.text];
+        
+        BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
+
+        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:textFieldUser.text passWord:textFieldPW.text tokenString:kkToken languageType:resultLanguage alarmFlag:[JVCConfigModel shareInstance].bSwitchSafe];
+
         
         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,resultnewType] fileType:LogType_LoginManagerLogPath];
 

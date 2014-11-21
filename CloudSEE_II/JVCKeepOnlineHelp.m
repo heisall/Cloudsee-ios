@@ -17,6 +17,7 @@
 #import "JVCSystemUtility.h"
 #import "JVCAlarmModel.h"
 #import "AppDelegate.h"
+#import "JVCDataBaseHelper.h"
 
 enum PushMessage
 {
@@ -95,10 +96,10 @@ UIAlertView *alertView;
         
         [JVCAccountHelper sharedJVCAccountHelper].delegate = self;
         
-        /**
-         *  上传报警信息
-         */
-        [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
+//        /**
+//         *  上传报警信息
+//         */
+//        [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
         
         _iErrorNUm = 0;
 
@@ -462,8 +463,18 @@ UIAlertView *alertView;
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        BOOL judgeState = [[JVCDataBaseHelper shareDataBaseHelper] getUserJudgeState:kkUserName];
+        //判断用户的强度，119是用户的新密码加密规则，调用UserLogin接口登陆118是用户的老密码加密规则调用OldUserLogin接口登陆
+        int result = USERTYPE_NEW;
         
-        int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:kkUserName ];
+        if (judgeState != YES) {
+            
+            result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:kkUserName ];
+            
+        }
+
+        
+//        int result = [[JVCAccountHelper sharedJVCAccountHelper] JudgeUserPasswordStrength:kkUserName ];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -496,6 +507,7 @@ UIAlertView *alertView;
 - (void)loginInWithOldUserType
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
         
         int resultOldType = [[JVCAccountHelper sharedJVCAccountHelper] OldUserLogin:kkUserName passWord:kkPassword];
         
@@ -546,7 +558,10 @@ UIAlertView *alertView;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
+        BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
+        
+        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:kkUserName passWord:kkPassword tokenString:kkToken languageType:resultLanguage alarmFlag:[JVCConfigModel shareInstance].bSwitchSafe];
+//        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
         
         dispatch_async(dispatch_get_main_queue(), ^{
 

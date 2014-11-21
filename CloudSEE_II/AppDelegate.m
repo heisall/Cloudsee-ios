@@ -111,6 +111,9 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     //初始化相册
     [self initPhotoAlbum];
     
+    //获取报警开关，本地不起作用
+    [self getUserAlarmState];
+    
     JVCRGBHelper *rgbHelper      = [JVCRGBHelper shareJVCRGBHelper];
     
     UIColor *navBackgroundColor  = [rgbHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
@@ -602,12 +605,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
         NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kAPPWELCOMEAlarmState];
         [JVCConfigModel shareInstance].bSwitchSafe = NO;
         if (str.length==0) {
-            [[JVCAccountHelper sharedJVCAccountHelper]  activeServerPushToken:kkToken];
             [JVCConfigModel shareInstance].bSwitchSafe = YES;
-
-        }else{
-            [[JVCAccountHelper sharedJVCAccountHelper] CancelServerPushToken:kkToken];
-
         }
     });
    

@@ -71,4 +71,21 @@ static int      const  kLoginStateOFF   = 0;      //关闭自动登录
  */
 - (int)usersHasLoginCount;
 
+/**
+ *  登录成功后，将判断的用户名放到本地数据库中，只有新账号
+ *
+ *  @param userName 用户名
+ *  @param passWord 秘密
+ */
+- (void)writeJudgeUserInfoToDataBase:(NSString *)userName;
+
+/**
+ *  判断账号是否判断过
+ *
+ *  @param userName 用户名
+ *
+ *  @return yes 判断过 no没有
+ */
+- (BOOL)getUserJudgeState:(NSString *)userName;
+
 @end

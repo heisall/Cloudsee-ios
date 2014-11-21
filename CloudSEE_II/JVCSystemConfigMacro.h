@@ -59,26 +59,21 @@ static const NSString *DefaultHomePassWord = @"123456";      //默认密码
 
 static  const int KPredicateUserNameLegateAddNum            = 100;//正则校验用户名合法时返回值添加100
 
-static const  int KUserNameMaxLength   =  28;//用户名最大长度
-static const  int KPassWordMaxLength   =  20;//密码最大长度
+static const  int KUserNameMaxLength            =  28;//用户名最大长度
+static const  int KPassWordMaxLength            =  20;//密码最大长度
 static const  int KTextFieldLeftLabelViewWith   =  10;//textfield 左侧label的宽度
 
-static const  int KDevicePassWordMaxLength   =  16;//设备密码最大长度
-static const  int KDeviceUserNameMaxLength   =  16;//设备密码最大长度
-static NSString const * FMDB_USERINF  = @"userInfoTable.sqlite";//数据库的名称
+static const  int KDevicePassWordMaxLength      =  16;//设备密码最大长度
+static const  int KDeviceUserNameMaxLength      =  16;//设备密码最大长度
+static NSString const * FMDB_USERINF            = @"userInfoTable.sqlite";//数据库的名称
 
-static const  int KDeviceMaxChannelNUM      =  64;//设备通道最大值
-static const  int KLocalAddDeviceMaxNUM     =  4;//本地添加设备最大值
+static const  int KDeviceMaxChannelNUM          =  64;//设备通道最大值
+static const  int KLocalAddDeviceMaxNUM         =  4;//本地添加设备最大值
 
-static const  int KDeviceMaxChannelNUM_64      =  64;//添加通道的最大值64
-
-static const  NSString *kSAVEYSTNUM    = @"saveYStNum";//保存云视通的号
-
-static const  NSString *kAPPWELCOME   = @"Welcomehelp";
-
-static NSString *const kAPPAderseVersion  = @"APPAderseVersion";
-
-
+static const  int KDeviceMaxChannelNUM_64       =  64;//添加通道的最大值64
+static const  NSString *kSAVEYSTNUM             = @"saveYStNum";//保存云视通的号
+static const  NSString *kAPPWELCOME             = @"Welcomehelp";
+static NSString *const kAPPAderseVersion        = @"APPAderseVersion";
 static const  NSString *kAPPWELCOMEAlarmState   = @"kAPPWELCOMEAlarmState";//设备报警状态标识
 
 
