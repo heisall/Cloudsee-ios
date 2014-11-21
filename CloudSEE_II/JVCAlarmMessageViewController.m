@@ -61,6 +61,7 @@ static const int KNoAlarmTag = 10003;//没有报警的view的tag
 static const int KNoAlarmLabelHeight = 50;//没有报警的view的tag
 static const int KNoAlarmSpan    = 15;//没有报警的label距离imageview的距离
 static const int KJVCSignleAlarmDisplayView     = 138354;
+static const int KJVCSignleAlarmDisplayViewTag  = 132223232;
 @synthesize arrayAlarmList;
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -565,6 +566,11 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     [super dealloc];
 }
 
+- (void)reloadSingleImageView
+{
+    
+    JVCSignleAlarmDisplayView *alarmView = (JVCSignleAlarmDisplayView *)[self.view.window viewWithTag:KJVCSignleAlarmDisplayViewTag];
+}
 
 - (void)showJVHAlarmVideoWithModel:(JVCAlarmModel *)model
 {
@@ -574,6 +580,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     alarmView.tag = KJVCSignleAlarmDisplayView;
     alarmView.tAlarmModel = model;
     alarmView.palyVideoDelegate = self;
+    alarmView.tag = KJVCSignleAlarmDisplayViewTag;
     [alarmView initView];
     
     CABasicAnimation *forwardAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
@@ -877,6 +884,11 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
             //云视通连接成功，down图片
             
             [self downRemotePlayBackPic:nlocalChannel];
+            
+            JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
+
+            [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
+
         }
   
         

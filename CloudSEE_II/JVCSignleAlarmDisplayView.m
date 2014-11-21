@@ -9,7 +9,14 @@
 #import "JVCSignleAlarmDisplayView.h"
 #import "JVCCloudSEENetworkHelper.h"
 
+@interface JVCSignleAlarmDisplayView ()
+{
+    UIImageView *imageView;
+}
+@end
+
 @implementation JVCSignleAlarmDisplayView
+
 
 @synthesize tAlarmModel;
 @synthesize palyVideoDelegate;
@@ -46,7 +53,7 @@ static const NSInteger  BTNTAG = 12683;
     
     //报警图片
     UIImage *iamgeDefault = [UIImage imageNamed:@"alarmDefault.png"];
-    UIImageView *imageView = [[UIImageView alloc] init];//
+     imageView = [[UIImageView alloc] init];//
     imageView.frame =CGRectMake((contentView.frame.size.width - iamgeDefault.size.width)/2.0, 15, iamgeDefault.size.width, iamgeDefault.size.height);
     if (tAlarmModel.strAlarmLocalPicURL.length>0) {
         
@@ -127,6 +134,24 @@ static const NSInteger  BTNTAG = 12683;
     [self addSubview:contentView];
     [contentView release];
     
+}
+
+- (void)ReloadImageView:(JVCAlarmModel *)model
+{
+    
+    if (model.strAlarmLocalPicURL.length>0) {
+        
+        UIImage *iamgeAlarm = [[UIImage alloc] initWithContentsOfFile:model.strAlarmLocalPicURL];
+        if (iamgeAlarm ==nil|| [iamgeAlarm isKindOfClass:[NSNull class]]) {
+            
+        }else{
+            imageView.image = iamgeAlarm;
+            
+        }
+        
+        [iamgeAlarm release];
+        
+    }
 }
 
 /**

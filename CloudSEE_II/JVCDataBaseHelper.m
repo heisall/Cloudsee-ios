@@ -497,8 +497,9 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
                 
             }
         
-        [userInfoSqlite close];
         }
+        
+        [userInfoSqlite close];
     }
 }
 
