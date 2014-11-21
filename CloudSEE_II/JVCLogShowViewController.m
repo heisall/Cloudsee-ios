@@ -60,6 +60,8 @@
     NSString       *path= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:self.strLogPath];
     NSFileManager *fileManager=[NSFileManager defaultManager];
     [fileManager removeItemAtPath:path error:nil];
+    
+    
     [[JVCAlertHelper shareAlertHelper] alertWithMessage:NSLocalizedString(@"JVCLog_clear", nil)];
     [self.navigationController popViewControllerAnimated:YES];
 }

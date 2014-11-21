@@ -448,6 +448,7 @@ static const int  kWriteSleepTime         = 1*1000*1000;   //烧写进度相等�
     [strLoginUserName release];
     [strYstNumber release];
     [strVersion release];
+    DDLogVerbose(@"%s------------------------------",__FUNCTION__);
     [super dealloc];
 }
 

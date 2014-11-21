@@ -90,6 +90,7 @@ enum RemotePlayBackVideoStateType {
 static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackChannel  = @"remoteChannel";  //远程回放检索出文件的通道
 static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackDate     = @"time";           //远程回放检索出文件的日期
 static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackDisk     = @"disk";           //远程回放检索出文件存放的磁盘
+static  NSString  *  const KJVCYstNetWorkMacroRemotePlayBackType     = @"Type";           //远程回放检索出文件存放的类型（A:报警 M：移动 T:定时 N:手动）
 
 #define REQUESTTIMEOUTSECOND  0.5
 

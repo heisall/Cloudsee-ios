@@ -540,7 +540,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                             onLineState = @"";
                             wifiState = @"";
                         }
-                        [deviceView setAtObjectTitles:modelCell.yunShiTongNum onlineStatus:onLineState wifiStatus:wifiState];
+                        [deviceView setAtObjectTitles:modelCell.nickName onlineStatus:onLineState wifiStatus:wifiState];
                         
                         //添加选中设备的事件
                         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectDeviceToPlay:)];
@@ -923,6 +923,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 - (void)updateDeviceInfoMathSuccess
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
         [self.tableView headerEndRefreshing];
         [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = nil;

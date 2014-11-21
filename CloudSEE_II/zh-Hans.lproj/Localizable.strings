@@ -632,3 +632,8 @@
 "DeviceManagerLog.md" = "设备通道日志";//设备log
 "LoginManagerLog.md" = "登录日志";//登录的log
 
+"JVCRemoteVideoPlayBackVControler_alarmType_A" = "报警录像";
+"JVCRemoteVideoPlayBackVControler_alarmType_M" = "移动录像";
+"JVCRemoteVideoPlayBackVControler_alarmType_T" = "定时录像";
+"JVCRemoteVideoPlayBackVControler_alarmType_N" = "手动录像";
+

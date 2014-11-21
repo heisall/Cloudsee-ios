@@ -8,6 +8,7 @@
 
 #import "JVCRemoteVideoPlayBackVControler.h"
 #import "JVCPlaybackBean.h"
+#import "JVCCloudSEENetworkMacro.h"
 
 @interface JVCRemoteVideoPlayBackVControler ()
 {
@@ -272,17 +273,29 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
         cell = [[[JVCPlaybackBean alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndetify] autorelease];
     }
     
-    [cell initCellContentViews];
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell initCellContentViews];
     
     cell.backgroundColor = [UIColor clearColor];
     
     NSMutableDictionary * dic = [self.arrayDateList objectAtIndex:indexPath.row];
     
-    cell.timeLabel.text = [dic valueForKey:@"time"];
+    NSString *name = [dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackType];
     
-    cell.sizeLabel.text = [dic valueForKey:@"disk"];
+    
+    if (name) {
+        
+         NSString *alarmType = [NSString stringWithFormat:@"JVCRemoteVideoPlayBackVControler_alarmType_%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackType]];
+        
+         cell.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDate],NSLocalizedString(alarmType, nil)];
+        
+    }else {
+        
+         cell.timeLabel.text = [NSString stringWithFormat:@"%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDate]];
+    }
+
+    cell.sizeLabel.text = [dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDisk];
     
     
     return cell;
@@ -326,7 +339,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *v_headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30.0)] autorelease];//创建一个视图（v_headerView）
-    UILabel *v_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 5.0, 100, 19)];//创建一个UILable（v_headerLab）用来显示标题
+    UILabel *v_headerLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 5.0, 100, 19)];//创建一个UILable（v_headerLab）用来显示标题
     v_headerLab.backgroundColor = [UIColor clearColor];//设置v_headerLab的背景颜色
     v_headerLab.textColor = SETLABLERGBCOLOUR(RGB_YUANCHENG_COLOUM_R, RGB_YUANCHENG_COLOUM_G,RGB_YUANCHENG_COLOUM_B);//设置v_headerLab的字体颜色
     v_headerLab.font = [UIFont systemFontOfSize:16];//设置v_headerLab的字体样式和大小
@@ -345,7 +358,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     [v_headerView addSubview:v_headerLab];//将标题v_headerLab添加到创建的视图（v_headerView）中
     [v_headerLab release];//释放v_headerLab所占用的资源
     
-    UILabel *sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 5.0, 100, 19)];//创建一个UILable（v_headerLab）用来显示标题
+    UILabel *sizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210.0, 5.0, 100, 19)];//创建一个UILable（v_headerLab）用来显示标题
     sizeLabel.backgroundColor = [UIColor clearColor];//设置v_headerLab的背景颜色
     sizeLabel.textColor = SETLABLERGBCOLOUR(RGB_YUANCHENG_COLOUM_R, RGB_YUANCHENG_COLOUM_G,RGB_YUANCHENG_COLOUM_B);//设置v_headerLab的字体颜色
     sizeLabel.font = [UIFont systemFontOfSize:16];//设置v_headerLab的字体样式和大小

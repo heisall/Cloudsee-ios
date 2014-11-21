@@ -48,6 +48,13 @@ enum ADDDEVICE_TYPE
 -(NSMutableArray *)ystNumbersWithDevceList;
 
 /**
+ *  返回所有的设备昵称集合
+ *
+ *  @return 云视通号集合
+ */
+-(NSMutableArray *)deviceNicknameWithDevceList;
+
+/**
  *  清楚设备列表的所有数据
  */
 - (void)removeAllDeviceObject;

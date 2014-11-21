@@ -838,7 +838,6 @@ BOOL isAllLinkRun;
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
     JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
-    singleView.isNewDevice                                    =  nDeviceType;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -865,6 +864,19 @@ BOOL isAllLinkRun;
             }
         }
     });
+}
+
+/**
+ *  判断设备是否是05和04的回调
+ *
+ *  @param nLocalChannel 本地显示的通道编号 需减去1
+ *  @param nDeviceModel  设备的编码类型（YES:05）
+ */
+-(void)RequestTextChatIs05DeviceCallback:(int)nLocalChannel withDeviceModel:(BOOL)nDeviceModel {
+    
+    DDLogVerbose(@"%s---%d",__FUNCTION__,nDeviceModel);
+    JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+    singleView.isNewDevice                                    =  nDeviceModel;
 }
 
 /**

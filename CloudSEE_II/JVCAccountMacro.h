@@ -37,6 +37,7 @@ typedef struct c_clientLoginInfo_
     int terminal_type;		//登录平台类型
     int	language_type;		//语言类型
     char moblie_id[80];	//手机唯一识别符
+    int  alarm_flag;
     
 }C_CLIENT_INFO;
 

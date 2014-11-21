@@ -68,6 +68,18 @@ extern "C" {
                     const char* password);
     
     /**
+     *  用户登录优化接口
+     *
+     *  @param username   用户名
+     *  @param password   密码
+     *  @param clientInfo 汇报的字段 （客户端信息(包含报警开关)）
+     *
+     *  @return 返回值 0
+     */
+    int UserLoginV2_C(const char* username,
+                      const char* password,const C_CLIENT_INFO clientInfo);
+    
+    /**
      *  获取登陆用户的Session
      *
      *  @param session 缓存空间
