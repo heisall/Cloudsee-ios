@@ -47,6 +47,7 @@
 
 #import "JVCTencentHelp.h"
 #import "JVCDeviceMacro.h"
+#import "JSONKit.h"
 
 @interface AppDelegate ()
 {
@@ -76,7 +77,11 @@ static NSString const *kAPPLocalCaheKey          = @"localDeviceListData";
 static  const   int    KSetHelpMaxCount          = 5;
 static  const   int    KCheckLocationRequestTime = 5;
 static NSString const *KCheckLocationFlag        = @"中国";
-static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php";
+static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js";
+static NSString const *KCheckLocationResult      = @"ret";
+static NSString const *KCheckLocationCountry     = @"country";
+static NSString const *KCheckLocationKey         = @"var remote_ip_info = ";
+static const   int     KCheckLocationResultValue = 1;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -445,7 +450,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
  */
 -(BOOL)checkLocalLocation{
     
-    BOOL findStatus = FALSE;
+    BOOL findStatus = YES;
     
     NSURL *url = [NSURL URLWithString:(NSString *)KCheckLocationURL];
     
@@ -455,20 +460,53 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
     
     [request release];
     
-    NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSMutableString *requsetString = [[NSMutableString alloc] initWithData:received encoding:NSUTF8StringEncoding];
     
-    NSString *requsetString = [[NSString alloc]initWithData:received encoding:gbkEncoding];
+    NSArray  *maSplitInfo   = [requsetString componentsSeparatedByString:(NSString *)KCheckLocationKey];
     
-    self.localtionString = requsetString;
-
-    if([requsetString rangeOfString:(NSString *)KCheckLocationFlag].location != NSNotFound)//_roaldSearchText
-    {
-        findStatus = TRUE;
+    if (maSplitInfo.count == 2) {
+        
+        NSString *jsonString1 = [[maSplitInfo objectAtIndex:1] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString *jsonString2 = [jsonString1 stringByReplacingOccurrencesOfString:@";" withString:@""];
+        
+        NSDictionary *dicInfo = [jsonString2 objectFromJSONString];
+        
+        if ([dicInfo isKindOfClass:[NSDictionary class]]) {
+            
+            NSString *strCountry = [dicInfo objectForKey:(NSString *)KCheckLocationCountry];
+            NSString *strRet     = [dicInfo objectForKey:(NSString *)KCheckLocationResult];
+            
+            if (strRet) {
+                
+                int nRet = strRet.intValue;
+                
+                if (nRet == KCheckLocationResultValue && [(NSString *)KCheckLocationCountry isEqualToString:strCountry]){
+                    
+                     findStatus = TRUE;
+                }
+            }
+        }
     }
 
     [requsetString release];
     
     return findStatus;
+}
+
+//unicode编码以\u开头
+-(NSString *)replaceUnicode:(NSString *)unicodeStr
+{
+    
+    NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
+    NSString *tempStr3 = [[@"\""stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString* returnStr = [NSPropertyListSerialization propertyListFromData:tempData
+                                                           mutabilityOption:NSPropertyListImmutable
+                                                                     format:NULL
+                                                           errorDescription:NULL];
+    
+    return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
 }
 
 /**
@@ -526,9 +564,7 @@ static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.c
             [rootNav popToRootViewControllerAnimated:NO];
             
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"ap_change_net_work", nil)];
-
         }
-        
     }
 }
 
