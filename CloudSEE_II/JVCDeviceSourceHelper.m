@@ -103,6 +103,25 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 }
 
 /**
+ *  返回所有的设备昵称集合
+ *
+ *  @return 云视通号集合
+ */
+-(NSMutableArray *)deviceNicknameWithDevceList{
+    
+    NSMutableArray *ystNumberArray = [NSMutableArray arrayWithCapacity:10]; //autoRelease类型的，系统释放
+    
+    for (int i = 0; i < deviceArray.count; i++) {
+        
+        JVCDeviceModel *deviceModel = (JVCDeviceModel *)[deviceArray objectAtIndex:i];
+        
+        [ystNumberArray addObject:deviceModel.nickName];
+    }
+    
+    return ystNumberArray;
+}
+
+/**
  *  清楚设备列表的所有数据
  */
 - (void)removeAllDeviceObject

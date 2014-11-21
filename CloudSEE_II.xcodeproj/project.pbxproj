@@ -617,7 +617,7 @@
 		ADA7AFC21A1B7BB700587B53 /* edi_deviceUpdate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA7AFC11A1B7BB700587B53 /* edi_deviceUpdate@2x.png */; };
 		ADA7AFC51A1C29BB00587B53 /* JVCLogHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA7AFC41A1C29BB00587B53 /* JVCLogHelper.m */; };
 		ADA7AFCA1A1C3D5D00587B53 /* JVCLogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA7AFC91A1C3D5D00587B53 /* JVCLogListViewController.m */; };
-		ADA7AFD11A1C630600587B53 /* libjvnetsdkV2.0.76.3.8_2014_10_20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA7AFD01A1C630600587B53 /* libjvnetsdkV2.0.76.3.8_2014_10_20.a */; };
+		ADA7AFD71A1ED22F00587B53 /* libjvnetsdkV2.0.76.3.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA7AFD61A1ED22F00587B53 /* libjvnetsdkV2.0.76.3.9.a */; };
 		ADA9E43A1A11E514007EB209 /* JVCNetworkSettingWithTopItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */; };
 		ADA9E43D1A11E58F007EB209 /* JVCNetworkSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E43C1A11E58F007EB209 /* JVCNetworkSettingViewController.m */; };
 		ADA9E4411A11E865007EB209 /* nws_topItemBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA9E43F1A11E865007EB209 /* nws_topItemBg@2x.png */; };
@@ -1426,7 +1426,7 @@
 		ADA7AFC41A1C29BB00587B53 /* JVCLogHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLogHelper.m; sourceTree = "<group>"; };
 		ADA7AFC81A1C3D5D00587B53 /* JVCLogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLogListViewController.h; sourceTree = "<group>"; };
 		ADA7AFC91A1C3D5D00587B53 /* JVCLogListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLogListViewController.m; sourceTree = "<group>"; };
-		ADA7AFD01A1C630600587B53 /* libjvnetsdkV2.0.76.3.8_2014_10_20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.8_2014_10_20.a; sourceTree = "<group>"; };
+		ADA7AFD61A1ED22F00587B53 /* libjvnetsdkV2.0.76.3.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.9.a; sourceTree = "<group>"; };
 		ADA9E4381A11E514007EB209 /* JVCNetworkSettingWithTopItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingWithTopItem.h; sourceTree = "<group>"; };
 		ADA9E4391A11E514007EB209 /* JVCNetworkSettingWithTopItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCNetworkSettingWithTopItem.m; sourceTree = "<group>"; };
 		ADA9E43B1A11E58F007EB209 /* JVCNetworkSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCNetworkSettingViewController.h; sourceTree = "<group>"; };
@@ -1490,8 +1490,8 @@
 				A7F4059F19E55A260070945F /* CoreMedia.framework in Frameworks */,
 				A7F4059D19E55A1C0070945F /* CoreVideo.framework in Frameworks */,
 				A7F4059B19E55A0B0070945F /* libiconv.dylib in Frameworks */,
-				ADA7AFD11A1C630600587B53 /* libjvnetsdkV2.0.76.3.8_2014_10_20.a in Frameworks */,
 				A7F4059919E558040070945F /* AVFoundation.framework in Frameworks */,
+				ADA7AFD71A1ED22F00587B53 /* libjvnetsdkV2.0.76.3.9.a in Frameworks */,
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */,
 				A7B58B8D1A15E8A8004D0E5B /* libmtasdk.a in Frameworks */,
@@ -2771,7 +2771,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ADA7AFD01A1C630600587B53 /* libjvnetsdkV2.0.76.3.8_2014_10_20.a */,
+				ADA7AFD61A1ED22F00587B53 /* libjvnetsdkV2.0.76.3.9.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
 				A7A575FD1A130AA2000D0BBC /* libz.dylib */,

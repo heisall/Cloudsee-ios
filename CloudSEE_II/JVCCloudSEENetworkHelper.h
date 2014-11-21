@@ -46,6 +46,14 @@
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType;
 
 /**
+ *  开始请求文本聊天的回调
+ *
+ *  @param nLocalChannel 本地显示窗口的编号
+ *  @param nDeviceModel  设备的类型 （YES：05）
+ */
+-(void)RequestTextChatIs05DeviceCallback:(int)nLocalChannel withDeviceModel:(BOOL)nDeviceModel;
+
+/**
  *  文本聊天请求的结果回调
  *
  *  @param nLocalChannel 本地本地显示窗口的编号

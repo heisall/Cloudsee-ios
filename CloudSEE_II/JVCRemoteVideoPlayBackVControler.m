@@ -281,10 +281,20 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     
     NSMutableDictionary * dic = [self.arrayDateList objectAtIndex:indexPath.row];
     
-    NSString *alarmType = [NSString stringWithFormat:@"JVCRemoteVideoPlayBackVControler_alarmType_%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackType]];
+    NSString *name = [dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackType];
     
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDate],NSLocalizedString(alarmType, nil)];
     
+    if (name) {
+        
+         NSString *alarmType = [NSString stringWithFormat:@"JVCRemoteVideoPlayBackVControler_alarmType_%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackType]];
+        
+         cell.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDate],NSLocalizedString(alarmType, nil)];
+        
+    }else {
+        
+         cell.timeLabel.text = [NSString stringWithFormat:@"%@",[dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDate]];
+    }
+
     cell.sizeLabel.text = [dic valueForKey:KJVCYstNetWorkMacroRemotePlayBackDisk];
     
     

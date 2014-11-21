@@ -12,6 +12,7 @@ extern int JVCLogHelperLevel;
 static NSString const *kAppLogPath           = @"applog.md";
 static NSString const *kDeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
 static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md";//登录的log
+static NSString const *kCloudSEELogPath      = @"temperrolog.txt";//登录的log
 
 
 @interface JVCLogHelper : NSObject

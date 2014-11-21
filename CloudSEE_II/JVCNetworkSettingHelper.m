@@ -52,7 +52,7 @@
 
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType {
 
-    if (!nDeviceType) {
+    if (nDeviceType!=DEVICEMODEL_IPC) {
         
         DDLogVerbose(@"不是IPC,不支持此操作！");
         [self error:ErrorTypeNotSupport];

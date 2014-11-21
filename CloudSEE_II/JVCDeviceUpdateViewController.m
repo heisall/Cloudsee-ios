@@ -65,6 +65,9 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     [btnUpDate addTarget:self  action:@selector(updateDevieVersion) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnUpDate];
     
+    //初始化设备升级的助手类
+    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
+    
 }
 
 - (void)BackClick
@@ -105,8 +108,6 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
             });
         }
     };
-    
-    homeIPC = [[JVCHomeIPCUpdate alloc] init:self.modelDevice.deviceType withDeviceModelInt:self.modelDevice.deviceModelInt withDeviceVersion:self.modelDevice.deviceVersion withYstNumber:self.modelDevice.yunShiTongNum withLoginUserName:kkUserName];
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     

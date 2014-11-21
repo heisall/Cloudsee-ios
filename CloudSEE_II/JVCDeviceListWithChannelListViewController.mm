@@ -53,7 +53,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 
 - (void)viewDidLoad
 {
-    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceNicknameWithDevceList]];
     [super viewDidLoad];
     [self initWithConnectAllButton];
     [self initWithChannelListView];
@@ -99,7 +99,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithChannelListView{
     
-    NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[titles objectAtIndex:nIndex]];
+    NSMutableArray *channelValues               = [[JVCChannelScourseHelper shareChannelScourseHelper] channelValuesWithDeviceYstNumber:[self deviceYstNumberTitlesAtSelecteedIndex]];
     
     [channelValues retain];
     
@@ -201,6 +201,17 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
 }
 
 /**
+ *  根据当前的索引返回云视通号
+ */
+-(NSString *)deviceYstNumberTitlesAtSelecteedIndex{
+    
+    
+    JVCDeviceSourceHelper *sourceHelperObj = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    JVCDeviceModel        *model           = (JVCDeviceModel *)[[sourceHelperObj deviceListArray] objectAtIndex:self.nIndex];
+    return model.yunShiTongNum;
+}
+
+/**
  *  滑动结束之后的回调
  */
 -(void)animationEndCallBack{
@@ -213,7 +224,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)initWithConnectAllButton{
     
-    DDLogVerbose(@"%s---channleListView=%@",__FUNCTION__,self.view);
     JVCRGBHelper *rgbHelper       =  [JVCRGBHelper shareJVCRGBHelper];
     
     UIColor      *connectBtnColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroNavBackgroundColor];
@@ -259,13 +269,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
  */
 -(void)connectAllWithSelectedDevice{
     
-    for (UIViewController *con in self.navigationController.viewControllers) {
-        
-        
-        DDLogVerbose(@"%s-----viewContro=%@",__FUNCTION__,con);
-        
-    }
-    
     [self gotoPlayViewController:0 withIsConnectAll:YES];
 }
 
@@ -280,8 +283,6 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     JVCDeviceListWithChannelListTitleView *channelTitleView = (JVCDeviceListWithChannelListTitleView *)(gesture.view);
     
     int indexWithChannels =  channelTitleView.nChannelValueWithIndex;
-    
-    DDLogVerbose(@"%s---------------------channelWithChannels=%d",__FUNCTION__,indexWithChannels);
     
     [self gotoPlayViewController:indexWithChannels withIsConnectAll:NO];
 }
@@ -318,7 +319,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
         tOPVC = [[JVCOperationController alloc] init];
     }
     
-    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC.strSelectedDeviceYstNumber = [self deviceYstNumberTitlesAtSelecteedIndex];
     tOPVC._iSelectedChannelIndex     = index;
     tOPVC.isConnectAll               = isConnect;
     [self.navigationController pushViewController:tOPVC animated:YES];
@@ -338,7 +339,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     [channelSourceObj sortChannelListByDeviceList:[deviceSourceObj deviceListArray]];
     
-    JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[titles objectAtIndex:self.nIndex]];
+    JVCChannelModel *channelModelObj = [channelSourceObj channelModelAtIndex:index withDeviceYstNumber:[self deviceYstNumberTitlesAtSelecteedIndex]];
     
     JVCOperationController *tOPVC;
     
@@ -352,7 +353,7 @@ static const CGFloat  kTitleViewWithRadius            = 5.0f;
     
     }
     
-    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC.strSelectedDeviceYstNumber = [self deviceYstNumberTitlesAtSelecteedIndex];
     tOPVC.isConnectAll               = isConnect;
     tOPVC._iSelectedChannelIndex     = [channelSourceObj IndexAtChannelModelInChannelList:channelModelObj];
     [self.navigationController pushViewController:tOPVC animated:YES];

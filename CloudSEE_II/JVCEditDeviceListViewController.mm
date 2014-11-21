@@ -105,7 +105,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     
     [deviceListTableView reloadData];
     
-    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceNicknameWithDevceList]];
     
     [self initWithTopToolView];
     
@@ -169,7 +169,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         
     }
     
-    tOPVC.strSelectedDeviceYstNumber = [titles objectAtIndex:self.nIndex];
+    tOPVC.strSelectedDeviceYstNumber = [self currentYstTitles];
     tOPVC._iSelectedChannelIndex     = index;
     [self.navigationController pushViewController:tOPVC animated:YES];
     [tOPVC release];
@@ -314,7 +314,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         
         JVCDeviceModel *model= [self getCurrentDeviceModel];
     
-        
         [self showWithHiddenSafeAndAlarmView:!model.isDeviceType withEnableSale:!model.isDeviceSwitchAlarm];
         
     }
@@ -402,8 +401,10 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             break;
         case JVCEditDeviceListViewControllerClickType_play:{
             {//判断设备的通道号大于0，才让连接
-                NSString *titleYst = [titles objectAtIndex:self.nIndex];
+                NSString *titleYst = [self currentYstTitles];
+                
                 NSArray *arrayList = [[JVCChannelScourseHelper shareChannelScourseHelper] channelModelWithDeviceYstNumber:titleYst];
+                
                 if (arrayList.count>0) {
                     
                     [self gotoPlayViewController:0];
@@ -820,7 +821,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     [self initWithRgbListArray];
     [self initWithIconTitleListArray];
     [self initWithIconImageNameListArray];
-    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] ystNumbersWithDevceList]];
+    [titles addObjectsFromArray:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceNicknameWithDevceList]];
     [super viewDidLoad];
     
     [self changeCurrentSafeWithAlarmOperationView];
@@ -837,7 +838,11 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 - (NSString *)currentYstTitles
 {
 
-    return [titles objectAtIndex:self.nIndex];
+    JVCDeviceSourceHelper *deviceSourceHelper = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    
+    JVCDeviceModel        *deviceModel        =(JVCDeviceModel *) [[deviceSourceHelper deviceListArray] objectAtIndex:self.nIndex];
+    
+    return deviceModel.yunShiTongNum;
 }
 
 
