@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
 
+extern int AdverType;
+extern int AdverTypeLocation;
+
 enum DEVICESERVICERESPONSE{
     
     DEVICESERVICERESPONSE_REQ_TIMEOUT=-5,  //请求业务超时
@@ -152,6 +155,31 @@ enum DEVICESERVICERESPONSE{
 #define JK_PIC_UPLOAD_TIMEING_RESULT       "dpicutrs"
 #define JK_VIDEO_FLUENCY_RESULT            "dvfluencyrs"
 
+//广告位的
+#define JK_TERMINAL_TYPE                    "tt"
+#define JK_PRODUCT_TYPE                     "prot"
+#define JK_AD_VERSION                       "adver"
+#define	JK_AD_INFO                          "adinfo"
+#define Json_AD_NO                            @"adno"
+#define Json_AD_URL                           @"adurl"
+#define Json_AD_LINK                          @"adl"
+static const int   AdverseInfo              = 5500;
+static const int   Ad_Publish_process       = 12;
+
+enum AdverType
+{
+    AdverType_Cloud = 0,
+    AdverType_NVSIP = 1,
+
+};
+
+enum AdverTypeLocation
+{
+    AdverTypeLocation_Android   = 1,
+    AdverTypeLocation_iPhone    = 2,
+    AdverTypeLocation_iPad      = 3,
+
+};
 
 //设备升级
 #define JK_UPGRADE_FILE_VERSION     "ufver"
@@ -212,6 +240,11 @@ enum DEVICESERVICERESPONSE{
 #define JK_DEVICE_Demo_PASSWORD		@"dpassword"
 #define DEVICE_DEVICE_ServiceState  @"dimols"
 #define JK_DEVICES_CHANNELS         @"clist"
+
+//
+#define	AdverJsonInfo_INFO          @"adinfo"
+#define	AdverJsonInfo_Version       @"adver"
+
 
 /**
  *  ap 的密码
@@ -416,6 +449,7 @@ enum DEVICESTATUS{
     DEVICESTATUS_ONLINE=1
     
 };
+
 
 /**
  *  获取demo的的类别

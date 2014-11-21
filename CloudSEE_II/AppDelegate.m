@@ -46,6 +46,7 @@
 #import "JVCLogHelper.h"
 
 #import "JVCTencentHelp.h"
+#import "JVCDeviceMacro.h"
 
 @interface AppDelegate ()
 {
@@ -61,8 +62,11 @@ static const int  kTableBarDefaultSelectIndex = 0;//tabbar默认选择
 static const NSTimeInterval  KAfterDelayTimer = 3;//3秒延时
 
 int JVCLogHelperLevel                         = JVCLogHelperLevelRelease;  //输出热i
-int JVCTencentLeveal                          = JVCTencentTypeClose;      //腾讯的
+int JVCTencentLeveal                          = JVCTencentTypeClose;      //广告位的
+int AdverTypeLocation                         = AdverTypeLocation_iPhone; //广告位的
 
+
+int AdverType                                 = AdverType_Cloud;
 @implementation AppDelegate
 @synthesize _amOpenGLViewListData;
 @synthesize QRViewController;

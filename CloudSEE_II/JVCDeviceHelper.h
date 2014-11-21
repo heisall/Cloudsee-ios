@@ -345,4 +345,13 @@ enum DEVICEONLINESTATE
  */
 -(id)deleteAllAlarmHorisy;
 
+/**
+ *  获取广告位图片
+ *
+ *  @param type 本地缓存版本号
+ *
+ *  @return 广告位的字典
+ */
+-(NSDictionary *)getAdverInfoList:(NSString *)type;
+
 @end

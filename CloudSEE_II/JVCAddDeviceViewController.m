@@ -181,6 +181,9 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             
             if (ADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
                 
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
+
+                
                 [self getNewAddDeviceInfo];
                 
             }else{//失败
@@ -196,7 +199,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 - (void)getNewAddDeviceInfo
 {
 
-    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
+//    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
 
     [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
     

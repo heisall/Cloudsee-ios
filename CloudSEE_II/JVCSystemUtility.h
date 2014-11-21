@@ -189,4 +189,11 @@
  *  @return 设备类型
  */
 - (NSString*)deviceString;
+
+/**
+ *  再document目录下面创建文件夹
+ *
+ *  @param fileName 文件目录
+ */
+- (NSString *)creatDirectoryAtDocumentPath:(NSString *)fileName;
 @end

@@ -14,6 +14,9 @@ static  NSString *const kAppOnlineServiceAddressC      =   @"apponline.afdvr.com
 static  NSString *const kAppChannelServiceAddressE     =   @"appchannelen.afdvr.com";
 static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.com";
 
+//static  NSString *const kAppChannelServiceAddressC     =   @"58.56.19.187";
+//static  NSString *const kAppOnlineServiceAddressC      =   @"58.56.19.187";
+
 @protocol JVCAccountDelegate <NSObject>
 
 /**

@@ -8,6 +8,13 @@
 
 #import "JVCDeviceListAdvertCell.h"
 #import "StyledPageControl.h"
+#import "JVCDeviceHelper.h"
+#import "JVCSystemConfigMacro.h"
+#import "JVCLogHelper.h"
+#import "JVCSystemUtility.h"
+#import "JVCAdverImageModel.h"
+
+
 
 @interface JVCDeviceListAdvertCell ()
 {
@@ -36,19 +43,49 @@
         
         _arrayDefaultImage = [[NSMutableArray alloc] init];
         
-        for (int i=0; i<2; i++) {
-            
-            NSString *stringPic = [NSString stringWithFormat:@"devAdv_default_%d",i];
-            [_arrayDefaultImage addObject:LOCALANGER(stringPic)];
-        }
+        [self setDefaultImageWithCount:2];
+        
     }
     return self;
+}
+
+/**
+ *  设置默认广告位个数
+ *
+ *  @param count 个数
+ */
+- (void)setDefaultImageWithCount:(int)count{
+
+    [_arrayDefaultImage removeAllObjects];
+    
+    for (int i=0; i<count; i++) {
+        
+        NSString *stringPic = [NSString stringWithFormat:@"devAdv_default_%d",i%2];
+        
+        NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(stringPic)];
+        
+        JVCAdverImageModel *imageModel = [[JVCAdverImageModel alloc] initAdvertImageModel:imageBundlePath LinkUrl:nil index:i downState:YES downLoadSuccessBlock:nil];
+        imageModel.localDownUrl = imageBundlePath;
+        [_arrayDefaultImage addObject:imageModel];
+        
+        [imageModel release];
+    }
+
 }
 
 /**
  *  初始化cell
  */
 - (void)initCellContent
+{
+    
+    [self initContentView];
+    
+    [self getAdverInfo];
+    
+}
+
+- (void)initContentView
 {
     for (UIView *contentViewInCell in self.contentView.subviews) {
         
@@ -68,17 +105,19 @@
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
         
-        NSString *imageBundlePath = [UIImage imageBundlePath:[_arrayDefaultImage objectAtIndex:i]];
-        
-        UIImage *imageName = [[UIImage alloc]initWithContentsOfFile:imageBundlePath];
+        JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:i];
+        UIImage *imageName = nil;
+        if (model.downSuccess) {
+            
+            imageName = [[UIImage alloc]initWithContentsOfFile:model.localDownUrl];
+            
+        }
         imgView.image = imageName;
         [imageName release];
         
         [_scrollView addSubview:imgView];
         [imgView release];
     }
-    
-    
     
     [_scrollView release];
     
@@ -91,6 +130,61 @@
     [self.contentView addSubview:_pageController];
     [_pageController release];
     
+    if (_arrayDefaultImage.count == 1) {
+        _pageController.hidden =YES;
+    }
+}
+
+- (void)getAdverInfo
+{
+    NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:@"V0.0.0.0"];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[dicTic description] fileType:LogType_LoginManagerLogPath];
+        
+        DDLogVerbose(@"收到的广告的字典=%@",dicTic);
+     
+        if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:dicTic]) {//下载图片
+            //缓存当前版本号
+            NSString *strVersion = [dicTic objectForKey:AdverJsonInfo_Version];
+            [[NSUserDefaults standardUserDefaults]setObject:strVersion forKey:  kAPPAderseVersion];
+
+            NSArray *arrayList = [dicTic objectForKey:AdverJsonInfo_INFO];
+            
+            //下载完成的回调
+            
+            JVCDownLoadAdverImageSuccess downLoadSuccess = ^{
+            
+                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                    [self initContentView];
+                
+                });
+
+            };
+            
+            [_arrayDefaultImage removeAllObjects];
+            
+            for (int i=0; i<arrayList.count; i++) {
+                
+                NSDictionary *tDic = [arrayList objectAtIndex:i];
+                
+                int indexValue = [[tDic objectForKey:Json_AD_NO] intValue];
+                NSString *urlString = [tDic objectForKey:Json_AD_URL];
+                NSString *lickString = [tDic objectForKey:Json_AD_LINK];
+
+                JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess];
+                [_arrayDefaultImage addObject:model];
+                [model release];
+                
+            }
+            
+        }
+        
+    
+    });
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -119,7 +119,17 @@
         self.onLineState    = DEVICESTATUS_ONLINE;
         self.hasWifi        = DEVICESTATUS_OFFLINE;
         self.linkType       = CONNECTTYPE_YST;
-
+        
+        self.isDeviceType        =[[dInfo objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
+        self.deviceUpdateType       = [dInfo objectForKey:DEVICE_JSON_SUB_TYPE];
+        self.deviceModelInt      = [[dInfo objectForKey:DEVICE_JSON_SUB_TYPE_INT] intValue];
+        self.deviceVersion       = [dInfo objectForKey:DEVICE_JSON_SOFT_VERSION];
+        if (self.isDeviceType) {
+            
+            self.isDeviceSwitchAlarm =[[dInfo objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];
+        }
+        self.bDeviceServiceOnlineState =[[dInfo objectForKey:DEVICE_DEVICE_ServiceState] intValue];
+        self.deviceType            = [[info objectForKey:DEVICE_JSON_TYPE] intValue];
     }
     
     return self;

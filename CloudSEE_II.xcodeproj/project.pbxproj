@@ -68,6 +68,7 @@
 		A7A6A5441A1D885F0087D6E4 /* mor_sug_textn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A6A5421A1D885F0087D6E4 /* mor_sug_textn@2x.png */; };
 		A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */; };
 		A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */; };
+		A7AC72DE1A1DDEAA00684990 /* JVCAdverImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AC72DD1A1DDEAA00684990 /* JVCAdverImageModel.m */; };
 		A7AF4C821A1C44A7006ADF87 /* JVCMediaNoDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */; };
 		A7AF4C841A1C491C006ADF87 /* med_noDate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */; };
 		A7AF4C861A1C9BB6006ADF87 /* add_IP@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF4C851A1C9BB6006ADF87 /* add_IP@2x.png */; };
@@ -745,6 +746,8 @@
 		A7A6A5421A1D885F0087D6E4 /* mor_sug_textn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_sug_textn@2x.png"; sourceTree = "<group>"; };
 		A7A8444919E92ED1006B48C2 /* bin_Alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bin_Alert@2x.png"; sourceTree = "<group>"; };
 		A7A8444B19E95741006B48C2 /* mor_edtPW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_edtPW@2x.png"; sourceTree = "<group>"; };
+		A7AC72DC1A1DDEAA00684990 /* JVCAdverImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAdverImageModel.h; sourceTree = "<group>"; };
+		A7AC72DD1A1DDEAA00684990 /* JVCAdverImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAdverImageModel.m; sourceTree = "<group>"; };
 		A7AF4C801A1C44A7006ADF87 /* JVCMediaNoDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMediaNoDateView.h; sourceTree = "<group>"; };
 		A7AF4C811A1C44A7006ADF87 /* JVCMediaNoDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMediaNoDateView.m; sourceTree = "<group>"; };
 		A7AF4C831A1C491C006ADF87 /* med_noDate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "med_noDate@2x.png"; sourceTree = "<group>"; };
@@ -1650,6 +1653,13 @@
 				A7A576051A13929A000D0BBC /* JVCTencentHelp.m */,
 			);
 			name = jvcTencentHelp;
+			sourceTree = "<group>";
+		};
+		A7AC72DB1A1DC34D00684990 /* JVCImageHelp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = JVCImageHelp;
 			sourceTree = "<group>";
 		};
 		A7B1729B1A1AE6CA00D364CB /* progressalwert */ = {
@@ -2889,6 +2899,8 @@
 				A7F4458719F63123002C984F /* JVCLockAlarmModel.m */,
 				A7F8044119FF2E0900934507 /* JVCOldSouchModel.h */,
 				A7F8044219FF2E0900934507 /* JVCOldSouchModel.m */,
+				A7AC72DC1A1DDEAA00684990 /* JVCAdverImageModel.h */,
+				A7AC72DD1A1DDEAA00684990 /* JVCAdverImageModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3018,6 +3030,7 @@
 		ADA77C2919D02844003EE7A1 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				A7AC72DB1A1DC34D00684990 /* JVCImageHelp */,
 				A7A576031A139276000D0BBC /* jvcTencentHelp */,
 				A7F8043D19FF2CAD00934507 /* oldDatebase */,
 				A7EFFA6C19F530B100DF783D /* jvcAccountdevice */,
@@ -3597,6 +3610,7 @@
 				A7F9E04A19ED0FB700C1D69C /* JVCDefaultViewController.m in Sources */,
 				A7FA43D819E3CC3C00F7A8A4 /* JVCManagePalyVideoComtroller.mm in Sources */,
 				A7FAF60A19D14FE200B3F395 /* JVCUserInfoManager.m in Sources */,
+				A7AC72DE1A1DDEAA00684990 /* JVCAdverImageModel.m in Sources */,
 				ADA9E43A1A11E514007EB209 /* JVCNetworkSettingWithTopItem.m in Sources */,
 				A7F50A1F19FA2D3F004D061F /* MJRefreshBaseView.m in Sources */,
 				A7F5555B19D9009A0009F75C /* JVCMoreUserSettingModel.m in Sources */,

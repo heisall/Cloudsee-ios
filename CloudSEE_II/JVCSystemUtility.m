@@ -504,7 +504,6 @@ static JVCSystemUtility *shareInstance = nil;
 
      if ([platform isEqualToString:@"iPhone6,2"]|| [platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5s";
     
-    
     if ([platform isEqualToString:@"iPhone7,2"])    return @"iPhone 6";
 
     if ([platform isEqualToString:@"iPhone7,1"])    return @"iPhone 6 plus";
@@ -518,7 +517,6 @@ static JVCSystemUtility *shareInstance = nil;
     if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch (4 Gen)";
     
     if ([platform isEqualToString:@"iPod5,1"])      return @"iPod Touch (5 Gen)";
-    
     
     
     if ([platform isEqualToString:@"iPad1,1"])      return @"iPad";
@@ -559,6 +557,24 @@ static JVCSystemUtility *shareInstance = nil;
     
     return platform;
     
+}
+
+/**
+ *  再document目录下面创建文件夹
+ *
+ *  @param fileName 文件目录
+ */
+- (NSString *)creatDirectoryAtDocumentPath:(NSString *)fileName
+{
+    NSString *imageDir = [NSString stringWithFormat:@"%@/%@", [self getAppDocumentsPath], fileName];
+    BOOL isDir = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existed = [fileManager fileExistsAtPath:imageDir isDirectory:&isDir];
+    if ( !(isDir == YES && existed == YES) )
+    {
+        [fileManager createDirectoryAtPath:imageDir withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return imageDir;
 }
 
 

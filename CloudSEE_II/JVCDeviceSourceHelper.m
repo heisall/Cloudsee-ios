@@ -196,7 +196,17 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
         JVCDeviceModel *modelHasExist =  [self getDeviceModelByYstNumber:model.yunShiTongNum];
         modelHasExist.onLineState    = model.onLineState;
         modelHasExist.hasWifi        = model.hasWifi;
-        
+        modelHasExist.deviceType        = model.deviceType;
+        modelHasExist.deviceModelInt        = model.deviceModelInt;
+        modelHasExist.deviceVersion        = model.deviceVersion;
+        modelHasExist.deviceUpdateType        = model.deviceUpdateType;
+        modelHasExist.deviceModelInt        = model.deviceModelInt;
+
+        modelHasExist.isDeviceType        = model.isDeviceType;
+        modelHasExist.bDeviceServiceOnlineState        = model.bDeviceServiceOnlineState;
+        modelHasExist.isDeviceSwitchAlarm        = model.isDeviceSwitchAlarm;
+
+
         return modelHasExist;
     }else{
         

@@ -76,6 +76,9 @@ static const  NSString *kSAVEYSTNUM    = @"saveYStNum";//保存云视通的号
 
 static const  NSString *kAPPWELCOME   = @"Welcomehelp";
 
+static NSString *const kAPPAderseVersion  = @"APPAderseVersion";
+
+
 static const  NSString *kAPPWELCOMEAlarmState   = @"kAPPWELCOMEAlarmState";//设备报警状态标识
 
 
