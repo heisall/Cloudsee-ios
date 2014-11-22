@@ -560,9 +560,10 @@ UIAlertView *alertView;
         
         BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
         
+        DDLogVerbose(@"%s--------##############008----------",__FUNCTION__);
         int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:kkUserName passWord:kkPassword tokenString:kkToken languageType:resultLanguage alarmFlag:![JVCConfigModel shareInstance].bSwitchSafe];
 //        int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
-        
+        DDLogVerbose(@"%s--------##############009----------",__FUNCTION__);
         dispatch_async(dispatch_get_main_queue(), ^{
 
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];

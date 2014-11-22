@@ -271,12 +271,14 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 -(void)RemoteWithDeviceSetFrameParam:(int)nJvChannelID  withStreamType:(int)nStreamType{
     
     PAC	m_stPacket;
+     memset(&m_stPacket, 0, sizeof(PAC));
+    
     m_stPacket.nPacketType=RC_SETPARAM;
     
     int nOffset=0;
     char acBuffer[256]={0};
 
-    sprintf(acBuffer, "%s=%d;",[kDeviceFrameFlagKey UTF8String],nStreamType);
+    sprintf(acBuffer, "%s=%d;MobileQuality=%d;",[kDeviceFrameFlagKey UTF8String],nStreamType,nStreamType);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));

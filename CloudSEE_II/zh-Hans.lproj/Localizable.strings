@@ -638,6 +638,6 @@
 "JVCRemoteVideoPlayBackVControler_alarmType_T" = "定时录像";
 "JVCRemoteVideoPlayBackVControler_alarmType_N" = "手动录像";
 
-"JVC_Device_Open" = "设置打开";
-"JVC_Device_Close" = "设置关闭";
+"JVC_Device_Open" = "助手打开";
+"JVC_Device_Close" = "助手关闭";
 "JVC_Adver_title" = "广告位";

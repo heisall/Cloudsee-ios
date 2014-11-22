@@ -1475,13 +1475,19 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 BOOL isHomeIPC    = FALSE;
                                 int  nEffectflag  = -1;
                                 int  nStorageMode = -1;
-                               
-                                if ([params objectForKey:kDeviceFrameFlagKey]) {
-                                    
-                                    nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
-                                    
-                                }
                                 
+                                if ([params objectForKey:kDeviceMobileFrameFlagKey]) {
+                                    
+                                     nStreamType = [[params objectForKey:kDeviceMobileFrameFlagKey] intValue];
+                                    
+                                }else{
+                                    
+                                    if ([params objectForKey:kDeviceFrameFlagKey]) {
+                                        
+                                      nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                    }
+                                }
+                               
                                 if ([params objectForKey:kCheckHomeFlagKey]) {
                                     
                                     int nMobileCH = [[params objectForKey:kCheckHomeFlagKey] intValue];

@@ -105,7 +105,7 @@ static const   int     KCheckLocationResultValue = 1;
     [self startCacheDevicesHelp];
     
     //腾讯云统计
-    [self initTencentSdk];
+    //[self initTencentSdk];
     
     //openglView
     [self initOpenGlView];
@@ -118,6 +118,10 @@ static const   int     KCheckLocationResultValue = 1;
     
     //初始化相册
     [self initPhotoAlbum];
+    
+    
+    //初始化sdk
+    [self initAHReachSetting];
     
     //获取报警开关，本地不起作用
     [self getUserAlarmState];
@@ -145,7 +149,6 @@ static const   int     KCheckLocationResultValue = 1;
     }
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
     
     UIColor *viewDefaultColor = [rgbHelper rgbColorForKey:kJVCRGBColorMacroWhite];
     
@@ -166,8 +169,7 @@ static const   int     KCheckLocationResultValue = 1;
     //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
     [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = TYPEINITSDK_DEFAULT;
     
-    //初始化sdk
-    [self initAHReachSetting];
+    
     
     return YES;
 }
@@ -585,10 +587,8 @@ static const   int     KCheckLocationResultValue = 1;
     InitDecode(); //板卡语音解码
     InitEncode(); //板卡语音编解]
     NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
-
-    DDLogVerbose(@"===%d=====",state.length == 0?TRUE:FALSE);
+    
     JVC_EnableHelp(state.length == 0?TRUE:FALSE,3);  //手机端是3
-  //  JVC_EnableHelp(TRUE,3);  //手机端是3
 
 }
 

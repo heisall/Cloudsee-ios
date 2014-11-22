@@ -10,7 +10,7 @@
 #import "JVCAccountInterface.h"
 #import "JVCSystemUtility.h"
 #import "JSONKit.h"
-
+#import "JVCLogHelper.h"
 
 @implementation JVCAccountHelper
 
@@ -126,6 +126,8 @@ char outAccountSessionBuffer[40];
     }
     
     SetTimeoutSecond_C(CONNECTTIMEOUTSECOND,RQCONNECTTIMEOUTSECOND);
+    
+    DDLogVerbose(@"%s---------initAccountSdkEnd.",__FUNCTION__);
     
     return SUCCESS;
     

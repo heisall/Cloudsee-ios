@@ -127,7 +127,7 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
 
     if(gesture.state == UIGestureRecognizerStateBegan)
     {
-        NSString * string = LOCALANGER(@"JVC_Device_Open");
+        NSString * string = LOCALANGER(@"JVC_Device_Close");
 
         if (state.length ==0) {
             
@@ -137,7 +137,8 @@ static const int MORETEXTFONT_User  = 16;  //用户名的字体大小
         }else{
             
             [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:(NSString *)kDeviceState];
-            string = LOCALANGER(@"JVC_Device_Close");
+            
+            string = LOCALANGER(@"JVC_Device_Open");
 
         }
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:string];

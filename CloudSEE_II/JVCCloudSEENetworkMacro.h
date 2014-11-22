@@ -144,6 +144,7 @@ typedef struct AudioFrame//音频数据结构
 
 
 static NSString const *kDeviceFrameFlagKey        =  @"MainStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
+static NSString const *kDeviceMobileFrameFlagKey  =  @"MobileQuality";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";     // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
 
 static NSString const *kDeviceAlarmType   =  @"type";        // 1:门磁  2手环
