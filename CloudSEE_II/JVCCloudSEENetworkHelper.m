@@ -1453,6 +1453,8 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     nMobileCh = MOBILECHSECOND;
                                 }
                                 
+                               
+                                
                                 NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                                 
                                 stpacket.acData[stpacket.nPacketLen] = 0;
@@ -1470,6 +1472,8 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
+                                
+                                 DDLogCVerbose(@"%s-------################# ------buffer=%s",__FUNCTION__,stpacket.acData+n);
                                 
                                 int  nStreamType  = -1;
                                 BOOL isHomeIPC    = FALSE;

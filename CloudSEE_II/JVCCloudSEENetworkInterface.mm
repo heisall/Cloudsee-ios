@@ -20,42 +20,10 @@ typedef void (*FUNC_CPLAYDATA_CALLBACK)(int nLocalChannel, unsigned char uchType
 typedef void (*FUNC_GETDATA_CALLBACK)(unsigned char *chGroup,unsigned char *pBuffer, int *nSize);
 typedef void (*FUNC_WRITE_CALLBACK)(unsigned char *chGroup,unsigned char *pBuffer, int nSize);
 
+typedef int (*FUNC_DEVICE_CALLBACK)(STLANSRESULT_01*);
+
 extern "C"
 {
-    
-    /****************************************************************************
-     非标准解码器对应接口*/
-    void JVD04_InitSDK();
-    //
-    //    /*
-    //     * Class:     com_jovetech_CloudSee_JVSH264_01
-    //     * Method:    JVD04_ReleaseSDK
-    //     * Signature: ()V
-    //     */
-    void JVD04_ReleaseSDK();
-    
-    /*
-     * Class:     com_jovetech_CloudSee_JVSH264_01
-     * Method:    JVD04_DecodeOpen
-     * Signature: ()V
-     */
-    void JVD04_DecodeOpen(int width,int height,int nLocalChannel);
-    
-    /*
-     * Class:     com_jovetech_CloudSee_JVSH264_01
-     * Method:    JVD04_DecodeClose
-     * Signature: ()V
-     */
-    void JVD04_DecodeClose(int nLocalChannel);
-    
-    /*
-     * Class:     com_jovetech_CloudSee_JVSH264_01
-     * Method:    JVD04_DecodeOneFrame
-     * Signature: ()I
-     */
-    //int JVD04_DecodeOneFrame
-    //  (unsigned char* inH264Data,int length,int nLocalChannel,int uchType);
-    int JVD04_DecodeOneFrame(unsigned char * inH264Data,unsigned char * outH264Data,int length,int nLocalChannel,int uchType,int systemVersion,int deviceType);
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                     //
@@ -258,6 +226,8 @@ extern "C"
      *其他  : 开启了搜索服务才可以接收搜索结果，搜索条件通过JVC_LANSerchDevice接口指定
      *****************************************************************************/
 	//    bool 	JVC_StartLANSerchServer(int nLPort, int nServerPort, FUNC_CLANSDATA_CALLBACK LANSData);
+    
+    int JVC_QueryDevice(char* pGroup,int nYST,int nTimeOut,FUNC_DEVICE_CALLBACK callBack);
     
     /****************************************************************************
      *名称  : JVC_StopLANSerchServer

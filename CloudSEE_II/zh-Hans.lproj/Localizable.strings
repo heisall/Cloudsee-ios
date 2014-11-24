@@ -214,6 +214,8 @@
 "jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";
 "jvc_scanf_reSacn_reStart"   ="搜索";
 "jvc_scanf_reSacn_Cancel"   ="取消";
+"jvc_scanf_reSacn_Close"   = "关闭";
+"jvc_scanf_reSacn_HasExit"   = "已添加";
 
 //连接模式
 "jvc_licktype_title" = "连接模式";

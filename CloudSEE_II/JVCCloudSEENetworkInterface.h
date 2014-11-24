@@ -8,6 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JVCCloudSEENetworkInterface : NSObject 
+@interface JVCCloudSEENetworkInterface : NSObject
+
+
+/*分控回调函数*/
+typedef struct
+{
+    char chGroup[4];
+    int  nYSTNO;
+    int  nCardType;
+    int  nChannelCount;
+    char chClientIP[16];
+    int  nClientPort;
+    int  nVariety;
+    char chDeviceName[100];
+    BOOL bTimoOut;
+    
+    int  nNetMod;//例如 是否具有Wifi功能：nNetMod&NET_MOD_WIFI
+    int  nCurMod;//例如 当前使用的（WIFI或有线）
+    
+}STLANSRESULT_01;
 
 @end

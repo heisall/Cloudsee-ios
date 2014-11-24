@@ -212,9 +212,13 @@
 "jvc_voice_add_send"  ="voi_send_en";
 "jvc_voice_add_info"  ="voi_info_en";
 "jvc_scanf_finshed"   ="sca_finshed_en";
-"jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";
 "jvc_scanf_reSacn_reStart"   ="Research";
 "jvc_scanf_reSacn_Cancel"   ="Cancel";
+"jvc_scanf_reSacn_Close"   = "Close";/////////
+"jvc_scanf_reSacn_HasExit"   = "已添加";/////////
+"jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";//////////
+
+
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
 "jvc_licktype_Ip" = "IP/DNS";
