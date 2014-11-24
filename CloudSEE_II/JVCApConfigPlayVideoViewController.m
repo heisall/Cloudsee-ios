@@ -786,16 +786,28 @@ static const int            kRepeatRequestCount      = 6;
 }
 
 /**
+ *  判断设备是否是05和04的回调
+ *
+ *  @param nLocalChannel 本地显示的通道编号 需减去1
+ *  @param nDeviceModel  设备的编码类型（YES:05）
+ */
+-(void)RequestTextChatIs05DeviceCallback:(int)nLocalChannel withDeviceModel:(BOOL)nDeviceModel {
+    
+    singleVideoShow.isNewDevice  =  nDeviceModel;
+}
+
+/**
  *  获取当前连接通道的码流参数
  *
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC{
     
     singleVideoShow.nStreamType                          = nStreamType;
     singleVideoShow.isHomeIPC                            = isHomeIPC;
     singleVideoShow.iEffectType                          = effectType;
+    singleVideoShow.isNewHomeIPC                         = isNewHomeIPC;
     
     [self refreshAPEffectType:nLocalChannel effectType:effectType];
 }

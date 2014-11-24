@@ -112,8 +112,9 @@
  *  @param isHomeIPC     YES是家用IPC
  *  @param effectType    图像翻转标志
  *  @param storageType   小于0不支持
+ *  @param isNewHomeIPC  YES：新的家用IPC(MobileQuality这个字段做区分)
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType;
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC;
 
 @end
 

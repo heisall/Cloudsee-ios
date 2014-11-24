@@ -17,7 +17,7 @@
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
-@synthesize iEffectType,nStorageType,isNewDevice;
+@synthesize iEffectType,nStorageType,isNewDevice,isNewHomeIPC;
 
 int   _iConnectInfoIndex;
 float min_offset;
@@ -458,8 +458,6 @@ float min_offset;
  *  @param nPlayBackFrametotalNumber 远程回放的总帧数
  */
 -(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
-    
-    DDLogVerbose(@"%s=nPlayBackFrametotalNumber=%d==111111==",__FUNCTION__,nPlayBackFrametotalNumber);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -510,8 +508,6 @@ float min_offset;
                 
                      [slider setValue:slider.value+1];
                 }
-                
-                DDLogVerbose(@"%s=nPlayBackFrametotalNumber=%d=222222=%f",__FUNCTION__,nPlayBackFrametotalNumber,slider.value+1);
 
                 [self setEffectBtnState:YES];
 
@@ -567,8 +563,6 @@ float min_offset;
     
     [connectInfo release];
 }
-
-
 
 /**
  *  显示连接的通道的信息
