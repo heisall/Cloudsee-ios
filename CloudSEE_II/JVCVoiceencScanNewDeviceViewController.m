@@ -8,7 +8,7 @@
 
 #import "JVCVoiceencScanNewDeviceViewController.h"
 #import "JVCDeviceSourceHelper.h"
-
+static const kScanDeviceWithDefaultCount = 1;//一个设备的时候，默认的用户名密码为admin “”
 @interface JVCVoiceencScanNewDeviceViewController ()
 
 @end
@@ -194,9 +194,20 @@
     
     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
     
-    [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                userName:(NSString *)DefaultHomeUserName
-                                                                passWord:(NSString *)DefaultHomePassWord];
+    
+    if (model.iDeviceChannelCount == kScanDeviceWithDefaultCount) {
+        
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                    userName:(NSString *)DefaultHomeUserName
+                                                                    passWord:(NSString *)DefaultHomePassWord
+                                                                    ChannelCount:model.iDeviceChannelCount];
+    }else {
+        
+        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+                                                                    userName:(NSString *)DefaultUserName
+                                                                    passWord:(NSString *)DefaultPassWord ChannelCount:model.iDeviceChannelCount];
+    }
+
 }
 
 @end

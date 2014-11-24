@@ -11,6 +11,8 @@
 @interface JVCPopStreamView ()
 {
     UIButton *btnBG;
+    
+    int streamHeight;
 }
 
 @end
@@ -27,7 +29,7 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
     return self;
 }
 
-- (id)initStreamView:(UIButton *)btn  andSelectindex:(NSInteger)index {
+- (id)initStreamView:(UIButton *)btn  andSelectindex:(NSInteger)index  streamCountType:(BOOL)streamCountType{
     self = [super init];
     
     if (self) {
@@ -39,18 +41,27 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
 
         UIImage *btnSelectImage = [UIImage imageNamed:@"str_btnSec.png"];
         
+        streamHeight = tInputImage.size.height;
+        int addTag = 0;
+        NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"HD", nil),NSLocalizedString(@"SD", nil),NSLocalizedString(@"Fluent", nil), nil];
+        
+        if (JVCStreamCountType_Second == streamCountType) {
+            streamHeight = streamHeight*2/3.0;
+            arrayTitle =  [NSArray arrayWithObjects:NSLocalizedString(@"SD", nil),NSLocalizedString(@"Fluent", nil), nil];
+            addTag = 1;
+        }
+
+        
         [btn.superview.superview addSubview:self];
         
         self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - tInputImage.size.width-5,[UIScreen mainScreen].bounds.size.height - 49  , tInputImage.size.width, 0);
         
         UIImageView *imageBG = [[UIImageView alloc] initWithImage:tInputImage];
-        imageBG.frame = CGRectMake(0,0, tInputImage.size.width, tInputImage.size.height);
+        imageBG.frame = CGRectMake(0,0, tInputImage.size.width, streamHeight);
         [self addSubview:imageBG];
         [imageBG release];
         
         CGFloat height = (tInputImage.size.height - 10)/3;
-        
-        NSArray *arrayTitle = [NSArray arrayWithObjects:NSLocalizedString(@"HD", nil),NSLocalizedString(@"SD", nil),NSLocalizedString(@"Fluent", nil), nil];
         
         if (index>[arrayTitle count]) {
             
@@ -61,14 +72,14 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:[arrayTitle objectAtIndex:i ] forState:UIControlStateNormal];
             btn.frame = CGRectMake((imageBG.frame.size.width - btnSelectImage.size.width)/2.0, i*height+5, btnSelectImage.size.width, btnSelectImage.size.height);
-            if (i +1 == index) {
+            if (i +1 +addTag== index) {
                 [btn setBackgroundImage:btnSelectImage forState:UIControlStateNormal];
             }
             
             [btn addTarget:self action:@selector(selectStreamType:) forControlEvents:UIControlEventTouchUpInside];
             
             [btn setBackgroundImage:btnSelectImage forState:UIControlStateHighlighted];
-            btn.tag = i+1;
+            btn.tag = i+1+addTag;
             
             [self addSubview:btn];
         }
@@ -89,12 +100,12 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
     
     [btnBG addSubview:self];
 
-    UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
+//    UIImage *tInputImage = [UIImage imageNamed:@"str_bg.png"];
     [UIView animateWithDuration:kAnimationTimer animations:^{
     
         CGRect FrameEnd = self.frame;
-        FrameEnd.origin.y =FrameEnd.origin.y - tInputImage.size.height;
-        FrameEnd.size.height = tInputImage.size.height;
+        FrameEnd.origin.y =FrameEnd.origin.y - streamHeight;
+        FrameEnd.size.height = streamHeight;
         self.frame = FrameEnd;
     }];
  
