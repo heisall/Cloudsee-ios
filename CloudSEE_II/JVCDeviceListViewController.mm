@@ -297,7 +297,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 - (void)gotoScanfDeviceViewController
 {
     JVCScanNewDeviceViewController *scanfDeviceController = [[JVCScanNewDeviceViewController alloc] init];
-    scanfDeviceController.nScanfDeviceMaxCont             =  kScanfDeviceMaxCount;
     [self.navigationController pushViewController:scanfDeviceController animated:YES];
     [scanfDeviceController release];
 }

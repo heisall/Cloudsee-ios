@@ -12,23 +12,6 @@
 @interface JVCLANScanWithSetHelpYSTNOHelper ()
 
 #define MAX_PATH_01 256
-/*分控回调函数*/
-typedef struct
-{
-    char chGroup[4];
-    int  nYSTNO;
-    int  nCardType;
-    int  nChannelCount;
-    char chClientIP[16];
-    int  nClientPort;
-    int  nVariety;
-    char chDeviceName[100];
-    BOOL bTimoOut;
-    
-    int  nNetMod;//例如 是否具有Wifi功能：nNetMod&NET_MOD_WIFI
-    int  nCurMod;//例如 当前使用的（WIFI或有线）
-    
-}STLANSRESULT_01;
 
 typedef struct STBASEYSTNO
 {
@@ -170,10 +153,18 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
         
         DDLogCVerbose(@"%s--------endLanserach--------",__FUNCTION__);
         [jvcLANScanWithSetHelpYSTNOHelper performSelectorOnMainThread:@selector(sendCallBack) withObject:nil waitUntilDone:NO];
-        
     }
     [pool release];
-    
+}
+
+/**
+ *  局域网广播设备接口（本网段）
+ *
+ *  @param stlanResultData 返回的结构体
+ */
+void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData){
+
+    DDLogCVerbose(@"ip=%d-----############009----port=%d",stlanResultData->bTimoOut,stlanResultData->nClientPort);
 }
 
 /**
@@ -194,7 +185,9 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
     
     [CacheMArrayDeviceList removeAllObjects];
     
-    JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+  // JVC_QueryDevice("",0,1000, JVCLANScanWithSetHelpYSTNOHelperQueryDevce);
+    
+   JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
 }
 
 /**
@@ -205,7 +198,6 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
 -(void)setDevicesHelper:(NSArray *)devicesMArray{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         
         [devicesMArray retain];
         
@@ -239,14 +231,14 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
             memset(stinfo.chGroup, 0, 4);
             memcpy(stinfo.chGroup, [sGroup UTF8String], strlen([sGroup UTF8String]));
             
-            stinfo.nYSTNO = [iYstNum intValue];
-            stinfo.nChannel =1 ;
-            stinfo.nConnectStatus=0;
+            stinfo.nYSTNO         = [iYstNum intValue];
+            stinfo.nChannel       =1 ;
+            stinfo.nConnectStatus = 0;
+            
             memset(stinfo.chPName, 0, MAX_PATH_01);
             memcpy(stinfo.chPName, [model.strUserName UTF8String], strlen([model.strUserName UTF8String]));
             
             memset(stinfo.chPWord, 0, MAX_PATH_01);
-            
             memcpy(stinfo.chPWord, [model.strPassWord UTF8String], strlen([model.strPassWord UTF8String]));
             
             if (i==0) {
@@ -258,7 +250,6 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
                 memcpy(&bBuffer[i*sizeof(STBASEYSTNO)], &stinfo, sizeof(STBASEYSTNO));
             }
         }
-        
         
         JVC_SetHelpYSTNO((unsigned char *)bBuffer,devicesMArray.count*sizeof(STBASEYSTNO));
         

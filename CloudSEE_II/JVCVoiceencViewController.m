@@ -9,7 +9,7 @@
 #import "JVCVoiceencViewController.h"
 #import "JVCVoiceencInteface.h"
 #import "OpenALBufferViewcontroller.h"
-#import "JVCScanNewDeviceViewController.h"
+#import "JVCVoiceencScanNewDeviceViewController.h"
 #import "JVCVoiceencHelpViewController.h"
 #import "JVCSystemSoundHelper.h"
 #import "JVCRGBHelper.h"
@@ -204,8 +204,7 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
  */
 -(void)gotoLanSerchDevice{
     
-    JVCScanNewDeviceViewController *sacnNewDeviceController = [[JVCScanNewDeviceViewController alloc] init];
-    
+    JVCVoiceencScanNewDeviceViewController *sacnNewDeviceController = [[JVCVoiceencScanNewDeviceViewController alloc] init];
     [self.navigationController pushViewController:sacnNewDeviceController animated:YES];
     
     [sacnNewDeviceController release];

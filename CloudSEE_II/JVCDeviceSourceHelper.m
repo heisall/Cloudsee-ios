@@ -343,7 +343,6 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
         
         JVCDeviceModel *deviceModel=(JVCDeviceModel *)[updateLanModelList objectAtIndex:i];
         
-        DDLogVerbose(@"%s=%@_wifiState=%d,IP=%@,port=%@",__FUNCTION__,deviceModel.yunShiTongNum,deviceModel.hasWifi,deviceModel.ip,deviceModel.port);
         
         for (JVCDeviceModel *model in deviceArray) {
             

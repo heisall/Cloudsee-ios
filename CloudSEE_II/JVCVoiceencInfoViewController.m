@@ -90,7 +90,7 @@ static const int     kInfoTVOffx             = 20;
 }
 
 /**
- *  发现一个新设备，提示音
+ *  播放音效
  */
 -(void)playSound {
     
