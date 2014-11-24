@@ -907,7 +907,7 @@ BOOL isAllLinkRun;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC{
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
@@ -915,6 +915,7 @@ BOOL isAllLinkRun;
     singleView.isHomeIPC                            = isHomeIPC;
     singleView.iEffectType                          = effectType;
     singleView.nStorageType                         = storageType;
+    singleView.isNewHomeIPC                         = isNewHomeIPC;
     
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
@@ -927,6 +928,8 @@ BOOL isAllLinkRun;
         
     });
 }
+
+
 
 /**
  *  刷新当前码流参数信息
@@ -1043,6 +1046,18 @@ BOOL isAllLinkRun;
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
 
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper]RemoteOperationSendDataToDevice:self.nSelectedChannelIndex+1 remoteOperationType:TextChatType_EffectInfo remoteOperationCommand:(singleVideoShow.iEffectType&0x04) == EffectType_UP ? singleVideoShow.iEffectType|0x04:(singleVideoShow.iEffectType&(~0x04))];
+    
+}
+
+/**
+ *  获取当前设备是否是新的家用ipc
+ *
+ *  @return yes 新的 no Old
+ */
+- (BOOL)getCurrentIsOldHomeIPC
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    return singleVideoShow.isNewHomeIPC;
     
 }
 

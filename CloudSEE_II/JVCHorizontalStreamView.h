@@ -10,8 +10,8 @@
 
 typedef NS_ENUM(int , JVCHorStreamCountType) {
 
-    JVCStreamCountType_Third          = 0,//3个码流
-    JVCStreamCountType_Second         = 1,//2个码流
+       JVCStreamCountType_Second        = 0,//2个码流
+       JVCStreamCountType_Third         = 1,//3个码流
     
 };
 

@@ -123,7 +123,7 @@ FILE *downloadHandle = NULL;
 
 JVCCloudSEEManagerHelper *jvChannel[kJVCCloudSEENetworkHelperWithConnectMaxNumber];
 
-static const int          kDisconnectTimeDelay = 500;  //单位毫秒
+static const int                 kDisconnectTimeDelay = 500;  //单位毫秒
 static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
 
 /**
@@ -1453,8 +1453,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     nMobileCh = MOBILECHSECOND;
                                 }
                                 
-                               
-                                
                                 NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                                 
                                 stpacket.acData[stpacket.nPacketLen] = 0;
@@ -1467,7 +1465,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:withIsNewHomeIPC:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
@@ -1479,16 +1477,33 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 BOOL isHomeIPC    = FALSE;
                                 int  nEffectflag  = -1;
                                 int  nStorageMode = -1;
+                                BOOL isNewHomeIPC = FALSE;
+                                
+                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
+                                
+                                int nMobileCh = MOBILECHDEFAULT;
+                                
+                                if (strDevice.intValue == MOBILECHSECOND) {
+                                    
+                                    nMobileCh = MOBILECHSECOND;
+                                }
                                 
                                 if ([params objectForKey:kDeviceMobileFrameFlagKey]) {
                                     
-                                     nStreamType = [[params objectForKey:kDeviceMobileFrameFlagKey] intValue];
+                                    nStreamType = [[params objectForKey:kDeviceMobileFrameFlagKey] intValue];
+                                    isNewHomeIPC = YES;
                                     
                                 }else{
                                     
                                     if ([params objectForKey:kDeviceFrameFlagKey]) {
                                         
-                                      nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                        nStreamType = [[params objectForKey:kDeviceFrameFlagKey] intValue];
+                                        
+                                        if (nMobileCh == MOBILECHSECOND) {
+                                            
+                                            nStreamType = [jvcCloudSEENetworkHelper getOldHomeIPCStreamType: [ystNetworkHelperCMObj getFrameParamInfoByChannel:stpacket.acData+n nChannelValue:nMobileCh]];
+                                        }
+                                        
                                     }
                                 }
                                
@@ -1512,7 +1527,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     nStorageMode = [[params objectForKey:KStorageMode] intValue];
                                 }
 
-                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode];
+                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode withIsNewHomeIPC:isHomeIPC];
                                    
                                 
                                 [params release];
@@ -1668,6 +1683,48 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     
     [pool release];
     
+}
+
+
+/**
+ *  根据老家用产品二码流参数信息，返回
+ *
+ *  @param mdStreamType 帧类型
+ *
+ *  @return 当前码流参数信息
+ */
+-(int)getOldHomeIPCStreamType:(NSMutableDictionary *)mdStreamTypeInfo{
+    
+    [mdStreamTypeInfo retain];
+    
+    NSString *strHeight = [mdStreamTypeInfo objectForKey:(NSString *)KOldHomeIPCHeight];
+    NSString *strWidth  = [mdStreamTypeInfo objectForKey:(NSString *)KOldHomeIPCWidth];
+    
+    int       nheight   = 0;
+    int       nWidth    = 0;
+    
+    if (strHeight) {
+        
+        nheight = strHeight.intValue;
+    }
+    
+    if (strWidth) {
+        
+        nWidth  = strWidth.intValue;
+    }
+    
+    [mdStreamTypeInfo release];
+    
+    if (nWidth == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth && nheight == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight) {
+        
+        return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF;
+        
+    }else if (nWidth == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Width && nheight == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Height){
+    
+        return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1;
+    }
+    
+    return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1;
 }
 
 /**

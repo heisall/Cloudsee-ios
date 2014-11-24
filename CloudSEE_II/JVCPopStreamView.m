@@ -63,9 +63,10 @@ static const NSTimeInterval kAnimationTimer = 0.3;//动画时间
         
         CGFloat height = (tInputImage.size.height - 10)/3;
         
-        if (index>[arrayTitle count]) {
-            
-            index=[arrayTitle count]-1;
+        if (index>[arrayTitle count] ) {
+            if (JVCStreamCountType_Second != streamCountType) {
+                index=[arrayTitle count]-1;
+            }
         }
         for (int i = 0; i<[arrayTitle count]; i++) {
             

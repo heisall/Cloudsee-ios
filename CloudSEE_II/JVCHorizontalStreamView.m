@@ -54,7 +54,9 @@
         
         if (index>=[arrayTitle count]) {
             
-            index=[arrayTitle count];
+            if (JVCStreamCountType_Second != streamCountType) {
+                index=[arrayTitle count];
+            }
         }
         for (int i = 0; i<[arrayTitle count]; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

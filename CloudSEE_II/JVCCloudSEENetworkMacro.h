@@ -129,6 +129,21 @@ enum NetWorkType {
     
 };
 
+enum JVCCloudSEENetworkMacroOldHomeIPCStreamParam{
+    
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth    = 352,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight   = 288,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Width     = 720,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Height    = 480,
+};
+
+enum JVCCloudSEENetworkMacroOldHomeIPCStreamType{
+    
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeUnknown = -1,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1      = 2,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF     = 3,
+};
+
 
 #define MOBILECHSECOND          2
 #define MOBILECHDEFAULT         3
@@ -150,6 +165,12 @@ static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";     // 0:设
 static NSString const *kDeviceAlarmType   =  @"type";        // 1:门磁  2手环
 static NSString const *KEFFECTFLAG        =  @"effect_flag"; //图像翻转的
 static NSString const *KStorageMode       =  @"storageMode"; //设置录像的模式
+
+static NSString const *KOldHomeIPCHeight  =  @"height"; //高
+static NSString const *KOldHomeIPCWidth   =  @"width";  //宽
+
+
+
 
 
 #endif
