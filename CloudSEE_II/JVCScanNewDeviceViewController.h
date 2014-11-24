@@ -96,4 +96,9 @@ typedef NS_ENUM(int, JVCSCanType) {
  */
 -(void)setDeviceButtonNoNewStatus;
 
+/**
+ *  局域网扫描设备
+ */
+-(void)scanfDeviceList;
+
 @end

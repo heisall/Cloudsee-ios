@@ -36,12 +36,15 @@
  */
 +(JVCLANScanWithSetHelpYSTNOHelper *)sharedJVCLANScanWithSetHelpYSTNOHelper;
 
-
-
 /**
- *  搜索局域网设备的函数
+ *  搜索局域网设备的函数（本局域网）
  */
 -(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListData;
+
+/**
+ *  搜索局域网设备的函数(本网段)
+ */
+-(void)SerachAllDevicesAsynchronousRequestWithDeviceListData;
 
 
 /**

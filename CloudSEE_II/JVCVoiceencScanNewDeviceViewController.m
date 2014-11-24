@@ -210,4 +210,15 @@ static const kScanDeviceWithDefaultCount = 1;//一个设备的时候，默认的
 
 }
 
+/**
+ *  局域网扫描设备
+ */
+-(void)scanfDeviceList {
+    
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
+    
+    [jvcLANScanWithSetHelpYSTNOHelperObj SerachAllDevicesAsynchronousRequestWithDeviceListData];
+}
+
 @end
