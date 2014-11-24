@@ -87,13 +87,15 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
  */
 - (void)initCellContent
 {
-    
     [self initContentView];
-    
+
     if (!requestAdvertState) {
         
         [self getAdverInfo];
 
+    }else{
+    
+        [self UpdateSaveAdvertiseInfo];
     }
     
 }
@@ -175,9 +177,8 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:0];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
+        NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:stringVersion.integerValue];
+      
         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[dicTic description] fileType:LogType_LoginManagerLogPath];
         
         DDLogVerbose(@"收到的广告的字典=%@",dicTic);
@@ -186,6 +187,11 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
             //缓存当前版本号
             NSString *strVersion = [dicTic objectForKey:AdverJsonInfo_Version];
             [[NSUserDefaults standardUserDefaults]setObject:strVersion forKey:  kAPPAderseVersion];
+            
+            if (dicTic !=nil) {
+                [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
+                
+            }
 
             NSArray *arrayList = [dicTic objectForKey:AdverJsonInfo_INFO];
             
@@ -224,52 +230,77 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
             
             requestAdvertState = YES;
         }else{
-            int result =    [[dicTic objectForKey:DEVICE_JSON_RT] intValue];
-            if (result == kAdverNoUpdate) {
-                
-                NSDictionary *tAdevrtdic = [[NSUserDefaults standardUserDefaults] objectForKey:kAdverInfo];
+//            int result =    [[dicTic objectForKey:DEVICE_JSON_RT] intValue];
+//            if (result == kAdverNoUpdate) {
+//                
+//                [self UpdateSaveAdvertiseInfo];
+//                
+//            }else{
+//                self ini
+//            }
 
-                NSArray *arrayList = [tAdevrtdic objectForKey:AdverJsonInfo_INFO];
-                
-                //下载完成的回调
-                
-                JVCDownLoadAdverImageSuccess downLoadSuccess = ^{
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self initContentView];
-                        
-                    });
-                    
-                };
-                
-                NSMutableArray *arrAdvert = [[NSMutableArray alloc] init];
-                for (int i=0; i<arrayList.count; i++) {
-                    
-                    NSDictionary *tDic = [arrayList objectAtIndex:i];
-                    
-                    int indexValue = [[tDic objectForKey:Json_AD_NO] intValue];
-                    NSString *urlString = [tDic objectForKey:Json_AD_URL];
-                    NSString *lickString = [tDic objectForKey:Json_AD_LINK];
-                    
-                    JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess];
-                    [arrAdvert addObject:model];
-                    [model release];
-                    
-                }
-                
-                NSSortDescriptor *sorter = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-                NSArray *sortArray = [arrAdvert sortedArrayUsingDescriptors:[NSArray arrayWithObject:sorter]];
-                [arrAdvert release];
-                [_arrayDefaultImage removeAllObjects];
-                [_arrayDefaultImage addObjectsFromArray:sortArray];
-                
-                requestAdvertState = YES;
-            }
+            requestAdvertState = YES;
+            
+            [self UpdateSaveAdvertiseInfo];
         }
         
     
     });
+}
+
+- (void)UpdateSaveAdvertiseInfo
+{
+    NSDictionary *tAdevrtdic = [[NSUserDefaults standardUserDefaults] objectForKey:kAdverInfo];
+    
+    if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:tAdevrtdic]||tAdevrtdic != nil ) {
+        NSArray *arrayList = [tAdevrtdic objectForKey:AdverJsonInfo_INFO];
+        
+        if (arrayList.count == 0) {
+            return;
+        }
+        
+        //下载完成的回调
+        
+        JVCDownLoadAdverImageSuccess downLoadSuccess = ^{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self initContentView];
+                
+            });
+            
+        };
+        
+        NSMutableArray *arrAdvert = [[NSMutableArray alloc] init];
+        for (int i=0; i<arrayList.count; i++) {
+            
+            NSDictionary *tDic = [arrayList objectAtIndex:i];
+            
+            int indexValue = [[tDic objectForKey:Json_AD_NO] intValue];
+            NSString *urlString = [tDic objectForKey:Json_AD_URL];
+            NSString *lickString = [tDic objectForKey:Json_AD_LINK];
+            
+            JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess];
+            [arrAdvert addObject:model];
+            [model release];
+            
+        }
+        
+        NSSortDescriptor *sorter = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+        NSArray *sortArray = [arrAdvert sortedArrayUsingDescriptors:[NSArray arrayWithObject:sorter]];
+        [arrAdvert release];
+        [_arrayDefaultImage removeAllObjects];
+        [_arrayDefaultImage addObjectsFromArray:sortArray];
+        
+
+    }else{
+    
+        [self setDefaultImageWithCount:1];
+        [self initContentView];
+
+
+    }
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

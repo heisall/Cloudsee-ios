@@ -19,6 +19,7 @@
 @synthesize bNewAlarm;
 @synthesize strAlarmMsgNickname;
 -(void)dealloc{
+    [strNewAlarmTimer release];
     [strAlarmMsgNickname release];
     [strYstNumber release];
     [strAlarmVideoUrl release];
@@ -52,7 +53,8 @@
         self.iAlarmPlanType = [[dic objectForKey:JK_ALARM_SOLUTION] intValue];
         self.strAlarmTime = [[JVCSystemUtility shareSystemUtilityInstance] getCurrentTimerFrom:[[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue]];
         
-        
+        self.strNewAlarmTimer = [[JVCSystemUtility shareSystemUtilityInstance] getTimerWithTimerString:[dic objectForKey:JK_ALARM_NEWTIMESTAMP]];
+
         self.iAlarmTimer = [[dic objectForKey:JK_ALARM_TIMESTAMP] integerValue];
         self.iAlarmType =  [[dic objectForKey:JK_ALARM_TYPE] intValue];
         self.strAlarmMsgNickname = [dic objectForKey:JK_ALARM_MESSAGE];
@@ -60,7 +62,6 @@
         self.iYstChannel = [[dic objectForKey:JK_ALARM_FTP_CHANNEL_NO] intValue];
         self.strYstNumber = [dic objectForKey:JK_ALARM_FTP_DEVICE_GUID];
         self.strALarmDeviceNickName = [dic objectForKey:JK_ALARM_DEVICE_NAME];
-        
         
        
     }

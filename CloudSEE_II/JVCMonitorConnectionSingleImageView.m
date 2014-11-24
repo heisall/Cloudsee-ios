@@ -459,7 +459,8 @@ float min_offset;
  */
 -(void)setImageBuffer:(char*)imageBufferY imageBufferU:(char*)imageBufferU imageBufferV:(char*)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber{
     
-    
+    DDLogVerbose(@"%s=nPlayBackFrametotalNumber=%d==111111==",__FUNCTION__,nPlayBackFrametotalNumber);
+
     dispatch_async(dispatch_get_main_queue(), ^{
         
         if (decoderFrameHeight<=0) {
@@ -497,6 +498,7 @@ float min_offset;
             
             UISlider *slider = (UISlider*)[self viewWithTag:107];
             
+            
             if (nPlayBackFrametotalNumber > 0) {
                 
                 if (slider.hidden) {
@@ -509,6 +511,8 @@ float min_offset;
                      [slider setValue:slider.value+1];
                 }
                 
+                DDLogVerbose(@"%s=nPlayBackFrametotalNumber=%d=222222=%f",__FUNCTION__,nPlayBackFrametotalNumber,slider.value+1);
+
                 [self setEffectBtnState:YES];
 
                 self._isPlayBackState=FALSE;

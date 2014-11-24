@@ -35,6 +35,9 @@ enum AlarmPlan
     int iAlarmTimer;                    //时间截
     int iAlarmType;                     //报警类别
     BOOL bNewAlarm;                      //是否是新报警
+    
+    NSString *strNewAlarmTimer;         //新的报警时间
+
 
 }
 @property(nonatomic,retain)NSString *strAlarmMsgNickname;
@@ -54,7 +57,7 @@ enum AlarmPlan
 @property(nonatomic,retain)NSString  *strALarmDeviceNickName;
 @property(nonatomic,assign)BOOL isDownLoad;
 @property(nonatomic,assign)BOOL bNewAlarm;
-
+@property(nonatomic,retain) NSString *strNewAlarmTimer;
 
 /**
  *  根据字典初始化报警对象

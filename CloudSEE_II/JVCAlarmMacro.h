@@ -46,6 +46,7 @@
 #define JK_ALARM_VIDEO_SZIE		@"avdsz"
 #define JK_ALARM_MESSAGE		@"amsg"
 #define JK_ALARM_TIMESTAMP		@"ats"
+#define JK_ALARM_NEWTIMESTAMP   @"atss"
 #define JK_ALARM_INFO			@"ainfo"
 #define JK_ALARM_FTP_CHANNEL_NO	 @"dcn"
 #define JK_ALARM_FTP_DEVICE_GUID @"dguid"

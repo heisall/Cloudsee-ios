@@ -43,7 +43,7 @@ static const int KLabeCountWith             = 30;//宽度
 static const int KLabeCountHeight           = 20;//高度
 static const int KMAXCOUNT                  = 500;//高度
 static const int KSendSuggestSuccess        = 1;//成功
-static const int KDefaultFontSize           = 16;//成功
+static const int KDefaultFontSize           = 15;//成功
 
 - (void)viewDidLoad {
     [super viewDidLoad];

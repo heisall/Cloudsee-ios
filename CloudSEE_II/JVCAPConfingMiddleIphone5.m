@@ -56,10 +56,13 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
     
     int seperateNum = KSeperateNum;
     
-    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        detailArray = nil;
-        seperateNum = KSeperateNum-1;
-    }
+    detailArray = nil;
+    seperateNum = KSeperateNum-1;
+    
+//    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+//        detailArray = nil;
+//        seperateNum = KSeperateNum-1;
+//    }
 
 
     CGFloat height = self.frame.size.height/titleArray.count;

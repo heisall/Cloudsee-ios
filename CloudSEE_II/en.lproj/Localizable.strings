@@ -212,7 +212,9 @@
 "jvc_voice_add_send"  ="voi_send_en";
 "jvc_voice_add_info"  ="voi_info_en";
 "jvc_scanf_finshed"   ="sca_finshed_en";
-
+"jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";
+"jvc_scanf_reSacn_reStart"   ="Research";
+"jvc_scanf_reSacn_Cancel"   ="Cancel";
 //连接模式
 "jvc_licktype_title" = "Connection Mode";
 "jvc_licktype_Ip" = "IP/DNS";
@@ -300,6 +302,7 @@
 "jvc_alarmList_Title" = "Alarm Message";
 "jvc_alarmlist_noMore" = "No more alerts";
 "jvc_alarmlist_getAlarmError" = "Failed to get alarm information";
+"jvc_alarmlist_DownLoadPic_Error" = "Get alarm images failed";
 "jvc_alarmlist_noAlarm" = "No alarm now";
 "jvc_alarmlist_noAlarm_PIC" = "no alarm picture";
 "jvc_alarmlist_delete_success" = "Delete successfully";
@@ -362,8 +365,8 @@
 "Not_720p" = "This APP doesn't support to play videos with resolution more than 720P.";
 "Disconnecting nowPlease Wait"="Disconnecting now\nPlease wait...";
 "Exiting NowPlease Wait"="Exiting now\nPlease wait...";
-"Connection Failed ID"="Failed to verify ID.";
-"Connection Failed ID_and_modify_user_and password"= "Failed to verify indentification, do you need to modify username and password?";
+"Connection Failed ID"="Username or password wrong.";
+"Connection Failed ID_and_modify_user_and password"= "Username or password wrong, do you need to modify username and password?";
 "operation"="This function is suspended during remote playback.";
 "This video source doesn't support image resolution switch."="This video source doesn't support image resolution switch.";
 "TalkInfo"="Applying to talk with host-end,pls wait...";
@@ -391,9 +394,9 @@
 "connectResultInfo_7"  = "Disconnected due to Device service has been stopped.";
 "connectResultInfo_8"  = "Faild to disconnected";
 "connectResultInfo_9"  = "Disconnected Due To CloudSEE Service Has Been Stopped.";
-"connectResultInfo_10" = "Connection Failed ID";
+"connectResultInfo_10" = "Username or password wrong.";
 "connectResultInfo_11" = "Connections have exceeded limitations!";
-"connectResultInfo_12" = "Invalid Channel.";
+"connectResultInfo_12" = "This channel doesn't exist or is not open.";
 
 //***语音对讲**
 "talkingHomeIPC" = "Audio talk is enabled successfully.You can speak to the other through long-click.";
@@ -504,7 +507,7 @@
 
 //演示点
 "jvc_demo_title" = "Demo";
-"jvc_demo_GetDate_error" = "Failed to get data.";
+"jvc_demo_GetDate_error" = "Failed to load demo video.";
 
 //JVCDeviceAlarmNoDeviceTableViewCell
 "JVCDeviceAlarmNoDeviceTableViewCell_labe"= "Add Device";
@@ -582,7 +585,7 @@
 "JVCNetworkSettingViewController_wired_item2"="Input Manually";
 "JVCNetworkSettingViewController_finish"     ="Finish";
 "JVCNetworkSettingViewController_save"       ="Save";
-"JVCNetworkSettingViewController_error0"     = "The device is busy, please try again...";
+"JVCNetworkSettingViewController_error0"     = "The device is busy, please try again later";
 "JVCNetworkSettingViewController_error1"     = "Doesn't support this device.Supports IPC only.";
 "JVCNetworkSettingViewController_power"      = "You have no permission of this operation!";
 
@@ -598,7 +601,7 @@
 "userDefine" = "User refused to visit";
 "NSLocalString"="English";
 "jvc_more_media_no_pic" = "No Picture";
-"jvc_more_media_no_video" = "No Video";
+"jvc_more_media_no_video" = "No video";
 //设备升级
 "EditDeviceDetailViewController_device_update_error"="Failed to load the firmware, please update again.";
 "EditDeviceDetailViewController_device_down_error"="Failed to update, please operate again";

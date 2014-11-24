@@ -441,7 +441,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     
     nDeleteRow = indexPath.section;
 
-    if (cellModel.strAlarmLocalPicURL.length !=0) {
+    if (cellModel.strAlarmLocalPicURL.length !=0 ||cellModel.strAlarmLocalVideoUrl.length !=0) {
         
         [self showJVHAlarmVideoWithModel:cellModel];
         
@@ -474,7 +474,7 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     UILabel *labelTimer = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, headView.frame.size.height)];
     labelTimer.backgroundColor = [UIColor clearColor];
     labelTimer.textAlignment = UITextAlignmentCenter;
-    labelTimer.text = [NSString stringWithFormat:@"%@",cellModel.strAlarmTime];
+    labelTimer.text = [NSString stringWithFormat:@"%@",cellModel.strNewAlarmTimer];
     labelTimer.textColor =  SETLABLERGBCOLOUR(61.0, 115.0, 175.0);
     [labelTimer setFont:[UIFont systemFontOfSize:14]];
     [headView addSubview:labelTimer];
@@ -672,15 +672,14 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
     
     DDLogCVerbose(@"%s--------savePath=%@ status=%d",__FUNCTION__,savepath,downLoadStatus);
     [[JVCAlertHelper shareAlertHelper] performSelectorOnMainThread:@selector(alertHidenToastOnWindow) withObject:nil waitUntilDone:NO];
-
     
+    [self disRemoteLink];
+
     JVCAlarmModel *cellModel = [arrayAlarmList objectAtIndex:nDeleteRow];
     
     if (savepath.length<=0) {
         
-        [self disRemoteLink];
-        
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_DownLoadPic_Error")];
         return;
         
     }
@@ -691,30 +690,25 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
            
             cellModel.strAlarmLocalPicURL = [NSString stringWithFormat:@"%@",savepath];
             
-            [self disRemoteLink];
-            
-            [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
+        
             
         }else{
 
             cellModel.strAlarmLocalVideoUrl = [NSString stringWithFormat:@"%@",savepath];;
             
             [self performSelectorOnMainThread:@selector(playMovie:) withObject:cellModel.strAlarmLocalVideoUrl waitUntilDone:NO];
-            
-            /**
-             *  调用端口连接
-             */
-           [self disRemoteLink];
+        
 
         }
         
     }else{
+        cellModel.strAlarmLocalPicURL = nil;
         
-        [self disRemoteLink];
-        
-        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_getAlarmError")];
+        [[JVCAlertHelper shareAlertHelper] alertToastMainThreadOnWindow:LOCALANGER(@"jvc_alarmlist_DownLoadPic_Error")];
         
     }
+    [self performSelectorOnMainThread:@selector(showJVHAlarmVideoWithModel:) withObject:cellModel waitUntilDone:NO];
+
     
 }
 

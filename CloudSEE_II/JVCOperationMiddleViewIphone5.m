@@ -38,12 +38,14 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 {
     [self initImageArray];
     
-    int seperateNum = 3;
+    int seperateNum = 2;
     
-    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
-        detailArray = nil;
-        seperateNum = 2;
-    }
+    detailArray = nil;
+
+//    if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+//        detailArray = nil;
+//        seperateNum = 2;
+//    }
     
     CGFloat height = self.frame.size.height/titleArray.count;
     

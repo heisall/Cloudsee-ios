@@ -85,7 +85,7 @@ static const NSInteger  BTNTAG = 12683;
     labelTimer.font = [UIFont systemFontOfSize:14];
     labelTimer.textColor = [UIColor colorWithRed:57.0/255 green:57.0/255 blue:57.0/255 alpha:1];
     labelTimer.textAlignment = UITextAlignmentLeft;
-    labelTimer.text = [NSString stringWithFormat:@"%@",self.tAlarmModel.strAlarmTime];
+    labelTimer.text = [NSString stringWithFormat:@"%@",self.tAlarmModel.strNewAlarmTimer];
     [contentView addSubview:labelTimer];
     [labelTimer release];
     
@@ -110,6 +110,10 @@ static const NSInteger  BTNTAG = 12683;
     [btn addTarget:self action:@selector(clickedToPlayView) forControlEvents:UIControlEventTouchUpInside];
     
     [contentView addSubview:btn];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
+    [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
+    
     if (self.tAlarmModel.strAlarmVideoUrl.length ==0) {
         
         [btn setBackgroundImage:imgBtnUnUse forState:UIControlStateNormal];
@@ -127,9 +131,7 @@ static const NSInteger  BTNTAG = 12683;
         [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
         
     }
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn setTitle:LOCALANGER(@"home_alarm_watch_video") forState:UIControlStateNormal];
-    [btn setBackgroundImage:imgBtnNormal forState:UIControlStateNormal];
+ 
 
     [self addSubview:contentView];
     [contentView release];

@@ -14,6 +14,13 @@
 #import "AppDelegate.h"
 #import "JVCConfigModel.h"
 
+typedef NS_ENUM(int, JVCSCanType) {
+
+    JVCSCanType_addDevice   = 0,//扫描出来后，添加
+    JVCSCanType_ReSCan      = 1,//重新添加
+    
+};
+
 @interface JVCScanNewDeviceViewController () {
     
     UIView       *backGroud;
@@ -284,17 +291,48 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
-    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:0];
+    [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:[NSString stringWithFormat:@"%@：%@",LOCALANGER(@"qrDevice"),model.strYstNumber] delegate:self selectAction:@selector(addQRdevice) cancelAction:nil selectTitle:LOCALANGER(@"jvc_DeviceList_APadd") cancelTitle:LOCALANGER(@"jvc_DeviceList_APquit") alertTage:JVCSCanType_addDevice];
     
     
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (alertView.tag == JVCSCanType_addDevice) {
         
-        [self addQRdevice];
+        if (buttonIndex == 0) {
+            
+            [self addQRdevice];
+        }
+    }else{
+    
+        if (buttonIndex == 0) {
+            
+            [self startScanDevice];
+        }else{
+            [self gotoBack];
+        }
+        
     }
+    
+}
+
+- (void)startScanDevice
+{
+    [self stopScanfDeviceTimer];
+    
+    [amLanSearchModelList removeAllObjects];
+    
+    [self performSelector:@selector(scanDeviceMath) withObject:nil afterDelay:kScanfWithDurationBeginAnimationTime];
+    
+    
+    scanfTimer = [NSTimer scheduledTimerWithTimeInterval:kScanfTimerInterval
+                                                  target:self
+                                                selector:@selector(scanfDeviceList)
+                                                userInfo:nil
+                                                 repeats:YES];
+    
+    [scanfTimer fire];
 }
 
 - (void)addQRdevice
@@ -303,17 +341,17 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
     
     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
     
-    if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
-        
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                    userName:(NSString *)DefaultHomeUserName
-                                                                    passWord:(NSString *)DefaultHomePassWord];
-    }else {
-        
+//    if (self.nScanfDeviceMaxCont == kScanDeviceWithDefaultCount) {
+//        
+//        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+//                                                                    userName:(NSString *)DefaultHomeUserName
+//                                                                    passWord:(NSString *)DefaultHomePassWord];
+//    }else {
+    
         [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
                                                                     userName:(NSString *)DefaultUserName
-                                                                    passWord:(NSString *)DefaultPassWord];
-    }
+                                                                    passWord:(NSString *)DefaultPassWord ChannelCount:model.iDeviceChannelCount];
+   // }
     
 
 }
@@ -535,6 +573,13 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         
         [[JVCSystemSoundHelper shareJVCSystemSoundHelper] stopSound];
         [self stopScanfDeviceTimer];
+        
+        if (amLanSearchModelList.count == 0) {
+       
+            //弹出暂未搜索到设备的问题
+            [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:LOCALANGER(@"jvc_scanf_reSacn") delegate:self selectAction:@selector(startScanDevice) cancelAction:@selector(gotoBack) selectTitle:LOCALANGER(@"jvc_scanf_reSacn_reStart") cancelTitle:LOCALANGER(@"jvc_scanf_reSacn_Cancel") alertTage:JVCSCanType_ReSCan];
+        }
+       
     }
 }
 

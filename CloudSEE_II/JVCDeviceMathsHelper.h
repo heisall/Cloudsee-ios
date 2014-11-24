@@ -60,7 +60,8 @@
  */
 - (void)addDeviceWithYstNum:(NSString *)ystNum
                    userName:(NSString *)userName
-                   passWord:(NSString *)passWord;
+                   passWord:(NSString *)passWord
+               ChannelCount:(int)count;
 
 /**
  *  刷新设备状态

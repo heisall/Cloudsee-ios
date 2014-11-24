@@ -55,10 +55,8 @@
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-       NSData *imageDate =  [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.urlStirng]];
         
-        if (imageDate.length>0) {//保存图片
-            
+        
            NSString *documentPath =  [[JVCSystemUtility shareSystemUtilityInstance] creatDirectoryAtDocumentPath:kAdverDocument];
             
             NSFileManager *manager = [[NSFileManager alloc] init];
@@ -66,6 +64,10 @@
             NSString *saveIamgeName = [self.urlStirng stringByReplacingOccurrencesOfString:@"/" withString:@""];
             NSString *savePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",saveIamgeName]];
             if (![manager fileExistsAtPath:savePath]) {
+                
+                NSData *imageDate =  [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.urlStirng]];
+
+                if (imageDate.length>0) {//保存图片
 
             BOOL writeResult = [UIImagePNGRepresentation([UIImage imageWithData:imageDate]) writeToFile:savePath options:NSAtomicWrite error:nil];
                 
@@ -78,6 +80,7 @@
                         self.downLoadAdverSuccess();
                     }
                 }
+                      }
                 
             }else{
             
@@ -90,7 +93,6 @@
             }
             
             [manager release];
-        }
         
     });
 }

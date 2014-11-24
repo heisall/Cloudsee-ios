@@ -191,6 +191,15 @@
 - (NSString*)deviceString;
 
 /**
+ *  根据时间，获取当前时间
+ *
+ *  @param stringTimer 时间截
+ *
+ *  @return 时间
+ */
+- (NSString *)getTimerWithTimerString:(NSString *)stringTimer;
+
+/**
  *  再document目录下面创建文件夹
  *
  *  @param fileName 文件目录

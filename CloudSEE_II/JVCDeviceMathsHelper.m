@@ -26,6 +26,8 @@
     NSString *deviceUserName;
     
     NSString *devicePassWord;
+    
+    int channelCount ;
 }
 
 @end
@@ -94,7 +96,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                                                          deviceUserName:deviceUserName
                                                          devicePassWord:devicePassWord];
     //添加通道
-    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:deviceYStNum];
+    [[JVCChannelScourseHelper shareChannelScourseHelper] addLocalChannelsWithDeviceModel:deviceYStNum channelNums:channelCount];
     
     
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_success")];
@@ -115,11 +117,12 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
 - (void)addDeviceWithYstNum:(NSString *)ystNum
                    userName:(NSString *)userName
                    passWord:(NSString *)passWord
+               ChannelCount:(int)count
 {
     deviceYStNum    = [ystNum retain];
     deviceUserName  = [userName retain];
     devicePassWord  = [passWord retain];
-
+    channelCount = count;
     
     int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:ystNum andUserName:userName andPassWord:passWord];
     
@@ -254,9 +257,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int channelCount = KDEFAULTAPCHANNELCOUNT;
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
-        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

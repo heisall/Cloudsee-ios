@@ -211,6 +211,9 @@
 "jvc_voice_add_send"  ="voi_send";
 "jvc_voice_add_info"  ="voi_info";
 "jvc_scanf_finshed"   ="sca_finshed";
+"jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";
+"jvc_scanf_reSacn_reStart"   ="搜索";
+"jvc_scanf_reSacn_Cancel"   ="取消";
 
 //连接模式
 "jvc_licktype_title" = "连接模式";
@@ -297,6 +300,7 @@
 "jvc_alarmList_Title" = "报警消息";
 "jvc_alarmlist_noMore" = "没有更多信息";
 "jvc_alarmlist_getAlarmError" = "获取报警信息失败";
+"jvc_alarmlist_DownLoadPic_Error" = "获取报警图片失败";
 "jvc_alarmlist_noAlarm" = "暂无报警消息";
 "jvc_alarmlist_noAlarm_PIC" = "暂无报警图片";
 "jvc_alarmlist_delete_success" = "删除成功";
@@ -361,8 +365,8 @@
 "Not_720p" = "手机软件不支持播放大于720P的视频";
 "Disconnecting nowPlease Wait"="正在断开\n请等待...";
 "Exiting NowPlease Wait"="正在退出\n请等待...";
-"Connection Failed ID"="账号或密码错误.";
-"Connection Failed ID_and_modify_user_and password"= "账号或密码错误，立即修改";
+"Connection Failed ID"="用户名或密码错误.";
+"Connection Failed ID_and_modify_user_and password"= "用户名或密码错误，立即修改";
 "operation"="该功能在远程回放时暂停使用.";
 "This video source doesn't support image resolution switch."="该视频源不支持码流切换";
 "TalkInfo"="正在与s设备请求对讲，请等待...";
@@ -391,7 +395,7 @@
 "connectResultInfo_7"  = "服务停止，连接断开.";
 "connectResultInfo_8"  = "断开连接失败.";
 "connectResultInfo_9"  = "云视通服务已停止.";
-"connectResultInfo_10" = "账号或密码错误";
+"connectResultInfo_10" = "用户名或密码错误";
 "connectResultInfo_11" = "超过设备最大连接数!";
 "connectResultInfo_12" = "该通道不存在或未开放!";
 
@@ -447,7 +451,7 @@
 "userDefine" = "用户拒绝访问";
 "NSLocalString"="Chinese";
 "jvc_more_media_no_date" = "相册中暂时没有图片或视频";
-"jvc_more_media_no_pic" = "暂无图像";
+"jvc_more_media_no_pic" = "暂无图片";
 "jvc_more_media_no_video" = "暂无视频";
 
 //修改密码的
@@ -520,7 +524,7 @@
 
 //演示点
 "jvc_demo_title" = "演示点";
-"jvc_demo_GetDate_error" = "获取数据错误";
+"jvc_demo_GetDate_error" = "视频源广场加载失败";
 
 //JVCDeviceAlarmNoDeviceTableViewCell
 "JVCDeviceAlarmNoDeviceTableViewCell_labe"= "点击此处添加设备";

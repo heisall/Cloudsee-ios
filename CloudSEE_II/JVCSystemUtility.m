@@ -140,6 +140,9 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (BOOL)JudgeGetDictionIsLegal:(NSDictionary *)dicInfo
 {
+    if ([self judgeDictionIsNil:dicInfo]) {
+        return NO;
+    }
     if (DEVICESERVICERESPONSE_SUCCESS ==  [[dicInfo objectForKey:DEVICE_JSON_RT] intValue]) {
         
         return YES;
@@ -250,6 +253,29 @@ static JVCSystemUtility *shareInstance = nil;
     NSString *returnTimerString = [formatter stringFromDate:configDate];
     [formatter release];
     return returnTimerString;
+}
+
+/**
+ *  根据时间，获取当前时间
+ *
+ *  @param stringTimer 时间截
+ *
+ *  @return 时间
+ */
+- (NSString *)getTimerWithTimerString:(NSString *)stringTimer
+{
+    NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
+    inputFormatter.locale = [NSLocale currentLocale];
+    [inputFormatter setDateFormat:@"yyyyMMddHHmmss"];
+    NSDate* inputDate = [inputFormatter dateFromString:stringTimer];
+    [inputFormatter release];
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setLocale:[NSLocale currentLocale]];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *str = [outputFormatter stringFromDate:inputDate];
+    [outputFormatter release];
+    return str;
 }
 
 

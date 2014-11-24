@@ -25,7 +25,7 @@
     [self.view          addSubview:webView];
     [webView            release];
     
-    self.title = LOCALANGER(@"JVC_Adver_title");
+   // self.title = LOCALANGER(@"JVC_Adver_title");
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:self.openUrlString]];
     [webView loadRequest:request];
     [[JVCAlertHelper shareAlertHelper] alertToastWithController:self.view];
