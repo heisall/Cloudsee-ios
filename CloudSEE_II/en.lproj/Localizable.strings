@@ -215,8 +215,8 @@
 "jvc_scanf_reSacn_reStart"   ="Research";
 "jvc_scanf_reSacn_Cancel"   ="Cancel";
 "jvc_scanf_reSacn_Close"   = "Close";/////////
-"jvc_scanf_reSacn_HasExit"   = "已添加";/////////
-"jvc_scanf_reSacn"   ="暂未搜索到设备，是否重新搜索";//////////
+"jvc_scanf_reSacn_HasExit"   = "Added";/////////
+"jvc_scanf_reSacn"   =" Unable to find device, do you want to serch again?";//////////
 
 
 //连接模式
