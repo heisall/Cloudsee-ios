@@ -641,7 +641,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         return;
     }
     
-
     JVCDeviceUpdateViewController *devieUpdate = [[JVCDeviceUpdateViewController alloc] init];
     devieUpdate.modelDevice = model;
     [self.navigationController pushViewController:devieUpdate animated:YES];

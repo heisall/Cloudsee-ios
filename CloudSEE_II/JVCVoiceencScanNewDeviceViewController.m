@@ -199,4 +199,15 @@
                                                                 passWord:(NSString *)DefaultHomePassWord];
 }
 
+/**
+ *  局域网扫描设备
+ */
+-(void)scanfDeviceList {
+    
+    JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+    jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
+    
+    [jvcLANScanWithSetHelpYSTNOHelperObj SerachAllDevicesAsynchronousRequestWithDeviceListData];
+}
+
 @end

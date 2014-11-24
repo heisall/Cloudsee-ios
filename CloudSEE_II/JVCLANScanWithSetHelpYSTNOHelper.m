@@ -164,7 +164,69 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
  */
 void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData){
 
-    DDLogCVerbose(@"ip=%d-----############009----port=%d",stlanResultData->bTimoOut,stlanResultData->nClientPort);
+    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
+    
+    if (stlanResultData->nYSTNO>0) {
+        
+        NSMutableString *strYstNumber=[[NSMutableString alloc] initWithCapacity:10];
+        
+        [strYstNumber appendFormat:@"%s",stlanResultData->chGroup];
+        
+        if ([strYstNumber isEqualToString:@""]|| [strYstNumber isEqualToString:nil]) {
+            
+            [strYstNumber appendFormat:@"A%d",stlanResultData->nYSTNO];
+            
+        }else{
+            
+            [strYstNumber appendFormat:@"%d",stlanResultData->nYSTNO];
+            
+        }
+        
+        for (JVCLanScanDeviceModel *LanModel in CacheMArrayDeviceList) {
+            
+            if ([[LanModel.strYstNumber uppercaseString] isEqualToString:strYstNumber]) {
+                
+                [strYstNumber release];
+                [pool release];
+                return;
+            }
+        }
+        
+        int _isNetWork=(stlanResultData->nNetMod & 0x01);
+        int _isUserWIfi=stlanResultData->nCurMod ;
+        
+        JVCLanScanDeviceModel *lanModel=[[JVCLanScanDeviceModel alloc] init];
+        
+        lanModel.strYstNumber   = strYstNumber;
+        lanModel.strDeviceIP    = [NSString stringWithFormat:@"%s",stlanResultData->chClientIP];
+        lanModel.strDevicePort  = [NSString stringWithFormat:@"%d",stlanResultData->nClientPort];
+        lanModel.strDeviceName  = [NSString stringWithFormat:@"%s",stlanResultData->chDeviceName];
+        lanModel.iDeviceVariety = stlanResultData->nVariety;
+        lanModel.iDeviceChannelCount=stlanResultData->nChannelCount;
+        
+        if (_isUserWIfi==1) {
+            
+            lanModel.iCurMod=YES;
+        }
+        
+        if (_isNetWork) {
+            
+            lanModel.iNetMod=YES;
+        }
+        
+        [CacheMArrayDeviceList addObject:lanModel];
+        
+        [strYstNumber release];
+        [lanModel release];
+        
+    }
+    
+    if (stlanResultData->bTimoOut) {
+        
+        DDLogCVerbose(@"%s--------endLanserach--------",__FUNCTION__);
+        [jvcLANScanWithSetHelpYSTNOHelper performSelectorOnMainThread:@selector(sendCallBack) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
 }
 
 /**
@@ -179,15 +241,26 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
 }
 
 /**
- *  搜索局域网设备的函数
+ *  搜索局域网设备的函数（本局域网）
  */
 -(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListData{
     
     [CacheMArrayDeviceList removeAllObjects];
     
-  // JVC_QueryDevice("",0,1000, JVCLANScanWithSetHelpYSTNOHelperQueryDevce);
     
-   JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+    JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+}
+
+/**
+ *  搜索局域网设备的函数(本网段)
+ */
+-(void)SerachAllDevicesAsynchronousRequestWithDeviceListData{
+    
+    [CacheMArrayDeviceList removeAllObjects];
+    
+    JVC_QueryDevice("",0,1000, JVCLANScanWithSetHelpYSTNOHelperQueryDevce);
+    
+    //JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
 }
 
 /**
