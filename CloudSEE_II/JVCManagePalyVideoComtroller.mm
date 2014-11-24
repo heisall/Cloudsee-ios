@@ -1049,5 +1049,17 @@ BOOL isAllLinkRun;
     
 }
 
+/**
+ *  获取当前设备是否是新的家用ipc
+ *
+ *  @return yes 新的 no Old
+ */
+- (BOOL)getCurrentIsOldHomeIPC
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    return singleVideoShow.isNewHomeIPC;
+    
+}
+
 
 @end

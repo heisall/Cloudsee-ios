@@ -1429,7 +1429,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
         return;
     }
-     straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType];
+     straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsOldHomeIPC]];
     straemView.delegateStream = self;
     [self.view addSubview:straemView];
     [straemView show];
@@ -2623,7 +2623,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if(!horizonView)
     {
-        horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType -1:0];
+        horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType :0 streamCountType:[_managerVideo getCurrentIsOldHomeIPC]] ;
         horizonView.horStreamDelegate = self;
     }else{
         [self removeStreamView];

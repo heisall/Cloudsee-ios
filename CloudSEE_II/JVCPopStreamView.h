@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JVCHorizontalStreamView.h"
 
 @protocol JVCPopStreamViewDelegate <NSObject>
 
@@ -24,7 +25,7 @@
 }
 @property(nonatomic,assign) id<JVCPopStreamViewDelegate>delegateStream;
 
-- (id)initStreamView:(UIButton *)btn  andSelectindex:(NSInteger)index;
+- (id)initStreamView:(UIButton *)btn  andSelectindex:(NSInteger)index  streamCountType:(BOOL)streamCountType;
 
 - (void)show;
 
