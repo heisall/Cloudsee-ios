@@ -1527,7 +1527,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     nStorageMode = [[params objectForKey:KStorageMode] intValue];
                                 }
 
-                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode withIsNewHomeIPC:isHomeIPC];
+                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode withIsNewHomeIPC:isNewHomeIPC];
                                    
                                 
                                 [params release];
