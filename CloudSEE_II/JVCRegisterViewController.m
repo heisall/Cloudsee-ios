@@ -525,6 +525,7 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
     /**
      *  检索用户输入的字符串是否合法
      */
+    textFieldUser.text = textFieldUser.text.lowercaseString;
     int resultPredicate = [[JVCPredicateHelper shareInstance] predicatUserResignWithUser:textFieldUser.text andPassWord:textFieldPassWord.text andEnsurePassWord:textFieldEnSurePassWord.text ];
     
     if (LOGINRESULT_SUCCESS == resultPredicate) {//成功，判断用户名是否被注册过
