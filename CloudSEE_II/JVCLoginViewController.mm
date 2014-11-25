@@ -472,6 +472,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
 #pragma mark 按下登录按钮
 - (void)clickTologin
 {
+    textFieldUser.text = [textFieldUser.text lowercaseString];
+    
     if (![[JVCAlertHelper shareAlertHelper]predicateNetWorkState]) {
         
         return;
