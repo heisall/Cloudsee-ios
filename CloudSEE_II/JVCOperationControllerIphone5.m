@@ -115,6 +115,11 @@
 //}
 
 /**
+ *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
+ */
+
+
+/**
  *  音频监听功能（关闭）
  *
  *  @param bState YES:(对讲模式下)  NO：音频监听模式下
@@ -125,7 +130,6 @@
     OpenALBufferViewcontroller *openAlObj     = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
     JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
-    
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
@@ -134,7 +138,6 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
-
             
         });
         
@@ -160,6 +163,7 @@
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
 
     }
+    
 }
 
 

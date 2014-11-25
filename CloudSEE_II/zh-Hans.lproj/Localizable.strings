@@ -519,6 +519,7 @@
 "JVCAlarmCurrentView_device"= "设备：";
 "JVCAlarmCurrentView_motion"= "移动检测报警";
 "JVCAlarmCurrentView_door"= "门磁或手环报警";
+"JVCAlarmCurrentView_External"= "外接报警";
 "JVCAlarmCurrentView_another"= "未知报警";
 "JVCAlarmCurrentView_type"= "类型：";
 "JVCAlarmCurrentView_see"= "查看";

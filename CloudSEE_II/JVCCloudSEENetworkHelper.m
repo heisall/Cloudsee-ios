@@ -1872,7 +1872,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
  */
 -(void)JVCCloudSEEManagerHelperAudioDataCallBack:(char *)audioData audioDataSize:(int)audioDataSize audioDataType:(BOOL)audioDataType{
     
-    if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWADelegate respondsToSelector:@selector(playVideoSoundCallBackMath:soundBufferSize:soundBufferType:)]) {
+    if (jvcCloudSEENetworkHelper.ystNWADelegate != nil && [jvcCloudSEENetworkHelper.ystNWADelegate respondsToSelector:@selector(playVideoSoundCallBackMath:soundBufferSize:soundBufferType:)]) {
         
         [jvcCloudSEENetworkHelper.ystNWADelegate playVideoSoundCallBackMath:(char *)audioData soundBufferSize:audioDataSize soundBufferType:audioDataType];
     }

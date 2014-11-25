@@ -152,7 +152,9 @@ static JVCAlarmCurrentView *_shareInstance = nil;
         case ALARM_DOOR:
             titleString = LOCALANGER(@"JVCAlarmCurrentView_door");
             break;
-            
+        case ALARM_GPIN:
+            titleString = LOCALANGER(@"JVCAlarmCurrentView_External");
+            break;
         default:
             titleString = LOCALANGER(@"JVCAlarmCurrentView_another");
             break;

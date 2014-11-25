@@ -505,6 +505,7 @@
 "JVCAlarmCurrentView_motion"= "Motion detection alarm";
 "JVCAlarmCurrentView_door"= "Door magnetic or hand ring alarm";
 "JVCAlarmCurrentView_another"= "Unknown alarm type";
+"JVCAlarmCurrentView_External"= "External Alarm";
 "JVCAlarmCurrentView_type"= "Type：";
 "JVCAlarmCurrentView_see"= "Check";
 "JVCAlarmCurrentView_ignorce"= "Ignore";
