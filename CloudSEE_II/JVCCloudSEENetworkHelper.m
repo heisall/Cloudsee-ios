@@ -844,6 +844,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             currentChannelObj.isVideoPause = isSendPlayVideoStatus;
             
+            [currentChannelObj resetVideoDecoderParam];
+            
         }
             break;
         default:
@@ -864,7 +866,6 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
     
     JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
     JVCCloudSEEManagerHelper     *currentChannelObj           = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
-    
     
     if (currentChannelObj == nil) {
         
@@ -962,11 +963,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
     
     while ( true ) {
         
-        DDLogVerbose(@"%s-------runRequestCount=%d",__FUNCTION__,nRequestCount);
-        
         if (!isRequestTimeoutSecondFlag) {
             
-            DDLogVerbose(@"%s-------isRequestTimeoutSecondFlag =FALSE ",__FUNCTION__);
             break;
         }
         
@@ -976,12 +974,12 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
         }else {
             
-            DDLogVerbose(@"%s-------runRequestCount break=%d",__FUNCTION__,nRequestCount);
             isTimeout =TRUE;
             break;
         }
         
         nRequestCount --;
+        
         usleep(REQUESTTIMEOUTSECOND*1000*1000);
     }
     
@@ -1470,8 +1468,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
-                                
-                                 DDLogCVerbose(@"%s-------################# ------buffer=%s",__FUNCTION__,stpacket.acData+n);
                                 
                                 int  nStreamType  = -1;
                                 BOOL isHomeIPC    = FALSE;

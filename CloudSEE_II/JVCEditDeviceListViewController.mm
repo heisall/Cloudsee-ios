@@ -604,6 +604,14 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
                     
                     [networkSettingObj setWiredConnectType:nDHCP withIpAddress:strIp withSubnetMask:strSubnetMask withDefaultGateway:strDefaultGateway withDns:strDns];
                     
+                    JVCDeviceModel *deviceModel = (JVCDeviceModel *)[self getCurrentDeviceModel];
+                    
+                    if (!deviceModel.isCustomLinkModel) {
+                        
+                        deviceModel.linkType  = CONNECTTYPE_YST;
+                        deviceModel.ip        = @"";
+                        deviceModel.port      = @"";
+                    }
                 }
             };
             

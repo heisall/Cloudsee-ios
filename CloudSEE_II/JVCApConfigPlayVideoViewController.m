@@ -30,6 +30,8 @@
     int      nRepeatRequestCount;
     
     JVCYTOperaitonView *ytOperationView ;//云台帮助view
+    
+    BOOL     isActive;
 }
 
 enum DEVICE_AP_LEVEL {
@@ -64,16 +66,52 @@ static const int            kRepeatRequestCount      = 6;
     if (self) {
         
         self.title = NSLocalizedString(@"apSetting_playVideo_title", nil);
-
+        
+        isActive   = TRUE;
+        
+        AppDelegate *delegateApp             = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        delegateApp.appDelegateVideoDelegate = self;
         
     }
     
     return self;
 }
 
+#pragma mark ----------------- AppDelegate Deleagte
+
+-(void)stopPlayVideoCallBack{
+    
+    isActive = FALSE;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+
+            
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
+        
+    });
+}
+
+
+-(void)continuePlayVideoCallBack{
+    
+   isActive = TRUE;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:kConnectDefaultLocalChannel remoteOperationCommand:JVN_CMD_VIDEO];
+
+    });
+}
+
 -(void)dealloc{
 
     DDLogVerbose(@"%s----dealloc",__FUNCTION__);
+    AppDelegate *delegateApp             = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegateApp.appDelegateVideoDelegate = nil;
     [strYstNumber release];
     [super dealloc];
 
@@ -737,7 +775,11 @@ static const int            kRepeatRequestCount      = 6;
  */
 -(void)H264VideoDataCallBackMath:(int)nLocalChannel imageBufferY:(char *)imageBufferY imageBufferU:(char *)imageBufferU imageBufferV:(char *)imageBufferV decoderFrameWidth:(int)decoderFrameWidth decoderFrameHeight:(int)decoderFrameHeight nPlayBackFrametotalNumber:(int)nPlayBackFrametotalNumber withVideoType:(BOOL)isVideoType{
 
-    [singleVideoShow setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
+    if (isActive) {
+        
+        [singleVideoShow setImageBuffer:imageBufferY imageBufferU:imageBufferU imageBufferV:imageBufferV decoderFrameWidth:decoderFrameWidth decoderFrameHeight:decoderFrameHeight nPlayBackFrametotalNumber:nPlayBackFrametotalNumber];
+    }
+    
 }
 
 /**

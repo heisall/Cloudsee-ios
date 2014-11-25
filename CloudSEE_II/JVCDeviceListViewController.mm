@@ -48,7 +48,7 @@ static const NSTimeInterval  KTimeAfterDelayTimer                    = 0.3 ;  //
 static const int             kPopViewOffx                            = 290 ;  //popview弹出的x坐标
 static const int             kTableViewSingleDeviceViewBeginTag      = 1000;  //设备视图的默认起始标志
 static const int             kPOPViewTag                             = 1000248;
-static const NSTimeInterval  kLanSearchTime                          = 5*60;  //局域网广播轮询的时间
+static const NSTimeInterval  kLanSearchTime                          = 3*60;  //局域网广播轮询的时间
 static const int             kScanfDeviceMaxCount                    = 5; //设备视图的默认起始标志
 static const NSTimeInterval  kAfterDelayTimer                        = 2;  //2秒之后的停止下拉刷新
 

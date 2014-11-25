@@ -681,9 +681,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     ytoView.delegateYTOperation=self;
     [self.view addSubview:ytoView];
     [ytoView setHidden:YES];
-    
 }
-
 
 -(void)gotoShowSpltWindow{
     
@@ -749,7 +747,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 }
 
-
 #pragma mark 返回当前的屏幕显示的模式
 -(NSMutableArray*)getSplitWindowMaxNumbers{
     
@@ -778,11 +775,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-
-
 #pragma mark 返回上一级
 -(void)BackClick{
-    DDLogVerbose(@"___%s==========000",__FUNCTION__);
+    
     
     if (_isPlayBackVideo&&!self.isPlayBackVideo) {
         //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
