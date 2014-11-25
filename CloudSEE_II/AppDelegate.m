@@ -85,6 +85,9 @@ static const   int     KCheckLocationResultValue = 1;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //推送消息清零
+    application.applicationIconBadgeNumber = 0;
+
     /**
      *  设置ddlog
      */
@@ -476,6 +479,8 @@ static const   int     KCheckLocationResultValue = 1;
         
         NSDictionary *dicInfo = [jsonString2 objectFromJSONString];
         
+        self.localtionString  = jsonString2;
+        
         if ([dicInfo isKindOfClass:[NSDictionary class]]) {
             
             NSString *strCountry = [dicInfo objectForKey:(NSString *)KCheckLocationCountry];
@@ -485,10 +490,14 @@ static const   int     KCheckLocationResultValue = 1;
                 
                 int nRet = strRet.intValue;
                 
-                if (nRet == KCheckLocationResultValue && [(NSString *)KCheckLocationCountry isEqualToString:strCountry]){
+                if (strCountry) {
                     
-                     findStatus = TRUE;
+                    if (nRet == KCheckLocationResultValue && ![(NSString *)KCheckLocationFlag isEqualToString:strCountry]){
+                        
+                        findStatus = FALSE;
+                    }
                 }
+                
             }
         }
     }

@@ -89,7 +89,6 @@
         
         self.isCustomLinkModel   = self.linkType == CONNECTTYPE_IP ? TRUE : FALSE;
         
-
     }
     return self;
 
