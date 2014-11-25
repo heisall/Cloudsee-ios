@@ -23,6 +23,9 @@ typedef void(^JVCDownLoadAdverImageSuccess)(void);
     BOOL     downSuccess;//是否下载完成
     int      index;     //图片的索引
     NSString *AdLick;   //点击图片的超链接
+    NSString *enUrlStirng;//en图片网路路径
+    NSString *enAdLick;   //en点击图片的超链接
+    
     NSString *localDownUrl;//本地存放的url
     NSString *localImageName;//本地存的图片的名称，例如：http://182.92.242.230/static/banner/ios-02.jpg 名称为ios-02.jpg
 }
@@ -32,6 +35,9 @@ typedef void(^JVCDownLoadAdverImageSuccess)(void);
 @property(nonatomic,retain)NSString *AdLick;   //点击图片的超链接
 @property(nonatomic,retain)NSString *localDownUrl;//本地存放的url
 @property(nonatomic,retain)NSString *localImageName;
+@property(nonatomic,retain)NSString *enUrlStirng;//en图片网路路径
+@property(nonatomic,retain) NSString *enAdLick;   //en点击图片的超链接
+
 /**
  *  初始化
  *
@@ -39,5 +45,5 @@ typedef void(^JVCDownLoadAdverImageSuccess)(void);
  *
  *  @return 对象
  */
-- (id)initAdvertImageModel:(NSString *)string  LinkUrl:(NSString *)lickUrl  index:(int)imageIndex  downState:(BOOL)state downLoadSuccessBlock:(JVCDownLoadAdverImageSuccess)block;
+- (id)initAdvertImageModel:(NSString *)string  LinkUrl:(NSString *)lickUrl  index:(int)imageIndex  downState:(BOOL)state downLoadSuccessBlock:(JVCDownLoadAdverImageSuccess)block enUrl:(NSString *)enUrl  enLickUrl:(NSString *)lickUrlEn;
 @end

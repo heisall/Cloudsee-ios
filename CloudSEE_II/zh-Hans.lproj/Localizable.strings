@@ -472,7 +472,7 @@
 "jvc_editDevice_title" = "配置";
 "jvc_editDevice_Editbtn_device" = "设备管理";
 "jvc_editDevice_Editbtn_licktype" = "连接模式";
-"jvc_editDevice_Editbtn_channels" = "通道管理";
+"jvc_editDevice_Editbtn_channels" = "视频源管理";
 "jvc_editDevice_Editbtn_SeeImedity" = "立即观看";
 "jvc_editDevice_Editbtn_safe" = "安全防护";
 "jvc_editDevice_Editbtn_alarmseting" = "报警设置";
@@ -631,6 +631,8 @@
 "EditDeviceDetailViewController_device_cancel" = "下载取消";
 "JvcDeviceUpdateModel"= " 软件版本：";
 "JvcDeviceUpdatedevice"= " 型号：";
+"unknown"= "未知";
+
 "EditDeviceDetailViewController_device_title"="设备升级";
 "EditDeviceDetailViewController_device_updateSuccess"="设备升级成功";
 "accountServiceLog.md"= "账号日志";

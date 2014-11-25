@@ -496,7 +496,6 @@ float min_offset;
             
             UISlider *slider = (UISlider*)[self viewWithTag:107];
             
-            
             if (nPlayBackFrametotalNumber > 0) {
                 
                 if (slider.hidden) {
@@ -533,6 +532,17 @@ float min_offset;
         
     });
     
+}
+
+/**
+ *  设置进度条到默认进度条
+ */
+- (void)setSliderToMaxValue
+{
+    UISlider *slider = (UISlider*)[self viewWithTag:107];
+
+    [slider setValue:slider.maximumValue];
+
 }
 
 /**

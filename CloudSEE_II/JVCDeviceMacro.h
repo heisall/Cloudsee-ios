@@ -163,6 +163,8 @@ enum DEVICESERVICERESPONSE{
 #define Json_AD_NO                            @"adno"
 #define Json_AD_URL                           @"adurl"
 #define Json_AD_LINK                          @"adl"
+#define Json_AD_URL_En                        @"adurlen"
+#define Json_AD_LINK_En                       @"adlen"
 static const int   AdverseInfo              = 5500;
 static const int   Ad_Publish_process       = 12;
 

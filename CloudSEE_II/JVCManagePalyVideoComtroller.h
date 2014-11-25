@@ -163,4 +163,9 @@ enum showWindowNumberType{
  */
 - (BOOL)getCurrentIsOldHomeIPC;
 
+/**
+ *  设置远程回放的进度条为最大值
+ */
+- (void)setCurrentSingleViewSlideToMaxNum;
+
 @end

@@ -42,6 +42,7 @@ static const CGFloat         kTalkViewWithHeight     = 60.0f;
 static const CGFloat         kTalkViewWithWidth      = 200.0;
 static const int             kAlertTag               = 19384324;
 static const NSTimeInterval  kPopAfterTimer          = 0.3;//退出时的延迟
+static const NSTimeInterval  kRemoteBackTimer        = 0.3;//远程回放延迟
 
 
 
@@ -1197,8 +1198,16 @@ char remoteSendSearchFileBuffer[29] = {0};
         self.navigationController.navigationBarHidden = YES;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
+     
+        /**
+         *  是否多屏，多屏的时候，变成单屏
+         */
+        [self changeManagePalyVideoComtrollerViewsToSingeView];
         
         [_managerVideo changeContenView];
+        
+       
+        
         [self.view bringSubviewToFront:_managerVideo];
         [self.view bringSubviewToFront:ytOperationView];
         [ straemView removeFromSuperview];
@@ -2037,6 +2046,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
                 dispatch_async(dispatch_get_main_queue(), ^{
                 
+                    [_managerVideo setCurrentSingleViewSlideToMaxNum];
                     [self BackClick];
                 });
             }
@@ -2067,9 +2077,10 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self showPlayBackVideo:NO];
+                [_managerVideo setCurrentSingleViewSlideToMaxNum];
+
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Playback_Finish")];
+                [self performSelector:@selector(remotePlayBackEndSuccess) withObject:nil afterDelay:kRemoteBackTimer];
                 
             });
             
@@ -2107,6 +2118,15 @@ char remoteSendSearchFileBuffer[29] = {0};
             break;
     }
     
+}
+
+/**
+ *  远程回放结束的时候执行，为了让进度条跑到最后面
+ */
+- (void)remotePlayBackEndSuccess{
+    [self showPlayBackVideo:NO];
+    
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"Playback_Finish")];
 }
 
 #pragma mark 远程回放界面操作 NO关闭 YES是开启

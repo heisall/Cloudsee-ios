@@ -122,6 +122,20 @@
 
 @optional
 
+/**
+ *  远程回放状态回调
+ *
+ *  @param remoteplaybackState
+ 
+     enum RemotePlayBackVideoStateType {
+     
+     RemotePlayBackVideoStateType_Succeed = 100, //远程回放成功
+     RemotePlayBackVideoStateType_Stop    = 101, //远程回放停止
+     RemotePlayBackVideoStateType_End     = 102, //远程回放结束
+     RemotePlayBackVideoStateType_Failed  = 103, //远程回放失败
+     RemotePlayBackVideoStateType_TimeOut = 104, //远程回放超时
+     };
+ */
 -(void)remoteplaybackState:(int)remoteplaybackState;
 
 /**

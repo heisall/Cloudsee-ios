@@ -203,7 +203,7 @@ typedef enum {
     return [[RMDateSelectionViewController alloc] init];
 }
 
-static NSString *_localizedNowTitle = @"Now";
+static NSString *_localizedNowTitle = @"jvc_remote_playBack_Now";
 static NSString *_localizedCancelTitle = @"Cancel";
 static NSString *_localizedSelectTitle = @"Sure";
 

@@ -73,7 +73,7 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
         
         NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(stringPic)];
         
-        JVCAdverImageModel *imageModel = [[JVCAdverImageModel alloc] initAdvertImageModel:imageBundlePath LinkUrl:nil index:i downState:YES downLoadSuccessBlock:nil];
+        JVCAdverImageModel *imageModel = [[JVCAdverImageModel alloc] initAdvertImageModel:imageBundlePath LinkUrl:nil index:i downState:YES downLoadSuccessBlock:nil enUrl:nil enLickUrl:nil];
         imageModel.localDownUrl = imageBundlePath;
         [_arrayDefaultImage addObject:imageModel];
         
@@ -215,8 +215,11 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
                 int indexValue = [[tDic objectForKey:Json_AD_NO] intValue];
                 NSString *urlString = [tDic objectForKey:Json_AD_URL];
                 NSString *lickString = [tDic objectForKey:Json_AD_LINK];
+                
+                NSString *enUrlString = [tDic objectForKey:Json_AD_URL_En];
+                NSString *enLickString = [tDic objectForKey:Json_AD_LINK_En];
 
-                JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess];
+                JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess enUrl:enUrlString enLickUrl:enLickString];
                 [arrAdvert addObject:model];
                 [model release];
                 
@@ -280,7 +283,10 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
             NSString *urlString = [tDic objectForKey:Json_AD_URL];
             NSString *lickString = [tDic objectForKey:Json_AD_LINK];
             
-            JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess];
+            NSString *enUrlString = [tDic objectForKey:Json_AD_URL_En];
+            NSString *enLickString = [tDic objectForKey:Json_AD_LINK_En];
+            
+            JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess enUrl:enUrlString enLickUrl:enLickString];
             [arrAdvert addObject:model];
             [model release];
             

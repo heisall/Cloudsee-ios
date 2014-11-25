@@ -40,6 +40,11 @@ static const int kTag         = 100;//tag
  */
 - (void)initContentCellWithHeigint:(CGFloat)frameHeight
 {
+    for (UIView *viewContent in self.contentView.subviews) {
+        
+        [viewContent removeFromSuperview];
+    }
+    
     NSString *devWlanPath = [UIImage imageBundlePath:@"no_devWlan.png"];
     UIImage *imageWlan = [[UIImage alloc] initWithContentsOfFile:devWlanPath];
     UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake((self.width -imageWlan.size.width)/2.0, kLabelOriginY, imageWlan.size.width, kLabelHeigt)];

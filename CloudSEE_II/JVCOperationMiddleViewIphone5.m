@@ -12,6 +12,8 @@
 static const int  OFF_X  =  20;                      //距离左边距的距离
 static const int OPERATIONBIGITEM  = 20.0;           //距离
 
+static const int kSperateNum       = 6;           //上下个2个共4个  中间2个
+
 #define bundleOperationMiddleViewIphone5  @"OperationMiddleViewIphone5.bundle"
 
 @interface JVCOperationMiddleViewIphone5 ()
@@ -20,6 +22,12 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
     NSMutableArray *_arrayList;
     
     UIButton *btnAudio;
+    
+    UIButton *btnCellBg;//音频监听的
+    
+    NSMutableArray *_arrayCellbglist;
+    NSMutableArray *_arrayCellbglistHor;
+
     
 }
 
@@ -38,6 +46,10 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 {
     [self initImageArray];
     
+    [self initCellbgArray];
+    
+    [self  initCellBgArraySelect];
+    
     int seperateNum = 2;
     
     detailArray = nil;
@@ -47,8 +59,11 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 //        seperateNum = 2;
 //    }
     
-    CGFloat height = self.frame.size.height/titleArray.count;
+    NSString *cellBgImageHeight = [UIImage imageBundlePath:[_arrayCellbglist objectAtIndex:0]];
+    UIImage *cellBgImageNorHeight = [[UIImage alloc] initWithContentsOfFile:cellBgImageHeight];
+    CGFloat heightSeperate = (self.frame.size.height-3*cellBgImageNorHeight.size.height)/ kSperateNum;
     
+    CGFloat height = cellBgImageNorHeight.size.height;
     for (int i = 0;i<titleArray.count;i++) {
         /**
          *  主要信息
@@ -64,9 +79,26 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
             strDetailTitle = [detailArray objectAtIndex:i];
         }
         
+     
+            
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0,2*heightSeperate+i*(heightSeperate+height), self.frame.size.width, cellBgImageNorHeight.size.height)];
         
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, i*height, self.frame.size.width, height)];
         
+        NSString *cellBgImage = [UIImage imageBundlePath:[_arrayCellbglist objectAtIndex:i]];
+        UIImage *cellBgImageNor = [[UIImage alloc] initWithContentsOfFile:cellBgImage];
+        
+        NSString *cellBgHor = [UIImage imageBundlePath:[_arrayCellbglistHor objectAtIndex:i]];
+        UIImage *cellBgImageHor = [[UIImage alloc] initWithContentsOfFile:cellBgHor];
+        
+        UIButton *cellBgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        cellBgBtn.userInteractionEnabled = NO;
+        cellBgBtn.frame = CGRectMake((self.width - cellBgImageNor.size.width)/2.0, 0, cellBgImageNor.size.width, cellBgImageNor.size.height);
+        [cellBgBtn setBackgroundImage:cellBgImageNor forState:UIControlStateNormal];
+        [cellBgBtn setBackgroundImage:cellBgImageHor forState:UIControlStateSelected];
+
+        [contentView addSubview:cellBgBtn];
+        [cellBgImageHor release];
+        [cellBgImageNor release];
         
         UIImage *image = [UIImage imageWithContentsOfFile:[self getBundleImagePaht:[_arrayList objectAtIndex:i]]];
         
@@ -91,6 +123,8 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
         if (i ==0) {
             
             btnAudio = btnImage;
+            
+            btnCellBg = cellBgBtn;
         }
         
         
@@ -127,16 +161,16 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
             [imageViewNextImage release];
         }
         
-        //最后一列 没有boderImage
-        if (i != titleArray.count -1) {
-            
-            UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"boderBigLine.png"]];
-            UIImageView *_boderImageView=[[UIImageView alloc] init];
-            _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
-            [_boderImageView setImage:boderImage];
-            [contentView addSubview:_boderImageView];
-            [_boderImageView release];
-        }
+//        //最后一列 没有boderImage
+//        if (i != titleArray.count -1) {
+//            
+//            UIImage *boderImage=[UIImage imageWithContentsOfFile:[self getBundleImagePaht:@"boderBigLine.png"]];
+//            UIImageView *_boderImageView=[[UIImageView alloc] init];
+//            _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
+//            [_boderImageView setImage:boderImage];
+//            [contentView addSubview:_boderImageView];
+//            [_boderImageView release];
+//        }
         
         contentView.tag = i;
         /**
@@ -164,6 +198,8 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
     [btnAudio setBackgroundImage:imageHover forState:UIControlStateSelected];
     [btnAudio setSelected:YES];
     
+    [btnCellBg setSelected:YES];
+    
     
 }
 
@@ -171,6 +207,8 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
 - (void)setAudioBtnUNSelect
 {
     [btnAudio setSelected:NO];
+    [btnCellBg setSelected:NO];
+
 }
 /**
  *  返回UIImage
@@ -231,6 +269,23 @@ static const int OPERATIONBIGITEM  = 20.0;           //距离
     [_arrayList addObject:@"ytoBigBtn.png"];
     [_arrayList addObject:@"playBackBigBtn.png"];
     
+}
+
+- (void)initCellbgArray
+{
+    _arrayCellbglist = [[NSMutableArray alloc] init];
+    [_arrayCellbglist addObject:@"op_audioCellBgNor.png"];
+    [_arrayCellbglist addObject:@"op_ytCellbgNor.png"];
+    [_arrayCellbglist addObject:@"op_playBackBgBor.png"];
+}
+
+- (void)initCellBgArraySelect
+{
+    _arrayCellbglistHor = [[NSMutableArray alloc] init];
+    
+    [_arrayCellbglistHor addObject:@"op_audioCellBgHor.png"];
+    [_arrayCellbglistHor addObject:@"op_ytCellbgNor.png"];
+    [_arrayCellbglistHor addObject:@"op_playBackBgBor.png"];
 }
 
 - (void)dealloc

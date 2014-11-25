@@ -362,7 +362,7 @@
 "noLocalVideo"="Not support to record on this device.";
 "editDeviceError" = "Failed to edit";
 "addDeviceError" = "Failed to add";
-"GetDetailDemoPointError" = "Faild to get demo list";
+"GetDetailDemoPointError" = "Faild to get data";
 "four-Screen" = "4 channels";
 "nine-Screen" = "9 channels";
 "sixteen-Screen" = "16 channels";
@@ -625,6 +625,7 @@
 "EditDeviceDetailViewController_device_cancel" = "Download cancel";
 "JvcDeviceUpdateModel"= " model：";
 "JvcDeviceUpdatedevice"= " device：";
+"unknown"= "unknown";
 "EditDeviceDetailViewController_device_title"="Device update";
 "EditDeviceDetailViewController_device_updateSuccess"="Device update success";
 

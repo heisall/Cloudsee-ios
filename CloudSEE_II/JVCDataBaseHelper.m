@@ -198,7 +198,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     if ([userInfoSqlite open]) {
         
-        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
         
         FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
         
@@ -233,7 +233,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         //转化
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,[self getCurrenttime],kLoginStateON];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName.lowercaseString,passWord,[self getCurrenttime],kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -260,7 +260,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         //转化
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,(CGFloat)timer,kLoginStateON];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName.lowercaseString,passWord,(CGFloat)timer,kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -287,7 +287,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET PASSWORD='%@',AUTOLOGINSTATE='%d' WHERE USERNAME = '%@'",passWord,kLoginStateON,userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET PASSWORD='%@',AUTOLOGINSTATE='%d' WHERE USERNAME = '%@' COLLATE NOCASE",passWord,kLoginStateON,userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
@@ -312,7 +312,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET LOGINTIMER='%f' WHERE USERNAME = '%@'",[self getCurrenttime],userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET LOGINTIMER='%f' WHERE USERNAME = '%@' COLLATE NOCASE",[self getCurrenttime],userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
@@ -369,7 +369,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE USERNAME = '%@'",userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE USERNAME = '%@' COLLATE NOCASE",userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
@@ -418,7 +418,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             BOOL autoLoginState =  [rsSet boolForColumn:@"AUTOLOGINSTATE"];
             
             JVCUserInfoModel *userModel = [[JVCUserInfoModel alloc] init];
-            userModel.userName = strUserName;
+            userModel.userName = strUserName.lowercaseString;
             userModel.passWord = strPassWord;
             userModel.loginTimer = strLogintimer;
             userModel.bAutoLoginState = autoLoginState;
@@ -551,7 +551,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     if ([userInfoSqlite open]) {
         //转化
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO JUDGEUSERINFOTABLE(USERNAME)VALUES('%@')",userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO JUDGEUSERINFOTABLE(USERNAME)VALUES('%@') ",userName.lowercaseString];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {

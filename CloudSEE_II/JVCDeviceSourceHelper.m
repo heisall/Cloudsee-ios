@@ -343,7 +343,6 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
         
         JVCDeviceModel *deviceModel=(JVCDeviceModel *)[updateLanModelList objectAtIndex:i];
         
-        
         for (JVCDeviceModel *model in deviceArray) {
             
             if ([model.yunShiTongNum.uppercaseString isEqualToString:deviceModel.yunShiTongNum.uppercaseString]) {
@@ -353,6 +352,7 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
                     model.ip=deviceModel.ip;
                     model.port=deviceModel.port;
                     model.linkType=deviceModel.linkType;
+                    model.onLineState = DEVICESTATUS_ONLINE;
                 }
             }
         }
