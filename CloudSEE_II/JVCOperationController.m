@@ -2481,7 +2481,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)HorizontalScreenBarBtnClickCallBack:(UIButton *)btn
 {
     
-    
     /**
      *  是否有画面
      */
@@ -2564,6 +2563,10 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
+            
+            JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+            ystNetworkObj.ystNWADelegate    =  self;
+            
             [self audioButtonClick];
             
         }
