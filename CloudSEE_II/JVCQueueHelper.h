@@ -43,9 +43,10 @@
 /**
  *  设置O帧传来的默认帧率
  *
- *  @param frameRateValue 帧率树值
+ *  @param frameRateValue 帧率
+ *  @param enable         YES:启用跳帧
  */
--(void)setDefaultFrameRate:(float)frameRateValue;
+-(void)setDefaultFrameRate:(float)frameRateValue withEnableJumpFrame:(BOOL)enable;
 
 /**
  *  启动出队线程（消费者）

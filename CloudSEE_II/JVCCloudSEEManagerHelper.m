@@ -176,7 +176,7 @@ char          pcmBuffer[1024] ={0};
     }
     
     //设置帧率
-    [self.jvcQueueHelper setDefaultFrameRate:self.isPlaybackVideo==YES?self.playBackDecoderObj.dVideoframeFrate:self.decodeModelObj.dVideoframeFrate];
+    [self.jvcQueueHelper setDefaultFrameRate:self.isPlaybackVideo==YES?self.playBackDecoderObj.dVideoframeFrate:self.decodeModelObj.dVideoframeFrate withEnableJumpFrame:!self.isPlaybackVideo];
     
     [self performSelectorOnMainThread:@selector(popVideoDataThread) withObject:nil waitUntilDone:NO];
     
@@ -235,13 +235,6 @@ char          pcmBuffer[1024] ={0};
     return nDecoderStatus;
 }
 
-/**
- *  04版主控获取下一帧
- */
--(void)nextVideoData {
-    
-   [self.jvcQueueHelper popVideoData];
-}
 
 #pragma mark 解码处理模块
 
@@ -275,7 +268,6 @@ char          pcmBuffer[1024] ={0};
     [self.jvcQueueHelper clearEnqueueData];
     
     self.decodeModelObj.isWaitIFrame = FALSE;
-    
 }
 
 /**

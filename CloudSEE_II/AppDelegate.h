@@ -10,14 +10,28 @@
 #import "JVCQRCoderViewController.h"
 #import "JVCAccountHelper.h"
 @class JVCAlarmModel;
+
+@protocol AppDelegateVideoDelegate<NSObject>
+
+/**
+ *  停止视频播放（锁屏幕）
+ */
+-(void)stopPlayVideoCallBack;
+
+
+/**
+ *  视频播放（解锁屏幕）
+ */
+-(void)continuePlayVideoCallBack;
+
+@end
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,JVCAccountDelegate,UITabBarControllerDelegate>
 {
-    NSMutableArray           *_amOpenGLViewListData; //存放GlView显示类的集合
-    
-    JVCQRCoderViewController *QRViewController;//二维码扫描view
-    
-    NSString *localtionString;
-    
+    NSMutableArray                 *_amOpenGLViewListData;     //存放GlView显示类的集合
+    JVCQRCoderViewController       *QRViewController;          //二维码扫描view
+    NSString                       *localtionString;
+    id <AppDelegateVideoDelegate>  appDelegateVideoDelegate;
 }
 
 enum tabarViewItem {
@@ -30,6 +44,7 @@ enum tabarViewItem {
 @property(nonatomic,retain)     NSMutableArray *_amOpenGLViewListData;
 @property(nonatomic,retain)     JVCQRCoderViewController *QRViewController;
 @property(nonatomic,retain)     NSString *localtionString;
+@property(nonatomic,assign)     id <AppDelegateVideoDelegate>  appDelegateVideoDelegate;
 /**
  *  初始化TabarViewControllers
  */

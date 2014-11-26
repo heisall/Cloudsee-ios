@@ -300,7 +300,7 @@
 "MAX_ERROR" = "Channle number list to upper limit, cannot add more";
 "sum" = "Total of ";
 "Device" = " device";
-"jvcEditDeviceList_search_timeOut" = "Query host-end binding devices timeout";
+"jvcEditDeviceList_search_timeOut" = "Inquiry timeout";
 
 //报警界面
 "jvc_alarmList_Title" = "Alarm Message";

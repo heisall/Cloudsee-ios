@@ -144,10 +144,6 @@
 -(void)pushVideoData:(unsigned char *)videoData nVideoDataSize:(int)nVideoDataSize isVideoDataIFrame:(BOOL)isVideoDataIFrame isVideoDataBFrame:(BOOL)isVideoDataBFrame frameType:(int)frameType;
 
 
-/**
- *  04版主控获取下一帧
- */
--(void)nextVideoData;
 
 #pragma mark  解码处理模块
 

@@ -12,6 +12,7 @@
 #import "JVCMonitorConnectionSingleImageView.h"
 #import "JVCDeviceSourceHelper.h"
 #import "JVCChannelScourseHelper.h"
+#import "AppDelegate.h"
 
 @protocol JVCManagePalyVideoComtrollerDelegate <NSObject>
 
@@ -44,7 +45,7 @@ enum CONNECTALLDEVICE{
     CONNECTALLDEVICE_End = 0, //全连接结束
 };
 
-@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate>
+@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate,AppDelegateVideoDelegate>
 {
     JVCOperationController  *_operationController;
     int                      imageViewNums;            //ScorllView每页视图显示的窗体个数
@@ -58,6 +59,7 @@ enum CONNECTALLDEVICE{
     BOOL                     isPlayBackVideo;          //YES 远程回放模式
     BOOL                     isShowVideo;
     BOOL                     isConnectAll;             //全连标志
+    BOOL                     isActive;                 //程序是否是活跃的（锁屏幕之后置为FALSE）
 }
 
 enum showWindowNumberType{

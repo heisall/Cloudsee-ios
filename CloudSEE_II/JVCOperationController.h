@@ -109,4 +109,5 @@ static const int      kDefaultShowWidnowCount         = 1;
  */
 - (BOOL)getButtonWithIndex:(int)indexBtn;
 
+
 @end

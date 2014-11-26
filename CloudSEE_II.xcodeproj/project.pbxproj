@@ -554,13 +554,13 @@
 		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
 		AD568E801A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD568E7F1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m */; };
 		AD568E821A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */; };
+		AD568EA91A2460840090D546 /* libuserAcount_v1.0.20_2014_11_25.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD568EA81A2460840090D546 /* libuserAcount_v1.0.20_2014_11_25.a */; };
 		AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */; };
 		AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */; };
 		AD616CD91A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD81A188142004214A5 /* JVCWheelShowManagePalyVideoComtroller.mm */; };
 		AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */; };
 		AD616CE31A1AEB61004214A5 /* JVCLogShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */; };
-		AD67B6AC1A1EE22800F6CB6B /* libuserAcount._v1.0.19_2014_11_21.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD67B6AB1A1EE22800F6CB6B /* libuserAcount._v1.0.19_2014_11_21.a */; };
 		AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */; };
 		AD916BC319D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */; };
 		AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD916BC719D4F73000B925A2 /* JVCEditDeviceTopItemView.m */; };
@@ -1317,6 +1317,7 @@
 		AD568E7E1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencScanNewDeviceViewController.h; sourceTree = "<group>"; };
 		AD568E7F1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencScanNewDeviceViewController.m; sourceTree = "<group>"; };
 		AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.10.2.a; sourceTree = "<group>"; };
+		AD568EA81A2460840090D546 /* libuserAcount_v1.0.20_2014_11_25.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.20_2014_11_25.a; sourceTree = "<group>"; };
 		AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		AD616CD11A187F6F004214A5 /* JVCWheelShowOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWheelShowOperationController.h; sourceTree = "<group>"; };
@@ -1329,7 +1330,6 @@
 		AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCHomeIPCUpdate.m; sourceTree = "<group>"; };
 		AD616CE11A1AEB61004214A5 /* JVCLogShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLogShowViewController.h; sourceTree = "<group>"; };
 		AD616CE21A1AEB61004214A5 /* JVCLogShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLogShowViewController.m; sourceTree = "<group>"; };
-		AD67B6AB1A1EE22800F6CB6B /* libuserAcount._v1.0.19_2014_11_21.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount._v1.0.19_2014_11_21.a; sourceTree = "<group>"; };
 		AD916BC019D4F65D00B925A2 /* edit_topBar_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_topBar_line@2x.png"; sourceTree = "<group>"; };
 		AD916BC119D4F65D00B925A2 /* edi_topBar_dropBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_topBar_dropBtn@2x.png"; sourceTree = "<group>"; };
 		AD916BC619D4F73000B925A2 /* JVCEditDeviceTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCEditDeviceTopItemView.h; sourceTree = "<group>"; };
@@ -1497,12 +1497,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD568EA91A2460840090D546 /* libuserAcount_v1.0.20_2014_11_25.a in Frameworks */,
 				A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */,
 				A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */,
 				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
 				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
 				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
-				AD67B6AC1A1EE22800F6CB6B /* libuserAcount._v1.0.19_2014_11_21.a in Frameworks */,
 				A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */,
 				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
 				A7F4059F19E55A260070945F /* CoreMedia.framework in Frameworks */,
@@ -2803,7 +2803,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD67B6AB1A1EE22800F6CB6B /* libuserAcount._v1.0.19_2014_11_21.a */,
+				AD568EA81A2460840090D546 /* libuserAcount_v1.0.20_2014_11_25.a */,
 				AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,

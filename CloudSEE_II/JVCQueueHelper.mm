@@ -18,6 +18,7 @@
     int             nDefaultFrameFps;
     BOOL            bm_exit;
     BOOL            playThreadExit;
+    BOOL            isEnable; //是否开启跳帧模式
 }
 
 typedef struct queueServiceUtilityClassParam
@@ -135,16 +136,17 @@ long long currentMillisSec() {
 /**
  *  设置O帧传来的默认帧率
  *
- *  @param frameRateValue 帧率树值
+ *  @param frameRateValue 帧率
+ *  @param enable         YES:启用跳帧
  */
--(void)setDefaultFrameRate:(float)frameRateValue{
+-(void)setDefaultFrameRate:(float)frameRateValue withEnableJumpFrame:(BOOL)enable{
     
     nDefaultFrameFps       = frameRateValue;
     
     //[self Lock];
     param->video_frame_fps = frameRateValue;
     //[self Unlock];
-    
+    isEnable               = enable;
     DDLogInfo(@"%s----frameRate=%lf",__FUNCTION__,param->video_frame_fps);
 }
 
@@ -154,7 +156,6 @@ long long currentMillisSec() {
 -(void)startPopDataThread {
     
     if (!bm_exit) {
-        
         
         [NSThread detachNewThreadSelector:@selector(popDataCallBack) toTarget:self withObject:nil];
     }
@@ -197,7 +198,7 @@ long long currentMillisSec() {
                 [self Lock];
                 param->video_frame_fps = queue_fps;
                 [self Unlock];
-                //DDLogInfo(@"%s---countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
+                
             }
             
         }else{
@@ -212,18 +213,11 @@ long long currentMillisSec() {
                 isFastPlay  = FALSE;
             }
             
-            //DDLogInfo(@"%s---002 countFps=%lf,param->video_frame_rate=%lf",__FUNCTION__,queue_fps,param->video_frame_fps);
         }
         
         int full_delay = 1000 / queue_fps;
         
-         //DDLogInfo(@"%s---0001frameRate=%lf count=%d",__FUNCTION__,queue_fps,queueFrameCount);
         frame *frameBuffer = (frame * )dqueue->PopData();
-        
-        if (queue_fps != nDefaultFrameFps) {
-            
-             //DDLogInfo(@"%s---frameRate=%d count=%d",__FUNCTION__,queue_fps,queueFrameCount);
-        }
        
         if (NULL == frameBuffer) {
             
@@ -233,13 +227,14 @@ long long currentMillisSec() {
         int decoderStatus = -1;
         
         //开启跳帧模式
-        if(queueFrameCount > queue_fps ) {
+        if(queueFrameCount > queue_fps && isEnable) {
             
             need_jump = true;
         }
         
         if(need_jump && !frameBuffer->is_i_frame) {
             
+//             DDLogInfo(@"%s----need_jump queueFrameCount=%d",__FUNCTION__,queueFrameCount);
             
         }else {
             

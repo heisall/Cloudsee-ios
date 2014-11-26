@@ -43,8 +43,60 @@ BOOL isAllLinkRun;
         
         self._iBigNumbers    = kPlayViewDefaultMaxValue;
         self.backgroundColor = [UIColor blackColor];
+        isActive             = TRUE;
+        
+        AppDelegate *delegateApp             = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        delegateApp.appDelegateVideoDelegate = self;
     }
     return self;
+}
+
+#pragma mark ----------------- AppDelegate Deleagte
+
+-(void)stopPlayVideoCallBack{
+
+    isActive = FALSE;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        int endIndex   = (self._iCurrentPage + 1) * self.imageViewNums;
+        int startIndex =  self._iCurrentPage      * self.imageViewNums;
+        int maxCount   = [self channelCountAtSelectedYstNumber];
+        
+        endIndex =  endIndex >= maxCount ? maxCount : endIndex;
+        
+        
+        for (int i = startIndex; i < endIndex; i++) {
+            
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEOPAUSE];
+        }
+    });
+}
+
+
+-(void)continuePlayVideoCallBack{
+
+    isActive = TRUE;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        int endIndex   = (self._iCurrentPage + 1) * self.imageViewNums;
+        int startIndex =  self._iCurrentPage      * self.imageViewNums;
+        int maxCount   = [self channelCountAtSelectedYstNumber];
+        
+        endIndex =  endIndex >= maxCount ? maxCount : endIndex;
+        
+        
+        for (int i = startIndex; i < endIndex; i++) {
+            
+            [ystNetWorkHelperObj RemoteOperationSendDataToDevice:i+1 remoteOperationCommand:JVN_CMD_VIDEO];
+        }
+        
+    });
 }
 
 /**
@@ -476,9 +528,14 @@ BOOL isAllLinkRun;
 
 -(void)dealloc{
     
+    AppDelegate *delegateApp             = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegateApp.appDelegateVideoDelegate = nil;
+    
     [amChannelListData release];
     [strSelectedDeviceYstNumber release];
-
+    
+    DDLogVerbose(@"%s-----------------------",__FUNCTION__);
+    
     [super dealloc];
 }
 
@@ -778,7 +835,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
-    if (isShowVideo) {
+    if (isShowVideo || !isActive) {
         
         return;
     }
@@ -847,6 +904,12 @@ BOOL isAllLinkRun;
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
     JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+    
+    
+    if (!isActive) {
+        
+        [self stopCurrentPlayVideo];
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -1067,8 +1130,6 @@ BOOL isAllLinkRun;
 {
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
     return singleVideoShow.isNewHomeIPC;
-    
 }
-
 
 @end
