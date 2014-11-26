@@ -865,6 +865,14 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)closeAlterViewAllDic{
     
 
+    JVCCloudSEENetworkHelper *networkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    networkHelperObj.ystNWADelegate            = nil;
+    networkHelperObj.ystNWHDelegate            = nil;
+    networkHelperObj.ystNWRODelegate           = nil;
+    networkHelperObj.ystNWRPVDelegate          = nil;
+    networkHelperObj.ystNWTDDelegate           = nil;
+    networkHelperObj.videoDelegate             = nil;
+    
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
     
     DDLogVerbose(@"___%s==========004",__FUNCTION__);
