@@ -10,6 +10,13 @@
 #import "JVCRGBColorMacro.h"
 #import "JVCRGBHelper.h"
 
+typedef NS_ENUM(int , JVCNODeviceType) {
+
+    JVCNODeviceType_NodevWlan   = 0,//无线
+    JVCNODeviceType_nodevWire  = 1,//有限
+
+};
+
 static const int kLabelHeigt = 30;//lab的高度
 static const int kLabelOriginX = 40;//距离左侧的距离
 static const int kLabelOriginY = 10;//距离上侧的距离
@@ -56,8 +63,14 @@ static const int kTag         = 100;//tag
     //无线设备图片
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(labelTitle.left, labelTitle.bottom+kSpan, labelTitle.width, imageWlan.size.height)];
     imageview.image = imageWlan;
+    imageview.tag = JVCNODeviceType_NodevWlan;
+    imageview.userInteractionEnabled = YES;
     [self.contentView addSubview:imageview];
     [imageview release];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addDeviceGestureTap:)];
+    [imageview addGestureRecognizer:tapGesture];
+    [tapGesture release];
     
     JVCRGBHelper *rgbLabelHelper      = [JVCRGBHelper shareJVCRGBHelper];
     UIColor *btnColorBlue  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBlue];
@@ -89,8 +102,14 @@ static const int kTag         = 100;//tag
     UIImage *imageWireWlan = [[UIImage alloc] initWithContentsOfFile:devWlanwirePath];
     UIImageView *imageviewWire = [[UIImageView alloc] initWithFrame:CGRectMake(labelWire.left, labelWire.bottom+kSpan, labelTitle.width, imageWireWlan.size.height)];
     imageviewWire.image = imageWireWlan;
+    imageviewWire.tag = JVCNODeviceType_nodevWire;
+    imageviewWire.userInteractionEnabled = YES;
     [self.contentView addSubview:imageviewWire];
     [imageviewWire release];
+    
+    UITapGestureRecognizer *tapGestureWire = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addDeviceGestureTap:)];
+    [imageviewWire addGestureRecognizer:tapGestureWire];
+    [tapGestureWire release];
     
     //按钮
     UIButton *btnWireWlan = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -107,6 +126,14 @@ static const int kTag         = 100;//tag
     [imageBtnWlan release];
     [imageWlan release];
     [imageWireWlan release];
+}
+
+- (void)addDeviceGestureTap:(UITapGestureRecognizer *)gesture
+{
+    if (addDelegate !=nil && [addDelegate respondsToSelector:@selector(addDeviceTypeCallback:)]) {
+        
+        [addDelegate addDeviceTypeCallback:gesture.view.tag];
+    }
 }
 
 - (void)addDeviceClickWithType:(UIButton *)btn
