@@ -272,13 +272,21 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        int channelCount  = DEFAULTCHANNELCOUNT;
+        JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
+        
+        int channelCount  = [jvcLANScanWithSetHelpYSTNOHelperObj queryLanDeviceChannelCount:ystNumber];
+        
+        DDLogVerbose(@"%s-------------##########deviceLanCount =%d",__FUNCTION__, channelCount);
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
      
             [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s===%@  get Device Channel StartystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
 
-             channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+            if (channelCount <= 0) {
+                
+                channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+            }
+            
 
             [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@==local  get Device Channel end====ystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
 
@@ -290,7 +298,6 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         nAddDeviceChanelCount = channelCount;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             
             [self addDeviceChannelToServerWithNum:channelCount];
         });

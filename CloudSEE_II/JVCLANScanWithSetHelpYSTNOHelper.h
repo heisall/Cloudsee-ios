@@ -46,6 +46,15 @@
  */
 -(void)SerachAllDevicesAsynchronousRequestWithDeviceListData;
 
+/**
+ *  查询局域网设备的通道数，根据广播获取
+ *
+ *  @param strYstNumber 云视通号
+ *
+ *  @return 设备的通道数 大于0 有效 <子线程调用>
+ */
+-(int)queryLanDeviceChannelCount:(NSString *)strYstNumber;
+
 
 /**
  *  设置小助手

@@ -9,7 +9,10 @@
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCCloudSEENetworkInterface.h"
 
-@interface JVCLANScanWithSetHelpYSTNOHelper ()
+@interface JVCLANScanWithSetHelpYSTNOHelper (){
+
+    __block BOOL isScanfing;  //YES:正在搜索 NO:已结束
+}
 
 #define MAX_PATH_01 256
 
@@ -29,9 +32,10 @@ typedef struct STBASEYSTNO
 @synthesize delegate;
 
 static JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelper = nil;
-static const int kScanLocalServerPort      = 9400; //默认9400
-static const int kScanDeviceServerPort     = 6666;
-static const int kScanDeviceKeepTimeSecond = 1;
+static const int kScanLocalServerPort                   = 9400; //默认9400
+static const int kScanDeviceServerPort                  = 6666;
+static const int kScanDeviceKeepTimeSecond              = 1;
+static const int kQueryLanDeviceChannelCountSleepTime   = 40;
 
 NSMutableArray *CacheMArrayDeviceList;
 
@@ -234,6 +238,8 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  */
 -(void)sendCallBack{
     
+    isScanfing = FALSE;
+    
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:)]) {
         
         [self.delegate SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:CacheMArrayDeviceList];
@@ -245,13 +251,61 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  */
 -(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListData{
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    if (!isScanfing) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [CacheMArrayDeviceList removeAllObjects];
+            
+            isScanfing = TRUE;
+            
+            JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+            
+        });
+    }
+}
+
+/**
+ *  查询局域网设备的通道数，根据广播获取
+ *
+ *  @param strYstNumber 云视通号
+ *
+ *  @return 设备的通道数 大于0 有效 <子线程调用>
+ */
+-(int)queryLanDeviceChannelCount:(NSString *)strYstNumber{
     
-        [CacheMArrayDeviceList removeAllObjects];
+    int nChannelCount = 0;
+    
+   [self SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
+    
+    while (TRUE) {
         
-        JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+        if (isScanfing) {
+            
+            usleep(kQueryLanDeviceChannelCountSleepTime);
+            
+        }else{
         
-    });
+            break;
+        }
+    }
+    
+    NSMutableArray *amQueryDeviceList = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [amQueryDeviceList addObjectsFromArray:CacheMArrayDeviceList];
+    
+    
+    for (JVCLanScanDeviceModel *model  in amQueryDeviceList) {
+        
+        if ([model.strYstNumber.uppercaseString isEqualToString:strYstNumber]) {
+            
+            nChannelCount = model.iDeviceChannelCount;
+            
+        }
+    }
+    
+    return nChannelCount;
+    
 }
 
 /**
@@ -262,8 +316,6 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
     [CacheMArrayDeviceList removeAllObjects];
     
     JVC_QueryDevice("",0,1000, JVCLANScanWithSetHelpYSTNOHelperQueryDevce);
-    
-    //JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
 }
 
 /**

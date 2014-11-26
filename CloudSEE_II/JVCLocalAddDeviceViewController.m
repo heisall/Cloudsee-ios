@@ -13,6 +13,7 @@
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCConfigModel.h"
 #import "JVCLogHelper.h"
+#import "JVCLANScanWithSetHelpYSTNOHelper.h"
 @interface JVCLocalAddDeviceViewController ()
 
 @end
