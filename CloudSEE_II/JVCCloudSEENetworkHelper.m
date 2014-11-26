@@ -1446,6 +1446,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                             if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
                                 
+                                NSLog(@"%s--------##########789----------%s",__FUNCTION__,stpacket.acData+n);
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
                                 int nMobileCh = MOBILECHDEFAULT;
@@ -1479,6 +1480,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 int  nStorageMode = -1;
                                 BOOL isNewHomeIPC = FALSE;
                                 
+                                DDLogCVerbose(@"%s-------##############789------%s",__FUNCTION__,stpacket.acData+n);
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
                                 int nMobileCh = MOBILECHDEFAULT;
