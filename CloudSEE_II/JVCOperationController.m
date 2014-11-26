@@ -1453,7 +1453,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         JVCCloudSEENetworkHelper *netWorkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         netWorkObj.ystNWRODelegate            = _managerVideo;
-        [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index];
+        
+        [_managerVideo getCurrentIsOldHomeIPC] == YES ? [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index]:[netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setOldStream remoteOperationCommand:index];
     }
 }
 

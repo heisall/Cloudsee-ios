@@ -634,6 +634,7 @@ static const   int     KCheckLocationResultValue = 1;
     InitEncode(); //板卡语音编解]
     NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
     
+    DDLogVerbose(@"%s-------helper=%d",__FUNCTION__,state.length == 0);
     JVC_EnableHelp(state.length == 0?TRUE:FALSE,3);  //手机端是3
 
 }
