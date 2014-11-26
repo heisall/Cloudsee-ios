@@ -914,7 +914,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setAlarmType:
         case TextChatType_getAlarmType:
         case TextChatType_EffectInfo:
-        case TextChatType_StorageMode:{
+        case TextChatType_StorageMode:
+        case TextChatType_setOldStream:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -980,7 +981,10 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         
         nRequestCount --;
         
-        usleep(REQUESTTIMEOUTSECOND*1000*1000);
+        if (!isTimeout) {
+            
+            usleep(REQUESTTIMEOUTSECOND*1000*1000);
+        }
     }
     
     isRequestRunFlag = FALSE;
@@ -1711,16 +1715,12 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     
     [mdStreamTypeInfo release];
     
-    if (nWidth == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth && nheight == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight) {
+    if (nWidth >= JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1CheckWidth ) {
         
-        return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF;
-        
-    }else if (nWidth == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Width && nheight == JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Height){
-    
         return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1;
     }
     
-    return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1;
+    return JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF;
 }
 
 /**
