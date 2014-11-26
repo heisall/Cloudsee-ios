@@ -186,10 +186,10 @@ BOOL isAllLinkRun;
         
         [recognizer release];
         
-        //横屏隐藏横屏底端按钮
-        UITapGestureRecognizer *tapGesture  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenHorizontalScreenBar)];
-        [singleVideoShow addGestureRecognizer:tapGesture];
-        [tapGesture release];
+//        //横屏隐藏横屏底端按钮
+//        UITapGestureRecognizer *tapGesture  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidenHorizontalScreenBar)];
+//        [singleVideoShow addGestureRecognizer:tapGesture];
+//        [tapGesture release];
         /**
          *  捏合的手势
          */
@@ -443,6 +443,18 @@ BOOL isAllLinkRun;
 -(void)handleSingelTabFrom_FOUR:(id)sender{
     
     UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
+    
+    JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
+    
+    if (horiBar.alpha == 0.0) {
+        
+        horiBar.alpha = 1.0f;
+        
+    }else{
+        
+        horiBar.alpha = 0.0f;
+    }
+
     
     if (showWindowNumberType_One ==self.imageViewNums) {
         

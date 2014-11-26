@@ -37,6 +37,7 @@
 #import "JVCWheelShowOperationControllerIphone5.h"
 #import "JVCOpenAdevitiseViewController.h"
 
+
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellNODevice                  = 600;   //广告条的高度
@@ -556,6 +557,12 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                         [deviceView addGestureRecognizer:gesture];
                         [gesture release];
                         
+                        //滑动的事件
+                        UISwipeGestureRecognizer *swipGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self  action:@selector(deleteDeviceWithSwip:)];
+                        swipGesture.direction = UISwipeGestureRecognizerDirectionRight|UISwipeGestureRecognizerDirectionLeft;
+                        [deviceView addGestureRecognizer:swipGesture];
+                        [swipGesture release];
+                        
                         [cell.contentView addSubview:deviceView];
                     }
                 }
@@ -576,6 +583,34 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     }
 }
 
+#pragma mark 滑动删除事件
+- (void)deleteDeviceWithSwip:(UISwipeGestureRecognizer *)gesture
+{
+    
+    int nIndex =  gesture.view.tag - kTableViewSingleDeviceViewBeginTag;
+    
+    JVCDeviceSourceHelper    *deviceSourceHelperObj  = [JVCDeviceSourceHelper shareDeviceSourceHelper];
+    
+    JVCDeviceModel           *deviceModel = (JVCDeviceModel *) [[deviceSourceHelperObj deviceListArray] objectAtIndex:nIndex];
+    
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地登录
+        
+        JVCLocalEditDeviceInfoViewController *editDeviceInfVC = [[JVCLocalEditDeviceInfoViewController alloc] init];
+        editDeviceInfVC.deviceModel = deviceModel;
+        [self.navigationController pushViewController:editDeviceInfVC animated:YES];
+        [editDeviceInfVC release];
+        
+    }else{
+        
+        JVCEditDeviceInfoViewController *editDeviceInfVC = [[JVCEditDeviceInfoViewController alloc] init];
+        editDeviceInfVC.deviceModel = deviceModel;
+        [self.navigationController pushViewController:editDeviceInfVC animated:YES];
+        [editDeviceInfVC release];
+    }
+
+    
+}
 
 #pragma mark 选中相应设备的按下事件
 /**

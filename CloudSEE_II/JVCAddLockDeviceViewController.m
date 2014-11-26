@@ -13,6 +13,7 @@
 #import "JVCSystemSoundHelper.h"
 #import "JVCAddDevieAlarmViewController.h"
 #import "JVCRGBHelper.h"
+#import "JVCSystemSoundHelper.h"
 @interface JVCAddLockDeviceViewController ()
 {
     UIView *helpIView ;
@@ -28,14 +29,15 @@ static const  int  KBtnTagDoor = 100;//门磁的的tag
 static const  int  KBtnTagBra  = 101;//手环的tag
 static const  int  KBtnTagHand  = 102;//遥控
 
-static const  int  kEdgeOff    = 50;//向下距离
-
-static const int KOriginX = 40;
-
-static const int KOriginAddHeight = 30;
-
-static const int KbtnLabel = 14;
-
+static const  int  kEdgeOff         = 50;//向下距离
+static const int KOriginX           = 40;
+static const int KOriginAddHeight   = 30;
+static const int KbtnLabel          = 14;
+static const int KSizeDefaultWith   = 120;
+static const int KSizeDefaultHeight = 100;
+static const int KLabelOriginX      = 30;
+static const int KLabelOriginY      = 140;
+static const int KLabelSize         = 16;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +64,15 @@ static const int KbtnLabel = 14;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    
+    ystNetWorkHelperObj.ystNWRODelegate  = nil;
+    ystNetWorkHelperObj.ystNWTDDelegate  = nil;
+
+    [super dealloc];
+}
 
 - (void)initContentView
 {
@@ -100,17 +111,21 @@ static const int KbtnLabel = 14;
     int addDeviceType = 1;
     NSString *imageName = nil;
     NSString *voiceString = nil;
+    NSString *stringTitile = nil;
 
     switch (btn.tag) {
         case KBtnTagDoor:
+        {
             imageName = @"add_lock_door.png" ;
             voiceString =  LOCALANGER(@"learn_1");
+            stringTitile = LOCALANGER(@"jvc_alarmDevice_1");
+        }
             break;
         case KBtnTagBra:
         {
             imageName = @"add_lock_Bra.png" ;
             voiceString =  LOCALANGER(@"learn_2");
-
+            stringTitile = LOCALANGER(@"jvc_alarmDevice_2");
             addDeviceType=2;
         }
             break;
@@ -118,7 +133,7 @@ static const int KbtnLabel = 14;
         {
             imageName = @"add_lock_Hand.png" ;
             voiceString = LOCALANGER(@"learn_3");
-
+            stringTitile = LOCALANGER(@"jvc_alarmDevice_3");
             addDeviceType=3;
         }
             break;
@@ -131,15 +146,41 @@ static const int KbtnLabel = 14;
         
         helpIView.backgroundColor = viewDefaultColor;
     }
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     NSString *path = [UIImage imageBundlePath:imageName];
     UIImage *imageHelp = [[UIImage alloc] initWithContentsOfFile:path];
     imageView.image = imageHelp;
     [helpIView addSubview:imageView];
     [self.view.window addSubview:helpIView];
+    [helpIView release];
     [imageHelp release];
     [imageView release];
     [self playLearnSound:voiceString];
+    
+    UILabel *labelTitle = [[UILabel alloc] init];
+    labelTitle.lineBreakMode = UILineBreakModeWordWrap;
+    labelTitle.font = [UIFont systemFontOfSize:KLabelSize];
+    labelTitle.backgroundColor = [UIColor clearColor];
+    labelTitle.text =  stringTitile;
+    labelTitle.numberOfLines = 0;
+    UIColor *labelColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroLoginGray];
+    if (labelColor) {
+        
+        labelTitle.textColor = labelColor;
+    }
+
+    CGSize sizeContentDefault =  CGSizeMake(KSizeDefaultWith, KSizeDefaultHeight);
+    CGSize sizeContent = LABEL_MULTILINE_TEXTSIZE(labelTitle.text, labelTitle.font,sizeContentDefault, labelTitle.lineBreakMode);
+    int height= [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage] == YES?KLabelOriginY:KLabelOriginY -40;
+    labelTitle.frame = CGRectMake(KLabelOriginX, height, sizeContent.width, sizeContent.height);
+    [helpIView  addSubview:labelTitle];
+    [labelTitle release];
+    
+    UIImageView *imageViewNext = [[JVCControlHelper shareJVCControlHelper] imageViewWithIamge:@"arm_Nex.png"];
+    imageViewNext.frame = CGRectMake(labelTitle.right, labelTitle.top, imageViewNext.width, imageViewNext.height);
+    [helpIView addSubview:imageViewNext];
+    
     
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
     

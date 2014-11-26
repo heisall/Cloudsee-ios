@@ -514,6 +514,10 @@
 "learn_1" = "learn_3_ch";
 "jvcEditDeviceList_search_timeOut" = "查询超时";
 
+"jvc_alarmDevice_1" = "请将设备打开，等待配置完成。";
+"jvc_alarmDevice_2" = "请长按红色按键，等待配置完成。";
+"jvc_alarmDevice_3" = "请长按任意键，等待配置完成。";
+
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "报警信息";
 "JVCAlarmCurrentView_device"= "设备：";

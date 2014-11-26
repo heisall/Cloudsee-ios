@@ -499,6 +499,10 @@
 "learn_3" = "learn_1_en";
 "learn_2" = "learn_2_en";
 "learn_1" = "learn_3_en";
+"jvc_alarmDevice_1" = "Seperate the two parts of the magnetic alarm and wait until the setting finished.";
+"jvc_alarmDevice_2" = "Long press the red button on the wrist ring and wait until the setting finished.";
+"jvc_alarmDevice_3" = "Long press any button on the remote control and wait until the setting finished.";
+
 //弹出报警信息的title
 "JVCAlarmCurrentView_title"= "Alarm info";
 "JVCAlarmCurrentView_device"= "Device：";

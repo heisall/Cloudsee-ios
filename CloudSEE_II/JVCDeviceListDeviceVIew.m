@@ -60,6 +60,7 @@ static const int     kIconImageViewTagValue   = 108;
     [[iconImageView layer] setCornerRadius:iconImage.size.width/2.0];
     iconImageView.tag                    = kIconImageViewTagValue;
     iconImageView.image                  = iconImage;
+    iconImageView.userInteractionEnabled = YES;
     [self addSubview:iconImageView];
     
     //初始化设备名称的标签

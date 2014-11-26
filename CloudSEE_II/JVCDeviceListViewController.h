@@ -13,7 +13,8 @@
 #import "JVCLANScanWithSetHelpYSTNOHelper.h"
 #import "JVCDeviceMathsHelper.h"
 #import "JVCDeviceListAdvertCell.h"
-
+#import "JVCEditDeviceInfoViewController.h"
+#import "JVCLocalEditDeviceInfoViewController.h"
 typedef enum {
     
     AddDevicePopType_NormalAddDevice    = 0,//正常添加
@@ -25,7 +26,7 @@ typedef enum {
     
 }AddDevicePopType;
 
-@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate,UIAlertViewDelegate,JVCUpdateMathDelegate,JVCAdverDelegate>
+@interface JVCDeviceListViewController : JVCBaseGeneralTableViewController<addDeviceDelegate,CustomViewControllerDelegate,AddDevicePopViewDelegate,JVCLANScanWithSetHelpYSTNOHelperDelegate,UIAlertViewDelegate,JVCUpdateMathDelegate,JVCAdverDelegate,editDeviceInfoDelegate>
 
 #pragma mark 获取设备
 - (void)getDeviceList;
