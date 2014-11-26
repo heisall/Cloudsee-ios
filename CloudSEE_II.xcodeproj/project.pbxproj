@@ -636,7 +636,7 @@
 		ADA9E49A1A12FE05007EB209 /* JVCConnectCallBackHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */; };
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
-		ADAE57011A25694700772B15 /* libuserAcount_v1.0.21_2014_11_26.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAE57001A25694700772B15 /* libuserAcount_v1.0.21_2014_11_26.a */; };
+		ADC8288E1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */; };
 		ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */; };
 		ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */; };
 		ADCF44CF1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */; };
@@ -1459,7 +1459,7 @@
 		ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCConnectCallBackHelper.m; sourceTree = "<group>"; };
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
-		ADAE57001A25694700772B15 /* libuserAcount_v1.0.21_2014_11_26.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v1.0.21_2014_11_26.a; sourceTree = "<group>"; };
+		ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v3.2.2.2.a; sourceTree = "<group>"; };
 		ADCF44C71A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWiredInputInfoTableViewController.h; sourceTree = "<group>"; };
 		ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWiredInputInfoTableViewController.m; sourceTree = "<group>"; };
 		ADCF44CA1A14C20400D1BF34 /* JVCApConfigSSIDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigSSIDListView.h; sourceTree = "<group>"; };
@@ -1502,6 +1502,7 @@
 				A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */,
 				A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */,
 				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
+				ADC8288E1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a in Frameworks */,
 				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
 				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
 				A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */,
@@ -1517,7 +1518,6 @@
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
 				ADA77C3319D02AC3003EE7A1 /* libstdc++.6.dylib in Frameworks */,
-				ADAE57011A25694700772B15 /* libuserAcount_v1.0.21_2014_11_26.a in Frameworks */,
 				ADA77BF619D0250E003EE7A1 /* CoreGraphics.framework in Frameworks */,
 				ADA77BF819D0250E003EE7A1 /* UIKit.framework in Frameworks */,
 				A7F4059219E556160070945F /* libzxingLibrary.a in Frameworks */,
@@ -2806,7 +2806,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ADAE57001A25694700772B15 /* libuserAcount_v1.0.21_2014_11_26.a */,
+				ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */,
 				AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
