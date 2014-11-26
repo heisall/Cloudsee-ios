@@ -15,7 +15,8 @@ static JVCCloudSEENetworkGeneralHelper *jvcCloudSEENetworkGeneralHelper = nil;
 static NSString const * kCloudSEENetworkWithConnectedPassWord           =  @"password is wrong!";
 static NSString const * kCloudSEENetworkWithConnectedLimit              =  @"client count limit!";
 static NSString const * kCloudSEENetworkWithConnectedChannelIsNotOpen   =  @"channel is not open!";
-static const    float   kDefaultFrameRate                     = 25.0f;
+static const    float   kDefaultFrameRate                               = 25.0f;
+static const    int     kValueAndKeyLength                              = 1024*2;
 
 /**
  *  单例
@@ -396,7 +397,7 @@ static const    float   kDefaultFrameRate                     = 25.0f;
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     
-    char name[32], para[128];
+    char name[kValueAndKeyLength], para[kValueAndKeyLength];
     
     while (true) {
         
@@ -450,7 +451,7 @@ static const    float   kDefaultFrameRate                     = 25.0f;
     
     DDLogVerbose(@"%s--data=%s",__FUNCTION__,pBuffer);
     
-    char name[32], para[128];
+    char name[kValueAndKeyLength], para[kValueAndKeyLength];
     
     while (true) {
         
@@ -507,7 +508,7 @@ static const    float   kDefaultFrameRate                     = 25.0f;
     
     NSMutableString *mStrReturnValue = [[NSMutableString alloc] initWithCapacity:10];
     
-    char name[32],para[128];
+    char name[kValueAndKeyLength], para[kValueAndKeyLength];
     
     memset(name, 0, sizeof(name));
     memset(para, 0, sizeof(para));
@@ -539,21 +540,14 @@ static const    float   kDefaultFrameRate                     = 25.0f;
     
     char  *p1,*p = strstr(pBuffer, [strFindKey UTF8String]);
     
-    
-    
     p+=strlen([strFindKey UTF8String]);
-    
-   
     
     if (p == NULL) {
         
         return [amRemoteListDic autorelease];
     }
-    
-    
+
     if (sizeof(p) <= 0) {
-        
-        DDLogVerbose(@"%s----data-%s",__FUNCTION__,p);
         
         return [amRemoteListDic autorelease];
     }
@@ -581,8 +575,6 @@ static const    float   kDefaultFrameRate                     = 25.0f;
         
         [amRemoteListDic addEntriesFromDictionary:[self convertpBufferToMDictionary:findKeyBuffer]];
     }
-    
-    DDLogCVerbose(@"%s---- amFrameSetting =%@",__FUNCTION__,amRemoteListDic);
     
     return [amRemoteListDic autorelease];
 }

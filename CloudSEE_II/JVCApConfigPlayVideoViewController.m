@@ -789,6 +789,11 @@ static const int            kRepeatRequestCount      = 6;
  */
 -(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
     
+    if (!isActive) {
+        
+        [self stopPlayVideoCallBack];
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -872,7 +877,6 @@ static const int            kRepeatRequestCount      = 6;
         
     });
 }
-
 
 /**
  *
@@ -1052,7 +1056,6 @@ static const int            kRepeatRequestCount      = 6;
     
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
-
 
 /**
  *  判断AP设置界面是否已经存在
