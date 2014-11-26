@@ -275,9 +275,7 @@ static const    int     kValueAndKeyLength                              = 1024*2
     }else {
         
         return NO;
-        
     }
-    
 }
 
 /**
@@ -313,7 +311,6 @@ static const    int     kValueAndKeyLength                              = 1024*2
     memcpy(&startCode,videoBuffer, 4);
     
     return [self checkConnectDeviceEncodModel:startCode];
-    
 }
 
 /**
@@ -397,46 +394,51 @@ static const    int     kValueAndKeyLength                              = 1024*2
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     
-    char name[kValueAndKeyLength], para[kValueAndKeyLength];
-    
-    while (true) {
+    if ([self checkBufferIslegal:pBuffer]) {
         
-        memset(name, 0, sizeof(name));
-        memset(para, 0, sizeof(para));
+        char name[kValueAndKeyLength], para[kValueAndKeyLength];
         
-        if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
-        {
-            pBuffer = strchr(pBuffer, ';');
+        while (true) {
             
-            if(pBuffer == NULL)
-                break;
+            memset(name, 0, sizeof(name));
+            memset(para, 0, sizeof(para));
             
-            if (name == NULL || para == NULL) {
+            if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
+            {
+                pBuffer = strchr(pBuffer, ';');
+                
+                if(pBuffer == NULL)
+                    break;
+                
+                if (name == NULL || para == NULL) {
+                    
+                    pBuffer++;
+                    continue;
+                }
+                
+                NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
+                NSString  *strName = [[NSString alloc] initWithCString:name encoding:NSUTF8StringEncoding];
+                
+                if (strPara !=nil) {
+                    
+                    [amRemoteListDic setObject:strPara forKey:strName];
+                    
+                }
+                
+                [strPara release];
+                [strName release];
                 
                 pBuffer++;
-                continue;
             }
-            
-            NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
-            NSString  *strName = [[NSString alloc] initWithCString:name encoding:NSUTF8StringEncoding];
-            
-            if (strPara !=nil) {
-                
-                [amRemoteListDic setObject:strPara forKey:strName];
-
-            }
-            
-            [strPara release];
-            [strName release];
-            
-            pBuffer++;
+            else
+                break;
         }
-        else
-            break;
+
     }
     
     return [amRemoteListDic autorelease];
 }
+
 
 /**
  *  将网络库传的key-value的buffer数据转成字典
@@ -449,47 +451,48 @@ static const    int     kValueAndKeyLength                              = 1024*2
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     
-    DDLogVerbose(@"%s--data=%s",__FUNCTION__,pBuffer);
-    
-    char name[kValueAndKeyLength], para[kValueAndKeyLength];
-    
-    while (true) {
+    if ([self checkBufferIslegal:pBuffer]) {
         
-        memset(name, 0, sizeof(name));
-        memset(para, 0, sizeof(para));
+        char name[kValueAndKeyLength], para[kValueAndKeyLength];
         
-        if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
-        {
-            pBuffer = strchr(pBuffer, ';');
+        while (true) {
             
-            if(pBuffer == NULL)
-                break;
+            memset(name, 0, sizeof(name));
+            memset(para, 0, sizeof(para));
             
-            if (name == NULL || para == NULL) {
+            if(sscanf(pBuffer, "%[^=]=%[^;];", name, para))
+            {
+                pBuffer = strchr(pBuffer, ';');
+                
+                if(pBuffer == NULL)
+                    break;
+                
+                if (name == NULL || para == NULL) {
+                    
+                    pBuffer++;
+                    continue;
+                }
+                
+                NSString  *strPara = [[NSString alloc] initWithUTF8String:para];
+                NSString  *strName = [[NSString alloc] initWithUTF8String:name];
+                
+                if (strPara !=nil) {
+                    
+                    [amRemoteListDic setObject:strPara forKey:strName];
+                    
+                }else {
+                    
+                    [amRemoteListDic setObject:@"" forKey:strName];
+                }
+                
+                [strPara release];
+                [strName release];
                 
                 pBuffer++;
-                continue;
             }
-            
-            NSString  *strPara = [[NSString alloc] initWithUTF8String:para];
-            NSString  *strName = [[NSString alloc] initWithUTF8String:name];
-            
-            if (strPara !=nil) {
-                
-                [amRemoteListDic setObject:strPara forKey:strName];
-                
-            }else {
-            
-                [amRemoteListDic setObject:@"" forKey:strName];
-            }
-            
-            [strPara release];
-            [strName release];
-            
-            pBuffer++;
+            else
+                break;
         }
-        else
-            break;
     }
     
     return [amRemoteListDic autorelease];
@@ -508,18 +511,21 @@ static const    int     kValueAndKeyLength                              = 1024*2
     
     NSMutableString *mStrReturnValue = [[NSMutableString alloc] initWithCapacity:10];
     
-    char name[kValueAndKeyLength], para[kValueAndKeyLength];
-    
-    memset(name, 0, sizeof(name));
-    memset(para, 0, sizeof(para));
-    
-    char  *p = strstr(pBuffer, nameBuffer);
-    
-    if(sscanf(p, "%[^=]=%[^;];", name, para))
-    {
-        NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
-        [mStrReturnValue appendString:strPara];
-        [strPara release];
+    if ([self checkBufferIslegal:pBuffer] && [self checkBufferIslegal:nameBuffer]) {
+        
+        char name[kValueAndKeyLength], para[kValueAndKeyLength];
+        
+        memset(name, 0, sizeof(name));
+        memset(para, 0, sizeof(para));
+        
+        char  *p = strstr(pBuffer, nameBuffer);
+        
+        if(sscanf(p, "%[^=]=%[^;];", name, para))
+        {
+            NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
+            [mStrReturnValue appendString:strPara];
+            [strPara release];
+        }
     }
     
     return [mStrReturnValue autorelease];
@@ -536,47 +542,63 @@ static const    int     kValueAndKeyLength                              = 1024*2
 -(NSMutableDictionary *)getFrameParamInfoByChannel:(char *)pBuffer nChannelValue:(int)nChannelValue{
     
     NSMutableDictionary *amRemoteListDic = [[NSMutableDictionary alloc] initWithCapacity:10];
-    NSString            *strFindKey      = [NSString stringWithFormat:@"%@%d%@",MOBILECHFRAMEBEGIN,nChannelValue,MOBILECHFRAMEEND];
     
-    char  *p1,*p = strstr(pBuffer, [strFindKey UTF8String]);
-    
-    p+=strlen([strFindKey UTF8String]);
-    
-    if (p == NULL) {
+    if ([self checkBufferIslegal:pBuffer]) {
         
-        return [amRemoteListDic autorelease];
-    }
-
-    if (sizeof(p) <= 0) {
+        NSString            *strFindKey      = [NSString stringWithFormat:@"%@%d%@",MOBILECHFRAMEBEGIN,nChannelValue,MOBILECHFRAMEEND];
         
-        return [amRemoteListDic autorelease];
-    }
-    
-    p1 = strstr(p, [MOBILECHFRAMEBEGIN UTF8String]);
-    
-    if (p1 == NULL) {
+        char  *p1,*p = strstr(pBuffer, [strFindKey UTF8String]);
         
-        int nBufferOffset = p - pBuffer;
+        p+=strlen([strFindKey UTF8String]);
         
-        char findKeyBuffer[nBufferOffset] ;
+        if (p == NULL) {
+            
+            return [amRemoteListDic autorelease];
+        }
         
-        memset(findKeyBuffer, 0, nBufferOffset);
-        memcpy(findKeyBuffer, p, nBufferOffset);
+        if (sizeof(p) <= 0) {
+            
+            return [amRemoteListDic autorelease];
+        }
         
-        [amRemoteListDic addEntriesFromDictionary:[self convertpBufferToMDictionary:findKeyBuffer]];
+        p1 = strstr(p, [MOBILECHFRAMEBEGIN UTF8String]);
         
-    }else {
-        
-        int nBufferOffset = p1 - p;
-        char findKeyBuffer[ nBufferOffset ] ;
-        
-        memset(findKeyBuffer, 0, nBufferOffset);
-        memcpy(findKeyBuffer, p, nBufferOffset);
-        
-        [amRemoteListDic addEntriesFromDictionary:[self convertpBufferToMDictionary:findKeyBuffer]];
+        if (p1 == NULL) {
+            
+            int nBufferOffset = p - pBuffer;
+            
+            char findKeyBuffer[nBufferOffset] ;
+            
+            memset(findKeyBuffer, 0, nBufferOffset);
+            memcpy(findKeyBuffer, p, nBufferOffset);
+            
+            [amRemoteListDic addEntriesFromDictionary:[self convertpBufferToMDictionary:findKeyBuffer]];
+            
+        }else {
+            
+            int nBufferOffset = p1 - p;
+            char findKeyBuffer[ nBufferOffset ] ;
+            
+            memset(findKeyBuffer, 0, nBufferOffset);
+            memcpy(findKeyBuffer, p, nBufferOffset);
+            
+            [amRemoteListDic addEntriesFromDictionary:[self convertpBufferToMDictionary:findKeyBuffer]];
+        }
     }
     
     return [amRemoteListDic autorelease];
+}
+
+/**
+ *  判断是否存在内容
+ *
+ *  @param pBuffer
+ *
+ *  @return YES 存在
+ */
+-(BOOL)checkBufferIslegal:(char *)pBuffer {
+
+    return strlen(pBuffer) > 0 ? YES : FALSE;
 }
 
 @end
