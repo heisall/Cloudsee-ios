@@ -924,16 +924,42 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     if (connectResultType == CONNECTRESULTTYPE_Succeed) {
         
     }else {
+        NSString *localInfoKey = LOCALANGER(@"jvcEditDeviceList_search_timeOut");
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        ystNetWorkHelperObj.ystNWHDelegate = nil;
+        
+        switch (connectResultType) {
+            case  CONNECTRESULTTYPE_ConnectFailed:
+            case  CONNECTRESULTTYPE_AbnormalConnectionDisconnected: //Disconnected Due To CloudSEE Service Has Been Stopped
+            case  CONNECTRESULTTYPE_ServiceStop:                    //"Disconnected Due To CloudSEE Service Has Been Stopped"
+            case  CONNECTRESULTTYPE_DisconnectFailed:               //Connection Failed
+            case  CONNECTRESULTTYPE_YstServiceStop:                  //CloudSEE Service Has Been Stopped
+            case  CONNECTRESULTTYPE_VerifyFailed:                      //身份验证不成功
+            case  CONNECTRESULTTYPE_ConnectMaxNumber:
+            case CONNECTRESULTTYPE_ChannelIsNotOpen:{
+
+                NSString *localstring=[NSString  stringWithFormat:@"connectResultInfo_%d",connectResultType];
+                localInfoKey = LOCALANGER(localstring);
+            }
+                break;
+            default:
+            localInfoKey = LOCALANGER(@"jvcEditDeviceList_search_timeOut");
+
+                break;
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             JVCAlertHelper *alertObj =  [JVCAlertHelper shareAlertHelper];
             
             [alertObj alertHidenToastOnWindow];
-            [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"jvcEditDeviceList_search_timeOut")];
+            [alertObj alertToastMainThreadOnWindow:localInfoKey];
         });
-      
+        
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO ;
+      
     }
 }
 
@@ -1116,6 +1142,9 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         ystNetWorkHelperObj.ystNWHDelegate = nil;
+        
+        ystNetWorkHelperObj.ystNWRODelegate  = nil;
+
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });

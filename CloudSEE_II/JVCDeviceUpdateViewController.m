@@ -47,7 +47,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     textFieldDevice = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdatedevice") backGroundImage:@"tex_field.png"];
     textFieldDevice.frame = CGRectMake((self.view.width - textFieldDevice.width)/2.0, kOriginOff_y, textFieldDevice.width, textFieldDevice.height);
     textFieldDevice.textAlignment = UITextAlignmentRight;
-    textFieldDevice.text = modelDevice.deviceUpdateType;
+    textFieldDevice.text = LOCALANGER(modelDevice.deviceUpdateType.lowercaseString);
 
     
     textFieldDevice.userInteractionEnabled = NO;

@@ -888,6 +888,15 @@ BOOL isAllLinkRun;
 }
 
 /**
+ *  设置远程回放的进度条为最大值
+ */
+- (void)setCurrentSingleViewSlideToMaxNum
+{
+    JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+
+    [singleView setSliderToMaxValue];
+}
+/**
  *  视频来O帧之后请求文本聊天
  *
  *  @param nLocalChannel 本地显示的通道编号 需减去1

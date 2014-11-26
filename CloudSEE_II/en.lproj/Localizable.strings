@@ -300,7 +300,7 @@
 "MAX_ERROR" = "Channle number list to upper limit, cannot add more";
 "sum" = "Total of ";
 "Device" = " device";
-"jvcEditDeviceList_search_timeOut" = "Query host-end binding devices timeout";
+"jvcEditDeviceList_search_timeOut" = "Inquiry timeout";
 
 //报警界面
 "jvc_alarmList_Title" = "Alarm Message";
@@ -362,7 +362,7 @@
 "noLocalVideo"="Not support to record on this device.";
 "editDeviceError" = "Failed to edit";
 "addDeviceError" = "Failed to add";
-"GetDetailDemoPointError" = "Faild to get demo list";
+"GetDetailDemoPointError" = "Faild to get data";
 "four-Screen" = "4 channels";
 "nine-Screen" = "9 channels";
 "sixteen-Screen" = "16 channels";
@@ -625,6 +625,7 @@
 "EditDeviceDetailViewController_device_cancel" = "Download cancel";
 "JvcDeviceUpdateModel"= " model：";
 "JvcDeviceUpdatedevice"= " device：";
+"unknown"= "unknown";
 "EditDeviceDetailViewController_device_title"="Device update";
 "EditDeviceDetailViewController_device_updateSuccess"="Device update success";
 

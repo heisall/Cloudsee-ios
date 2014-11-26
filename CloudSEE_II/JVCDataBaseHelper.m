@@ -126,11 +126,11 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             
             if (!result) {
                 
-                NSLog(@"error 创建数据库错误");
+                DDLogVerbose(@"error 创建数据库错误");
                 
             }else
             {
-                NSLog(@"success 创建数据库成功");
+                DDLogVerbose(@"success 创建数据库成功");
             }
         }
         
@@ -158,7 +158,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     if ([userInfoSqlite open]) {
         
-        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
         
         FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
         
@@ -198,7 +198,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     
     if ([userInfoSqlite open]) {
         
-        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@'",userName];//,userName];
+        NSString *sqlSerach = [NSString stringWithFormat:@"SELECT COUNT(*) AS 'TOTALCOUNT' FROM  USERINFOTABLE WHERE USERNAME = '%@' COLLATE NOCASE",userName];//,userName];
         
         FMResultSet *resultSet  = [userInfoSqlite executeQuery:sqlSerach];
         
@@ -233,14 +233,14 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         //转化
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,[self getCurrenttime],kLoginStateON];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName.lowercaseString,passWord,[self getCurrenttime],kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
             
-            NSLog(@"%s_插入数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据错误",__FUNCTION__);
         }else{
-            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据成功",__FUNCTION__);
             
         }
         
@@ -260,14 +260,14 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         //转化
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName,passWord,(CGFloat)timer,kLoginStateON];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO USERINFOTABLE(USERNAME,PASSWORD,LOGINTIMER,AUTOLOGINSTATE)VALUES('%@','%@','%f','%d')",userName.lowercaseString,passWord,(CGFloat)timer,kLoginStateON];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
             
-            NSLog(@"%s_插入数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据错误",__FUNCTION__);
         }else{
-            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据成功",__FUNCTION__);
             
         }
         
@@ -287,14 +287,14 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         passWord = [CommonFunc  base64StringFromText:passWord];
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET PASSWORD='%@',AUTOLOGINSTATE='%d' WHERE USERNAME = '%@'",passWord,kLoginStateON,userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET PASSWORD='%@',AUTOLOGINSTATE='%d' WHERE USERNAME = '%@' COLLATE NOCASE",passWord,kLoginStateON,userName.lowercaseString];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
             
-            NSLog(@"%s_跟新数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_跟新数据错误",__FUNCTION__);
         }else{
-            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_更新数据成功",__FUNCTION__);
             
         }
         
@@ -312,17 +312,17 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET LOGINTIMER='%f' WHERE USERNAME = '%@'",[self getCurrenttime],userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"UPDATE  USERINFOTABLE SET LOGINTIMER='%f' WHERE USERNAME = '%@' COLLATE NOCASE",[self getCurrenttime],userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
         if (!result) {
             
-            NSLog(@"%s_更新数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_更新数据错误",__FUNCTION__);
             
         }else{
             
-            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_更新数据成功",__FUNCTION__);
             
         }
         
@@ -347,11 +347,11 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         if (!result) {
             
-            NSLog(@"%s_更新数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_更新数据错误",__FUNCTION__);
             
         }else{
             
-            NSLog(@"%s_更新数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_更新数据成功",__FUNCTION__);
             
         }
         
@@ -369,17 +369,17 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
 {
     if ([userInfoSqlite open]) {
         
-        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE USERNAME = '%@'",userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"DELETE  FROM  USERINFOTABLE  WHERE USERNAME = '%@' COLLATE NOCASE",userName];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         
         if (!result) {
             
-            NSLog(@"%s_删除数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_删除数据错误",__FUNCTION__);
             
         }else{
             
-            NSLog(@"%s_删除数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_删除数据成功",__FUNCTION__);
             
         }
         
@@ -418,7 +418,7 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
             BOOL autoLoginState =  [rsSet boolForColumn:@"AUTOLOGINSTATE"];
             
             JVCUserInfoModel *userModel = [[JVCUserInfoModel alloc] init];
-            userModel.userName = strUserName;
+            userModel.userName = strUserName.lowercaseString;
             userModel.passWord = strPassWord;
             userModel.loginTimer = strLogintimer;
             userModel.bAutoLoginState = autoLoginState;
@@ -458,11 +458,11 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
         
         if (!result) {
             
-            NSLog(@"error 创建数据库错误");
+            DDLogVerbose(@"error 创建数据库错误");
             
         }else
         {
-            NSLog(@"success 创建数据库成功");
+            DDLogVerbose(@"success 创建数据库成功");
         }
     }
     
@@ -551,14 +551,14 @@ static JVCDataBaseHelper *shareDataBaseHelper = nil;
     if ([userInfoSqlite open]) {
         //转化
         
-        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO JUDGEUSERINFOTABLE(USERNAME)VALUES('%@')",userName];
+        NSString *sqlInser = [NSString stringWithFormat:@"INSERT INTO JUDGEUSERINFOTABLE(USERNAME)VALUES('%@') ",userName.lowercaseString];
         
         BOOL result  = [userInfoSqlite executeUpdate:sqlInser];
         if (!result) {
             
-            NSLog(@"%s_插入数据错误",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据错误",__FUNCTION__);
         }else{
-            NSLog(@"%s_插入数据成功",__FUNCTION__);
+            DDLogVerbose(@"%s_插入数据成功",__FUNCTION__);
             
         }
         

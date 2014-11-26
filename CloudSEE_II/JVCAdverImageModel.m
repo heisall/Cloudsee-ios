@@ -22,6 +22,8 @@
 @synthesize localDownUrl;
 @synthesize downLoadAdverSuccess;
 @synthesize localImageName;
+@synthesize enAdLick;
+@synthesize enUrlStirng;
 /**
  *  初始化
  *
@@ -29,7 +31,7 @@
  *
  *  @return 对象
  */
-- (id)initAdvertImageModel:(NSString *)string  LinkUrl:(NSString *)lickUrl  index:(int)imageIndex  downState:(BOOL)state downLoadSuccessBlock:(JVCDownLoadAdverImageSuccess)block
+- (id)initAdvertImageModel:(NSString *)string  LinkUrl:(NSString *)lickUrl  index:(int)imageIndex  downState:(BOOL)state downLoadSuccessBlock:(JVCDownLoadAdverImageSuccess)block enUrl:(NSString *)enUrl  enLickUrl:(NSString *)lickUrlEn
 {
     if(self = [super init])
     {
@@ -38,6 +40,8 @@
         self.AdLick = lickUrl;
         self.index= imageIndex;
         self.localDownUrl = nil;
+        self.enUrlStirng = enUrl;
+        self.enAdLick = lickUrlEn;
         if (!state) {
             
             [self downLoadImageWithUrl];
@@ -60,12 +64,20 @@
            NSString *documentPath =  [[JVCSystemUtility shareSystemUtilityInstance] creatDirectoryAtDocumentPath:kAdverDocument];
             
             NSFileManager *manager = [[NSFileManager alloc] init];
+        
+        NSString *urlString = self.urlStirng;
+        if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
             
-            NSString *saveIamgeName = [self.urlStirng stringByReplacingOccurrencesOfString:@"/" withString:@""];
+            urlString = self.enUrlStirng;
+            
+        }
+            NSString *saveIamgeName = [urlString stringByReplacingOccurrencesOfString:@"/" withString:@""];
             NSString *savePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",saveIamgeName]];
             if (![manager fileExistsAtPath:savePath]) {
                 
-                NSData *imageDate =  [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.urlStirng]];
+             
+                
+                NSData *imageDate =  [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:urlString]];
 
                 if (imageDate.length>0) {//保存图片
 
@@ -97,17 +109,6 @@
     });
 }
 
-
--(void) saveImage:(UIImage *)image withFileName:(NSString *)imageName ofType:(NSString *)extension inDirectory:(NSString *)directoryPath {
-    if ([[extension lowercaseString] isEqualToString:@"png"]) {
-        [UIImagePNGRepresentation(image) writeToFile:[directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", imageName, @"png"]] options:NSAtomicWrite error:nil];
-    } else if ([[extension lowercaseString] isEqualToString:@"jpg"] || [[extension lowercaseString] isEqualToString:@"jpeg"]) {
-        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", imageName, @"jpg"]] options:NSAtomicWrite error:nil];
-    } else {
-        //ALog(@"Image Save Failed\nExtension: (%@) is not recognized, use (PNG/JPG)", extension);
-        DDLogVerbose(@"文件后缀不认识");
-    }
-}
 
 - (void)dealloc
 {

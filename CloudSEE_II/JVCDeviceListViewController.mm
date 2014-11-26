@@ -126,12 +126,15 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     [self getDeviceList];
     
+     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
     
-    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
-    {
-        [self setupRefresh];
-        
-    }
+//    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
+//    {
+//        [self setupRefresh];
+//        
+//    }
+    
+    [self setupRefresh];
 
 }
 
@@ -139,17 +142,17 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 {
     [super initLayoutWithViewWillAppear];
     
-    JVCConfigModel *configObj = [JVCConfigModel shareInstance];
-    
-    if (configObj._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
-    {
-        [self.tableView removeHeader];
-        
-    }else{
-        
-        [self setupRefresh];
-
-    }
+//    JVCConfigModel *configObj = [JVCConfigModel shareInstance];
+//    
+//    if (configObj._bISLocalLoginIn == TYPELOGINTYPE_LOCAL)
+//    {
+//        [self.tableView removeHeader];
+//        
+//    }else{
+//        
+//        [self setupRefresh];
+//
+//    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -191,20 +194,27 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing
 {
-    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备下拉刷新获取设备
-        
-        [self performSelector:@selector(TableheaderEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer];
-
-        [self getDeviceList];
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
+    {
+        if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count == 0) {//没有设备下拉刷新获取设备
+            
+            [self performSelector:@selector(TableheaderEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer];
+            
+            [self getDeviceList];
+        }else{
+            
+            [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+            
+            //开启广播
+            [self StartLANSerchAllDevice];
+            
+        }
     }else{
-        [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
-            
-            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
-            
-        });
+    
+        //开启广播
+        [self StartLANSerchAllDevice];
+        [self performSelector:@selector(TableheaderEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer];
 
     }
 }
@@ -781,6 +791,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 -(void)startLanSearchDeviceTimer {
     
+    [self stopTimer];
+    
     lanSerchtimer=[NSTimer scheduledTimerWithTimeInterval:kLanSearchTime
                                                    target:self
                                                  selector:@selector(StartLANSerchAllDevice)
@@ -818,8 +830,18 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 
         });
 
+    }else{//本地直接广播，不用去服务器获取数据
+    
+        [self startLanSearchDeviceAfterGetDeviceInfo];
     }
     
+}
+
+/**
+ *  真正的去广播设备
+ */
+- (void)startLanSearchDeviceAfterGetDeviceInfo
+{
     if (NETLINTYEPE_3G== [JVCConfigModel shareInstance]._netLinkType) {
         
         return;
@@ -922,11 +944,14 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 - (void)updateDeviceInfoMathSuccess
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        DDLogVerbose(@"================");
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
         [self.tableView headerEndRefreshing];
-        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = nil;
+//        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = nil;
         [self.tableView reloadData];
+      
+        [self startLanSearchDeviceAfterGetDeviceInfo];
+
     
     });
   

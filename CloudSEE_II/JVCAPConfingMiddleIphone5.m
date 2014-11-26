@@ -18,6 +18,12 @@
     NSMutableArray *_arrayBtnList;
     
     NSMutableArray *_arrayViewList;
+    
+    NSMutableArray *_arrayCellBgNorList;
+    
+    NSMutableArray *_arrayCellBgHorList;
+    
+    NSMutableArray *_saveCellBgBtnArray;
 }
 
 @end
@@ -28,6 +34,7 @@
 static const int kMiddleIphone5ImageSeperateCount =2;//图片的名称用点分割之后，得到的数组个数，后面要给他追加@2x
 static const int  OFF_X  =  20;                      //距离左边距的距离
 static const int OPERATIONBIGITEM  = 20.0;           //距离
+static const int kAPSperateNum       = 6;           //上下个2个共4个  中间2个
 
 
 static const int  KlabeTextTitleFont    =  16;      //title的字体大小
@@ -54,6 +61,8 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
     
     [self initViewArray];
     
+    [self initCellBgselectArray];
+    
     int seperateNum = KSeperateNum;
     
     detailArray = nil;
@@ -64,8 +73,11 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
 //        seperateNum = KSeperateNum-1;
 //    }
 
+    NSString *cellBgImageHeight = [UIImage imageBundlePath:[_arrayCellBgNorList objectAtIndex:0]];
+    UIImage *cellBgImageNorHeight = [[UIImage alloc] initWithContentsOfFile:cellBgImageHeight];
+    CGFloat heightSeperate = (self.frame.size.height-KSeperateNum*cellBgImageNorHeight.size.height)/kAPSperateNum;
 
-    CGFloat height = self.frame.size.height/titleArray.count;
+    CGFloat height = cellBgImageNorHeight.size.height;
     
     for (int i = 0;i<titleArray.count;i++) {
         /**
@@ -82,7 +94,25 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
             strDetailTitle = [detailArray objectAtIndex:i];
         }
         
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, i*height, self.frame.size.width, height)];
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0,2*heightSeperate+i*(heightSeperate+height), self.frame.size.width, cellBgImageNorHeight.size.height)];
+        
+        NSString *cellBgImage = [UIImage imageBundlePath:[_arrayCellBgNorList objectAtIndex:i]];
+        UIImage *cellBgImageNor = [[UIImage alloc] initWithContentsOfFile:cellBgImage];
+        
+        NSString *cellBgHor = [UIImage imageBundlePath:[_arrayCellBgHorList objectAtIndex:i]];
+        UIImage *cellBgImageHor = [[UIImage alloc] initWithContentsOfFile:cellBgHor];
+        
+        UIButton *cellBgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        cellBgBtn.userInteractionEnabled = NO;
+        cellBgBtn.frame = CGRectMake((self.width - cellBgImageNor.size.width)/2.0, 0, cellBgImageNor.size.width, cellBgImageNor.size.height);
+        [cellBgBtn setBackgroundImage:cellBgImageNor forState:UIControlStateNormal];
+        [cellBgBtn setBackgroundImage:cellBgImageHor forState:UIControlStateSelected];
+        [_saveCellBgBtnArray addObject:cellBgBtn];
+        [contentView addSubview:cellBgBtn];
+        [cellBgImageHor release];
+        [cellBgImageNor release];
+
+
         contentView.backgroundColor = [UIColor clearColor];
         
         NSString *imageHeadStr = [UIImage imageBundlePath:[_arrayList objectAtIndex:i]];
@@ -137,15 +167,15 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
             [imageViewNextImage release];
         }
         
-        NSString *imageboardVC = [UIImage imageBundlePath:@"boderBigLine.png"];
-        UIImage *boderImage = [[UIImage alloc] initWithContentsOfFile:imageboardVC];
-        
-        UIImageView *_boderImageView=[[UIImageView alloc] init];
-        _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
-        _boderImageView.userInteractionEnabled = YES;
-        [_boderImageView setImage:boderImage];
-        [contentView addSubview:_boderImageView];
-        [_boderImageView release];
+//        NSString *imageboardVC = [UIImage imageBundlePath:@"boderBigLine.png"];
+//        UIImage *boderImage = [[UIImage alloc] initWithContentsOfFile:imageboardVC];
+//        
+//        UIImageView *_boderImageView=[[UIImageView alloc] init];
+//        _boderImageView.frame=CGRectMake((self.frame.size.width-boderImage.size.width)/2.0, height-boderImage.size.height, boderImage.size.width, boderImage.size.height);
+//        _boderImageView.userInteractionEnabled = YES;
+//        [_boderImageView setImage:boderImage];
+//        [contentView addSubview:_boderImageView];
+//        [_boderImageView release];
         
         contentView.tag = i;
         /**
@@ -183,6 +213,10 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
     
     UIButton *btn = [_arrayBtnList objectAtIndex:selectIndex];
     
+    UIButton *btnBg = [_saveCellBgBtnArray objectAtIndex:selectIndex];
+    
+    btnBg.selected = YES;
+    
     btn.selected = YES;
     
 }
@@ -201,7 +235,11 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
     
     UIButton *btn = [_arrayBtnList objectAtIndex:selectIndex];
     
+    UIButton *btnBg = [_saveCellBgBtnArray objectAtIndex:selectIndex];
+    
     btn.selected = NO;
+    
+    btnBg.selected = NO;
     
 }
 
@@ -265,6 +303,23 @@ static const int  KSeperateNum          =  3;       //中文的时候3个空  �
 - (void)initViewArray
 {
     _arrayViewList = [[NSMutableArray alloc] init];
+}
+
+- (void)initCellBgselectArray
+{
+    _arrayCellBgNorList  = [[NSMutableArray alloc] init];
+    
+    [_arrayCellBgNorList addObject:@"op_audioCellBgNor.png"];
+    [_arrayCellBgNorList addObject:@"op_ytCellbgNor.png"];
+    [_arrayCellBgNorList addObject:@"op_talkCellBgNor.png"];
+    
+    _arrayCellBgHorList  = [[NSMutableArray alloc] init];
+    
+    [_arrayCellBgHorList addObject:@"op_audioCellBgHor.png"];
+    [_arrayCellBgHorList addObject:@"op_ytCellbgNor.png"];
+    [_arrayCellBgHorList addObject:@"op_talkCellBgHor.png"];
+    
+    _saveCellBgBtnArray  = [[NSMutableArray alloc] init];
 }
 
 /**

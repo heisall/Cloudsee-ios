@@ -245,10 +245,13 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  */
 -(void)SerachLANAllDevicesAsynchronousRequestWithDeviceListData{
     
-    [CacheMArrayDeviceList removeAllObjects];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    
-    JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+        [CacheMArrayDeviceList removeAllObjects];
+        
+        JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+        
+    });
 }
 
 /**

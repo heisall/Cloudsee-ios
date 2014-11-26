@@ -157,4 +157,9 @@ typedef NS_ENUM(int, EffectType)
  */
 -(void)updateEffectBtn:(int)flagVale;
 
+/**
+ *  设置进度条到默认进度条
+ */
+- (void)setSliderToMaxValue;
+
 @end
