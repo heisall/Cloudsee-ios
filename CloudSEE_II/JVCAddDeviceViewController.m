@@ -216,6 +216,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
              */
             if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic] ) {
                 DDLogInfo(@"===![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic");
+                DDLogVerbose(@"======%@==",resutlDic);
                 /**
                  *  判断返回字典的rt字段是否为0
                  */
