@@ -382,7 +382,6 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
         
         NSDictionary *remoteDict=(NSDictionary *)deviceRemoteInfoID;
         
-        DDLogVerbose(@"刷新设备状态的起始数据=%@",remoteDict);
 
         [self remoteDeviceListDataToModel:remoteDict];
         
