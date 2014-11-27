@@ -417,6 +417,15 @@ BOOL isAllLinkRun;
  */
 -(void)handleDoubleTabFrom:(id)sender{
     
+    JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
+
+    if (horiBar.hidden == NO) {
+        
+        return;
+    }
+
+
+    
     UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
     
     int channelsCount = [self channelCountAtSelectedYstNumber];
@@ -434,6 +443,7 @@ BOOL isAllLinkRun;
     self.isShowVideo = TRUE;
     [self changeContenView];
     self.isShowVideo = FALSE;
+    
 }
 
 /**
@@ -475,14 +485,13 @@ BOOL isAllLinkRun;
         if (horiBar.hidden) {
             
             [_clickSingleView setVerticalContEntViewState:![_clickSingleView getVerticalContenViewState]];
-//            [_clickSingleView setlabelVerticalYSTText:@"text"];
         }
         
         return;
     }else{
         JVCMonitorConnectionSingleImageView *_clickSingleView=(JVCMonitorConnectionSingleImageView*)viewimage.view;
 
-        [_clickSingleView setVerticalContEntViewState:NO];
+        [_clickSingleView setVerticalContEntViewState:YES];
 
     }
     
@@ -666,6 +675,13 @@ BOOL isAllLinkRun;
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
+    if (showWindowNumberType_One !=self.imageViewNums) {
+        
+        JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
+        
+        [singleView setVerticalContEntViewState:YES];
+    }
+
 
 }
 
