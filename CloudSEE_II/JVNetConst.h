@@ -431,4 +431,5 @@ typedef struct
  *  图像翻转的
  */
 #define EX_MD_SUBMIT	 0x02
+#define EX_ALARM_SUBMIT	 0x02
 
