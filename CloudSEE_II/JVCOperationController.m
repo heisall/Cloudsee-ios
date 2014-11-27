@@ -1247,8 +1247,10 @@ char remoteSendSearchFileBuffer[29] = {0};
         }
         
         if (_splitViewCon.frame.size.height>0) {
+            
             [self gotoShowSpltWindow];
         }
+        
         [JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin = YES;
 
         self.navigationController.navigationBarHidden = YES;
@@ -1291,8 +1293,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     return _isPlayBackVideo;
     
 }
-
-
 
 #pragma mark 判断当前是否存在一些特殊功能的开启《音频监听、远程回放等功能》
 -(BOOL)returnOperationState{
