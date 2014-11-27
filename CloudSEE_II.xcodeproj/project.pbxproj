@@ -556,7 +556,6 @@
 		AD3FB61819F682F700034461 /* sca_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AD3FB61719F682F700034461 /* sca_sound.mp3 */; };
 		AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3FB61919F6A18800034461 /* libtransSing.a */; };
 		AD568E801A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD568E7F1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m */; };
-		AD568E821A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */; };
 		AD59EFE51A086240001688FC /* RMDateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD21A187F6F004214A5 /* JVCWheelShowOperationController.m */; };
 		AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */ = {isa = PBXBuildFile; fileRef = AD616CD51A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m */; };
@@ -639,7 +638,8 @@
 		ADAB26E11A04713200EDA0C6 /* sca_finshed_en.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */; };
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
 		ADC8288E1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */; };
-		ADC828911A26D81D002F87F5 /* JVCAlarmManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC828901A26D81D002F87F5 /* JVCAlarmManagerHelper.m */; };
+		ADC828941A274400002F87F5 /* JVCAlarmManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC828931A274400002F87F5 /* JVCAlarmManagerHelper.m */; };
+		ADC828961A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */; };
 		ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */; };
 		ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */; };
 		ADCF44CF1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */; };
@@ -1324,7 +1324,6 @@
 		AD3FB61919F6A18800034461 /* libtransSing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtransSing.a; sourceTree = "<group>"; };
 		AD568E7E1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCVoiceencScanNewDeviceViewController.h; sourceTree = "<group>"; };
 		AD568E7F1A23034C0090D546 /* JVCVoiceencScanNewDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCVoiceencScanNewDeviceViewController.m; sourceTree = "<group>"; };
-		AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.10.2.a; sourceTree = "<group>"; };
 		AD59EFE31A086240001688FC /* RMDateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDateSelectionViewController.h; sourceTree = "<group>"; };
 		AD59EFE41A086240001688FC /* RMDateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDateSelectionViewController.m; sourceTree = "<group>"; };
 		AD616CD11A187F6F004214A5 /* JVCWheelShowOperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWheelShowOperationController.h; sourceTree = "<group>"; };
@@ -1466,8 +1465,9 @@
 		ADAB26E01A04713200EDA0C6 /* sca_finshed_en.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sca_finshed_en.mp3; sourceTree = "<group>"; };
 		ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sca_device_new@2x.png"; sourceTree = "<group>"; };
 		ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v3.2.2.2.a; sourceTree = "<group>"; };
-		ADC8288F1A26D81D002F87F5 /* JVCAlarmManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAlarmManagerHelper.h; sourceTree = "<group>"; };
-		ADC828901A26D81D002F87F5 /* JVCAlarmManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmManagerHelper.m; sourceTree = "<group>"; };
+		ADC828921A274400002F87F5 /* JVCAlarmManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JVCAlarmManagerHelper.h; path = ../JVCAlarmManagerHelper.h; sourceTree = "<group>"; };
+		ADC828931A274400002F87F5 /* JVCAlarmManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JVCAlarmManagerHelper.m; path = ../JVCAlarmManagerHelper.m; sourceTree = "<group>"; };
+		ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.11.1.a; sourceTree = "<group>"; };
 		ADCF44C71A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWiredInputInfoTableViewController.h; sourceTree = "<group>"; };
 		ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWiredInputInfoTableViewController.m; sourceTree = "<group>"; };
 		ADCF44CA1A14C20400D1BF34 /* JVCApConfigSSIDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigSSIDListView.h; sourceTree = "<group>"; };
@@ -1532,7 +1532,7 @@
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
 				AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */,
-				AD568E821A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a in Frameworks */,
+				ADC828961A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2824,8 +2824,8 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */,
 				ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */,
-				AD568E811A23564D0090D546 /* libjvnetsdkV2.0.76.3.10.2.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
 				A7A575FD1A130AA2000D0BBC /* libz.dylib */,
@@ -3178,8 +3178,8 @@
 		ADA9E4971A12F894007EB209 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				ADC8288F1A26D81D002F87F5 /* JVCAlarmManagerHelper.h */,
-				ADC828901A26D81D002F87F5 /* JVCAlarmManagerHelper.m */,
+				ADC828921A274400002F87F5 /* JVCAlarmManagerHelper.h */,
+				ADC828931A274400002F87F5 /* JVCAlarmManagerHelper.m */,
 				ADA9E4981A12FE05007EB209 /* JVCConnectCallBackHelper.h */,
 				ADA9E4991A12FE05007EB209 /* JVCConnectCallBackHelper.m */,
 				ADA47C0E1A133AF8003AA90A /* JVCNetworkSettingHelper.h */,
@@ -3837,7 +3837,6 @@
 				A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */,
 				A7F5559019D95E2E0009F75C /* UINavigationController+Rotation_IOS6.m in Sources */,
 				ADD3EFF81A10C72900C7F329 /* FMDatabasePool.m in Sources */,
-				ADC828911A26D81D002F87F5 /* JVCAlarmManagerHelper.m in Sources */,
 				AD014DDC19F4C05C00E3D0FB /* JVCAPConfigViewController.mm in Sources */,
 				ADA77C0019D0250E003EE7A1 /* main.m in Sources */,
 				A72DCD2519EBF79500C9A1ED /* JVCLocalAddDeviceViewController.m in Sources */,
@@ -3850,6 +3849,7 @@
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
+				ADC828941A274400002F87F5 /* JVCAlarmManagerHelper.m in Sources */,
 				AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */,
 				A7F4869719E61BFD00C10B2B /* JVCAddDevicePopView.m in Sources */,
 				A7B172A21A1AE6D700D364CB /* LDProgressView.m in Sources */,
