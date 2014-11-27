@@ -111,6 +111,7 @@
 		A7B5D1E21A271215007F3B16 /* log_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B5D1E11A271215007F3B16 /* log_send@2x.png */; };
 		A7B5D1E51A2718BA007F3B16 /* effect_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B5D1E31A2718BA007F3B16 /* effect_4@2x.png */; };
 		A7B5D1E61A2718BA007F3B16 /* effect_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B5D1E41A2718BA007F3B16 /* effect_0@2x.png */; };
+		A7B5D1E81A274486007F3B16 /* aaa.wav in Resources */ = {isa = PBXBuildFile; fileRef = A7B5D1E71A274486007F3B16 /* aaa.wav */; };
 		A7B6313B1A25987600ED2F3D /* arm_Nex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6313A1A25987600ED2F3D /* arm_Nex@2x.png */; };
 		A7B6EE131A149EC90024F836 /* JVCYTOperaitonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */; };
 		A7B6EE1E1A14A9030024F836 /* yt_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B6EE151A14A9030024F836 /* yt_auto@2x.png */; };
@@ -819,6 +820,7 @@
 		A7B5D1E11A271215007F3B16 /* log_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "log_send@2x.png"; sourceTree = "<group>"; };
 		A7B5D1E31A2718BA007F3B16 /* effect_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "effect_4@2x.png"; sourceTree = "<group>"; };
 		A7B5D1E41A2718BA007F3B16 /* effect_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "effect_0@2x.png"; sourceTree = "<group>"; };
+		A7B5D1E71A274486007F3B16 /* aaa.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = aaa.wav; sourceTree = "<group>"; };
 		A7B6313A1A25987600ED2F3D /* arm_Nex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_Nex@2x.png"; sourceTree = "<group>"; };
 		A7B6EE111A149EC90024F836 /* JVCYTOperaitonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCYTOperaitonView.h; sourceTree = "<group>"; };
 		A7B6EE121A149EC90024F836 /* JVCYTOperaitonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCYTOperaitonView.m; sourceTree = "<group>"; };
@@ -2879,6 +2881,7 @@
 		ADA77BFA19D0250E003EE7A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7B5D1E71A274486007F3B16 /* aaa.wav */,
 				ADD6267B1A046D8200BD877F /* voi */,
 				A7FC002619FCD874006B31FA /* learn_2_ch.mp3 */,
 				A7FC002719FCD874006B31FA /* learn_1_ch.mp3 */,
@@ -3435,6 +3438,7 @@
 				AD3BDCB519EC0546001B16D7 /* sca_log@2x.png in Resources */,
 				A7F46A8619F960D600AC1B1F /* arm_dev_hand@2x.png in Resources */,
 				A7F5011E19D4EFB400AA78F0 /* Icon.png in Resources */,
+				A7B5D1E81A274486007F3B16 /* aaa.wav in Resources */,
 				A7F5014919D5344800AA78F0 /* mor_IconUser@2x.png in Resources */,
 				A7B4DE791A24838F00FA1F95 /* op_audioCellBgHor@2x.png in Resources */,
 				A7F43F5D19FBC5BE00C11109 /* con_fieldUnSec@2x.png in Resources */,
