@@ -34,16 +34,14 @@
 #import "JVCMediaMacro.h"
 
 static const int            STARTHEIGHTITEM         =  40;
-static const NSString      *BUNDLENAMEBottom        = @"customBottomView_cloudsee.bundle"; //bundle的名称
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
 
 static const CGFloat         kTalkViewWithHeight     = 60.0f;
 static const CGFloat         kTalkViewWithWidth      = 200.0;
 static const int             kAlertTag               = 19384324;
-static const NSTimeInterval  kPopAfterTimer          = 0.3;//退出时的延迟
 static const NSTimeInterval  kRemoteBackTimer        = 0.3;//远程回放延迟
-
+static const NSTimeInterval  kTalkDelayTimer         = 2.0f;//远程回放延迟
 
 
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
@@ -82,6 +80,7 @@ bool selectState_audio ;
     bool                     _isCapState;
     
     NSData                  *saveImageDate; //保存图片的二进制文件
+    NSTimer                 *talkTimer;
 }
 
 enum StorageType {
@@ -493,8 +492,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
-    DDLogCVerbose(@"%s-----talk",__FUNCTION__);
-    
     if ([jvcCloudseeObj checknLocalChannelIsDisplayVideo:_managerVideo.nSelectedChannelIndex+1] && ! isCurrentHomePC) {
         
         return;
@@ -517,7 +514,58 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 /**
- *  停止语音请求
+ *  开启语音对讲延迟播放声音的心跳
+ */
+-(void)startCheckTalkTimer{
+
+    [self performSelectorOnMainThread:@selector(talkTimer) withObject:nil waitUntilDone:NO];
+}
+
+/**
+ *  停止
+ */
+-(void)stopTalkTimer{
+    
+    if (isLongPressedStartTalk) {
+        
+        if (talkTimer !=nil) {
+            
+            if ([talkTimer isValid]) {
+                
+                [talkTimer invalidate];
+            }
+            
+            talkTimer = nil;
+        }
+    }
+}
+
+/**
+ *  开启对讲的Time
+ */
+-(void)talkTimer{
+    
+   
+    [self stopTalkTimer];
+
+    if (talkTimer == nil) {
+        
+        talkTimer = [NSTimer scheduledTimerWithTimeInterval:kTalkDelayTimer target:self selector:@selector(changeTalkStatus) userInfo:nil repeats:NO];
+    }
+}
+
+/**
+ *  改变语音对讲的状态
+ */
+-(void)changeTalkStatus {
+
+    DDLogVerbose(@"%s-----#00000000000----------",__FUNCTION__);
+     talkTimer = nil;
+     isLongPressedStartTalk = FALSE;
+}
+
+/**
+ *  语音请求
  */
 -(void)beginTalk {
     
@@ -547,6 +595,8 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)stopTalk {
     
+    
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -558,15 +608,17 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [aqCon changeRecordState:FALSE];
         
-        isLongPressedStartTalk = FALSE;
         
         dispatch_async(dispatch_get_main_queue(), ^{
         
+            [self talkTimer];
             [self RemoveTalkView];
         
         });
     
     });
+    
+    
 }
 
 #pragma mark -------------- JVCManagePalyVideoComtroller delegate
@@ -779,7 +831,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark 返回上一级
 -(void)BackClick{
     
-    
     if (_isPlayBackVideo&&!self.isPlayBackVideo) {
         //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
 
@@ -800,6 +851,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         
     }else{
+        
+        [self stopTalkTimer];
         
         self.navigationController.navigationBarHidden = NO;
         //关闭文本、视频的回调
@@ -2414,7 +2467,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
 
     
-    [[JVCAlertHelper shareAlertHelper] alertToastOnWindowWithText:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil) delayTime:3 ];
+    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil) ];
 }
 
 /**
