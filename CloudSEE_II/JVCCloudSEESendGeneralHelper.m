@@ -624,6 +624,89 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
 
+#pragma mark ----------- 报警相关设置
+
+/**
+ *  移动侦测打开（关闭）
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param nStatus      1：开 0：关闭
+ */
+-(void)RemoteSetMotionDetectingStatus:(int)nJvChannelID withStatus:(int)nStatus {
+
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    
+    m_stPacket.nPacketType = RC_EXTEND;
+    m_stPacket.nPacketCount = RC_EX_MDRGN;
+    
+    EXTEND *m_pstExt = (EXTEND*) (m_stPacket.acData);
+    m_pstExt->nType = EX_MD_SUBMIT;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s=%d;",[kDeviceMotionDetecting UTF8String], nStatus);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+}
+
+/**
+ *  安全防护打开（关闭）
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param nStatus      1：开 0：关闭
+ */
+-(void)RemoteSetAlarmStatus:(int)nJvChannelID withStatus:(int)nStatus {
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    
+    m_stPacket.nPacketType = RC_EXTEND;
+    m_stPacket.nPacketCount = RC_EX_ALARM;
+    
+    EXTEND *m_pstExt = (EXTEND*) (m_stPacket.acData);
+    m_pstExt->nType = EX_ALARM_SUBMIT;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s=%d;",[kDeviceAlarm UTF8String], nStatus);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+}
+
+/**
+ *  安全防护打开（关闭）
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param nStatus      1：开 0：关闭
+ */
+-(void)RemoteSetAlarmTime:(int)nJvChannelID withBeginTime:(int)nBeginHours withEndTime:(int)nEndHours{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    
+    m_stPacket.nPacketType = RC_EXTEND;
+    m_stPacket.nPacketCount = RC_EX_ALARM;
+    
+    EXTEND *m_pstExt = (EXTEND*) (m_stPacket.acData);
+    m_pstExt->nType = EX_ALARM_SUBMIT;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s==%d:00:00-%d:00:00;",[kDeviceAlarmTime0 UTF8String], nBeginHours,nEndHours);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+}
+
 #pragma mark 设置图像反转
 -(void)RemoteEffectModel:(int)nJvChannelID
            effectType:(int)effectType

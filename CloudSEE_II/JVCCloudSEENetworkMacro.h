@@ -168,9 +168,12 @@ static NSString const *kDeviceFrameFlagKey        =  @"MobileStreamQos";  // 1:�
 static NSString const *kDeviceMobileFrameFlagKey  =  @"MobileQuality";    // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";       // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
 
-static NSString const *kDeviceAlarmType   =  @"type";        // 1:门磁  2手环
-static NSString const *KEFFECTFLAG        =  @"effect_flag"; //图像翻转的
-static NSString const *KStorageMode       =  @"storageMode"; //设置录像的模式
+static NSString const *kDeviceAlarmType        =  @"type";        // 1:门磁  2手环
+static NSString const *KEFFECTFLAG             =  @"effect_flag"; //图像翻转的
+static NSString const *KStorageMode            =  @"storageMode"; //设置录像的模式
+static NSString const *kDeviceMotionDetecting  =  @"bMDEnable";   //移动侦测
+static NSString const *kDeviceAlarm            =  @"bMDEnable";   //安全防护
+static NSString const *kDeviceAlarmTime0       =  @"alarmTime0";  //安全防护时间段
 
 static NSString const *KOldHomeIPCHeight  =  @"height"; //高
 static NSString const *KOldHomeIPCWidth   =  @"width";  //宽
