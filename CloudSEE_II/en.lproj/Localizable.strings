@@ -639,7 +639,8 @@
 "JVCLog_clear"        = "Empty the success！";
 "DeviceManagerLog.md" = "Device&channel Log";  //设备log
 "LoginManagerLog.md"  = "Login Log";           //登录的log
-
+"kCloudSEECatchCrash" = "Crash Log";//崩溃的的log
+"temperrolog.md" = "temperrolog.md";
 "JVCRemoteVideoPlayBackVControler_alarmType_A" = "Alarm recording";
 "JVCRemoteVideoPlayBackVControler_alarmType_M" = "Motion detection";
 "JVCRemoteVideoPlayBackVControler_alarmType_T" = "Regular recording";

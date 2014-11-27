@@ -1113,6 +1113,10 @@ char remoteSendSearchFileBuffer[29] = {0};
         return NO;
     }
     
+    if (isLongPressedStartTalk) {
+        return  NO;
+    }
+    
     [self removHelpView];
     
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;;
@@ -1125,6 +1129,11 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 - (BOOL)shouldAutorotate
 {
+    if (isLongPressedStartTalk) {
+       
+        return  NO;
+    }
+    
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;
 }
 
@@ -1162,10 +1171,10 @@ char remoteSendSearchFileBuffer[29] = {0};
 
     _managerVideo.isShowVideo = FALSE;
     
-    if (isLongPressedStartTalk) {
-        
-        [self stopTalk];
-    }
+//    if (isLongPressedStartTalk) {
+//        
+//        [self stopTalk];
+//    }
 }
 
 
@@ -1201,6 +1210,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         self.navigationController.navigationBarHidden = YES;
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
+        [_managerVideo setSingleViewVerticalViewState:YES];
      
         /**
          *  是否多屏，多屏的时候，变成单屏

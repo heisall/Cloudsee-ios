@@ -53,7 +53,7 @@
         BOOL                                 connectStatus       = [ystNetWorkHelperObj checknLocalChannelExistConnect:channelID];
         JVCDeviceModel                      *deviceModel         = [[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:channelModel.strDeviceYstNumber];
         
-        NSString                            *connectInfo             = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
+        NSString                            *connectInfo             = [NSString stringWithFormat:@"%@-%d",channelModel.strNickName,channelModel.nChannelValue];
         
         
         DDLogVerbose(@"%s--------------connectInfo=%@",__FUNCTION__,connectInfo);

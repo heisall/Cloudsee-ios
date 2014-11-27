@@ -14,7 +14,7 @@
 FILE *appLogHandle    = NULL;
 FILE *deviceLogHandle = NULL;
 FILE *LoginLogHandle  = NULL;
-
+FILE *CatchCrash      = NULL;
 static JVCLogHelper *jvcLogHelper = nil;
 
 /**
@@ -89,6 +89,9 @@ static JVCLogHelper *jvcLogHelper = nil;
                 break;
             case LogType_LoginManagerLogPath:
                 [self writeHandleDataToFile:text handleType:LoginLogHandle];
+                break;
+            case LogType_CatchCrash:
+                [self writeHandleDataToFile:text handleType:CatchCrash];
                 break;
                 
             default:

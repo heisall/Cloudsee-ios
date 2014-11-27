@@ -8,6 +8,7 @@
 
 #import "JVCBaseGeneralTableViewController.h"
 #import "MJRefreshHeaderView.h"
+#import "JVCCatchCrash.h"
 #import "UIScrollView+MJRefresh.h"
 
 static const int  NavicationViewControllersCountINTableView = 1;//navicationbar的viewcontroller的数量，1标示根试图
@@ -133,6 +134,8 @@ static const int  NavicationViewControllersCountINTableView = 1;//navicationbar�
 {
     [super viewDidLoad];
     
+    //注册消息处理函数的处理方法
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     if (self.navigationController.viewControllers.count != NavicationViewControllersCountINTableView) {//不是顶级试图
         

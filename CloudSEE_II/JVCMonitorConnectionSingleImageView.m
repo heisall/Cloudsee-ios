@@ -19,6 +19,10 @@
 @synthesize nStreamType,isHomeIPC;
 @synthesize iEffectType,nStorageType,isNewDevice,isNewHomeIPC;
 
+static const int  KVerticalHeight  = 44;
+static const int  KVerticalViewTag = 133242;
+static const int  kLabelOriginX    = 20;
+
 int   _iConnectInfoIndex;
 float min_offset;
 
@@ -110,18 +114,31 @@ float min_offset;
 	[connectInfoTV release];
     [connectInfoTV setHidden:YES];
     
+    viewContent = [[UIView alloc] initWithFrame:CGRectMake(0, self.height - KVerticalHeight, self.width, KVerticalHeight)];
+    viewContent.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    viewContent.tag = KVerticalViewTag;
+    
+    
     UIImage *effectImage=[UIImage imageNamed:@"effect_0.png"];
     
     UIButton *effectBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     effectBtn.tag=108;
-    effectBtn.frame=CGRectMake(self.frame.size.width-effectImage.size.width-10.0, self.frame.size.height-effectImage.size.height-10.0, effectImage.size.width, effectImage.size.height);
+    effectBtn.frame=CGRectMake(self.frame.size.width-effectImage.size.width-10.0, (KVerticalHeight - effectImage.size.height)/2.0, effectImage.size.width, effectImage.size.height);
     [effectBtn setBackgroundImage:effectImage forState:UIControlStateNormal];
     effectBtn.alpha=0.8;
     [effectBtn addTarget:self action:@selector(effectClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:effectBtn];
+    [viewContent addSubview:effectBtn];
+    viewContent.hidden = YES;
+    [self addSubview:viewContent];
+    [viewContent release];
     
     effectBtn.hidden=YES;
 
+    labelVerticalYST = [[UILabel alloc] initWithFrame:CGRectMake(kLabelOriginX, effectBtn.top, effectBtn.left, effectBtn.height)];
+    labelVerticalYST.backgroundColor = [UIColor clearColor];
+    labelVerticalYST.textColor = [UIColor whiteColor];
+    [viewContent addSubview:labelVerticalYST];
+    [labelVerticalYST release];
     
     UIImage *_playImage = [UIImage imageNamed:@"play_1.png"];
     
@@ -586,6 +603,8 @@ float min_offset;
     sourceTV.hidden=YES;
     [self bringSubviewToFront:sourceTV];
     
+    labelVerticalYST.text = connectInfo;
+    
     UILabel *selectedSourceTV=(UILabel*)[self viewWithTag:102];
     selectedSourceTV.text=[NSString stringWithFormat:@"%@",@""];
     [selectedSourceTV setHidden:YES];
@@ -784,6 +803,8 @@ float min_offset;
     
 	UIActivityIndicatorView *activity =(UIActivityIndicatorView*)[imgView viewWithTag:104];
     
+//    labelVerticalYST.text = @"";
+    
 	if (activity.isAnimating) {
         
 		[activity stopAnimating];
@@ -852,7 +873,12 @@ float min_offset;
 - (void)setEffectBtnState:(BOOL)state
 {
     
+    
     UIButton *effectBtn=(UIButton*)[self viewWithTag:108];
+    
+    if (viewContent.hidden) {
+        return;
+    }
     
     if ( self.iEffectType == -1 ) {
         
@@ -888,6 +914,36 @@ float min_offset;
     
         [self setEffectBtnState:YES];
     }
+}
+
+/**
+ *  设置竖屏条的状态
+ *
+ *  @param state yes 显示  no 不显示
+ */
+- (void)setVerticalContEntViewState:(BOOL)state
+{
+    
+    viewContent.hidden = state;
+}
+
+/**
+ *  设置显示的云视通号
+ *
+ *  @param string 内容
+ */
+- (void)setlabelVerticalYSTText:(NSString *)string
+{
+    labelVerticalYST.text = string;
+}
+/**
+ *  返回竖屏条的状态
+ *
+ *  @return yes 显示  no  隐藏
+ */
+- (BOOL)getVerticalContenViewState
+{
+    return viewContent.hidden ;
 }
 
 /**

@@ -54,6 +54,10 @@ static  const   NSString  *KSuggestSoftVersion          =  @"softversion";
 static  const   NSString  *KSuggestContent              =  @"content";
 static  const   NSString  *KSuggestContact              =  @"contact";
 static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.230/api.php?";
+//static  const   NSString  *KSuggestUrlEN                 =  @"http://98.126.77.202/api.php";
+
+static  const   NSString  *KSendLogURlCH                 =  @"http://182.92.242.230/api.php?mod=uplog";
+
 
 
 - (void)initReceiveDate
@@ -134,6 +138,7 @@ static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.2
     [dicSuggest setObject:content forKey:KSuggestContent];
     [dicSuggest setObject:phoneNum forKey:KSuggestContact];
     [dicSuggest setObject:KSuggestcpuValue forKey:KSuggestCpu];
+    
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",KSuggestUrl,[self getRequestKeyString:dicSuggest]];
     [dicSuggest release];
@@ -299,6 +304,19 @@ static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.2
         [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)alertTage:0];
     
     });
+}
+
+/**
+ *  发送日志
+ *
+ *  @param content 日志内容
+ *
+ *  @return
+ */
+- (int)sendLogMesssage:(NSString *)content
+{
+    
+    return 1;
 }
 
 /**

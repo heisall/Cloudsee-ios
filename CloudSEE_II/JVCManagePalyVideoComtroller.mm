@@ -13,6 +13,7 @@
 #import "JVCAppHelper.h"
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCHorizontalScreenBar.h"
+#import "GlView.h"
 
 @interface JVCManagePalyVideoComtroller () {
 
@@ -442,7 +443,14 @@ BOOL isAllLinkRun;
  */
 -(void)handleSingelTabFrom_FOUR:(id)sender{
     
+
     UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
+    JVCMonitorConnectionSingleImageView *_clickSingleView=(JVCMonitorConnectionSingleImageView*)viewimage.view;
+
+    if ([_clickSingleView._glView._kxOpenGLView isHidden]) {
+        
+        return;
+    }
     
     JVCHorizontalScreenBar *horiBar = [JVCHorizontalScreenBar shareHorizontalBarInstance];
     
@@ -458,13 +466,24 @@ BOOL isAllLinkRun;
     
     if (showWindowNumberType_One ==self.imageViewNums) {
         
+
         if ([_operationController returnIsplayBackVideo]) {
             
-            JVCMonitorConnectionSingleImageView *_clickSingleView=(JVCMonitorConnectionSingleImageView*)viewimage.view;
             _clickSingleView._isPlayBackState=!_clickSingleView._isPlayBackState;
         }
         
+        if (horiBar.hidden) {
+            
+            [_clickSingleView setVerticalContEntViewState:![_clickSingleView getVerticalContenViewState]];
+//            [_clickSingleView setlabelVerticalYSTText:@"text"];
+        }
+        
         return;
+    }else{
+        JVCMonitorConnectionSingleImageView *_clickSingleView=(JVCMonitorConnectionSingleImageView*)viewimage.view;
+
+        [_clickSingleView setVerticalContEntViewState:NO];
+
     }
     
     
@@ -805,7 +824,7 @@ BOOL isAllLinkRun;
         [channels retain];
         
         JVCChannelModel                     *channelModel            = (JVCChannelModel *)[channels objectAtIndex:channelIndex];
-        NSString                            *connectInfo             = [NSString stringWithFormat:@"%@-%d",channelModel.strDeviceYstNumber,channelModel.nChannelValue];
+        NSString                            *connectInfo             = [NSString stringWithFormat:@"%@-%d",channelModel.strNickName,channelModel.nChannelValue];
     
         //重复连接
         if (!connectStatus) {
@@ -1142,6 +1161,29 @@ BOOL isAllLinkRun;
 {
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
     return singleVideoShow.isNewHomeIPC;
+}
+
+/**
+ *  设置singleview的隐藏显示状态
+ *
+ *  @param state yes 隐藏  no 显示
+ */
+- (void)setSingleViewVerticalViewState:(BOOL)state
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    [singleVideoShow setVerticalContEntViewState:state];
+}
+
+/**
+ *  设置singelview的云视通显示
+ *
+ *  @param string 文字
+ */
+- (void)setSingleViewVerticalViewLabelText:(NSString *)string
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    [singleVideoShow setlabelVerticalYSTText:string];
+    
 }
 
 @end

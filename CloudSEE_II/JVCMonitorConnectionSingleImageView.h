@@ -66,6 +66,9 @@ typedef NS_ENUM(int, EffectType)
     int             nStorageType;    //1：手动 0：报警
     BOOL            isNewDevice;     //YES:05
     BOOL            isNewHomeIPC;    //YES:新的家用产品
+    
+    UIView          *viewContent;   // 竖屏下面的条
+    UILabel         *labelVerticalYST;   // 竖屏下面的条的云视通显示
 }
 
 @property (nonatomic,assign) int      singleViewType,wheelShowType;
@@ -161,5 +164,26 @@ typedef NS_ENUM(int, EffectType)
  *  设置进度条到默认进度条
  */
 - (void)setSliderToMaxValue;
+
+/**
+ *  设置竖屏条的状态
+ *
+ *  @param state yes 显示  no 不显示
+ */
+- (void)setVerticalContEntViewState:(BOOL)state;
+
+/**
+ *  返回竖屏条的状态
+ *
+ *  @return yes 显示  no  隐藏
+ */
+- (BOOL)getVerticalContenViewState;
+
+/**
+ *  设置显示的云视通号
+ *
+ *  @param string 内容
+ */
+- (void)setlabelVerticalYSTText:(NSString *)string;
 
 @end

@@ -170,4 +170,18 @@ enum showWindowNumberType{
  */
 - (void)setCurrentSingleViewSlideToMaxNum;
 
+/**
+ *  设置singleview的隐藏显示状态
+ *
+ *  @param state yes 隐藏  no 显示
+ */
+- (void)setSingleViewVerticalViewState:(BOOL)state;
+
+/**
+ *  设置singelview的云视通显示
+ *
+ *  @param string 文字
+ */
+- (void)setSingleViewVerticalViewLabelText:(NSString *)string;
+
 @end

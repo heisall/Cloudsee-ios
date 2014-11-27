@@ -8,6 +8,7 @@
 
 #import "JVCBaseSliderViewController.h"
 #import "JVCRGBHelper.h"
+#import "JVCCatchCrash.h"
 static const int  NavicationSlideViewControllersCount = 1;//navicationbar的viewcontroller的数量，1标示根试图
 
 @interface JVCBaseSliderViewController ()
@@ -32,6 +33,9 @@ static const int  NavicationSlideViewControllersCount = 1;//navicationbar的view
             self.edgesForExtendedLayout = UIRectEdgeAll;
             
         }
+        
+        //注册消息处理函数的处理方法
+        NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
         
     }
     return self;

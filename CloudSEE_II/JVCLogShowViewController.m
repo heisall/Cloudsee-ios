@@ -9,6 +9,7 @@
 #import "JVCLogShowViewController.h"
 #import  "JVCSystemUtility.h"
 #import "JVCAlertHelper.h"
+#import "JVCURlRequestHelper.h"
 
 @interface JVCLogShowViewController ()
 
@@ -37,11 +38,32 @@
     btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     [btn addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
     [btn setBackgroundImage:image forState:UIControlStateNormal];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = barButtonItem;
-    [barButtonItem release];
-    [image release];
     
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem  alloc] initWithCustomView:btn];
+    
+    NSString *pathSend= nil;
+    
+    pathSend = [[NSBundle mainBundle] pathForResource:@"log_send" ofType:@"png"];
+    
+    if (pathSend == nil) {
+        
+        pathSend = [[NSBundle mainBundle] pathForResource:@"log_send@2x" ofType:@"png"];
+        
+    }
+    
+    UIImage *imageSend = [[UIImage alloc] initWithContentsOfFile:pathSend];
+    UIButton *btnSend = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnSend.frame = CGRectMake(0, 0, imageSend.size.width, imageSend.size.height);
+    [btnSend addTarget:self action:@selector(sendLogMessage) forControlEvents:UIControlEventTouchUpInside];
+    [btnSend setBackgroundImage:imageSend forState:UIControlStateNormal];
+    
+    UIBarButtonItem *barButtonItemSend = [[UIBarButtonItem  alloc] initWithCustomView:btnSend];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:barButtonItem,barButtonItemSend, nil];
+    [barButtonItem release];
+    [barButtonItemSend release];
+    [image release];
+    [imageSend release];
+
     UITextView  *textView     = [[UITextView alloc] initWithFrame:self.view.frame];
     textView.textColor        = [UIColor darkTextColor];
     textView.font             = [UIFont systemFontOfSize:14];
@@ -54,6 +76,19 @@
     
     [textView release];
 }
+
+/**
+ *  发送log日志
+ */
+- (void)sendLogMessage
+{
+    NSString       *path= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:self.strLogPath];
+    NSString *stringSend = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+   
+    JVCURlRequestHelper  *urlRequest = [[JVCURlRequestHelper alloc] init];
+    [urlRequest sendLogMesssage:stringSend];
+}
+
 
 -(void)clear {
 

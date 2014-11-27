@@ -8,6 +8,7 @@
 
 #import "JVCBaseWithGeneralViewController.h"
 #import "JVCRGBHelper.h"
+#import "JVCCatchCrash.h"
 
 static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontroller的数量，1标示根试图
 
@@ -112,6 +113,8 @@ static const int  NavicationViewControllersCount = 1;//navicationbar的viewcontr
 {
     [super viewDidLoad];
     
+    //注册消息处理函数的处理方法
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     if (self.navigationController.viewControllers.count != NavicationViewControllersCount) {//不是顶级试图
         

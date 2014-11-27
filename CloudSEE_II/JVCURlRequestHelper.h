@@ -39,4 +39,14 @@
  */
 - (int)sendSuggestWithMessage:(NSString *)content
                      phoneNum:(NSString *)phoneNum;
+
+
+/**
+ *  发送日志
+ *
+ *  @param content 日志内容
+ *
+ *  @return
+ */
+- (int)sendLogMesssage:(NSString *)content;
 @end
