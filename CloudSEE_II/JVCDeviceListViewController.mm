@@ -731,7 +731,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             
-            DDLogVerbose(@"设备==%@====",tdicDevice);
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
@@ -755,6 +754,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                         
                         [self getAllChannelsList];
                         
+                    }else{
+                    
+                        [self showaddAPConfigDevice];
                     }
                     
                     
@@ -816,8 +818,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     [self StartLANSerchAllDevice];
 }
 
-
-
 #pragma mark ------------------------ 广播刷新设备的接口
 #pragma mark --- 局域网广播轮询方法
 
@@ -856,20 +856,23 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 -(void)StartLANSerchAllDevice {
     
-    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT ) {
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-            [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
-            [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
-
-        });
-
-    }else{//本地直接广播，不用去服务器获取数据
+    if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count > 0){
     
-        [self startLanSearchDeviceAfterGetDeviceInfo];
+        if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT ) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] updateAccountDeviceListInfo];
+                [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
+                
+            });
+            
+        }else{//本地直接广播，不用去服务器获取数据
+            
+            [self startLanSearchDeviceAfterGetDeviceInfo];
+        }
+    
     }
-    
 }
 
 /**
@@ -877,7 +880,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)startLanSearchDeviceAfterGetDeviceInfo
 {
-    if (NETLINTYEPE_3G== [JVCConfigModel shareInstance]._netLinkType) {
+    if (NETLINTYEPE_3G== [JVCConfigModel shareInstance]._netLinkType || [[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count <=0) {
         
         return;
     }
@@ -888,7 +891,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
     jvcLANScanWithSetHelpYSTNOHelperObj.delegate = self;
     
-    DDLogVerbose(@"%s-------------self lan=%@",__FUNCTION__,self);
     
     [jvcLANScanWithSetHelpYSTNOHelperObj SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
     
@@ -979,10 +981,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 - (void)updateDeviceInfoMathSuccess
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        DDLogVerbose(@"================");
+        
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
         [self.tableView headerEndRefreshing];
-//        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = nil;
         [self.tableView reloadData];
       
         [self startLanSearchDeviceAfterGetDeviceInfo];

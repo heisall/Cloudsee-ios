@@ -323,6 +323,10 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 - (void)addDeviceSuccess
 {
+    JVCConfigModel *configObj    = [JVCConfigModel shareInstance];
+    configObj.isLanSearchDevices = TRUE;
+        
+  
     JVCDeviceSourceHelper *deviceSourceObj    = [JVCDeviceSourceHelper shareDeviceSourceHelper];
      NSArray              *lanModelDeviceList = [deviceSourceObj LANModelListConvertToSourceModel:amLanSearchModelList];
     

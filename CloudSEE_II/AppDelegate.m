@@ -869,8 +869,7 @@ static const   int     KCheckLocationResultValue = 1;
 
 - (void)convertOldUserInfoToDatebase
 {
-    [[JVCUserInfoManager shareUserInfoManager]convertOldUserInfoToDateBase ];
-    
+    [[JVCUserInfoManager shareUserInfoManager]convertOldUserInfoToDateBase];
 }
 
 - (void)checkNewVersion
@@ -882,7 +881,6 @@ static const   int     KCheckLocationResultValue = 1;
         [jvcRequest requeAppVersion];
     
     });
-   
 }
 
 /**
@@ -890,9 +888,7 @@ static const   int     KCheckLocationResultValue = 1;
  */
 - (void)initTencentSdk
 {
-  
     [[JVCTencentHelp shareTencentHelp] initTencentSDK];
-    
 }
 
 /**
@@ -916,6 +912,6 @@ static const   int     KCheckLocationResultValue = 1;
         
         [JVCConfigModel shareInstance].iDeviceBrowseModel = YES;
     }
-
 }
+
 @end
