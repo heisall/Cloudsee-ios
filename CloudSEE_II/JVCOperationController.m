@@ -32,6 +32,7 @@
 #import "JVCYTOperaitonView.h"
 #include "JVCConstansALAssetsMathHelper.h"
 #import "JVCMediaMacro.h"
+#import "JVCAlarmManagerHelper.h"
 
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称

@@ -8,6 +8,39 @@
 
 #import <Foundation/Foundation.h>
 
-@interface JVCAlarmManagerHelper : NSObject
+@interface JVCAlarmManagerHelper : NSObject {
+
+    int nLocalChannel;
+}
+
+/**
+ *  初始化报警设置的助手类
+ *
+ *  @param localChannel 本地云视通连接的通道号
+ *
+ *  @return 报警设置的助手类
+ */
+-(id)init:(int)localChannel;
+
+/**
+ *  设置安全防护按钮的状态
+ *
+ *  @param nStatus 0：关 1：开
+ */
+-(void)setAlarmStatus:(int)nStatus;
+
+/**
+ *  设置安全防护按钮的状态
+ *
+ *  @param nStatus 0：关 1：开
+ */
+-(void)setAlarmBeginHours:(int)nBeginHours withEndHours:(int)nEndHours;
+
+/**
+ *  设置移动侦测开关
+ *
+ *  @param nStatus 0：关 1：开
+ */
+-(void)setMotionDetecting:(int)nStatus;
 
 @end

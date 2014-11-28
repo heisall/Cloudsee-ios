@@ -125,8 +125,22 @@
 -(void)RemoteSetAlarmDeviceStatus:(int)nJvChannelID withAlarmEnable:(int )alarmEnable withAlarmGuid:(int)alarmGuid withAlarmType:(int)alarmType withAlarmName:(NSString *)alarmName;
 
 
-#pragma mark 设置图像反转
+/**
+ *  设置图像翻转
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param effectType   图像翻转标志
+ */
 -(void)setEffectModel:(int)nJvChannelID
            effectType:(int)effectType;
+
+/**
+ *  安全防护时间段
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param nBeginHours  起始的时间
+ *  @param nEndHours    结束的时间
+ */
+-(void)RemoteSetAlarmTime:(int)nJvChannelID withBeginTime:(int)nBeginHours withEndTime:(int)nEndHours;
 
 @end

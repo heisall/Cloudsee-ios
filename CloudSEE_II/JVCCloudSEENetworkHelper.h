@@ -446,4 +446,13 @@ enum DEVICETALKMODEL {
  */
 -(void)RemoteEditDeviceAlarm:(int)nLocalChannel withAlarmType:(int)alarmType  withAlarmGuid:(int)alarmGuid withAlarmEnable:(int)alarmEnable withAlarmName:(NSString *)alarmName;
 
+/**
+ *  设置安全防护时间段
+ *
+ *  @param nLocalChannel 本地通道
+ *  @param nBeginHours   开始时间
+ *  @param nEndHours     结束时间
+ */
+-(void)RemoteSetAlarmTime:(int)nLocalChannel withTime1:(int)nBeginHours withTime2:(int)nEndHours;
+
 @end

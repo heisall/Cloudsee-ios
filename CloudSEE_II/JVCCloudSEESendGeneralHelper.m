@@ -129,6 +129,16 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             
             [self RemoteSetDeviceWithStorageMode:nJvChannelID withStorageMode:remoteOperationCommand];
             break;
+        case TextChatType_setAlarm:{
+        
+            [self RemoteSetAlarmStatus:nJvChannelID withStatus:remoteOperationCommand];
+        }
+            break;
+        case TextChatType_setMobileMonitoring:{
+        
+            [self RemoteSetMotionDetectingStatus:nJvChannelID withStatus:remoteOperationCommand];
+        }
+            break;
         default:
             break;
     }
@@ -647,7 +657,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     char acBuffer[256]={0};
     
     sprintf(acBuffer, "%s=%d;",[kDeviceMotionDetecting UTF8String], nStatus);
-    strcat(m_stPacket.acData+nOffset, acBuffer);
+    strcat(m_pstExt->acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
@@ -674,17 +684,18 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     char acBuffer[256]={0};
     
     sprintf(acBuffer, "%s=%d;",[kDeviceAlarm UTF8String], nStatus);
-    strcat(m_stPacket.acData+nOffset, acBuffer);
+    strcat(m_pstExt->acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
 }
 
 /**
- *  安全防护打开（关闭）
+ *  安全防护时间段
  *
  *  @param nJvChannelID 本地连接的通道号
- *  @param nStatus      1：开 0：关闭
+ *  @param nBeginHours  起始的时间
+ *  @param nEndHours    结束的时间
  */
 -(void)RemoteSetAlarmTime:(int)nJvChannelID withBeginTime:(int)nBeginHours withEndTime:(int)nEndHours{
     
@@ -700,10 +711,10 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     int nOffset=0;
     char acBuffer[256]={0};
     
-    sprintf(acBuffer, "%s==%d:00:00-%d:00:00;",[kDeviceAlarmTime0 UTF8String], nBeginHours,nEndHours);
-    strcat(m_stPacket.acData+nOffset, acBuffer);
+    sprintf(acBuffer, "%s=%02d:00:00-%02d:00:00;",[kDeviceAlarmTime0 UTF8String],nBeginHours,nEndHours);
+    strcat(m_pstExt->acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
-    
+    DDLogCVerbose(@"%s------alarmTime------%s",__FUNCTION__,m_pstExt->acData);
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
 }
 

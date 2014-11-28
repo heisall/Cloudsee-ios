@@ -15,7 +15,6 @@
 #import "JVCRemotePlayBackWithVideoDecoderHelper.h"
 #import "JVCLogHelper.h"
 
-
 @interface JVCCloudSEENetworkHelper () {
 
     NSMutableString *remoteDownSavePath;
@@ -157,7 +156,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
             jvcCloudSEENetworkHelper = [super allocWithZone:zone];
             
             return jvcCloudSEENetworkHelper;
-            
         }
     }
     
@@ -179,6 +177,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     for (i=0; i<ystNumber.length; i++) {
         
         unsigned char c=[ystNumber characterAtIndex:i];
+        
         if (c<='9' && c>='0') {
             
             break;
@@ -201,7 +200,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
 -(int)returnCurrentChannelBynLocalChannelID:(int)nLocalChannel{
     
     return (nLocalChannel -1) % kJVCCloudSEENetworkHelperWithConnectMaxNumber;
-    
 }
 
 /**
@@ -216,8 +214,10 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
     JVCCloudSEEManagerHelper *currentChannelObj   = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
 
     if (currentChannelObj !=nil) {
+        
         return YES;
     }
+    
     return NO;
 }
 
@@ -364,7 +364,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         DDLogCWarn(@"%s---- （%d）连接已存在",__FUNCTION__,nLocalChannel);
         
         return FALSE;
-        
     }
 }
 
@@ -394,7 +393,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         if ( currentChannelObj != nil && currentChannelObj.nShowWindowID != nLocalChannel -1 ) {
             
             [self disconnect:nJVCCloudSEEManagerHelper];
-            
         }
         
         jvChannel [nJvchannelID]                = [[JVCCloudSEEManagerHelper alloc] init];
@@ -421,7 +419,6 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         DDLogCWarn(@"%s---- （%d）连接已存在",__FUNCTION__,nLocalChannel);
         
         return FALSE;
-        
     }
 }
 
@@ -670,7 +667,6 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             break;
         case JVN_DATA_A:{
             
-            //DDLogCInfo(@"%s---chenzhenyangA",__FUNCTION__);
             if (!currentChannelObj.isAudioListening) {
                 
                 [pool release];
@@ -915,7 +911,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_getAlarmType:
         case TextChatType_EffectInfo:
         case TextChatType_StorageMode:
-        case TextChatType_setOldStream:{
+        case TextChatType_setOldStream:
+        case TextChatType_setAlarm:
+        case TextChatType_setMobileMonitoring:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1068,6 +1066,7 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     JVCCloudSEEManagerHelper        *currentChannelObj           = [jvcCloudSEENetworkHelper returnCurrentChannelBynLocalChannel:nLocalChannel];
     
     if (currentChannelObj == nil) {
+        
         DDLogVerbose(@"%s----error 009--- currentChannelObj is Null ",__FUNCTION__);
         return;
     }
@@ -1075,7 +1074,6 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
     BOOL isEncoderSuccessFul = [currentChannelObj encoderLocalRecorderData:Audiodata nEncodeAudioOutdataSize:&nAudiodataSize encodeOutAudioData:(char *)encodeLocalRecordeData encodeOutAudioDataSize:sizeof(encodeLocalRecordeData)];
     
     if (isEncoderSuccessFul) {
-        
         
         [ystRemoteOperationHelperObj SendAudioDataToDevice:currentChannelObj.nLocalChannel Audiodata:(char *)encodeLocalRecordeData AudiodataSize:nAudiodataSize];
     }
@@ -1089,7 +1087,6 @@ void VoiceIntercomCallBack(int nLocalChannel, unsigned char uchType, char *pBuff
  */
 -(void)returnVoiceIntercomCallBack:(JVCCloudSEEManagerHelper *)currentChannelObj nVoiceInterStateType:(int)nVoiceInterStateType{
     
-    DDLogVerbose(@"%@==============",currentChannelObj);
     [currentChannelObj retain];
     
     if (self.ystNWADelegate !=nil && [self.ystNWADelegate respondsToSelector:@selector(VoiceInterComCallBack:)]) {
@@ -1471,6 +1468,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
+                                DDLogCVerbose(@"%s--------------###########101=%s",__FUNCTION__,stpacket.acData+n);
                                 [params retain];
                                 
                                 int  nStreamType  = -1;
@@ -2072,6 +2070,29 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
     }
     
     [ystRemoteOperationHelperObj RemoteSetAlarmDeviceStatus:currentChannelObj.nLocalChannel withAlarmEnable:alarmEnable withAlarmGuid:alarmGuid withAlarmType:alarmType withAlarmName:alarmName];
+}
+
+/**
+ *  设置安全防护时间段
+ *
+ *  @param nLocalChannel 本地通道
+ *  @param nBeginHours   开始时间
+ *  @param nEndHours     结束时间
+ */
+-(void)RemoteSetAlarmTime:(int)nLocalChannel withTime1:(int)nBeginHours withTime2:(int)nEndHours{
+    
+    JVCCloudSEESendGeneralHelper *ystRemoteOperationHelperObj = [JVCCloudSEESendGeneralHelper shareJVCCloudSEESendGeneralHelper];
+    JVCCloudSEEManagerHelper     *currentChannelObj           = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
+    
+    if (currentChannelObj == nil) {
+        
+        DDLogVerbose(@"%s---JVCCloudSEEManagerHelper(%d) is Null",__FUNCTION__,currentChannelObj.nLocalChannel-1);
+        
+        
+        return;
+    }
+    
+    [ystRemoteOperationHelperObj RemoteSetAlarmTime:currentChannelObj.nLocalChannel withBeginTime:nBeginHours withEndTime:nEndHours];
 }
 
 
