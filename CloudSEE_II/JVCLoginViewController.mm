@@ -38,6 +38,7 @@
 #import "JVCTencentHelp.h"
 #import "JVCLogListViewController.h"
 #import "JVCLogHelper.h"
+#import "JVCCustomDatePickerView.h"
 
 enum LOGINBTNTYPE
 {
@@ -118,8 +119,6 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
         [[NSUserDefaults standardUserDefaults] setObject:(NSString *)KFISTOPEN forKey:(NSString *)kAPPWELCOME];
     }
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
