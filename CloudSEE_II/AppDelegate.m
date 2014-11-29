@@ -86,6 +86,7 @@ static const   int     KCheckLocationResultValue = 1;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     //推送消息清零
     application.applicationIconBadgeNumber = 0;
 
@@ -93,6 +94,7 @@ static const   int     KCheckLocationResultValue = 1;
      *  设置ddlog
      */
     [self DDLogSettings];
+    
     //初始化位置字符串
     self.localtionString = @"";
     

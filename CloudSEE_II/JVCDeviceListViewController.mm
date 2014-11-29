@@ -164,8 +164,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     if (configObj.isLanSearchDevices) {
         
-        configObj.isLanSearchDevices = FALSE;
-        
         [self StartLANSerchAllDevice];
     }
     
@@ -986,7 +984,17 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         [self.tableView headerEndRefreshing];
         [self.tableView reloadData];
       
-        [self startLanSearchDeviceAfterGetDeviceInfo];
+        JVCConfigModel *configObj = [JVCConfigModel shareInstance];
+        
+        if (configObj.isLanSearchDevices) {
+            
+            configObj.isLanSearchDevices = FALSE;
+            
+        }else{
+            
+            [self startLanSearchDeviceAfterGetDeviceInfo];
+        }
+        
 
     
     });

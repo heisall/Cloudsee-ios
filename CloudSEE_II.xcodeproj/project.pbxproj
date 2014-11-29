@@ -532,6 +532,7 @@
 		AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */; };
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
+		AD3217591A29934E0054FA5C /* libjvnetsdkV2.0.76.3.13_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD3217581A29934E0054FA5C /* libjvnetsdkV2.0.76.3.13_2.a */; };
 		AD348C5219F92760006C8A15 /* edi_safe_se@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */; };
 		AD348C5519F92768006C8A15 /* edi_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5319F92768006C8A15 /* edi_alarm@2x.png */; };
 		AD348C5619F92768006C8A15 /* edi_safe_un@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */; };
@@ -649,7 +650,7 @@
 		ADAB26E31A074FC000EDA0C6 /* sca_device_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADAB26E21A074FC000EDA0C6 /* sca_device_new@2x.png */; };
 		ADC8288E1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */; };
 		ADC828941A274400002F87F5 /* JVCAlarmManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC828931A274400002F87F5 /* JVCAlarmManagerHelper.m */; };
-		ADC828961A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */; };
+		ADC828A51A288948002F87F5 /* JVCCustomDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC828A41A288948002F87F5 /* JVCCustomDatePickerView.m */; };
 		ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */; };
 		ADCF44CC1A14C20400D1BF34 /* JVCApConfigSSIDListView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CB1A14C20400D1BF34 /* JVCApConfigSSIDListView.m */; };
 		ADCF44CF1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCF44CE1A15D11D00D1BF34 /* JVCOnlyShowWifiView.m */; };
@@ -1302,6 +1303,7 @@
 		AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmMessageViewController.m; sourceTree = "<group>"; };
 		AD2BDB7719D2CB7F00AA6D73 /* JVCAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppHelper.h; sourceTree = "<group>"; };
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
+		AD3217581A29934E0054FA5C /* libjvnetsdkV2.0.76.3.13_2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.13_2.a; sourceTree = "<group>"; };
 		AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_se@2x.png"; sourceTree = "<group>"; };
 		AD348C5319F92768006C8A15 /* edi_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_alarm@2x.png"; sourceTree = "<group>"; };
 		AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_un@2x.png"; sourceTree = "<group>"; };
@@ -1491,7 +1493,8 @@
 		ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libuserAcount_v3.2.2.2.a; sourceTree = "<group>"; };
 		ADC828921A274400002F87F5 /* JVCAlarmManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JVCAlarmManagerHelper.h; path = ../JVCAlarmManagerHelper.h; sourceTree = "<group>"; };
 		ADC828931A274400002F87F5 /* JVCAlarmManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JVCAlarmManagerHelper.m; path = ../JVCAlarmManagerHelper.m; sourceTree = "<group>"; };
-		ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.11.1.a; sourceTree = "<group>"; };
+		ADC828A31A288948002F87F5 /* JVCCustomDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomDatePickerView.h; sourceTree = "<group>"; };
+		ADC828A41A288948002F87F5 /* JVCCustomDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomDatePickerView.m; sourceTree = "<group>"; };
 		ADCF44C71A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCWiredInputInfoTableViewController.h; sourceTree = "<group>"; };
 		ADCF44C81A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCWiredInputInfoTableViewController.m; sourceTree = "<group>"; };
 		ADCF44CA1A14C20400D1BF34 /* JVCApConfigSSIDListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCApConfigSSIDListView.h; sourceTree = "<group>"; };
@@ -1556,7 +1559,7 @@
 				ADA22D2519DA59E70092F8B9 /* libMp4PKT_2013_9_10_2.a in Frameworks */,
 				ADA22D2119DA59BF0092F8B9 /* libJDEC055V1.0.3_2014_3_25.a in Frameworks */,
 				AD3FB61A19F6A18800034461 /* libtransSing.a in Frameworks */,
-				ADC828961A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a in Frameworks */,
+				AD3217591A29934E0054FA5C /* libjvnetsdkV2.0.76.3.13_2.a in Frameworks */,
 				ADA77BF419D0250E003EE7A1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2876,8 +2879,8 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ADC828951A2744EC002F87F5 /* libjvnetsdkV2.0.76.3.11.1.a */,
 				ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */,
+				AD3217581A29934E0054FA5C /* libjvnetsdkV2.0.76.3.13_2.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
 				A7A575FD1A130AA2000D0BBC /* libz.dylib */,
@@ -3081,6 +3084,7 @@
 		ADA77C2719D0281D003EE7A1 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				ADC8289F1A2888F9002F87F5 /* datePicker */,
 				AD616CE01A1AEAFE004214A5 /* log */,
 				A7F46A6619F92D1000AC1B1F /* helpView */,
 				AD014DD919F4C02900E3D0FB /* apConfigHomeIPC */,
@@ -3242,6 +3246,15 @@
 				AD616CDC1A19C9D1004214A5 /* JVCHomeIPCUpdate.m */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		ADC8289F1A2888F9002F87F5 /* datePicker */ = {
+			isa = PBXGroup;
+			children = (
+				ADC828A31A288948002F87F5 /* JVCCustomDatePickerView.h */,
+				ADC828A41A288948002F87F5 /* JVCCustomDatePickerView.m */,
+			);
+			name = datePicker;
 			sourceTree = "<group>";
 		};
 		ADD6267B1A046D8200BD877F /* voi */ = {
@@ -3851,6 +3864,7 @@
 				A7F486A719E6352A00C10B2B /* JVCQRAddDeviceViewController.m in Sources */,
 				ADA22D2E19DA5C8F0092F8B9 /* JVCAudioCodecInterface.mm in Sources */,
 				A72DCD2919EBF99600C9A1ED /* JVCLocalDeviceDateBaseHelp.m in Sources */,
+				ADC828A51A288948002F87F5 /* JVCCustomDatePickerView.m in Sources */,
 				A7F137C019EDF07800502ED3 /* JVCPlaybackBean.m in Sources */,
 				A7F4250C19D1021C00D96475 /* JVCSystemUtility.m in Sources */,
 				A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */,

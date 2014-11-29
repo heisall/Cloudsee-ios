@@ -32,6 +32,7 @@
 #import "JVCYTOperaitonView.h"
 #include "JVCConstansALAssetsMathHelper.h"
 #import "JVCMediaMacro.h"
+#import "JVCAlarmManagerHelper.h"
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
 
