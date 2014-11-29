@@ -226,8 +226,7 @@ static const int KLabelSize         = 16;
  *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
  *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
  */
--(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
-{
+-(void)ystNetWorkHelpTextChatCallBack:(int)nLocalChannel withTextDataType:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData{
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [helpIView removeFromSuperview];

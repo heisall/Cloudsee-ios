@@ -64,8 +64,6 @@ static int const KSafeLabelOrignX       = 40;//开始位置
 
 }
 
-
-
 - (void)dealloc
 {
     [arrayImageList release];

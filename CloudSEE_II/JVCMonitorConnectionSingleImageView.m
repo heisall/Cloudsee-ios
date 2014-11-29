@@ -19,6 +19,7 @@
 @synthesize _isConnectType,_glView,delegate;
 @synthesize nStreamType,isHomeIPC;
 @synthesize iEffectType,nStorageType,isNewDevice,isNewHomeIPC;
+@synthesize mdDeviceRemoteInfo;
 
 static const int  KVerticalHeight  = 44;
 static const int  KVerticalViewTag = 133242;
@@ -45,6 +46,9 @@ float min_offset;
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"Asking for video data now...", nil)]];
         [_amConnectInfoList addObject:[NSString stringWithFormat:@"%@",NSLocalizedString(@"Asking for video data now, please wait...", nil)]];
         
+        NSMutableDictionary *mdDeviceInfo = [[NSMutableDictionary alloc] initWithCapacity:10];
+        self.mdDeviceRemoteInfo           = mdDeviceInfo;
+        [mdDeviceInfo release];
     }
     
     return self;
@@ -705,6 +709,7 @@ float min_offset;
     
     //[self removeAllSubviews];
     [_amConnectInfoList release];
+    [mdDeviceRemoteInfo release];
     [_glView release];
     _glView=nil;
     [super dealloc];
@@ -831,6 +836,8 @@ float min_offset;
 }
 
 -(void)stopActivity:(NSString*)connectInfo{
+    
+    [self.mdDeviceRemoteInfo removeAllObjects];
     
 	UIImageView *imgView =(UIImageView*)[self viewWithTag:101];
     
