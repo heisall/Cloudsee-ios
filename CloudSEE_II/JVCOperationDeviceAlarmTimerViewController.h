@@ -7,6 +7,7 @@
 //
 
 #import "JVCBaseWithGeneralViewController.h"
+#import "JVCCustomDatePickerView.h"
 
 @protocol JVCOperationDeviceAlarmDelete <NSObject>
 
@@ -20,10 +21,10 @@
 
 @end
 
-@interface JVCOperationDeviceAlarmTimerViewController : JVCBaseWithGeneralViewController
+@interface JVCOperationDeviceAlarmTimerViewController : JVCBaseWithGeneralViewController <JVCCustomDatePickerViewDelegate>
 {
-    NSString *alarmStartTimer;//开始时间
-    NSString *alarmEndTimer;//结束时间
+    NSString *alarmStartTimer; //开始时间
+    NSString *alarmEndTimer;   //结束时间
     
     id<JVCOperationDeviceAlarmDelete>delegateAlarm;
     

@@ -351,6 +351,7 @@
 "Audio"="Audio";
 "PTZ Control"="PTZ";
 "Playback"="Playback";
+"remoteSetDevice"="Device Set";
 "ResetDeviceInfotitile"= "Resert Device";
 "jvcoper_autoRecord"="Alarm recording";
 "jvcoper_Record"="Manual recording ";

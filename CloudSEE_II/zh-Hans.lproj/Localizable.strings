@@ -348,6 +348,7 @@
 "Audio"="音频监听";
 "PTZ Control"="云台控制";
 "Playback"="远程回放";
+"remoteSetDevice"="设备设置";
 "ResetDeviceInfotitile"= "重置设备";
 "talkStart"= "亲，你现在可以和对方说话了";
 "jvcoper_autoRecord"="报警录像";

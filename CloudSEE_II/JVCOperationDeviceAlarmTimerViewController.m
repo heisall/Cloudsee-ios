@@ -12,7 +12,6 @@
 @interface JVCOperationDeviceAlarmTimerViewController ()
 {
     JVCLelftBtn *startBtn;
-    
     JVCLelftBtn *endBtn;
 }
 
@@ -28,31 +27,27 @@ static const int KBtnHeight     =   40;
 static const int KSPan          =   20;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     [self initAlarmContent];
-    
     [self setBtnsTitles];
 
 }
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-//"JVCOperationDevAlarmStart" = "Start time";
-//"JVCOperationDevAlarmEnd"   = "End time";
 - (void)initAlarmContent
 {
     startBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmStart") frame:CGRectMake(0, KOriginY, self.view.width, KBtnHeight)];
-    [startBtn.btn addTarget:self action:@selector(showStartTimer) forControlEvents:UIControlEventTouchUpInside];
+    [startBtn.btn addTarget:self action:@selector(showStartTimer:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
     [startBtn release];
     
      endBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmStart") frame:CGRectMake(0, KSPan+startBtn.bottom, self.view.width, KBtnHeight)];
-    [endBtn.btn addTarget:self action:@selector(showStartTimer) forControlEvents:UIControlEventTouchUpInside];
+    [endBtn.btn addTarget:self action:@selector(showStartTimer:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:endBtn];
     [endBtn release];
     
@@ -77,9 +72,6 @@ static const int KSPan          =   20;
     [btnSave setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Save") forState:UIControlStateNormal];
 //    [btnSave addTarget:self action:@selector(saveDeviceInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnSave];
-
-    
-    
 }
 
 /**
@@ -92,11 +84,22 @@ static const int KSPan          =   20;
 
 }
 
-- (void)showStartTimer
+- (void)showStartTimer:(UIButton *)button
 {
-
+    JVCCustomDatePickerView *customDataPickerView        = [[JVCCustomDatePickerView alloc] initWithFrame:self.view.window.frame withSelectTime:button.titleLabel.text];
+    customDataPickerView.jvcCustomDatePickerViewDelegate = self;
+    
+    [self.view.window addSubview:customDataPickerView];
+    
+    [customDataPickerView release];
 }
 
+#pragma --------------------- JVCCustomDatePickerView delegate
+-(void)JVCCustomDatePickerViewSelectedFinshedCallBack:(NSString *)strSelectedTime withButtonClickIndex:(int)nClickIndex {
+
+    DDLogVerbose(@"%s---------------%@",__FUNCTION__,strSelectedTime);
+
+}
 
 - (void)dealloc
 {

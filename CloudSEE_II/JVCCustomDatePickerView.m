@@ -20,6 +20,7 @@
 
 static const CGFloat  kDatePickerHeight         = 240.0f;
 static const CGFloat  kButtonWithBottom         = 20.0f;
+static NSString const *kDateTimeFormatter       = @"HH:mm";
 
 /**
  *  初始化日期控件的视图
@@ -39,11 +40,10 @@ static const CGFloat  kButtonWithBottom         = 20.0f;
         
         CGFloat  datePickerWidth         = imgeBtn.size.width;
         
-        
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         cancelBtn.frame =CGRectMake((self.frame.size.width - datePickerWidth)/2.0, self.frame.size.height - kButtonWithBottom - imgeBtn.size.height,datePickerWidth,imgeBtn.size.height);
         [cancelBtn addTarget:self action:@selector(cancelClick) forControlEvents:UIControlEventTouchUpInside];
-        [cancelBtn setTitle:LOCALANGER(@"取消") forState:UIControlStateNormal];
+        [cancelBtn setTitle:LOCALANGER(@"jvc_more_loginout_quit") forState:UIControlStateNormal];
         [cancelBtn setBackgroundImage:imgeBtn forState:UIControlStateNormal];
         [self addSubview:cancelBtn];
         
@@ -51,7 +51,7 @@ static const CGFloat  kButtonWithBottom         = 20.0f;
         UIButton *surebtn = [UIButton buttonWithType:UIButtonTypeCustom];
         surebtn.frame =CGRectMake((self.frame.size.width - datePickerWidth)/2.0, cancelBtn.frame.origin.y - cancelBtn.frame.size.height - kButtonWithBottom,datePickerWidth, imgeBtn.size.height);
         [surebtn addTarget:self action:@selector(selectedFinshedTimeClick) forControlEvents:UIControlEventTouchUpInside];
-        [surebtn setTitle:LOCALANGER(@"确定") forState:UIControlStateNormal];
+        [surebtn setTitle:LOCALANGER(@"jvc_more_loginout_ok") forState:UIControlStateNormal];
         [surebtn setBackgroundImage:imgeBtn forState:UIControlStateNormal];
         [self addSubview:surebtn];
         
@@ -82,11 +82,8 @@ static const CGFloat  kButtonWithBottom         = 20.0f;
         [contentView addSubview:datePickerView];
         
         [datePickerView release];
-        
         [self addSubview:contentView];
-        
         [contentView release];
-
     }
     
     return self;
@@ -127,10 +124,9 @@ static const CGFloat  kButtonWithBottom         = 20.0f;
  */
 -(NSDate *)strHoursConvertDateHours:(NSString *)strTime{
     
-    
     NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
     
     NSDate *date = [dateFormatter dateFromString:strTime];
 
@@ -148,10 +144,9 @@ static const CGFloat  kButtonWithBottom         = 20.0f;
  */
 -(NSString *)DateHoursConvertStrHours:(NSDate *)dateTime{
     
-    
     NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
     
     NSString *strDate = [dateFormatter stringFromDate:dateTime];
     

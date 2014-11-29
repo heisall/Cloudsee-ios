@@ -28,7 +28,6 @@
 
 enum JVCCustomDatePickerViewClickType {
 
-
     JVCCustomDatePickerViewClickTypeSure    = 0,
     JVCCustomDatePickerViewClickTypeCancel  = 1,
 

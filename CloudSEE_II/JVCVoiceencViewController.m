@@ -291,7 +291,6 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
             
         }
         
-        
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             
             [backGroud.layer removeAnimationForKey:(NSString *)kAnimatinDurationKey];
@@ -313,7 +312,6 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
         
         [[JVCSystemSoundHelper shareJVCSystemSoundHelper] playSound:path withIsRunloop:NO];
     }
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -321,8 +319,6 @@ char encodeOutAudio[kDefaultSamplerate *2]   = {0};
     [super viewWillAppear:YES];
     [self playSound];
 }
-
-
 
 - (void)viewWillDisappear:(BOOL)animated{
     
