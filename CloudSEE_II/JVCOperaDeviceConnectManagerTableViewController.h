@@ -10,7 +10,10 @@
 @class JVCDeviceModel;
 @interface JVCOperaDeviceConnectManagerTableViewController : JVCBaseGeneralTableViewController
 {
-    JVCDeviceModel *deviceModel;
+    NSMutableDictionary *deviceDic;
+    
+    int   nLocalChannel;
 }
-@property(nonatomic,retain) JVCDeviceModel *deviceModel;
+@property(nonatomic,retain) NSMutableDictionary *deviceDic;
+@property(nonatomic,assign) int   nLocalChannel;
 @end

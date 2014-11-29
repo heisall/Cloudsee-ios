@@ -125,7 +125,7 @@ static int const KSafeLabelOrignX       = 40;//开始位置
     
 }
 
-- (void)updateCellContentWithIndex:(JVCOperaDevConManagerCellType)index  safeTimer:(NSString *)stringSafe
+- (void)updateCellContentWithIndex:(JVCOperaDevConManagerCellType)index  safeTimer:(NSString *)stringSafe andSwitchState:(BOOL)state
 {
     if (index >=arrayImageList.count) {
         
@@ -149,6 +149,7 @@ static int const KSafeLabelOrignX       = 40;//开始位置
             safeTimerLabel.hidden = YES;
             switchSafe.hidden   = NO;
             switchSafe.tag      = index;
+            switchSafe.on       = state;
         }
             break;
         case JVCOperaDevConManagerCellTypeTimerDuration:

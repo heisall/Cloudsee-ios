@@ -1816,6 +1816,8 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case TYPEBUTTONCLI_SOUND:{
             
+            return;
+            
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
             /**
              *  判断是否开启语音对讲,开启直接返回
@@ -1827,10 +1829,12 @@ char remoteSendSearchFileBuffer[29] = {0};
                 return;
             }
             
-            
+            JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
+
             JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
             JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
-            viewController.deviceModel = model;
+            viewController.deviceDic = singleView.mdDeviceRemoteInfo;
+            viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
             [self.navigationController pushViewController:viewController animated:YES];
             [viewController release];
             

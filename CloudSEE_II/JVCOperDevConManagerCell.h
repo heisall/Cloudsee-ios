@@ -27,5 +27,5 @@ typedef NS_ENUM(int, JVCOperaDevConManagerCellType)
 }
 @property(nonatomic,assign)id<JVCOperDevConManagerDelegate> deviceDelegate;
 
-- (void)updateCellContentWithIndex:(JVCOperaDevConManagerCellType)index  safeTimer:(NSString *)stringSafe;
+- (void)updateCellContentWithIndex:(JVCOperaDevConManagerCellType)index  safeTimer:(NSString *)stringSafe andSwitchState:(BOOL)state;
 @end

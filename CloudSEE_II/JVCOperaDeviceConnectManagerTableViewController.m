@@ -5,6 +5,9 @@
 //  Created by Yanghu on 11/28/14.
 //  Copyright (c) 2014 Yanghu. All rights reserved.
 //
+//static NSString const *kDeviceMotionDetecting     =  @"bMDEnable";        //移动侦测
+//static NSString const *kDeviceAlarm               =  @"bAlarmEnable";     //安全防护
+//static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安全防护时间段
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
 #import "JVCOperDevConManagerCell.h"
@@ -12,15 +15,25 @@
 #import "JVCRGBColorMacro.h"
 #import "JVCDeviceModel.h"
 #import "JVCOperationDeviceAlarmTimerViewController.h"
+#import "JVCCloudSEENetworkHelper.h"
+#import "JVCAlarmManagerHelper.h"
+
 @interface JVCOperaDeviceConnectManagerTableViewController ()
 {
     NSMutableArray *arrayFootList;
+    
+    NSMutableArray *arrayContentList;
+    
+    BOOL nDevieAlarmState;
+    
+    JVCAlarmManagerHelper *alarmManagerHelp;
 }
 
 @end
 
 @implementation JVCOperaDeviceConnectManagerTableViewController
-@synthesize deviceModel;
+@synthesize deviceDic;
+@synthesize nLocalChannel;
 static const int KFootViewMAXHeight = 500;//最大值
 static const int KFootViewMAXWith   = 280;//最大值
 static const int KLabelOriginX      = 20;//origin
@@ -36,6 +49,13 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [self initArrayList];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    DDLogVerbose(@"self.deviceDic==%@==",self.deviceDic);
+    
+    nDevieAlarmState = [[self.deviceDic objectForKey:[arrayContentList objectAtIndex:0]] intValue];
+    
+    
+    alarmManagerHelp = [[JVCAlarmManagerHelper alloc] init:self.nLocalChannel];
+    
 }
 
 - (void)initArrayList
@@ -45,15 +65,20 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeStateFoot")];
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerdurationFoot")];
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeMoveAttentionFoot")];
-
+    
+    arrayContentList    = [[NSMutableArray alloc] init];
+    [arrayContentList    addObject:(NSString *)kDeviceAlarm ];
+    [arrayContentList    addObject:(NSString *)kDeviceMotionDetecting];
+    [arrayContentList    addObject:(NSString *)kDeviceAlarmTime0];
 }
 
 
 
 - (void)dealloc
 {
+    [alarmManagerHelp release];
     [arrayFootList release];
-    [deviceModel release];
+    [deviceDic     release];
     [super dealloc];
 }
 - (void)didReceiveMemoryWarning {
@@ -68,7 +93,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (deviceModel.isDeviceSwitchAlarm) {
+    
+    if (nDevieAlarmState ) {
         
         return arrayFootList.count;
 
@@ -87,8 +113,10 @@ static const int KFootViewAdd       = 30;//多添加的位置
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.tag = indexPath.row;
+    NSString  *switchState    = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:indexPath.section]];
     cell.deviceDelegate = self;
-    [cell  updateCellContentWithIndex:indexPath.section safeTimer:@"08:00-10:12"];
+    
+    [cell  updateCellContentWithIndex:indexPath.section safeTimer:[self.deviceDic objectForKey:(NSString *)kDeviceAlarmTime0] andSwitchState:switchState.intValue];
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
@@ -127,18 +155,33 @@ static const int KFootViewAdd       = 30;//多添加的位置
 
 }
 
+//static NSString const *kDeviceMotionDetecting     =  @"bMDEnable";        //移动侦测
+//static NSString const *kDeviceAlarm               =  @"bAlarmEnable";     //安全防护
+//static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安全防护时间段
+//static NSString const *kDeviceAlarmStart          =  @"dayStart";           //开始时间
+//static NSString const *kDeviceAlarmEnd            =  @"dayEnd";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
         JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
-        deviceAlarm.alarmStartTimer = @"00:00";
-        deviceAlarm.alarmEndTimer   = @"23:23";
+        deviceAlarm.alarmStartTimer = [self.deviceDic objectForKey:(NSString *)kDeviceAlarmStart];
+        deviceAlarm.alarmEndTimer   = [self.deviceDic objectForKey:(NSString *)kDeviceAlarmEnd];
         [self.navigationController pushViewController:deviceAlarm animated:YES];
         [deviceAlarm                release];
 
     }
 }
+
+///**
+// *  获取报警时间
+// *
+// *  @return 报警时间
+// */
+//- (NSString *)getAlarmDuration
+//{
+//    NSString * [NSString stringWithFormat:@"%@",[self.deviceDic objectForKey:(NSString *)kDeviceAlarmTime0]]];
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -167,22 +210,17 @@ static const int KFootViewAdd       = 30;//多添加的位置
     switch (index) {
         case JVCOperaDevConManagerCellTypeSafe:
         {
-            deviceModel.isDeviceSwitchAlarm = state;
+//            deviceModel.isDeviceSwitchAlarm = state;
+            [alarmManagerHelp setAlarmStatus:state];
+            [self.deviceDic setObject:[NSString stringWithFormat:@"%d",state] forKey:[arrayContentList objectAtIndex:JVCOperaDevConManagerCellTypeSafe ]];
+            nDevieAlarmState = state;
             [self.tableView reloadData];
-        }
-            break;
-        case JVCOperaDevConManagerCellTypeTimerDuration:
-        {
-            JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
-            deviceAlarm.alarmStartTimer = @"12:12";
-            deviceAlarm.alarmEndTimer   = @"23:23";
-            [self.navigationController pushViewController:deviceAlarm animated:YES];
-            [deviceAlarm                release];
+    
         }
             break;
         case JVCOperaDevConManagerCellTypeMoventAttention:
         {
-     
+            [alarmManagerHelp setMotionDetecting:state];
         }
             break;
             
@@ -190,6 +228,17 @@ static const int KFootViewAdd       = 30;//多添加的位置
             break;
     }
 }
+
+- (void)updateTableView:(NSMutableDictionary *)dic
+{
+    self.deviceDic = dic;
+    
+    nDevieAlarmState = [[self.deviceDic objectForKey:[arrayContentList objectAtIndex:0]] intValue];
+    
+    [self.tableView reloadData];
+
+}
+
 
 /**
  *  必须要有，重写父类的去除cell上面的内容
