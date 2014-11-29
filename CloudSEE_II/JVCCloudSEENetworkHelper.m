@@ -1744,23 +1744,27 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         NSMutableDictionary *apSingleInfo = [[NSMutableDictionary  alloc] initWithCapacity:10];
         
         NSString               *strApName = [[NSString alloc] initWithCString:_wifer.name encoding:NSUTF8StringEncoding];
-        
-        [apSingleInfo setObject:strApName  forKey:AP_WIFI_USERNAME];
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.passwd]  forKey:AP_WIFI_PASSWORD];
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%d",_wifer.quality] forKey:AP_WIFI_QUALITY];
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%d",_wifer.keystat] forKey:AP_WIFI_KEYSTAT];
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.iestat]  forKey:AP_WIFI_IESTAT];
-        
-        unsigned int iauth=_wifer.iestat[0];
-        unsigned int ienc=_wifer.iestat[1];
-        
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%d",iauth] forKey:AP_WIFI_AUTH];
-        [apSingleInfo setObject:[NSString stringWithFormat:@"%d",ienc]  forKey:AP_WIFI_ENC];
-        
-        [amNearApList addObject:apSingleInfo];
-        
-        [apSingleInfo release];
-        [strApName release];
+        if (strApName) {
+            
+            [apSingleInfo setObject:strApName  forKey:AP_WIFI_USERNAME];
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.passwd]  forKey:AP_WIFI_PASSWORD];
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%d",_wifer.quality] forKey:AP_WIFI_QUALITY];
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%d",_wifer.keystat] forKey:AP_WIFI_KEYSTAT];
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.iestat]  forKey:AP_WIFI_IESTAT];
+            
+            unsigned int iauth=_wifer.iestat[0];
+            unsigned int ienc=_wifer.iestat[1];
+            
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%d",iauth] forKey:AP_WIFI_AUTH];
+            [apSingleInfo setObject:[NSString stringWithFormat:@"%d",ienc]  forKey:AP_WIFI_ENC];
+            
+            [amNearApList addObject:apSingleInfo];
+            
+            [apSingleInfo release];
+            [strApName release];
+
+        }
+     
     }
     
     return [amNearApList autorelease];

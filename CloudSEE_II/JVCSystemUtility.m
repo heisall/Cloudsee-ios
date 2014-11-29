@@ -603,5 +603,4 @@ static JVCSystemUtility *shareInstance = nil;
     return imageDir;
 }
 
-
 @end

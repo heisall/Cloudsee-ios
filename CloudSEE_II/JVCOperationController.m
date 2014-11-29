@@ -720,7 +720,7 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)initOperationControllerMiddleViewwithFrame:(CGRect )newFrame
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:NSLocalizedString(@"Audio", nil),NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil), nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil),NSLocalizedString(@"remoteSetDevice", nil), nil];
     
      _operationBigItemBg =   [[JVCOperationMiddleView alloc] init];
     

@@ -8,11 +8,21 @@
 
 #import "JVCOperationDeviceAlarmTimerViewController.h"
 #import "JVCLelftBtn.h"
+#import "JVCPredicateHelper.h"
+
+typedef NS_ENUM(int, JVCAlarmPickType) {
+
+    JVCAlarmPickTypeStartTag    = 100,//开始的tag
+    JVCAlarmPickTypeEndTag      = 101,//结束的tag
+
+};
 
 @interface JVCOperationDeviceAlarmTimerViewController ()
 {
     JVCLelftBtn *startBtn;
     JVCLelftBtn *endBtn;
+    
+    JVCCustomDatePickerView *customDataPickerView ;
 }
 
 @end
@@ -29,6 +39,7 @@ static const int KSPan          =   20;
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.title = LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerduration");
     [self initAlarmContent];
     [self setBtnsTitles];
 
@@ -42,13 +53,15 @@ static const int KSPan          =   20;
 - (void)initAlarmContent
 {
     startBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmStart") frame:CGRectMake(0, KOriginY, self.view.width, KBtnHeight)];
-    [startBtn.btn addTarget:self action:@selector(showStartTimer:) forControlEvents:UIControlEventTouchUpInside];
+    [startBtn.btn addTarget:self action:@selector(showTimerPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
+    startBtn.btn.tag = JVCAlarmPickTypeStartTag;
     [startBtn release];
     
      endBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmStart") frame:CGRectMake(0, KSPan+startBtn.bottom, self.view.width, KBtnHeight)];
-    [endBtn.btn addTarget:self action:@selector(showStartTimer:) forControlEvents:UIControlEventTouchUpInside];
+    [endBtn.btn addTarget:self action:@selector(showTimerPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:endBtn];
+    endBtn.btn.tag = JVCAlarmPickTypeEndTag;
     [endBtn release];
     
     UIImage *imgBtnNor = [UIImage imageNamed:@"addDev_btnHor.png"];
@@ -59,8 +72,8 @@ static const int KSPan          =   20;
     UIButton  *btnDelegate = [UIButton buttonWithType:UIButtonTypeCustom];
     btnDelegate.frame = CGRectMake(seperate,endBtn.bottom+KSPan, imgBtnNor.size.width, imgBtnNor.size.height);
     [btnDelegate setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
-    [btnDelegate setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Delete") forState:UIControlStateNormal];
-//    [btnDelegate addTarget:self action:@selector(deleteDevice) forControlEvents:UIControlEventTouchUpInside];
+    [btnDelegate setTitle:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay") forState:UIControlStateNormal];
+    [btnDelegate addTarget:self action:@selector(setTimerAllDay) forControlEvents:UIControlEventTouchUpInside];
     [btnDelegate setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
     [self.view addSubview:btnDelegate];
     
@@ -74,29 +87,83 @@ static const int KSPan          =   20;
     [self.view addSubview:btnSave];
 }
 
+- (void)setTimerAllDay
+{
+    [startBtn.btn   setTitle:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay") forState:UIControlStateNormal];
+    [endBtn.btn     setTitle:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay")  forState:UIControlStateNormal];
+    self.alarmStartTimer = (NSString *) kAlarmTimerStart;
+    self.alarmEndTimer   = (NSString *)kAlarmTimerEnd;
+    
+    //调保存按钮
+
+}
+
 /**
  *  设置按钮的标题
  */
 - (void)setBtnsTitles
 {
+    int reuslt =  [[JVCPredicateHelper shareInstance] predicateAlarmTimer:self.alarmStartTimer endTimer:self.alarmEndTimer];
+    
+    switch (reuslt) {
+        case JVCAlarmTimerType_AllDay:
+        {
+            [startBtn.btn   setTitle:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay") forState:UIControlStateNormal];
+            [endBtn.btn     setTitle:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay")  forState:UIControlStateNormal];
+
+        }
+            break;
+        case JVCAlarmTimerType_UNLegal:
+        {
+            [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerUnLegal")];
+            self.alarmStartTimer = startBtn.btn.titleLabel.text;
+            self.alarmEndTimer = endBtn.btn.titleLabel.text;
+
+        }
+            break;
+        case JVCAlarmTimerType_Legal:
+            break;
+            
+        default:
+            break;
+    }
+       
     [startBtn.btn   setTitle:self.alarmStartTimer forState:UIControlStateNormal];
     [endBtn.btn     setTitle:self.alarmEndTimer forState:UIControlStateNormal];
 
 }
 
-- (void)showStartTimer:(UIButton *)button
+- (void)showTimerPicker:(UIButton *)button
 {
-    JVCCustomDatePickerView *customDataPickerView        = [[JVCCustomDatePickerView alloc] initWithFrame:self.view.window.frame withSelectTime:button.titleLabel.text];
+     customDataPickerView        = [[JVCCustomDatePickerView alloc] initWithFrame:self.view.window.frame withSelectTime:button.titleLabel.text];
     customDataPickerView.jvcCustomDatePickerViewDelegate = self;
     
     [self.view.window addSubview:customDataPickerView];
-    
+    customDataPickerView.tag    = button.tag;
+
     [customDataPickerView release];
 }
 
 #pragma --------------------- JVCCustomDatePickerView delegate
 -(void)JVCCustomDatePickerViewSelectedFinshedCallBack:(NSString *)strSelectedTime withButtonClickIndex:(int)nClickIndex {
 
+    int selectTag = customDataPickerView.tag;
+    [customDataPickerView removeFromSuperview];
+    
+    if (nClickIndex == JVCCustomDatePickerViewClickTypeSure) {
+        return;
+    }
+
+    if (selectTag == JVCAlarmPickTypeStartTag) {//开始的
+        
+        self.alarmStartTimer = strSelectedTime;
+        
+    }else{
+        self.alarmEndTimer = strSelectedTime;
+    }
+    
+    [self setBtnsTitles];
+    
     DDLogVerbose(@"%s---------------%@",__FUNCTION__,strSelectedTime);
 
 }

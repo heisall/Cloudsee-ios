@@ -663,3 +663,5 @@
 "JVCOperationDeviceConnectManagerSafeMoveAttentionFoot"="开关打开时,设备如检测到移动物体，会提示报警";
 "JVCOperationDevAlarmStart" = "Start time";
 "JVCOperationDevAlarmEnd"   = "End time";
+"JVCOperationDeviceConnectManagerSafeAllDay"="All day";
+"JVCOperationDeviceConnectManagerSafeTimerUnLegal"="End time should be later than start time";

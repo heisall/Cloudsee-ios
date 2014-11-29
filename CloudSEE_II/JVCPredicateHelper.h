@@ -45,6 +45,18 @@ enum MODIFY_DEVICE_TYPE
     
 };
 
+//判断报警时间的
+static NSString const *kAlarmDateTimeFormatter          = @"HH:mm";
+static NSString const *kAlarmTimerStart                 = @"00:00";
+static NSString const *kAlarmTimerEnd                   = @"23:59";
+typedef NS_ENUM(int , JVCAlarmTimerType) {
+    
+    JVCAlarmTimerType_AllDay    = 0,//全天
+    JVCAlarmTimerType_Legal     = 1,//合法
+    JVCAlarmTimerType_UNLegal   = 2,//不合法
+    
+};
+
 
 
 @interface JVCPredicateHelper : NSObject
@@ -227,4 +239,14 @@ enum MODIFY_DEVICE_TYPE
  *  @return 相应的返回字段
  */
 - (int)predicateModifyLinkModelYSTWithName:(NSString *)userName andPassWord:(NSString *)passWord;
+
+/**
+ *  判断报警时间段的
+ *
+ *  @param startTiemr 开始时间
+ *  @param endTimer   结束时间
+ *
+ *  @return int 标示值
+ */
+- (int)predicateAlarmTimer:(NSString *)startTiemr  endTimer:(NSString *)endTimer;
 @end

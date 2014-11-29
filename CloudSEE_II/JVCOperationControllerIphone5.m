@@ -56,7 +56,7 @@
     
 
     operationBigView.frame=CGRectMake(newFrame.origin.x, newFrame.origin.y, newFrame.size.width, newFrame.size.height);
-    [operationBigView updateViewWithTitleArray:[NSArray arrayWithObjects:NSLocalizedString(@"Audio", nil), NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil),nil] detailArray:[NSArray arrayWithObjects:NSLocalizedString(@"Learn audio info at any time", nil), NSLocalizedString(@"Adjust PTZ at any time", nil),NSLocalizedString(@"Check Playback info at any time", nil),nil] skinType:skinSelect];
+    [operationBigView updateViewWithTitleArray:[NSArray arrayWithObjects:NSLocalizedString(@"PTZ Control", nil),NSLocalizedString(@"Playback", nil),NSLocalizedString(@"remoteSetDevice", nil), nil] detailArray:[NSArray arrayWithObjects:NSLocalizedString(@"Learn audio info at any time", nil), NSLocalizedString(@"Adjust PTZ at any time", nil),NSLocalizedString(@"Check Playback info at any time", nil),nil] skinType:skinSelect];
     operationBigView.delegateIphone5BtnCallBack=self;
     [self.view addSubview:operationBigView];
     [self.view setBackgroundColor:SETLABLERGBCOLOUR(239.0, 239.0, 239.0)];

@@ -88,7 +88,14 @@ static const int KFootViewAdd       = 30;//多添加的位置
     }
     cell.tag = indexPath.row;
     cell.deviceDelegate = self;
-    [cell  updateCellContentWithIndex:indexPath.section safeTimer:@"08:00:00-10:12:23"];
+    [cell  updateCellContentWithIndex:indexPath.section safeTimer:@"08:00-10:12"];
+    if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+    }else{
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    }
     return cell;
 }
 
@@ -118,6 +125,19 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [label release];
     return bgView;
 
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
+        
+        JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
+        deviceAlarm.alarmStartTimer = @"00:00";
+        deviceAlarm.alarmEndTimer   = @"23:23";
+        [self.navigationController pushViewController:deviceAlarm animated:YES];
+        [deviceAlarm                release];
+
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -176,7 +196,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
  */
 - (void)deallocWithViewDidDisappear
 {
-    
+
 }
 /*
 #pragma mark - Navigation

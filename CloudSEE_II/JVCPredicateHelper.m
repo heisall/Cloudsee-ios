@@ -805,4 +805,42 @@ static JVCPredicateHelper *_shareInstance = nil;
     
 }
 
+/**
+ *  判断报警时间段的
+ *
+ *  @param startTiemr 开始时间
+ *  @param endTimer   结束时间
+ *
+ *  @return int 标示值
+ */
+
+
+- (int)predicateAlarmTimer:(NSString *)startTiemr  endTimer:(NSString *)endTimer
+{
+    if ([startTiemr isEqualToString:(NSString *)kAlarmTimerStart] && [endTimer isEqualToString:(NSString *)kAlarmTimerEnd]) {
+        
+        return JVCAlarmTimerType_AllDay;
+    }
+    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:(NSString *)kAlarmDateTimeFormatter];
+    
+    NSDate *dateStart = [dateFormatter  dateFromString:startTiemr];
+    NSDate *dateEnd = [dateFormatter    dateFromString:endTimer];
+    
+    NSTimeInterval starDateInt = [dateStart timeIntervalSince1970];
+    NSTimeInterval endDateInt = [dateEnd timeIntervalSince1970];
+
+    if (endDateInt<=starDateInt) {
+         [dateFormatter release];
+        return JVCAlarmTimerType_UNLegal;
+        
+    }
+
+    [dateFormatter release];
+    
+    return JVCAlarmTimerType_Legal;
+
+}
+
 @end

@@ -35,7 +35,7 @@ static int const KTitleLabeFont         = 18;//titleLabel font
 static int const KSaftTimerLabeWith     = 150;//titleLabel with
 static int const KSWitchWith            = 79;//swith with
 static int const KSwitchHeight          = 27;//switch height
-
+static int const KSafeLabelOrignX       = 40;//开始位置
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -98,7 +98,7 @@ static int const KSwitchHeight          = 27;//switch height
     [titleLabel         release];
     
     //safelabe
-    safeTimerLabel          = [[UILabel alloc] initWithFrame:CGRectMake(self.width - KSaftTimerLabeWith - KImageViewOriginX, 0, KSaftTimerLabeWith, self.height)];
+    safeTimerLabel          = [[UILabel alloc] initWithFrame:CGRectMake(self.width - KSaftTimerLabeWith - KSafeLabelOrignX, 0, KSaftTimerLabeWith, self.height)];
     safeTimerLabel.backgroundColor = [UIColor clearColor];
     safeTimerLabel.userInteractionEnabled = YES;
     safeTimerLabel.font          = [UIFont systemFontOfSize:KTitleLabeFont];
@@ -124,10 +124,6 @@ static int const KSwitchHeight          = 27;//switch height
     endlineImageView.image = imgLineEnd;
     [self.contentView addSubview:endlineImageView];
     [endlineImageView release];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAlarmTimerLabel:)];
-    [safeTimerLabel addGestureRecognizer:tapGesture];
-    [tapGesture release];
     
 }
 
@@ -183,14 +179,7 @@ static int const KSwitchHeight          = 27;//switch height
 - (void)changeDeviceSwitchState:(UISwitch *)switchSafe
 {
     if (deviceDelegate !=nil && [deviceDelegate respondsToSelector:@selector(JVCOperDevConManagerClickCallBack:switchState:)]) {
-        [deviceDelegate JVCOperDevConManagerClickCallBack:switchSafe.tag switchState:switchSafe.on];
-    }
-}
-
-- (void)tapAlarmTimerLabel:(UIGestureRecognizer *)gesture
-{
-    if (deviceDelegate !=nil && [deviceDelegate respondsToSelector:@selector(JVCOperDevConManagerClickCallBack:switchState:)]) {
-        [deviceDelegate JVCOperDevConManagerClickCallBack:JVCOperaDevConManagerCellTypeTimerDuration switchState:0];
+        [deviceDelegate JVCOperDevConManagerClickCallBack:(int)switchSafe.tag switchState:switchSafe.on];
     }
 }
 
