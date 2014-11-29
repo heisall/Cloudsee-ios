@@ -29,6 +29,17 @@
 		A728B7711A1F23F3003359A1 /* devAdv_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A728B7701A1F23F3003359A1 /* devAdv_default@2x.png */; };
 		A728B7731A1F48D6003359A1 /* ope_midnext@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A728B7721A1F48D6003359A1 /* ope_midnext@2x.png */; };
 		A728B7761A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A728B7751A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m */; };
+		A72928B61A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72928B51A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m */; };
+		A72928BA1A28549400F4A214 /* opr_devAlarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928B71A28549400F4A214 /* opr_devAlarm@2x.png */; };
+		A72928BB1A28549400F4A214 /* opr_devAttention@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928B81A28549400F4A214 /* opr_devAttention@2x.png */; };
+		A72928BC1A28549400F4A214 /* opr_devSafe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928B91A28549400F4A214 /* opr_devSafe@2x.png */; };
+		A72928BF1A2859ED00F4A214 /* JVCOperDevConManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A72928BE1A2859ED00F4A214 /* JVCOperDevConManagerCell.m */; };
+		A72928C61A28753800F4A214 /* HorizontalScreenBar_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928C41A28753800F4A214 /* HorizontalScreenBar_3@2x.png */; };
+		A72928C71A28753800F4A214 /* HorizontalScreenBarselect_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928C51A28753800F4A214 /* HorizontalScreenBarselect_3@2x.png */; };
+		A72928CA1A287D5800F4A214 /* voc_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928C81A287D5800F4A214 /* voc_open@2x.png */; };
+		A72928CB1A287D5800F4A214 /* voc_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A72928C91A287D5800F4A214 /* voc_close@2x.png */; };
+		A72928CE1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72928CD1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m */; };
+		A72928D21A28975D00F4A214 /* JVCLelftBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = A72928D11A28975D00F4A214 /* JVCLelftBtn.m */; };
 		A72B4B5B19D39E4500760695 /* JVCDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */; };
 		A72B4B5E19D3A88B00760695 /* JVCResultTipsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B5D19D3A88B00760695 /* JVCResultTipsHelper.m */; };
 		A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = A72B4B6019D3B85600760695 /* JVCDeviceHelper.mm */; };
@@ -402,13 +413,11 @@
 		A7F6C5F219F89B570090B6F0 /* HorizontalScreenBar_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E319F89B570090B6F0 /* HorizontalScreenBar_0@2x.png */; };
 		A7F6C5F319F89B570090B6F0 /* HorizontalScreenBar_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E419F89B570090B6F0 /* HorizontalScreenBar_1@2x.png */; };
 		A7F6C5F419F89B570090B6F0 /* HorizontalScreenBar_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E519F89B570090B6F0 /* HorizontalScreenBar_2@2x.png */; };
-		A7F6C5F519F89B570090B6F0 /* HorizontalScreenBar_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E619F89B570090B6F0 /* HorizontalScreenBar_3@2x.png */; };
 		A7F6C5F619F89B570090B6F0 /* HorizontalScreenBar_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E719F89B570090B6F0 /* HorizontalScreenBar_4@2x.png */; };
 		A7F6C5F719F89B570090B6F0 /* HorizontalScreenBar_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E819F89B570090B6F0 /* HorizontalScreenBar_5@2x.png */; };
 		A7F6C5F819F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5E919F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png */; };
 		A7F6C5F919F89B570090B6F0 /* HorizontalScreenBarselect_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5EA19F89B570090B6F0 /* HorizontalScreenBarselect_1@2x.png */; };
 		A7F6C5FA19F89B570090B6F0 /* HorizontalScreenBarselect_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5EB19F89B570090B6F0 /* HorizontalScreenBarselect_2@2x.png */; };
-		A7F6C5FB19F89B570090B6F0 /* HorizontalScreenBarselect_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5EC19F89B570090B6F0 /* HorizontalScreenBarselect_3@2x.png */; };
 		A7F6C5FC19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5ED19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png */; };
 		A7F6C5FD19F89B570090B6F0 /* HorizontalScreenBarselect_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5EE19F89B570090B6F0 /* HorizontalScreenBarselect_5@2x.png */; };
 		A7F6C5FE19F89B570090B6F0 /* HorizontalScreenBarstreambtnbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F6C5EF19F89B570090B6F0 /* HorizontalScreenBarstreambtnbg@2x.png */; };
@@ -708,6 +717,21 @@
 		A728B7721A1F48D6003359A1 /* ope_midnext@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ope_midnext@2x.png"; sourceTree = "<group>"; };
 		A728B7741A1F54A1003359A1 /* JVCOpenAdevitiseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOpenAdevitiseViewController.h; sourceTree = "<group>"; };
 		A728B7751A1F54A1003359A1 /* JVCOpenAdevitiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOpenAdevitiseViewController.m; sourceTree = "<group>"; };
+		A72928B41A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperaDeviceConnectManagerTableViewController.h; sourceTree = "<group>"; };
+		A72928B51A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperaDeviceConnectManagerTableViewController.m; sourceTree = "<group>"; };
+		A72928B71A28549400F4A214 /* opr_devAlarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "opr_devAlarm@2x.png"; sourceTree = "<group>"; };
+		A72928B81A28549400F4A214 /* opr_devAttention@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "opr_devAttention@2x.png"; sourceTree = "<group>"; };
+		A72928B91A28549400F4A214 /* opr_devSafe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "opr_devSafe@2x.png"; sourceTree = "<group>"; };
+		A72928BD1A2859ED00F4A214 /* JVCOperDevConManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperDevConManagerCell.h; sourceTree = "<group>"; };
+		A72928BE1A2859ED00F4A214 /* JVCOperDevConManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperDevConManagerCell.m; sourceTree = "<group>"; };
+		A72928C41A28753800F4A214 /* HorizontalScreenBar_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_3@2x.png"; sourceTree = "<group>"; };
+		A72928C51A28753800F4A214 /* HorizontalScreenBarselect_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_3@2x.png"; sourceTree = "<group>"; };
+		A72928C81A287D5800F4A214 /* voc_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voc_open@2x.png"; sourceTree = "<group>"; };
+		A72928C91A287D5800F4A214 /* voc_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "voc_close@2x.png"; sourceTree = "<group>"; };
+		A72928CC1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperationDeviceAlarmTimerViewController.h; sourceTree = "<group>"; };
+		A72928CD1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperationDeviceAlarmTimerViewController.m; sourceTree = "<group>"; };
+		A72928D01A28975D00F4A214 /* JVCLelftBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCLelftBtn.h; sourceTree = "<group>"; };
+		A72928D11A28975D00F4A214 /* JVCLelftBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCLelftBtn.m; sourceTree = "<group>"; };
 		A72B4B5919D39E4500760695 /* JVCDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceModel.h; sourceTree = "<group>"; };
 		A72B4B5A19D39E4500760695 /* JVCDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceModel.m; sourceTree = "<group>"; };
 		A72B4B5C19D3A88B00760695 /* JVCResultTipsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCResultTipsHelper.h; sourceTree = "<group>"; };
@@ -1125,13 +1149,11 @@
 		A7F6C5E319F89B570090B6F0 /* HorizontalScreenBar_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_0@2x.png"; sourceTree = "<group>"; };
 		A7F6C5E419F89B570090B6F0 /* HorizontalScreenBar_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_1@2x.png"; sourceTree = "<group>"; };
 		A7F6C5E519F89B570090B6F0 /* HorizontalScreenBar_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_2@2x.png"; sourceTree = "<group>"; };
-		A7F6C5E619F89B570090B6F0 /* HorizontalScreenBar_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_3@2x.png"; sourceTree = "<group>"; };
 		A7F6C5E719F89B570090B6F0 /* HorizontalScreenBar_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_4@2x.png"; sourceTree = "<group>"; };
 		A7F6C5E819F89B570090B6F0 /* HorizontalScreenBar_5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBar_5@2x.png"; sourceTree = "<group>"; };
 		A7F6C5E919F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_0@2x.png"; sourceTree = "<group>"; };
 		A7F6C5EA19F89B570090B6F0 /* HorizontalScreenBarselect_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_1@2x.png"; sourceTree = "<group>"; };
 		A7F6C5EB19F89B570090B6F0 /* HorizontalScreenBarselect_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_2@2x.png"; sourceTree = "<group>"; };
-		A7F6C5EC19F89B570090B6F0 /* HorizontalScreenBarselect_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_3@2x.png"; sourceTree = "<group>"; };
 		A7F6C5ED19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_4@2x.png"; sourceTree = "<group>"; };
 		A7F6C5EE19F89B570090B6F0 /* HorizontalScreenBarselect_5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarselect_5@2x.png"; sourceTree = "<group>"; };
 		A7F6C5EF19F89B570090B6F0 /* HorizontalScreenBarstreambtnbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HorizontalScreenBarstreambtnbg@2x.png"; sourceTree = "<group>"; };
@@ -1569,6 +1591,28 @@
 			name = controlHelper;
 			sourceTree = "<group>";
 		};
+		A72928B31A284D8D00F4A214 /* JVCDeviceOperation */ = {
+			isa = PBXGroup;
+			children = (
+				A72928B41A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.h */,
+				A72928B51A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m */,
+				A72928BD1A2859ED00F4A214 /* JVCOperDevConManagerCell.h */,
+				A72928BE1A2859ED00F4A214 /* JVCOperDevConManagerCell.m */,
+				A72928CC1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.h */,
+				A72928CD1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m */,
+			);
+			name = JVCDeviceOperation;
+			sourceTree = "<group>";
+		};
+		A72928CF1A28973E00F4A214 /* jvcLeftbtn */ = {
+			isa = PBXGroup;
+			children = (
+				A72928D01A28975D00F4A214 /* JVCLelftBtn.h */,
+				A72928D11A28975D00F4A214 /* JVCLelftBtn.m */,
+			);
+			name = jvcLeftbtn;
+			sourceTree = "<group>";
+		};
 		A72B4B6219D3B8DE00760695 /* Json */ = {
 			isa = PBXGroup;
 			children = (
@@ -1876,6 +1920,11 @@
 		A7F4055A19E50D4A0070945F /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				A72928C81A287D5800F4A214 /* voc_open@2x.png */,
+				A72928C91A287D5800F4A214 /* voc_close@2x.png */,
+				A72928B71A28549400F4A214 /* opr_devAlarm@2x.png */,
+				A72928B81A28549400F4A214 /* opr_devAttention@2x.png */,
+				A72928B91A28549400F4A214 /* opr_devSafe@2x.png */,
 				A7B4DE731A24838F00FA1F95 /* op_audioCellBgHor@2x.png */,
 				A7B5D1E31A2718BA007F3B16 /* effect_4@2x.png */,
 				A7B5D1E41A2718BA007F3B16 /* effect_0@2x.png */,
@@ -1983,6 +2032,7 @@
 		A7F4347619DA9E7600E7ECA1 /* operation */ = {
 			isa = PBXGroup;
 			children = (
+				A72928B31A284D8D00F4A214 /* JVCDeviceOperation */,
 				AD616CDA1A1881F6004214A5 /* wheelshow */,
 				AD3BDC1F19E8BD00001B16D7 /* GlView.h */,
 				A7FA43CA19E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.h */,
@@ -2358,16 +2408,16 @@
 		A7F6C5E219F89B4D0090B6F0 /* horizationbar */ = {
 			isa = PBXGroup;
 			children = (
+				A72928C41A28753800F4A214 /* HorizontalScreenBar_3@2x.png */,
+				A72928C51A28753800F4A214 /* HorizontalScreenBarselect_3@2x.png */,
 				A7F6C5E319F89B570090B6F0 /* HorizontalScreenBar_0@2x.png */,
 				A7F6C5E419F89B570090B6F0 /* HorizontalScreenBar_1@2x.png */,
 				A7F6C5E519F89B570090B6F0 /* HorizontalScreenBar_2@2x.png */,
-				A7F6C5E619F89B570090B6F0 /* HorizontalScreenBar_3@2x.png */,
 				A7F6C5E719F89B570090B6F0 /* HorizontalScreenBar_4@2x.png */,
 				A7F6C5E819F89B570090B6F0 /* HorizontalScreenBar_5@2x.png */,
 				A7F6C5E919F89B570090B6F0 /* HorizontalScreenBarselect_0@2x.png */,
 				A7F6C5EA19F89B570090B6F0 /* HorizontalScreenBarselect_1@2x.png */,
 				A7F6C5EB19F89B570090B6F0 /* HorizontalScreenBarselect_2@2x.png */,
-				A7F6C5EC19F89B570090B6F0 /* HorizontalScreenBarselect_3@2x.png */,
 				A7F6C5ED19F89B570090B6F0 /* HorizontalScreenBarselect_4@2x.png */,
 				A7F6C5EE19F89B570090B6F0 /* HorizontalScreenBarselect_5@2x.png */,
 				A7F6C5EF19F89B570090B6F0 /* HorizontalScreenBarstreambtnbg@2x.png */,
@@ -3005,6 +3055,7 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				A72928CF1A28973E00F4A214 /* jvcLeftbtn */,
 				A7B5D1DD1A26D57B007F3B16 /* crashObject */,
 				A7B172A51A1AEBE800D364CB /* customAlert */,
 				A7B1729B1A1AE6CA00D364CB /* progressalwert */,
@@ -3299,6 +3350,7 @@
 				A7F50A0D19FA017A004D061F /* welcome_3_en4.jpg in Resources */,
 				A7B9FB9A1A08FCD9005F7928 /* operationHelp_rightdown@2x.png in Resources */,
 				A7F486A019E6256700C10B2B /* qdLine@2x.png in Resources */,
+				A72928BA1A28549400F4A214 /* opr_devAlarm@2x.png in Resources */,
 				A78E401E1A076BDC0055AE4B /* userResignE.txt in Resources */,
 				AD916BC219D4F65D00B925A2 /* edit_topBar_line@2x.png in Resources */,
 				A7F486A119E6256700C10B2B /* qrImage@2x.png in Resources */,
@@ -3320,6 +3372,7 @@
 				A7B9FB891A08EE4B005F7928 /* device_old_update_ch@2x.png in Resources */,
 				A7B9FB991A08FCD9005F7928 /* operationHelp_leftUp@2x.png in Resources */,
 				A7F51E7919EBC0F30052F878 /* arm_new_en@2x.png in Resources */,
+				A72928BB1A28549400F4A214 /* opr_devAttention@2x.png in Resources */,
 				A7F6C5F619F89B570090B6F0 /* HorizontalScreenBar_4@2x.png in Resources */,
 				AD916BD919D5445900B925A2 /* edi_drop_icon_select@2x.png in Resources */,
 				A7F7178319D8323F008DB1C5 /* add_ApConfig_en@2x.png in Resources */,
@@ -3333,6 +3386,7 @@
 				A7F46A7B19F933B400AC1B1F /* welcome_1_ch.jpg in Resources */,
 				AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */,
 				A7F6C5FF19F89B570090B6F0 /* HorizontalScreenStreambg@2x.png in Resources */,
+				A72928BC1A28549400F4A214 /* opr_devSafe@2x.png in Resources */,
 				A7F4CB4519FDEAEE00A3DAE4 /* arm_hor@2x.png in Resources */,
 				A7EFFA6819F5165B00DF783D /* tabSec@2x.png in Resources */,
 				A7F46A7019F933AB00AC1B1F /* wel_nor@2x.png in Resources */,
@@ -3426,6 +3480,7 @@
 				A7F58BFD1A0367F400EA0C4F /* arn_new_en@2x.png in Resources */,
 				A7B6EE231A14A9030024F836 /* yt_scalex@2x.png in Resources */,
 				A7F6C60019F89B570090B6F0 /* HorizontalScreenStreambgSelect@2x.png in Resources */,
+				A72928C71A28753800F4A214 /* HorizontalScreenBarselect_3@2x.png in Resources */,
 				A7F5012219D4EFB400AA78F0 /* Icon-120.png in Resources */,
 				A7B6EE201A14A9030024F836 /* yt_left@2x.png in Resources */,
 				A7FB595019E91C12005E2E6D /* bin_btn@2x.png in Resources */,
@@ -3469,11 +3524,11 @@
 				A7B5D1E51A2718BA007F3B16 /* effect_4@2x.png in Resources */,
 				A7B4DE7C1A24838F00FA1F95 /* op_talkCellBgHor@2x.png in Resources */,
 				A7F5EF4D19D26D77009B797A /* devAdv_red@2x.png in Resources */,
-				A7F6C5F519F89B570090B6F0 /* HorizontalScreenBar_3@2x.png in Resources */,
 				A7F5015F19D5412600AA78F0 /* dev_add@2x.png in Resources */,
 				A7F5558219D9498C0009F75C /* nav_back@2x.png in Resources */,
 				A7B4DE871A24905900FA1F95 /* apcofig_1_sec@2x.png in Resources */,
 				A7B58B861A15D52C004D0E5B /* mor_pm2@2x.png in Resources */,
+				A72928CB1A287D5800F4A214 /* voc_close@2x.png in Resources */,
 				A7A8444C19E95741006B48C2 /* mor_edtPW@2x.png in Resources */,
 				A7FC002A19FCD874006B31FA /* learn_1_ch.mp3 in Resources */,
 				A7F442A319E7649B00519A4B /* add_wlan@2x.png in Resources */,
@@ -3522,6 +3577,7 @@
 				A7FC003519FD1ADD006B31FA /* arm_new_cellbg@2x.png in Resources */,
 				A7F5016619D5447C00AA78F0 /* addDev_btnNor@2x.png in Resources */,
 				A728B7731A1F48D6003359A1 /* ope_midnext@2x.png in Resources */,
+				A72928C61A28753800F4A214 /* HorizontalScreenBar_3@2x.png in Resources */,
 				A7F50A3F19FA534F004D061F /* tab_deviceManager_unselect@2x.png in Resources */,
 				A7F486A219E6256700C10B2B /* qrReturnBg@2x.png in Resources */,
 				A7F6C5F419F89B570090B6F0 /* HorizontalScreenBar_2@2x.png in Resources */,
@@ -3578,7 +3634,6 @@
 				ADA77C0619D0250E003EE7A1 /* Images.xcassets in Resources */,
 				A7F2210E19F385F800447853 /* voi_show_pw@2x.png in Resources */,
 				A7F4058E19E50DCA0070945F /* OperationMiddleViewIphone5.bundle in Resources */,
-				A7F6C5FB19F89B570090B6F0 /* HorizontalScreenBarselect_3@2x.png in Resources */,
 				AD2BDB1219D28F0600AA6D73 /* edi_bg@2x.png in Resources */,
 				A7F4429F19E7649B00519A4B /* add_popbg@2x.png in Resources */,
 				AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */,
@@ -3586,6 +3641,7 @@
 				A7AF72CE1A15A8C40030D490 /* moreOneCellBg@2x.png in Resources */,
 				AD3BDCB619EC0546001B16D7 /* sca_ani@2x.png in Resources */,
 				A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */,
+				A72928CA1A287D5800F4A214 /* voc_open@2x.png in Resources */,
 				AD3BDCA319EBFA34001B16D7 /* voi_txt_bg@2x.png in Resources */,
 				A7F5014C19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
@@ -3692,6 +3748,7 @@
 				ADA22D4819DA611D0092F8B9 /* DDContextFilterLogFormatter.m in Sources */,
 				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
+				A72928BF1A2859ED00F4A214 /* JVCOperDevConManagerCell.m in Sources */,
 				A7F9E04419ED0CD000C1D69C /* JVCDemoViewController.m in Sources */,
 				ADA22D6B19DA7CC30092F8B9 /* JVCRecordVideoHelper.m in Sources */,
 				ADA22DA519DA97B50092F8B9 /* OpenALBufferViewcontroller.m in Sources */,
@@ -3702,6 +3759,7 @@
 				A7F58C031A03A49400EA0C4F /* JVCLocaOperationModifyViewController.m in Sources */,
 				A709696E19F2450D00C191F8 /* JVCAlarmCurrentView.m in Sources */,
 				A72B4B6A19D3EA2500760695 /* JVCHandleDeviceMaths.m in Sources */,
+				A72928CE1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m in Sources */,
 				ADA9E49A1A12FE05007EB209 /* JVCConnectCallBackHelper.m in Sources */,
 				A7F5557119D90FB10009F75C /* SPLockOverlay.m in Sources */,
 				AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */,
@@ -3786,6 +3844,7 @@
 				A7F50A2519FA2D3F004D061F /* UIScrollView+MJExtension.m in Sources */,
 				A7FB594419E8C53F005E2E6D /* JVCLabelFieldSView.m in Sources */,
 				A7263C4919E7F921003C22DE /* JVCDeviceListViewController.mm in Sources */,
+				A72928D21A28975D00F4A214 /* JVCLelftBtn.m in Sources */,
 				AD2BDB5519D2B31000AA6D73 /* JVCRGBHelper.m in Sources */,
 				A7F43BF81A00BB6700FC3CC3 /* JVCGetPassWordViewController.m in Sources */,
 				ADCF44C91A14A94600D1BF34 /* JVCWiredInputInfoTableViewController.m in Sources */,
@@ -3861,6 +3920,7 @@
 				A7B6EE131A149EC90024F836 /* JVCYTOperaitonView.m in Sources */,
 				A7F8DE3419EE4770006CE984 /* JVCPopStreamView.m in Sources */,
 				AD014DE719F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m in Sources */,
+				A72928B61A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */,

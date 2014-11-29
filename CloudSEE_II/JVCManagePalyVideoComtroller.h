@@ -37,6 +37,12 @@
  */
 -(void)RemotePlayBackVideo;
 
+/**
+ *  相应单个singleview的事件
+ *
+ *  @param state yes 选中  no 不选中
+ */
+- (void)responseSingleViewVoicebtnEvent:(BOOL)state;
 @end
 
 enum CONNECTALLDEVICE{
@@ -183,5 +189,19 @@ enum showWindowNumberType{
  *  @param string 文字
  */
 - (void)setSingleViewVerticalViewLabelText:(NSString *)string;
+
+/**
+ *  设置singleview的音量状态
+ *
+ *  @param state yes close no open
+ */
+- (void)setSingleViewVoiceBtnSelect:(BOOL)state;
+
+/**
+ *  设置singleview的音量状态
+ *
+ *  @param state yes close no open
+ */
+- (BOOL)getSingleViewVoiceBtnState;
 
 @end

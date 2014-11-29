@@ -1202,4 +1202,44 @@ BOOL isAllLinkRun;
     
 }
 
+/**
+ *  设置singleview的音量状态
+ *
+ *  @param state yes close no open
+ */
+- (void)setSingleViewVoiceBtnSelect:(BOOL)state
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+    [singleVideoShow setVoliceBtnState:state];
+}
+
+
+/**
+ *  设置singleview的音量状态
+ *
+ *  @param state yes close no open
+ */
+- (BOOL)getSingleViewVoiceBtnState
+{
+    JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
+   return  [singleVideoShow getVoliceBtnState];
+}
+
+/**
+ *  返回voice的状态
+ *
+ *  @param state yes 选中  on 没有
+ */
+- (void)responseVoiceBtnEvent:(BOOL)state
+{
+
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseSingleViewVoicebtnEvent:)]) {
+        
+        [self.delegate responseSingleViewVoicebtnEvent:state];
+    }
+}
+
+
+
+
 @end

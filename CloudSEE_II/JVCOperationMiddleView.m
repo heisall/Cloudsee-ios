@@ -168,9 +168,10 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
 
     _amSelectedImageNameListData = [[NSMutableArray alloc] init];
     
-    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"ytoSelectedBtn.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"playBackVideoSelected.png"]];
+    [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"audioListennerSelected.png"]];
+
 }
 
 /**
@@ -182,9 +183,10 @@ static const int    kMiddleImageSeperateCount     =   2;      //图片名称根�
      */
     _amUnSelectedImageNameListData = [[NSMutableArray alloc] init];
     
-    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"audioListener.png"]];
     [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"ytoBtn.png"]];
     [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"playBackVideo.png"]];
+    [_amUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"audioListener.png"]];
+
 }
 
 /**

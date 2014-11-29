@@ -125,7 +125,7 @@ char outAccountSessionBuffer[40];
         return 2;
     }
     
-    SetTimeoutSecond_C(CONNECTTIMEOUTSECOND,RQCONNECTTIMEOUTSECOND);
+//    SetTimeoutSecond_C(CONNECTTIMEOUTSECOND,RQCONNECTTIMEOUTSECOND);
     
     DDLogVerbose(@"%s---------initAccountSdkEnd.",__FUNCTION__);
     

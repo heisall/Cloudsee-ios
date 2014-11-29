@@ -33,6 +33,8 @@
 #include "JVCConstansALAssetsMathHelper.h"
 #import "JVCMediaMacro.h"
 
+#import "JVCOperaDeviceConnectManagerTableViewController.h"
+
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
@@ -769,7 +771,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
     
     //音频监听
-    BOOL bStateAudio  =  [_operationBigItemBg getAudioBtnState];
+    BOOL bStateAudio  =  [_managerVideo getSingleViewVoiceBtnState];
     
     //对讲的状态
     UIButton *btnTalk  =  [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
@@ -1769,6 +1771,18 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 /**
+ *  相应单个singleview的事件
+ *
+ *  @param state yes 选中  no 不选中
+ */
+- (void)responseSingleViewVoicebtnEvent:(BOOL)state;
+{
+//      [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
+    
+    [self operationAudio];
+}
+
+/**
  * 按下事件的执行方法
  *
  *  @param index btn的index
@@ -1812,9 +1826,12 @@ char remoteSendSearchFileBuffer[29] = {0};
                 return;
             }
             
-            JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-            ystNetworkObj.ystNWADelegate    =  self;
-            [self audioButtonClick];
+            
+            JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
+            JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
+            viewController.deviceModel = model;
+            [self.navigationController pushViewController:viewController animated:YES];
+            [viewController release];
             
         }
             break;
@@ -1846,6 +1863,27 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 }
 
+/**
+ *  修改之后，点击悬浮窗上的音量按钮
+ */
+- (void)operationAudio
+{
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
+    /**
+     *  判断是否开启语音对讲,开启直接返回
+     */
+    UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+    
+    if (btnTalk.selected) {
+        
+        return;
+    }
+    
+        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        ystNetworkObj.ystNWADelegate    =  self;
+        [self audioButtonClick];
+}
+
 
 /**
  *  音频监听功能（关闭）
@@ -1861,14 +1899,15 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
     
-    if ([_operationBigItemBg getAudioBtnState]) {
+    if ([_managerVideo getSingleViewVoiceBtnState]) {
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [_operationBigItemBg setButtonSunSelect];
+//        [_operationBigItemBg setButtonSunSelect];
+        [_managerVideo setSingleViewVoiceBtnSelect:NO];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
@@ -1879,7 +1918,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
-        [_operationBigItemBg setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
+//        [_operationBigItemBg setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
+        [_managerVideo setSingleViewVoiceBtnSelect:YES];
+
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
     }
@@ -2379,8 +2420,11 @@ char remoteSendSearchFileBuffer[29] = {0};
             
            [jvcCloudObj openRecordVideo:_managerVideo.nSelectedChannelIndex+1  saveLocalVideoPath:videoPath];
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(@"operationStartVideoSuccess", nil)];
+            });
+            
         };
-        
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         NSUInteger groupTypes =ALAssetsGroupFaces;// ALAssetsGroupAlbum;// | ALAssetsGroupEvent | ALAssetsGroupFaces;
@@ -2405,6 +2449,14 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (isContinueVideo) {
    
         [self operationPlayVideo:YES];
+        
+    }else{
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operationEndVideoSuccess")];
+        });
+        
     }
 }
 
@@ -2414,7 +2466,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)stopAudioMonitor
 {
 
-    if ([_operationBigItemBg getAudioBtnState]) {
+    if ([_managerVideo getSingleViewVoiceBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
@@ -2424,7 +2476,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [_operationBigItemBg setButtonSunSelect];
+//        [_operationBigItemBg setButtonSunSelect];
+        [_managerVideo setSingleViewVoiceBtnSelect:NO];
+
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
     }

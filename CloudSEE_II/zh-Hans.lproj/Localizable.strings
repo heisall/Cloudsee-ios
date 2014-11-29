@@ -378,7 +378,6 @@
 " successfully..."=" 号服务器连接成功...";
 "Asking for video data now..."="正在请求视频数据...";
 "Asking for video data now, please wait..."="视频数据请求中，请等待....";
-
 "pictureLibraynoAutor" = "无法访问相册.请在[设置->隐私->照片]设置为打开状态.";
 "picturelibrayError" = "保存图片不成功.";
 "videolibrayError" = "保存录像不成功.";
@@ -400,6 +399,8 @@
 "connectResultInfo_10" = "用户名或密码错误";
 "connectResultInfo_11" = "超过设备最大连接数!";
 "connectResultInfo_12" = "该通道不存在或未开放!";
+"operationStartVideoSuccess" = "开始录像";
+"operationEndVideoSuccess" = "录像完成";
 
 //***语音对讲**
 "talkingHomeIPC" = "对讲功能成功开启，长按向对方喊话吧";
@@ -655,3 +656,14 @@
 "JVC_Device_Open" = "助手打开";
 "JVC_Device_Close" = "助手关闭";
 "JVC_Adver_title" = "广告位";
+
+//报警
+"JVCOperationDeviceConnectManagerSafeState"="安全防护";
+"JVCOperationDeviceConnectManagerSafeStateFoot"="开关打开时,手机可以接收设备的报警视频、图片及文字，还可以打开更多的报警策略，让安全随时掌握";
+"JVCOperationDeviceConnectManagerSafeTimerduration"="防护时间段";
+"JVCOperationDeviceConnectManagerSafeTimerdurationFoot"="您可以选择一个合适的时间段来接收报警，让报警尽在掌握";
+"JVCOperationDeviceConnectManagerSafeMoveAttention"="移动侦测";
+"JVCOperationDeviceConnectManagerSafeMoveAttentionFoot"="开关打开时,设备如检测到移动物体，会提示报警";
+"JVCOperationDevAlarmStart" = "开始时间";
+"JVCOperationDevAlarmEnd"   = "结束时间";
+

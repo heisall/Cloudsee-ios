@@ -34,6 +34,13 @@ typedef NS_ENUM(int, EffectType)
 - (void)effectTypeClickCallBack;
 
 /**
+ *  返回voice的状态
+ *
+ *  @param state yes 选中  on 没有
+ */
+- (void)responseVoiceBtnEvent:(BOOL)state;
+
+/**
  *  远程回放的快进
  *
  *  @param nFrameValue 快进到哪一阵
@@ -69,6 +76,8 @@ typedef NS_ENUM(int, EffectType)
     
     UIView          *viewContent;   // 竖屏下面的条
     UILabel         *labelVerticalYST;   // 竖屏下面的条的云视通显示
+    
+    UIButton        *btnVoice;      //音量的btn
 }
 
 @property (nonatomic,assign) int      singleViewType,wheelShowType;
@@ -186,4 +195,24 @@ typedef NS_ENUM(int, EffectType)
  */
 - (void)setlabelVerticalYSTText:(NSString *)string;
 
+/**
+ *  设备按钮选中状态
+ *
+ *  @param state yes 选中  no 没有选中
+ */
+- (void)setVoliceBtnState:(BOOL)state;
+
+/**
+ *  传递btn的选中状态
+ *
+ *  @param btn voice btn
+ */
+- (void)clickVoiceBtn:(UIButton *)btn;
+
+/**
+ *  获取设备按钮选中状态
+ *
+ *  @param state yes 选中  no 没有选中
+ */
+- (BOOL)getVoliceBtnState;
 @end

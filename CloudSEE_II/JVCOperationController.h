@@ -109,5 +109,12 @@ static const int      kDefaultShowWidnowCount         = 1;
  */
 - (BOOL)getButtonWithIndex:(int)indexBtn;
 
+/**
+ *  获取音频是否打开
+ *
+ *  @return 状态
+ */
+- (BOOL)getOperationSingelViewVoiceState;
+
 
 @end

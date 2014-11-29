@@ -379,6 +379,8 @@
 " successfully..."=" Successfully...";
 "Asking for video data now..."="Asking for video data now...";
 "Asking for video data now, please wait..."="Asking for video data now..";
+"operationStartVideoSuccess" = "开始录像";
+"operationEndVideoSuccess" = "录像完成";
 
 "pictureLibraynoAutor" = "Can not visit photo album. Please set it open in[ Settings->Privacy->Photos ].";
 "picturelibrayError" = "Failed to save the picture.";
@@ -650,3 +652,13 @@
 "JVC_Device_Open" = "helper Open";
 "JVC_Device_Close" = "helper close";
 "JVC_Adver_title" = "Advertising";
+
+//报警
+"JVCOperationDeviceConnectManagerSafeState"="Safeguard";
+"JVCOperationDeviceConnectManagerSafeTimerduration"="Safegard time scale";
+"JVCOperationDeviceConnectManagerSafeMoveAttention"="移动侦测";
+"JVCOperationDeviceConnectManagerSafeStateFoot"="Enable this function, your phone can receive the alert video,picture or message.";
+"JVCOperationDeviceConnectManagerSafeTimerdurationFoot"="You can choose a suitable time scale to receive alert.";
+"JVCOperationDeviceConnectManagerSafeMoveAttentionFoot"="开关打开时,设备如检测到移动物体，会提示报警";
+"JVCOperationDevAlarmStart" = "Start time";
+"JVCOperationDevAlarmEnd"   = "End time";

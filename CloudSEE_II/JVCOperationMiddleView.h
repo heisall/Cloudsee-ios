@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 enum TYPEBUTTONCLI
 {
-    TYPEBUTTONCLI_SOUND         =0,  //音频监听
-    TYPEBUTTONCLI_YTOPERATION   =1,  //云台按下事件
-    TYPEBUTTONCLI_PLAYBACK      =2,  //远程回调
+    TYPEBUTTONCLI_SOUND         =2,  //音频监听
+    TYPEBUTTONCLI_YTOPERATION   =0,  //云台按下事件
+    TYPEBUTTONCLI_PLAYBACK      =1,  //远程回调
     
 };
 static const NSString *BUNDLENAMEMiddle =  @"customMiddleView_cloudsee.bundle";

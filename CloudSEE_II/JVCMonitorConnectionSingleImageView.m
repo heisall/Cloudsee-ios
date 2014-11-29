@@ -12,6 +12,7 @@
 #import "GlView.h"
 #import "JVCHorizontalScreenBar.h"
 #import "JVCCloudSEENetworkHelper.h"
+#import "UIImage+BundlePath.h"
 @implementation JVCMonitorConnectionSingleImageView
 
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
@@ -134,11 +135,29 @@ float min_offset;
     
     effectBtn.hidden=YES;
 
+    NSString *strVoice = [UIImage imageBundlePath:@"voc_open.png"];
+    UIImage *imageVoice = [[UIImage alloc] initWithContentsOfFile:strVoice];
+    
+    NSString *strVoiceClose = [UIImage imageBundlePath:@"voc_close.png"];
+    UIImage *imageVoiceClose = [[UIImage alloc] initWithContentsOfFile:strVoiceClose];
+    
+    btnVoice = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btnVoice.frame = CGRectMake(effectBtn.left-  imageVoice.size.width -10, effectBtn.top, imageVoice.size.width, imageVoice.size.height);
+    [btnVoice setImage:imageVoiceClose forState:UIControlStateNormal];
+    [btnVoice setImage:imageVoice forState:UIControlStateSelected];
+    [btnVoice addTarget:self action:@selector(clickVoiceBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [viewContent addSubview:btnVoice];
+
+    [imageVoice release];
+    [imageVoiceClose release];
+    
     labelVerticalYST = [[UILabel alloc] initWithFrame:CGRectMake(kLabelOriginX, effectBtn.top, effectBtn.left, effectBtn.height)];
     labelVerticalYST.backgroundColor = [UIColor clearColor];
     labelVerticalYST.textColor = [UIColor whiteColor];
     [viewContent addSubview:labelVerticalYST];
     [labelVerticalYST release];
+    
     
     UIImage *_playImage = [UIImage imageNamed:@"play_1.png"];
     
@@ -764,6 +783,20 @@ float min_offset;
 }
 
 /**
+ *  传递btn的选中状态
+ *
+ *  @param btn voice btn
+ */
+- (void)clickVoiceBtn:(UIButton *)btn
+{
+    
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(responseVoiceBtnEvent:)]) {
+        
+        [self.delegate responseVoiceBtnEvent:btn.selected];
+    }
+}
+
+/**
  *  远程回放快进
  *
  *  @param sender 快进的UI 对象
@@ -968,6 +1001,26 @@ float min_offset;
         
         [delegate effectTypeClickCallBack];
     }
+}
+
+/**
+ *  设备按钮选中状态
+ *
+ *  @param state yes 选中  no 没有选中
+ */
+- (void)setVoliceBtnState:(BOOL)state
+{
+    btnVoice.selected = state;
+}
+
+/**
+ *  获取设备按钮选中状态
+ *
+ *  @param state yes 选中  no 没有选中
+ */
+- (BOOL)getVoliceBtnState
+{
+    return  btnVoice.selected;
 }
 
 @end

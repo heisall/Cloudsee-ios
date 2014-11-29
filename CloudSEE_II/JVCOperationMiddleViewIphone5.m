@@ -120,7 +120,7 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
         [btnImage addTarget:self  action:@selector(imagebtnClick:) forControlEvents:UIControlEventTouchDragInside];
         [contentView addSubview:btnImage];
         
-        if (i ==0) {
+        if (i ==2) {
             
             btnAudio = btnImage;
             
@@ -148,18 +148,16 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
         [contentView  addSubview:_titleInfo];
         [_titleInfo release];
         
-        if (i !=0) {
-            
-            NSString *imageNextName = [UIImage imageBundlePath:@"ope_midnext.png"];
-            UIImage *nextImage = [[UIImage alloc] initWithContentsOfFile:imageNextName];
-            
-            UIImageView *imageViewNextImage=[[UIImageView alloc] init];
-            imageViewNextImage.frame=CGRectMake(self.frame.size.width-4*nextImage.size.width, (height-nextImage.size.height)/2.0, nextImage.size.width, nextImage.size.height);
-            imageViewNextImage.userInteractionEnabled = YES;
-            [imageViewNextImage setImage:nextImage];
-            [contentView addSubview:imageViewNextImage];
-            [imageViewNextImage release];
-        }
+        NSString *imageNextName = [UIImage imageBundlePath:@"ope_midnext.png"];
+        UIImage *nextImage = [[UIImage alloc] initWithContentsOfFile:imageNextName];
+        
+        UIImageView *imageViewNextImage=[[UIImageView alloc] init];
+        imageViewNextImage.frame=CGRectMake(self.frame.size.width-4*nextImage.size.width, (height-nextImage.size.height)/2.0, nextImage.size.width, nextImage.size.height);
+        imageViewNextImage.userInteractionEnabled = YES;
+        [imageViewNextImage setImage:nextImage];
+        [contentView addSubview:imageViewNextImage];
+        [imageViewNextImage release];
+       
         
 //        //最后一列 没有boderImage
 //        if (i != titleArray.count -1) {
@@ -264,28 +262,27 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
 - (void)initImageArray
 {
     _arrayList = [[NSMutableArray alloc] init];
-    
-    [_arrayList addObject:@"audioBigListennerBtn.png"];
     [_arrayList addObject:@"ytoBigBtn.png"];
     [_arrayList addObject:@"playBackBigBtn.png"];
+    [_arrayList addObject:@"audioBigListennerBtn.png"];
     
 }
 
 - (void)initCellbgArray
 {
     _arrayCellbglist = [[NSMutableArray alloc] init];
-    [_arrayCellbglist addObject:@"op_audioCellBgNor.png"];
     [_arrayCellbglist addObject:@"op_ytCellbgNor.png"];
     [_arrayCellbglist addObject:@"op_playBackBgBor.png"];
+    [_arrayCellbglist addObject:@"op_audioCellBgNor.png"];
+
 }
 
 - (void)initCellBgArraySelect
 {
     _arrayCellbglistHor = [[NSMutableArray alloc] init];
-    
-    [_arrayCellbglistHor addObject:@"op_audioCellBgHor.png"];
     [_arrayCellbglistHor addObject:@"op_ytCellbgNor.png"];
     [_arrayCellbglistHor addObject:@"op_playBackBgBor.png"];
+    [_arrayCellbglistHor addObject:@"op_audioCellBgHor.png"];
 }
 
 - (void)dealloc

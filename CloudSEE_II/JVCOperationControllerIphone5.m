@@ -114,9 +114,8 @@
 //    }
 //}
 
-/**
- *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
- */
+
+
 
 
 /**
@@ -133,7 +132,7 @@
     /**
      *  如果是选中状态，置为非选中状态，如果是非选中状态，置为非选中状态
      */
-    if ([operationBigView getAudioBtnState]) {
+    if ([_managerVideo getSingleViewVoiceBtnState]) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
@@ -144,7 +143,8 @@
         
         [openAlObj stopSound];
         
-        [operationBigView setAudioBtnUNSelect];
+//        [operationBigView setAudioBtnUNSelect];
+        [_managerVideo setSingleViewVoiceBtnSelect:NO];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
@@ -158,8 +158,9 @@
 
         });
         
-        [operationBigView setAudioBtnSelectWithSkin];
-        
+//        [operationBigView setAudioBtnSelectWithSkin];
+        [_managerVideo setSingleViewVoiceBtnSelect:YES];
+
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
 
     }
@@ -186,7 +187,7 @@
  */
 - (void)stopAudioMonitor
 {
-    if ([operationBigView getAudioBtnState]) {
+    if ([_managerVideo  getSingleViewVoiceBtnState]) {
         
         JVCCloudSEENetworkHelper           *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         OpenALBufferViewcontroller *openAlObj             = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
@@ -196,7 +197,9 @@
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-        [operationBigView setAudioBtnUNSelect];
+//        [operationBigView setAudioBtnUNSelect];
+        [_managerVideo setSingleViewVoiceBtnSelect:NO];
+
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
 
         
@@ -213,7 +216,7 @@
     BOOL bStateYTView =  [[JVCCustomYTOView shareInstance] getYTViewShowState];
     
     //音频监听
-    BOOL bStateAudio  =  [operationBigView getAudioBtnState];
+    BOOL bStateAudio  =  [_managerVideo getSingleViewVoiceBtnState];
     
     //对讲的状态
     BOOL bStateTalk   =  [self getButtonWithIndex:BUTTON_TYPE_TALK];

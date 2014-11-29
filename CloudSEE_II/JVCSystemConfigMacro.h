@@ -54,7 +54,7 @@ static const int OPENGLMAXCOUNT  = 16;//opengl显示最大值
 static const NSString *DefaultUserName = @"abc";//默认用户名
 static const NSString *DefaultPassWord = @"123";      //默认密码
 
-static const NSString *DefaultHomeUserName = @"adc";//默认用户名
+static const NSString *DefaultHomeUserName = @"abc";//默认用户名
 static const NSString *DefaultHomePassWord = @"123";      //默认密码
 
 static  const int KPredicateUserNameLegateAddNum            = 100;//正则校验用户名合法时返回值添加100
