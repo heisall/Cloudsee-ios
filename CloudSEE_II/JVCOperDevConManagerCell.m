@@ -64,8 +64,6 @@ static int const KSwitchHeight          = 27;//switch height
 
 }
 
-
-
 - (void)dealloc
 {
     [arrayImageList release];

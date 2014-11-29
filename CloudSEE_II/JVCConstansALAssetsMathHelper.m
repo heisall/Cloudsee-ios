@@ -172,11 +172,14 @@ char videoCacheData[VideoCacheDataSize];
                 [assetsLibrary addAssetsGroupAlbumWithName:albumGroupName
                                                resultBlock:^(ALAssetsGroup *group)
                  {
+                     if (group!=nil) {
+                         
+                         [albumNamesMArray addObject:group];
+                     }
                      
-                     [albumNamesMArray addObject:group];
                  }
                  
-                                              failureBlock:nil];
+                 failureBlock:nil];
                 
                 haveHDRGroup = YES;
             }

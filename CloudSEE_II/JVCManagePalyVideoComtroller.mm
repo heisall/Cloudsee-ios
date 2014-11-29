@@ -974,6 +974,8 @@ BOOL isAllLinkRun;
         
             if (singleView.nStreamType == VideoStreamType_Default) {
                 
+                ystNetWorkHelperObj.ystNWTDDelegate  = self;
+                
                 [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
                 [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
                 
@@ -983,6 +985,32 @@ BOOL isAllLinkRun;
             }
         }
     });
+}
+
+/**
+ *  文本聊天返回的回调
+ *
+ *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
+ *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
+ */
+-(void)ystNetWorkHelpTextChatCallBack:(int)nLocalChannel withTextDataType:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+{
+    
+    switch (nYstNetWorkHelpTextDataType) {
+            
+        case TextChatType_paraInfo:{
+            
+            if ([objYstNetWorkHelpSendData isKindOfClass:[NSMutableDictionary class]]) {
+                
+                JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
+                [singleView.mdDeviceRemoteInfo addEntriesFromDictionary:(NSDictionary *)objYstNetWorkHelpSendData];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /**

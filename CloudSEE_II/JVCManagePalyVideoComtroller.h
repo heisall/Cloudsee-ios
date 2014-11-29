@@ -51,7 +51,8 @@ enum CONNECTALLDEVICE{
     CONNECTALLDEVICE_End = 0, //全连接结束
 };
 
-@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate,AppDelegateVideoDelegate>
+@interface JVCManagePalyVideoComtroller : UIView<ystNetWorkHelpDelegate,UIScrollViewDelegate,JVCMonitorConnectionSingleImageViewDelegate,ystNetWorkHelpRemoteOperationDelegate,
+    AppDelegateVideoDelegate,ystNetWorkHelpTextDataDelegate>
 {
     JVCOperationController  *_operationController;
     int                      imageViewNums;            //ScorllView每页视图显示的窗体个数

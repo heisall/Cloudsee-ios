@@ -83,13 +83,14 @@ static const  int  KAlarmState        = 1;  //绑定alarm的状态
     });
     
 }
+
 /**
  *  文本聊天返回的回调
  *
  *  @param nYstNetWorkHelpTextDataType 文本聊天的状态类型
  *  @param objYstNetWorkHelpSendData   文本聊天返回的内容
  */
--(void)ystNetWorkHelpTextChatCallBack:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
+-(void)ystNetWorkHelpTextChatCallBack:(int)nLocalChannel withTextDataType:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         

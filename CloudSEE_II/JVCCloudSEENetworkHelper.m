@@ -1405,9 +1405,9 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                     [amAplistData addObjectsFromArray:[jvcCloudSEENetworkHelper getDeviceNearApList:_extend->nParam1 NearApListBuffer:_extend->acData]];
                     
-                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_ApList objYstNetWorkHelpSendData:amAplistData];
+                         [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_ApList objYstNetWorkHelpSendData:amAplistData];
                     }
                     
                     [amAplistData release];
@@ -1426,13 +1426,13 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                         case RC_SNAPSLIST:{
                             
-                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                                 
                                 NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
                                 
                                 [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n]];
                                 
-                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_NetWorkInfo objYstNetWorkHelpSendData:networkInfoMDic];
+                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_NetWorkInfo objYstNetWorkHelpSendData:networkInfoMDic];
                                 
                                 [networkInfoMDic release];
                             }
@@ -1441,26 +1441,31 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                         case RC_GETPARAM:{
                             
-                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                                 
-                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
+                                NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
+
+//                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
+//                                
+//                                int nMobileCh = MOBILECHDEFAULT;
+//                                
+//                                if (strDevice.intValue == MOBILECHSECOND) {
+//                                    
+//                                    nMobileCh = MOBILECHSECOND;
+//                                }
+//                                
+//                                NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
+//                                
+//                                stpacket.acData[stpacket.nPacketLen] = 0;
+//                                [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj getFrameParamInfoByChannel:stpacket.acData+n nChannelValue:3]];
+                                [params retain];
                                 
-                                int nMobileCh = MOBILECHDEFAULT;
+                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1  withTextDataType:TextChatType_paraInfo objYstNetWorkHelpSendData:params];
                                 
-                                if (strDevice.intValue == MOBILECHSECOND) {
-                                    
-                                    nMobileCh = MOBILECHSECOND;
-                                }
+                                [params release];
                                 
-                                NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
-                                
-                                stpacket.acData[stpacket.nPacketLen] = 0;
-                                [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj getFrameParamInfoByChannel:stpacket.acData+n nChannelValue:3]];
-                                
-                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_paraInfo objYstNetWorkHelpSendData:networkInfoMDic];
-                                
-                                [strDevice release];
-                                [networkInfoMDic release];
+//                                [strDevice release];
+//                                [networkInfoMDic release];
                                 
                             }
                             
@@ -1468,7 +1473,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
-                                DDLogCVerbose(@"%s--------------###########101=%s",__FUNCTION__,stpacket.acData+n);
                                 [params retain];
                                 
                                 int  nStreamType  = -1;
@@ -1556,9 +1560,9 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                             
                             NSString *strSetApResult = [[NSString alloc] initWithFormat:@"%d",a];
                             
-                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                                 
-                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_ApSetResult objYstNetWorkHelpSendData:strSetApResult];
+                                [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_ApSetResult objYstNetWorkHelpSendData:strSetApResult];
                             }
                         }
                     }
@@ -1567,7 +1571,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     break;
                 case RC_GPIN_ADD:{
                     
-                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                         
                         NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
                         
@@ -1580,7 +1584,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
 
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_setAlarmType objYstNetWorkHelpSendData:alarmAddInfo];
+                          [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_setAlarmType objYstNetWorkHelpSendData:alarmAddInfo];
                         
                         [alarmAddInfo release];
                     }
@@ -1590,7 +1594,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                 case RC_GPIN_DEL:{
                     
-                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                         
                         NSString *responseStr = [[NSString alloc] initWithUTF8String:stpacket.acData];
                         
@@ -1603,7 +1607,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_deleteAlarm objYstNetWorkHelpSendData:alarmAddInfo];
+                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_deleteAlarm objYstNetWorkHelpSendData:alarmAddInfo];
                         
                         [alarmAddInfo release];
                     }
@@ -1612,7 +1616,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     break;
                 case RC_GPIN_SET:{
                     
-                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                         
                         DDLogCVerbose(@"%s----dataSet=%s",__FUNCTION__,stpacket.acData);
                         
@@ -1627,7 +1631,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_editAlarm objYstNetWorkHelpSendData:alarmAddInfo];
+                         [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_editAlarm objYstNetWorkHelpSendData:alarmAddInfo];
                         
                         [alarmAddInfo release];
                     }
@@ -1638,7 +1642,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                 case RC_GPIN_SECLECT:
                 {
                     
-                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:objYstNetWorkHelpSendData:)]) {
+                    if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
                         
                         
                         NSMutableArray *alarmInfo = [[NSMutableArray alloc] initWithCapacity:10];
@@ -1662,7 +1666,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
                         
-                        [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:TextChatType_getAlarmType objYstNetWorkHelpSendData:alarmInfo];
+                         [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_getAlarmType objYstNetWorkHelpSendData:alarmInfo];
                         
                         [alarmInfo release];
                     }
