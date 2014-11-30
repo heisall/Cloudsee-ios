@@ -449,10 +449,10 @@ enum DEVICETALKMODEL {
 /**
  *  设置安全防护时间段
  *
- *  @param nLocalChannel 本地通道
- *  @param nBeginHours   开始时间
- *  @param nEndHours     结束时间
+ *  @param nLocalChannel  本地通道
+ *  @param strBeginTime   开始时间
+ *  @param strEndTime     结束时间
  */
--(void)RemoteSetAlarmTime:(int)nLocalChannel withTime1:(int)nBeginHours withTime2:(int)nEndHours;
+-(void)RemoteSetAlarmTime:(int)nLocalChannel withstrBeginTime:(NSString *)strBeginTime withStrEndTime:(NSString *)strEndTime; 
 
 @end

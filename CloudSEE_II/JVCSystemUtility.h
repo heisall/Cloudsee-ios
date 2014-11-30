@@ -213,7 +213,16 @@
  *
  *  @return 小时日期格式
  */
--(NSString *)strHoursConvertDateHours:(NSString *)strTime;
+-(NSDate *)strHoursConvertDateHours:(NSString *)strTime;
+
+/**
+ *  把小时的字符串转为时间格式(精确到秒)
+ *
+ *  @param strTime 当前的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSDate *)strHoursSecondsConvertDateHours:(NSString *)strTime;
 
 /**
  *  把小时的时间转为字符串时间格式

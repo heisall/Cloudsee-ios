@@ -697,11 +697,11 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 /**
  *  安全防护时间段
  *
- *  @param nJvChannelID 本地连接的通道号
- *  @param nBeginHours  起始的时间
- *  @param nEndHours    结束的时间
+ *  @param nJvChannelID  本地连接的通道号
+ *  @param strBeginTime  起始的时间
+ *  @param strEndTime    结束的时间
  */
--(void)RemoteSetAlarmTime:(int)nJvChannelID withBeginTime:(int)nBeginHours withEndTime:(int)nEndHours{
+-(void)RemoteSetAlarmTime:(int)nJvChannelID withstrBeginTime:(NSString *)strBeginTime withStrEndTime:(NSString *)strEndTime{
     
     PAC	m_stPacket;
     memset(&m_stPacket, 0, sizeof(PAC));
@@ -715,11 +715,13 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     int nOffset=0;
     char acBuffer[256]={0};
     
-    sprintf(acBuffer, "%s=%02d:00:00-%02d:00:00;",[kDeviceAlarmTime0 UTF8String],nBeginHours,nEndHours);
+    sprintf(acBuffer, "%s=%s:00-%s:59;",[kDeviceAlarmTime0 UTF8String],[strBeginTime UTF8String],[strEndTime UTF8String]);
     strcat(m_pstExt->acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
     DDLogCVerbose(@"%s------alarmTime------%s",__FUNCTION__,m_pstExt->acData);
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
 }
 
 #pragma mark 设置图像反转

@@ -137,10 +137,10 @@
 /**
  *  安全防护时间段
  *
- *  @param nJvChannelID 本地连接的通道号
- *  @param nBeginHours  起始的时间
- *  @param nEndHours    结束的时间
+ *  @param nJvChannelID  本地连接的通道号
+ *  @param strBeginTime  起始的时间
+ *  @param strEndTime    结束的时间
  */
--(void)RemoteSetAlarmTime:(int)nJvChannelID withBeginTime:(int)nBeginHours withEndTime:(int)nEndHours;
+-(void)RemoteSetAlarmTime:(int)nJvChannelID withstrBeginTime:(NSString *)strBeginTime withStrEndTime:(NSString *)strEndTime;
 
 @end
