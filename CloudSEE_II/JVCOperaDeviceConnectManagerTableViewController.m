@@ -19,14 +19,14 @@
 
 @interface JVCOperaDeviceConnectManagerTableViewController ()
 {
-    NSMutableArray *arrayFootList;
-    NSMutableArray *arrayContentList;
-    BOOL            nDevieAlarmState;
+    NSMutableArray        *arrayFootList;
+    NSMutableArray        *arrayContentList;
+    BOOL                   nDevieAlarmState;
     JVCAlarmManagerHelper *alarmManagerHelp;
     
-    NSString       *showTimerString;
-    NSString       *dateBegin;
-    NSString       *dateEnd;
+    NSMutableString       *strDateBegin;
+    NSMutableString       *strDateEnd;
+    NSMutableString       *strShowTime;
 }
 
 @end
@@ -48,6 +48,10 @@ static const int KFootViewAdd       = 30;//多添加的位置
         NSMutableDictionary *mdInfo = [[NSMutableDictionary alloc] initWithCapacity:10];
         self.deviceDic              = mdInfo;
         [mdInfo release];
+        
+        strDateBegin = [[NSMutableString alloc] initWithCapacity:10];
+        strDateEnd   = [[NSMutableString alloc] initWithCapacity:10];
+        strShowTime  = [[NSMutableString alloc] initWithCapacity:10];
     }
 
     return self;
@@ -99,11 +103,26 @@ static const int KFootViewAdd       = 30;//多添加的位置
         
         if (times.count ==2) {
             
-            dateBegin = [systemUtility strHoursConvertDateHours:[times objectAtIndex:0]];
-            dateEnd   = [systemUtility strHoursConvertDateHours:[times objectAtIndex:1]];
-            showTimerString     = [NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd];
-            DDLogVerbose(@"%@---$$$$$$$$$----%@",[times objectAtIndex:0],[times objectAtIndex:1]);
-            [self.deviceDic setObject:[NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd] forKey:[arrayContentList objectAtIndex:2]];
+            NSDate *dateBegin = [systemUtility strHoursSecondsConvertDateHours:[times objectAtIndex:0]];
+            NSDate *dateEnd   = [systemUtility strHoursSecondsConvertDateHours:[times objectAtIndex:1]];
+            
+            [strDateBegin deleteCharactersInRange:NSMakeRange(0, strDateBegin.length)];
+            [strDateEnd deleteCharactersInRange:NSMakeRange(0, strDateEnd.length)];
+            [strShowTime deleteCharactersInRange:NSMakeRange(0, strShowTime.length)];
+            
+            if (dateBegin != nil ) {
+                
+                [strDateBegin appendString:[systemUtility DateHoursConvertStrHours:dateBegin]];
+            }
+            
+            if (dateEnd != nil ) {
+                
+                 [strDateEnd appendString:[systemUtility DateHoursConvertStrHours:dateEnd]];
+            }
+        
+            [strShowTime appendFormat:@"%@-%@",strDateBegin,strDateEnd];
+            
+            [self.deviceDic setObject:strShowTime forKey:[arrayContentList objectAtIndex:2]];
         }
     }
 }
@@ -139,6 +158,9 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [alarmManagerHelp release];
     [arrayFootList release];
     [deviceDic     release];
+    [strDateBegin release];
+    [strDateEnd release];
+    [strShowTime  release];
     [super dealloc];
 }
 
@@ -178,7 +200,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
     NSString  *switchState    = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:indexPath.section]];
     cell.deviceDelegate = self;
     
-    [cell  updateCellContentWithIndex:indexPath.section safeTimer:showTimerString andSwitchState:switchState.intValue];
+    [cell  updateCellContentWithIndex:indexPath.section safeTimer:strShowTime andSwitchState:switchState.intValue];
     
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
@@ -225,8 +247,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
         JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
-        deviceAlarm.alarmStartTimer = dateBegin;
-        deviceAlarm.alarmEndTimer   =dateEnd;
+        deviceAlarm.alarmStartTimer = strDateBegin;
+        deviceAlarm.alarmEndTimer   = strDateEnd;
         [self.navigationController pushViewController:deviceAlarm animated:YES];
         [deviceAlarm                release];
 

@@ -532,7 +532,7 @@
 		AD2BDB5A19D2B32D00AA6D73 /* JVCEditDeviceOperationView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5719D2B32D00AA6D73 /* JVCEditDeviceOperationView.m */; };
 		AD2BDB5F19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */; };
 		AD2BDB7919D2CB7F00AA6D73 /* JVCAppHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */; };
-		AD32175B1A29D1EF0054FA5C /* libjvnetsdkV2.0.76.3.14.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD32175A1A29D1EF0054FA5C /* libjvnetsdkV2.0.76.3.14.a */; };
+		AD32175D1A2AE6DA0054FA5C /* libjvnetsdkV2.0.76.3.15.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD32175C1A2AE6DA0054FA5C /* libjvnetsdkV2.0.76.3.15.a */; };
 		AD348C5219F92760006C8A15 /* edi_safe_se@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */; };
 		AD348C5519F92768006C8A15 /* edi_alarm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5319F92768006C8A15 /* edi_alarm@2x.png */; };
 		AD348C5619F92768006C8A15 /* edi_safe_un@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */; };
@@ -1303,7 +1303,7 @@
 		AD2BDB5E19D2BBEE00AA6D73 /* JVCAlarmMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAlarmMessageViewController.m; sourceTree = "<group>"; };
 		AD2BDB7719D2CB7F00AA6D73 /* JVCAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppHelper.h; sourceTree = "<group>"; };
 		AD2BDB7819D2CB7F00AA6D73 /* JVCAppHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAppHelper.mm; sourceTree = "<group>"; };
-		AD32175A1A29D1EF0054FA5C /* libjvnetsdkV2.0.76.3.14.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.14.a; sourceTree = "<group>"; };
+		AD32175C1A2AE6DA0054FA5C /* libjvnetsdkV2.0.76.3.15.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.15.a; sourceTree = "<group>"; };
 		AD348C5119F92760006C8A15 /* edi_safe_se@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_se@2x.png"; sourceTree = "<group>"; };
 		AD348C5319F92768006C8A15 /* edi_alarm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_alarm@2x.png"; sourceTree = "<group>"; };
 		AD348C5419F92768006C8A15 /* edi_safe_un@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_safe_un@2x.png"; sourceTree = "<group>"; };
@@ -1536,7 +1536,6 @@
 			files = (
 				A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */,
 				A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */,
-				AD32175B1A29D1EF0054FA5C /* libjvnetsdkV2.0.76.3.14.a in Frameworks */,
 				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
 				ADC8288E1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a in Frameworks */,
 				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
@@ -1549,6 +1548,7 @@
 				A7F4059919E558040070945F /* AVFoundation.framework in Frameworks */,
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */,
+				AD32175D1A2AE6DA0054FA5C /* libjvnetsdkV2.0.76.3.15.a in Frameworks */,
 				A7B58B8D1A15E8A8004D0E5B /* libmtasdk.a in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
@@ -2879,8 +2879,8 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD32175A1A29D1EF0054FA5C /* libjvnetsdkV2.0.76.3.14.a */,
 				ADC8288D1A25C4FA002F87F5 /* libuserAcount_v3.2.2.2.a */,
+				AD32175C1A2AE6DA0054FA5C /* libjvnetsdkV2.0.76.3.15.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
 				A7A575FD1A130AA2000D0BBC /* libz.dylib */,

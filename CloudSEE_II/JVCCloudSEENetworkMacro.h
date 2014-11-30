@@ -175,8 +175,8 @@ static NSString const *KStorageMode               =  @"storageMode";      //设�
 static NSString const *kDeviceMotionDetecting     =  @"bMDEnable";        //移动侦测
 static NSString const *kDeviceAlarm               =  @"bAlarmEnable";     //安全防护
 static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安全防护时间段
-static NSString const *kDeviceAlarmStart          =  @"dayStart";           //开始时间
-static NSString const *kDeviceAlarmEnd            =  @"dayEnd";             //结束时间
+static NSString const *kDeviceAlarmStart          =  @"dayStart";         //开始时间
+static NSString const *kDeviceAlarmEnd            =  @"dayEnd";           //结束时间
 
 static NSString const *KOldHomeIPCHeight          =  @"height";           //高
 static NSString const *KOldHomeIPCWidth           =  @"width";            //宽

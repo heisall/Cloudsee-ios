@@ -48,13 +48,21 @@
  *
  *  @param nStatus 0：关 1：开
  */
--(void)setAlarmBeginHours:(int)nBeginHours withEndHours:(int)nEndHours {
+
+/**
+ *  设置安全防护时间段
+ *
+ *  @param nLocalChannel  本地通道
+ *  @param strBeginTime   开始时间
+ *  @param strEndTime     结束时间
+ */
+-(void)setAlarmBeginHours:(NSString *)strBeginTime withStrEndTime:(NSString *)strEndTime {
     
     JVCCloudSEENetworkHelper *networkHelpObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
     if ([networkHelpObj checknLocalChannelIsDisplayVideo:nLocalChannel]) {
         
-        [networkHelpObj RemoteSetAlarmTime:nLocalChannel withTime1:nBeginHours withTime2:nEndHours];
+        [networkHelpObj RemoteSetAlarmTime:nLocalChannel withstrBeginTime:strBeginTime withStrEndTime:strEndTime];
     }
 }
 

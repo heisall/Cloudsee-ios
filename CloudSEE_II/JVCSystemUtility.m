@@ -21,6 +21,7 @@ static const int        kHomeIPCSSIDWithMinLength  = 6;       //家用IPC热点�
 static NSString const  *APPLANGUAGE                = @"zh-Hans";//简体中文的标志
 static NSString const  *KOldUserPlist              = @"userInfo.plist";//简体中文的标志
 static NSString const *kDateTimeFormatter          = @"HH:mm";
+static const NSString *KDateFormatterReseive       = @"HH:mm:ss";
 
 
 static JVCSystemUtility *shareInstance = nil;
@@ -611,26 +612,39 @@ static JVCSystemUtility *shareInstance = nil;
  *
  *  @return 小时日期格式
  */
-static const NSString *KDateFormatterReseive  = @"HH:mm:ss";
--(NSString *)strHoursConvertDateHours:(NSString *)strTime{
+-(NSDate *)strHoursConvertDateHours:(NSString *)strTime{
+    
+    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
+
+    NSDate *date = [dateFormatter dateFromString:strTime];
+    
+    [dateFormatter release];
+    
+    
+    return date;
+}
+
+/**
+ *  把小时的字符串转为时间格式(精确到秒)
+ *
+ *  @param strTime 当前的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSDate *)strHoursSecondsConvertDateHours:(NSString *)strTime{
     
     NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
     
     [dateFormatter setDateFormat:(NSString *)KDateFormatterReseive];
-
-    NSDate *receiveDate = [dateFormatter dateFromString:strTime];
+    
+    NSDate *date = [dateFormatter dateFromString:strTime];
     
     [dateFormatter release];
     
-    NSDateFormatter *dateFormatterSet  = [[NSDateFormatter alloc] init];
-
-    [dateFormatterSet setDateFormat:(NSString *)kDateTimeFormatter];
     
-    NSString *dateString = [dateFormatterSet stringFromDate:receiveDate];
-    
-    [dateFormatterSet release];
-    
-    return dateString;
+    return date;
 }
 
 /**

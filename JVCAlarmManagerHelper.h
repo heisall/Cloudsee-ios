@@ -30,11 +30,13 @@
 -(void)setAlarmStatus:(int)nStatus;
 
 /**
- *  设置安全防护按钮的状态
+ *  设置安全防护时间段
  *
- *  @param nStatus 0：关 1：开
+ *  @param nLocalChannel  本地通道
+ *  @param strBeginTime   开始时间
+ *  @param strEndTime     结束时间
  */
--(void)setAlarmBeginHours:(int)nBeginHours withEndHours:(int)nEndHours;
+-(void)setAlarmBeginHours:(NSString *)strBeginTime withStrEndTime:(NSString *)strEndTime;
 
 /**
  *  设置移动侦测开关
