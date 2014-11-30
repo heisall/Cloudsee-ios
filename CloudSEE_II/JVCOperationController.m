@@ -176,6 +176,11 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_splitViewBtn setHidden:YES];
     [_splitViewCon setHidden:YES];
     
+    if (_managerVideo) {
+        
+        [_managerVideo stopPlayVideoCallBack];
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -200,12 +205,14 @@ char remoteSendSearchFileBuffer[29] = {0};
         }
         
         if (self.isPlayBackVideo) {
+            
             [_splitViewBtn setHidden:YES];
             [_splitViewCon setHidden:YES];
         }
         
         
         if (self.navigationController.navigationBarHidden) {
+            
             self.navigationController.navigationBarHidden = NO;
         }
         
@@ -216,6 +223,11 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     [self setAlarmTypeButton];
+    
+    if (_managerVideo) {
+        
+        [_managerVideo continuePlayVideoCallBack];
+    }
     
 }
 
@@ -284,7 +296,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_StorageMode remoteOperationCommand:nStorageType==StorageType_alarm?StorageType_auto:StorageType_alarm];
         [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_paraInfo remoteOperationCommand:-1];
-        
     }
 }
 

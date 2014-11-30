@@ -211,4 +211,10 @@ enum showWindowNumberType{
  */
 - (BOOL)getSingleViewVoiceBtnState;
 
+
+-(void)stopPlayVideoCallBack;
+
+
+-(void)continuePlayVideoCallBack;
+
 @end
