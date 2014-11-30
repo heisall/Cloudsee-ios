@@ -63,17 +63,11 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [super viewDidLoad];
     
     self.title = LOCALANGER(@"jvc_alarmmanage_title");
-    
     [self initArrayList];
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
-    NSLog(@"==%@==",self.deviceDic);
-    
     alarmManagerHelp = [[JVCAlarmManagerHelper alloc] init:self.nLocalChannel];
     
     [self initLayoutWithStatus];
-    
 }
 
 /**
@@ -257,16 +251,6 @@ static const int KFootViewAdd       = 30;//多添加的位置
     }
 }
 
-///**
-// *  获取报警时间
-// *
-// *  @return 报警时间
-// */
-//- (NSString *)getAlarmDuration
-//{
-//    NSString * [NSString stringWithFormat:@"%@",[self.deviceDic objectForKey:(NSString *)kDeviceAlarmTime0]]];
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     NSString *StringTitile = [arrayFootList objectAtIndex:section];
@@ -286,33 +270,22 @@ static const int KFootViewAdd       = 30;//多添加的位置
 
 }
 
-
 - (void)JVCOperDevConManagerClickCallBack:(int)index switchState:(BOOL)state
 {
-    DDLogVerbose(@"==%d==%d",index,state);
     [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
 
     switch (index) {
         case JVCOperaDevConManagerCellTypeSafe:
         {
-//            deviceModel.isDeviceSwitchAlarm = state;
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                [alarmManagerHelp setAlarmStatus:state];
             
-            });
-            [self.deviceDic setObject:[NSString stringWithFormat:@"%d",state] forKey:[arrayContentList objectAtIndex:JVCOperaDevConManagerCellTypeSafe ]];
-            nDevieAlarmState = state;
-    
+            [alarmManagerHelp setAlarmStatus:state];
+            
         }
             break;
         case JVCOperaDevConManagerCellTypeMoventAttention:
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-             
-                [alarmManagerHelp setMotionDetecting:state];
-                
-            });
+            [alarmManagerHelp setMotionDetecting:state];
+            
         }
             break;
             
@@ -348,11 +321,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [startTimer retain];
     [endTimer   retain];
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [alarmManagerHelp setAlarmBeginHours:startTimer withStrEndTime:endTimer];
-        
-    });
+    [alarmManagerHelp setAlarmBeginHours:startTimer withStrEndTime:endTimer];
+
     [startTimer release];
     [endTimer   release];
     [self.navigationController popViewControllerAnimated:YES];
