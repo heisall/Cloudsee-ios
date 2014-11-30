@@ -1004,6 +1004,14 @@ BOOL isAllLinkRun;
                 
                 JVCMonitorConnectionSingleImageView  *singleView          =  [self singleViewAtIndex:nLocalChannel-1];
                 [singleView.mdDeviceRemoteInfo addEntriesFromDictionary:(NSDictionary *)objYstNetWorkHelpSendData];
+                
+                if (nLocalChannel == self.nSelectedChannelIndex + 1) {
+                    
+                    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(refreshDeviceRemoteInfoCallBack:)]) {
+                        
+                        [self.delegate refreshDeviceRemoteInfoCallBack:singleView.mdDeviceRemoteInfo];
+                    }
+                }
             }
         }
             break;

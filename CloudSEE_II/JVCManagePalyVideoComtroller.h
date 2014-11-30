@@ -43,6 +43,12 @@
  *  @param state yes 选中  no 不选中
  */
 - (void)responseSingleViewVoicebtnEvent:(BOOL)state;
+
+
+/**
+ *  设备的远程设备信息修改的回调
+ */
+-(void)refreshDeviceRemoteInfoCallBack:(NSMutableDictionary *)mdRemoteInfo;
 @end
 
 enum CONNECTALLDEVICE{

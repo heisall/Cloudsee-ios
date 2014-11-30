@@ -205,4 +205,22 @@
  *  @param fileName 文件目录
  */
 - (NSString *)creatDirectoryAtDocumentPath:(NSString *)fileName;
+
+/**
+ *  把小时的字符串转为时间格式
+ *
+ *  @param strTime 当前的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSDate *)strHoursConvertDateHours:(NSString *)strTime;
+
+/**
+ *  把小时的时间转为字符串时间格式
+ *
+ *  @param dateTime 当前选择的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSString *)DateHoursConvertStrHours:(NSDate *)dateTime;
 @end

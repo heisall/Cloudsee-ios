@@ -10,7 +10,6 @@
 //static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安全防护时间段
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
-#import "JVCOperDevConManagerCell.h"
 #import "JVCRGBHelper.h"
 #import "JVCRGBColorMacro.h"
 #import "JVCDeviceModel.h"
@@ -21,11 +20,8 @@
 @interface JVCOperaDeviceConnectManagerTableViewController ()
 {
     NSMutableArray *arrayFootList;
-    
     NSMutableArray *arrayContentList;
-    
-    BOOL nDevieAlarmState;
-    
+    BOOL            nDevieAlarmState;
     JVCAlarmManagerHelper *alarmManagerHelp;
 }
 
@@ -41,27 +37,84 @@ static const int KLabelFontSize     = 12;//字体大小
 static const int KFootViewAdd       = 30;//多添加的位置
 
 
+-(id)init {
+
+    if (self = [super init]) {
+        
+        NSMutableDictionary *mdInfo = [[NSMutableDictionary alloc] initWithCapacity:10];
+        self.deviceDic              = mdInfo;
+        [mdInfo release];
+    }
+
+    return self;
+}
+
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.title = LOCALANGER(@"jvc_alarmmanage_title");
+    
     [self initArrayList];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
-    DDLogVerbose(@"self.deviceDic==%@==",self.deviceDic);
-    
-    nDevieAlarmState = [[self.deviceDic objectForKey:[arrayContentList objectAtIndex:0]] intValue];
-    
     
     alarmManagerHelp = [[JVCAlarmManagerHelper alloc] init:self.nLocalChannel];
     
+    [self initLayoutWithStatus];
+    
+}
+
+/**
+ *  初始化按钮的一些状态
+ */
+-(void)initLayoutWithStatus {
+    
+    if (arrayContentList.count < 3) {
+        
+        return;
+    }
+    
+    NSString *strDeviceAlarmStatus = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:0]];
+    
+    if (strDeviceAlarmStatus) {
+        
+        nDevieAlarmState = strDeviceAlarmStatus.intValue;
+    }
+    
+//    NSString *strDeviceAlarmTime = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:2]];
+//    
+//    if (strDeviceAlarmTime) {
+//        
+//        NSArray          *times         = [strDeviceAlarmTime componentsSeparatedByString:@"-"];
+//        
+//        JVCSystemUtility *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
+//        
+//        if (times.count ==2) {
+//            
+//            NSDate *dateBegin = [systemUtility strHoursConvertDateHours:[times objectAtIndex:0]];
+//            NSDate *dateEnd   = [systemUtility strHoursConvertDateHours:[times objectAtIndex:1]];
+//            DDLogVerbose(@"%@---$$$$$$$$$----%@",[times objectAtIndex:0],[times objectAtIndex:1]);
+//            [self.deviceDic setObject:[NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd] forKey:[arrayContentList objectAtIndex:2]];
+//        }
+//    }
+}
+
+/**
+ *  刷新视图
+ */
+-(void)refreshInfo{
+
+    [self initLayoutWithStatus];
+    [self.tableView reloadData];
 }
 
 - (void)initArrayList
 {
 
     arrayFootList       = [[NSMutableArray alloc] init];
+    
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeStateFoot")];
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerdurationFoot")];
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeMoveAttentionFoot")];
@@ -81,9 +134,11 @@ static const int KFootViewAdd       = 30;//多添加的位置
     [deviceDic     release];
     [super dealloc];
 }
+
+
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -97,8 +152,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     if (nDevieAlarmState ) {
         
         return arrayFootList.count;
-
     }
+    
     return 1;
 }
 
@@ -117,10 +172,13 @@ static const int KFootViewAdd       = 30;//多添加的位置
     cell.deviceDelegate = self;
     
     [cell  updateCellContentWithIndex:indexPath.section safeTimer:[self.deviceDic objectForKey:(NSString *)kDeviceAlarmTime0] andSwitchState:switchState.intValue];
+    
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }else{
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     }

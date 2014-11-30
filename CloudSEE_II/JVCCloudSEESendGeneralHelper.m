@@ -661,6 +661,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     nOffset += strlen(acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
 }
 
 /**
@@ -688,6 +690,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     nOffset += strlen(acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
 }
 
 /**

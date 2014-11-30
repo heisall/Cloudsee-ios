@@ -7,13 +7,19 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+#import "JVCOperDevConManagerCell.h"
+
 @class JVCDeviceModel;
-@interface JVCOperaDeviceConnectManagerTableViewController : JVCBaseGeneralTableViewController
+@interface JVCOperaDeviceConnectManagerTableViewController : JVCBaseGeneralTableViewController <JVCOperDevConManagerDelegate>
 {
     NSMutableDictionary *deviceDic;
-    
-    int   nLocalChannel;
+    int                  nLocalChannel;
 }
 @property(nonatomic,retain) NSMutableDictionary *deviceDic;
-@property(nonatomic,assign) int   nLocalChannel;
+@property(nonatomic,assign) int                  nLocalChannel;
+
+/**
+ *  刷新视图
+ */
+-(void)refreshInfo;
 @end

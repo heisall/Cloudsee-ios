@@ -18,8 +18,9 @@
 static NSString const  *kSSIDWithKeyValue          = @"SSID"; //获取当前手机连接无线网络的SSID
 static NSString const  *kHomeIPCSSIDWithIndexKey   = @"IPC-"; //家用IPC热点的前缀
 static const int        kHomeIPCSSIDWithMinLength  = 6;       //家用IPC热点的最小长度
-static NSString const  *APPLANGUAGE = @"zh-Hans";//简体中文的标志
-static NSString const  *KOldUserPlist = @"userInfo.plist";//简体中文的标志
+static NSString const  *APPLANGUAGE                = @"zh-Hans";//简体中文的标志
+static NSString const  *KOldUserPlist              = @"userInfo.plist";//简体中文的标志
+static NSString const *kDateTimeFormatter          = @"HH:mm";
 
 
 static JVCSystemUtility *shareInstance = nil;
@@ -601,6 +602,46 @@ static JVCSystemUtility *shareInstance = nil;
         [fileManager createDirectoryAtPath:imageDir withIntermediateDirectories:YES attributes:nil error:nil];
     }
     return imageDir;
+}
+
+/**
+ *  把小时的字符串转为时间格式
+ *
+ *  @param strTime 当前的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSDate *)strHoursConvertDateHours:(NSString *)strTime{
+    
+    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
+    
+    NSDate *date = [dateFormatter dateFromString:strTime];
+    
+    [dateFormatter release];
+    
+    return date;
+}
+
+/**
+ *  把小时的时间转为字符串时间格式
+ *
+ *  @param dateTime 当前选择的时间
+ *
+ *  @return 小时日期格式
+ */
+-(NSString *)DateHoursConvertStrHours:(NSDate *)dateTime{
+    
+    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
+    
+    NSString *strDate = [dateFormatter stringFromDate:dateTime];
+    
+    [dateFormatter release];
+    
+    return strDate;
 }
 
 @end

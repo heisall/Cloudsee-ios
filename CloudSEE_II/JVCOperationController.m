@@ -715,6 +715,27 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 }
 
+-(void)refreshDeviceRemoteInfoCallBack:(NSMutableDictionary *)mdRemoteInfo{
+
+    for (UIViewController *con in self.navigationController.viewControllers) {
+        
+        if ([con isKindOfClass:[JVCOperaDeviceConnectManagerTableViewController class]]) {
+            
+            JVCOperaDeviceConnectManagerTableViewController *remoteDeviceViewcontroller = (JVCOperaDeviceConnectManagerTableViewController *)con;
+            
+            [remoteDeviceViewcontroller.deviceDic addEntriesFromDictionary:mdRemoteInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+            
+                [remoteDeviceViewcontroller refreshInfo];
+            
+            });
+            
+        }
+    }
+
+}
+
 /**
  *  初始化音频监听、云台、远程回放模块
  */
@@ -1816,7 +1837,6 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case TYPEBUTTONCLI_SOUND:{
             
-            return;
             
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
             /**
@@ -1832,8 +1852,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
 
             JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
-            JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
-            viewController.deviceDic = singleView.mdDeviceRemoteInfo;
+            [viewController.deviceDic addEntriesFromDictionary:singleView.mdDeviceRemoteInfo];
             viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
             [self.navigationController pushViewController:viewController animated:YES];
             [viewController release];

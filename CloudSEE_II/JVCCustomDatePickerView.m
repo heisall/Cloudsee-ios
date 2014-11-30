@@ -7,6 +7,7 @@
 //
 
 #import "JVCCustomDatePickerView.h"
+#import "JVCSystemUtility.h"
 
 @interface JVCCustomDatePickerView (){
     
@@ -20,7 +21,6 @@
 
 static const CGFloat  kDatePickerHeight         = 240.0f;
 static const CGFloat  kButtonWithBottom         = 20.0f;
-static NSString const *kDateTimeFormatter       = @"HH:mm";
 
 /**
  *  初始化日期控件的视图
@@ -71,7 +71,7 @@ static NSString const *kDateTimeFormatter       = @"HH:mm";
         
         if (strTime) {
             
-            NSDate *date = [self strHoursConvertDateHours:strTime];
+            NSDate *date = [[JVCSystemUtility shareSystemUtilityInstance] strHoursConvertDateHours:strTime];
             
             if (date) {
                 
@@ -94,11 +94,11 @@ static NSString const *kDateTimeFormatter       = @"HH:mm";
  */
 -(void)selectedFinshedTimeClick{
     
-    DDLogVerbose(@"%s----------date=%@",__FUNCTION__,[self DateHoursConvertStrHours:datePickerView.date]);
+    DDLogVerbose(@"%s----------date=%@",__FUNCTION__,[[JVCSystemUtility shareSystemUtilityInstance] DateHoursConvertStrHours:datePickerView.date]);
 
     if (self.jvcCustomDatePickerViewDelegate != nil && [self.jvcCustomDatePickerViewDelegate respondsToSelector:@selector(JVCCustomDatePickerViewSelectedFinshedCallBack:withButtonClickIndex:)]) {
         
-        [self.jvcCustomDatePickerViewDelegate JVCCustomDatePickerViewSelectedFinshedCallBack:[self DateHoursConvertStrHours:datePickerView.date] withButtonClickIndex:JVCCustomDatePickerViewClickTypeCancel];
+        [self.jvcCustomDatePickerViewDelegate JVCCustomDatePickerViewSelectedFinshedCallBack:[[JVCSystemUtility shareSystemUtilityInstance] DateHoursConvertStrHours:datePickerView.date] withButtonClickIndex:JVCCustomDatePickerViewClickTypeCancel];
     }
 }
 
@@ -107,52 +107,13 @@ static NSString const *kDateTimeFormatter       = @"HH:mm";
  */
 -(void)cancelClick{
     
-    DDLogVerbose(@"%s----------date=%@",__FUNCTION__,[self DateHoursConvertStrHours:datePickerView.date]);
+    DDLogVerbose(@"%s----------date=%@",__FUNCTION__,[[JVCSystemUtility shareSystemUtilityInstance] DateHoursConvertStrHours:datePickerView.date]);
     
     if (self.jvcCustomDatePickerViewDelegate != nil && [self.jvcCustomDatePickerViewDelegate respondsToSelector:@selector(JVCCustomDatePickerViewSelectedFinshedCallBack:withButtonClickIndex:)]) {
         
-        [self.jvcCustomDatePickerViewDelegate JVCCustomDatePickerViewSelectedFinshedCallBack:[self DateHoursConvertStrHours:datePickerView.date] withButtonClickIndex:JVCCustomDatePickerViewClickTypeSure];
+        [self.jvcCustomDatePickerViewDelegate JVCCustomDatePickerViewSelectedFinshedCallBack:[[JVCSystemUtility shareSystemUtilityInstance] DateHoursConvertStrHours:datePickerView.date] withButtonClickIndex:JVCCustomDatePickerViewClickTypeSure];
     }
 }
 
-/**
- *  把小时的字符串转为时间格式
- *
- *  @param strTime 当前的时间
- *
- *  @return 小时日期格式
- */
--(NSDate *)strHoursConvertDateHours:(NSString *)strTime{
-    
-    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
-    
-    NSDate *date = [dateFormatter dateFromString:strTime];
-
-    [dateFormatter release];
-
-    return date;
-}
-
-/**
- *  把小时的时间转为字符串时间格式
- *
- *  @param dateTime 当前选择的时间
- *
- *  @return 小时日期格式
- */
--(NSString *)DateHoursConvertStrHours:(NSDate *)dateTime{
-    
-    NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
-    
-    NSString *strDate = [dateFormatter stringFromDate:dateTime];
-    
-    [dateFormatter release];
-    
-    return strDate;
-}
 
 @end
