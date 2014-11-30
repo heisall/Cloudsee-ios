@@ -23,6 +23,10 @@
     NSMutableArray *arrayContentList;
     BOOL            nDevieAlarmState;
     JVCAlarmManagerHelper *alarmManagerHelp;
+    
+    NSString       *showTimerString;
+    NSString       *dateBegin;
+    NSString       *dateEnd;
 }
 
 @end
@@ -60,6 +64,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    NSLog(@"==%@==",self.deviceDic);
+    
     alarmManagerHelp = [[JVCAlarmManagerHelper alloc] init:self.nLocalChannel];
     
     [self initLayoutWithStatus];
@@ -83,22 +89,23 @@ static const int KFootViewAdd       = 30;//多添加的位置
         nDevieAlarmState = strDeviceAlarmStatus.intValue;
     }
     
-//    NSString *strDeviceAlarmTime = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:2]];
-//    
-//    if (strDeviceAlarmTime) {
-//        
-//        NSArray          *times         = [strDeviceAlarmTime componentsSeparatedByString:@"-"];
-//        
-//        JVCSystemUtility *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
-//        
-//        if (times.count ==2) {
-//            
-//            NSDate *dateBegin = [systemUtility strHoursConvertDateHours:[times objectAtIndex:0]];
-//            NSDate *dateEnd   = [systemUtility strHoursConvertDateHours:[times objectAtIndex:1]];
-//            DDLogVerbose(@"%@---$$$$$$$$$----%@",[times objectAtIndex:0],[times objectAtIndex:1]);
-//            [self.deviceDic setObject:[NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd] forKey:[arrayContentList objectAtIndex:2]];
-//        }
-//    }
+    NSString *strDeviceAlarmTime = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:2]];
+    
+    if (strDeviceAlarmTime) {
+        
+        NSArray          *times         = [strDeviceAlarmTime componentsSeparatedByString:@"-"];
+        
+        JVCSystemUtility *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
+        
+        if (times.count ==2) {
+            
+            dateBegin = [systemUtility strHoursConvertDateHours:[times objectAtIndex:0]];
+            dateEnd   = [systemUtility strHoursConvertDateHours:[times objectAtIndex:1]];
+            showTimerString     = [NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd];
+            DDLogVerbose(@"%@---$$$$$$$$$----%@",[times objectAtIndex:0],[times objectAtIndex:1]);
+            [self.deviceDic setObject:[NSString stringWithFormat:@"%@-%@",dateBegin,dateEnd] forKey:[arrayContentList objectAtIndex:2]];
+        }
+    }
 }
 
 /**
@@ -171,7 +178,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
     NSString  *switchState    = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:indexPath.section]];
     cell.deviceDelegate = self;
     
-    [cell  updateCellContentWithIndex:indexPath.section safeTimer:[self.deviceDic objectForKey:(NSString *)kDeviceAlarmTime0] andSwitchState:switchState.intValue];
+    [cell  updateCellContentWithIndex:indexPath.section safeTimer:showTimerString andSwitchState:switchState.intValue];
     
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
@@ -213,18 +220,13 @@ static const int KFootViewAdd       = 30;//多添加的位置
 
 }
 
-//static NSString const *kDeviceMotionDetecting     =  @"bMDEnable";        //移动侦测
-//static NSString const *kDeviceAlarm               =  @"bAlarmEnable";     //安全防护
-//static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安全防护时间段
-//static NSString const *kDeviceAlarmStart          =  @"dayStart";           //开始时间
-//static NSString const *kDeviceAlarmEnd            =  @"dayEnd";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
         JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
-        deviceAlarm.alarmStartTimer = [self.deviceDic objectForKey:(NSString *)kDeviceAlarmStart];
-        deviceAlarm.alarmEndTimer   = [self.deviceDic objectForKey:(NSString *)kDeviceAlarmEnd];
+        deviceAlarm.alarmStartTimer = dateBegin;
+        deviceAlarm.alarmEndTimer   =dateEnd;
         [self.navigationController pushViewController:deviceAlarm animated:YES];
         [deviceAlarm                release];
 
@@ -269,7 +271,11 @@ static const int KFootViewAdd       = 30;//多添加的位置
         case JVCOperaDevConManagerCellTypeSafe:
         {
 //            deviceModel.isDeviceSwitchAlarm = state;
-            [alarmManagerHelp setAlarmStatus:state];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [alarmManagerHelp setAlarmStatus:state];
+            
+            });
             [self.deviceDic setObject:[NSString stringWithFormat:@"%d",state] forKey:[arrayContentList objectAtIndex:JVCOperaDevConManagerCellTypeSafe ]];
             nDevieAlarmState = state;
             [self.tableView reloadData];
@@ -278,7 +284,11 @@ static const int KFootViewAdd       = 30;//多添加的位置
             break;
         case JVCOperaDevConManagerCellTypeMoventAttention:
         {
-            [alarmManagerHelp setMotionDetecting:state];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+             
+                [alarmManagerHelp setMotionDetecting:state];
+                
+            });
         }
             break;
             
@@ -287,6 +297,11 @@ static const int KFootViewAdd       = 30;//多添加的位置
     }
 }
 
+/**
+ *  刷新显示状态
+ *
+ *  @param dic 收到的字典状态
+ */
 - (void)updateTableView:(NSMutableDictionary *)dic
 {
     self.deviceDic = dic;

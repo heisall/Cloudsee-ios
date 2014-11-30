@@ -33,7 +33,7 @@
 #import "JVCOperationControllerIphone5.h"
 #import "JVCLocalQRAddDeviceViewController.h"
 #import "JVCOperationHelpView.h"
-
+#import "JVCLogHelper.h"
 #import "JVCWheelShowOperationController.h"
 #import "JVCWheelShowOperationControllerIphone5.h"
 #import "JVCOpenAdevitiseViewController.h"
@@ -796,6 +796,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             JVCChannelScourseHelper *channelsHelperObj = [JVCChannelScourseHelper shareChannelScourseHelper];
             
             [channelsHelperObj addChannelsMDicToChannelList:channelMDic];
+            //获取广告图片
+            [self getAdevtiseInfo];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1000,6 +1002,35 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     });
   
+}
+
+- (void)getAdevtiseInfo
+{
+    NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:stringVersion.integerValue];
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[dicTic description] fileType:LogType_LoginManagerLogPath];
+        
+        DDLogVerbose(@"收到的广告的字典=%@",dicTic);
+        
+        if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:dicTic]) {//下载图片
+            //缓存当前版本号
+            NSString *strVersion = [dicTic objectForKey:AdverJsonInfo_Version];
+            
+            if (stringVersion.intValue<strVersion.intValue) {//当前版本小于从服务器获取的版本
+                
+                [[NSUserDefaults standardUserDefaults]setObject:strVersion forKey:  kAPPAderseVersion];
+                
+                if (dicTic !=nil) {
+                    [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
+                    
+                }
+            }
+        }
+    });
 }
 
 /**

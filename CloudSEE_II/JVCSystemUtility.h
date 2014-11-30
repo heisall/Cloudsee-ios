@@ -213,7 +213,7 @@
  *
  *  @return 小时日期格式
  */
--(NSDate *)strHoursConvertDateHours:(NSString *)strTime;
+-(NSString *)strHoursConvertDateHours:(NSString *)strTime;
 
 /**
  *  把小时的时间转为字符串时间格式

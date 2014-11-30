@@ -611,17 +611,26 @@ static JVCSystemUtility *shareInstance = nil;
  *
  *  @return 小时日期格式
  */
--(NSDate *)strHoursConvertDateHours:(NSString *)strTime{
+static const NSString *KDateFormatterReseive  = @"HH:mm:ss";
+-(NSString *)strHoursConvertDateHours:(NSString *)strTime{
     
     NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:(NSString *)kDateTimeFormatter];
-    
-    NSDate *date = [dateFormatter dateFromString:strTime];
+    [dateFormatter setDateFormat:(NSString *)KDateFormatterReseive];
+
+    NSDate *receiveDate = [dateFormatter dateFromString:strTime];
     
     [dateFormatter release];
     
-    return date;
+    NSDateFormatter *dateFormatterSet  = [[NSDateFormatter alloc] init];
+
+    [dateFormatterSet setDateFormat:(NSString *)kDateTimeFormatter];
+    
+    NSString *dateString = [dateFormatterSet stringFromDate:receiveDate];
+    
+    [dateFormatterSet release];
+    
+    return dateString;
 }
 
 /**

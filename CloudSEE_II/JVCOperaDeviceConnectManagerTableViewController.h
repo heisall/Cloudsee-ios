@@ -22,4 +22,11 @@
  *  刷新视图
  */
 -(void)refreshInfo;
+
+/**
+ *  刷新显示状态
+ *
+ *  @param dic 收到的字典状态
+ */
+- (void)updateTableView:(NSMutableDictionary *)dic;
 @end

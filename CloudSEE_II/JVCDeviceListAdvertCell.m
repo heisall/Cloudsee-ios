@@ -31,6 +31,8 @@
     NSMutableArray      *_arrayDefaultImage;
     
     BOOL                requestAdvertState;
+    
+    BOOL                hasInitCell;//标识应经初始化cell了
 }
 
 @end
@@ -38,8 +40,6 @@
 @implementation JVCDeviceListAdvertCell
 @synthesize JVCAdevrtDelegate;
 
-static NSString *kAdverInfo   = @"AdverDoucmentInfo";//保存广告位的目录
-static int  kAdverNoUpdate    = 19;//不用更新读取缓存
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -53,6 +53,9 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
         [self setDefaultImageWithCount:1];
         
         requestAdvertState = NO;
+        
+        hasInitCell        = NO;
+        
         
     }
     return self;
@@ -87,17 +90,9 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
  */
 - (void)initCellContent
 {
-    [self initContentView];
-
-    if (!requestAdvertState) {
-        
-        [self getAdverInfo];
-
-    }else{
     
-        [self UpdateSaveAdvertiseInfo];
-    }
-    
+    [self UpdateSaveAdvertiseInfo];
+
 }
 
 - (void)initContentView
@@ -126,7 +121,7 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
         if (model.downSuccess) {
             
             imageName = [[UIImage alloc]initWithContentsOfFile:model.localDownUrl];
-            
+           
         }
         imgView.image = imageName;
         [imageName release];
@@ -149,8 +144,6 @@ static int  kAdverNoUpdate    = 19;//不用更新读取缓存
     [_pageController setSelectedThumbImage:[UIImage imageNamed:@"devAdv_red.png"]];
     [self.contentView addSubview:_pageController];
     [_pageController release];
-    
-  
     
     if (_arrayDefaultImage.count == 1) {
         _pageController.hidden =YES;
