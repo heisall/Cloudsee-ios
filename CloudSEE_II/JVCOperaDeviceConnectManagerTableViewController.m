@@ -131,7 +131,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
  *  刷新视图
  */
 -(void)refreshInfo{
-
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
     [self initLayoutWithStatus];
     [self.tableView reloadData];
 }
@@ -248,6 +248,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
         
         
         JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
+        deviceAlarm.delegateAlarm = self;
         deviceAlarm.alarmStartTimer = strDateBegin;
         deviceAlarm.alarmEndTimer   = strDateEnd;
         [self.navigationController pushViewController:deviceAlarm animated:YES];
@@ -289,7 +290,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
 - (void)JVCOperDevConManagerClickCallBack:(int)index switchState:(BOOL)state
 {
     DDLogVerbose(@"==%d==%d",index,state);
-    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
     switch (index) {
         case JVCOperaDevConManagerCellTypeSafe:
         {
@@ -301,7 +303,6 @@ static const int KFootViewAdd       = 30;//多添加的位置
             });
             [self.deviceDic setObject:[NSString stringWithFormat:@"%d",state] forKey:[arrayContentList objectAtIndex:JVCOperaDevConManagerCellTypeSafe ]];
             nDevieAlarmState = state;
-            [self.tableView reloadData];
     
         }
             break;
@@ -318,6 +319,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
         default:
             break;
     }
+
 }
 
 /**
@@ -335,6 +337,30 @@ static const int KFootViewAdd       = 30;//多添加的位置
 
 }
 
+/**
+ *  代理
+ *
+ *  @param startTimer 开始时间
+ *  @param endTimer   结束时间
+ */
+- (void)jvcOperationDevieAlarmStartTimer:(NSString *)startTimer  endTimer:(NSString *)endTimer
+{
+    [startTimer retain];
+    [endTimer   retain];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [alarmManagerHelp setAlarmBeginHours:startTimer withStrEndTime:endTimer];
+        
+    });
+    [startTimer release];
+    [endTimer   release];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
+
+
+}
 
 /**
  *  必须要有，重写父类的去除cell上面的内容

@@ -83,7 +83,7 @@ static const int KSPan          =   20;
     [btnSave setBackgroundImage:imgBtnNor forState:UIControlStateNormal];
     [btnSave setBackgroundImage:imgBtnHor forState:UIControlStateHighlighted];
     [btnSave setTitle:LOCALANGER(@"Jvc_editDeviceInfo_Save") forState:UIControlStateNormal];
-//    [btnSave addTarget:self action:@selector(saveDeviceInfo) forControlEvents:UIControlEventTouchUpInside];
+    [btnSave addTarget:self action:@selector(setDeviceSafeTimer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnSave];
 }
 
@@ -95,7 +95,9 @@ static const int KSPan          =   20;
     self.alarmEndTimer   = (NSString *)kAlarmTimerEnd;
     
     //调保存按钮
-
+    if (delegateAlarm !=nil &&[delegateAlarm respondsToSelector:@selector(jvcOperationDevieAlarmStartTimer:endTimer:)]) {
+        [delegateAlarm jvcOperationDevieAlarmStartTimer:self.alarmStartTimer endTimer:self.alarmEndTimer];
+    }
 }
 
 /**
@@ -118,18 +120,23 @@ static const int KSPan          =   20;
             [[JVCAlertHelper shareAlertHelper]alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerUnLegal")];
             self.alarmStartTimer = startBtn.btn.titleLabel.text;
             self.alarmEndTimer = endBtn.btn.titleLabel.text;
-
+            
+            [startBtn.btn   setTitle:self.alarmStartTimer forState:UIControlStateNormal];
+            [endBtn.btn     setTitle:self.alarmEndTimer forState:UIControlStateNormal];
         }
             break;
         case JVCAlarmTimerType_Legal:
+        {
+            [startBtn.btn   setTitle:self.alarmStartTimer forState:UIControlStateNormal];
+            [endBtn.btn     setTitle:self.alarmEndTimer forState:UIControlStateNormal];
+        }
             break;
             
         default:
             break;
     }
        
-    [startBtn.btn   setTitle:self.alarmStartTimer forState:UIControlStateNormal];
-    [endBtn.btn     setTitle:self.alarmEndTimer forState:UIControlStateNormal];
+
 
 }
 
@@ -158,14 +165,37 @@ static const int KSPan          =   20;
         
         self.alarmStartTimer = strSelectedTime;
         
+        if ([endBtn.btn.titleLabel.text isEqualToString:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay")]) {
+            [endBtn.btn setTitle:(NSString *)kAlarmTimerEnd forState:UIControlStateNormal];
+            
+            self.alarmEndTimer   = (NSString *)kAlarmTimerEnd;
+        }
+        
     }else{
+        
         self.alarmEndTimer = strSelectedTime;
+        
+        if ([startBtn.btn.titleLabel.text isEqualToString:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay")]) {
+            [startBtn.btn setTitle:(NSString *)kAlarmTimerStart forState:UIControlStateNormal];
+            
+            self.alarmStartTimer = (NSString *) kAlarmTimerStart;
+        }
     }
     
     [self setBtnsTitles];
     
     DDLogVerbose(@"%s---------------%@",__FUNCTION__,strSelectedTime);
 
+}
+
+/**
+ *  点击保存按钮
+ */
+- (void)setDeviceSafeTimer
+{
+    if (delegateAlarm !=nil &&[delegateAlarm respondsToSelector:@selector(jvcOperationDevieAlarmStartTimer:endTimer:)]) {
+        [delegateAlarm jvcOperationDevieAlarmStartTimer:self.alarmStartTimer endTimer:self.alarmEndTimer];
+    }
 }
 
 - (void)dealloc

@@ -90,6 +90,7 @@
 		A7AF72CF1A15A8C40030D490 /* myVideo_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF72CA1A15A8C40030D490 /* myVideo_next@2x.png */; };
 		A7AF72D51A15ADF00030D490 /* JVCShowLargeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */; };
 		A7AF72D81A15AE7D0030D490 /* JVCZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */; };
+		A7AFE0371A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AFE0361A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m */; };
 		A7B172A21A1AE6D700D364CB /* LDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B1729D1A1AE6D700D364CB /* LDProgressView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A7B172A31A1AE6D700D364CB /* UIColor+RGBValues.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B1729F1A1AE6D700D364CB /* UIColor+RGBValues.m */; };
 		A7B172A41A1AE6D700D364CB /* DXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B172A11A1AE6D700D364CB /* DXAlertView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -803,6 +804,8 @@
 		A7AF72D41A15ADF00030D490 /* JVCShowLargeImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCShowLargeImageViewController.m; sourceTree = "<group>"; };
 		A7AF72D61A15AE7D0030D490 /* JVCZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCZoomScrollView.h; sourceTree = "<group>"; };
 		A7AF72D71A15AE7D0030D490 /* JVCZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCZoomScrollView.m; sourceTree = "<group>"; };
+		A7AFE0351A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperaOldDeviceConnectAlarmViewController.h; sourceTree = "<group>"; };
+		A7AFE0361A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperaOldDeviceConnectAlarmViewController.m; sourceTree = "<group>"; };
 		A7B1729C1A1AE6D700D364CB /* LDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDProgressView.h; sourceTree = "<group>"; };
 		A7B1729D1A1AE6D700D364CB /* LDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDProgressView.m; sourceTree = "<group>"; };
 		A7B1729E1A1AE6D700D364CB /* UIColor+RGBValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBValues.h"; sourceTree = "<group>"; };
@@ -1603,6 +1606,8 @@
 				A72928BE1A2859ED00F4A214 /* JVCOperDevConManagerCell.m */,
 				A72928CC1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.h */,
 				A72928CD1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m */,
+				A7AFE0351A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.h */,
+				A7AFE0361A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m */,
 			);
 			name = JVCDeviceOperation;
 			sourceTree = "<group>";
@@ -3936,6 +3941,7 @@
 				AD014DE719F51C2E00E3D0FB /* JVCApConfigDeviceViewController.m in Sources */,
 				A72928B61A284E1400F4A214 /* JVCOperaDeviceConnectManagerTableViewController.m in Sources */,
 				A72B4B6119D3B85600760695 /* JVCDeviceHelper.mm in Sources */,
+				A7AFE0371A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m in Sources */,
 				A7F5012E19D4F9F800AA78F0 /* JVCMoreSettingModel.m in Sources */,
 				A7AF72C21A159C380030D490 /* JVCConstansALAssetsMathHelper.m in Sources */,
 				ADA22E0219DAAE2A0092F8B9 /* CAStreamBasicDescription.cpp in Sources */,

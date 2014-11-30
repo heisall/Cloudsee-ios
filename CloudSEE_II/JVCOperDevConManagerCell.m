@@ -36,6 +36,7 @@ static int const KSaftTimerLabeWith     = 150;//titleLabel with
 static int const KSWitchWith            = 79;//swith with
 static int const KSwitchHeight          = 27;//switch height
 static int const KSafeLabelOrignX       = 40;//开始位置
+static const NSString *KSafeAllDateString   = @"00:00-23:59";
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -156,7 +157,13 @@ static int const KSafeLabelOrignX       = 40;//开始位置
         {
             safeTimerLabel.hidden   = NO;
             switchSafe.hidden       = YES;
-            safeTimerLabel.text     = stringSafe;
+            if ([stringSafe isEqualToString:(NSString *)KSafeAllDateString]) {
+                safeTimerLabel.text     = LOCALANGER(@"JVCOperationDeviceConnectManagerSafeAllDay");
+
+            }else{
+                safeTimerLabel.text     = stringSafe;
+
+            }
         }
             break;
             

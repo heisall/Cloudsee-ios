@@ -35,7 +35,7 @@
 #import "JVCAlarmManagerHelper.h"
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
-
+#import "JVCOperaOldDeviceConnectAlarmViewController.h"
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
@@ -644,6 +644,14 @@ char remoteSendSearchFileBuffer[29] = {0};
               
                 [self  showAlertWithUserOrPassWordError];
               });
+          }else{
+                        
+              if ([self.navigationController.viewControllers containsObject:self]) {
+                  
+                  [self.navigationController popToViewController:self animated:YES];
+              }
+          
+              
           }
      }
 }
@@ -1848,14 +1856,7 @@ char remoteSendSearchFileBuffer[29] = {0};
                 
                 return;
             }
-            
-            JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
-
-            JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
-            [viewController.deviceDic addEntriesFromDictionary:singleView.mdDeviceRemoteInfo];
-            viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
-            [self.navigationController pushViewController:viewController animated:YES];
-            [viewController release];
+            [self gotoOperationDeviceAlarmState];
             
         }
             break;
@@ -1885,6 +1886,45 @@ char remoteSendSearchFileBuffer[29] = {0};
             break;
     }
 
+}
+
+/**
+ *  去往报警设置界面
+ */
+- (void)gotoOperationDeviceAlarmState
+{
+    
+    BOOL newIPCState =  [_managerVideo getCurrentIsOldHomeIPC];
+    
+    if (newIPCState) {
+        
+        JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
+        JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
+        [viewController.deviceDic addEntriesFromDictionary:singleView.mdDeviceRemoteInfo];
+        viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+
+    }else{
+        
+        JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
+        if (model.isDeviceType ) {
+            
+            JVCOperaOldDeviceConnectAlarmViewController *deviceAlarmVC = [[JVCOperaOldDeviceConnectAlarmViewController alloc] init];
+            deviceAlarmVC.deviceModel = model;
+            [self.navigationController pushViewController:deviceAlarmVC animated:YES];
+            [deviceAlarmVC release];
+
+        }else{
+            [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+        }
+        
+    }
+
+    
+    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
+    
+    
 }
 
 /**

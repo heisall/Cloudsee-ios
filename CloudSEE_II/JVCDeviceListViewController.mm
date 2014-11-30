@@ -1028,6 +1028,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                     [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
                     
                 }
+                //刷新cell
+                
             }
         }
     });
