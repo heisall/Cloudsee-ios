@@ -15,7 +15,7 @@ static NSString *kAdverDocument   = @"AdverDoucment";//保存广告位的目录
  *
  *  @param result 是否下载成功
  */
-typedef void(^JVCDownLoadAdverImageSuccess)(void);
+typedef void(^JVCDownLoadAdverImageSuccess)(int index);
 
 @interface JVCAdverImageModel : NSObject
 {

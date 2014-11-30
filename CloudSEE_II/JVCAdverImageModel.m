@@ -89,7 +89,7 @@
                     self.downSuccess = YES;
                     
                     if (self.downLoadAdverSuccess) {
-                        self.downLoadAdverSuccess();
+                        self.downLoadAdverSuccess(self.index);
                     }
                 }
                       }
@@ -100,7 +100,7 @@
                 self.downSuccess = YES;
                 
                 if (self.downLoadAdverSuccess) {
-                    self.downLoadAdverSuccess();
+                    self.downLoadAdverSuccess(self.index);
                 }
             }
             

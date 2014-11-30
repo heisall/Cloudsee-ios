@@ -39,7 +39,7 @@
 
 @implementation JVCDeviceListAdvertCell
 @synthesize JVCAdevrtDelegate;
-
+static const kScrollewViewTag       = 11212;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -116,7 +116,7 @@
 
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
         imgView.userInteractionEnabled = YES;
-        imgView.tag = i;
+        imgView.tag = i+kScrollewViewTag;
         UIImage *imageName = nil;
         if (model.downSuccess) {
             
@@ -148,6 +148,22 @@
     if (_arrayDefaultImage.count == 1) {
         _pageController.hidden =YES;
     }
+}
+
+- (void)upDateAdvertiseContent:(int)index
+{
+    int indexSelect = index-1;
+    JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:indexSelect];
+
+    UIImageView *imageVeiw =(UIImageView *) [self viewWithTag:indexSelect+kScrollewViewTag];
+    UIImage *imageScrol ;
+    if (model.downSuccess) {
+        
+        imageScrol = [UIImage imageWithContentsOfFile:model.localDownUrl];
+        
+    }
+    imageVeiw.image = imageScrol;
+
 }
 
 - (void)clickAdvertImage:(UITapGestureRecognizer *)gesture
@@ -190,11 +206,11 @@
             
             //下载完成的回调
             
-            JVCDownLoadAdverImageSuccess downLoadSuccess = ^{
+            JVCDownLoadAdverImageSuccess downLoadSuccess = ^(int index){
             
                 dispatch_async(dispatch_get_main_queue(), ^{
                 
-                    [self initContentView];
+                    [self upDateAdvertiseContent:index];
                 
                 });
 
@@ -257,11 +273,11 @@
         
         //下载完成的回调
         
-        JVCDownLoadAdverImageSuccess downLoadSuccess = ^{
+        JVCDownLoadAdverImageSuccess downLoadSuccess = ^(int index){
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self initContentView];
+                [self upDateAdvertiseContent:index];
                 
             });
             
@@ -290,7 +306,8 @@
         [arrAdvert release];
         [_arrayDefaultImage removeAllObjects];
         [_arrayDefaultImage addObjectsFromArray:sortArray];
-        
+        [self initContentView];
+
 
     }else{
     

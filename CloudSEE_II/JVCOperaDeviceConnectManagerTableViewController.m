@@ -224,6 +224,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
 {
     if (indexPath.section == JVCOperaDevConManagerCellTypeTimerDuration) {
         
+        
         JVCOperationDeviceAlarmTimerViewController *deviceAlarm = [[JVCOperationDeviceAlarmTimerViewController alloc] init];
         deviceAlarm.alarmStartTimer = dateBegin;
         deviceAlarm.alarmEndTimer   =dateEnd;
