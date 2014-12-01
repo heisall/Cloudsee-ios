@@ -195,18 +195,18 @@ static const kScanDeviceWithDefaultCount = 1;//一个设备的时候，默认的
     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
     
     
-    if (model.iDeviceChannelCount == kScanDeviceWithDefaultCount) {
-        
-        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
-                                                                    userName:(NSString *)DefaultHomeUserName
-                                                                    passWord:(NSString *)DefaultHomePassWord
-                                                                    ChannelCount:model.iDeviceChannelCount];
-    }else {
-        
+//    if (model.iDeviceChannelCount == kScanDeviceWithDefaultCount) {
+//        
+//        [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
+//                                                                    userName:(NSString *)DefaultHomeUserName
+//                                                                    passWord:(NSString *)DefaultHomePassWord
+//                                                                    ChannelCount:model.iDeviceChannelCount];
+//    }else {
+    
         [[JVCDeviceMathsHelper shareJVCUrlRequestHelper] addDeviceWithYstNum:model.strYstNumber
                                                                     userName:(NSString *)DefaultUserName
                                                                     passWord:(NSString *)DefaultPassWord ChannelCount:model.iDeviceChannelCount];
-    }
+   // }
 
 }
 

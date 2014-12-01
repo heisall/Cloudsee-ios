@@ -34,6 +34,8 @@
 @implementation JVCDeviceMathsHelper
 @synthesize deviceDelegate;
 @synthesize deviceUpdate;
+@synthesize bUpdateOnLineState;
+
 static JVCDeviceMathsHelper  *shareDeviceMathsHelper = nil;
 static const int     KADDDEVICE_RESULT_SUCCESS      = 0;   //成功
 static const int    kAddDeviceWithWlanTimeOut       = 5;   //添加设备从服务器获取通道数的超时时间
@@ -51,6 +53,8 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
         if (shareDeviceMathsHelper == nil) {
             
             shareDeviceMathsHelper = [[self alloc] init];
+            
+            shareDeviceMathsHelper.bUpdateOnLineState = NO;
             
             
         }
@@ -210,7 +214,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                      */
                     
                     JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:deviceYStNum];
-                    
+                    //声波配置以及扫描添加的设备，显示在线
                     [tempMode retain];
                     
                     NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
@@ -412,8 +416,11 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 JVCDeviceModel *model=(JVCDeviceModel*)[updateArray objectAtIndex:k];
                 
                 if ([[model.yunShiTongNum uppercaseString] isEqualToString:[[remoteInfoDict objectForKey:DEVICE_JSON_DGUID] uppercaseString]]) {
-                
-                    model.onLineState        = [[remoteInfoDict objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
+                    if (!bUpdateOnLineState) {
+                        
+                        model.onLineState        = [[remoteInfoDict objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
+
+                    }
                     model.isDeviceType       = [[remoteInfoDict objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO ;
                     
                     if (model.isDeviceType) {

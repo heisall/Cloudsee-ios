@@ -37,11 +37,12 @@
 {
     id<JVCDeviceMathDelegate> deviceDelegate;
     id<JVCUpdateMathDelegate> deviceUpdate;
+    BOOL                      bUpdateOnLineState;  //no 更新  yes 不更新
 
 }
 @property(nonatomic,assign) id<JVCDeviceMathDelegate> deviceDelegate;
-@property(nonatomic,assign)    id<JVCUpdateMathDelegate> deviceUpdate;
-
+@property(nonatomic,assign) id<JVCUpdateMathDelegate> deviceUpdate;
+@property(nonatomic,assign) BOOL                      bUpdateOnLineState;
 
 /**
  *  单例
