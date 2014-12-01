@@ -53,7 +53,10 @@ static const int  KdCRoudSwitchSwitchSubHeight  = 29;//减去switch的宽度
  */
 - (void)initContentCells:(JVCMoreSettingModel *)model
 {
- 
+    for (UIView *contentView in self.contentView.subviews) {
+        [contentView removeFromSuperview];
+    }
+    
     self.clipsToBounds = YES;
     //横线
     UIImage *imgLine = [UIImage imageNamed:@"mor_line.png"];
@@ -111,7 +114,7 @@ static const int  KdCRoudSwitchSwitchSubHeight  = 29;//减去switch的宽度
         UISwitch *switchTempCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
         self.switchCell = switchTempCell;
         [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
-        if ([JVCConfigModel shareInstance]._bInitAccountSDKSuccess == TYPELOGINTYPE_LOCAL) {
+        if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
             switchTempCell.enabled =YES;
             
             UIView *viewCover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, switchTempCell.width, switchTempCell.height)];

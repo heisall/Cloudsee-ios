@@ -164,7 +164,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     JVCConfigModel *configObj = [JVCConfigModel shareInstance];
     
     if (configObj.isLanSearchDevices) {
-        
+
+        [JVCDeviceMathsHelper shareJVCUrlRequestHelper].bUpdateOnLineState = YES;
+         
         [self StartLANSerchAllDevice];
     }
     
@@ -991,6 +993,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         
         if (configObj.isLanSearchDevices) {
             
+            [JVCDeviceMathsHelper shareJVCUrlRequestHelper].bUpdateOnLineState = NO;
+
             configObj.isLanSearchDevices = FALSE;
             
         }else{

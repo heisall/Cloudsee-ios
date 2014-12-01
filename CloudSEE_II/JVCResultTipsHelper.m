@@ -178,81 +178,54 @@ static JVCResultTipsHelper *shareResultTipsHelper = nil;
 /**
  *  显示修改密码的处理结果
  *
- *  @param result 结果
  */
-//- (void)showEditUserPassWordResult:(int)result
-//{
-//    
-//    JVCMorEditPWType_OldPWNIl       = 1,//老密码为空
-//    JVCMorEditPWType_OldPWError     = 2,//老密码错误
-//    JVCMorEditPWType_NEWPWNIl       = 3,//新密码为空
-//    JVCMorEditPWType_NewPWError     = 4,//新密码错误
-//    JVCMorEditPWType_EnNEWPWNIl     = 5,//新确认密码为空
-//    JVCMorEditPWType_EnNewPWError   = 6,//新确认密码错误
-//    JVCMorEditPWType_OldNewEqult    = 7,//老密码新密码一致
-//    JVCMorEditPWType_NewPWNOtEqual  = 8,//新的密码和确认密码不一致
-//    JVCMorEditPWType_OldSavePWError = 9,//输入的老密码与保存的密码不一致
-//    switch (result) {
-//            
-//        case JVCMorEditPWType_OldPWNIl:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_PASSWORLD_NIL")];
-//            break;
-//            
-//        case JVCMorEditPWType_OldPWError:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_USERNAME_ERROR")];
-//            break;
-//            
-//        case JVCMorEditPWType_NEWPWNIl:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_PASSWORLD_ERROR")];
-//            break;
-//            
-//            
-//            
-//        case JVCMorEditPWType_NewPWError:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_ENSURE_PASSWORD_NIL")];
-//            break;
-//            
-//        case JVCMorEditPWType_EnNEWPWNIl:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_ENSURE_PASSWORD_ERROR")];
-//            break;
-//            
-//        case LOGINRESULT_EMAIL_ERROR:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_EMAIL_ERROR")];
-//            break;
-//            
-//        case LOGINRESULT_NOT_EQUAL_USER_PASSWORD:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"LOGINRESULT_NOT_EQUAL_USER_PASSWORD")];
-//            break;
-//            
-//        case LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"login_pw_equal")];
-//            
-//            break;
-//        case VALIDATIONUSERNAMETYPE_LENGTH_E+KAddTag:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_LENGTH_E")];
-//            
-//            break;
-//        case VALIDATIONUSERNAMETYPE_NUMBER_E+KAddTag:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_NUMBER_E")];
-//            
-//            break;
-//        case VALIDATIONUSERNAMETYPE_OTHER_E+KAddTag:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"loginResign_OTHER_E")];
-//            
-//            break;
-//            
-//        case VALIDATIONUSERNAMETYPE_PHONE_E+KAddTag:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_login_resign_PhoneNum_error")];
-//            break;
-//        case VALIDATIONUSERNAMETYPE_EMAIL_E+KAddTag:
-//            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_email_error")];
-//            break;
-//            
-//        default:
-//            break;
-//    }
-//
-//}
+- (void)showEditUserPassWordResult:(int)result
+{
+    //修改密码的
+    switch (result) {
+            
+        case JVCMorEditPWType_OldPWNIl:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_oldNil")];
+            break;
+            
+        case JVCMorEditPWType_OldPWError:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_olderror")];
+            break;
+            
+        case JVCMorEditPWType_NEWPWNIl:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_newNil")];
+            break;
+            
+        case JVCMorEditPWType_NewPWError:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_newerror")];
+            break;
+            
+        case JVCMorEditPWType_EnNEWPWNIl:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_EnnewNil")];
+            break;
+            
+        case JVCMorEditPWType_EnNewPWError:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_Ennewerror")];
+            break;
+            
+        case JVCMorEditPWType_OldNewEqult:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_oldNewEqual")];
+            break;
+            
+        case JVCMorEditPWType_NewPWNOtEqual:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_newNotEqual")];
+            
+            break;
+        case JVCMorEditPWType_OldSavePWError:
+            [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_oldEqual")];
+            
+            break;
+
+        default:
+            break;
+    }
+
+}
 
 
 /**

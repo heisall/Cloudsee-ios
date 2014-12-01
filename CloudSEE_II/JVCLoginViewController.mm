@@ -698,6 +698,7 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
 - (void)loginInSuccessToChangeRootController
 {
 
+
     [self getUserAccountState];//发送设备的报警开关状态
     
     //如果是present出来的，就让他dismiss掉，如果不是直接切换

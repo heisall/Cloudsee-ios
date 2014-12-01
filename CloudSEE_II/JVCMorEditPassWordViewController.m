@@ -237,7 +237,7 @@ static const int kDelayTimer         = 3;//弹出提示的时间
                 
     }else{//正则判断失败
         
-        [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result ];
+        [[JVCResultTipsHelper shareResultTipsHelper] showEditUserPassWordResult:result ];
     }
 }
 

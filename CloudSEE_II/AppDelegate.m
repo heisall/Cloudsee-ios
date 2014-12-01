@@ -90,9 +90,6 @@ static const   int     KCheckLocationResultValue = 1;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    //推送消息清零
-    application.applicationIconBadgeNumber = 0;
-
     /**
      *  设置ddlog
      */
@@ -204,6 +201,8 @@ static const   int     KCheckLocationResultValue = 1;
         
         [self startUserKeepOnline];
         
+        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+
     }
     /**
      *	我的设备模块
@@ -318,6 +317,8 @@ static const   int     KCheckLocationResultValue = 1;
     
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {//非本地登录
         
+        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+
         [self startUserKeepOnline];
         
         [alarmMessageViewController  headerRereshingDataAlarmDate];
