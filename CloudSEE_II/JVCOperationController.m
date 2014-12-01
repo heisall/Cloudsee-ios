@@ -36,6 +36,7 @@
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
 #import "JVCOperaOldDeviceConnectAlarmViewController.h"
+
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
@@ -167,21 +168,16 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_amUnSelectedImageNameListData release];
     _amUnSelectedImageNameListData=nil;
     
-    DDLogVerbose(@"%s--#############################--",__FUNCTION__);
     [super dealloc];
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
     [_splitViewBtn setHidden:YES];
     [_splitViewCon setHidden:YES];
-    
-    if (_managerVideo) {
-        
-        [_managerVideo stopPlayVideoCallBack];
-    }
-    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -223,11 +219,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     [self setAlarmTypeButton];
-    
-    if (_managerVideo) {
-        
-        [_managerVideo continuePlayVideoCallBack];
-    }
     
 }
 
@@ -664,7 +655,6 @@ char remoteSendSearchFileBuffer[29] = {0};
                   [self.navigationController popToViewController:self animated:YES];
               }
           
-              
           }
      }
 }
@@ -1207,19 +1197,16 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        DDLogVerbose(@"===_%s===003=====NO",__FUNCTION__);
 
         return NO;
     }
     
     if (isLongPressedStartTalk) {
-        DDLogVerbose(@"===_%s===004=====NO",__FUNCTION__);
-
+        
         return  NO;
     }
     
     [self removHelpView];
-    DDLogVerbose(@"===_%s==005======%d",__FUNCTION__, unAllLinkFlag == DISCONNECT_ALL ? NO:YES);
 
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;;
 }
@@ -2103,7 +2090,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)remoteplaybackSearchFileListInfoCallBack:(NSMutableArray *)playbackSearchFileListMArray{
     
-  
     [self performSelectorOnMainThread:@selector(popRemoteVideoPlayBackVControlerWithData:) withObject:playbackSearchFileListMArray waitUntilDone:NO];
 }
 
@@ -2162,20 +2148,9 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)remotePlaybackVideoCallbackWithrequestPlayBackFileInfo:(NSMutableDictionary *)dicInfo  requestPlayBackFileDate:(NSDate *)date  requestPlayBackFileIndex:(int )index
 {
-    
-    /**
-     *  关闭音频监听、对讲、录像的功能
-     */
-    [self closeAudioAndTalkAndVideoFuction];
-    
-    DDLogVerbose(@"%s----",__FUNCTION__);
-    
+   
     JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     
-    [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
-    
-    
-    [ystNetworkObj RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:dicInfo requestPlayBackFileDate:date requestPlayBackFileIndex:index];
     
     id viewController = [self.navigationController.viewControllers lastObject];
     
@@ -2187,9 +2162,21 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     /**
+     *  关闭音频监听、对讲、录像的功能
+     */
+    [self closeAudioAndTalkAndVideoFuction];
+    
+    [ystNetworkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationCommand:JVN_CMD_PLAYSTOP];
+    
+    
+    [ystNetworkObj RemoteRequestSendPlaybackVideo:_managerVideo.nSelectedChannelIndex+1 requestPlayBackFileInfo:dicInfo requestPlayBackFileDate:date requestPlayBackFileIndex:index];
+    
+   
+    /**
      *  当前状态为远程回放状态
      */
     _isPlayBackVideo = YES;
+    
     [_splitViewBgClick setHidden:YES];
     [_managerVideo setScrollViewEnable:!_isPlayBackVideo];
     [_splitViewBtn setHidden:YES];

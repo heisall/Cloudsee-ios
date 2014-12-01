@@ -508,10 +508,7 @@ static const    int     kValueAndKeyLength                              = 1024*2
  */
 -(NSMutableString *)findBufferInExitValueToByKey:(char *)pBuffer nameBuffer:(char *)nameBuffer{
     
-    
     NSMutableString *mStrReturnValue = [[NSMutableString alloc] initWithCapacity:10];
-    
-    NSLog(@"%s------------------######789-------data=%s",__FUNCTION__,pBuffer);
     
     if ([self checkBufferIslegal:pBuffer] && [self checkBufferIslegal:nameBuffer]) {
         
@@ -530,7 +527,6 @@ static const    int     kValueAndKeyLength                              = 1024*2
                 [mStrReturnValue appendString:strPara];
                 [strPara release];
                 
-                NSLog(@"%s---------######900-------name = %s,para=%s",__FUNCTION__,name,para);
             }
         }
         
