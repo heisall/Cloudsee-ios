@@ -1445,28 +1445,11 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
 
-//                                NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
-//                                
-//                                int nMobileCh = MOBILECHDEFAULT;
-//                                
-//                                if (strDevice.intValue == MOBILECHSECOND) {
-//                                    
-//                                    nMobileCh = MOBILECHSECOND;
-//                                }
-//                                
-//                                NSMutableDictionary *networkInfoMDic = [[NSMutableDictionary alloc] initWithCapacity:10];
-//                                
-//                                stpacket.acData[stpacket.nPacketLen] = 0;
-//                                [networkInfoMDic addEntriesFromDictionary:[ystNetworkHelperCMObj getFrameParamInfoByChannel:stpacket.acData+n nChannelValue:3]];
                                 [params retain];
                                 
                                 [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1  withTextDataType:TextChatType_paraInfo objYstNetWorkHelpSendData:params];
                                 
                                 [params release];
-                                
-//                                [strDevice release];
-//                                [networkInfoMDic release];
-                                
                             }
                             
                             if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:withIsNewHomeIPC:)]) {

@@ -511,6 +511,8 @@ static const    int     kValueAndKeyLength                              = 1024*2
     
     NSMutableString *mStrReturnValue = [[NSMutableString alloc] initWithCapacity:10];
     
+    NSLog(@"%s------------------######789-------data=%s",__FUNCTION__,pBuffer);
+    
     if ([self checkBufferIslegal:pBuffer] && [self checkBufferIslegal:nameBuffer]) {
         
         char name[kValueAndKeyLength], para[kValueAndKeyLength];
@@ -520,12 +522,18 @@ static const    int     kValueAndKeyLength                              = 1024*2
         
         char  *p = strstr(pBuffer, nameBuffer);
         
-        if(sscanf(p, "%[^=]=%[^;];", name, para))
-        {
-            NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
-            [mStrReturnValue appendString:strPara];
-            [strPara release];
+        if (p != NULL) {
+            
+            if(sscanf(p, "%[^=]=%[^;];", name, para))
+            {
+                NSString  *strPara = [[NSString alloc] initWithCString:para encoding:NSUTF8StringEncoding];
+                [mStrReturnValue appendString:strPara];
+                [strPara release];
+                
+                NSLog(@"%s---------######900-------name = %s,para=%s",__FUNCTION__,name,para);
+            }
         }
+        
     }
     
     return [mStrReturnValue autorelease];
