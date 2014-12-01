@@ -29,8 +29,8 @@ static const int         ADDDEVICE_RESULT_SUCCESS    = 0;      //成功
 static const int         DEFAULRESIGNTFONTSIZE       = 14;      //默认的字体大小
 static const int         DEFAULTLABELWITH            = 70;      //textfield的lefitwiew对应的label的宽度
 static const CGFloat     kADDDEVICESLIDEHEIGIT       = 100.0f;  //向上滑动的高度
-static const NSTimeInterval kADDDEVICEANIMATION = 0.5f;         //动画时间
-static const int         kAddDeviceWithWlanTimeOut   = 5;       //添加设备从服务器获取通道数的超时时间
+static const NSTimeInterval kADDDEVICEANIMATION      = 0.5f;    //动画时间
+static const int         kAddDeviceWithWlanTimeOut   = 2;       //添加设备从服务器获取通道数的超时时间
 static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的距离，纵向
 
 @interface JVCAddDeviceViewController ()
