@@ -122,6 +122,7 @@ static const    CGFloat   kTitleLableWithBgViewBottom     = 15.0;
     password.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     password.delegate        = self;
     password.keyboardType = UIKeyboardTypeASCIICapable;
+    password.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self addTextFieldWithRightView:password withRightView:@"voi_show_pw.png"];
     
     [textBgView addSubview:password];
