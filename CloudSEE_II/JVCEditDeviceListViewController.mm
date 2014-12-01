@@ -205,18 +205,15 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
  *  @param isHidden 是否显示
  */
 - (void)showWithHiddenSafeAndAlarmView:(BOOL)isHidden withEnableSale:(BOOL)isEanble{
+
     
-//    JVCEditDeviceOperationView *safeView = (JVCEditDeviceOperationView *)[operationView viewWithTag: JVCEditDeviceListViewControllerClickType_safe];
-//    
-//    JVCEditDeviceOperationView *alarmView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_alarm];
-//    
-//     JVCEditDeviceOperationView *updateView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_update];
-//    
-//    alarmView.hidden  = isHidden;
-//    safeView.hidden   = isHidden;
-//    updateView.hidden = isHidden;
-//    
-//    [safeView setIconImage:isEanble == NO?[UIImage imageNamed:@"edi_safe_se.png"]:[UIImage imageNamed:@"edi_safe_un.png"]];
+    JVCEditDeviceOperationView *alarmView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_alarm];
+    
+     JVCEditDeviceOperationView *updateView = (JVCEditDeviceOperationView *)[operationView viewWithTag:JVCEditDeviceListViewControllerClickType_update];
+    
+    alarmView.hidden  = isHidden;
+    updateView.hidden = isHidden;
+    
 }
 
 /**
