@@ -81,6 +81,9 @@ static NSString const *KCheckLocationFlag        = @"中国";
 static NSString const *KCheckLocationURL         = @"http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js";
 static NSString const *KCheckLocationResult      = @"ret";
 static NSString const *KCheckLocationCountry     = @"country";
+static NSString const *KCheckLocationProvince    = @"province";
+static NSString const *KCheckLocationCity        = @"city";
+
 static NSString const *KCheckLocationKey         = @"var remote_ip_info = ";
 static const   int     KCheckLocationResultValue = 1;
 
@@ -518,12 +521,16 @@ static const   int     KCheckLocationResultValue = 1;
         
         NSDictionary *dicInfo = [jsonString2 objectFromJSONString];
         
-        self.localtionString  = jsonString2;
         
         if ([dicInfo isKindOfClass:[NSDictionary class]]) {
             
             NSString *strCountry = [dicInfo objectForKey:(NSString *)KCheckLocationCountry];
             NSString *strRet     = [dicInfo objectForKey:(NSString *)KCheckLocationResult];
+            NSString *strCity    = [dicInfo objectForKey:(NSString *)KCheckLocationCity];
+            NSString *strProvice = [dicInfo objectForKey:(NSString *)KCheckLocationProvince];
+
+            self.localtionString  = [NSString stringWithFormat:@"%@%@%@",strCountry,strProvice,strCity];
+
             
             if (strRet) {
                 

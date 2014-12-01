@@ -524,6 +524,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     }else if ([longGestureRecognizer state] == UIGestureRecognizerStateEnded){
         
         [self stopTalk];
+        
+        isLongPressedStartTalk = FALSE;
     }
 }
 
@@ -1205,16 +1207,20 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        
+        DDLogVerbose(@"===_%s===003=====NO",__FUNCTION__);
+
         return NO;
     }
     
     if (isLongPressedStartTalk) {
+        DDLogVerbose(@"===_%s===004=====NO",__FUNCTION__);
+
         return  NO;
     }
     
     [self removHelpView];
-    
+    DDLogVerbose(@"===_%s==005======%d",__FUNCTION__, unAllLinkFlag == DISCONNECT_ALL ? NO:YES);
+
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;;
 }
 -(NSUInteger)supportedInterfaceOrientations{
@@ -1227,9 +1233,11 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     if (isLongPressedStartTalk) {
        
+        DDLogVerbose(@"===_%s===000=====NO",__FUNCTION__);
         return  NO;
     }
-    
+    DDLogVerbose(@"===_%s==001======%d",__FUNCTION__, unAllLinkFlag == DISCONNECT_ALL ? NO:YES);
+
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;
 }
 
@@ -1317,8 +1325,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [_managerVideo changeContenView];
         
-       
-        
         [self.view bringSubviewToFront:_managerVideo];
         [self.view bringSubviewToFront:ytOperationView];
         [ straemView removeFromSuperview];
@@ -1330,7 +1336,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
         [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
         
-        if (![self.view.constraints containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
+        if (![self.view.subviews containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
             
             [self.view addSubview:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
             

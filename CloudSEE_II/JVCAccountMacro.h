@@ -124,6 +124,8 @@ enum  loginResut
 
 };
 
+
+
 enum MODIFYLINKMODELTYPE
 {
     LINKMODEL_SUCCESS = 0,

@@ -63,28 +63,28 @@
 "JDCSViewController_ap_setting"= "A new device has been configured by you";
 
 //报警类型
-"home_alarm_0"="Disk Error Alarm";
-"home_alarm_1"="Disk Full Alarm";
-"home_alarm_2"="Disconnection Alarm";
-"home_alarm_3"="System Update Alarm";
-"home_alarm_4"="Input Alarm";
-"home_alarm_5"="Video Lost Alarm";
-"home_alarm_6"="Video Covered Alarm";
-"home_alarm_7"="Motion Detection Alarm";
-"home_alarm_8"="Power Off Alarm";
-"home_alarm_9"="Manual Alarm";
-"home_alarm_10"="GPS Alarm";
+"home_alarm_0"=" Disk Error Alarm";
+"home_alarm_1"=" Disk Full Alarm";
+"home_alarm_2"=" Disconnection Alarm";
+"home_alarm_3"=" System Update Alarm";
+"home_alarm_4"=" Input Alarm";
+"home_alarm_5"=" Video Lost Alarm";
+"home_alarm_6"=" Video Covered Alarm";
+"home_alarm_7"=" Motion Detection Alarm";
+"home_alarm_8"=" Power Off Alarm";
+"home_alarm_9"=" Manual Alarm";
+"home_alarm_10"=" GPS Alarm";
 "home_alarm_11"=" alarm";
-"home_alarm_12"="It's safe.Don't worry.";
-"home_alarm_13"="Some abnormal, please take action quickly.";
-"home_alarm_14"="Temp too high.";
-"home_alarm_15"="Temp too low.";
-"home_alarm_16"="RH too high.";
-"home_alarm_17"="RH too low.";
-"home_alarm_18"="Temp and RH too high.";
-"home_alarm_19"="Temp too low and RH too high.";
-"home_alarm_20"="Temp too high and RH too low.";
-"home_alarm_21"="Temp and RH too low.";
+"home_alarm_12"=" It's safe.Don't worry.";
+"home_alarm_13"=" Some abnormal, please take action quickly.";
+"home_alarm_14"=" Temp too high.";
+"home_alarm_15"=" Temp too low.";
+"home_alarm_16"=" RH too high.";
+"home_alarm_17"=" RH too low.";
+"home_alarm_18"=" Temp and RH too high.";
+"home_alarm_19"=" Temp too low and RH too high.";
+"home_alarm_20"=" Temp too high and RH too low.";
+"home_alarm_21"=" Temp and RH too low.";
 
 //登录界面
 "jvc_log_user" = "Email/Username";
@@ -312,7 +312,7 @@
 "jvc_alarmlist_delete_success" = "Delete successfully";
 "jvc_alarmlist_delete_failt" = "Faild to delete alarm";
 "jvc_alarmlist_alarmLeavel" = "Alarm Grade:";
-"home_no_Alarm_video"= "no alarm video";
+"home_no_Alarm_video"= "No alarm video";
 "home_alarm_watch_video"= "Check alarm video";
 "jvc_alarmVideo_title" = "Alarm video";
 
@@ -665,3 +665,13 @@
 "JVCOperationDevAlarmEnd"   = "End time";
 "JVCOperationDeviceConnectManagerSafeAllDay"="All day";
 "JVCOperationDeviceConnectManagerSafeTimerUnLegal"="End time should be later than start time";
+
+//修改密码的
+"jvc_mor_oldNil"= "请输入旧密码";
+"jvc_mor_olderror"= "旧密码错误";
+"jvc_mor_newNil"= "Please input password.";
+"jvc_mor_newNil"= "新密码错误";
+"jvc_mor_EnnewNil"= "请输入确认密码";
+"jvc_mor_EnnewNil"= "确认密码错误";
+"jvc_mor_oldEqual"= "输入的旧密码与账号的密码不一致，请重新输入";
+"jvc_mor_newNotEqual"= "输入的新密码与确认密码一致，请重新输入";

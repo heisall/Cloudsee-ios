@@ -24,6 +24,9 @@ static const int  moreContentRight= 40;//new 的位置距离右边的位置
 
 static const int  KSwitchSubWitch= 79;//减去switch的宽度
 
+static const int  KSwitchSubWitchRadio= 15;//覆盖的view的消角
+
+
 static const int  KdCRoudSwitchSwitchSubWitch   = 100;//减去switch的宽度
 static const int  KdCRoudSwitchSwitchSubHeight  = 29;//减去switch的宽度
 
@@ -108,6 +111,17 @@ static const int  KdCRoudSwitchSwitchSubHeight  = 29;//减去switch的宽度
         UISwitch *switchTempCell = [[UISwitch alloc] initWithFrame:CGRectMake(self.width -moreContentRight-imgIconNew.size.width, labelTitle.top, 0, 0 )];
         self.switchCell = switchTempCell;
         [switchCell addTarget:self action:@selector(changeSwitchState:) forControlEvents:UIControlEventValueChanged];
+        if ([JVCConfigModel shareInstance]._bInitAccountSDKSuccess == TYPELOGINTYPE_LOCAL) {
+            switchTempCell.enabled =YES;
+            
+            UIView *viewCover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, switchTempCell.width, switchTempCell.height)];
+            viewCover.backgroundColor = [UIColor grayColor];
+            viewCover.alpha = 0.5;
+            [switchTempCell addSubview:viewCover];
+            viewCover.layer.cornerRadius = KSwitchSubWitchRadio;
+            [viewCover release];
+            
+        }
         [self.contentView addSubview:switchCell];
         self.accessoryType = UITableViewCellAccessoryNone;
         switchCell.hidden = YES;

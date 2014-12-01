@@ -1029,7 +1029,10 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                     
                 }
                 //刷新cell
-                
+                if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count > 0) {
+                    
+                    [self.tableView reloadData];
+                }
             }
         }
     });

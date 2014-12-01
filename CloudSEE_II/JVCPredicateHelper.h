@@ -45,6 +45,21 @@ enum MODIFY_DEVICE_TYPE
     
 };
 
+typedef NS_ENUM(int , JVCMorEditPWType) {
+    
+    JVCMorEditPWType_SUCCESS        = 0,//成功
+    JVCMorEditPWType_OldPWNIl       = 1,//老密码为空
+    JVCMorEditPWType_OldPWError     = 2,//老密码错误
+    JVCMorEditPWType_NEWPWNIl       = 3,//新密码为空
+    JVCMorEditPWType_NewPWError     = 4,//新密码错误
+    JVCMorEditPWType_EnNEWPWNIl     = 5,//新确认密码为空
+    JVCMorEditPWType_EnNewPWError   = 6,//新确认密码错误
+    JVCMorEditPWType_OldNewEqult    = 7,//老密码新密码一致
+    JVCMorEditPWType_NewPWNOtEqual  = 8,//新的密码和确认密码不一致
+    JVCMorEditPWType_OldSavePWError = 9,//输入的老密码与保存的密码不一致
+    
+};
+
 //判断报警时间的
 static NSString const *kAlarmDateTimeFormatter          = @"HH:mm";
 static NSString const *kAlarmTimerStart                 = @"00:00";
@@ -56,6 +71,7 @@ typedef NS_ENUM(int , JVCAlarmTimerType) {
     JVCAlarmTimerType_UNLegal   = 2,//不合法
     
 };
+
 
 
 

@@ -504,61 +504,62 @@ static JVCPredicateHelper *_shareInstance = nil;
                  EnsurePassWord:(NSString *)enSurePassWord
                UserSavePassWord:(NSString *)userSavePassWord
 {
+    
     /**
      *  判断用户名是否为空
      */
     if ([self predicateBlankString:OldPassWord]) {
         
-        return LOGINRESULT_PASSWORLD_NIL;
+        return JVCMorEditPWType_OldPWNIl;
     }
     /**
      *  判断用户名是否合法
      */
     if (![self PredicateResignPasswordIslegal:OldPassWord]) {
         
-        return LOGINRESULT_PASSWORLD_ERROR;
+        return JVCMorEditPWType_OldPWError;
     }
     /**
      *  本地保存的用户名密码与现在的用户名密码是否一致
      */
     if (![userSavePassWord isEqualToString:OldPassWord]) {
         
-        return LOGINRESULT_NOT_EQUAL_USER_PASSWORD;
+        return JVCMorEditPWType_OldSavePWError;
     }
     /**
      *  判断密码是否为空
      */
     if ([self predicateBlankString:NewPassWord]) {
         
-        return LOGINRESULT_PASSWORLD_NIL;
+        return JVCMorEditPWType_NEWPWNIl;
     }
     /**
      *  判断密码是否合法
      */
     if (![self PredicateResignPasswordIslegal:NewPassWord]) {
         
-        return LOGINRESULT_PASSWORLD_ERROR;
+        return JVCMorEditPWType_NewPWError;
     }
     
     if ([self predicateBlankString:enSurePassWord]) {
         
-        return  LOGINRESULT_ENSURE_PASSWORD_NIL;
+        return  JVCMorEditPWType_EnNEWPWNIl;
     }
     
     if (![enSurePassWord isEqualToString:NewPassWord]) {
         
-        return LOGINRESULT_ENSURE_PASSWORD_ERROR;
+        return JVCMorEditPWType_NewPWNOtEqual;
     }
     
     if ([NewPassWord isEqualToString:OldPassWord]) {
         
-        return LOGINRESULT_OLD_PASS_EQUAl_NEW_PASSWORD;
+        return JVCMorEditPWType_OldNewEqult;
     }
     
     /**
      *  合法
      */
-    return LOGINRESULT_SUCCESS;
+    return JVCMorEditPWType_SUCCESS;
     
 }
 

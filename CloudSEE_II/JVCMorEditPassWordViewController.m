@@ -218,9 +218,9 @@ static const int kDelayTimer         = 3;//弹出提示的时间
                     
                     [delegateApp presentLoginViewController];
                     
-                    [[JVCAlertHelper shareAlertHelper]  alertToastOnWindowWithText:LOCALANGER(@"jvc_mor_pwSuccess") delayTime:kDelayTimer];
-                    
                     [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
+                    [[JVCAlertHelper shareAlertHelper]  alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_mor_pwSuccess")];
                     
                     [self loginOutUser];
                     [self.navigationController popViewControllerAnimated:NO];

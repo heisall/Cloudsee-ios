@@ -58,4 +58,11 @@ static const int KAddTag  = 100;//判断用户的时候的返回值是负数，�
  *  @param message 提示的信息
  */
 - (void)showResultAlertOnModifyVCWithMessage:(int)result;
+
+/**
+ *  显示修改密码的处理结果
+ *
+ *  @param result 结果
+ */
+- (void)showEditUserPassWordResult:(int)result;
 @end

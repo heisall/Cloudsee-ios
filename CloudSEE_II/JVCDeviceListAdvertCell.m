@@ -117,7 +117,10 @@ static const kScrollewViewTag       = 11212;
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i*_scrollView.width, 0, _scrollView.width, _scrollView.height)];
         imgView.userInteractionEnabled = YES;
         imgView.tag = i+kScrollewViewTag;
-        UIImage *imageName = nil;
+        NSString *stringPic = [NSString stringWithFormat:@"devAdv_default.png"];
+        
+        NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(stringPic)];
+        UIImage *imageName = [[UIImage alloc]initWithContentsOfFile:imageBundlePath];
         if (model.downSuccess) {
             
             imageName = [[UIImage alloc]initWithContentsOfFile:model.localDownUrl];
@@ -156,19 +159,22 @@ static const kScrollewViewTag       = 11212;
     JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:indexSelect];
 
     UIImageView *imageVeiw =(UIImageView *) [self viewWithTag:indexSelect+kScrollewViewTag];
-    UIImage *imageScrol ;
+    NSString *stringPic = [NSString stringWithFormat:@"devAdv_default.png"];
+    NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(stringPic)];
+    UIImage *imageScrol = [UIImage imageWithContentsOfFile:imageBundlePath];
     if (model.downSuccess) {
         
         imageScrol = [UIImage imageWithContentsOfFile:model.localDownUrl];
         
     }
+    
     imageVeiw.image = imageScrol;
 
 }
 
 - (void)clickAdvertImage:(UITapGestureRecognizer *)gesture
 {
-    int  i = gesture.view.tag;
+    int  i = gesture.view.tag - kScrollewViewTag;
     
     JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:i];
     
@@ -264,10 +270,12 @@ static const kScrollewViewTag       = 11212;
 {
     NSDictionary *tAdevrtdic = [[NSUserDefaults standardUserDefaults] objectForKey:kAdverInfo];
     
-    if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:tAdevrtdic]||tAdevrtdic != nil ) {
+    if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:tAdevrtdic]&&tAdevrtdic != nil ) {
         NSArray *arrayList = [tAdevrtdic objectForKey:AdverJsonInfo_INFO];
         
         if (arrayList.count == 0) {
+            [self setDefaultImageWithCount:1];
+            [self initContentView];
             return;
         }
         
