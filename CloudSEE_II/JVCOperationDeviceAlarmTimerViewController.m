@@ -58,7 +58,7 @@ static const int KSPan          =   20;
     startBtn.btn.tag = JVCAlarmPickTypeStartTag;
     [startBtn release];
     
-     endBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmStart") frame:CGRectMake(0, KSPan+startBtn.bottom, self.view.width, KBtnHeight)];
+     endBtn = [[JVCLelftBtn alloc] initwitLeftString:LOCALANGER(@"JVCOperationDevAlarmEnd") frame:CGRectMake(0, KSPan+startBtn.bottom, self.view.width, KBtnHeight)];
     [endBtn.btn addTarget:self action:@selector(showTimerPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:endBtn];
     endBtn.btn.tag = JVCAlarmPickTypeEndTag;
