@@ -1809,16 +1809,8 @@ char remoteSendSearchFileBuffer[29] = {0};
             }
 
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
-            /**
-             *  判断是否开启语音对讲,开启直接返回
-             */
-            UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
             
-            if (btnTalk.selected) {
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_operation_talk")];
-                return;
-            }
+            
             [self gotoOperationDeviceAlarmState];
             
         }
@@ -1861,6 +1853,13 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)gotoOperationDeviceAlarmState
 {
     
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn != TYPELOGINTYPE_ACCOUNT) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_local_noSupport")];
+        return;
+        
+    }
+    
     BOOL newIPCState =  [_managerVideo getCurrentIsOldHomeIPC];
     
     if (newIPCState) {
@@ -1875,23 +1874,19 @@ char remoteSendSearchFileBuffer[29] = {0};
     }else{
         
         JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
+            
         if (model.isDeviceType ) {
             
             JVCOperaOldDeviceConnectAlarmViewController *deviceAlarmVC = [[JVCOperaOldDeviceConnectAlarmViewController alloc] init];
             deviceAlarmVC.deviceModel = model;
             [self.navigationController pushViewController:deviceAlarmVC animated:YES];
             [deviceAlarmVC release];
-
+            
         }else{
+            
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
         }
-        
     }
-
-    
-    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
-    
-    
 }
 
 /**
@@ -2085,8 +2080,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        //远程回放界面，可能点击音频监听以及录像按钮，所以要关闭
-        [self closeAudioAndTalkAndVideoFuction];
+//        //远程回放界面，可能点击音频监听以及录像按钮，所以要关闭
+//        [self closeAudioAndTalkAndVideoFuction];
         
         JVCRemoteVideoPlayBackVControler *remoteVideoPlayBackVControler=(JVCRemoteVideoPlayBackVControler  *)viewController;
         [remoteVideoPlayBackVControler.arrayDateList removeAllObjects];
@@ -2392,8 +2387,6 @@ char remoteSendSearchFileBuffer[29] = {0};
      *  关闭对讲
      */
    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-       
-       
     
         [self closeChatVoiceIntercom];
 
@@ -2575,28 +2568,27 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
 
-    if (talkBtn.selected) {
    
-        JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        ystNetWorkObj.ystNWADelegate    = nil;
-        
-        //    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
-        //    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
-        //    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
-        //    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
-        //    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
-        
-        [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
-        
-        OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-        AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
-        
-        [openAlObj stopSound];
-        [openAlObj cleanUpOpenALMath];
-        
-        [aqControllerobj stopRecord];
-        aqControllerobj.delegate = nil;
-    }
+    JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    ystNetWorkObj.ystNWADelegate    = nil;
+    
+    //    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
+    //    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
+    //    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
+    //    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
+    //    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
+    
+    [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+    
+    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
+    
+    [openAlObj stopSound];
+    [openAlObj cleanUpOpenALMath];
+    
+    [aqControllerobj stopRecord];
+    aqControllerobj.delegate = nil;
+  
 
     dispatch_async(dispatch_get_main_queue(), ^{
     

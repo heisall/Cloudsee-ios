@@ -273,7 +273,6 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile,int cacheBufSize,int mchan
 void AQRecorder::StopRecord()
 {
    
-    
     if (mIsRunning) {
         
         mIsRunning = false;

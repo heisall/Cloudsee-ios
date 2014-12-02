@@ -70,7 +70,6 @@ static const int KFootViewAdd       = 30;//多添加的位置
     
     [self initLayoutWithStatus];
     
-    DDLogVerbose(@"self.deviceDic=%@===",self.deviceDic);
 }
 
 /**
@@ -82,6 +81,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
         
         return;
     }
+    
+    DDLogVerbose(@"%s------------############008-------%@",__FUNCTION__,self.deviceDic);
     
     NSString *strDeviceAlarmStatus = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:0]];
     
@@ -103,24 +104,29 @@ static const int KFootViewAdd       = 30;//多添加的位置
             NSDate *dateBegin = [systemUtility strHoursSecondsConvertDateHours:[times objectAtIndex:0]];
             NSDate *dateEnd   = [systemUtility strHoursSecondsConvertDateHours:[times objectAtIndex:1]];
             
-            [strDateBegin deleteCharactersInRange:NSMakeRange(0, strDateBegin.length)];
-            [strDateEnd deleteCharactersInRange:NSMakeRange(0, strDateEnd.length)];
-            [strShowTime deleteCharactersInRange:NSMakeRange(0, strShowTime.length)];
             
-            if (dateBegin != nil ) {
+            if (dateBegin != nil && dateEnd != nil) {
                 
-                [strDateBegin appendString:[systemUtility DateHoursConvertStrHours:dateBegin]];
-            }
-            
-            if (dateEnd != nil ) {
+                [strDateBegin deleteCharactersInRange:NSMakeRange(0, strDateBegin.length)];
+                [strDateEnd deleteCharactersInRange:NSMakeRange(0, strDateEnd.length)];
+                [strShowTime deleteCharactersInRange:NSMakeRange(0, strShowTime.length)];
                 
-                 [strDateEnd appendString:[systemUtility DateHoursConvertStrHours:dateEnd]];
+                if (dateBegin != nil ) {
+                    
+                    [strDateBegin appendString:[systemUtility DateHoursConvertStrHours:dateBegin]];
+                }
+                
+                if (dateEnd != nil ) {
+                    
+                    [strDateEnd appendString:[systemUtility DateHoursConvertStrHours:dateEnd]];
+                }
+                
+                [strShowTime appendFormat:@"%@-%@",strDateBegin,strDateEnd];
+                
+                [self.deviceDic setObject:strShowTime forKey:[arrayContentList objectAtIndex:2]];
             }
-        
-            [strShowTime appendFormat:@"%@-%@",strDateBegin,strDateEnd];
-            
-            [self.deviceDic setObject:strShowTime forKey:[arrayContentList objectAtIndex:2]];
         }
+        
     }else{
 
         
