@@ -106,7 +106,7 @@ enum DISCONNECT_STATUS {
 
 @implementation JVCOperationController
 @synthesize _iSelectedChannelIndex,strSelectedDeviceYstNumber;
-@synthesize _issound,_isTalk,_isLocalVideo,_isPlayBack;
+@synthesize _isLocalVideo,_isPlayBack;
 @synthesize _playBackVideoDataArray,_playBackDateString;
 @synthesize showSingeleDeviceLongTap;
 @synthesize delegate;
@@ -182,6 +182,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 
 - (void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     
     if (!_isPlayBackVideo && !self.isPlayBackVideo) {
@@ -277,7 +278,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     [rightImageView release];
 }
 
-
 /**
  *  手动录像和报警录像切换
  */
@@ -301,8 +301,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = YES;
     
-    self._issound=FALSE;//音频监听
-    self._isTalk=FALSE; //语音对讲
     self._isLocalVideo=FALSE;//录像
     
     NSMutableString *mutableString=[[NSMutableString alloc] initWithCapacity:10];
@@ -889,7 +887,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
     }else{
         
-        [self stopTalkTimer];
+        
         
         self.navigationController.navigationBarHidden = NO;
         //关闭文本、视频的回调
@@ -1345,18 +1343,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 }
 
-#pragma mark 判断当前是否存在一些特殊功能的开启《音频监听、远程回放等功能》
--(BOOL)returnOperationState{
-    
-    if (self._isLocalVideo||self._issound||_isPlayBackVideo||self._isTalk) {
-        return TRUE;
-    }
-    
-    return NO;
-    
-}
-
-
 /**
  *	获取当前窗口GLView的是否可见
  *
@@ -1549,8 +1535,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     straemView.delegateStream = self;
     [self.view addSubview:straemView];
     [straemView show];
-    
-    
 }
 
 /**
@@ -1689,33 +1673,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     [alassetLibrary saveImageToAlbumPhoto:[UIImage imageWithData:imageData ] albumGroupName:(NSString *)kKYCustomPhotoAlbumName returnALAssetsLibraryAccessFailureBlock:failureblock];
     
     [imageData release];
-//    [alassetLibrary release];
-//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//    
-//    [library writeImageDataToSavedPhotosAlbum:imageData metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
-//        
-//        if (!error) {
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                UIImageView *imgView=capImageView;
-//                [self.view bringSubviewToFront:imgView];
-//                UIImage *image = [UIImage imageWithData:imageData];
-//                [imgView setImage:image];
-//                [capImageView setHidden:NO];
-//                [UIView beginAnimations:@"superView" context:nil];
-//                [UIView setAnimationDuration:0.4f];
-//                imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., STARTHEIGHTITEM, STARTHEIGHTITEM);
-//                [UIView commitAnimations];
-//                [imageData release];
-//                
-//                [self capAnimations];
-//                
-//            });
-//        }
-//    }];
-//    [library release];
-    
 }
 
 /**
@@ -1753,8 +1710,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)OpenAudioCollectionCallBack:(int)nAudioBit nAudioCollectionDataSize:(int)nAudioCollectionDataSize{
     
-    
-    DDLogVerbose(@"%s-----callBack",__FUNCTION__);
     AQSController *aqsControllerObj = [AQSController shareAQSControllerobjInstance];
     
     aqsControllerObj.delegate       = self;
@@ -1776,7 +1731,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)receiveAudioDataCallBack:(char *)audionData audioDataSize:(long)audioDataSize{
     
    [[JVCCloudSEENetworkHelper  shareJVCCloudSEENetworkHelper] RemoteSendAudioDataToDevice:_managerVideo.nSelectedChannelIndex+1 Audiodata:audionData nAudiodataSize:audioDataSize];
-    
 }
 
 
@@ -1792,7 +1746,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     DDLogInfo(@"%s====%d",__FUNCTION__,buttonType);
     
     [self MiddleBtnClickWithIndex:buttonType];
-    
 }
 
 /**
@@ -1804,9 +1757,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     DDLogInfo(@"%s====%d",__FUNCTION__,clickBtnType);
     
-    
     [self MiddleBtnClickWithIndex:clickBtnType];
-    
 }
 
 /**
@@ -1816,8 +1767,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)responseSingleViewVoicebtnEvent:(BOOL)state;
 {
-//      [self MiddleBtnClickWithIndex:TYPEBUTTONCLI_SOUND];
-    
     [self operationAudio];
 }
 
@@ -1834,7 +1783,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (![self judgeOpenVideoPlaying]) {
         
         return;
-        
     }
     
     //04解码器不支持此操作
@@ -1869,6 +1817,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
             
             if (btnTalk.selected) {
+                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_operation_talk")];
                 return;
             }
@@ -1901,7 +1850,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         default:
             break;
     }
-
 }
 
 /**
@@ -1986,7 +1934,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-//        [_operationBigItemBg setButtonSunSelect];
         [_managerVideo setSingleViewVoiceBtnSelect:NO];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
@@ -1998,7 +1945,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [ystNetworkObj  RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_AudioListening remoteOperationCommand:-1];
         
-//        [_operationBigItemBg setSelectButtonWithIndex:TYPEBUTTONCLI_SOUND skinType:skinSelect];
         [_managerVideo setSingleViewVoiceBtnSelect:YES];
 
         
@@ -2047,7 +1993,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     }else{
         
         [self playBackSendPlayVideoDate:[NSDate date]];
-        
     }
 }
 
@@ -2092,7 +2037,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         [dateStr release];
     
     });
-    
 }
 
 /**
@@ -2113,7 +2057,6 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)popRemoteVideoPlayBackVControlerWithData:(NSMutableArray *)arrayList
 {
     [arrayList retain];
-    
     
     id viewController = [self.navigationController.viewControllers lastObject];
     
@@ -2149,7 +2092,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     [arrayList release];
-    
 }
 /**
  *  远程回调选中的一行的回调
@@ -2389,7 +2331,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)customCoverViewButtonCkickCallBack:(int)screanNum
 {
-    DDLogInfo(@"%s====%d",__FUNCTION__,screanNum);
     
     if (screanNum == SCREAN_ONE) {//点击的背景，关闭
         [self gotoShowSpltWindow];
@@ -2416,6 +2357,9 @@ char remoteSendSearchFileBuffer[29] = {0};
  *  还原特殊功能的默认状态
  */
 -(void)reductionDefaultAudioAndTalkAndVideoBtnImage {
+    
+    
+    [self stopTalkTimer];
     
     /**
      *  关闭录像
@@ -2558,10 +2502,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         [openAlObj stopSound];
         [openAlObj cleanUpOpenALMath];
         
-//        [_operationBigItemBg setButtonSunSelect];
         [_managerVideo setSingleViewVoiceBtnSelect:NO];
 
-        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO ];
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_AUDIO];
 
     }
 }

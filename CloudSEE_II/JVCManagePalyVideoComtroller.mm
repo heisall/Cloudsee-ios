@@ -423,17 +423,17 @@ BOOL isAllLinkRun;
         
         return;
     }
-
-
     
     UITapGestureRecognizer *viewimage=(UITapGestureRecognizer*)sender;
     
     int channelsCount = [self channelCountAtSelectedYstNumber];
     
-    if ([_operationController returnOperationState]|| channelsCount <= 1) {
+    if (channelsCount <= 1) {
         
         return;
     }
+    
+    [_operationController reductionDefaultAudioAndTalkAndVideoBtnImage];
     
     int _views                 = self.imageViewNums;
     self.imageViewNums         = self._iBigNumbers;

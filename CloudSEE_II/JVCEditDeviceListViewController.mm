@@ -972,8 +972,11 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         JVCCloudSEENetworkHelper *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
         [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
-        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nLocalChannel remoteOperationCommand:JVN_REQ_TEXT];
     });
+    
+    [self performSelectorOnMainThread:@selector(startRequestCheckTimer) withObject:nil waitUntilDone:NO];
 }
 
 /**
@@ -999,7 +1002,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             [ystNetWorkHelperObj RemoteOperationSendDataToDevice:AlarmLockChannelNum remoteOperationType:TextChatType_getAlarmType remoteOperationCommand:-1];
         });
         
-        [self performSelectorOnMainThread:@selector(startRequestCheckTimer) withObject:nil waitUntilDone:NO];
+        
         
     }else {
         
@@ -1011,6 +1014,8 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
             [alertObj alertToastMainThreadOnWindow:LOCALANGER(@"JVCNetworkSettingViewController_error0")];
             [self disAlarmRemoteLink];
         });
+    
+        [self performSelectorOnMainThread:@selector(stopRequestTimer) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -1019,12 +1024,14 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
  */
 -(void)startRequestCheckTimer{
     
-   requestTimer = [NSTimer scheduledTimerWithTimeInterval:kRequestTimeout
-                                     target:self
-                                   selector:@selector(RequestTimeoutMath)
-                                   userInfo:nil
-                                    repeats:NO];
-
+    if (requestTimer == nil) {
+        
+        requestTimer = [NSTimer scheduledTimerWithTimeInterval:kRequestTimeout
+                                                        target:self
+                                                      selector:@selector(RequestTimeoutMath)
+                                                      userInfo:nil
+                                                       repeats:NO];
+    }
 }
 
 -(void)RequestTimeoutMath {
@@ -1071,7 +1078,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
                 
                 [alertObj alertHidenToastOnWindow];
             });
-            
             [self performSelectorOnMainThread:@selector(stopRequestTimer) withObject:nil waitUntilDone:NO];
             [self handleGetDevieAlarmArrayList:objYstNetWorkHelpSendData];
            
@@ -1102,6 +1108,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         NSArray *array= (NSArray *)objYstNetWorkHelpSendData;
         
         for (NSDictionary *tdic in array) {
+            
             JVCLockAlarmModel *model = [[JVCLockAlarmModel alloc] initAlarmLockModelWithDictionary:tdic];
             [arrayAram addObject:model];
             [model release];
@@ -1117,6 +1124,15 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
  */
 - (void)addAlarmDeviceViewController:(NSMutableArray *)arrayArm
 {
+    for (UIViewController *con in self.navigationController.viewControllers){
+        
+        if ([con isKindOfClass:[JVCAddDevieAlarmViewController class]]) {
+            
+            return;
+        }
+    }
+    
+    
     [arrayArm retain];
     
     JVCAddDevieAlarmViewController *viewControler = [[JVCAddDevieAlarmViewController alloc] init];
@@ -1127,7 +1143,6 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     [arrayArm release];
 }
 
-
 /**
  *  断开远程连接方法
  */
@@ -1137,12 +1152,10 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         
         [JVCAlarmCurrentView shareCurrentAlarmInstance].bIsInPlay = NO;
 
-        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        JVCCloudSEENetworkHelper  *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
-        ystNetWorkHelperObj.ystNWHDelegate = nil;
-        
-        ystNetWorkHelperObj.ystNWRODelegate  = nil;
-
+        ystNetWorkHelperObj.ystNWHDelegate             = nil;
+        ystNetWorkHelperObj.ystNWRODelegate            = nil;
         
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] disconnect:AlarmLockChannelNum];
     });

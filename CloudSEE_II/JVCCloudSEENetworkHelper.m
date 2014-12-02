@@ -1649,6 +1649,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                         
                         [responseStr release];
                         
+                        DDLogCVerbose(@"%s-----------alarmListData01=%@",__FUNCTION__,alarmInfo);
                          [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_getAlarmType objYstNetWorkHelpSendData:alarmInfo];
                         
                         [alarmInfo release];

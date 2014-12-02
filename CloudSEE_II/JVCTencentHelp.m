@@ -64,10 +64,12 @@ static const NSString *kTenchetOne          = @"1";
 - (void)tencenttrackCustomKeyValueEvent:(NSString *)tencentKey
 {
     switch (JVCTencentLeveal) {
+            
         case JVCTencentTypeOpen:
         {
             NSDictionary* kvs = [NSDictionary dictionaryWithObject:kTenchetValue
                                                             forKey:kTenchetValuekey];
+            
             [MTA trackCustomKeyValueEvent:tencentKey props:kvs];
 
         }
