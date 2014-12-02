@@ -450,7 +450,7 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     RMDateSelectionViewController *dateSelectionVC = [RMDateSelectionViewController dateSelectionController];
     dateSelectionVC.delegate                       = self;
         dateSelectionVC.datePicker.datePickerMode  =  UIDatePickerModeDate; //设置日期格式的样式
-    dateSelectionVC.datePicker.locale              = [NSLocale currentLocale];
+    dateSelectionVC.datePicker.locale              = [[[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedString(@"NSLocalString", nil)] autorelease];
     dateSelectionVC.datePicker.calendar            = [NSCalendar currentCalendar];
     dateSelectionVC.datePicker.minuteInterval      = 5;
     dateSelectionVC.datePicker.date                = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
@@ -466,8 +466,6 @@ static  NSString *KDateFormatFlag = @"yyyy-MM-dd";
     datePicker.datePickerMode = UIDatePickerModeDate;
     [datePicker setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedString(@"NSLocalString", nil)] autorelease]];
     datePicker.tag = 101;
-    datePicker.locale  = [NSLocale currentLocale];
-    datePicker.calendar = [NSCalendar currentCalendar];
     [actionSheet addSubview:datePicker];
     [actionSheet showInView:self.view];
 }

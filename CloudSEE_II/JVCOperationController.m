@@ -2229,6 +2229,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case RemotePlayBackVideoStateType_End:
         {
+            [self closeAudioAndTalkAndVideoFuction];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
@@ -2245,6 +2246,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         case RemotePlayBackVideoStateType_Failed:
         case RemotePlayBackVideoStateType_TimeOut:
         {
+            
+            [self closeAudioAndTalkAndVideoFuction];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
