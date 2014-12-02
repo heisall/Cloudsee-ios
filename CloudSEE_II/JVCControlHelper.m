@@ -281,11 +281,17 @@ static JVCControlHelper *shareJVCControlHelper = nil;
 - (UILabel *)labelWithUnderLine:(NSString *)titleString  fontSize:(int)fontSize
 {
     UILabel *label = [self labelWithText:titleString textFontSize:fontSize];
-    NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:titleString];
-    NSRange contentRange = {0, [content length]};
-    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
-    label.attributedText = content;
-    [content release];
+    
+    if (IOS_VERSION>=IOS6) {
+        
+        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:titleString];
+        NSRange contentRange = {0, [content length]};
+        [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+        label.attributedText = content;
+        [content release];
+
+    }
+    
     return label;
 }
 
