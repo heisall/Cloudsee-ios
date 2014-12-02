@@ -29,8 +29,8 @@
 
 static int const KImageViewOriginX      = 20;//开始位置
 static int const KSeperateSpan          = 10;//间距
-static int const KTitleLabeWith         = 100;//titleLabel with
-static int const KTitleLabeFont         = 18;//titleLabel font
+static int const KTitleLabeWith         = 130;//titleLabel with
+static int const KTitleLabeFont         = 16;//titleLabel font
 
 static int const KSaftTimerLabeWith     = 150;//titleLabel with
 static int const KSWitchWith            = 79;//swith with

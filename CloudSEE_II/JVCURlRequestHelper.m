@@ -141,8 +141,8 @@ static const    NSString  *kBoundary                     = @"------WebKitFormBou
     [dicSuggest setObject:KSuggestFingerprintValue forKey:KSuggestFingerprint];
     [dicSuggest setObject:delegate.localtionString forKey:KSuggestCountry];
     [dicSuggest setObject:[[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleShortVersionString"] forKey:KSuggestSoftVersion];
-    [dicSuggest setObject:content forKey:KSuggestContent];
-    [dicSuggest setObject:phoneNum forKey:KSuggestContact];
+    [dicSuggest setObject:content!=nil?content:@"feedback" forKey:KSuggestContent];
+    [dicSuggest setObject:phoneNum!=nil?content:@"feedback" forKey:KSuggestContact];
     [dicSuggest setObject:KSuggestcpuValue forKey:KSuggestCpu];
     
     
@@ -152,6 +152,7 @@ static const    NSString  *kBoundary                     = @"------WebKitFormBou
 //    urlString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)urlString, nil, nil, kCFStringEncodingUTF8));
     
     DDLogVerbose(@"%s===%@=\n=%@",__FUNCTION__,urlString,[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     
     NSData *suggestReceivedata = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];

@@ -133,8 +133,10 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 //        [self setupRefresh];
 //        
 //    }
+    [self getDeviceList];
     
     [self getAdevtiseInfo];
+    
 
     [self setupRefresh];
 
@@ -752,6 +754,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                         //加载设备通道弹出的提示
                         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
                         
+                        [self getAllChannelsList];
                         
                     }else{
                     
