@@ -526,9 +526,9 @@ static JVCSystemUtility *shareInstance = nil;
     
     if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5";
     
-    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5 (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5";
    
-    if ([platform isEqualToString:@"iPhone5,3"]|| [platform isEqualToString:@" iPhone5,3"])    return @"iPhone 5c";
+    if ([platform isEqualToString:@"iPhone5,3"]|| [platform isEqualToString:@"iPhone5,3"])    return @"iPhone 5c";
 
      if ([platform isEqualToString:@"iPhone6,2"]|| [platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5s";
     
@@ -583,7 +583,7 @@ static JVCSystemUtility *shareInstance = nil;
     
     
     
-    return platform;
+    return @"iphone";
     
 }
 
