@@ -240,13 +240,14 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  */
 -(void)sendCallBack{
     
-    isScanfing = FALSE;
-    
+
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:)]) {
         
         
         [self.delegate SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:CacheMArrayDeviceList];
     }
+    
+     isScanfing = FALSE;
 }
 
 /**
@@ -277,6 +278,8 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  */
 -(int)queryLanDeviceChannelCount:(NSString *)strYstNumber{
     
+    [strYstNumber retain];
+    
     int nChannelCount = 0;
     
    [self SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
@@ -286,6 +289,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
         if (isScanfing) {
             
             usleep(kQueryLanDeviceChannelCountSleepTime);
+        
             
         }else{
         
@@ -306,6 +310,8 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
             
         }
     }
+    
+    [strYstNumber release];
     
     return nChannelCount;
     

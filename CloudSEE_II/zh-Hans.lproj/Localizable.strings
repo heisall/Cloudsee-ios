@@ -390,7 +390,7 @@
 "Play back"="远程回放";
 "Serach"="检索";
 "Playback_Finish"= "远程回放结束";
-"Playback_error" = "运程回放错误";
+"Playback_error" = "远程回放错误";
 "PLAY_BACK_OPEN_JVN_CMD_CHATSTOP"= "设备已在其他客户端开启语音对讲，请稍后重试";
 "connectResultInfo_4"  = "连接失败.";
 "connectResultInfo_6"  = "连接异常断开.";

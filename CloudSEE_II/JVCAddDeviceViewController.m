@@ -132,6 +132,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
  */
 - (void)saveDevice
 {
+    
     int result = [[JVCPredicateHelper shareInstance]addDevicePredicateYSTNUM:textFieldYST.text andUserName:textFieldUserName.text andPassWord:textFieldPassWord.text];
     
 
@@ -355,7 +356,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%d=\n",__FUNCTION__,kkUserName,[channelAllInfoMdic description]]fileType:LogType_DeviceManagerLogPath];
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%@=\n",__FUNCTION__,kkUserName,[channelAllInfoMdic description]] fileType:LogType_DeviceManagerLogPath];
 
             /**
              *  判断返回的字典是不是nil
