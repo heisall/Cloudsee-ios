@@ -237,7 +237,7 @@
 "jvc_DeviceList_APadd" = "Add";
 "jvc_DeviceList_APquit" = "Cancel";
 "jvc_DeviceList_no_device" = "Wireless Device";
-"jvc_DeviceList_has_device" = "Wireline device";
+"jvc_DeviceList_has_device" = "Wireline Device";
 
 //ip/域名添加设备
 "jvc_addDevice_ipadd_titile"="IP/DNS";
@@ -260,7 +260,7 @@
 "delete_Success" = "Delete successfully";
 "delete_Failt" = "Failed to delete";
 "device_manager"         = "Device Management";
-"device_scan"            = "scan";
+"device_scan"            = "Scan";
 "operation_error"        = "Failed to operation";
 "device_off_line"        = "This operation is unavailable since the device is offline now.";
 
