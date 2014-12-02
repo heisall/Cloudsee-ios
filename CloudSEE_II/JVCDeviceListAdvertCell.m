@@ -50,8 +50,6 @@ static const kScrollewViewTag       = 11212;
         
         _arrayDefaultImage = [[NSMutableArray alloc] init];
         
-        [self setDefaultImageWithCount:1];
-        
         requestAdvertState = NO;
         
         hasInitCell        = NO;
@@ -186,86 +184,6 @@ static const kScrollewViewTag       = 11212;
     }
 }
 
-- (void)getAdverInfo
-{
-    NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
-        NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:stringVersion.integerValue];
-      
-        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[dicTic description] fileType:LogType_LoginManagerLogPath];
-        
-        DDLogVerbose(@"收到的广告的字典=%@",dicTic);
-     
-        if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:dicTic]) {//下载图片
-            //缓存当前版本号
-            NSString *strVersion = [dicTic objectForKey:AdverJsonInfo_Version];
-            [[NSUserDefaults standardUserDefaults]setObject:strVersion forKey:  kAPPAderseVersion];
-            
-            if (dicTic !=nil) {
-                [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
-                
-            }
-
-            NSArray *arrayList = [dicTic objectForKey:AdverJsonInfo_INFO];
-            
-            //下载完成的回调
-            
-            JVCDownLoadAdverImageSuccess downLoadSuccess = ^(int index){
-            
-                dispatch_async(dispatch_get_main_queue(), ^{
-                
-                    [self upDateAdvertiseContent:index];
-                
-                });
-
-            };
-            
-            NSMutableArray *arrAdvert = [[NSMutableArray alloc] init];
-            for (int i=0; i<arrayList.count; i++) {
-                
-                NSDictionary *tDic = [arrayList objectAtIndex:i];
-                
-                int indexValue = [[tDic objectForKey:Json_AD_NO] intValue];
-                NSString *urlString = [tDic objectForKey:Json_AD_URL];
-                NSString *lickString = [tDic objectForKey:Json_AD_LINK];
-                
-                NSString *enUrlString = [tDic objectForKey:Json_AD_URL_En];
-                NSString *enLickString = [tDic objectForKey:Json_AD_LINK_En];
-
-                JVCAdverImageModel *model = [[JVCAdverImageModel alloc] initAdvertImageModel:urlString LinkUrl:lickString index:indexValue downState:NO downLoadSuccessBlock:downLoadSuccess enUrl:enUrlString enLickUrl:enLickString];
-                [arrAdvert addObject:model];
-                [model release];
-                
-            }
-            
-            NSSortDescriptor *sorter = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-            NSArray *sortArray = [arrAdvert sortedArrayUsingDescriptors:[NSArray arrayWithObject:sorter]];
-            [arrAdvert release];
-            [_arrayDefaultImage removeAllObjects];
-            [_arrayDefaultImage addObjectsFromArray:sortArray];
-            
-            requestAdvertState = YES;
-        }else{
-//            int result =    [[dicTic objectForKey:DEVICE_JSON_RT] intValue];
-//            if (result == kAdverNoUpdate) {
-//                
-//                [self UpdateSaveAdvertiseInfo];
-//                
-//            }else{
-//                self ini
-//            }
-
-            requestAdvertState = YES;
-            
-            [self UpdateSaveAdvertiseInfo];
-        }
-        
-    
-    });
-}
-
 - (void)UpdateSaveAdvertiseInfo
 {
     NSDictionary *tAdevrtdic = [[NSUserDefaults standardUserDefaults] objectForKey:kAdverInfo];
@@ -279,22 +197,26 @@ static const kScrollewViewTag       = 11212;
             return;
         }
         
-//        BOOL allDownState  = YES;
-//        for (JVCAdverImageModel *modleAdver in _arrayDefaultImage) {
-//            
-//            if (modleAdver.downSuccess == YES) {
-//                
-//                if (allDownState == YES) {
-//                    
-//                    allDownState = NO;
-//                }
-//                
-//            }
-//        }
+        BOOL resultState = YES;
+        NSString *stringPic = [NSString stringWithFormat:@"devAdv_default.png"];
         
-//        if (!allDownState) {
-//            return;
-//        }
+        NSString *imageBundlePath = [UIImage imageBundlePath:LOCALANGER(stringPic)];
+        for (JVCAdverImageModel *modelAdver  in _arrayDefaultImage) {
+            
+            if (modelAdver.downSuccess == YES &&![modelAdver.localDownUrl isEqualToString:imageBundlePath]) {
+                
+                if (resultState == YES) {
+                    
+                    resultState = NO;
+                }
+            }
+        }
+        if (!resultState) {
+            
+            [self initContentView];
+            return ;
+        }
+
         //下载完成的回调
         
         JVCDownLoadAdverImageSuccess downLoadSuccess = ^(int index){

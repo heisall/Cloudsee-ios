@@ -1730,14 +1730,15 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         
         NSMutableDictionary *apSingleInfo = [[NSMutableDictionary  alloc] initWithCapacity:10];
         
-//        NSString               *strApName = [[NSString alloc] initWithCString:_wifer.name encoding:NSUTF8StringEncoding];
+
+        NSString               *strApName = [[NSString alloc] initWithCString:_wifer.name encoding:NSUTF8StringEncoding];
         
-        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        
-        int nLen = strlen(_wifer.name);
-        NSString *strApName = [[NSString alloc] initWithBytes:_wifer.name length:nLen encoding:enc];
+//        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+//        
+//        int nLen = strlen(_wifer.name);
+//        NSString *strApName = [[NSString alloc] initWithBytes:_wifer.name length:nLen encoding:enc];
        
-//        if (strApName) {
+        if (strApName) {
         
             [apSingleInfo setObject:strApName  forKey:AP_WIFI_USERNAME];
             [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.passwd]  forKey:AP_WIFI_PASSWORD];
@@ -1754,10 +1755,10 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
             [amNearApList addObject:apSingleInfo];
             
             [apSingleInfo release];
-            [strApName release];
 
-      //  }
-     
+        }
+        [strApName release];
+
     }
     
     return [amNearApList autorelease];

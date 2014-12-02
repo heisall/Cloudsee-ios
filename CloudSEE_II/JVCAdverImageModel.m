@@ -42,15 +42,39 @@
         self.localDownUrl = nil;
         self.enUrlStirng = enUrl;
         self.enAdLick = lickUrlEn;
+    
+        NSString *documentPath =  [[JVCSystemUtility shareSystemUtilityInstance] creatDirectoryAtDocumentPath:kAdverDocument];
+        
+        NSFileManager *manager = [[NSFileManager alloc] init];
+        
+        NSString *urlString = self.urlStirng;
+        if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+            
+            urlString = self.enUrlStirng;
+            
+        }
+        NSString *saveIamgeName = [urlString stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        NSString *savePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",saveIamgeName]];
+        if ([manager fileExistsAtPath:savePath]) {
+
+        self.localDownUrl = savePath;
+        self.downSuccess = YES;
+        }
+        
         if (!state) {
             
-            [self downLoadImageWithUrl];
-
-            if (block) {
+            if (!self.downSuccess) {
+                [self downLoadImageWithUrl];
                 
-                self.downLoadAdverSuccess = block;
+                if (block) {
+                    
+                    self.downLoadAdverSuccess = block;
+                }
+
             }
         }
+
+
     }
     return self;
 }
@@ -61,9 +85,9 @@
     
         
         
-           NSString *documentPath =  [[JVCSystemUtility shareSystemUtilityInstance] creatDirectoryAtDocumentPath:kAdverDocument];
+        NSString *documentPath =  [[JVCSystemUtility shareSystemUtilityInstance] creatDirectoryAtDocumentPath:kAdverDocument];
             
-            NSFileManager *manager = [[NSFileManager alloc] init];
+        NSFileManager *manager = [[NSFileManager alloc] init];
         
         NSString *urlString = self.urlStirng;
         if (![[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
