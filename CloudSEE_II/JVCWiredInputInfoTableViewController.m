@@ -58,7 +58,7 @@ static const CGFloat         kNavRightItemWithFontSize  = 14.0f;
     tImageScanBtn.titleLabel.font = [UIFont systemFontOfSize:kNavRightItemWithFontSize];
     tImageScanBtn.frame = CGRectMake(0, 0, tImageScan.size.width, tImageScan.size.height);
     [tImageScanBtn addTarget:self action:@selector(wiredSaveClick) forControlEvents:UIControlEventTouchUpInside];
-    [tImageScanBtn setTitle:NSLocalizedString(@"保存", nil) forState:UIControlStateNormal];
+    [tImageScanBtn setTitle:NSLocalizedString(@"jvc_addDevice_save", nil) forState:UIControlStateNormal];
     [tImageScanBtn setBackgroundImage:tImageScan forState:UIControlStateNormal];
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithCustomView:tImageScanBtn];
     self.navigationItem.rightBarButtonItem = rightBar;

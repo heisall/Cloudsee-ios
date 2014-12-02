@@ -129,6 +129,7 @@ static const int KDefaultFontSize           = 15;//成功
         [self.navigationController popViewControllerAnimated:YES];
 
     }else{
+        [self suggestSlideDown];
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_suggestion_send_error")];
 
     }

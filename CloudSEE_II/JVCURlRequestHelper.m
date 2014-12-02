@@ -53,8 +53,8 @@ static  const   NSString  *KSuggestcpuValue             =  @"ios";
 static  const   NSString  *KSuggestSoftVersion          =  @"softversion";
 static  const   NSString  *KSuggestContent              =  @"content";
 static  const   NSString  *KSuggestContact              =  @"contact";
-//static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.230/api.php?";
-static  const   NSString  *KSuggestUrl                  =  @"http://192.168.10.5:8003/api.php?";
+static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.230/api.php?";
+//static  const   NSString  *KSuggestUrl                  =  @"http://192.168.10.5:8003/api.php?";
 
 //static  const   NSString  *KSuggestUrlEN                 =  @"http://98.126.77.202/api.php";
 static  const   NSString  *KMULTIPART =@"multipart/form-data; boundary=----WebKitFormBoundaryWFuwJIc4dEyIOf50";
