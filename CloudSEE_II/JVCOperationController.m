@@ -1329,7 +1329,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         if (![self.view.subviews containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
             
             [self.view addSubview:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
-            
         }
         
         [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
