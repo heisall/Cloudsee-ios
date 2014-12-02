@@ -277,7 +277,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         
         int channelCount  = [jvcLANScanWithSetHelpYSTNOHelperObj queryLanDeviceChannelCount:ystNumber];
         
-        DDLogVerbose(@"%s-------------##########deviceLanCount =%d",__FUNCTION__, channelCount);
+        DDLogVerbose(@"%s-------------##########009deviceLanCount =%d",__FUNCTION__, channelCount);
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
      

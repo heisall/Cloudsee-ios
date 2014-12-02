@@ -220,6 +220,8 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
         
         [CacheMArrayDeviceList addObject:lanModel];
         
+          DDLogCVerbose(@"%s--------endLanserach#########53=%@--------",__FUNCTION__,strYstNumber);
+        
         [strYstNumber release];
         [lanModel release];
         
@@ -241,6 +243,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
     isScanfing = FALSE;
     
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:)]) {
+        
         
         [self.delegate SerachLANAllDevicesAsynchronousRequestWithDeviceListDataCallBack:CacheMArrayDeviceList];
     }
