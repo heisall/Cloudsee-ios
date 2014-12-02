@@ -380,8 +380,8 @@
 " successfully..."=" Successfully...";
 "Asking for video data now..."="Asking for video data now...";
 "Asking for video data now, please wait..."="Asking for video data now..";
-"operationStartVideoSuccess" = "开始录像";
-"operationEndVideoSuccess" = "录像完成";
+"operationStartVideoSuccess" = "Start recording";
+"operationEndVideoSuccess" = "Stop recording";
 
 "pictureLibraynoAutor" = "Can not visit photo album. Please set it open in[ Settings->Privacy->Photos ].";
 "picturelibrayError" = "Failed to save the picture.";
