@@ -1793,14 +1793,16 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
     }
     
-    /**
-     *  是否多屏，多屏的时候，变成单屏
-     */
-    [self changeManagePalyVideoComtrollerViewsToSingeView];
+
     
     switch (index) {
             
         case TYPEBUTTONCLI_SOUND:{
+            
+            /**
+             *  是否多屏，多屏的时候，变成单屏
+             */
+            [self changeManagePalyVideoComtrollerViewsToSingeView];
             
             //远程回放时，屏蔽掉此功能
             if (_isPlayBackVideo ||self.isPlayBackVideo) {
@@ -1841,6 +1843,11 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case TYPEBUTTONCLI_PLAYBACK:
         {
+            /**
+             *  是否多屏，多屏的时候，变成单屏
+             */
+            [self changeManagePalyVideoComtrollerViewsToSingeView];
+            
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationplaybac];
 
             [self remotePlaybackClick];
@@ -2321,6 +2328,11 @@ char remoteSendSearchFileBuffer[29] = {0};
     [ytOperationView showOperationTypeImageVIew:YTJVNtype];
     
     [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_YTO remoteOperationCommand:YTJVNtype];
+    
+    /**
+     *  是否多屏，多屏的时候，变成单屏
+     */
+    [self changeManagePalyVideoComtrollerViewsToSingeView];
 }
 
 #pragma mark 点击4、9、16分屏的回调

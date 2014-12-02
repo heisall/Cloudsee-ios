@@ -203,7 +203,7 @@ static const int KTAGADD = 100000;         //起始tag
      */
     _ApUnSelectedImageNameListData = [[NSMutableArray alloc] init];
     
-    [_ApUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"audioListener.png"]];
+    [_ApUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"apcofigaudio.png"]];
     [_ApUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"ytoBtn.png"]];
     [_ApUnSelectedImageNameListData addObject:[NSString stringWithFormat:@"%@",@"operation_talk.png"]];
 }
@@ -214,7 +214,7 @@ static const int KTAGADD = 100000;         //起始tag
      */
     _ApSelectArray = [[NSMutableArray alloc] init];
     
-    [_ApSelectArray addObject:[NSString stringWithFormat:@"%@",@"audioListennerSelected.png"]];
+    [_ApSelectArray addObject:[NSString stringWithFormat:@"%@",@"apcofigaudio_sec.png"]];
     [_ApSelectArray addObject:[NSString stringWithFormat:@"%@",@"ytoSelectedBtn.png"]];
     [_ApSelectArray addObject:[NSString stringWithFormat:@"%@",@"opera_4_talk_Hover.png"]];
 }

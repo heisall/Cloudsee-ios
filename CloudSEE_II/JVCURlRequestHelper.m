@@ -341,7 +341,7 @@ static const    NSString  *kBoundary                     = @"------WebKitFormBou
     [body appendData:[content dataUsingEncoding:NSUTF8StringEncoding]];
 
     //写入尾部内容
-    [body appendData:[[NSString stringWithFormat:@"\r\n\r\n%@", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n\r\n%@\r\n\r\n", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPBody:body];
     NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];

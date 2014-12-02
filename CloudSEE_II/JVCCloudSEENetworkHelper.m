@@ -1738,7 +1738,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
 //        
 //        int nLen = strlen(_wifer.name);
 //        NSString *strApName = [[NSString alloc] initWithBytes:_wifer.name length:nLen encoding:enc];
-       
+        NSLog(@"===%@==%s",strApName,_wifer.name);
         if (strApName) {
         
             [apSingleInfo setObject:strApName  forKey:AP_WIFI_USERNAME];
