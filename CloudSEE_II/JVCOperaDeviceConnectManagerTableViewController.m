@@ -16,6 +16,7 @@
 #import "JVCOperationDeviceAlarmTimerViewController.h"
 #import "JVCCloudSEENetworkHelper.h"
 #import "JVCAlarmManagerHelper.h"
+#import "JVCPredicateHelper.h"
 
 @interface JVCOperaDeviceConnectManagerTableViewController ()
 {
@@ -68,6 +69,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     alarmManagerHelp = [[JVCAlarmManagerHelper alloc] init:self.nLocalChannel];
     
     [self initLayoutWithStatus];
+    
+    DDLogVerbose(@"self.deviceDic=%@===",self.deviceDic);
 }
 
 /**
@@ -118,6 +121,15 @@ static const int KFootViewAdd       = 30;//多添加的位置
             
             [self.deviceDic setObject:strShowTime forKey:[arrayContentList objectAtIndex:2]];
         }
+    }else{
+
+        
+        [strDateBegin appendString:(NSString *)kAlarmTimerStart];
+        [strDateEnd appendString:(NSString *)kAlarmTimerEnd];
+        [strShowTime appendFormat:@"%@-%@",strDateBegin,strDateEnd];
+        
+        [self.deviceDic setObject:strShowTime forKey:[arrayContentList objectAtIndex:2]];
+
     }
 }
 

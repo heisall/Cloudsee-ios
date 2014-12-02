@@ -36,6 +36,8 @@ sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
 #endif
 
 #define IOS7    7.0
+#define IOS6    6.0
+
 
 #define IOS8    [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ? YES : NO
 

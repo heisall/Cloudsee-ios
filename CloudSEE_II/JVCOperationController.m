@@ -1230,9 +1230,7 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
     _managerVideo.isShowVideo = TRUE;
-    
-    if(UIDeviceOrientationIsValidInterfaceOrientation(toInterfaceOrientation))
-    {
+
         [self shouldAutorotate];
         [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
         
@@ -1255,9 +1253,6 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             [self changeRotateFromInterfaceOrientationFrame:YES];
         }
-        
-
-    }
 
 }
 
@@ -1281,6 +1276,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
         [_managerVideo setManagePlayViewScrollState:YES];
         [_managerVideo changeContenView];
+        _managerVideo.hidden = NO;
         [self.view bringSubviewToFront:_managerVideo];
         [self.view bringSubviewToFront:ytOperationView];
         [self.view bringSubviewToFront:_operationItemSmallBg];
@@ -1313,7 +1309,6 @@ char remoteSendSearchFileBuffer[29] = {0};
          */
         [self changeManagePalyVideoComtrollerViewsToSingeView];
         
-        [_managerVideo changeContenView];
         
         [self.view bringSubviewToFront:_managerVideo];
         [self.view bringSubviewToFront:ytOperationView];
@@ -1334,6 +1329,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [self.view bringSubviewToFront:[JVCHorizontalScreenBar shareHorizontalBarInstance]];
     }
+    
+    DDLogVerbose(@"%@========",_managerVideo);
 }
 
 #pragma mark 返回远程回放的状态
