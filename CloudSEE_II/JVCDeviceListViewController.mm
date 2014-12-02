@@ -126,8 +126,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self getDeviceList];
-    
      [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceUpdate = self;
     
 //    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT)
@@ -136,6 +134,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 //        
 //    }
     
+    [self getAdevtiseInfo];
+
     [self setupRefresh];
 
 }
@@ -203,7 +203,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             
             [self performSelector:@selector(TableheaderEndRefreshing) withObject:nil afterDelay:kAfterDelayTimer];
             
-            [self getDeviceList];
         }else{
             
             [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
@@ -722,7 +721,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
          *  获取本地通道列表
          */
         [[JVCChannelScourseHelper shareChannelScourseHelper] getAllLocalChannelsList];
-
+        
         
     }else{
     
@@ -753,7 +752,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                         //加载设备通道弹出的提示
                         [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
                         
-                        [self getAllChannelsList];
                         
                     }else{
                     
@@ -798,8 +796,8 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             JVCChannelScourseHelper *channelsHelperObj = [JVCChannelScourseHelper shareChannelScourseHelper];
             
             [channelsHelperObj addChannelsMDicToChannelList:channelMDic];
-            //获取广告图片
-            [self getAdevtiseInfo];
+       
+            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
