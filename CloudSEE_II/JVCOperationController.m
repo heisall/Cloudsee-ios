@@ -47,6 +47,7 @@ static const int             kAlertTag               = 19384324;
 static const NSTimeInterval  kRemoteBackTimer        = 0.3;//远程回放延迟
 static const NSTimeInterval  kTalkDelayTimer         = 2.0f;//远程回放延迟
 
+static const int  kBarios6                           = 20.0f;//远程回放延迟
 
 //static const int WINDOWSFLAG  = WINDOWSFLAG;//tag
 
@@ -1226,34 +1227,58 @@ char remoteSendSearchFileBuffer[29] = {0};
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;
 }
 
-
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
     _managerVideo.isShowVideo = TRUE;
 
-        [self shouldAutorotate];
-        [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
-        
-        if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
-            
-            
-            [self changeRotateFromInterfaceOrientationFrame:YES];
-            
-        } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-            
-            
-            [self changeRotateFromInterfaceOrientationFrame:NO];
-            
-        } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-            
-            
-            [self changeRotateFromInterfaceOrientationFrame:NO];
-        }else if(toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
-            
-            
-            [self changeRotateFromInterfaceOrientationFrame:YES];
-        }
+//        [self shouldAutorotate];
+//        [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+    
+ 
+    
+     if( UIDeviceOrientationIsValidInterfaceOrientation( toInterfaceOrientation ) )     {         //参数表示是否横屏，这里我只需要知道屏幕方向就可以提前知道目标区域了！         [self setCtrlPos: UIInterfaceOrientationIsLandscape( toInterfaceOrientation) ];
+         
+            CGRect rectFrame = [self getClientRect:UIInterfaceOrientationIsLandscape( toInterfaceOrientation)];
+         if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+             
+             
+             [self changeRotateFromInterfaceOrientationFrame:YES frame:rectFrame];
+             
+         } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+             
+             
+             [self changeRotateFromInterfaceOrientationFrame:NO  frame:rectFrame];
+             
+         } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+             
+             
+             [self changeRotateFromInterfaceOrientationFrame:NO  frame:rectFrame];
+         }else if(toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
+             
+             
+             [self changeRotateFromInterfaceOrientationFrame:YES  frame:rectFrame];
+         }
 
+         
+     }
+    
+    
+}
+
+
+//可以根据横屏还是竖屏，提前预知目标窗口区域大小  //不要看多了这么一整个函数，但是给多个UIViewController调用就很方便了。  //这一个函数，本人丢到自定义的公共文件去实现。当做全局函数，一般用global.h来声明接口，在global.m实现。
+- (CGRect)getClientRect:( BOOL) isHorz
+{
+    BOOL isStatusBarHidden = [[ UIApplication sharedApplication ]isStatusBarHidden ]; //判断屏幕顶部有没状态栏出现
+    CGRect rcScreen = [[UIScreen mainScreen] bounds];//这个不会随着屏幕旋转而改变
+    CGRect rcClient = rcScreen;
+    CGRect rcArea = rcClient;
+    if( isHorz )
+    {
+        rcArea.size.width = MAX(rcClient.size.width,rcClient.size.height);
+        rcArea.size.height = MIN(rcClient.size.width,rcClient.size.height);
+    }
+    return rcArea;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
@@ -1267,13 +1292,13 @@ char remoteSendSearchFileBuffer[29] = {0};
 }
 
 
--(void)changeRotateFromInterfaceOrientationFrame:(BOOL)IsRotateFrom{
+-(void)changeRotateFromInterfaceOrientationFrame:(BOOL)IsRotateFrom  frame:(CGRect)frame{
     
     if (IsRotateFrom) {
         [JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin = NO;
 
         self.navigationController.navigationBarHidden = NO;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, 320, 320*0.75);
+        _managerVideo.frame=CGRectMake(0,  0, 320, 320*0.75);
         [_managerVideo setManagePlayViewScrollState:YES];
         [_managerVideo changeContenView];
         _managerVideo.hidden = NO;
@@ -1289,7 +1314,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         if (IOS_VERSION<IOS7) {
             
-            deleteSize = [UIApplication sharedApplication].statusBarFrame.size.height;
+            deleteSize = kBarios6;
         }
         
         if (_splitViewCon.frame.size.height>0) {
@@ -1300,7 +1325,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         [JVCHorizontalScreenBar shareHorizontalBarInstance].bStateHorigin = YES;
 
         self.navigationController.navigationBarHidden = YES;
-        _managerVideo.frame=CGRectMake( _managerVideo.frame.origin.x,  _managerVideo.frame.origin.y, [UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width-deleteSize);
+        
+
+        _managerVideo.frame=CGRectMake( 0, 0, frame.size.width , frame.size.height-deleteSize);
         [_managerVideo setManagePlayViewScrollState:NO];
         [_managerVideo setSingleViewVerticalViewState:YES];
      
@@ -1308,8 +1335,8 @@ char remoteSendSearchFileBuffer[29] = {0};
          *  是否多屏，多屏的时候，变成单屏
          */
         [self changeManagePalyVideoComtrollerViewsToSingeView];
-        
-        
+        [_managerVideo changeContenView];
+
         [self.view bringSubviewToFront:_managerVideo];
         [self.view bringSubviewToFront:ytOperationView];
         [ straemView removeFromSuperview];
@@ -1319,7 +1346,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [JVCHorizontalScreenBar shareHorizontalBarInstance].alpha =1.0f;
 
         [JVCHorizontalScreenBar shareHorizontalBarInstance].HorizontalDelegate = self;
-        [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,[UIScreen mainScreen].bounds.size.height, HORIZEROSCREENVIEWHEIGHT);
+        [JVCHorizontalScreenBar shareHorizontalBarInstance].frame = CGRectMake(0, _managerVideo.bottom - HORIZEROSCREENVIEWHEIGHT,frame.size.width, HORIZEROSCREENVIEWHEIGHT);
         
         if (![self.view.subviews containsObject:[JVCHorizontalScreenBar shareHorizontalBarInstance]]) {
             

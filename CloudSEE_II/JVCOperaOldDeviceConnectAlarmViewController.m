@@ -145,6 +145,8 @@ static const CGFloat         kAlertTostViewTime                   = 2.0f;
     if (!model.bDeviceServiceOnlineState) {
         
         [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
+        
+        [self.tableView reloadData];
         return;
     }
     
