@@ -168,7 +168,7 @@
 "LINKMODEL_PORT_NIL"= "请输入端口号";
 "LINKMODEL_PORT_ERROR"= "端口格式不正确";
 "LINKMODEL_UNKONWN_ERROR"="连接服务器错误，代码：";
-"loginResign_passWord_error" = "密码由英文、数字及“-”、“_”组成且长度在6~20位字符之间";
+"loginResign_passWord_error" = "密码由6-20位任意字符组成";
 "home_login_resign_user_noFound"= "恭喜，用户名已被您收入囊中。";
 "home_login_resign_user_exit"= "亲， 用户名已经被别人占领，请修改。";
 "ERROR_DESC_UNREGISTER" = "网络连接异常，请检查网络";
@@ -199,7 +199,7 @@
 
 //声波添加设备
 "jvc_voice_add_title" = "准备步骤";
-"jvc_voice_add_help" = "用顶针轻插配置孔\n直到听到嘀的一声";
+"jvc_voice_add_help" = "请用顶针轻插设备背后的配置孔\n直到嘀声响起";
 "jvc_voice_add_tick" = "滴";
 "jvc_voice_add_next" = "下一步";
 "jvc_voice_add_prepareconfig" = "准备配置";
@@ -372,7 +372,7 @@
 "Connection Failed ID_and_modify_user_and password"= "用户名或密码错误，立即修改";
 "operation"="该功能在远程回放时暂停使用.";
 "This video source doesn't support image resolution switch."="该视频源不支持码流切换";
-"TalkInfo"="正在与s设备请求对讲，请等待...";
+"TalkInfo"="正在与设备请求对讲，请等待...";
 "Asking for video data now, please wait..."="正在加载数据，请等待...";
 "Connecting with server now..."="正在连接服务器...";
 "Connected with server "="与 ";

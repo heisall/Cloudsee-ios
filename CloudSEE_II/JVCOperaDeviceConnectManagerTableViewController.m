@@ -136,9 +136,9 @@ static const int KFootViewAdd       = 30;//多添加的位置
     arrayFootList       = [[NSMutableArray alloc] init];
     
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeStateFoot")];
-    [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerdurationFoot")];
     [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeMoveAttentionFoot")];
-    
+    [arrayFootList addObject:LOCALANGER(@"JVCOperationDeviceConnectManagerSafeTimerdurationFoot")];
+
     arrayContentList    = [[NSMutableArray alloc] init];
     [arrayContentList    addObject:(NSString *)kDeviceAlarm ];
     [arrayContentList    addObject:(NSString *)kDeviceMotionDetecting];

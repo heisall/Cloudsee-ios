@@ -75,8 +75,6 @@
             NSString *savePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",saveIamgeName]];
             if (![manager fileExistsAtPath:savePath]) {
                 
-             
-                
                 NSData *imageDate =  [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:urlString]];
 
                 if (imageDate.length>0) {//保存图片

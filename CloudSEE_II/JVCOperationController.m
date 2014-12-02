@@ -84,6 +84,8 @@ bool selectState_audio ;
     
     NSData                  *saveImageDate; //保存图片的二进制文件
     NSTimer                 *talkTimer;
+    
+    UIInterfaceOrientation  originInterface; //旋转之前的方面
 }
 
 enum StorageType {
@@ -1207,19 +1209,16 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        DDLogVerbose(@"===_%s===003=====NO",__FUNCTION__);
 
         return NO;
     }
     
     if (isLongPressedStartTalk) {
-        DDLogVerbose(@"===_%s===004=====NO",__FUNCTION__);
 
         return  NO;
     }
     
     [self removHelpView];
-    DDLogVerbose(@"===_%s==005======%d",__FUNCTION__, unAllLinkFlag == DISCONNECT_ALL ? NO:YES);
 
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;;
 }
@@ -1233,10 +1232,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     if (isLongPressedStartTalk) {
        
-        DDLogVerbose(@"===_%s===000=====NO",__FUNCTION__);
         return  NO;
     }
-    DDLogVerbose(@"===_%s==001======%d",__FUNCTION__, unAllLinkFlag == DISCONNECT_ALL ? NO:YES);
 
     return unAllLinkFlag == DISCONNECT_ALL ? NO:YES;
 }
@@ -1245,30 +1242,35 @@ char remoteSendSearchFileBuffer[29] = {0};
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
     _managerVideo.isShowVideo = TRUE;
+    
+    if(UIDeviceOrientationIsValidInterfaceOrientation(toInterfaceOrientation))
+    {
+        [self shouldAutorotate];
+        [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+        
+        if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+            
+            
+            [self changeRotateFromInterfaceOrientationFrame:YES];
+            
+        } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+            
+            
+            [self changeRotateFromInterfaceOrientationFrame:NO];
+            
+        } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+            
+            
+            [self changeRotateFromInterfaceOrientationFrame:NO];
+        }else if(toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
+            
+            
+            [self changeRotateFromInterfaceOrientationFrame:YES];
+        }
+        
 
-    [self shouldAutorotate];
-    [self shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
-    
-    if (toInterfaceOrientation == UIInterfaceOrientationPortrait) {
-        
-        
-        [self changeRotateFromInterfaceOrientationFrame:YES];
-        
-    } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-        
-        
-        [self changeRotateFromInterfaceOrientationFrame:NO];
-        
-    } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        
-        
-        [self changeRotateFromInterfaceOrientationFrame:NO];
-    }else if(toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown){
-        
-        
-        [self changeRotateFromInterfaceOrientationFrame:YES];
     }
-    
+
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
@@ -1862,7 +1864,14 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case TYPEBUTTONCLI_SOUND:{
             
-            
+            //远程回放时，屏蔽掉此功能
+            if (_isPlayBackVideo ||self.isPlayBackVideo) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+                
+                return;
+            }
+
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationAudio];
             /**
              *  判断是否开启语音对讲,开启直接返回
@@ -1870,7 +1879,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             UIButton *btnTalk = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
             
             if (btnTalk.selected) {
-                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"home_operation_talk")];
                 return;
             }
             [self gotoOperationDeviceAlarmState];
@@ -2442,6 +2451,8 @@ char remoteSendSearchFileBuffer[29] = {0};
      */
    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        
+       
+    
         [self closeChatVoiceIntercom];
 
     });
@@ -2620,26 +2631,32 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)closeChatVoiceIntercom
 {
-    JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    ystNetWorkObj.ystNWADelegate    = nil;
-  
-//    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
-//    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
-//    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
-//    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
-//    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
     
-    [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
-    
-    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
-    
-    [openAlObj stopSound];
-    [openAlObj cleanUpOpenALMath];
-    
-    [aqControllerobj stopRecord];
-    aqControllerobj.delegate = nil;
-    
+    UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+
+    if (talkBtn.selected) {
+   
+        JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        ystNetWorkObj.ystNWADelegate    = nil;
+        
+        //    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
+        //    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
+        //    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
+        //    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
+        //    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
+        
+        [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+        
+        OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+        AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
+        
+        [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
+        
+        [aqControllerobj stopRecord];
+        aqControllerobj.delegate = nil;
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
     
         [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];

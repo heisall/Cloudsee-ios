@@ -279,6 +279,22 @@ static const kScrollewViewTag       = 11212;
             return;
         }
         
+//        BOOL allDownState  = YES;
+//        for (JVCAdverImageModel *modleAdver in _arrayDefaultImage) {
+//            
+//            if (modleAdver.downSuccess == YES) {
+//                
+//                if (allDownState == YES) {
+//                    
+//                    allDownState = NO;
+//                }
+//                
+//            }
+//        }
+        
+//        if (!allDownState) {
+//            return;
+//        }
         //下载完成的回调
         
         JVCDownLoadAdverImageSuccess downLoadSuccess = ^(int index){

@@ -1730,9 +1730,15 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
         
         NSMutableDictionary *apSingleInfo = [[NSMutableDictionary  alloc] initWithCapacity:10];
         
-        NSString               *strApName = [[NSString alloc] initWithCString:_wifer.name encoding:NSUTF8StringEncoding];
-        if (strApName) {
-            
+//        NSString               *strApName = [[NSString alloc] initWithCString:_wifer.name encoding:NSUTF8StringEncoding];
+        
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        
+        int nLen = strlen(_wifer.name);
+        NSString *strApName = [[NSString alloc] initWithBytes:_wifer.name length:nLen encoding:enc];
+       
+//        if (strApName) {
+        
             [apSingleInfo setObject:strApName  forKey:AP_WIFI_USERNAME];
             [apSingleInfo setObject:[NSString stringWithFormat:@"%s",_wifer.passwd]  forKey:AP_WIFI_PASSWORD];
             [apSingleInfo setObject:[NSString stringWithFormat:@"%d",_wifer.quality] forKey:AP_WIFI_QUALITY];
@@ -1750,7 +1756,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
             [apSingleInfo release];
             [strApName release];
 
-        }
+      //  }
      
     }
     
