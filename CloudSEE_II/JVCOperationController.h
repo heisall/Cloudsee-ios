@@ -37,10 +37,8 @@ static const int      kDefaultShowWidnowCount         = 1;
     NSMutableArray *_amUnSelectedImageNameListData;
     NSMutableArray *_amSelectedImageNameListData;
     
-    bool             _issound;
-    bool             _isTalk;
-    bool             _isLocalVideo;
-    bool             _isPlayBack;
+    BOOL             _isLocalVideo;
+    BOOL             _isPlayBack;
     NSMutableArray  *_playBackVideoDataArray;//远程回放视频列表
     NSMutableString *_playBackDateString;
     UIButton        *_bSmallMoreBtn;
@@ -56,7 +54,7 @@ static const int      kDefaultShowWidnowCount         = 1;
 
 @property (nonatomic,assign) int             _iSelectedChannelIndex;
 @property (nonatomic,retain) NSString        *strSelectedDeviceYstNumber;     //选择的设备的云视通号
-@property (nonatomic,assign) bool            _issound,_isTalk,_isLocalVideo,_isPlayBack;
+@property (nonatomic,assign) BOOL             _isLocalVideo,_isPlayBack;
 @property (nonatomic,retain) NSMutableString *_playBackDateString;
 @property (nonatomic,retain) NSMutableArray  *_playBackVideoDataArray;
 @property (nonatomic,assign) BOOL             showSingeleDeviceLongTap;
@@ -79,7 +77,6 @@ static const int      kDefaultShowWidnowCount         = 1;
 -(void)ytoClick:(UIButton*)button;
 -(void)changeRotateFromInterfaceOrientationFrame:(BOOL)IsRotateFrom;
 -(BOOL)returnIsplayBackVideo;
--(BOOL)returnOperationState;
 - (void)setScrollviewByIndex:(NSInteger)Index;
 -(void)gotoShowSpltWindow;
 -(void)changeSplitView:(int)_splitWindows;
@@ -116,5 +113,9 @@ static const int      kDefaultShowWidnowCount         = 1;
  */
 - (BOOL)getOperationSingelViewVoiceState;
 
+/**
+ *  还原特殊功能的默认状态
+ */
+-(void)reductionDefaultAudioAndTalkAndVideoBtnImage;
 
 @end
