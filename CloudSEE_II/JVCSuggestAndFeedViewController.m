@@ -115,6 +115,7 @@ static const int KDefaultFontSize           = 15;//成功
         JVCURlRequestHelper *urlRequest = [[JVCURlRequestHelper alloc] init];
      int reuslt = [urlRequest sendSuggestWithMessage:textfield.text phoneNum:textView.text];
         [urlRequest release];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             [self handleSendSuggestResult:reuslt];
