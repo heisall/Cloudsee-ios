@@ -272,16 +272,25 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile,int cacheBufSize,int mchan
 
 void AQRecorder::StopRecord()
 {
-	// end recording
-	mIsRunning = false;
-	XThrowIfError(AudioQueueStop(mQueue, true), "AudioQueueStop failed");	
-	// a codec may update its cookie at the end of an encoding session, so reapply it to the file now
-	CopyEncoderCookieToFile();
-	if (mFileName)
-	{
-		CFRelease(mFileName);
-		mFileName = NULL;
-	}
-	AudioQueueDispose(mQueue, true);
-	AudioFileClose(mRecordFile);
+   
+    
+    if (mIsRunning) {
+        
+        mIsRunning = false;
+        XThrowIfError(AudioQueueStop(mQueue, true), "AudioQueueStop failed");
+        // a codec may update its cookie at the end of an encoding session, so reapply it to the file now
+        CopyEncoderCookieToFile();
+        if (mFileName)
+        {
+            CFRelease(mFileName);
+            mFileName = NULL;
+        }
+        AudioQueueDispose(mQueue, true);
+        AudioFileClose(mRecordFile);
+        
+    }else {
+    
+        DDLogCVerbose(@"%s-----------###########7890",__FUNCTION__);
+    }
+	
 }

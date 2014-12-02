@@ -432,17 +432,20 @@ BOOL isAllLinkRun;
         
         return;
     }
-    
-    [_operationController reductionDefaultAudioAndTalkAndVideoBtnImage];
-    
-    int _views                 = self.imageViewNums;
-    self.imageViewNums         = self._iBigNumbers;
-    self._iBigNumbers          = _views;
-    self.nSelectedChannelIndex =viewimage.view.tag-KWINDOWSFLAG;
-    
-    self.isShowVideo = TRUE;
-    [self changeContenView];
-    self.isShowVideo = FALSE;
+
+    if (self.imageViewNums != self._iBigNumbers) {
+        
+        [_operationController reductionDefaultAudioAndTalkAndVideoBtnImage];
+        
+        int _views                 = self.imageViewNums;
+        self.imageViewNums         = self._iBigNumbers;
+        self._iBigNumbers          = _views;
+        self.nSelectedChannelIndex =viewimage.view.tag-KWINDOWSFLAG;
+        
+        self.isShowVideo = TRUE;
+        [self changeContenView];
+        self.isShowVideo = FALSE;
+    }
     
 }
 
