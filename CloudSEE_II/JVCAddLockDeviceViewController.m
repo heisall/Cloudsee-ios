@@ -231,7 +231,12 @@ static const NSTimeInterval   KAddDeviceTimerOut         = 15;
     countNum ++;
     if(countNum >=KAddDeviceTimerOut)//超时
     {
+        [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+
         [self stopTimer];
+        
+        [helpIView removeFromSuperview];
+        [self stopPlaySound];
     }
 }
 
@@ -240,8 +245,7 @@ static const NSTimeInterval   KAddDeviceTimerOut         = 15;
  */
 - (void)stopTimer
 {
-    [helpIView removeFromSuperview];
-    [self stopPlaySound];
+  
     countNum = 0;
     
     if(addDeviceTimer !=nil ||[addDeviceTimer isValid])
@@ -277,6 +281,9 @@ static const NSTimeInterval   KAddDeviceTimerOut         = 15;
  */
 -(void)ystNetWorkHelpTextChatCallBack:(int)nLocalChannel withTextDataType:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData{
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [helpIView removeFromSuperview];
+        [self stopPlaySound];
         
         [self stopTimer];
         
