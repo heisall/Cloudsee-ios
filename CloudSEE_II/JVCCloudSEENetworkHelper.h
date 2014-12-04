@@ -98,13 +98,6 @@
 @optional
 
 /**
- *  抓拍图片的委托代理
- *
- *  @param imageData 图片的二进制数据
- */
--(void)captureImageCallBack:(NSData *)imageData;
-
-/**
  *  获取当前连接通道的码流参数以及是否是家用IPC
  *
  *  @param nLocalChannel 本地连接通道编号
@@ -190,6 +183,17 @@
 
 @end
 
+@protocol JVCCloudSEENetworkHelperCaptureDelegate <NSObject>
+
+/**
+ *  抓拍图片的委托代理
+ *
+ *  @param imageData 图片的二进制数据
+ */
+-(void)captureImageCallBack:(NSData *)imageData;
+
+@end
+
 @interface JVCCloudSEENetworkHelper : NSObject <JVCCloudSEEManagerHelperDelegate>{
 
     id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
@@ -198,6 +202,7 @@
     id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
     id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
     id <ystNetWorkHelpVideoDelegate>                 videoDelegate;      //录像
+    id <JVCCloudSEENetworkHelperCaptureDelegate>     jvcCloudSEENetworkHelperCaptureDelegate; //抓拍
 }
 
 enum DEVICETYPE {
@@ -218,6 +223,7 @@ enum DEVICETALKMODEL {
 @property(nonatomic,assign)id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;
 @property(nonatomic,assign)id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;
 @property(nonatomic,assign)id <ystNetWorkHelpVideoDelegate>                 videoDelegate;
+@property(nonatomic,assign)id <JVCCloudSEENetworkHelperCaptureDelegate>     jvcCloudSEENetworkHelperCaptureDelegate; //抓拍
 
 /**
  *  单例
