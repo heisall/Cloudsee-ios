@@ -476,6 +476,7 @@
 "Jvc_editDeviceInfo_PW" = " Password";
 "Jvc_editDeviceInfo_Delete" = "Delete";
 "Jvc_editDeviceInfo_Save" = "Save";
+"jvc_editDevice_AddThirdDevie" = "No support for this device or timeout";
 
 
 //更多

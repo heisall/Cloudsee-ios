@@ -8,10 +8,13 @@
 
 #import "JVCSystemSoundHelper.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface JVCSystemSoundHelper () {
     
     SystemSoundID    sound;
+    
+    AVAudioPlayer    *player;
 }
 
 @end
@@ -55,9 +58,9 @@ static JVCSystemSoundHelper *jvcSystemSoundHelperObj = nil;
 }
 
 -(void)dealloc{
-
+    
     [super dealloc];
-
+    
 }
 
 
@@ -69,21 +72,40 @@ static JVCSystemSoundHelper *jvcSystemSoundHelperObj = nil;
  */
 -(void)playSound:(NSString *)path withIsRunloop:(BOOL)isRunloop{
     
-
-    if (sound) {
+    if (player) {
         
-        AudioServicesDisposeSystemSoundID(sound);
+        [player release];
+        player = nil;
     }
     
-    AudioServicesCreateSystemSoundID((CFURLRef)[NSURL URLWithString:path], &sound);
+    NSURL *soundUrl=[[NSURL alloc] initFileURLWithPath:path];
     
-    AudioServicesPlaySystemSound(sound);
+    player =[[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
     
-    if (isRunloop) {
-        
-        /*添加音频结束时的回调*/
-        AudioServicesAddSystemSoundCompletion(sound, NULL, NULL, SoundFinished,path);
-    }
+    player.volume         = 1.0;
+    player.numberOfLoops  = isRunloop == YES? -1 : 0;
+    [player prepareToPlay];
+    
+    [soundUrl release];
+    
+    [player play];
+    
+    
+    //使用本地URL创建
+    //    if (sound) {
+    //
+    //        AudioServicesDisposeSystemSoundID(sound);
+    //    }
+    //
+    //    AudioServicesCreateSystemSoundID((CFURLRef)[NSURL URLWithString:path], &sound);
+    //
+    //    AudioServicesPlaySystemSound(sound);
+    //
+    //    if (isRunloop) {
+    //
+    //        /*添加音频结束时的回调*/
+    //        AudioServicesAddSystemSoundCompletion(sound, NULL, NULL, SoundFinished,path);
+    //    }
 }
 
 static void SoundFinished(SystemSoundID soundID,void* sample){
@@ -93,7 +115,7 @@ static void SoundFinished(SystemSoundID soundID,void* sample){
         [jvcSystemSoundHelperObj.delegate playEndCallBack];
         
     }else {
-    
+        
         /*播放全部结束，因此释放所有资源 */
         AudioServicesPlaySystemSound(soundID);
     }
@@ -103,8 +125,10 @@ static void SoundFinished(SystemSoundID soundID,void* sample){
  *  停止播放声音的回调
  */
 -(void)stopSound{
-
-    AudioServicesDisposeSystemSoundID(sound);
+    
+    [player stop];
+    
+    //AudioServicesDisposeSystemSoundID(sound);
 }
 
 @end

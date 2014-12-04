@@ -237,6 +237,7 @@ static const NSTimeInterval   KAddDeviceTimerOut         = 15;
         
         [helpIView removeFromSuperview];
         [self stopPlaySound];
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_AddThirdDevie")];
     }
 }
 

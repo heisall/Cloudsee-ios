@@ -448,7 +448,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
-    if (!model.bDeviceServiceOnlineState) {
+    if (!model.onLineState) {
         
        [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
         return;
@@ -860,7 +860,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
     JVCDeviceModel  *model           = [self getCurrentDeviceModel];
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
-    if (!model.bDeviceServiceOnlineState) {
+    if (!model.onLineState) {
         
         [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
         return;

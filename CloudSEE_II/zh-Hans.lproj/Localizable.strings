@@ -490,6 +490,7 @@
 "Jvc_editDeviceInfo_Delete" = "删除";
 "Jvc_editDeviceInfo_Save" = "保存";
 
+"jvc_editDevice_AddThirdDevie" = "设备不支持此操作或请求超时";
 
 //更多
 "jvc_more_title" = "更多";
