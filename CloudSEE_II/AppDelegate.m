@@ -125,6 +125,8 @@ static const   int     KCheckLocationResultValue = 1;
     //初始化相册
     [self initPhotoAlbum];
     
+    //注册离线推送
+    [self resignNotificationTypes];
     
     //初始化sdk
     [self initAHReachSetting];
@@ -174,8 +176,6 @@ static const   int     KCheckLocationResultValue = 1;
     
     //设置默认情况为初始化sdk失败，初始化成功之后，置换成成功
     [JVCConfigModel shareInstance]._bInitAccountSDKSuccess = TYPEINITSDK_DEFAULT;
-    
-    
     
     return YES;
 }
@@ -674,8 +674,17 @@ static const   int     KCheckLocationResultValue = 1;
  */
 - (void)resignNotificationTypes
 {
-    
+    if (IOS8) {
+        
+        //ios8注册推送
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert) categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+
+        
+    }else{
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
 
 }
 
@@ -687,6 +696,13 @@ static const   int     KCheckLocationResultValue = 1;
     DDLogVerbose(@"tokenStr==%@",tokenStr);
     kkToken = tokenStr;
 }
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //注册远程通知
+    [application registerForRemoteNotifications];
+}
+
 /**
  *  启心跳
  */

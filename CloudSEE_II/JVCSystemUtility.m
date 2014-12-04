@@ -432,7 +432,14 @@ static JVCSystemUtility *shareInstance = nil;
  */
 - (void) openItunsCommet
 {
-    NSString *str = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",kAPPIDNUM];
+   
+    NSString *sendString = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=";
+    
+    if (IOS_VERSION<IOS6) {
+        sendString = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=";
+    }
+        
+    NSString *str = [NSString stringWithFormat:@"%@%@",sendString,kAPPIDNUM];
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
 
 }
