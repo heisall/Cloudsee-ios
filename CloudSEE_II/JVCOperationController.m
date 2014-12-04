@@ -1609,10 +1609,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
         
-        [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].ystNWRODelegate = self;
+        [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].jvcCloudSEENetworkHelperCaptureDelegate = self;
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
-        
-        // [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
     };
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -1656,7 +1654,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
 }
 
-#pragma mark ystNetWorkHelpRemoteOperationDelegate  抓拍图片的委托代理
+#pragma mark jvcCloudSEENetworkHelperCaptureDelegate  抓拍图片的委托代理
 
 /**
  *  抓拍图片的委托代理

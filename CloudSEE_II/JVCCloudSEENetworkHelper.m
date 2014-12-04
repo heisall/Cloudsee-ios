@@ -108,6 +108,7 @@ void RemoteDownLoadCallback(int nLocalChannel, unsigned char uchType, char *pBuf
 @synthesize ystNWRPVDelegate;
 @synthesize ystNWTDDelegate;
 @synthesize videoDelegate;
+@synthesize jvcCloudSEENetworkHelperCaptureDelegate;
 
 
 char          ppszPCMBuf[640] ={0};
@@ -1848,9 +1849,9 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
     
     [captureOutImageData retain];
     
-    if (self.ystNWRODelegate != nil && [self.ystNWRODelegate respondsToSelector:@selector(captureImageCallBack:)]) {
+    if (self.jvcCloudSEENetworkHelperCaptureDelegate != nil && [self.jvcCloudSEENetworkHelperCaptureDelegate respondsToSelector:@selector(captureImageCallBack:)]) {
         
-        [self.ystNWRODelegate captureImageCallBack:captureOutImageData];
+        [self.jvcCloudSEENetworkHelperCaptureDelegate captureImageCallBack:captureOutImageData];
     }
     
     [captureOutImageData release];
