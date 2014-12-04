@@ -652,7 +652,7 @@ char remoteSendSearchFileBuffer[29] = {0};
           }else{
                         
               if ([self.navigationController.viewControllers containsObject:self]) {
-                  
+                  [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
                   [self.navigationController popToViewController:self animated:YES];
               }
           

@@ -655,7 +655,7 @@
 
 //报警
 "JVCOperationDeviceConnectManagerSafeState"="Safeguard";
-"JVCOperationDeviceConnectManagerSafeTimerduration"="Safegard time";
+"JVCOperationDeviceConnectManagerSafeTimerduration"="Safeguard time";
 "JVCOperationDeviceConnectManagerSafeStateFoot"="Enable this function, your phone can receive the alert video,picture or message.";
 "JVCOperationDeviceConnectManagerSafeTimerdurationFoot"="You can choose a suitable time scale to receive alert.";
 "JVCOperationDevAlarmStart" = "Start time";
