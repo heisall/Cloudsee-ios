@@ -17,6 +17,10 @@
 @interface JVCAddLockDeviceViewController ()
 {
     UIView *helpIView ;
+    
+    NSTimer *addDeviceTimer;
+    
+    int     countNum;//计时的
 }
 
 @end
@@ -38,6 +42,7 @@ static const int KSizeDefaultHeight = 100;
 static const int KLabelOriginX      = 30;
 static const int KLabelOriginY      = 140;
 static const int KLabelSize         = 16;
+static const NSTimeInterval   KAddDeviceTimerOut         = 15;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +61,12 @@ static const int KLabelSize         = 16;
     [self  initContentView];
     
     self.title = LOCALANGER(@"jvc_alarmDevice_title");
+}
+
+- (void)BackClick
+{
+    [self stopTimer];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,6 +150,11 @@ static const int KLabelSize         = 16;
             break;
     }
     
+    /**
+     *  开启心跳
+     */
+    [self startTimer];
+    
     helpIView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     UIColor *viewDefaultColor = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:kJVCRGBColorMacroViewControllerBackGround];
@@ -203,6 +219,39 @@ static const int KLabelSize         = 16;
 }
 
 /**
+ *  开始心跳
+ */
+- (void)startTimer
+{
+    addDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(removeLearnView) userInfo:nil repeats:YES];
+}
+
+- (void)removeLearnView
+{
+    countNum ++;
+    if(countNum >=KAddDeviceTimerOut)//超时
+    {
+        [self stopTimer];
+    }
+}
+
+/**
+ *  停止心跳
+ */
+- (void)stopTimer
+{
+    [helpIView removeFromSuperview];
+    [self stopPlaySound];
+    countNum = 0;
+    
+    if(addDeviceTimer !=nil ||[addDeviceTimer isValid])
+    {
+        [addDeviceTimer invalidate];
+        addDeviceTimer = nil;
+    }
+}
+
+/**
  *  播放扫描背景音乐
  */
 -(void)playLearnSound:(NSString *)voiceString{
@@ -229,8 +278,7 @@ static const int KLabelSize         = 16;
 -(void)ystNetWorkHelpTextChatCallBack:(int)nLocalChannel withTextDataType:(int)nYstNetWorkHelpTextDataType objYstNetWorkHelpSendData:(id)objYstNetWorkHelpSendData{
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [helpIView removeFromSuperview];
-        [self stopPlaySound];
+        [self stopTimer];
         
         [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
 
