@@ -956,12 +956,13 @@ char remoteSendSearchFileBuffer[29] = {0};
     
 
     JVCCloudSEENetworkHelper *networkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    networkHelperObj.ystNWADelegate            = nil;
-    networkHelperObj.ystNWHDelegate            = nil;
-    networkHelperObj.ystNWRODelegate           = nil;
-    networkHelperObj.ystNWRPVDelegate          = nil;
-    networkHelperObj.ystNWTDDelegate           = nil;
-    networkHelperObj.videoDelegate             = nil;
+    networkHelperObj.ystNWADelegate                             = nil;
+    networkHelperObj.ystNWHDelegate                             = nil;
+    networkHelperObj.ystNWRODelegate                            = nil;
+    networkHelperObj.ystNWRPVDelegate                           = nil;
+    networkHelperObj.ystNWTDDelegate                            = nil;
+    networkHelperObj.videoDelegate                              = nil;
+     networkHelperObj.jvcCloudSEENetworkHelperCaptureDelegate   = nil;
     
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
     
