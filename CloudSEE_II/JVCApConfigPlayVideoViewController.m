@@ -900,7 +900,8 @@ static const int            kRepeatRequestCount      = 6;
             
             [singleVideoShow startActivity:connectInfo isConnectType:!CONNECTTYPE_IP];
             
-             connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:kConnectDefaultLocalChannel nRemoteChannel:kConnectDefaultRemoteChannel strUserName:(NSString *)kConnectDefaultUsername strPassWord:(NSString *)kConnectDefaultPassword strRemoteIP:(NSString *)kConnectDefaultIP nRemotePort:kConnectDefaultPort nSystemVersion:IOS_VERSION isConnectShowVideo:TRUE];
+            connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:kConnectDefaultLocalChannel nRemoteChannel:kConnectDefaultRemoteChannel strUserName:(NSString *)kConnectDefaultUsername strPassWord:(NSString *)kConnectDefaultPassword strRemoteIP:(NSString *)kConnectDefaultIP  nRemotePort:kConnectDefaultPort nSystemVersion:IOS_VERSION isConnectShowVideo:TRUE withConnectType:TYPE_3GMO_UDP];
+            
         }
         
     });
