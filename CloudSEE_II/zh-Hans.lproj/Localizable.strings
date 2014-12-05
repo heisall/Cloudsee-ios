@@ -409,6 +409,8 @@
 "talkStart"      = "亲，你现在可以和对方说话了";
 "talking"        = "对讲功能成功开启，长按向对方喊话吧";
 "Intercom function has started successfully, speak to him please."="对讲功能成功开启,抓紧向对方喊话吧!";
+"longTalkBegin" = "按住说话";
+"longTalkend" = "松开结束";
 
 //更多界面
 "jvc_more_alarm"= "报警";

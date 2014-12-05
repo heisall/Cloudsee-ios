@@ -627,6 +627,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self initTalkView];
+            [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"longTalkend")];
             
         });
         
@@ -656,6 +657,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         
             [self talkTimer];
             [self RemoveTalkView];
+            
+            [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"longTalkBegin")];
+
         
         });
     
@@ -1700,6 +1704,7 @@ char remoteSendSearchFileBuffer[29] = {0};
          *  使选中的button变成默认
          */
         [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+        [_operationItemSmallBg  changeTalkLabelTitle:LOCALANGER(@"megaphone")];
         
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
     }
@@ -2635,8 +2640,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     [_operationItemSmallBg setbuttonSelectStateWithIndex:BUTTON_TYPE_TALK andSkinType:skinSelect];
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_TACK];
 
-    
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString(isCurrentHomePC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil) ];
+    if (isCurrentHomePC == TRUE) {
+        [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"longTalkBegin") ];
+    }
 }
 
 /**
@@ -2647,7 +2654,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
 
-   
     JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
     ystNetWorkObj.ystNWADelegate    = nil;
     
@@ -2672,6 +2678,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     dispatch_async(dispatch_get_main_queue(), ^{
     
         [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
+        [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"megaphone")];
 
     });
     

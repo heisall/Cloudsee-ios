@@ -114,5 +114,11 @@ enum VideoStreamType
  */
 -(UIButton *)getTalkView;
 
+/**
+ *  修改talk的标题
+ *
+ *  @param labelTitle 标题
+ */
+- (void)changeTalkLabelTitle:(NSString *)labelTitle;
 
 @end

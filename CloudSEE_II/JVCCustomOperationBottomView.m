@@ -17,7 +17,7 @@ static const int     kTitleWithTag             = 1000000;  //起始tag
 static const int     kButtomImageSeperateCount = 2;        //png图片被.分开的时候的数组个数
 static const CGFloat kButtonWithTop            = 0.0;      //按钮距父类的上边框间距
 static const CGFloat kButtonTitleWithTop       = -5.0;     //按钮距父类的上边框间距
-static const CGFloat kButtonTitleWithFontSize  = 12.0;     //按钮字体的大小
+static const CGFloat kButtonTitleWithFontSize  = 10.0;     //按钮字体的大小
 static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;//按钮标签的高度
 static const CGFloat kTalkButtonHeight         = 8.0;
 static const CGFloat kTalkButtonWidth          = 15.0;
@@ -40,6 +40,8 @@ static const CGFloat kTalkButtonWidth          = 15.0;
     NSMutableArray *_arrayButtons;
     
     UIButton         *talkView;
+    
+    UILabel          *labelTalk;
     
 }
 
@@ -164,6 +166,11 @@ static const CGFloat kTalkButtonWidth          = 15.0;
             titleLbl.textColor = titleColor;
         }
         
+        if (i == BUTTON_TYPE_TALK) {
+            
+            labelTalk = titleLbl;
+        }
+        
         titleLbl.textAlignment      = NSTextAlignmentCenter;
         titleLbl.text               = [titileArray objectAtIndex:i];
         [bgView addSubview:titleLbl];
@@ -223,6 +230,7 @@ static const CGFloat kTalkButtonWidth          = 15.0;
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"videoSelected.png"]];
     [_amSelectedImageNameListData addObject:[NSString stringWithFormat:@"streamSelected.png"]];
 }
+
 
 /**
  *  设置皮肤未选中的图片集合
@@ -424,6 +432,19 @@ static const CGFloat kTalkButtonWidth          = 15.0;
     return image_path;
 }
 
+/**
+ *  修改talk的标题
+ *
+ *  @param labelTitle 标题
+ */
+- (void)changeTalkLabelTitle:(NSString *)labelTitle
+{
+    if (labelTalk ) {
+        
+        labelTalk.text = labelTitle;
+
+    }
+}
 
 - (void)dealloc
 {

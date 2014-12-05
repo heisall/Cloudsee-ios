@@ -142,13 +142,13 @@ static const CGFloat         kAlertTostViewTime                   = 2.0f;
     JVCDeviceModel  *model           = self.deviceModel;
     JVCAlertHelper *alertObj        = [JVCAlertHelper shareAlertHelper];
     
-    if (!model.bDeviceServiceOnlineState) {
-        
-        [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
-        
-        [self.tableView reloadData];
-        return;
-    }
+//    if (!model.bDeviceServiceOnlineState) {
+//        
+//        [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"device_off_line", nil) ];
+//        
+//        [self.tableView reloadData];
+//        return;
+//    }
     
     
     [alertObj alertShowToastOnWindow];
@@ -157,15 +157,14 @@ static const CGFloat         kAlertTostViewTime                   = 2.0f;
         
         int result = [deviceHelperObj controlDeviceOperationSwitchButton:(NSString *)kkUserName deviceGuidStr:model.yunShiTongNum operationType:alarmType switchState:!model.isDeviceSwitchAlarm updateText:nil];
         
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [alertObj alertHidenToastOnWindow];
             
-            
             if (result != 0) {
                 
-                [alertObj alertToastOnWindowWithText:NSLocalizedString(@"operation_error", nil) delayTime:kAlertTostViewTime];
+                [alertObj alertToastWithKeyWindowWithMessage:NSLocalizedString(@"operation_error", nil) ];
+                [self.tableView reloadData];
                 
             }else{
                 

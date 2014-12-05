@@ -573,6 +573,7 @@ static const int            kRepeatRequestCount      = 6;
     
     
     [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:NSLocalizedString( singleVideoShow.isHomeIPC == TRUE ? @"talkingHomeIPC" : @"Intercom function has started successfully, speak to him please.", nil)];
+
 }
 
 /**

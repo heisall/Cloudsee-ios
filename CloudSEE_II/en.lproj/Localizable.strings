@@ -411,7 +411,8 @@
 "talkStart"      = "You can speak to the other now.";
 "talking"        = "Audio talk is enabled successfully.You can speak to the other through long-click.";
 "Intercom function has started successfully, speak to him please."="Intercom function has started successfully, speak to him please.";
-
+"longTalkBegin" = "Hold to Talk";
+"longTalkend"   = "Release to End";
 //更多界面
 "jvc_more_alarm"= "Alarm";
 "jvc_more_editPw"="Change Password";
