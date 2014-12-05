@@ -67,7 +67,6 @@ bool selectState_audio ;
     int                      nCurrentStreamType;
     BOOL                     isCurrentHomePC;
     int                      nStorageType;
-    int                      nCurrentOldStreamType;
     UIView                  *talkView;
     BOOL                     isLongPressedStartTalk;    //判断当前是否在长按语音对讲
     UIButton                *_splitViewBtn;             //导航条上面的箭头，用于选则是否分屏
@@ -671,7 +670,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     nCurrentStreamType    = nStreamType;
     isCurrentHomePC       = isHomeIPC;
     nStorageType          = storageType;
-    nCurrentOldStreamType = nOldStreamType;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -683,14 +681,17 @@ char remoteSendSearchFileBuffer[29] = {0};
             case VideoStreamType_HD:
             case VideoStreamType_SD:
             case VideoStreamType_FL:
-            [_operationItemSmallBg setVideoStreamState:nStreamType];
-            NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",nStreamType];
+            nCurrentStreamType = switchType;
+            [_operationItemSmallBg setVideoStreamState:switchType];
+            NSString *bundString =  [ NSString stringWithFormat: @"stream_%d",switchType];
             [[JVCHorizontalScreenBar shareHorizontalBarInstance ] setStreamBtnTitle:NSLocalizedString(bundString, nil)];
                 break;
             default:
                 nCurrentStreamType = 0;
                 break;
         }
+        
+        
         
         [self setAlarmTypeButton];
         
@@ -1556,8 +1557,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
         return;
     }
-    
-    straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsOldHomeIPC]];
+    straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsLocalExist] == YES ? YES:[_managerVideo getCurrentIsOldHomeIPC]];
     straemView.delegateStream = self;
     [self.view addSubview:straemView];
     [straemView show];
@@ -1577,7 +1577,13 @@ char remoteSendSearchFileBuffer[29] = {0};
         JVCCloudSEENetworkHelper *netWorkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         netWorkObj.ystNWRODelegate            = _managerVideo;
         
-        [_managerVideo getCurrentIsOldHomeIPC] == YES ? [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index]:[netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setOldStream remoteOperationCommand:index];
+        if (![_managerVideo getCurrentIsLocalExist]) {
+            
+            [_managerVideo getCurrentIsOldHomeIPC] == YES ? [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setStream remoteOperationCommand:index]:[netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setOldStream remoteOperationCommand:index];
+        }else{
+        
+            [netWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex + 1 remoteOperationType:TextChatType_setOldMainStream remoteOperationCommand:index];
+        }
     }
 }
 

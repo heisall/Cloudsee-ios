@@ -1470,6 +1470,8 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 BOOL isNewHomeIPC   = FALSE;
                                 int  nOldStreamType = -1;
                                 
+                                DDLogCVerbose(@"%s---------------buffer=%s",__FUNCTION__,stpacket.acData+n);
+                                
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
                                 int nMobileCh = MOBILECHDEFAULT;
