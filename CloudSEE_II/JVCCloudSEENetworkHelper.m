@@ -317,7 +317,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
  *
  *  @return 成功返回YES  重复连接返回NO
  */
--(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo{
+-(BOOL)ystConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel strYstNumber:(NSString *)strYstNumber strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo withConnectType:(int)nConnectType{
     
     
     JVCCloudSEEManagerHelper *currentChannelObj        = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
@@ -355,7 +355,9 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         newCurrentChannelObj.strPassWord         = strPassWord;
         newCurrentChannelObj.nShowWindowID       = nLocalChannel -1;
         newCurrentChannelObj.nSystemVersion      = nSystemVersion;
-         newCurrentChannelObj.isConnectShowVideo = isConnectShowVideo;
+        newCurrentChannelObj.isConnectShowVideo  = isConnectShowVideo;
+        newCurrentChannelObj.nConnectType        = nConnectType;
+        
         [newCurrentChannelObj connectWork];
         
         return TRUE;
@@ -382,7 +384,7 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
  *  @return  @return 成功返回YES  重复连接返回NO
  */
 -(BOOL)ipConnectVideobyDeviceInfo:(int)nLocalChannel nRemoteChannel:(int)nRemoteChannel  strUserName:(NSString *)strUserName strPassWord:(NSString *)strPassWord strRemoteIP:(NSString *)strRemoteIP nRemotePort:(int)nRemotePort
-                   nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo{
+                   nSystemVersion:(int)nSystemVersion isConnectShowVideo:(BOOL)isConnectShowVideo withConnectType:(int)nConnectType{
     
     
     JVCCloudSEEManagerHelper *currentChannelObj        = [self returnCurrentChannelBynLocalChannel:nLocalChannel];
@@ -408,8 +410,9 @@ static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
         newCurrentChannelObj.strUserName        = strUserName;
         newCurrentChannelObj.strPassWord        = strPassWord;
         newCurrentChannelObj.nShowWindowID      = nLocalChannel -1;
-        newCurrentChannelObj.nSystemVersion     =nSystemVersion;
+        newCurrentChannelObj.nSystemVersion     = nSystemVersion;
         newCurrentChannelObj.isConnectShowVideo = isConnectShowVideo;
+        newCurrentChannelObj.nConnectType       = nConnectType;
         
         [newCurrentChannelObj connectWork];
         
@@ -914,7 +917,8 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_StorageMode:
         case TextChatType_setOldStream:
         case TextChatType_setAlarm:
-        case TextChatType_setMobileMonitoring:{
+        case TextChatType_setMobileMonitoring:
+        case TextChatType_setOldMainStream:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1453,17 +1457,20 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 [params release];
                             }
                             
-                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:withIsNewHomeIPC:)]) {
+                            if (jvcCloudSEENetworkHelper.ystNWRODelegate !=nil && [jvcCloudSEENetworkHelper.ystNWRODelegate respondsToSelector:@selector(deviceWithFrameStatus:withStreamType:withIsHomeIPC:withEffectType:withStorageType:withIsNewHomeIPC:withIsOldStreeamType:)]) {
                                 
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
                                 
-                                int  nStreamType  = -1;
-                                BOOL isHomeIPC    = FALSE;
-                                int  nEffectflag  = -1;
-                                int  nStorageMode = -1;
-                                BOOL isNewHomeIPC = FALSE;
+                                int  nStreamType    = -1;
+                                BOOL isHomeIPC      = FALSE;
+                                int  nEffectflag    = -1;
+                                int  nStorageMode   = -1;
+                                BOOL isNewHomeIPC   = FALSE;
+                                int  nOldStreamType = -1;
+                                
+                                DDLogCVerbose(@"%s---------------buffer=%s",__FUNCTION__,stpacket.acData+n);
                                 
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
@@ -1512,8 +1519,13 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                     
                                     nStorageMode = [[params objectForKey:KStorageMode] intValue];
                                 }
+                                
+                                if ([params objectForKey:kDeviceOldFrameFlagKey]) {
+                                    
+                                    nOldStreamType = [[params objectForKey:kDeviceOldFrameFlagKey] intValue];
+                                }
 
-                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode withIsNewHomeIPC:isNewHomeIPC];
+                                [jvcCloudSEENetworkHelper.ystNWRODelegate deviceWithFrameStatus:currentChannelObj.nShowWindowID+1 withStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:nEffectflag withStorageType:nStorageMode withIsNewHomeIPC:isNewHomeIPC withIsOldStreeamType:nOldStreamType];
                                    
                                 
                                 [params release];

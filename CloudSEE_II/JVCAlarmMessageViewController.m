@@ -834,14 +834,14 @@ static const int KJVCSignleAlarmDisplayView     = 138354;
         
         if (deviceModel.linkType) {
             
-            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ipConnectVideobyDeviceInfo:1 nRemoteChannel:cellModel.iYstChannel  strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ipConnectVideobyDeviceInfo:1 nRemoteChannel:cellModel.iYstChannel  strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
             
         }else{
             
             [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] ystConnectVideobyDeviceInfo:1
                                                                                    nRemoteChannel:cellModel.iYstChannel strYstNumber:cellModel.strYstNumber
                                                                                       strUserName:deviceUserName
-                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
         }
         
     });

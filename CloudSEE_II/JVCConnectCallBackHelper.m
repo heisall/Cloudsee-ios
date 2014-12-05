@@ -58,11 +58,11 @@
             
             if (model.linkType) {
                 
-                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:nLocalChannel nRemoteChannel:nChannel  strUserName:model.userName strPassWord:model.passWord strRemoteIP:model.ip nRemotePort:[model.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:nLocalChannel nRemoteChannel:nChannel  strUserName:model.userName strPassWord:model.passWord strRemoteIP:model.ip nRemotePort:[model.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
                 
             }else{
                 
-                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:nLocalChannel nRemoteChannel:nChannel strYstNumber:model.yunShiTongNum strUserName:model.userName strPassWord:model.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:nLocalChannel nRemoteChannel:nChannel strYstNumber:model.yunShiTongNum strUserName:model.userName strPassWord:model.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
             }
         }
         

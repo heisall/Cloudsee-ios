@@ -112,6 +112,11 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             [self RemoteWithOldDeviceSetFrameParam:nJvChannelID withStreamType:remoteOperationCommand];
         }
             break;
+        case TextChatType_setOldMainStream:{
+            
+            [self RemoteWithOldDeviceSetMainFrameParam:nJvChannelID withStreamType:remoteOperationCommand];
+        }
+            break;
         case TextChatType_setAlarmType:{
             
             [self RemoteBindAlarmDevice:nJvChannelID withAddAlarmType:remoteOperationCommand];
@@ -333,6 +338,87 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     
     sprintf(acBuffer, "nMBPH=%d;",JVCCloudSEENetworkMacroOldHomeIPCStreamTypeMBPH);
     strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+}
+
+
+/**
+ *  老版本主控的码流切换
+ *
+ *  @param nJvChannelID 本地连接的通道
+ *  @param nStreamType  nStreamType	 2:标清 3:流畅
+ */
+-(void)RemoteWithOldDeviceSetMainFrameParam:(int)nJvChannelID  withStreamType:(int)nStreamType {
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "[CH1];");
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    int nHeight     = 0;
+    int nWidth      = 0;
+    int nFramerate  = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFFramerate;
+    int nRcModel    = 1;
+    int nMBPH       = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeMBPH;
+    
+    switch (nStreamType) {
+            
+        case JVCCloudSEENetworkMacroOldHomeIPCStreamType720P:{
+            
+            nHeight    = JVCCloudSEENetworkMacroOldHomeIPCStreamType720PHeight;
+            nWidth     = JVCCloudSEENetworkMacroOldHomeIPCStreamType720PWidth;
+            nFramerate = JVCCloudSEENetworkMacroOldHomeIPCStreamType720PFramerate;
+            nMBPH      = JVCCloudSEENetworkMacroOldHomeIPCStreamType720MBPH;
+        }
+             break;
+        case JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1:{
+            
+            nHeight    = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Height;
+            nWidth     = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Width;
+            nFramerate = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Framerate;
+        }
+            break;
+            
+        case JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF:{
+            
+            nHeight    = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight;
+            nWidth     = JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    sprintf(acBuffer, "width=%d;",nWidth);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "height=%d;",nHeight);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "framerate=%d;",nFramerate);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer, "nMBPH=%d;",nMBPH);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    
+    sprintf(acBuffer, "rcMode=%d;",nRcModel);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
     
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));

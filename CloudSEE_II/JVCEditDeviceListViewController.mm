@@ -893,14 +893,14 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
         
         if (deviceModel.linkType) {
             
-            [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:AlarmLockChannelNum nRemoteChannel:AlarmLockChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+            [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:AlarmLockChannelNum nRemoteChannel:AlarmLockChannelNum strUserName:deviceUserName strPassWord:delvicePassword strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
             
         }else{
             
             [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:AlarmLockChannelNum
                                                                                    nRemoteChannel:AlarmLockChannelNum strYstNumber:deviceModel.yunShiTongNum
                                                                                       strUserName:deviceUserName
-                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO];
+                                                                                      strPassWord:delvicePassword nSystemVersion:IOS_VERSION isConnectShowVideo:NO withConnectType:TYPE_3GMO_UDP];
         }
         
     });

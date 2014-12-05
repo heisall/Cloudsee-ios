@@ -11,11 +11,12 @@
 extern int JVCLogHelperLevel;
 static NSString const *kAppLogPath           = @"applog.md";
 static NSString const *kDeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
-static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md";//登录的log
-static NSString const *kCloudSEELogPath      = @"temperrolog.md";//登录的log
-static NSString const *kCloudSEECatchCrash   = @"CatchCrash.md";//崩溃的
+static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md"; //登录的log
+static NSString const *kCloudSEELogPath      = @"temperrolog.md";     //登录的log
+static NSString const *kCloudSEECatchCrash   = @"CatchCrash.md";      //崩溃的
+static NSString const *kYstNumberPath        = @"ystnumber.md";      //缓存的老设备的文件
 
-
+static NSString const *kYstNumberFlag        = @"|";      //缓存的老设备的文件
 @interface JVCLogHelper : NSObject
 
 
@@ -31,6 +32,7 @@ typedef NS_ENUM(int, LogType)
     LogType_DeviceManagerLogPath            = 1,  //设备的
     LogType_LoginManagerLogPath             = 2,  //登录的
     LogType_CatchCrash                      = 3,  //异常的
+    LogType_ystNumber                       = 4,  //云视通号
 
 };
 
@@ -53,5 +55,12 @@ typedef NS_ENUM(int, LogType)
  *  关闭文件写入流句柄
  */
 -(void)close;
+
+/**
+ *  判断缓存的老设备的云视通号是否存在
+ *
+ *  @param ystNUmber 云视通号
+ */
+-(BOOL)checkYstNumberIsInYstNumbers:(NSString *)ystNumber;
 
 @end

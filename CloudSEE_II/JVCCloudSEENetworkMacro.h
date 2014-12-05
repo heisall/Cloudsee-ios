@@ -123,6 +123,7 @@ enum TextChatType {
     TextChatType_setOldStream           = 1014,  //设置老设备码流信息
     TextChatType_setAlarm               = 1015,  //设置安全防护按钮的 （0：关 1：开）
     TextChatType_setMobileMonitoring    = 1016,  //设置移动侦测      （0：关 1：开）
+    TextChatType_setOldMainStream       = 1017,  //设置老设备主码流的画质
 };
 
 enum NetWorkType {
@@ -133,19 +134,29 @@ enum NetWorkType {
 
 enum JVCCloudSEENetworkMacroOldHomeIPCStreamParam{
     
-    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth     = 352,
-    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight    = 288,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamType720PWidth      = 1280,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamType720PHeight     = 720,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamType720PFramerate  = 15,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamType720MBPH        = 800,
+    
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFWidth       = 352,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFHeight      = 288,
+     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFFramerate  = 25,
+    
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1CheckWidth = 624,
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Width      = 720,
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Height     = 480,
+    
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1Framerate  = 20,
-    JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIFFramerate = 25,
+   
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeMBPH         = 512,
+    
 };
 
 enum JVCCloudSEENetworkMacroOldHomeIPCStreamType{
     
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeUnknown = -1,
+    JVCCloudSEENetworkMacroOldHomeIPCStreamType720P    = 1,
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeD1      = 2,
     JVCCloudSEENetworkMacroOldHomeIPCStreamTypeCIF     = 3,
 };
@@ -166,6 +177,7 @@ typedef struct AudioFrame//音频数据结构
 
 
 static NSString const *kDeviceFrameFlagKey        =  @"MobileStreamQos";  // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
+static NSString const *kDeviceOldFrameFlagKey     =  @"MainStreamQos";    // 1:高清 2：标清 3：流畅 0:默认不支持切换码流(老板本)
 static NSString const *kDeviceMobileFrameFlagKey  =  @"MobileQuality";    // 1:高清 2：标清 3：流畅 0:默认不支持切换码流
 static NSString const *kDeviceTalkModelFlagKey    =  @"talkSwitch";       // 0:设备采集 不播放声音 1:设备播放声音，不采集声音
 
