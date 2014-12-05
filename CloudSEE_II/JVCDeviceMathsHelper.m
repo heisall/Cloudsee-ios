@@ -282,7 +282,7 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //把通道数添加到服务器
         int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:deviceYStNum addChannelCount:channelNum];
-        
+                
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (KADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
@@ -340,8 +340,6 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:deviceYStNum];
                 
             }
-            
-            
         });
         
     });
