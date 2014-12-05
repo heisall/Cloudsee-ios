@@ -36,6 +36,7 @@ enum DEVICESERVICERESPONSE{
 
 /* JK(JSON KEY) */
 #define PROTO_VERSION			"1.0"
+#define PROTO_VERSIONV2			"2.0"
 #define JK_MESSAGE_ID			"mid"
 #define JK_MESSAGE_TYPE 		"mt"
 #define JK_PROTO_VERSION		"pv"
@@ -44,7 +45,7 @@ enum DEVICESERVICERESPONSE{
 #define JK_CLINET_SFD			"cfd"
 #define JK_CLINET_SFD_ID		"cfdid"
 
-#define JK_SESSION_ID			"sid"、
+#define JK_SESSION_ID			"sid"
 
 #define JK_ALARM_INDEX_START		"aistart"
 

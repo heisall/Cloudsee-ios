@@ -354,4 +354,19 @@ enum DEVICEONLINESTATE
  */
 -(NSDictionary *)getAdverInfoList:(int)type;
 
+/**
+ *  添加设备的新接口
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *  @param ystNum   云视通号
+ *  @param count    通道个数
+ *
+ *  @return 收到的字典
+ */
+- (id)newInterfaceAddDeviceWithUserName:(NSString *)userName
+                               passWord:(NSString *)passWord
+                                 ystNum:(NSString *)ystNum
+                           channelCount:(int)count;
+
 @end

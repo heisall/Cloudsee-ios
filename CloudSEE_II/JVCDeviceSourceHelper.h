@@ -222,4 +222,12 @@ enum ADDDEVICE_TYPE
  */
 -(NSArray *)LANModelListConvertToSourceModel:(NSMutableArray *)lanModelList;
 
+/**
+ *  新接口添加云视通设备到数组
+ *
+ *  @param deviceInfo 设备字典
+ *  @param ystNum     云视通号
+ */
+- (void)newInterFaceAddDevice:(NSDictionary *)deviceInfo  ystNum:(NSString *)ystNum;
+
 @end

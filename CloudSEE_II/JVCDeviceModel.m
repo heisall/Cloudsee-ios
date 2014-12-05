@@ -226,5 +226,42 @@
     return self;
 }
 
+/**
+ *  初始化设备
+ *
+ *  @return 设备对象
+ */
+- (id)initDeviceWithYstNum:(NSString *)YSTNum
+                deviceInfo:(NSDictionary *)dInfo
+{
+    self = [super init];
+    
+    if (self !=nil) {
+        
+        self.yunShiTongNum  = YSTNum.uppercaseString;
+        self.nickName       = [dInfo objectForKey:DEVICE_JSON_NICKNAME];
+        self.userName       = [dInfo objectForKey:DEVICE_JSON_DVUSERNAME];
+        self.passWord       = [dInfo objectForKey:DEVICE_JSON_DVPASSWORD];
+        self.onLineState    = [[dInfo objectForKey:DEVICE_JSON_ONLINESTATE] intValue];
+        self.hasWifi        = [[dInfo objectForKey:DEVICE_JSON_WIFI] intValue];
+        self.linkType       = CONNECTTYPE_YST;
+        
+        self.isDeviceType        =[[dInfo objectForKey:DEVICE_JSON_TYPE] intValue] == kJVCDeviceModelDeviceType_HomeIPC ? YES : NO;
+        self.deviceUpdateType       = [dInfo objectForKey:DEVICE_JSON_SUB_TYPE];
+        self.deviceModelInt      = [[dInfo objectForKey:DEVICE_JSON_SUB_TYPE_INT] intValue];
+        self.deviceVersion       = [dInfo objectForKey:DEVICE_JSON_SOFT_VERSION];
+        if (self.isDeviceType) {
+            
+            self.isDeviceSwitchAlarm =[[dInfo objectForKey:DEVICE_JSON_ALARMSWITCH] boolValue];
+        }
+        self.bDeviceServiceOnlineState =[[dInfo objectForKey:DEVICE_DEVICE_ServiceState] intValue];
+        self.deviceType            = [[dInfo objectForKey:DEVICE_JSON_TYPE] intValue];
+    }
+    
+    return self;
+
+}
+
+
 
 @end

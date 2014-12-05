@@ -38,9 +38,11 @@ static const int kScanDeviceKeepTimeSecond              = 1;
 static const int kQueryLanDeviceChannelCountSleepTime   = 40;
 
 NSMutableArray *CacheMArrayDeviceList;
+NSMutableArray *queryMArrayDeviceList;
 
 -(void)dealloc {
 
+    [queryMArrayDeviceList release];
     [CacheMArrayDeviceList release];
     [super dealloc];
 }
@@ -59,8 +61,8 @@ NSMutableArray *CacheMArrayDeviceList;
             
             jvcLANScanWithSetHelpYSTNOHelper = [[self alloc] init];
             
-            CacheMArrayDeviceList=[[NSMutableArray alloc] initWithCapacity:10];
-            
+            CacheMArrayDeviceList = [[NSMutableArray alloc] initWithCapacity:10];
+            queryMArrayDeviceList = [[NSMutableArray alloc] initWithCapacity:10];
             JVC_StartLANSerchServer(kScanLocalServerPort, kScanDeviceServerPort,SerachLANAllDeviceInfo);
             
             return jvcLANScanWithSetHelpYSTNOHelper;
@@ -147,6 +149,7 @@ void SerachLANAllDeviceInfo(STLANSRESULT_01 stlanResultData) {
         }
         
         [CacheMArrayDeviceList addObject:lanModel];
+        [queryMArrayDeviceList addObject:lanModel];
         
         [strYstNumber release];
         [lanModel release];
@@ -258,7 +261,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
     if (!isScanfing) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
+            DDLogVerbose(@"333==============[CacheMArrayDeviceList removeAllObjects]=");
             [CacheMArrayDeviceList removeAllObjects];
             
             isScanfing = TRUE;
@@ -281,6 +284,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
     [strYstNumber retain];
     
     int nChannelCount = 0;
+   [queryMArrayDeviceList removeAllObjects];
     
    [self SerachLANAllDevicesAsynchronousRequestWithDeviceListData];
     
@@ -299,11 +303,14 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
     
     NSMutableArray *amQueryDeviceList = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [amQueryDeviceList addObjectsFromArray:CacheMArrayDeviceList];
+    DDLogVerbose(@"=11111=======%d======%d",amQueryDeviceList.count,queryMArrayDeviceList.count );
+
+    [amQueryDeviceList addObjectsFromArray:queryMArrayDeviceList];
     
     
     for (JVCLanScanDeviceModel *model  in amQueryDeviceList) {
-        
+        DDLogVerbose(@"=2222=======%d======%d",amQueryDeviceList.count,queryMArrayDeviceList.count);
+
         if ([model.strYstNumber.uppercaseString isEqualToString:strYstNumber]) {
             
             nChannelCount = model.iDeviceChannelCount;
@@ -321,7 +328,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
  *  搜索局域网设备的函数(本网段)
  */
 -(void)SerachAllDevicesAsynchronousRequestWithDeviceListData{
-    
+    DDLogVerbose(@"==============,[CacheMArrayDeviceList removeAllObjects];");
     [CacheMArrayDeviceList removeAllObjects];
     
     JVC_QueryDevice("",0,1000, JVCLANScanWithSetHelpYSTNOHelperQueryDevce);

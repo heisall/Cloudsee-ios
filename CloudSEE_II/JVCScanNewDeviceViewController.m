@@ -323,6 +323,8 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 - (void)addDeviceSuccess
 {
+   
+
     JVCConfigModel *configObj    = [JVCConfigModel shareInstance];
     
     if (configObj._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
@@ -590,6 +592,8 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 
 - (void)dealloc
 {
+    [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = nil;
+
     [super dealloc];
 }
 

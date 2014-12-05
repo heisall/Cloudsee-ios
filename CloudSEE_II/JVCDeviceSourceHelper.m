@@ -452,6 +452,20 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
 }
 
 /**
+ *  新接口添加云视通设备到数组
+ *
+ *  @param deviceInfo 设备字典
+ *  @param ystNum     云视通号
+ */
+- (void)newInterFaceAddDevice:(NSDictionary *)deviceInfo  ystNum:(NSString *)ystNum
+{
+    JVCDeviceModel *model = [[JVCDeviceModel alloc] initDeviceWithYstNum:ystNum deviceInfo:deviceInfo];
+    [deviceArray insertObject:model atIndex:0];
+    [model release];
+
+}
+
+/**
  *  根据用户名密码云视通号添加设备
  *
  *  @param Ip   ip

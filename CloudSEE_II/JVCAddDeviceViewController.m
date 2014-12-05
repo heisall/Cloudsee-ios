@@ -174,106 +174,57 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
+        int  channelCount = [self getSingleDeviceChannelNums:ystNum.uppercaseString];
+        
+        id resultDic =[[JVCDeviceHelper sharedDeviceLibrary] newInterfaceAddDeviceWithUserName:textFieldUserName.text passWord:textFieldPassWord.text ystNum:textFieldYST.text.uppercaseString channelCount:channelCount];//addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
+
+        DDLogVerbose(@"%s===%@",__FUNCTION__,resultDic);
         
         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@  save device =%@=\n",__FUNCTION__,kkUserName,textFieldYST.text]fileType:LogType_DeviceManagerLogPath];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (ADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
-                
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
-
-                
-                [self getNewAddDeviceInfo];
-                
-            }else{//失败
-                
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
-            }
-        });
-    });
-}
-
-- (void)getNewAddDeviceInfo
-{
-
-//    [[JVCDeviceSourceHelper shareDeviceSourceHelper] addLocalDeviceInfo:textFieldYST.text.uppercaseString deviceUserName:textFieldUserName.text devicePassWord:textFieldPassWord.text];
-
-    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:textFieldYST.text.uppercaseString ];
-        
-        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@   =%@=\n",__FUNCTION__,kkUserName,[resutlDic description]]fileType:LogType_DeviceManagerLogPath];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            /**
-             *  判断返回的字典是不是nil
-             */
-            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic] ) {
-                DDLogInfo(@"===![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic");
-                DDLogVerbose(@"======%@==",resutlDic);
-                /**
-                 *  判断返回字典的rt字段是否为0
-                 */
-                if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resutlDic]) {//成功，把收到的字典转化为model类型
+            NSDictionary *dicDevie = (NSDictionary *)resultDic;
+            
+            if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resultDic]) {
+                
+                NSDictionary *deviceInfo = [dicDevie objectForKey:DEVICE_JSON_DINFO];
+                
+                NSArray *channelList = [dicDevie objectForKey:DEVICE_CHANNEL_JSON_LIST];
+                
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] newInterFaceAddDevice:deviceInfo ystNum:textFieldYST.text];
+                [[JVCChannelScourseHelper shareChannelScourseHelper] newInterFaceAddChannelWithChannelArray:channelList deviceYstNumber:textFieldYST.text];
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
+                
+                if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
                     
-                    /**
-                     *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
-                     */
-                  JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text.uppercaseString];
-                    
-                    [tempMode retain];
-                    
-                    NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
-                    
-                    [newModelList addObject:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelWithYstNumberConvertLocalCacheModel:tempMode.yunShiTongNum]];
-                    
-                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
-                    
-                    //从云视通服务器获取设备的通道数
-                    [self getDeviceChannelNums:textFieldYST.text.uppercaseString];
-                    [tempMode release];
-
-                    
-                }else{
-                    
-                    DDLogInfo(@"==error2=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
-                    
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
-                    
+                    [addDeviceDelegate addDeviceSuccessCallBack];
                 }
-                
-            }else{//空
-                
-                DDLogInfo(@"==error3=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
+
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
 
             }
         });
     });
-
 }
+
+
 
 /**
- *  重云视通获取设备的通道数
+ *  获取设备的通道号
  *
- *  @param ystNumber 云视通
+ *  @param ystNumber 云视通号
+ *
+ *  @return 通道号
  */
-- (void)getDeviceChannelNums:(NSString *)ystNumber
+- (int)getSingleDeviceChannelNums:(NSString *)ystNumber
 {
     
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
         
         int channelCount  = [jvcLANScanWithSetHelpYSTNOHelperObj queryLanDeviceChannelCount:ystNumber];
@@ -281,112 +232,27 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
         DDLogVerbose(@"%s-------------##########009deviceLanCount =%d",__FUNCTION__, channelCount);
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
-     
+            
             [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s===%@  get Device Channel StartystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
-
+            
             if (channelCount <= 0) {
                 
                 channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
             }
             
-
+            
             [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@==local  get Device Channel end====ystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
-
-        };
+            
+        }
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
         
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
         nAddDeviceChanelCount = channelCount;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self addDeviceChannelToServerWithNum:channelCount];
-        });
-        
-    });
-}
+    
+    return channelCount;
 
-/**
- *  往服务器添加设备的通道
- */
-- (void)addDeviceChannelToServerWithNum:(int )channelNum
-{
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //把通道数添加到服务器
-      int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:textFieldYST.text.uppercaseString addChannelCount:channelNum];
-        
-        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%d=\n",__FUNCTION__,kkUserName,reusult]fileType:LogType_DeviceManagerLogPath];
-
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            
-            if (ADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
-                
-              //  [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JDCSVC_GetDeviceChannel_Error")];
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-  
-                [self showAddChannelAlert];
-       
-                
-            }else{//成功后，获取设备的所有信息
-            
-                
-                [self getChannelsDetailInfo];
-            }
-
-        });
-        
-    });
-}
-
-/**
- *  获取设备的通道的详细信息
- */
-- (void)getChannelsDetailInfo
-{
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:textFieldYST.text.uppercaseString];
-        DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@=%@=\n",__FUNCTION__,kkUserName,[channelAllInfoMdic description]] fileType:LogType_DeviceManagerLogPath];
-
-            /**
-             *  判断返回的字典是不是nil
-             */
-            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:channelAllInfoMdic]  ) {
-                
-                //把获取的设备通道信息的josn数据转换成model集合
-                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text.uppercaseString];
-                
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
-                if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
-                    
-                    [addDeviceDelegate addDeviceSuccessCallBack];
-                }
-                
-                [self.navigationController popViewControllerAnimated:YES];
-
-//                [self serachCloseFindDevice];
-                
-            }else{//空
-                
-             //   [self serachCloseFindDevice];JDCSVC_GetDeviceChannel_Error
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_adddevice_addChannel_error")];
-                
-            }
-            
-
-        });
-        
-    });
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -520,40 +386,6 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 - (void)touchUpInsiderBackGroundCallBack
 {
     [self resignADDDeviceTextFields];
-}
-
-- (void)showAddChannelAlert
-{
-    if (IOS8) {
-        
-        UIAlertController *controlAlert = [UIAlertController alertControllerWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self addDeviceChannelToServerWithNum:nAddDeviceChanelCount];
-
-        }]];
-        
-        [controlAlert addAction:[UIAlertAction actionWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-        }]];
-        
-        [self presentViewController:controlAlert animated:YES completion:nil];
-        
-    }else{
-    
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:LOCALANGER(@"jvc_addDevicChannel_CountError") message:nil delegate:self  cancelButtonTitle:LOCALANGER(@"jvc_addDevicChannel_CountError_ok")  otherButtonTitles:LOCALANGER(@"jvc_addDevicChannel_CountError_Cancel") , nil];
-        [alertView show];
-        [alertView release];
-    }
-    
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex  == 0) {//重新添加
-        
-        [self addDeviceChannelToServerWithNum:nAddDeviceChanelCount];
-
-    }
 }
 
 

@@ -172,6 +172,34 @@ static JVCChannelScourseHelper *shareChannelScourseHelper = nil;
 }
 
 /**
+ *  把获取的单个设备的通道信息转换成model的数组并添加到arrayPoint集合里面
+ *
+ *  @param channelMdicInfo 设备通道信息的JSON数据
+ */
+-(void)newInterFaceAddChannelWithChannelArray:(NSArray *)channelInfoArray
+                              deviceYstNumber:(NSString *)deviceYstNumber
+{
+        [channelInfoArray retain];
+        
+        DDLogVerbose(@"deviceModel=%@",deviceYstNumber);
+        
+        for (int i=0; i<channelInfoArray.count; i++) {
+            
+            NSDictionary *channelMdic=(NSDictionary *)[channelInfoArray objectAtIndex:i];
+            
+            JVCChannelModel *channelModel=[[JVCChannelModel alloc] initWithChannelDic:channelMdic ystNumber:deviceYstNumber];
+            
+            [channelArray addObject:channelModel];
+            
+            [channelModel release];
+
+        }
+
+        [channelInfoArray release];
+    
+}
+
+/**
  *  根据设备的云视通号和单个设备通道数组的索引号返回一个通道实体
  *
  *  @param index     通道索引号

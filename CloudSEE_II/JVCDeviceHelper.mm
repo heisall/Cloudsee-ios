@@ -370,6 +370,41 @@ char outTextBuffer[1280*720*3];
     return resultValue;
 }
 
+/**
+ *  添加设备的新接口
+ *
+ *  @param userName 用户名
+ *  @param passWord 密码
+ *  @param ystNum   云视通号
+ *  @param count    通道个数
+ *
+ *  @return 收到的字典
+ */
+- (id)newInterfaceAddDeviceWithUserName:(NSString *)userName passWord:(NSString *)passWord ystNum:(NSString *)ystNum  channelCount:(int)count
+{
+    //请求的参数集合
+    NSMutableDictionary *requestInfoMDict=[[NSMutableDictionary alloc] init];
+    
+    [requestInfoMDict setValue:CONVERTCHARTOSTRING(PROTO_VERSIONV2) forKey:CONVERTCHARTOSTRING(JK_PROTO_VERSION)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:USER_BIND_DEVICE] forKey:CONVERTCHARTOSTRING(JK_MESSAGE_TYPE)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:DEV_INFO_PRO] forKey:CONVERTCHARTOSTRING(JK_LOGIC_PROCESS_TYPE)];
+    
+    [requestInfoMDict setValue:ystNum forKey:CONVERTCHARTOSTRING(JK_DEVICE_GUID)];
+    
+    [requestInfoMDict setValue:userName forKey:CONVERTCHARTOSTRING(JK_DEVICE_VIDEO_USERNAME)];
+    [requestInfoMDict setValue:passWord forKey:CONVERTCHARTOSTRING(JK_DEVICE_VIDEO_PASSWORD)];
+    [requestInfoMDict setValue:[NSNumber numberWithInt:count] forKey:CONVERTCHARTOSTRING(JK_DEVICE_CHANNEL_SUM)];
+
+    NSString *parseStr=[requestInfoMDict JSONString];
+    
+    [requestInfoMDict release];
+    
+    id resultID=[self getResponseByRequestBusinessServer:parseStr];
+    
+    return resultID;
+
+}
+
 
 /**
  *	删除帐号下面设备

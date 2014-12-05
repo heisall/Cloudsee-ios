@@ -151,4 +151,12 @@ static const int kJVCChannelScourseHelperAllConnectFlag = 109 ;
  */
 -(void)sortChannelListByDeviceList:(NSMutableArray *)deviceListArray;
 
+/**
+ *  把获取的单个设备的通道信息转换成model的数组并添加到arrayPoint集合里面
+ *
+ *  @param channelMdicInfo 设备通道信息的JSON数据
+ */
+-(void)newInterFaceAddChannelWithChannelArray:(NSArray *)channelInfoArray
+                              deviceYstNumber:(NSString *)deviceYstNumber;
+
 @end

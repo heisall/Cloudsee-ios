@@ -19,6 +19,7 @@
 #import "JVCLocalDeviceDateBaseHelp.h"
 #import "JVCConfigModel.h"
 #import "JVCDeviceMacro.h"
+#import "JVCLogHelper.h"
 @interface JVCDeviceMathsHelper ()
 {
     NSString *deviceYStNum;
@@ -166,187 +167,47 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
 
 - (void)addDeviceToAccount
 {
+    
     [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+        id resultDic =[[JVCDeviceHelper sharedDeviceLibrary] newInterfaceAddDeviceWithUserName:deviceUserName passWord:devicePassWord ystNum:deviceYStNum.uppercaseString channelCount:channelCount];//addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
         
-        int resutl =  [[JVCDeviceHelper sharedDeviceLibrary] addDeviceToAccount:deviceYStNum userName:deviceUserName password:devicePassWord];
+        DDLogVerbose(@"%s===%@",__FUNCTION__,resultDic);
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@  save device =%@=\n",__FUNCTION__,kkUserName,deviceYStNum]fileType:LogType_DeviceManagerLogPath];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (KADDDEVICE_RESULT_SUCCESS == resutl) {//成功,获取设备的信息
-                
-                [self getNewAddDeviceInfo];
-                
-            }else{//失败
-                
-                [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_error")];
-            }
-        });
-    });
-
-}
-
-- (void)getNewAddDeviceInfo
-{
-    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:deviceYStNum ];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
-            /**
-             *  判断返回的字典是不是nil
-             */
-            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic] ) {
-                DDLogInfo(@"===![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic");
-                /**
-                 *  判断返回字典的rt字段是否为0
-                 */
-                if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resutlDic]) {//成功，把收到的字典转化为model类型
-                    
-                    /**
-                     *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
-                     */
-                    
-                    JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:deviceYStNum];
-                    //声波配置以及扫描添加的设备，显示在线
-                    [tempMode retain];
-                    
-                    NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
-                    
-                    [newModelList addObject:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelWithYstNumberConvertLocalCacheModel:tempMode.yunShiTongNum]];
-                    
-                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
-                    
-                    //从云视通服务器获取设备的通道数
-                    [self getDeviceChannelNums:deviceYStNum];
-                    [tempMode release];
-                    
-                    
-                }else{
-                    
-                    DDLogInfo(@"==error2=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
-                    
-                    
-                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_error")];
-                    
-                }
-                
-            }else{//空
-                
-                DDLogInfo(@"==error3=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
-                
-            }
-        });
-    });
-    
-}
-
-/**
- *  重云视通获取设备的通道数
- *
- *  @param ystNumber 云视通
- */
-- (void)getDeviceChannelNums:(NSString *)ystNumber
-{
-    
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *dicDevie = (NSDictionary *)resultDic;
             
-            
-            [self addDeviceChannelToServerWithNum:channelCount];
-        });
-        
-    });
-}
-
-/**
- *  往服务器添加设备的通道
- */
-- (void)addDeviceChannelToServerWithNum:(int )channelNum
-{
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //把通道数添加到服务器
-        int reusult =   [[JVCDeviceHelper sharedDeviceLibrary] addChannelToDevice:deviceYStNum addChannelCount:channelNum];
+            if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resultDic]) {
                 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (KADDDEVICE_RESULT_SUCCESS !=reusult) {//失败
+                NSDictionary *deviceInfo = [dicDevie objectForKey:DEVICE_JSON_DINFO];
                 
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_error")];
-                /**
-                 *  删除云视通号
-                 */
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:deviceYStNum];
+                NSArray *channelList = [dicDevie objectForKey:DEVICE_CHANNEL_JSON_LIST];
                 
-            }else{//成功后，获取设备的所有信息
+                [[JVCDeviceSourceHelper shareDeviceSourceHelper] newInterFaceAddDevice:deviceInfo ystNum:deviceYStNum];
+                [[JVCChannelScourseHelper shareChannelScourseHelper] newInterFaceAddChannelWithChannelArray:channelList deviceYstNumber:deviceYStNum];
                 
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
                 
-                [self getChannelsDetailInfo];
-            }
-            
-        });
-        
-    });
-}
-
-/**
- *  获取设备的通道的详细信息
- */
-- (void)getChannelsDetailInfo
-{
-    [[JVCAlertHelper shareAlertHelper] alertShowToastOnWindow];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:deviceYStNum];
-        DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            /**
-             *  判断返回的字典是不是nil
-             */
-            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:channelAllInfoMdic]  ) {
-                
-                //把获取的设备通道信息的josn数据转换成model集合
-                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:deviceYStNum];
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDevice_success")];
-
                 [self handerAddDeviceSuccess];
                 
-            }else{//空
-                
-                //   [self serachCloseFindDevice];
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"JVCDeviceMathsHelper_addDeviceChannel_error")];
-                
-                /**
-                 *  删除云视通号
-                 */
-                [[JVCDeviceSourceHelper shareDeviceSourceHelper] deleteDevieWithYstNum:deviceYStNum];
+            }else{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
                 
             }
         });
-        
     });
 }
 
 - (void)dealloc
 {
+    
     [deviceYStNum    release];
     [deviceUserName  release];
     [devicePassWord  release];

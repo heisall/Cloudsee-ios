@@ -123,4 +123,12 @@ enum kJVCDeviceModelDeviceType {
         deviceUserName:(NSString *)deviceUserName
         devicePassWord:(NSString *)devicePassWord;
 
+/**
+ *  初始化设备
+ *
+ *  @return 设备对象
+ */
+- (id)initDeviceWithYstNum:(NSString *)YSTNum
+                deviceInfo:(NSDictionary *)dInfo;
+
 @end
