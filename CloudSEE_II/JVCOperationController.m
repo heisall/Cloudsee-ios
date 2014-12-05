@@ -364,15 +364,21 @@ char remoteSendSearchFileBuffer[29] = {0};
     [self.view addSubview:_operationItemSmallBg];
     [_operationItemSmallBg release];
     
-    UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+    UIButton *talkbgView = [_operationItemSmallBg getTalkView];
+    
+    if (talkbgView) {
+        
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
+        [talkbgView addGestureRecognizer:longPress];
+        longPress.allowableMovement = 3;
+        longPress.minimumPressDuration = 0.2;
+        [longPress release];
+        
+        [talkbgView addTarget:self action:@selector(singleTalkClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
 
-    
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedStartTalk:)];
-    [talkBtn addGestureRecognizer:longPress];
-    longPress.allowableMovement = NO;
-    longPress.minimumPressDuration = 0.5;
-    [longPress release];
-    
+
     /**
      *  多窗口的时候，导航栏上面的三角按钮，用于选中4、9、16窗口
      */
@@ -406,6 +412,35 @@ char remoteSendSearchFileBuffer[29] = {0};
     [self initOperationControllerMiddleViewwithFrame:frame];
     
     skinSelect = 0;
+}
+
+/**
+ *  单击语音对讲事件
+ *
+ *  @param sender 触控单击的View
+ */
+-(void)singleTalkClick:(id)sender{
+    
+    DDLogVerbose(@"%s----------------tyyyy",__FUNCTION__);
+    
+    /**
+     *  是否有画面
+     */
+    if (![self judgeOpenVideoPlaying] ) {
+        
+        return;
+        
+    }
+    
+    /**
+     *  是否多屏，多屏的时候，变成单屏
+     */
+    [self changeManagePalyVideoComtrollerViewsToSingeView];
+    
+    
+    UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
+
+    [self requestTalk:talkBtn];
 }
 
 /**
@@ -1462,28 +1497,7 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case BUTTON_TYPE_TALK:
         {
-            
-            //04解码器不支持此操作
-            if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
-                
-                return;
-            }
-            
-            //远程回放时，屏蔽掉此功能
-            if (_isPlayBackVideo ||self.isPlayBackVideo) {
-                
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
-                
-                return;
-            }
-            
-            
-            
-            [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationTalk];
-
-            [self chatRequest:btn];
+            [self requestTalk:btn];
         }
             break;
             
@@ -1546,6 +1560,34 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
 }
 
+/**
+ *  语音对讲请求
+ *
+ *  @param talkButton 语音对讲按钮
+ */
+-(void)requestTalk:(UIButton *)talkButton{
+
+    if (![_managerVideo getCurrentSelectedSingelViewIs05Device]) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
+        
+        return;
+    }
+    
+    //远程回放时，屏蔽掉此功能
+    if (_isPlayBackVideo ||self.isPlayBackVideo) {
+        
+        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"operation")];
+        
+        return;
+    }
+    
+    
+    
+    [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationTalk];
+    
+    [self chatRequest:talkButton];
+}
 
 /**
  *  显示画质切换

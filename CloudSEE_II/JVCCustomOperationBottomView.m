@@ -19,6 +19,9 @@ static const CGFloat kButtonWithTop            = 0.0;      //按钮距父类的�
 static const CGFloat kButtonTitleWithTop       = -5.0;     //按钮距父类的上边框间距
 static const CGFloat kButtonTitleWithFontSize  = 12.0;     //按钮字体的大小
 static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;//按钮标签的高度
+static const CGFloat kTalkButtonHeight         = 8.0;
+static const CGFloat kTalkButtonWidth          = 15.0;
+
 
 @interface JVCCustomOperationBottomView (){
     
@@ -36,6 +39,8 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
      */
     NSMutableArray *_arrayButtons;
     
+    UIButton         *talkView;
+    
 }
 
 @end
@@ -44,6 +49,19 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
 
 @synthesize BottomDelegate;
 
+
+-(id)init{
+
+    if (self = [super init]) {
+        
+        talkView                 = [UIButton buttonWithType:UIButtonTypeCustom];
+        talkView.backgroundColor = [UIColor clearColor];
+        
+        
+    }
+
+    return self;
+}
 /**
  *  初始化播放视频底部view
  *
@@ -121,6 +139,7 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
         
         btn.frame = CGRectMake((bgView.frame.size.width-imageNormal.size.width)/2.0, kButtonWithTop, imageNormal.size.width, imageNormal.size.height);
         
+        
         [btn setBackgroundImage:imageNormal forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor clearColor];
         
@@ -152,6 +171,14 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
         
         [bgView addSubview:btn];
         [self addSubview:bgView];
+        
+        if (i == BUTTON_TYPE_TALK) {
+            
+            talkView.frame = CGRectMake((bgView.frame.size.width-imageNormal.size.width - kTalkButtonWidth*2)/2.0, kButtonWithTop, imageNormal.size.width+kTalkButtonWidth*2, imageNormal.size.height+kTalkButtonHeight*2);
+            [bgView addSubview:talkView];
+            btn.userInteractionEnabled = YES;
+        }
+        
         [bgView release];
         
         [_arrayButtons addObject:btn];
@@ -232,6 +259,18 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
 }
 
 /**
+ *  获取对讲按钮的底部View
+ *
+ *  @return 对讲的扩大View
+ */
+-(UIButton *)getTalkView
+{
+
+    return talkView;
+    
+}
+
+/**
  *  设置button的选中状态
  *
  *  @param index    要选中的button
@@ -281,6 +320,8 @@ static const CGFloat kButtonTitleWithHeight    = kButtonTitleWithFontSize + 4.0;
     return YES;
     
 }
+
+
 
 /**
  *  换肤之后，重新设置选中的按钮颜色

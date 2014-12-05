@@ -107,5 +107,12 @@ enum VideoStreamType
  */
 - (void)setVideoStreamState:(int)stremType;
 
+/**
+ *  获取对讲按钮的底部View
+ *
+ *  @return 对讲的扩大View
+ */
+-(UIButton *)getTalkView;
+
 
 @end

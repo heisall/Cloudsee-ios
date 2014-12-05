@@ -10,13 +10,13 @@
 
 extern int JVCLogHelperLevel;
 static NSString const *kAppLogPath           = @"applog.md";
-static NSString const *kDeviceManagerLogPath = @"DeviceManagerLog.md";//设备log
-static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md"; //登录的log
-static NSString const *kCloudSEELogPath      = @"temperrolog.md";     //登录的log
-static NSString const *kCloudSEECatchCrash   = @"CatchCrash.md";      //崩溃的
-static NSString const *kYstNumberPath        = @"ystnumber.md";      //缓存的老设备的文件
+static NSString const *kDeviceManagerLogPath = @"DeviceManagerLog.md"; //设备log
+static NSString const *kLoginManagerLogPath  = @"LoginManagerLog.md";  //登录的log
+static NSString const *kCloudSEELogPath      = @"temperrolog.txt";     //云视通底层日志
+static NSString const *kCloudSEECatchCrash   = @"CatchCrash.md";       //崩溃的
+static NSString const *kYstNumberPath        = @"ystnumber.md";        //缓存的老设备的文件
+static NSString const *kYstNumberFlag        = @"|";                   //缓存的老设备的文件
 
-static NSString const *kYstNumberFlag        = @"|";      //缓存的老设备的文件
 @interface JVCLogHelper : NSObject
 
 
@@ -33,7 +33,6 @@ typedef NS_ENUM(int, LogType)
     LogType_LoginManagerLogPath             = 2,  //登录的
     LogType_CatchCrash                      = 3,  //异常的
     LogType_ystNumber                       = 4,  //云视通号
-
 };
 
 /**
