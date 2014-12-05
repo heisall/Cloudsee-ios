@@ -34,9 +34,11 @@ typedef NS_ENUM(int, JVCSCanType) {
     NSMutableArray *amLanSearchModelList;
     
     int             nSelectedIndex;
+    
+    BOOL          isAddDeviceState;//是否再添加设备，yes添加设备  no不是
 
 }
-
+@property(nonatomic,assign)BOOL isAddDeviceState;
 
 /**
  *  判断当前生成的按钮不重合在扫描图标上

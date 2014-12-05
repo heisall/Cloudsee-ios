@@ -22,12 +22,14 @@
     NSTimer      *scanfTimer;
     CGRect        scanfImageFrame;
     BOOL          isExit;
+
+    
 }
 
 @end
 
 @implementation JVCScanNewDeviceViewController
-
+@synthesize     isAddDeviceState;
 static const    CFTimeInterval  kScanfWithAnimationDuration          = 10.0f;  //动画执行的时间
 static const    CFTimeInterval  kScanfWithDurationBeginAnimationTime = 0.5f;   //延时动画的时间
 static const    CFTimeInterval  kScanfAnimationWithKeepTime          = 120.0f; //动画持续的时间
@@ -190,7 +192,6 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 - (void)initLayoutWithBackClick {
 
-
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:[UIImage imageBundlePath:@"voi_exit.png"]];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -273,12 +274,17 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
         
         if (buttonIndex == 0) {
             
+            [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+
+            self.isAddDeviceState = YES;
+
             [self addQRdevice];
         }
     }else if(alertView.tag == JVCSCanType_ReSCan){
     
         if (buttonIndex == 0) {
             
+
             [self startScanDevice];
         }else{
             [self gotoBack];
@@ -307,6 +313,7 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
 
 - (void)addQRdevice
 {
+    
      JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;
@@ -323,8 +330,8 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 - (void)addDeviceSuccess
 {
-   
-
+     self.isAddDeviceState = NO;
+    
     JVCConfigModel *configObj    = [JVCConfigModel shareInstance];
     
     if (configObj._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
@@ -519,7 +526,10 @@ static const    CGFloat         kIcoImageViewwithBottom              = 7.0f;
  */
 -(void)popClick{
     
-    [self gotoBack];
+    if (!self.isAddDeviceState) {
+        [self gotoBack];
+
+    }
 }
 
 /**

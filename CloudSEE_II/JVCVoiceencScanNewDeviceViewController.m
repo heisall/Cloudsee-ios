@@ -190,6 +190,8 @@ static const kScanDeviceWithDefaultCount = 1;//一个设备的时候，默认的
 
 - (void)addQRdevice
 {
+    self.isAddDeviceState = YES;
+
     JVCLanScanDeviceModel *model = (JVCLanScanDeviceModel *)[amLanSearchModelList objectAtIndex:nSelectedIndex];
     
     [JVCDeviceMathsHelper shareJVCUrlRequestHelper].deviceDelegate = self;

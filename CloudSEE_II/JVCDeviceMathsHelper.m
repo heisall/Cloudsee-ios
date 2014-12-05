@@ -124,6 +124,8 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                    passWord:(NSString *)passWord
                ChannelCount:(int)count
 {
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+
     deviceYStNum    = [ystNum retain];
     deviceUserName  = [userName retain];
     devicePassWord  = [passWord retain];
