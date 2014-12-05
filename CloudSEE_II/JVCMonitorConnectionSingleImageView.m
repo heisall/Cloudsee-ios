@@ -17,7 +17,7 @@
 
 @synthesize  singleViewType,wheelShowType,_isPlayBackState;
 @synthesize _isConnectType,_glView,delegate;
-@synthesize nStreamType,isHomeIPC;
+@synthesize nStreamType,nOldStreamType,isHomeIPC;
 @synthesize iEffectType,nStorageType,isNewDevice,isNewHomeIPC;
 @synthesize mdDeviceRemoteInfo;
 

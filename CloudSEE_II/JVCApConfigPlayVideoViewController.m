@@ -849,12 +849,13 @@ static const int            kRepeatRequestCount      = 6;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC withIsOldStreeamType:(int)nOldStreamType{
     
     singleVideoShow.nStreamType                          = nStreamType;
     singleVideoShow.isHomeIPC                            = isHomeIPC;
     singleVideoShow.iEffectType                          = effectType;
     singleVideoShow.isNewHomeIPC                         = isNewHomeIPC;
+    singleVideoShow.nOldStreamType                       = nOldStreamType;
     
     [self refreshAPEffectType:nLocalChannel effectType:effectType];
 }

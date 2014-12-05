@@ -14,6 +14,7 @@
 #import "JVCCloudSEENetworkMacro.h"
 #import "JVCHorizontalScreenBar.h"
 #import "GlView.h"
+#import "JVCLogHelper.h"
 
 @interface JVCManagePalyVideoComtroller () {
 
@@ -267,6 +268,17 @@ BOOL isAllLinkRun;
 
     return self.strSelectedDeviceYstNumber;
 
+}
+
+/**
+ *  根据索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex:(int)nIndex{
+    
+    return self.strSelectedDeviceYstNumber;
+    
 }
 
 - (void)setScrollviewByIndex:(NSInteger)Index
@@ -564,7 +576,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType withOldStreamType:singleView.nOldStreamType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
 }
@@ -674,7 +686,7 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:self.nSelectedChannelIndex];
     
-    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType];
+    [self refreshStreamType:singleView.nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:singleView.nStorageType withOldStreamType:singleView.nOldStreamType];
     
     [NSThread detachNewThreadSelector:@selector(stopVideoOrFrame) toTarget:self withObject:nil];
     
@@ -807,6 +819,12 @@ BOOL isAllLinkRun;
      */
     if (connectResultType != CONNECTRESULTTYPE_Succeed ) {
         
+        
+        if (!singleView.isNewHomeIPC && singleView.nStreamType > 0) {
+            
+            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[self ystNumberAtCurrentSelectedIndex:nlocalChannel-1] fileType:LogType_ystNumber];
+        }
+        
         /**
          *判断断开的是不是当前的播放的窗口
          */
@@ -852,11 +870,13 @@ BOOL isAllLinkRun;
             
             if (deviceModel.linkType) {
                 
-                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE];
+                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE withConnectType:[[JVCLogHelper shareJVCLogHelper] checkYstNumberIsInYstNumbers:channelModel.strDeviceYstNumber] == YES ? TYPE_3GMOHOME_UDP : TYPE_3GMO_UDP];
+                
+                
                
             }else{
                 
-                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE];
+                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE withConnectType:[[JVCLogHelper shareJVCLogHelper] checkYstNumberIsInYstNumbers:channelModel.strDeviceYstNumber] == YES ? TYPE_3GMOHOME_UDP : TYPE_3GMO_UDP];
             }
         }
         
@@ -1065,11 +1085,12 @@ BOOL isAllLinkRun;
  *  @param nLocalChannel 本地连接通道编号
  *  @param nStreamType     码流类型  1:高清 2：标清 3：流畅 0:默认不支持切换码流
  */
--(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC{
+-(void)deviceWithFrameStatus:(int)nLocalChannel withStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withIsNewHomeIPC:(BOOL)isNewHomeIPC withIsOldStreeamType:(int)nOldStreamType{
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
     singleView.nStreamType                          = nStreamType;
+    singleView.nOldStreamType                       = nOldStreamType;
     singleView.isHomeIPC                            = isHomeIPC;
     singleView.iEffectType                          = effectType;
     singleView.nStorageType                         = storageType;
@@ -1077,7 +1098,7 @@ BOOL isAllLinkRun;
     
     if (self.nSelectedChannelIndex + 1 == nLocalChannel) {
     
-        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType];
+        [self refreshStreamType:nStreamType withIsHomeIPC:singleView.isHomeIPC effectType:singleView.iEffectType StorageType:storageType withOldStreamType:nOldStreamType];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -1094,11 +1115,11 @@ BOOL isAllLinkRun;
  *
  *  @param nStreamType 码流类型
  */
--(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC  effectType:(int)effectType StorageType:(int)storageType{
+-(void)refreshStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC  effectType:(int)effectType StorageType:(int)storageType withOldStreamType:(int)nOldStreamType{
 
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:withEffectType:withStorageType:)]) {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(changeCurrentVidedoStreamType:withIsHomeIPC:withEffectType:withStorageType:withOldStreamType:)]) {
     
-        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:effectType withStorageType:storageType];
+        [self.delegate changeCurrentVidedoStreamType:nStreamType withIsHomeIPC:isHomeIPC withEffectType:effectType withStorageType:storageType withOldStreamType:nOldStreamType];
     }
 }
 
@@ -1217,6 +1238,18 @@ BOOL isAllLinkRun;
     JVCMonitorConnectionSingleImageView *singleVideoShow = [self singleViewAtIndex:self.nSelectedChannelIndex];
     return singleVideoShow.isNewHomeIPC;
 }
+
+/**
+ *  获取当前设备是否缓存
+ *
+ *  @return yes 存在 no Old
+ */
+- (BOOL)getCurrentIsLocalExist
+{
+    
+    return [[JVCLogHelper shareJVCLogHelper] checkYstNumberIsInYstNumbers:[self ystNumberAtCurrentSelectedIndex]];
+}
+
 
 /**
  *  设置singleview的隐藏显示状态

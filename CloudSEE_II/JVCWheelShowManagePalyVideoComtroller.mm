@@ -7,6 +7,7 @@
 //
 
 #import "JVCWheelShowManagePalyVideoComtroller.h"
+#import "JVCLogHelper.h"
 
 @implementation JVCWheelShowManagePalyVideoComtroller
 
@@ -34,6 +35,20 @@
     
     return channelModel.strDeviceYstNumber;
 
+}
+
+/**
+ *  根据索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex:(int)nIndex{
+    
+    JVCChannelScourseHelper  *channelSourceObj    = [JVCChannelScourseHelper shareChannelScourseHelper];
+    JVCChannelModel          *channelModel  = (JVCChannelModel *)[[channelSourceObj ChannelListArray] objectAtIndex:nIndex];
+    
+    return channelModel.strDeviceYstNumber;
+    
 }
 
 /**
@@ -65,11 +80,11 @@
             
             if (deviceModel.linkType) {
                 
-                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE];
+                connectStatus = [ystNetWorkHelperObj ipConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue  strUserName:deviceModel.userName strPassWord:deviceModel.passWord strRemoteIP:deviceModel.ip nRemotePort:[deviceModel.port intValue] nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE withConnectType:[[JVCLogHelper shareJVCLogHelper] checkYstNumberIsInYstNumbers:channelModel.strDeviceYstNumber] == YES ? TYPE_3GMOHOME_UDP : TYPE_3GMO_UDP];
                 
             }else{
                 
-                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE];
+                connectStatus = [ystNetWorkHelperObj ystConnectVideobyDeviceInfo:channelID nRemoteChannel:channelModel.nChannelValue strYstNumber:channelModel.strDeviceYstNumber strUserName:deviceModel.userName strPassWord:deviceModel.passWord nSystemVersion:IOS_VERSION isConnectShowVideo:self.isPlayBackVideo == TRUE ? FALSE : TRUE withConnectType:[[JVCLogHelper shareJVCLogHelper] checkYstNumberIsInYstNumbers:channelModel.strDeviceYstNumber] == YES ? TYPE_3GMOHOME_UDP : TYPE_3GMO_UDP];
             }
         }
         

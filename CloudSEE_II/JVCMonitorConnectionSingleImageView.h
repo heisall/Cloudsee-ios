@@ -67,6 +67,7 @@ typedef NS_ENUM(int, EffectType)
 
     id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
     int             nStreamType;     //当前显示窗口的码流类型
+    int             nOldStreamType;  //老版本的码流类型
     BOOL            isHomeIPC;       //判断当前连接的视频是否是家用的IPC
     
     int             iEffectType;     //标示图像翻转的
@@ -88,6 +89,7 @@ typedef NS_ENUM(int, EffectType)
 @property (nonatomic,retain) GlView *_glView;
 @property (nonatomic,assign) id<JVCMonitorConnectionSingleImageViewDelegate> delegate;
 @property (nonatomic,assign) int      nStreamType;     //当前显示窗口的码流类型
+@property (nonatomic,assign) int      nOldStreamType;  //当前显示窗口主码流类型
 @property (nonatomic,assign) BOOL     isHomeIPC;
 @property (nonatomic,assign) int      iEffectType;
 @property (nonatomic,assign) int      nStorageType;    //1：手动 0：报警

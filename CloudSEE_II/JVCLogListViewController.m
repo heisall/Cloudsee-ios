@@ -33,6 +33,7 @@
     [maLogList addObject:(NSString *)ACCOUNTSERVICELOG];
     [maLogList addObject:(NSString *)kCloudSEELogPath];
     [maLogList addObject:(NSString *)kCloudSEECatchCrash];
+    [maLogList addObject:(NSString *)kYstNumberPath];
 }
 
 -(void)dealloc{

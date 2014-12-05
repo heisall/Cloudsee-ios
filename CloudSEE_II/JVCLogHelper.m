@@ -15,6 +15,7 @@ FILE *appLogHandle    = NULL;
 FILE *deviceLogHandle = NULL;
 FILE *LoginLogHandle  = NULL;
 FILE *CatchCrash      = NULL;
+FILE *ystOldFile      = NULL;
 static JVCLogHelper *jvcLogHelper = nil;
 
 /**
@@ -28,9 +29,10 @@ static JVCLogHelper *jvcLogHelper = nil;
         
         JVCSystemUtility  *systemUtility = [JVCSystemUtility shareSystemUtilityInstance];
 
-        appLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kAppLogPath] UTF8String], "ab+");
+        appLogHandle    = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kAppLogPath] UTF8String], "ab+");
         deviceLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kDeviceManagerLogPath] UTF8String], "ab+");
-        LoginLogHandle = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kLoginManagerLogPath] UTF8String], "ab+");
+        LoginLogHandle  = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kLoginManagerLogPath] UTF8String], "ab+");
+        ystOldFile      = fopen([[systemUtility getDocumentpathAtFileName:(NSString *)kYstNumberPath] UTF8String], "ab+");
     }
     
     return self;
@@ -93,6 +95,10 @@ static JVCLogHelper *jvcLogHelper = nil;
             case LogType_CatchCrash:
                 [self writeHandleDataToFile:text handleType:CatchCrash];
                 break;
+            case LogType_ystNumber:{
+            
+                [self writeYstNumberHandleDataToFile:text handleType:ystOldFile];
+            }
                 
             default:
                 break;
@@ -124,6 +130,7 @@ static JVCLogHelper *jvcLogHelper = nil;
 {
     if (NULL != fileHandle) {
         
+        
         switch (JVCLogHelperLevel) {
                 
             case JVCLogHelperLevelRelease:{
@@ -151,5 +158,85 @@ static JVCLogHelper *jvcLogHelper = nil;
         }
     }
 }
+
+/**
+ *  往指定的handle写数据
+ *
+ *  @param dateString 写入的数据
+ *  @param fileHandle file名称
+ */
+-(void)writeYstNumberHandleDataToFile:(NSString *)dataString  handleType:(FILE *)fileHandle
+{
+    if (NULL != fileHandle) {
+        
+        if (![self checkYstNumberIsInYstNumbers:dataString]) {
+            
+            NSString *writeStr= [NSString stringWithFormat:@"%@%@",dataString,kYstNumberFlag];
+            flockfile(fileHandle);
+            fwrite([writeStr UTF8String],1,writeStr.length, fileHandle);
+            fflush(fileHandle);
+            funlockfile(fileHandle);
+        }
+    }
+}
+
+/**
+ *  获取日志文本内容
+ *
+ *  @return 账号日志内容
+ */
+-(NSString *)ystNumberWithLog {
+    
+    NSMutableString *returnText = [[NSMutableString alloc] initWithCapacity:10];
+    
+    NSString        *pathAccount= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:(NSString *)kYstNumberPath];
+    NSData          *data = [NSData dataWithContentsOfFile:pathAccount];
+    
+    if (data.length > 0) {
+        
+        NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        [returnText appendString:result];
+        
+        [result release];
+    }
+    
+    return  [returnText autorelease];
+}
+
+/**
+ *  判断缓存的老设备的云视通号是否存在
+ *
+ *  @param ystNUmber 云视通号
+ */
+-(BOOL)checkYstNumberIsInYstNumbers:(NSString *)ystNumber{
+    
+    NSString *strYstNumber = [self ystNumberWithLog];
+    
+    BOOL findStatus        = FALSE;
+    
+    [strYstNumber retain];
+    
+    if (strYstNumber.length > 0) {
+        
+        NSArray *mYstNumber = [strYstNumber componentsSeparatedByString:(NSString *)kYstNumberFlag];
+        
+        for (int i= 0; i< mYstNumber.count; i++) {
+            
+            NSString *str = [mYstNumber objectAtIndex:i];
+            
+            if ([str.uppercaseString isEqualToString:ystNumber.uppercaseString]) {
+                
+                findStatus = YES;
+            }
+        }
+    }
+    
+    [strYstNumber release];
+    
+    return findStatus;
+}
+
+
 
 @end

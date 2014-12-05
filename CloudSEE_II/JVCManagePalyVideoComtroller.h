@@ -30,7 +30,7 @@
  *  @param nStreamType 码流类型
  *  @param isHomeIPC   是否是家用IPC
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType;
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withOldStreamType:(int)nOldStreamType;
 
 /**
  *  请求报警视频的远程回放的回调
@@ -112,6 +112,13 @@ enum showWindowNumberType{
  *  @return 当前选择的云视通号
  */
 -(NSString *)ystNumberAtCurrentSelectedIndex;
+
+/**
+ *  根据索引返回云视通号
+ *
+ *  @return 当前选择的云视通号
+ */
+-(NSString *)ystNumberAtCurrentSelectedIndex:(int)nIndex;
 
 
 -(void)changeContenView;
@@ -216,5 +223,12 @@ enum showWindowNumberType{
 
 
 -(void)continuePlayVideoCallBack;
+
+/**
+ *  获取当前设备是否是新的家用ipc
+ *
+ *  @return yes 存在 no Old
+ */
+- (BOOL)getCurrentIsLocalExist;
 
 @end

@@ -67,6 +67,7 @@ bool selectState_audio ;
     int                      nCurrentStreamType;
     BOOL                     isCurrentHomePC;
     int                      nStorageType;
+    int                      nCurrentOldStreamType;
     UIView                  *talkView;
     BOOL                     isLongPressedStartTalk;    //判断当前是否在长按语音对讲
     UIButton                *_splitViewBtn;             //导航条上面的箭头，用于选则是否分屏
@@ -665,15 +666,18 @@ char remoteSendSearchFileBuffer[29] = {0};
  *
  *  @param nStreamType 码流类型
  */
--(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType{
+-(void)changeCurrentVidedoStreamType:(int)nStreamType withIsHomeIPC:(BOOL)isHomeIPC withEffectType:(int)effectType withStorageType:(int)storageType withOldStreamType:(int)nOldStreamType{
     
-    nCurrentStreamType = nStreamType;
-    isCurrentHomePC    = isHomeIPC;
-    nStorageType       = storageType;
+    nCurrentStreamType    = nStreamType;
+    isCurrentHomePC       = isHomeIPC;
+    nStorageType          = storageType;
+    nCurrentOldStreamType = nOldStreamType;
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        int switchType = [_managerVideo getCurrentIsLocalExist] == YES ? nOldStreamType:nStreamType;
     
-        switch (nStreamType) {
+        switch (switchType) {
                 
             case VideoStreamType_Default:
             case VideoStreamType_HD:
@@ -891,10 +895,7 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         
         self.navigationController.navigationBarHidden = NO;
-        //关闭文本、视频的回调
-        JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        ystNetWorkObj.ystNWHDelegate    = nil;
-        ystNetWorkObj.ystNWTDDelegate   = nil;
+        
         //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
 
         [self closeAudioAndTalkAndVideoFuction];
@@ -1555,7 +1556,8 @@ char remoteSendSearchFileBuffer[29] = {0};
         [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"This video source doesn't support image resolution switch.")];
         return;
     }
-     straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsOldHomeIPC]];
+    
+    straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsOldHomeIPC]];
     straemView.delegateStream = self;
     [self.view addSubview:straemView];
     [straemView show];
