@@ -639,8 +639,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -(void)stopTalk {
     
-    
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         JVCCloudSEENetworkHelper *jvcCloudseeObj  = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
@@ -936,9 +934,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         self.navigationController.navigationBarHidden = NO;
         
-        //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
-
-        [self closeAudioAndTalkAndVideoFuction];
+//        //不敢是远程回放还是播放窗口，都有开启录像功能，点击返回时，要关闭
+//
+//        [self closeAudioAndTalkAndVideoFuction];
         
         wheelAlterInfo=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disconnecting nowPlease Wait", nil)
                                                   message:nil
@@ -1587,7 +1585,6 @@ char remoteSendSearchFileBuffer[29] = {0};
     }
     
     
-    
     [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationTalk];
     
     [self chatRequest:talkButton];
@@ -1820,7 +1817,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 - (void)operationMiddleViewButtonCallback:(int)buttonType
 {
-    DDLogInfo(@"%s====%d",__FUNCTION__,buttonType);
     
     [self MiddleBtnClickWithIndex:buttonType];
 }
@@ -1832,7 +1828,6 @@ char remoteSendSearchFileBuffer[29] = {0};
  */
 -  (void)operationMiddleIphone5BtnCallBack:(int)clickBtnType
 {
-    DDLogInfo(@"%s====%d",__FUNCTION__,clickBtnType);
     
     [self MiddleBtnClickWithIndex:clickBtnType];
 }
@@ -2470,11 +2465,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     /**
      *  关闭对讲
      */
-   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    
-        [self closeChatVoiceIntercom];
+    [self closeChatVoiceIntercom];
 
-    });
     
     [[JVCHorizontalScreenBar shareHorizontalBarInstance] setALlBtnNormal];
 }
@@ -2653,35 +2645,27 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     
     UIButton *talkBtn = [_operationItemSmallBg getButtonWithIndex:BUTTON_TYPE_TALK];
-
-    JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-    ystNetWorkObj.ystNWADelegate    = nil;
     
-    //    id <ystNetWorkHelpDelegate>                      ystNWHDelegate;     //视频
-    //    id <ystNetWorkHelpRemoteOperationDelegate>       ystNWRODelegate;    //远程请求操作
-    //    id <ystNetWorkAudioDelegate>                     ystNWADelegate;     //音频
-    //    id <ystNetWorkHelpRemotePlaybackVideoDelegate>   ystNWRPVDelegate;   //远程回放
-    //    id <ystNetWorkHelpTextDataDelegate>              ystNWTDDelegate;    //文本聊天
-    
-    [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
-    
-    OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
-    AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
-    
-    [openAlObj stopSound];
-    [openAlObj cleanUpOpenALMath];
-    
-    [aqControllerobj stopRecord];
-    aqControllerobj.delegate = nil;
-  
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-    
+    if (talkBtn.selected) {
+        
+        
         [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
         [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"megaphone")];
-
-    });
-    
+        
+         JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
+        
+        OpenALBufferViewcontroller *openAlObj       = [OpenALBufferViewcontroller shareOpenALBufferViewcontrollerobjInstance];
+        AQSController  *aqControllerobj = [AQSController shareAQSControllerobjInstance];
+        
+        [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
+        
+        [aqControllerobj stopRecord];
+        aqControllerobj.delegate = nil;
+        
+    }
 }
 
 #pragma mark ystNetWorkHelper 

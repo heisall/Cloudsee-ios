@@ -1,3 +1,4 @@
+
 //
 //  JVCCloudSEENetworkHelper.m
 //  CloudSEE_II
@@ -1469,8 +1470,6 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 int  nStorageMode   = -1;
                                 BOOL isNewHomeIPC   = FALSE;
                                 int  nOldStreamType = -1;
-                                
-                                DDLogCVerbose(@"%s---------------buffer=%s",__FUNCTION__,stpacket.acData+n);
                                 
                                 NSString *strDevice          = [[NSString alloc] initWithString:[ystNetworkHelperCMObj findBufferInExitValueToByKey:stpacket.acData+n nameBuffer:(char *)[kCheckHomeFlagKey UTF8String]]];
                                 
