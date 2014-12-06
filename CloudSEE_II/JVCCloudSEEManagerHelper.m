@@ -523,7 +523,6 @@ char          pcmBuffer[1024] ={0};
     
     [self.jvcVoiceIntercomHelper closeAudioDecoder];
     self.isVoiceIntercom = self.jvcVoiceIntercomHelper.isOpenDecoder;
-    
      [self.jvcAudioQueueHelper exitPopDataThread];
 }
 
