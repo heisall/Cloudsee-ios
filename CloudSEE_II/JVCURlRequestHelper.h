@@ -48,5 +48,5 @@
  *
  *  @return
  */
-- (int)sendLogMesssage:(NSString *)content;
+- (BOOL)sendLogMesssage:(NSString *)content;
 @end

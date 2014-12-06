@@ -85,8 +85,23 @@
     NSString       *path= [[JVCSystemUtility shareSystemUtilityInstance] getDocumentpathAtFileName:self.strLogPath];
     NSString *stringSend = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
    
-    JVCURlRequestHelper  *urlRequest = [[JVCURlRequestHelper alloc] init];
-    [urlRequest sendLogMesssage:stringSend];
+    JVCURlRequestHelper  *urlRequest = [[[JVCURlRequestHelper alloc] init] autorelease];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    BOOL result = [urlRequest sendLogMesssage:stringSend];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (result) {
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_suggestion_send_success")];
+            }else{
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_more_suggestion_send_error")];
+
+            }
+        });
+
+    });
 }
 
 

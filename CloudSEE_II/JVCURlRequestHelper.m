@@ -57,14 +57,15 @@ static  const   NSString  *KSuggestUrl                  =  @"http://182.92.242.2
 //static  const   NSString  *KSuggestUrl                  =  @"http://192.168.10.5:8003/api.php?";
 
 //static  const   NSString  *KSuggestUrlEN                 =  @"http://98.126.77.202/api.php";
-static  const   NSString  *KMULTIPART =@"multipart/form-data; boundary=----WebKitFormBoundaryWFuwJIc4dEyIOf50";
+static  const   NSString  *KMULTIPART =@"multipart/form-data; boundary=------WebKitFormBoundaryWFuwJIc4dEyIOf50";
 
-//static  const   NSString  *KSendLogURlCH                 =  @"http://182.92.242.230/api.php?mod=uplog";
-static  const   NSString  *KSendLogURlCH                 =  @"http://192.168.10.5:8003/api.php?mod=uplog";
+static  const   NSString  *KSendLogURlCH                 =  @"http://182.92.242.230/api.php?mod=uplog";
+//static  const   NSString  *KSendLogURlCH                 =  @"http://192.168.10.5:8003/api.php?mod=uplog";
 
 
 
 static const    NSString  *kBoundary                     = @"------WebKitFormBoundarychOyYXf6nmWhVyzP";
+static const    NSString  *kBoundaryShort                = @"----WebKitFormBoundarychOyYXf6nmWhVyzP";
 
 - (void)initReceiveDate
 {
@@ -320,42 +321,51 @@ static const    NSString  *kBoundary                     = @"------WebKitFormBou
  *
  *  @return
  */
-- (int)sendLogMesssage:(NSString *)content
+- (BOOL)sendLogMesssage:(NSString *)content
 {
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:(NSString *)KSendLogURlCH]];
     [request setHTTPMethod:@"POST"];
     NSMutableData *body = [NSMutableData data];
 
     //设置内容类型
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",kBoundary];
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",kBoundaryShort];
     [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",@"ext"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+
      [body appendData:[[NSString stringWithFormat:@"suggestTex"] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\";filename=\"%@\"",@"logfile",@"suggest.text"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+
     [body appendData:[[NSString stringWithFormat:@"Content-Type: text/plain"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [body appendData:[content dataUsingEncoding:NSUTF8StringEncoding]];
 
     //写入尾部内容
-    [body appendData:[[NSString stringWithFormat:@"\r\n\r\n%@\r\n\r\n", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", kBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"--\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+
     [request setHTTPBody:body];
     NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
     NSHTTPURLResponse* urlResponse = nil;
-    NSError *error = [[NSError alloc] init];
     //同步提交:POST提交并等待返回值（同步），返回值是NSData类型。
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:nil];
+    [request release];
     //将NSData类型的返回值转换成NSString类型
-    NSString *result = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"user login check result:%@=",result);
+    if (responseData.length>0) {
+        
+        return YES;
+    }
 
-    return 1;
+    return NO;
 }
 
 /**
