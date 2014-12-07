@@ -266,7 +266,7 @@ void JVCLANScanWithSetHelpYSTNOHelperQueryDevce(STLANSRESULT_01 *stlanResultData
             
             isScanfing = TRUE;
             
-            JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000);
+            JVC_MOLANSerchDevice([@"" UTF8String], 0, 0, 0,[@"" UTF8String], kScanDeviceKeepTimeSecond*1000,30);
             
         });
     }
