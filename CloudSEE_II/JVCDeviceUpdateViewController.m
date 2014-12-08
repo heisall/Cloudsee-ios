@@ -47,7 +47,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     textFieldDevice = [[JVCControlHelper shareJVCControlHelper] textFieldWithLeftLabelText:LOCALANGER(@"JvcDeviceUpdatedevice") backGroundImage:@"tex_field.png"];
     textFieldDevice.frame = CGRectMake((self.view.width - textFieldDevice.width)/2.0, kOriginOff_y, textFieldDevice.width, textFieldDevice.height);
     textFieldDevice.textAlignment = UITextAlignmentRight;
-    textFieldDevice.text = LOCALANGER(modelDevice.deviceUpdateType.lowercaseString);
+    textFieldDevice.text = LOCALANGER(modelDevice.deviceUpdateType);
 
     
     textFieldDevice.userInteractionEnabled = NO;
@@ -59,6 +59,7 @@ static const int      kCancelWithTime   = 1000*1000; //2个textfield的间距
     textFieldVersion.textAlignment = UITextAlignmentRight;
     textFieldVersion.text = modelDevice.deviceVersion;
     [self.view addSubview:textFieldVersion];
+    
     //升级的btn的
     UIButton *btnUpDate = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"home_device_advance_update") normalImage:@"btn_Bg.png" horverimage:nil];
     btnUpDate.frame = CGRectMake(textFieldVersion.left, textFieldVersion.bottom+kSizeSeperate, textFieldVersion.width, btnUpDate.height);

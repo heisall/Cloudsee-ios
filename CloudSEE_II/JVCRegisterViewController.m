@@ -594,7 +594,7 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
 //                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] UserLogin:kkUserName passWord:kkPassword];
                 BOOL resultLanguage = [[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage];
 
-                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:kkUserName passWord:kkPassword tokenString:kkToken languageType:resultLanguage alarmFlag:![JVCConfigModel shareInstance].bSwitchSafe];
+                int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:kkUserName passWord:kkPassword tokenString:kkToken languageType:!resultLanguage alarmFlag:![JVCConfigModel shareInstance].bSwitchSafe];
 
                 
                 dispatch_async(dispatch_get_main_queue(), ^{

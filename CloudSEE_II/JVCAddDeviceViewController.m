@@ -186,6 +186,7 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
             
             [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
             
+            
             NSDictionary *dicDevie = (NSDictionary *)resultDic;
             
             if ([[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resultDic]) {
@@ -199,20 +200,137 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
                 
-                if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
-                    
-                    [addDeviceDelegate addDeviceSuccessCallBack];
-                }
+                [self addDevieSuccessCallBack];
 
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+            }else{//失败的时候，先去获取一下设备的详细信息，可能底层库给我超时了，但是设备通道重试，添加上了
+                
+                [self getNewAddDeviceInfo];
+                
+               // [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
 
             }
         });
     });
 }
 
+/**
+ *  添加设备成功后的回调
+ */
+- (void)addDevieSuccessCallBack
+{
+    if (addDeviceDelegate !=nil &&[addDeviceDelegate respondsToSelector:@selector(addDeviceSuccessCallBack)]) {
+        
+        [addDeviceDelegate addDeviceSuccessCallBack];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
+/**
+ *  获取设备的详细信息
+ */
+- (void)getNewAddDeviceInfo
+{
+    
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:textFieldYST.text.uppercaseString ];
+        DDLogVerbose(@"===%s===%@",__FUNCTION__,resutlDic);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            /**
+             *  判断返回的字典是不是nil
+             */
+            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic] ) {
+                DDLogInfo(@"===![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic");
+                /**
+                 *  判断返回字典的rt字段是否为0
+                 */
+                if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resutlDic]) {//成功，把收到的字典转化为model类型
+                    
+                    /**
+                     *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
+                     */
+                    JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:textFieldYST.text.uppercaseString];
+                    
+                    [tempMode retain];
+                    
+                    NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
+                    
+                    [newModelList addObject:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelWithYstNumberConvertLocalCacheModel:tempMode.yunShiTongNum]];
+                    
+                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
+                    
+                    //获取单个设备的通道信息
+                    [self getNewAddDeviceChannels];
+                    
+                    [tempMode release];
+                    
+                    
+                }else{
+                    
+                    DDLogInfo(@"==error2=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
+                    
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                    
+                }
+                
+            }else{//空
+                
+                DDLogInfo(@"==error3=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                
+            }
+        });
+    });
+    
+}
+
+
+/**
+ *  获取设备下面的所有通道数
+ */
+- (void)getNewAddDeviceChannels
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:textFieldYST.text.uppercaseString];
+        DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%@",__FUNCTION__,[channelAllInfoMdic description]] fileType:LogType_DeviceManagerLogPath];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            BOOL result = [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelAllInfoMdic];
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            if (result) {//成功
+                
+                
+                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:textFieldYST.text.uppercaseString];
+                
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
+                
+                [self addDevieSuccessCallBack];
+
+                
+            }else{
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                
+            }
+            
+        });
+        
+    });
+    
+}
 
 
 /**

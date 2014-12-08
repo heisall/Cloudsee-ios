@@ -55,6 +55,8 @@
     NSMutableString                 *selectedSSID;
     JVCAlarmMessageViewController   *alarmMessageViewController;
     JVCEditDeviceListViewController *editDeviceViewController;
+    
+    BOOL                            messageLoginIn;
 }
 
 @end
@@ -89,6 +91,11 @@ static const   int     KCheckLocationResultValue = 1;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    if (launchOptions !=nil) {
+        
+        messageLoginIn = YES;
+    }
     
     /**
      *  设置ddlog
@@ -267,6 +274,12 @@ static const   int     KCheckLocationResultValue = 1;
         
     }
     self.window.rootViewController = rootViewController ;
+    
+    if (messageLoginIn) {
+        
+        [rootViewController setSelectedIndex:tabarViewItem_alarmMessage];
+        messageLoginIn = NO;
+    }
     
     [deviceNav release];
     [alarmMessageViewNav release];

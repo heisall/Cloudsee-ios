@@ -52,4 +52,14 @@ enum DEVICEBIND
  *
  */
 - (void)addDeviceToAccount:(NSString *)ystNum  deviceUserName:(NSString *) name  passWord:(NSString *)passWord;
+
+/**
+ *  获取设备的通道号
+ *
+ *  @param ystNumber 云视通号
+ *
+ *  @return 通道号
+ */
+- (int)getSingleDeviceChannelNums:(NSString *)ystNumber;
+
 @end

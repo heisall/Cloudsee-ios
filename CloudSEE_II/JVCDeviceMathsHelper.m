@@ -199,13 +199,124 @@ static const int     KDEFAULTAPCHANNELCOUNT         = 1;   //莫仍的通道数
                 
                 [self handerAddDeviceSuccess];
                 
+                
             }else{
-                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                
+                [self getNewAddVoiceDeviceInfo];
+//                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
                 
             }
         });
     });
 }
+
+
+/**
+ *  获取设备的详细信息
+ */
+- (void)getNewAddVoiceDeviceInfo
+{
+    
+    [[JVCAlertHelper shareAlertHelper]alertShowToastOnWindow];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *resutlDic =  [[JVCDeviceHelper sharedDeviceLibrary] getDeviceInfoByDeviceGuid:deviceYStNum ];
+        DDLogVerbose(@"===%s===%@",__FUNCTION__,resutlDic);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            /**
+             *  判断返回的字典是不是nil
+             */
+            if (![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic] ) {
+                DDLogInfo(@"===![[JVCSystemUtility shareSystemUtilityInstance] judgeDictionIsNil:resutlDic");
+                /**
+                 *  判断返回字典的rt字段是否为0
+                 */
+                if ( [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:resutlDic]) {//成功，把收到的字典转化为model类型
+                    
+                    /**
+                     *  给的返回数据中没有云视通信息，所有要吧云视通号传过去
+                     */
+                    JVCDeviceModel *tempMode =   [[JVCDeviceSourceHelper shareDeviceSourceHelper] convertDeviceDictionToModelAndInsertDeviceList:resutlDic withYSTNUM:deviceYStNum];
+                    
+                    [tempMode retain];
+                    
+                    NSMutableArray *newModelList = [NSMutableArray arrayWithCapacity:10];
+                    
+                    [newModelList addObject:[[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceModelWithYstNumberConvertLocalCacheModel:tempMode.yunShiTongNum]];
+                    
+                    [[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper] setDevicesHelper:newModelList];
+                    
+                    //获取单个设备的通道信息
+                    [self getNewAddVoiceDeviceChannels];
+                    
+                    [tempMode release];
+                    
+                    
+                }else{
+                    
+                    DDLogInfo(@"==error2=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
+                    
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                    
+                }
+                
+            }else{//空
+                
+                DDLogInfo(@"==error3=![[AddDeviceLogicMaths shareInstance] judgeDictionIsNil:deviceInfoMdic]");
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                
+            }
+        });
+    });
+    
+}
+
+
+/**
+ *  获取设备下面的所有通道数
+ */
+- (void)getNewAddVoiceDeviceChannels
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSDictionary *channelAllInfoMdic=[[JVCDeviceHelper sharedDeviceLibrary] getDeviceChannelListData:deviceYStNum];
+        DDLogInfo(@"获取设备的所有通道信息=%@",channelAllInfoMdic);
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==%@",__FUNCTION__,[channelAllInfoMdic description]] fileType:LogType_DeviceManagerLogPath];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            BOOL result = [[JVCSystemUtility shareSystemUtilityInstance] JudgeGetDictionIsLegal:channelAllInfoMdic];
+            
+            [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+            
+            if (result) {//成功
+                
+                
+                [[JVCChannelScourseHelper shareChannelScourseHelper] channelInfoMDicConvertChannelModelToMArrayPoint:channelAllInfoMdic deviceYstNumber:deviceYStNum];
+                
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
+                
+                [self handerAddDeviceSuccess];
+                
+                
+            }else{
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
+                
+            }
+            
+        });
+        
+    });
+    
+}
+
 
 - (void)dealloc
 {

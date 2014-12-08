@@ -36,6 +36,8 @@
 
 enum tabarViewItem {
 
+    tabarViewItem_alarmMessage = 1,
+
     tabarViewItem_editDevice = 2,
 
 };

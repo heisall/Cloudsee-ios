@@ -176,7 +176,7 @@ static const kScrollewViewTag       = 11212;
     
     JVCAdverImageModel *model = [_arrayDefaultImage objectAtIndex:i];
     
-    if(model.AdLick)
+    if(model.AdLick.length>0)
     {
         if (JVCAdevrtDelegate !=nil &&[JVCAdevrtDelegate respondsToSelector:@selector(JVCAdvertClickImageWithIndex:)]) {
             [JVCAdevrtDelegate JVCAdvertClickImageWithIndex:model.AdLick];
