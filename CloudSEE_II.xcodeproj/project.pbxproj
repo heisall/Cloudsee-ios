@@ -101,7 +101,7 @@
 		A7B2093E1A19C6370016E59B /* DCRoundSwitchToggleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B2093A1A19C6370016E59B /* DCRoundSwitchToggleLayer.m */; };
 		A7B209401A19D32A0016E59B /* mor_DevBrowse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */; };
 		A7B209441A19E55F0016E59B /* JVCDeviceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B209431A19E55F0016E59B /* JVCDeviceUpdateViewController.m */; };
-		A7B4BD7D1A354CFB006FF6D4 /* libjvnetsdkV2.0.76.3.20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B4BD7C1A354CFB006FF6D4 /* libjvnetsdkV2.0.76.3.20.a */; };
+		A7B4BD7F1A35830A006FF6D4 /* libjvnetsdkV2.0.76.3.20_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B4BD7E1A35830A006FF6D4 /* libjvnetsdkV2.0.76.3.20_2.a */; };
 		A7B4DE791A24838F00FA1F95 /* op_audioCellBgHor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B4DE731A24838F00FA1F95 /* op_audioCellBgHor@2x.png */; };
 		A7B4DE7A1A24838F00FA1F95 /* op_audioCellBgNor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B4DE741A24838F00FA1F95 /* op_audioCellBgNor@2x.png */; };
 		A7B4DE7B1A24838F00FA1F95 /* op_playBackBgBor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7B4DE751A24838F00FA1F95 /* op_playBackBgBor@2x.png */; };
@@ -825,7 +825,7 @@
 		A7B2093F1A19D32A0016E59B /* mor_DevBrowse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mor_DevBrowse@2x.png"; sourceTree = "<group>"; };
 		A7B209421A19E55E0016E59B /* JVCDeviceUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceUpdateViewController.h; sourceTree = "<group>"; };
 		A7B209431A19E55F0016E59B /* JVCDeviceUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceUpdateViewController.m; sourceTree = "<group>"; };
-		A7B4BD7C1A354CFB006FF6D4 /* libjvnetsdkV2.0.76.3.20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.20.a; sourceTree = "<group>"; };
+		A7B4BD7E1A35830A006FF6D4 /* libjvnetsdkV2.0.76.3.20_2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjvnetsdkV2.0.76.3.20_2.a; sourceTree = "<group>"; };
 		A7B4DE731A24838F00FA1F95 /* op_audioCellBgHor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "op_audioCellBgHor@2x.png"; sourceTree = "<group>"; };
 		A7B4DE741A24838F00FA1F95 /* op_audioCellBgNor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "op_audioCellBgNor@2x.png"; sourceTree = "<group>"; };
 		A7B4DE751A24838F00FA1F95 /* op_playBackBgBor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "op_playBackBgBor@2x.png"; sourceTree = "<group>"; };
@@ -1551,7 +1551,7 @@
 				A7FA43F019E411B200F7A8A4 /* AssetsLibrary.framework in Frameworks */,
 				ADA9E44A1A120BF6007EB209 /* libjvdecoder_01V1.0.2.a in Frameworks */,
 				A7B58B8D1A15E8A8004D0E5B /* libmtasdk.a in Frameworks */,
-				A7B4BD7D1A354CFB006FF6D4 /* libjvnetsdkV2.0.76.3.20.a in Frameworks */,
+				A7B4BD7F1A35830A006FF6D4 /* libjvnetsdkV2.0.76.3.20_2.a in Frameworks */,
 				ADA22DAC19DA98050092F8B9 /* AudioToolbox.framework in Frameworks */,
 				ADA22D7919DA83960092F8B9 /* libJVDecodeAmrAudio2_2013_6_27_1.a in Frameworks */,
 				ADA22D7B19DA839D0092F8B9 /* libJVDecodeAndEncodeG729a_2013_6_7_1.a in Frameworks */,
@@ -2884,7 +2884,7 @@
 		ADA77BF219D0250E003EE7A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A7B4BD7C1A354CFB006FF6D4 /* libjvnetsdkV2.0.76.3.20.a */,
+				A7B4BD7E1A35830A006FF6D4 /* libjvnetsdkV2.0.76.3.20_2.a */,
 				AD50E2F71A35200300E193BA /* libuserAcount_v3.2.2.3.a */,
 				A7A576011A130ABD000D0BBC /* CoreTelephony.framework */,
 				A7A575FF1A130AB3000D0BBC /* AdSupport.framework */,
