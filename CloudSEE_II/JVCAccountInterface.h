@@ -115,6 +115,13 @@ extern "C" {
      */
     int UserLogout_C();
     
+    /**
+     * @brief 设置用户在线状态 （隐身，下线...) = 0
+     * @param [in] 状态值 (ONLINE_STATUS) = 0
+     * @return
+     */
+    int SetUserOnlineStatus_C(const int online_state);
+    
     
     /*
      *@brief 验证密码

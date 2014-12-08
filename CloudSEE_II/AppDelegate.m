@@ -405,6 +405,11 @@ static const   int     KCheckLocationResultValue = 1;
         
         [self saveCacheDevicesData];
     }
+    
+    if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_ACCOUNT) {
+        
+        [[JVCAccountHelper sharedJVCAccountHelper] SetUserOnlineStatus:0];
+    }
 }
 
 - (void)DDLogSettings

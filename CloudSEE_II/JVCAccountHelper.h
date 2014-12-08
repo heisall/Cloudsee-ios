@@ -184,6 +184,15 @@ static  NSString *const kAppOnlineServiceAddressE      =   @"apponlineen.afdvr.c
 -(int)UserLogout;
 
 /**
+ *  设置账号的在线状态
+ *
+ *  @param nStatus 设置用户在线状态 （隐身，下线...)=0
+ *
+ *  @return 接口的返回值
+ */
+-(int)SetUserOnlineStatus:(int)nStatus;
+
+/**
  *  修改符合用户规则但帐户使用老密码加密规则
  *
  *  @param newPassword 新密码
