@@ -48,22 +48,6 @@ static const int    kAddLocalDeviceWithWlanTimeOut       = 5;   //添加设备�
         
         int  channelCount = [self getSingleDeviceChannelNums:ystNum.uppercaseString];
 
-        
-        if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
-            
-            if (channelCount <= 0) {
-                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"==%s==local  get Device Channel Start=username=%@=password=%@=ystNum=%@=\n",__FUNCTION__,name,passWord,ystNum]fileType:LogType_DeviceManagerLogPath];
-
-                channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNum nTimeOut:kAddLocalDeviceWithWlanTimeOut];
-                
-                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"==%s==local  get Device Channel end=username=%@=password=%@=ystNum=%@=\n",__FUNCTION__,name,passWord,ystNum]fileType:LogType_DeviceManagerLogPath];
-
-            }
-            
-
-            
-        }
-
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
         dispatch_async(dispatch_get_main_queue(), ^{

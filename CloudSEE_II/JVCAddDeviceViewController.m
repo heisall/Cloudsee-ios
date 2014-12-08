@@ -176,11 +176,14 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
     
         int  channelCount = [self getSingleDeviceChannelNums:ystNum.uppercaseString];
         
+        
+        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==stateAddDevietoServer===============%d===\n",__FUNCTION__,channelCount]fileType:LogType_DeviceManagerLogPath];
+
+        
         id resultDic =[[JVCDeviceHelper sharedDeviceLibrary] newInterfaceAddDeviceWithUserName:textFieldUserName.text passWord:textFieldPassWord.text ystNum:textFieldYST.text.uppercaseString channelCount:channelCount];//addDeviceToAccount:textFieldYST.text.uppercaseString userName:textFieldUserName.text password:textFieldPassWord.text];
 
         DDLogVerbose(@"%s===%@",__FUNCTION__,resultDic);
         
-        [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==user=%@  save device =%@=\n",__FUNCTION__,kkUserName,textFieldYST.text]fileType:LogType_DeviceManagerLogPath];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -198,12 +201,17 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
                 [[JVCDeviceSourceHelper shareDeviceSourceHelper] newInterFaceAddDevice:deviceInfo ystNum:textFieldYST.text];
                 [[JVCChannelScourseHelper shareChannelScourseHelper] newInterFaceAddChannelWithChannelArray:channelList deviceYstNumber:textFieldYST.text];
                 
+                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==stateAddDevietoServer==========first add success===002==%d===\n",__FUNCTION__,channelCount]fileType:LogType_DeviceManagerLogPath];
+
+                
                 [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"adddevice_net_success")];
                 
                 [self addDevieSuccessCallBack];
 
             }else{//失败的时候，先去获取一下设备的详细信息，可能底层库给我超时了，但是设备通道重试，添加上了
                 
+                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s==stateAddDevietoServer==========first add faild==003===%d===\n",__FUNCTION__,channelCount]fileType:LogType_DeviceManagerLogPath];
+
                 [self getNewAddDeviceInfo];
                 
                // [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_addDevice_add_error")];
@@ -344,30 +352,43 @@ static const CGFloat     ktitleWithLeft              = 8.0f;   //控件之间的
 {
     
         JVCLANScanWithSetHelpYSTNOHelper *jvcLANScanWithSetHelpYSTNOHelperObj=[JVCLANScanWithSetHelpYSTNOHelper sharedJVCLANScanWithSetHelpYSTNOHelper];
-        
+    
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s======%@  queryLanDeviceChannelCount_start=0001===%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
+
         int channelCount  = [jvcLANScanWithSetHelpYSTNOHelperObj queryLanDeviceChannelCount:ystNumber];
-        
+    
+    
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s======%@  queryLanDeviceChannelCount_end===0002=%@==%d==\n",__FUNCTION__,kkUserName,ystNumber,channelCount]fileType:LogType_DeviceManagerLogPath];
+
         DDLogVerbose(@"%s-------------##########009deviceLanCount =%d",__FUNCTION__, channelCount);
         
         if ( [JVCConfigModel shareInstance]._netLinkType != NETLINTYEPE_NONET) {
             
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s===%@  get Device Channel StartystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
             
             if (channelCount <= 0) {
+                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s===%@  get Device Channel StartystNum_staarm==003==%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
+
                 
                 channelCount = [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] WanGetWithChannelCount:ystNumber nTimeOut:kAddDeviceWithWlanTimeOut];
+                
+                [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@==local  get Device Channel end====ystNum=%@====004=%d=\n",__FUNCTION__,kkUserName,ystNumber,channelCount]fileType:LogType_DeviceManagerLogPath];
+
             }
             
             
-            [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"=%s=%@==local  get Device Channel end====ystNum=%@=\n",__FUNCTION__,kkUserName,ystNumber]fileType:LogType_DeviceManagerLogPath];
             
         }
         DDLogVerbose(@"ystServicDeviceChannel=%d",channelCount);
-        
+    
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"==%s====%d====005===",__FUNCTION__,channelCount]fileType:LogType_DeviceManagerLogPath];
+
+    
         channelCount = channelCount <= 0 ? DEFAULTCHANNELCOUNT : channelCount;
         
         nAddDeviceChanelCount = channelCount;
-        
+    
+    [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"==%s====%d====006===",__FUNCTION__,channelCount]fileType:LogType_DeviceManagerLogPath];
+
     
     return channelCount;
 
