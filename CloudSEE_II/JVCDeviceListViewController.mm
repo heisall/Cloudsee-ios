@@ -37,7 +37,7 @@
 #import "JVCWheelShowOperationController.h"
 #import "JVCWheelShowOperationControllerIphone5.h"
 #import "JVCOpenAdevitiseViewController.h"
-
+#import "JVCAdverImageModel.h"
 
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
@@ -101,6 +101,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -380,6 +381,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
             
             JVCLocalQRAddDeviceViewController *qrAddDeviceVC = [[JVCLocalQRAddDeviceViewController alloc] init];
+            qrAddDeviceVC.addDeviceDelegate = self;
             [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
             [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
             [qrAddDeviceVC release];
@@ -387,6 +389,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         }else{
             
             JVCQRAddDeviceViewController *qrAddDeviceVC = [[JVCQRAddDeviceViewController alloc] init];
+            qrAddDeviceVC.addDeviceDelegate = self;
             [self.navigationController pushViewController:qrAddDeviceVC animated:YES];
             [qrAddDeviceVC performSelector:@selector(YstTextFieldTextL:) withObject:result afterDelay:KTimeAfterDelayTimer];
             [qrAddDeviceVC release];
@@ -1013,6 +1016,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 {
     NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
     
+    stringVersion = @"1";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:stringVersion.integerValue];
@@ -1032,6 +1036,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
                 if (dicTic !=nil) {
                     [[NSUserDefaults standardUserDefaults] setObject:dicTic forKey:kAdverInfo];
                     
+                    [[JVCSystemUtility shareSystemUtilityInstance] removeAdvertiseDoc:(NSString *)kAdverDocument];
                 }
                 //刷新cell
                 if ([[JVCDeviceSourceHelper shareDeviceSourceHelper] deviceListArray].count > 0) {

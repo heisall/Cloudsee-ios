@@ -674,4 +674,12 @@ static JVCSystemUtility *shareInstance = nil;
     return strDate;
 }
 
+//删除目录
+- (void)removeAdvertiseDoc:(NSString *)fileName
+{
+    NSString *imageDir = [NSString stringWithFormat:@"%@/%@", [self getAppDocumentsPath], fileName];
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:imageDir error:nil];
+}
 @end

@@ -31,7 +31,7 @@ static const int RESISTERRESULT_SUCCESS  = 0;//返回值成功
 
 static  NSString const *APPNAME  = @"CloudSEE";//app标识
 
-static const int RESIGNFONT  = 14;//font 的大小
+static const int RESIGNFONT  = 10;//font 的大小
 
 static const int PREDICATESECCESS  = 0 ;//正则校验成功
 
