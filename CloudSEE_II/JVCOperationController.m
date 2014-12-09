@@ -673,6 +673,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 - (void)connectVideoFailCallBack:(BOOL)isPassword{
     
       [self closeAudioAndTalkAndVideoFuction];
+    
+    [_managerVideo setSingleViewVerticalViewState:YES];
         
       if (self.isPlayBackVideo) {
             
@@ -1204,6 +1206,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 #pragma mark ---------------- 当连接设备时身份验证失败弹出的修改提示
 - (void)gotoModifyUserAndPassWordViewcontroller
 {
+    
+    [[JVCAlertHelper shareAlertHelper] alertHidenToastOnWindow];
+    
     JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
 
     if ([ JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {
@@ -2868,7 +2873,10 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     if(!horizonView)
     {
-        horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType :0 streamCountType:[_managerVideo getCurrentIsOldHomeIPC]] ;
+//        straemView= [[JVCPopStreamView alloc] initStreamView:btn andSelectindex:nCurrentStreamType streamCountType:[_managerVideo getCurrentIsLocalExist] == YES ? YES:[_managerVideo getCurrentIsOldHomeIPC]];
+
+        
+        horizonView = [[JVCHorizontalStreamView alloc] showHorizonStreamView:btn andSelectindex:nCurrentStreamType>0?nCurrentStreamType :0 streamCountType:[_managerVideo getCurrentIsLocalExist] == YES ? YES:[_managerVideo getCurrentIsOldHomeIPC]] ;
         horizonView.horStreamDelegate = self;
     }else{
         [self removeStreamView];
