@@ -104,7 +104,7 @@
  *  @param nLocalChannel 本地显示窗口的编号
  *  @param nDeviceType   设备的类型
  */
--(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType {
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType withIsNvrDevice:(BOOL)isNvrDevice{
     
 }
 

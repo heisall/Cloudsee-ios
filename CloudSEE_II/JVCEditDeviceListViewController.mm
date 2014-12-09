@@ -965,7 +965,7 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
 *
 *  @param nLocalChannel 本地显示的通道编号 需减去1
 */
--(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType{
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType withIsNvrDevice:(BOOL)isNvrDevice{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         

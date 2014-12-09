@@ -45,6 +45,15 @@
  */
 -(void)getBufferOInInfo:(char *)buffer_O startCode:(int *)startCode videoWidth:(int *)videoWidth videoHeight:(int *)videoHeight;
 
+/**
+ *  获取当前连接设备是否是NVR设备
+ *
+ *  @param buffer_O O帧数据
+ *
+ *  @return YES：NVR NO:不是
+ */
+-(BOOL)checkDeviceIsNvrDevice:(char *)buffer_O;
+
 
 /**
  *  判断连接的设备类型

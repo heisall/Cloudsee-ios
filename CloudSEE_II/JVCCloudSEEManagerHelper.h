@@ -79,6 +79,7 @@
     JVCAudioQueueHelper                     * jvcAudioQueueHelper; //音频的缓存队列
     JVCVoiceIntercomHelper                  * jvcVoiceIntercomHelper; //语音对讲处理模块
     JVCRecordVideoHelper                    * jvcRecodVideoHelper;    //本地录像处理模块
+    BOOL                  isNvrDevice;          //是否是NVR设备
 }
 
 @property (nonatomic,assign) int                      nLocalChannel;
@@ -111,6 +112,7 @@
 @property (nonatomic,retain) JVCAudioQueueHelper                       * jvcAudioQueueHelper;    //音频的缓存队列
 @property (nonatomic,retain) JVCVoiceIntercomHelper                    * jvcVoiceIntercomHelper; //语音对讲处理模块
 @property (nonatomic,retain) JVCRecordVideoHelper                      * jvcRecodVideoHelper;    //本地录像处理模块
+@property (nonatomic,assign) BOOL                     isNvrDevice;
 
 /**
  *  连接的工作线程
