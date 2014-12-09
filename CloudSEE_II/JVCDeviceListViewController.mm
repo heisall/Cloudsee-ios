@@ -1016,7 +1016,6 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 {
     NSString *stringVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAPPAderseVersion];
     
-    stringVersion = @"1";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSDictionary *dicTic = [[JVCDeviceHelper sharedDeviceLibrary] getAdverInfoList:stringVersion.integerValue];
