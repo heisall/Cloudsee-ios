@@ -656,7 +656,7 @@ static const   int     KCheckLocationResultValue = 1;
     NSString *path=[paths objectAtIndex:0];
     
     JVC_InitSDK(9200, (char *)[path UTF8String]);
-    JVC_EnableLog(TRUE);
+    JVC_EnableLog(FALSE);
     JVD04_InitSDK();
     JVD05_InitSDK();
     InitDecode(); //板卡语音解码
