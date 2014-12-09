@@ -140,8 +140,8 @@
             
         });
         
-        
         [openAlObj stopSound];
+        [openAlObj cleanUpOpenALMath];
         
 //        [operationBigView setAudioBtnUNSelect];
         [_managerVideo setSingleViewVoiceBtnSelect:NO];
@@ -158,7 +158,6 @@
 
         });
         
-//        [operationBigView setAudioBtnSelectWithSkin];
         [_managerVideo setSingleViewVoiceBtnSelect:YES];
 
         [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForSelectState:HORIZONTALBAR_AUDIO ];
