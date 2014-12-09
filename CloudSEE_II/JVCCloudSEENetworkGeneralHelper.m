@@ -126,6 +126,30 @@ static const    int     kValueAndKeyLength                              = 1024*2
 }
 
 /**
+ *  获取当前连接设备是否是NVR设备
+ *
+ *  @param buffer_O O帧数据
+ *
+ *  @return YES：NVR NO:不是
+ */
+-(BOOL)checkDeviceIsNvrDevice:(char *)buffer_O {
+    
+    BOOL result = FALSE;
+    
+    int startCodeValue = 0;
+    
+    memcpy(&startCodeValue, buffer_O+2, 4);
+    
+    //判断当前的设备是否为NVR
+    if (startCodeValue==JVN_NVR_STARTCODE) {
+        
+        result = TRUE;
+    }
+    
+    return result;
+}
+
+/**
  *  判断连接的设备类型
  *
  *  @param startCode 设备编号

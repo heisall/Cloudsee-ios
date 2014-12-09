@@ -50,9 +50,9 @@
     }
 }
 
--(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType {
+-(void)RequestTextChatCallback:(int)nLocalChannel withDeviceType:(int)nDeviceType withIsNvrDevice:(BOOL)isNvrDevice {
 
-    if (nDeviceType!=DEVICEMODEL_IPC) {
+    if (nDeviceType!=DEVICEMODEL_IPC || isNvrDevice) {
         
         DDLogVerbose(@"不是IPC,不支持此操作！");
         [self error:ErrorTypeNotSupport];

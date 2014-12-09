@@ -581,6 +581,7 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             currentChannelObj.nConnectDeviceType = [ystNetworkHelperCMObj checkConnectDeviceModel:startCode];
             
             currentChannelObj.nConnectStartCode  =  startCode;
+            currentChannelObj.isNvrDevice        = [ystNetworkHelperCMObj checkDeviceIsNvrDevice:pBuffer];
             
             
             if (width != JVCVideoDecoderHelperObj.nVideoWidth || height != JVCVideoDecoderHelperObj.nVideoHeight) {
@@ -610,9 +611,9 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
             
             [currentChannelObj startPopVideoDataThread];
             
-            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:withDeviceType:)]) {
+            if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatCallback:withDeviceType:withIsNvrDevice:)]) {
                 
-                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1 withDeviceType:currentChannelObj.nConnectDeviceType];
+                [jvcCloudSEENetworkHelper.ystNWHDelegate RequestTextChatCallback:currentChannelObj.nShowWindowID+1 withDeviceType:currentChannelObj.nConnectDeviceType withIsNvrDevice:currentChannelObj.isNvrDevice];
             }
             
             if (jvcCloudSEENetworkHelper.ystNWHDelegate != nil && [jvcCloudSEENetworkHelper.ystNWHDelegate respondsToSelector:@selector(RequestTextChatIs05DeviceCallback:withDeviceModel:)]) {

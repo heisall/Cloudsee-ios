@@ -33,6 +33,7 @@
 @synthesize isOnlyIState,isVideoPause;
 @synthesize nConnectType;
 @synthesize jvcRecodVideoHelper,isConnectShowVideo;
+@synthesize isNvrDevice;
 
 char          pcmBuffer[1024] ={0};
 
