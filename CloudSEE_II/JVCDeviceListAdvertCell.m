@@ -59,6 +59,7 @@ static const kScrollewViewTag       = 11212;
     return self;
 }
 
+
 /**
  *  设置默认广告位个数
  *
