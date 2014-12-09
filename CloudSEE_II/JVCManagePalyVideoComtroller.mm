@@ -541,6 +541,11 @@ BOOL isAllLinkRun;
     
 	int index=fabs(scrollView.contentOffset.x)/scrollView.frame.size.width;
     
+    if (self.nSelectedChannelIndex != index) {
+        
+        [_operationController reductionDefaultAudioAndTalkAndVideoBtnImage];
+    }
+    
     int channsCount = [self channelCountAtSelectedYstNumber];
     
     self._iCurrentPage=index;
