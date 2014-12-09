@@ -232,4 +232,7 @@
  *  @return 小时日期格式
  */
 -(NSString *)DateHoursConvertStrHours:(NSDate *)dateTime;
+
+//删除目录
+- (void)removeAdvertiseDoc:(NSString *)fileName;
 @end

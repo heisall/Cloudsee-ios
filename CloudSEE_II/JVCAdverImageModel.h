@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString *kAdverDocument   = @"AdverDoucment";//保存广告位的目录
+static const NSString *kAdverDocument   = @"AdverDoucment";//保存广告位的目录
 
 /**
  *  下载图片成功后告诉试图刷新
