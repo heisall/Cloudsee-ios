@@ -666,7 +666,7 @@
 "JVCOperationDeviceConnectManagerSafeTimerUnLegal"="End time should be later than start time";
 
 //修改密码的
-"jvc_mor_oldNil"= "input old Please password.";
+"jvc_mor_oldNil"= "Please input old password.";
 "jvc_mor_olderror"= "Old password wrong.";
 "jvc_mor_newNil"= "Please input new password.";
 "jvc_mor_newerror"= "Password wrong.";
