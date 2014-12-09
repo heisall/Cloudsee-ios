@@ -1089,8 +1089,6 @@ BOOL isAllLinkRun;
     
     JVCMonitorConnectionSingleImageView *singleView = [self singleViewAtIndex:nLocalChannel-1];
     
-    DDLogVerbose(@"%s--------nOldStreamType====%d",__FUNCTION__,nOldStreamType);
-    
     singleView.nStreamType                          = nStreamType;
     singleView.nOldStreamType                       = nOldStreamType;
     singleView.isHomeIPC                            = isHomeIPC;
