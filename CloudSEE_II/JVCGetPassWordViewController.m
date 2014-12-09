@@ -18,8 +18,8 @@
 @end
 
 @implementation JVCGetPassWordViewController
-static  NSString const *FINDPASSWORD = @"http://webapp.afdvr.com/findpwd/index.html";
-static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com/findpwd/index.html";
+static  NSString const *FINDPASSWORD = @"http://webapp.afdvr.com:9003/findpwd/index.html";
+static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com:9003/findpwd/index.html";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
