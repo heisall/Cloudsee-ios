@@ -135,6 +135,7 @@
 "LOGINRESULT_PASSWORLD_ERROR" = "Password format is incorrect, Password consists of 6-20 letters, numbers or special characters  composed";
 "LOGINRESULT_ENSURE_PASSWORD_NIL"= "Please input Password confirmation";
 "LOGINRESULT_ENSURE_PASSWORD_ERROR"= "Password is inconsistent.";
+"PasswordNoEqual" = "Password is inconsistent.";
 "LOGINRESULT_EMAIL_ERROR" = "The format of email is wrong.";
 "LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "Password wrong.";
 "login_pw_equal"= "New password can't be the same with the old one.";

@@ -132,6 +132,7 @@
 "LOGINRESULT_PASSWORLD_ERROR" = "密码格式不正确,密码由6-20位任意字符组成";
 "LOGINRESULT_ENSURE_PASSWORD_NIL"= "请输入确认密码";
 "LOGINRESULT_ENSURE_PASSWORD_ERROR"= "两次输入的密码不一致";
+"PasswordNoEqual" = "输入的密码不一致";
 "LOGINRESULT_EMAIL_ERROR" = "邮箱格式不正确";
 "LOGINRESULT_NOT_EQUAL_USER_PASSWORD"= "输入的密码与旧密码不一致";
 "login_pw_equal"= "亲，新密码与旧密码不能相同";
