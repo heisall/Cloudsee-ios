@@ -124,7 +124,7 @@ FILE *downloadHandle = NULL;
 
 JVCCloudSEEManagerHelper *jvChannel[kJVCCloudSEENetworkHelperWithConnectMaxNumber];
 
-static const int                 kDisconnectTimeDelay = 500;  //单位毫秒
+static const int                 kDisconnectTimeDelay     = 500;  //单位毫秒
 static JVCCloudSEENetworkHelper *jvcCloudSEENetworkHelper = nil;
 
 /**

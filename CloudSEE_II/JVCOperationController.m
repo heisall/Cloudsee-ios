@@ -1697,13 +1697,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         
         [ystNetWorkObj RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_VoiceIntercom remoteOperationCommand:JVN_CMD_CHATSTOP];
         
-        /**
-         *  使选中的button变成默认
-         */
-        [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
-        [_operationItemSmallBg  changeTalkLabelTitle:LOCALANGER(@"megaphone")];
-        
-        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
     }
 }
 
@@ -1981,9 +1974,9 @@ char remoteSendSearchFileBuffer[29] = {0};
         return;
     }
     
-        JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
-        ystNetworkObj.ystNWADelegate    =  self;
-        [self audioButtonClick];
+    JVCCloudSEENetworkHelper *ystNetworkObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+    ystNetworkObj.ystNWADelegate    =  self;
+    [self audioButtonClick];
 }
 
 
@@ -2415,7 +2408,9 @@ char remoteSendSearchFileBuffer[29] = {0};
 {
     
     if (screanNum == SCREAN_ONE) {//点击的背景，关闭
+        
         [self gotoShowSpltWindow];
+        
     }else{
         
         [self changeSplitView:pow((screanNum+2),2)];
@@ -2649,8 +2644,13 @@ char remoteSendSearchFileBuffer[29] = {0};
     if (talkBtn.selected) {
         
         
+        /**
+         *  使选中的button变成默认
+         */
         [_operationItemSmallBg setbuttonUnSelectWithIndex:BUTTON_TYPE_TALK];
-        [_operationItemSmallBg changeTalkLabelTitle:LOCALANGER(@"megaphone")];
+        [_operationItemSmallBg  changeTalkLabelTitle:LOCALANGER(@"megaphone")];
+        
+        [[JVCHorizontalScreenBar shareHorizontalBarInstance] setBtnForNormalState:HORIZONTALBAR_TACK ];
         
          JVCCloudSEENetworkHelper        *ystNetWorkObj   = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
         
