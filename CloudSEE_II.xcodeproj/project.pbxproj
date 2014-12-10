@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6378F63F1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */; };
 		A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */; };
 		A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */; };
 		A70503211A076AC200A52E4C /* JVCUserResignTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70503201A076AC200A52E4C /* JVCUserResignTextViewController.m */; };
@@ -685,6 +686,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6378F63D1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperaitonDeviceListTableViewViewController.h; sourceTree = "<group>"; };
+		6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperaitonDeviceListTableViewViewController.m; sourceTree = "<group>"; };
 		A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_hor@2x.png"; sourceTree = "<group>"; };
 		A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_nor@2x.png"; sourceTree = "<group>"; };
 		A705031F1A076AC200A52E4C /* JVCUserResignTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserResignTextViewController.h; sourceTree = "<group>"; };
@@ -1608,6 +1611,8 @@
 				A72928CD1A28929500F4A214 /* JVCOperationDeviceAlarmTimerViewController.m */,
 				A7AFE0351A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.h */,
 				A7AFE0361A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m */,
+				6378F63D1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.h */,
+				6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */,
 			);
 			name = JVCDeviceOperation;
 			sourceTree = "<group>";
@@ -3823,6 +3828,7 @@
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				ADA7AFCA1A1C3D5D00587B53 /* JVCLogListViewController.m in Sources */,
+				6378F63F1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m in Sources */,
 				A7263C3D19E783D3003C22DE /* JVCKeepOnlineHelp.m in Sources */,
 				A7B5D1E01A26D5CB007F3B16 /* JVCCatchCrash.m in Sources */,
 				A7F627E41A122B7F008F46A7 /* JVCSuggestAndFeedViewController.m in Sources */,
