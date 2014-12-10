@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6378F63F1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */; };
+		63BC43AA1A387F56003C35AC /* FlashMode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A71A387F56003C35AC /* FlashMode@2x.png */; };
+		63BC43AB1A387F56003C35AC /* PNMode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A81A387F56003C35AC /* PNMode@2x.png */; };
+		63BC43AC1A387F56003C35AC /* timezone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A91A387F56003C35AC /* timezone@2x.png */; };
 		A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */; };
 		A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */; };
 		A70503211A076AC200A52E4C /* JVCUserResignTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70503201A076AC200A52E4C /* JVCUserResignTextViewController.m */; };
@@ -688,6 +691,9 @@
 /* Begin PBXFileReference section */
 		6378F63D1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOperaitonDeviceListTableViewViewController.h; sourceTree = "<group>"; };
 		6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOperaitonDeviceListTableViewViewController.m; sourceTree = "<group>"; };
+		63BC43A71A387F56003C35AC /* FlashMode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FlashMode@2x.png"; sourceTree = "<group>"; };
+		63BC43A81A387F56003C35AC /* PNMode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PNMode@2x.png"; sourceTree = "<group>"; };
+		63BC43A91A387F56003C35AC /* timezone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timezone@2x.png"; sourceTree = "<group>"; };
 		A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_hor@2x.png"; sourceTree = "<group>"; };
 		A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_nor@2x.png"; sourceTree = "<group>"; };
 		A705031F1A076AC200A52E4C /* JVCUserResignTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserResignTextViewController.h; sourceTree = "<group>"; };
@@ -1583,6 +1589,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63BC43A61A387F4B003C35AC /* HITVIS */ = {
+			isa = PBXGroup;
+			children = (
+				63BC43A71A387F56003C35AC /* FlashMode@2x.png */,
+				63BC43A81A387F56003C35AC /* PNMode@2x.png */,
+				63BC43A91A387F56003C35AC /* timezone@2x.png */,
+			);
+			name = HITVIS;
+			sourceTree = "<group>";
+		};
 		A709696119F22D8300C191F8 /* uinavicationbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3112,6 +3128,7 @@
 		ADA77C2819D0282F003EE7A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				63BC43A61A387F4B003C35AC /* HITVIS */,
 				A7B6EE141A14A8EF0024F836 /* ytoperation */,
 				ADA9E43E1A11E80E007EB209 /* networkSetting */,
 				A7B9FB901A08FABE005F7928 /* operationhelp */,
@@ -3366,6 +3383,7 @@
 				AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */,
 				A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */,
 				A7F8DE2F19EE1C19006CE984 /* rem_ser@2x.png in Resources */,
+				63BC43AA1A387F56003C35AC /* FlashMode@2x.png in Resources */,
 				A78F220C1A0A22D400BC0717 /* Default.png in Resources */,
 				A7F4059019E50DD20070945F /* customMiddleView_cloudsee.bundle in Resources */,
 				A7FB594B19E91796005E2E6D /* NoDevice@2x.png in Resources */,
@@ -3384,6 +3402,7 @@
 				A7B6EE251A14A9030024F836 /* yt_zoomd@2x.png in Resources */,
 				ADD6267419FBCDFB00BD877F /* voi_info.mp3 in Resources */,
 				AD3BDCBD19ED0AD5001B16D7 /* voi_sendBtn@2x.png in Resources */,
+				63BC43AC1A387F56003C35AC /* timezone@2x.png in Resources */,
 				A7F2211219F395F400447853 /* mor_usr_bg@2x.png in Resources */,
 				A78F22211A0A62E900BC0717 /* dem_def@2x.png in Resources */,
 				A7EFFA4E19F4FDE300DF783D /* arm_no@2x.png in Resources */,
@@ -3678,6 +3697,7 @@
 				A7F4429E19E7649B00519A4B /* add_normal@2x.png in Resources */,
 				A7263C4119E7C5A6003C22DE /* log_Down@2x.png in Resources */,
 				A709697219F245B600C191F8 /* arm_btn_bg@2x.png in Resources */,
+				63BC43AB1A387F56003C35AC /* PNMode@2x.png in Resources */,
 				A78F220B1A0A22D400BC0717 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

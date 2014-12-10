@@ -36,6 +36,7 @@
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
 #import "JVCOperaOldDeviceConnectAlarmViewController.h"
+#import "JVCOperaitonDeviceListTableViewViewController.h"
 
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
@@ -1951,12 +1952,17 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         if (model.isDeviceType ) {
             
-            JVCOperaOldDeviceConnectAlarmViewController *deviceAlarmVC = [[JVCOperaOldDeviceConnectAlarmViewController alloc] init];
-            deviceAlarmVC.deviceModel = model;
+//            JVCOperaOldDeviceConnectAlarmViewController *deviceAlarmVC = [[JVCOperaOldDeviceConnectAlarmViewController alloc] init];
+//            deviceAlarmVC.deviceModel = model;
+//            [self.navigationController pushViewController:deviceAlarmVC animated:YES];
+//            [deviceAlarmVC release];
+            
+            JVCOperaitonDeviceListTableViewViewController *deviceAlarmVC = [[JVCOperaitonDeviceListTableViewViewController alloc] init];
+            deviceAlarmVC.modelDevice                                    = model;
             [self.navigationController pushViewController:deviceAlarmVC animated:YES];
             [deviceAlarmVC release];
             
-        }else{
+         }else{
             
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
         }

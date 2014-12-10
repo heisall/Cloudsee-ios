@@ -7,10 +7,14 @@
 //
 
 #import "JVCBaseGeneralTableViewController.h"
+#import "JVCDeviceModel.h"
 
 @interface JVCOperaitonDeviceListTableViewViewController : JVCBaseGeneralTableViewController
 {
     NSMutableDictionary *dicDeviceContent;
+    
+    JVCDeviceModel      *modelDevice;
 }
 @property(nonatomic,assign) NSMutableDictionary *dicDeviceContent;
+@property(nonatomic,retain) JVCDeviceModel      *modelDevice;
 @end

@@ -70,6 +70,8 @@ static const int KFootViewAdd       = 30;//多添加的位置
     
     [self initLayoutWithStatus];
     
+    NSLog(@"%@=====%s",self.deviceDic,__FUNCTION__);
+    
 }
 
 /**
@@ -93,7 +95,7 @@ static const int KFootViewAdd       = 30;//多添加的位置
     
     NSString *strDeviceAlarmTime = [self.deviceDic objectForKey:[arrayContentList objectAtIndex:2]];
     
-    if (strDeviceAlarmTime) {
+    if (strDeviceAlarmTime && ![strDeviceAlarmTime isEqualToString:@"-"]) {
         
         NSArray          *times         = [strDeviceAlarmTime componentsSeparatedByString:@"-"];
         

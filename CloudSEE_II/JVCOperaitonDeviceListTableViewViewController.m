@@ -9,6 +9,7 @@
 #import "JVCOperaitonDeviceListTableViewViewController.h"
 #import "JVCCloudSEENetworkMacro.h"
 #import "UIImage+BundlePath.h"
+
 @interface JVCOperaitonDeviceListTableViewViewController ()
 {
     NSMutableArray *arrayDicKey;
@@ -18,7 +19,7 @@
 
 @implementation JVCOperaitonDeviceListTableViewViewController
 @synthesize dicDeviceContent;
-
+@synthesize modelDevice;
 static NSString const *kDeviceAlarmSafe                           =  @"deviceSafe";           //安全防护
 
 - (void)viewDidLoad {
@@ -30,16 +31,16 @@ static NSString const *kDeviceAlarmSafe                           =  @"deviceSaf
 
 - (void)dealloc
 {
-    [dicDeviceContent release];
-    [arrayDicKey release];
-    [super dealloc];
+    [modelDevice        release];
+    [dicDeviceContent   release];
+    [arrayDicKey        release];
+    [super              dealloc];
 }
 
 //初始化key值
 - (void)initArrayKey
 {
     arrayDicKey = [[NSMutableArray alloc] initWithCapacity:10];
-    [arrayDicKey addObject:(NSString *)kDeviceAlarmSafe];
     [arrayDicKey addObject:(NSString *)kDevicePNMode];
     [arrayDicKey addObject:(NSString *)kDeviceFlashMode];
     [arrayDicKey addObject:(NSString *)kDeviceTimezone];
@@ -53,6 +54,9 @@ static NSString const *kDeviceAlarmSafe                           =  @"deviceSaf
         }
     }
     [arrayDicKey removeObjectsInArray:arrayContent];
+    //插入报警设置
+    [arrayDicKey insertObject:(NSString *)kDeviceAlarmSafe atIndex:0];
+
     [arrayContent release];
     
     
@@ -79,15 +83,24 @@ static NSString const *kDeviceAlarmSafe                           =  @"deviceSaf
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    UIImage *iconImage      = [[UIImage alloc] initWithContentsOfFile:[UIImage imageBundlePath:[arrayDicKey objectAtIndex:indexPath.section]]];
-    cell.imageView.image    = iconImage;
-    [iconImage              release];
+    cell.imageView.image = nil;
     
-     
+    NSString *stringPath    = [UIImage imageBundlePath:[arrayDicKey objectAtIndex:indexPath.section] ];
+    if (stringPath !=nil) {
+        UIImage *iconImage      = [[UIImage alloc] initWithContentsOfFile:stringPath];
+        cell.imageView.image    = iconImage;
+        [iconImage              release];
+    }
+    
+    cell.textLabel.text = [arrayDicKey objectAtIndex:indexPath.section];
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"===");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
