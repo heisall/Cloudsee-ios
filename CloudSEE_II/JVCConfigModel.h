@@ -91,6 +91,8 @@ typedef NS_ENUM(int , DeviceBrowseModel)
     BOOL isLanSearchDevices;
     
     int  iDeviceBrowseModel;//设备浏览模式
+    
+    BOOL bLocation;//yes 中国   no 国外
 }
 @property(nonatomic,assign) int _bISLocalLoginIn;
 
@@ -109,6 +111,8 @@ typedef NS_ENUM(int , DeviceBrowseModel)
 @property(nonatomic,assign) BOOL isLanSearchDevices;
 
 @property(nonatomic,assign) int  iDeviceBrowseModel;//设备浏览模式
+
+@property(nonatomic,assign) BOOL bLocation;
 
 /**
  *  单例

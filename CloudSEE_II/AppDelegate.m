@@ -503,6 +503,7 @@ static const   int     KCheckLocationResultValue = 1;
             int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:isLocation];
             
             configObj._bInitAccountSDKSuccess = result;
+            configObj.bLocation = isLocation;
             
             if ( result == 0) {
                 

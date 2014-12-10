@@ -18,6 +18,7 @@
 @synthesize _bNewVersion;
 @synthesize bSwitchSafe,isLanSearchDevices;
 @synthesize iDeviceBrowseModel;
+@synthesize bLocation;
 
 static JVCConfigModel *_shareInstance = nil;
 /**
