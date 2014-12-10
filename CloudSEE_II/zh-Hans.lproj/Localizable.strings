@@ -684,3 +684,6 @@
 "jvc_mor_oldEqual"= "输入的旧密码与账号的密码不一致，请重新输入";
 "jvc_mor_oldNewEqual"= "输入的旧密码与输入的新密码一致，请重新输入";
 "jvc_mor_newNotEqual"= "输入的新密码与确认密码不一致，请重新输入";
+
+//找回密码地址
+"jvc_findPassword_Flag" = "zh_cn";

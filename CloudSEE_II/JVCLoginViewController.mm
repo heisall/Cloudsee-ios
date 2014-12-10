@@ -544,7 +544,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
     }else{//正则校验失败，提示相应的错误
         
-        
+        [self reInitAccountSDK];
+       
         [[JVCResultTipsHelper shareResultTipsHelper] showLoginPredacateAlertWithResult:result];
     }
 }
@@ -586,6 +587,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
                 
             }else{
             
+                [self reInitAccountSDK];
+                
                 [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultOldType];
             }
         });
@@ -685,6 +688,8 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
             
             }else{
             
+                [self reInitAccountSDK];
+                
                 [[JVCResultTipsHelper shareResultTipsHelper] loginInWithJudegeUserNameStrengthResult:resultnewType];
             }
             
@@ -966,6 +971,30 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         AppDelegate *delegateApp = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [delegateApp getUserAlarmState];
     }
+}
+
+/**
+ *  初始化账号sdk
+ */
+- (void)reInitAccountSDK
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCConfigModel *configObj = [JVCConfigModel shareInstance];
+        
+        if (configObj._bInitAccountSDKSuccess != TYPEINITSDK_SUCCESS) {
+            
+            int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:configObj.isChina];
+            
+            if ( result == TYPEINITSDK_SUCCESS) {
+                
+                configObj._bInitAccountSDKSuccess = TYPEINITSDK_SUCCESS;
+            }
+        }
+       
+        
+    });
+
 }
 
 @end
