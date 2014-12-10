@@ -920,7 +920,11 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setOldStream:
         case TextChatType_setAlarm:
         case TextChatType_setMobileMonitoring:
-        case TextChatType_setOldMainStream:{
+        case TextChatType_setOldMainStream:
+        case TextChatType_setDeviceAPMode:
+        case TextChatType_setDeviceFlashMode:
+        case TextChatType_setDevicePNMode:
+        case TextChatType_setDeviceTimezone:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1464,7 +1468,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
-                                
+                                DDLogCDebug(@"%s---------paramData=%s",__FUNCTION__,stpacket.acData+n);
                                 int  nStreamType    = -1;
                                 BOOL isHomeIPC      = FALSE;
                                 int  nEffectflag    = -1;

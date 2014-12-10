@@ -124,6 +124,12 @@ enum TextChatType {
     TextChatType_setAlarm               = 1015,  //设置安全防护按钮的 （0：关 1：开）
     TextChatType_setMobileMonitoring    = 1016,  //设置移动侦测      （0：关 1：开）
     TextChatType_setOldMainStream       = 1017,  //设置老设备主码流的画质
+    
+    //惠通的设备
+    TextChatType_setDeviceTimezone      = 1018,  //设置设备的时区
+    TextChatType_setDevicePNMode        = 1019,  //设置设备的P/N制式切换
+    TextChatType_setDeviceFlashMode     = 1020,  //设置设备的闪光灯
+    TextChatType_setDeviceAPMode        = 1021,  //设置设备AP/STA（WIFI模块工作方式)
 };
 
 enum NetWorkType {
@@ -190,8 +196,42 @@ static NSString const *kDeviceAlarmTime0          =  @"alarmTime0";       //安�
 static NSString const *kDeviceAlarmStart          =  @"dayStart";         //开始时间
 static NSString const *kDeviceAlarmEnd            =  @"dayEnd";           //结束时间
 
+//惠通设备的相应键值
+static NSString const *kDevicePNMode              =  @"PNMode";           //制式切换
+static NSString const *kDeviceFlashMode           =  @"FlashMode";        //闪光灯切换
+static NSString const *kDeviceTimezone            =  @"timezone";         //设置时区
+static NSString const *kDeviceApModeOn            =  @"apModeOn";         //设置AP和STA
+
+
 static NSString const *KOldHomeIPCHeight          =  @"height";           //高
 static NSString const *KOldHomeIPCWidth           =  @"width";            //宽
 
+/**
+ 设备的画面制式
+ */
+enum JVCCloudSEENetworkDevicePNModeType {
+
+    JVCCloudSEENetworkDevicePNModeTypeP = 0, //P制式
+    JVCCloudSEENetworkDevicePNModeTypeN = 1, //N
+};
+
+/**
+ 设备的闪光灯模式
+ */
+enum JVCCloudSEENetworkDeviceFlashMode{
+    
+    JVCCloudSEENetworkDeviceFlashModeAuto  = 0,  //自动
+    JVCCloudSEENetworkDeviceFlashModeOpen  = 1,  //打开
+    JVCCloudSEENetworkDeviceFlashModeClose = 2   //关闭
+};
+
+/**
+ 设备WIFI工作方式
+ */
+enum JVCCloudSEENetworkDeviceAPMode{
+    
+    JVCCloudSEENetworkDeviceAPModeSta = 0,  //STA模式
+    JVCCloudSEENetworkDeviceAPModeAP  = 1,  //AP模式
+};
 
 #endif
