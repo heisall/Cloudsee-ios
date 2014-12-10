@@ -8,6 +8,7 @@
 
 #import "JVCGetPassWordViewController.h"
 #import "JVCSystemUtility.h"
+#import "JVCConfigModel.h"
 
 @interface JVCGetPassWordViewController ()
 {
@@ -18,8 +19,8 @@
 @end
 
 @implementation JVCGetPassWordViewController
-static  NSString const *FINDPASSWORD = @"http://webapp.afdvr.com:9003/findpwd/index.html";
-static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com:9003/findpwd/index.html";
+static  NSString const *FINDPASSWORD = @"http://webapp.afdvr.com:9003/findpwd/index.html?lgn=";
+static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com:9003/findpwd/index.html?lgn=";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,15 +46,17 @@ static  NSString const *FINDPASSWORDEN = @"http://webappen.afdvr.com:9003/findpw
     self.title = NSLocalizedString(@"JVCGetPassWordViewController_title", nil);
 
     NSURL *url=nil;
-
-        if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
     
-        url =[NSURL URLWithString:(NSString *)FINDPASSWORD];
-            
-        }else{
-            url =[NSURL URLWithString:(NSString *)FINDPASSWORDEN];
+    BOOL isChina         = [JVCConfigModel shareInstance].isChina;
 
-        }
+    if (isChina) {
+
+    url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",(NSString *)FINDPASSWORD,NSLocalizedString(@"jvc_findPassword_Flag", nil)]];
+        
+    }else{
+        url =[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",(NSString *)FINDPASSWORDEN,NSLocalizedString(@"jvc_findPassword_Flag", nil)]];
+    }
+    
     NSURLRequest *request =[NSURLRequest requestWithURL:url];
     webView.delegate = self;
     [webView loadRequest:request];

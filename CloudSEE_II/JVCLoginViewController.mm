@@ -668,7 +668,6 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
         int resultnewType = [[JVCAccountHelper sharedJVCAccountHelper] userLoginV2:textFieldUser.text passWord:textFieldPW.text tokenString:kkToken languageType:!resultLanguage alarmFlag:![JVCConfigModel shareInstance].bSwitchSafe];
         
-        
         [[JVCLogHelper shareJVCLogHelper] writeDataToFile:[NSString stringWithFormat:@"%s==username=%@==result=%d\n",__FUNCTION__,textFieldUser.text,resultnewType] fileType:LogType_LoginManagerLogPath];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -985,7 +984,7 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
         
         if (configObj._bInitAccountSDKSuccess != TYPEINITSDK_SUCCESS) {
             
-            int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:configObj.bLocation];
+            int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:configObj.isChina];
             
             if ( result == TYPEINITSDK_SUCCESS) {
                 

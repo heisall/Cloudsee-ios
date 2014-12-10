@@ -498,12 +498,13 @@ static const   int     KCheckLocationResultValue = 1;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            BOOL isLocation = [self checkLocalLocation];
+            BOOL isLocation                        = [self checkLocalLocation];
+            
+            [JVCConfigModel shareInstance].isChina = isLocation;
             
             int result  =   [[JVCAccountHelper sharedJVCAccountHelper] intiAccountSDKWithIsLocalCheck:NO withIslocation:isLocation];
             
             configObj._bInitAccountSDKSuccess = result;
-            configObj.bLocation = isLocation;
             
             if ( result == 0) {
                 
@@ -662,9 +663,8 @@ static const   int     KCheckLocationResultValue = 1;
     JVD05_InitSDK();
     InitDecode(); //板卡语音解码
     InitEncode(); //板卡语音编解]
-    NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
     
-    DDLogVerbose(@"%s-------helper=%d",__FUNCTION__,state.length == 0);
+    NSString *state =  [[NSUserDefaults standardUserDefaults] objectForKey:(NSString *)kDeviceState];
     JVC_EnableHelp(state.length == 0?TRUE:FALSE,3);  //手机端是3
 
 }

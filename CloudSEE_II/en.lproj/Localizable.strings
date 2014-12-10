@@ -679,3 +679,6 @@
 "JVCOperationDeviceConnectManagerSafeMoveAttentionFoot"="If enabled, it shall alarm when motion detected.";
 "jvc_editDevice_Editbtn_safe_open" = "Safe Alarm function has been on.";
 "jvc_editDevice_Editbtn_safe_close" = "Safe Alarm function has been off.";
+
+//找回密码地址
+"jvc_findPassword_Flag" = "en_us";
