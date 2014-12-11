@@ -225,6 +225,14 @@ enum JVCCloudSEENetworkDeviceFlashMode{
     JVCCloudSEENetworkDeviceFlashModeClose = 2   //关闭
 };
 
+typedef NS_ENUM(int, JVCOEMCellType)
+{
+    JVCOEMCellType_SAFE             =   0,//设备防护
+    JVCOEMCellType_PNMode           =   1,//pn制
+    JVCOEMCellType_FlashModel       =   2,//闪光灯
+    JVCOEMCellType_TimerZone        =   3,//时区
+};
+
 /**
  设备WIFI工作方式
  */

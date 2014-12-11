@@ -14,7 +14,14 @@
     NSMutableDictionary *dicDeviceContent;
     
     JVCDeviceModel      *modelDevice;
+    
+    int                  nLocalChannel;
+    
+    BOOL                 bNewIpcState;
 }
 @property(nonatomic,assign) NSMutableDictionary *dicDeviceContent;
 @property(nonatomic,retain) JVCDeviceModel      *modelDevice;
+@property(nonatomic,assign) int                  nLocalChannel;
+@property(nonatomic,assign) BOOL                 bNewIpcState;
+- (void)updateOemTableView:(NSMutableDictionary *)dic;
 @end

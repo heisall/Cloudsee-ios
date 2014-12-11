@@ -11,6 +11,14 @@
 		63BC43AA1A387F56003C35AC /* FlashMode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A71A387F56003C35AC /* FlashMode@2x.png */; };
 		63BC43AB1A387F56003C35AC /* PNMode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A81A387F56003C35AC /* PNMode@2x.png */; };
 		63BC43AC1A387F56003C35AC /* timezone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BC43A91A387F56003C35AC /* timezone@2x.png */; };
+		63BEBC551A392F2B00F2239C /* JVCOEMCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BEBC541A392F2B00F2239C /* JVCOEMCellTableViewCell.m */; };
+		63BEBC581A3949BF00F2239C /* JVCTimeZoonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BEBC571A3949BF00F2239C /* JVCTimeZoonViewController.m */; };
+		63BEBC5A1A39587800F2239C /* celltimeSeperate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC591A39587800F2239C /* celltimeSeperate@2x.png */; };
+		63BEBC5C1A3958E800F2239C /* timezone_head_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC5B1A3958E800F2239C /* timezone_head_bg@2x.png */; };
+		63BEBC5E1A39591E00F2239C /* cellDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC5D1A39591E00F2239C /* cellDetail@2x.png */; };
+		63BEBC601A39595500F2239C /* timehead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC5F1A39595500F2239C /* timehead@2x.png */; };
+		63BEBC621A39596100F2239C /* celltimeZonedefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC611A39596100F2239C /* celltimeZonedefault@2x.png */; };
+		63BEBC641A39597200F2239C /* timezone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC631A39597200F2239C /* timezone@2x.png */; };
 		A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */; };
 		A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */; };
 		A70503211A076AC200A52E4C /* JVCUserResignTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70503201A076AC200A52E4C /* JVCUserResignTextViewController.m */; };
@@ -694,6 +702,16 @@
 		63BC43A71A387F56003C35AC /* FlashMode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FlashMode@2x.png"; sourceTree = "<group>"; };
 		63BC43A81A387F56003C35AC /* PNMode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PNMode@2x.png"; sourceTree = "<group>"; };
 		63BC43A91A387F56003C35AC /* timezone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timezone@2x.png"; sourceTree = "<group>"; };
+		63BEBC531A392F2B00F2239C /* JVCOEMCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCOEMCellTableViewCell.h; sourceTree = "<group>"; };
+		63BEBC541A392F2B00F2239C /* JVCOEMCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCOEMCellTableViewCell.m; sourceTree = "<group>"; };
+		63BEBC561A3949BF00F2239C /* JVCTimeZoonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCTimeZoonViewController.h; sourceTree = "<group>"; };
+		63BEBC571A3949BF00F2239C /* JVCTimeZoonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTimeZoonViewController.m; sourceTree = "<group>"; };
+		63BEBC591A39587800F2239C /* celltimeSeperate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "celltimeSeperate@2x.png"; sourceTree = "<group>"; };
+		63BEBC5B1A3958E800F2239C /* timezone_head_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timezone_head_bg@2x.png"; sourceTree = "<group>"; };
+		63BEBC5D1A39591E00F2239C /* cellDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellDetail@2x.png"; sourceTree = "<group>"; };
+		63BEBC5F1A39595500F2239C /* timehead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timehead@2x.png"; sourceTree = "<group>"; };
+		63BEBC611A39596100F2239C /* celltimeZonedefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "celltimeZonedefault@2x.png"; sourceTree = "<group>"; };
+		63BEBC631A39597200F2239C /* timezone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timezone@2x.png"; sourceTree = "<group>"; };
 		A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_hor@2x.png"; sourceTree = "<group>"; };
 		A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_nor@2x.png"; sourceTree = "<group>"; };
 		A705031F1A076AC200A52E4C /* JVCUserResignTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCUserResignTextViewController.h; sourceTree = "<group>"; };
@@ -1592,6 +1610,12 @@
 		63BC43A61A387F4B003C35AC /* HITVIS */ = {
 			isa = PBXGroup;
 			children = (
+				63BEBC631A39597200F2239C /* timezone@2x.png */,
+				63BEBC611A39596100F2239C /* celltimeZonedefault@2x.png */,
+				63BEBC5D1A39591E00F2239C /* cellDetail@2x.png */,
+				63BEBC5F1A39595500F2239C /* timehead@2x.png */,
+				63BEBC5B1A3958E800F2239C /* timezone_head_bg@2x.png */,
+				63BEBC591A39587800F2239C /* celltimeSeperate@2x.png */,
 				63BC43A71A387F56003C35AC /* FlashMode@2x.png */,
 				63BC43A81A387F56003C35AC /* PNMode@2x.png */,
 				63BC43A91A387F56003C35AC /* timezone@2x.png */,
@@ -1629,6 +1653,10 @@
 				A7AFE0361A2AFF2D0053E64B /* JVCOperaOldDeviceConnectAlarmViewController.m */,
 				6378F63D1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.h */,
 				6378F63E1A3865F700AAA37C /* JVCOperaitonDeviceListTableViewViewController.m */,
+				63BEBC531A392F2B00F2239C /* JVCOEMCellTableViewCell.h */,
+				63BEBC541A392F2B00F2239C /* JVCOEMCellTableViewCell.m */,
+				63BEBC561A3949BF00F2239C /* JVCTimeZoonViewController.h */,
+				63BEBC571A3949BF00F2239C /* JVCTimeZoonViewController.m */,
 			);
 			name = JVCDeviceOperation;
 			sourceTree = "<group>";
@@ -3380,6 +3408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7AF4C841A1C491C006ADF87 /* med_noDate@2x.png in Resources */,
+				63BEBC601A39595500F2239C /* timehead@2x.png in Resources */,
 				AD3BDCBB19ED09F4001B16D7 /* sca_bg@2x.png in Resources */,
 				A7FB234919EFD52400A3FC01 /* alarmDefault@2x.png in Resources */,
 				A7F8DE2F19EE1C19006CE984 /* rem_ser@2x.png in Resources */,
@@ -3635,6 +3664,7 @@
 				AD348C5C19F95545006C8A15 /* voi_info_icon@2x.png in Resources */,
 				A7F51E7319EBB7250052F878 /* arm_def@2x.png in Resources */,
 				A7EFF9F319F4DD0500DF783D /* tabbar_bg@2x.png in Resources */,
+				63BEBC5A1A39587800F2239C /* celltimeSeperate@2x.png in Resources */,
 				AD014DF019F5F42100E3D0FB /* ap_wifi_icon@2x.png in Resources */,
 				A7F2210C19F383F600447853 /* no_devWlan@2x.png in Resources */,
 				A7FC002919FCD874006B31FA /* learn_2_ch.mp3 in Resources */,
@@ -3652,6 +3682,7 @@
 				A7F50A0819FA017A004D061F /* welcome_1_ch4.jpg in Resources */,
 				A7F6C5F919F89B570090B6F0 /* HorizontalScreenBarselect_1@2x.png in Resources */,
 				A7F5012019D4EFB400AA78F0 /* Icon@2x.png in Resources */,
+				63BEBC5C1A3958E800F2239C /* timezone_head_bg@2x.png in Resources */,
 				A7F50A0619FA017A004D061F /* welcome_0_en4.jpg in Resources */,
 				A7B9FB881A08EE4B005F7928 /* device_old_update_en@2x.png in Resources */,
 				A7F5D78919EA311100396AD9 /* no_devBtn@2x.png in Resources */,
@@ -3665,6 +3696,7 @@
 				A7AF4C8E1A1CA468006ADF87 /* mor_sug_Norbg@2x.png in Resources */,
 				A7F5EF1419D257D0009B797A /* Localizable.strings in Resources */,
 				A7FAF5AD19D10F3A00B3F395 /* reg_fieldBg@2x.png in Resources */,
+				63BEBC641A39597200F2239C /* timezone@2x.png in Resources */,
 				A7B4DE8A1A24905900FA1F95 /* apcofig_2@2x.png in Resources */,
 				A7B6EE241A14A9030024F836 /* yt_top@2x.png in Resources */,
 				A7263C4319E7C726003C22DE /* log_select@2x.png in Resources */,
@@ -3684,10 +3716,12 @@
 				AD3BDCB619EC0546001B16D7 /* sca_ani@2x.png in Resources */,
 				A7A8444A19E92ED1006B48C2 /* bin_Alert@2x.png in Resources */,
 				A72928CA1A287D5800F4A214 /* voc_open@2x.png in Resources */,
+				63BEBC5E1A39591E00F2239C /* cellDetail@2x.png in Resources */,
 				AD3BDCA319EBFA34001B16D7 /* voi_txt_bg@2x.png in Resources */,
 				A7F5014C19D5345F00AA78F0 /* mor_IconFun@2x.png in Resources */,
 				A7FAF5B519D11AC500B3F395 /* reg_btnBg@2x.png in Resources */,
 				A7F50A0A19FA017A004D061F /* welcome_2_ch4.jpg in Resources */,
+				63BEBC621A39596100F2239C /* celltimeZonedefault@2x.png in Resources */,
 				A78F221D1A0A5BA100BC0717 /* learn_3_en.mp3 in Resources */,
 				A7F4869F19E6256700C10B2B /* QrInfoText@2x.png in Resources */,
 				ADD6267019FA56D800BD877F /* sto_auto@2x.png in Resources */,
@@ -3812,6 +3846,7 @@
 				AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */,
 				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
+				63BEBC581A3949BF00F2239C /* JVCTimeZoonViewController.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */,
@@ -3916,6 +3951,7 @@
 				ADA47C101A133AF8003AA90A /* JVCNetworkSettingHelper.m in Sources */,
 				A7FB234119EFC9FE00A3FC01 /* JVCSignleAlarmDisplayView.m in Sources */,
 				ADA22D6419DA7B5F0092F8B9 /* JVCRemotePlayBackWithVideoDecoderHelper.m in Sources */,
+				63BEBC551A392F2B00F2239C /* JVCOEMCellTableViewCell.m in Sources */,
 				ADA22D5819DA613E0092F8B9 /* DDLog.m in Sources */,
 				A7F50A2119FA2D3F004D061F /* MJRefreshFooterView.m in Sources */,
 				A7F50A2419FA2D3F004D061F /* UIView+MJExtension.m in Sources */,

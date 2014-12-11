@@ -12,6 +12,7 @@
 #import "JVCAlarmMacro.h"
 #import "JVCAlarmModel.h"
 #import "JVCSystemUtility.h"
+#import "JVCCloudSEENetworkMacro.h"
 
 @implementation JVCAlarmHelper
 
@@ -173,6 +174,29 @@ static JVCAlarmHelper *shareAlarmHelper = nil;
     return NO;
 }
 
+/**
+ *  根据字符串获取OEM字段
+ *  oenString  字段
+ *  @return yes 成功  no 失败
+ */
+- (int)getOemDeviceListIndex:(NSString *)oenString
+{
+    if ([oenString isEqualToString:(NSString *)kDevicePNMode]) {
+        
+        return JVCOEMCellType_PNMode;
+        
+    }else if([oenString isEqualToString:(NSString *)kDeviceFlashMode]){
+        
+        return JVCOEMCellType_FlashModel;
 
+        
+    }else if([oenString isEqualToString:(NSString *)kDeviceTimezone]){
+        
+        return JVCOEMCellType_TimerZone;
+
+    }
+    
+    return JVCOEMCellType_SAFE;
+}
 
 @end
