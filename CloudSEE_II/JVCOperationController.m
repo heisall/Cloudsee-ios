@@ -36,7 +36,8 @@
 
 #import "JVCOperaDeviceConnectManagerTableViewController.h"
 #import "JVCOperaOldDeviceConnectAlarmViewController.h"
-
+#import "JVCOperaitonDeviceListTableViewViewController.h"
+#import "JVCOperaitonDeviceListTableViewViewController.h"
 static const int            STARTHEIGHTITEM         =  40;
 static const NSString      *kRecoedVideoFileName    = @"LocalValue";                       //保存录像的本地路径文件夹名称
 static const NSString      *kRecoedVideoFileFormat  = @".mp4";                             //保存录像的单个文件后缀
@@ -787,6 +788,18 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             });
             
+        }else if([con isKindOfClass:[JVCOperaitonDeviceListTableViewViewController class] ])
+        {
+            JVCOperaitonDeviceListTableViewViewController *remoteDeviceViewcontroller = (JVCOperaitonDeviceListTableViewViewController *)con;
+            
+//            [remoteDeviceViewcontroller.dicDeviceContent  = mdRemoteInfo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [remoteDeviceViewcontroller updateOemTableView:mdRemoteInfo];
+                
+            });
+
         }
     }
 
@@ -1942,27 +1955,39 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     BOOL newIPCState =  [_managerVideo getCurrentIsOldHomeIPC];
     
-    if (newIPCState) {
+    JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
+
+    
+    if (newIPCState  ) {
+        
+//        JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
+//        JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
+//        [viewController.deviceDic addEntriesFromDictionary:singleView.mdDeviceRemoteInfo];
+//        viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
+//        [self.navigationController pushViewController:viewController animated:YES];
+//        [viewController release];
         
         JVCMonitorConnectionSingleImageView *singleView=(JVCMonitorConnectionSingleImageView*)[self.view viewWithTag:KWINDOWSFLAG+self._iSelectedChannelIndex];
-        JVCOperaDeviceConnectManagerTableViewController *viewController = [[JVCOperaDeviceConnectManagerTableViewController alloc] init];
-        [viewController.deviceDic addEntriesFromDictionary:singleView.mdDeviceRemoteInfo];
-        viewController.nLocalChannel = _managerVideo.nSelectedChannelIndex+1;
-        [self.navigationController pushViewController:viewController animated:YES];
-        [viewController release];
+        
+        JVCOperaitonDeviceListTableViewViewController *deviceAlarmVC = [[JVCOperaitonDeviceListTableViewViewController alloc] init];
+        deviceAlarmVC.dicDeviceContent                              = singleView.mdDeviceRemoteInfo;
+        deviceAlarmVC.bNewIpcState                                   = newIPCState;
+        deviceAlarmVC.nLocalChannel                                  = _managerVideo.nSelectedChannelIndex+1;
+        [self.navigationController pushViewController:deviceAlarmVC animated:YES];
+        [deviceAlarmVC release];
+
 
     }else{
         
-        JVCDeviceModel *model=[[JVCDeviceSourceHelper shareDeviceSourceHelper] getDeviceModelByYstNumber:[_managerVideo ystNumberAtCurrentSelectedIndex]];
-            
+        
         if (model.isDeviceType ) {
             
             JVCOperaOldDeviceConnectAlarmViewController *deviceAlarmVC = [[JVCOperaOldDeviceConnectAlarmViewController alloc] init];
             deviceAlarmVC.deviceModel = model;
             [self.navigationController pushViewController:deviceAlarmVC animated:YES];
             [deviceAlarmVC release];
-            
-        }else{
+        
+         }else{
             
             [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_editDevice_noSupport")];
         }

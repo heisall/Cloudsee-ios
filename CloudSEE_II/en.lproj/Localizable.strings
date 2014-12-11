@@ -682,3 +682,52 @@
 
 //找回密码地址
 "jvc_findPassword_Flag" = "en_us";
+
+//汇通==============
+"wifi_P_Model"="PAL";
+"wifi_N_MODEL"="NTSC";
+"wifi_P_Model_Succ"="Switch to ";
+"wifi_P_Model_fail"="Fail to switch";
+"wifi_P_Model_timeout"="Overtime";
+"OpenAP"= "Switch to AP";
+
+"HomeTimeZone_Head_east" = "East";
+"HomeTimeZone_Head_west" = "West";
+
+"HomeTimeZone_13" = "UTC";
+"HomeTimeZone_12" = "UTC+1";
+"HomeTimeZone_11" = "UTC+2";
+"HomeTimeZone_10" = "UTC+3";
+"HomeTimeZone_9" = "UTC+4";
+"HomeTimeZone_8" = "UTC+5";
+"HomeTimeZone_7" = "UTC+6";
+"HomeTimeZone_6" = "UTC+7";
+"HomeTimeZone_5" = "UTC+8";
+"HomeTimeZone_4" = "UTC+9";
+"HomeTimeZone_3" = "UTC+10";
+"HomeTimeZone_2" = "UTC+11";
+"HomeTimeZone_1" = "UTC+12";
+
+"HomeTimeZone_24" = "UTC-11";
+"HomeTimeZone_23" = "UTC-10";
+"HomeTimeZone_22" = "UTC-9";
+"HomeTimeZone_21" = "UTC-8";
+"HomeTimeZone_20" = "UTC-7";
+"HomeTimeZone_19" = "UTC-6";
+"HomeTimeZone_18" = "UTC-5";
+"HomeTimeZone_17" = "UTC-4";
+"HomeTimeZone_16" = "UTC-3";
+"HomeTimeZone_15" = "UTC-2";
+"HomeTimeZone_14" = "UTC-1";
+"HomeTimeZone_25" = "UTC-12";
+"homeCurrenttimeZone"= "Current time zone";
+"HITVIS_Ap_Click" = "Pls wait patiently for 5s uitil device light changes from green to red and flashes once every second";
+"HITVIS_TIME_zoon" = "Time Zone";
+"JVCCloudSEENetworkDeviceFlashMode_0" = "自动";
+"JVCCloudSEENetworkDeviceFlashMode_1" = "打开";
+"JVCCloudSEENetworkDeviceFlashMode_2" = "关闭";
+
+"PNMode"        =   "制式切换";
+"FlashMode"     =   "闪光灯切换";
+"timezone"      =   "设置时区";
+"deviceSafe"    = "报警设置";
