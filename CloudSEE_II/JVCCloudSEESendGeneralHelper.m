@@ -128,7 +128,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
         }
             break;
         case TextChatType_EffectInfo:
-           [self RemoteEffectModel:nJvChannelID effectType:remoteOperationCommand];
+           [self RemoteSetDeviceWithEffectModel:nJvChannelID withEffectType:remoteOperationCommand];
             break;
         case TextChatType_StorageMode:
             
@@ -164,6 +164,12 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
             [self RemoteSetDeviceWithAPMode:nJvChannelID withAPModel:remoteOperationCommand];
         }
             break;
+            
+        case TextChatType_Capture:{
+            
+            [self RemoteDeviceWithCapture:nJvChannelID];
+        }
+            break;
         default:
             break;
     }
@@ -184,7 +190,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 	memcpy(&data[0],&remoteOperationCommand,4);
     
 	JVC_SendData(nJvChannelID, JVN_CMD_YTCTRL, (unsigned char *)data, 4);
-    
 }
 
 /**
@@ -209,9 +214,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)RemoteOperationSendDataToDevice:(int)nJvChannelID remoteOperationCommand:(int)remoteOperationCommand {
     
-    DDLogCVerbose(@"%s--nJvChannelID =%d----remoteOperationCommand=%d",__FUNCTION__,nJvChannelID,remoteOperationCommand);
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 0);
-    
 }
 
 /**
@@ -226,7 +229,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 4);
 }
 
-
 /**
  *  远程发送的命令
  *
@@ -236,9 +238,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)remoteSendDataToDevice:(int)nJvChannelID remoteOperationType:(int)remoteOperationType remoteOperationCommandData:(char *)remoteOperationCommandData {
     
-    DDLogVerbose(@"%s----dataSize=%ld",__FUNCTION__,strlen(remoteOperationCommandData));
     JVC_SendData(nJvChannelID, remoteOperationType, (unsigned char *)remoteOperationCommandData, strlen(remoteOperationCommandData));
-    
 }
 
 /**
@@ -252,7 +252,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     unsigned long frameNumber=remoteOperationCommand;
     
     JVC_SendData(nJvChannelID, JVN_CMD_PLAYSEEK, (Byte*)&frameNumber, 4);
-    
 }
 
 /**
@@ -267,10 +266,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     memset(&g_stPacket, 0, sizeof(PAC));
     g_stPacket.nPacketType	= RC_LOADDLG;
     g_stPacket.nPacketID	= RC_SNAPSLIST;
-//    *((int*)g_stPacket.acData) =1;
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
-    
 }
 
 /**
@@ -299,7 +296,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     PAC	g_stPacket;
     g_stPacket.nPacketType	   = RC_LOADDLG; //0x05
     g_stPacket.nPacketID	   = RC_GETPARAM;
-//    *((int*)g_stPacket.acData) = 1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
 }
 
@@ -359,10 +355,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     sprintf(acBuffer, "nMBPH=%d;",JVCCloudSEENetworkMacroOldHomeIPCStreamTypeMBPH);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     
-    
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
-
 
 /**
  *  老版本主控的码流切换
@@ -830,8 +824,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 }
 
 #pragma mark 设置图像反转
--(void)RemoteEffectModel:(int)nJvChannelID
-           effectType:(int)effectType
+-(void)RemoteSetDeviceWithEffectModel:(int)nJvChannelID withEffectType:(int)nEffectType
 {
     
     PAC	m_stPacket;
@@ -844,7 +837,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     int nOffset=0;
     char acBuffer[256]={0};
     
-    sprintf(acBuffer, "%s=%d;",[KEFFECTFLAG UTF8String],effectType);
+    sprintf(acBuffer, "%s=%d;",[KEFFECTFLAG UTF8String],nEffectType);
     strcat(m_pstExt->acData+nOffset, acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_pstExt->acData));
@@ -1000,6 +993,26 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
     
     [self RemoteWithDeviceGetFrameParam:nJvChannelID];
+}
+
+/**
+ *  惠通闪光灯抓拍图片
+ *
+ *  @param nJvChannelID 本地通道号
+ */
+-(void)RemoteDeviceWithCapture:(int)nJvChannelID{
+
+    PAC	m_stPacket;
+    
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_EXTEND;
+    m_stPacket.nPacketCount=RC_EX_FlashJpeg;
+    
+    EXTEND *m_pstExt=(EXTEND*)m_stPacket.acData;
+    m_pstExt->acData[0]=0;
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_pstExt->acData));
+
 }
 
 

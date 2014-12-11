@@ -18,7 +18,7 @@
 @synthesize _bNewVersion;
 @synthesize bSwitchSafe,isLanSearchDevices;
 @synthesize iDeviceBrowseModel;
-@synthesize isChina;
+@synthesize isChina,nCaptureMode;
 
 static JVCConfigModel *_shareInstance = nil;
 /**
@@ -36,6 +36,8 @@ static JVCConfigModel *_shareInstance = nil;
             
             _shareInstance._bISLocalLoginIn = 0;
             _shareInstance._netLinkType     = NETLINTYEPE_NONET;
+            //设置抓拍方式
+            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDevice;
         }
         return _shareInstance;
     }

@@ -498,6 +498,7 @@
 		A7FC002B19FCD874006B31FA /* learn_3_ch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7FC002819FCD874006B31FA /* learn_3_ch.mp3 */; };
 		A7FC003519FD1ADD006B31FA /* arm_new_cellbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FC003419FD1ADD006B31FA /* arm_new_cellbg@2x.png */; };
 		A7FC003719FD1AE1006B31FA /* arm_new@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7FC003619FD1AE0006B31FA /* arm_new@2x.png */; };
+		AD000A921A397093005EF8E4 /* JVCJson2Model.m in Sources */ = {isa = PBXBuildFile; fileRef = AD000A911A397093005EF8E4 /* JVCJson2Model.m */; };
 		AD014DD819F4C00E00E3D0FB /* apConfigHomeIPC.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AD014DD719F4C00E00E3D0FB /* apConfigHomeIPC.bundle */; };
 		AD014DDC19F4C05C00E3D0FB /* JVCAPConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD014DDB19F4C05C00E3D0FB /* JVCAPConfigViewController.mm */; };
 		AD014DDF19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD014DDE19F4E37500E3D0FB /* JVCApConfigPlayVideoViewController.m */; };
@@ -1254,6 +1255,8 @@
 		A7FC002819FCD874006B31FA /* learn_3_ch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = learn_3_ch.mp3; sourceTree = "<group>"; };
 		A7FC003419FD1ADD006B31FA /* arm_new_cellbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_new_cellbg@2x.png"; sourceTree = "<group>"; };
 		A7FC003619FD1AE0006B31FA /* arm_new@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arm_new@2x.png"; sourceTree = "<group>"; };
+		AD000A901A397093005EF8E4 /* JVCJson2Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCJson2Model.h; sourceTree = "<group>"; };
+		AD000A911A397093005EF8E4 /* JVCJson2Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCJson2Model.m; sourceTree = "<group>"; };
 		AD014DD719F4C00E00E3D0FB /* apConfigHomeIPC.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = apConfigHomeIPC.bundle; sourceTree = "<group>"; };
 		AD014DDA19F4C05C00E3D0FB /* JVCAPConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAPConfigViewController.h; sourceTree = "<group>"; };
 		AD014DDB19F4C05C00E3D0FB /* JVCAPConfigViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JVCAPConfigViewController.mm; sourceTree = "<group>"; };
@@ -3043,6 +3046,8 @@
 				AD2BDB1E19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.h */,
 				AD2BDB1F19D28FC700AA6D73 /* JVCBaseRgbBackgroundColorView.m */,
 				AD1673D219D9552E0021CD1B /* JVCBaseWithGeneralViewController.h */,
+				AD000A901A397093005EF8E4 /* JVCJson2Model.h */,
+				AD000A911A397093005EF8E4 /* JVCJson2Model.m */,
 				AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */,
 				AD1673D519D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.h */,
 				AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */,
@@ -3787,6 +3792,7 @@
 				AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */,
 				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
+				AD000A921A397093005EF8E4 /* JVCJson2Model.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */,

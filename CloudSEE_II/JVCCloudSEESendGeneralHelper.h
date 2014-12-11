@@ -95,7 +95,6 @@
  */
 -(void)RemoteDownloadFile:(int)nJvChannelID withDownloadPath:(char *)path;
 
-
 /**
  *  查询当前设备绑定的所有门磁或者手环设备集合
  *
@@ -124,15 +123,6 @@
  */
 -(void)RemoteSetAlarmDeviceStatus:(int)nJvChannelID withAlarmEnable:(int )alarmEnable withAlarmGuid:(int)alarmGuid withAlarmType:(int)alarmType withAlarmName:(NSString *)alarmName;
 
-
-/**
- *  设置图像翻转
- *
- *  @param nJvChannelID 本地连接的通道号
- *  @param effectType   图像翻转标志
- */
--(void)setEffectModel:(int)nJvChannelID
-           effectType:(int)effectType;
 
 /**
  *  安全防护时间段

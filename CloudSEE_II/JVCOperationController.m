@@ -1496,6 +1496,11 @@ char remoteSendSearchFileBuffer[29] = {0};
             
         case BUTTON_TYPE_CAPTURE:
         {
+//            [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].jvcCloudSEENetworkHelperCaptureDelegate = self;
+//            
+//            [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:TextChatType_Capture remoteOperationCommand:-1];
+            
+            
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationCaptur];
 
             [self smallCaptureTouchUpInside:btn];
@@ -1666,8 +1671,9 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
         
+        JVCConfigModel *configModel = [JVCConfigModel shareInstance];
         [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].jvcCloudSEENetworkHelperCaptureDelegate = self;
-        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:RemoteOperationType_CaptureImage remoteOperationCommand:-1];
+        [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:configModel.nCaptureMode==JVCConfigModelCaptureModeTypeDecoder? RemoteOperationType_CaptureImage:TextChatType_Capture remoteOperationCommand:-1];
     };
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];

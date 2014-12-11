@@ -130,6 +130,7 @@ enum TextChatType {
     TextChatType_setDevicePNMode        = 1019,  //设置设备的P/N制式切换
     TextChatType_setDeviceFlashMode     = 1020,  //设置设备的闪光灯
     TextChatType_setDeviceAPMode        = 1021,  //设置设备AP/STA（WIFI模块工作方式)
+    TextChatType_Capture                = 1022,  //惠通设备抓拍
 };
 
 enum NetWorkType {

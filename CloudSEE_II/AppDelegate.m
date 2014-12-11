@@ -105,6 +105,7 @@ static const   int     KCheckLocationResultValue = 1;
     //初始化位置字符串
     self.localtionString = @"";
     
+    
     [self convertOldUserInfoToDatebase];
     
     [[JVCLocalDeviceDateBaseHelp shareDataBaseHelper] converOldDeviceListInDateFame];
@@ -171,7 +172,6 @@ static const   int     KCheckLocationResultValue = 1;
         
          self.window.backgroundColor = viewDefaultColor;
     }
-    
     
     JVCDefaultViewController *defaultVC = [[JVCDefaultViewController alloc] init];
     self.window.rootViewController =  defaultVC;
