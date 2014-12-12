@@ -89,6 +89,8 @@ bool selectState_audio ;
     NSTimer                 *talkTimer;
     
     UIInterfaceOrientation  originInterface; //旋转之前的方面
+    
+    BOOL                    bCaptureImageState;//yes 正在抓拍图片   no没有抓拍
 }
 
 enum StorageType {
@@ -1166,6 +1168,8 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)stopcapAnimations{
     
+    bCaptureImageState = NO;
+    
     [self playSoundPressed];
     capImageView.frame=_managerVideo.frame;
     [capImageView setHidden:YES];
@@ -1515,8 +1519,15 @@ char remoteSendSearchFileBuffer[29] = {0};
             
             
             [[JVCTencentHelp shareTencentHelp] tencenttrackCustomKeyValueEvent:kTencentEvent_operationCaptur];
+            
+            if (!bCaptureImageState) {
+                
+                [self smallCaptureTouchUpInside:btn];
+                
+                bCaptureImageState = YES;
 
-            [self smallCaptureTouchUpInside:btn];
+            }
+
         }
             break;
             
@@ -1661,6 +1672,7 @@ char remoteSendSearchFileBuffer[29] = {0};
      */
     ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
         
+        bCaptureImageState = NO;
         
         if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1739,6 +1751,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     ALAssetsLibraryAccessFailureBlock failureblock = ^(NSError *myerror){
         
+        bCaptureImageState = NO;
+        
         [saveImageDate release];
         
         if ([myerror.localizedDescription rangeOfString:NSLocalizedString(@"userDefine", nil)].location!=NSNotFound) {
@@ -1785,7 +1799,6 @@ char remoteSendSearchFileBuffer[29] = {0};
         imgView.frame=CGRectMake((imgView.frame.size.width-_bSmallCaptureBtn.frame.size.width)/2.0, (imgView.frame.size.height-_bSmallCaptureBtn.frame.size.height)/2., STARTHEIGHTITEM, STARTHEIGHTITEM);
         [UIView commitAnimations];
         [self capAnimations];
-        
         [saveImageDate release];
         
     });
