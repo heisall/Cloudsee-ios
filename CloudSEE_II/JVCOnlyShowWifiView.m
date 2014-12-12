@@ -7,15 +7,18 @@
 //
 
 #import "JVCOnlyShowWifiView.h"
+#import "JVCConfigModel.h"
 
 @implementation JVCOnlyShowWifiView
 @synthesize onlyShowWifiViewDetailBlock;
+@synthesize onlyShowWifiViewAPOpen;
 
 static const CGFloat        kTitleTVWithHeight                 = 24.0f;
 static const CGFloat        kUserNameTextFieldWithTitleLeft    = 10.0f;
 static const CGFloat        kPasswordWithUserNameTextFieldTop  = 32.0f;
 static const CGFloat        kUserNameTextFieldWithTop          = 35.0f;
 static const CGFloat        kDetailButtonWithTop               = 40.0f;
+static const CGFloat        kButtonButtonWithTop               = 20.0f;
 
 - (id)initWithFrame:(CGRect)frame withSSIDName:(NSString *)ssid withPassword:(NSString *)password
 {
@@ -32,6 +35,7 @@ static const CGFloat        kDetailButtonWithTop               = 40.0f;
 -(void)dealloc {
 
     [onlyShowWifiViewDetailBlock release];
+    DDLogVerbose(@"%s----------------------",__FUNCTION__);
     [super dealloc];
 }
 
@@ -87,7 +91,17 @@ static const CGFloat        kDetailButtonWithTop               = 40.0f;
     [button addTarget:self action:@selector(showWifiDetail) forControlEvents:UIControlEventTouchUpInside];
     [button setBackgroundImage:tBtnBg forState:UIControlStateNormal];
     [self addSubview:button];
-
+    
+    if ([JVCConfigModel shareInstance].isEnableAPModel) {
+        
+        UIButton *APButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        APButton.frame = CGRectMake((self.frame.size.width-tBtnBg.size.width)/2.0, button.frame.size.height+button.origin.y+kButtonButtonWithTop, tBtnBg.size.width, tBtnBg.size.height);
+        [APButton setTitle:NSLocalizedString(@"jvcOnlyShowWiFiView_openAp", nil) forState:UIControlStateNormal];
+        [APButton addTarget:self action:@selector(apOpenClick) forControlEvents:UIControlEventTouchUpInside];
+        [APButton setBackgroundImage:tBtnBg forState:UIControlStateNormal];
+        [self addSubview:APButton];
+    }
+   
     [tlebel release];
 }
 
@@ -97,6 +111,14 @@ static const CGFloat        kDetailButtonWithTop               = 40.0f;
     if (self.onlyShowWifiViewDetailBlock) {
         
         self.onlyShowWifiViewDetailBlock();
+    }
+}
+
+-(void)apOpenClick{
+
+    if (self.onlyShowWifiViewAPOpen) {
+        
+        self.onlyShowWifiViewAPOpen();
     }
 }
 

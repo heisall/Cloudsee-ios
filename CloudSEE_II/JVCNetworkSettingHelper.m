@@ -37,8 +37,6 @@
     [networkSettingConnectResultBlock release];
     [networkSettingResultSSIDListBlock release];
     
-    DDLogVerbose(@"%s------------^^^^^^^^^^^",__FUNCTION__);
-    
     [super dealloc];
 }
 
@@ -172,11 +170,7 @@
         
         [self disconnect];
     });
-
-
-
 }
-
 
 /**
  *  获取设备的WIFI信息
@@ -191,6 +185,21 @@
         
         [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nConnectLocalChannel remoteOperationType:TextChatType_ApList remoteOperationCommand:-1];
         
+    });
+}
+
+/**
+ *  打开设备的AP
+ */
+-(void)openDeviceWithAp{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        JVCCloudSEENetworkHelper            *ystNetWorkHelperObj = [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper];
+        
+        [ystNetWorkHelperObj RemoteOperationSendDataToDevice:nConnectLocalChannel remoteOperationType:TextChatType_setDeviceAPMode remoteOperationCommand:-1];
+        
+        [self disconnect];
     });
 }
 

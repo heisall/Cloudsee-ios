@@ -39,4 +39,11 @@
  *  @return yes 成功  no 失败
  */
 - (BOOL)deleteAkkAlarmHistory;
+
+/**
+ *  根据字符串获取OEM字段
+ *  oenString  字段
+ *  @return yes 成功  no 失败
+ */
+- (int)getOemDeviceListIndex:(NSString *)oenString;
 @end

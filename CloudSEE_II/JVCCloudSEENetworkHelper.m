@@ -920,7 +920,12 @@ void VideoDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer, i
         case TextChatType_setOldStream:
         case TextChatType_setAlarm:
         case TextChatType_setMobileMonitoring:
-        case TextChatType_setOldMainStream:{
+        case TextChatType_setOldMainStream:
+        case TextChatType_setDeviceAPMode:
+        case TextChatType_setDeviceFlashMode:
+        case TextChatType_setDevicePNMode:
+        case TextChatType_setDeviceTimezone:
+        case TextChatType_Capture:{
             
             [ystRemoteOperationHelperObj onlySendRemoteOperation:currentChannelObj.nLocalChannel remoteOperationType:remoteOperationType remoteOperationCommand:remoteOperationCommand];
         }
@@ -1464,7 +1469,7 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                                 NSMutableDictionary *params = [ystNetworkHelperCMObj convertpBufferToMDictionary:stpacket.acData+n];
                                 
                                 [params retain];
-                                
+                                DDLogCDebug(@"%s---------paramData=%s",__FUNCTION__,stpacket.acData+n);
                                 int  nStreamType    = -1;
                                 BOOL isHomeIPC      = FALSE;
                                 int  nEffectflag    = -1;
@@ -1545,6 +1550,45 @@ void TextChatDataCallBack(int nLocalChannel,unsigned char uchType, char *pBuffer
                     
                 case RC_GETFILE:{
                     
+                    
+                    switch (stpacket.nPacketCount) {
+                            
+                        case RC_EX_NETWORK:{
+                            
+                            unsigned int type = 0;
+                            memcpy(&type, stpacket.acData, 4);
+                            
+                            if(EX_WIFI_AP_CONFIG == type)
+                            {
+                                char a = stpacket.acData[4];
+                                
+                                NSString *strSetApResult = [[NSString alloc] initWithFormat:@"%d",a];
+                                
+                                if (jvcCloudSEENetworkHelper.ystNWTDDelegate != nil && [jvcCloudSEENetworkHelper.ystNWTDDelegate respondsToSelector:@selector(ystNetWorkHelpTextChatCallBack:withTextDataType:objYstNetWorkHelpSendData:)]) {
+                                    
+                                    [jvcCloudSEENetworkHelper.ystNWTDDelegate ystNetWorkHelpTextChatCallBack:currentChannelObj.nShowWindowID+1 withTextDataType:TextChatType_ApSetResult objYstNetWorkHelpSendData:strSetApResult];
+                                }
+                            }
+                        
+                        }
+                            break;
+                        case RC_EX_FlashJpeg:{
+                        
+                            int imageLen=_extend->nParam1;
+                            
+                            if (imageLen > 0) {
+                                
+                                NSData *imagedata=[NSData dataWithBytes:_extend->acData length:imageLen];
+                                
+                                [jvcCloudSEENetworkHelper JVCCloudSEEManagerHelperCaptureImageData:imagedata];
+                            }
+                        
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
                     if (stpacket.nPacketCount == RC_EX_NETWORK) {
                         
                         unsigned int type = 0;

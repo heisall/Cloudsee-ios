@@ -405,7 +405,9 @@ typedef struct
 #define EX_REFRESH		0x08	//刷新当前网络信息
 #define EX_NW_SUBMIT	0x09
 #define EX_NW_GETRESULT	0x0a
+
 #define EX_WIFI_AP_CONFIG 0x0b
+#define RC_EX_FlashJpeg	  0x0a
 
 #define RC_GETFILE        0x06
 #define RC_EX_NETWORK    0x02

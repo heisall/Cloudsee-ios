@@ -611,6 +611,7 @@
 "WIFI_DNS"  = "域名服务器";
 "WIFI_MAC"  = "网卡地址";
 "jvcOnlyShowWiFiView_detail" = "Wi-Fi详细信息";
+"jvcOnlyShowWiFiView_openAp" = "切换到AP";
 "JVCWifiInfoTableViewController_title" = "无线网络信息";
 "JVCNetworkSettingViewController_item1"="有线连接";
 "JVCNetworkSettingViewController_item2"="无线连接";
@@ -687,3 +688,56 @@
 
 //找回密码地址
 "jvc_findPassword_Flag" = "zh_cn";
+
+//汇通==============
+"wifi_P_Model"="P制";
+"wifi_N_MODEL"="N制";
+"wifi_P_Model_Succ"="切换到";
+"wifi_P_Model_fail"="制式切换失败";
+"wifi_P_Model_timeout"="操作超时";
+"OpenAP"= "切换到AP";
+
+"HomeTimeZone_Head_east" = "东";
+"HomeTimeZone_Head_west" = "西";
+"HomeTimeZone_Head_area" = "区";
+
+"HomeTimeZone_13" = "中时区";
+"HomeTimeZone_12" = "东一区";
+"HomeTimeZone_11" = "东二区";
+"HomeTimeZone_10" = "东三区";
+"HomeTimeZone_9" = "东四区";
+"HomeTimeZone_8" = "东五区";
+"HomeTimeZone_7" = "东六区";
+"HomeTimeZone_6" = "东七区";
+"HomeTimeZone_5" = "东八区";
+"HomeTimeZone_4" = "东九区";
+"HomeTimeZone_3" = "东十区";
+"HomeTimeZone_2" = "东十一区";
+"HomeTimeZone_1" = "东十二区";
+
+"HomeTimeZone_24" = "西十一区";
+"HomeTimeZone_23" = "西十区";
+"HomeTimeZone_22" = "西九区";
+"HomeTimeZone_21" = "西八区";
+"HomeTimeZone_20" = "西七区";
+"HomeTimeZone_19" = "西六区";
+"HomeTimeZone_18" = "西五区";
+"HomeTimeZone_17" = "西四区";
+"HomeTimeZone_16" = "西三区";
+"HomeTimeZone_15" = "西二区";
+"HomeTimeZone_14" = "西一区";
+"HomeTimeZone_25" = "西十二区";
+
+"homeCurrenttimeZone"= "当前时区";
+
+"HITVIS_Ap_Click" = "请耐心等待5秒钟，当设备状态指示灯为绿色并且每秒钟闪烁一次表示切换成功";
+"HITVIS_TIME_zoon" = "时区";
+"JVCCloudSEENetworkDeviceFlashMode_0" = "自动";
+"JVCCloudSEENetworkDeviceFlashMode_1" = "打开";
+"JVCCloudSEENetworkDeviceFlashMode_2" = "关闭";
+
+"PNMode"        =   "制式切换";
+"FlashMode"     =   "闪光灯切换";
+"timezone"      =   "设置时区";
+"deviceSafe"    = "报警设置";
+//"kDeviceApModeOn" =   "制式切换";

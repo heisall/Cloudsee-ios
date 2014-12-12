@@ -15,6 +15,7 @@
 #import "JVNetConst.h"
 #import "JVCOnlyShowWifiView.h"
 #import "JVCWifiInfoTableViewController.h"
+#import "JVCCloudSEENetworkHelper.h"
 
 @interface JVCNetworkSettingViewController (){
 
@@ -58,6 +59,7 @@ enum WiredType {
 @synthesize networkSettingBackBlock;
 @synthesize networkSettingGetSSIDListBlock;
 @synthesize networkSettingSetWifiConnectTypeBlock;
+@synthesize networkSettingAPOpenBlock;
 
 static const int             kTopItemWithBeginFlagValue = 1000000000;
 static const NSTimeInterval  kTopItemMoveWithDuration   = 0.3f;
@@ -82,8 +84,6 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     titles = [[NSMutableArray alloc] initWithCapacity:10];
     [self initLayoutWithTopView];
     [self initLayoutWithOperationView];
-    
-    DDLogVerbose(@"%s--------------mdic=%@",__FUNCTION__,self.mdDeviceNetworkInfo);
 }
 
 
@@ -94,7 +94,6 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
     [networkSettingSetWiredConnectTypeBlock release];
     [networkSettingGetSSIDListBlock release];
     [networkSettingSetWifiConnectTypeBlock release];
-    DDLogVerbose(@"%s-----------------###########",__FUNCTION__);
     
     [super dealloc];
 }
@@ -256,9 +255,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
 -(void)NavigationRightBarItemButtonWithHidden{
     
     self.navigationItem.rightBarButtonItem = nil;
-    
 }
-
 
 /**
  *  根据Key值获取Value
@@ -292,7 +289,6 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
         
          [apConfigSSIDListView startConfig];
     }
-   
 }
 
 /**
@@ -310,7 +306,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
         
         nWiredType         = [strWiredType intValue];
     }
-
+    
     return nWiredType;
 }
 
@@ -326,7 +322,6 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
         
         nNetwotkType   = [strNetworkType intValue];
     }
-    
     
     CGFloat width  = self.view.frame.size.width;
     
@@ -484,9 +479,17 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
                 wiredInfoViewController.mdNetworkInfo                    = self.mdDeviceNetworkInfo;
                 [self.navigationController pushViewController:wiredInfoViewController animated:YES];
                 [wiredInfoViewController release];
+                
+                [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:1 remoteOperationType:TextChatType_setDeviceAPMode remoteOperationCommand:-1];
             
             });
         
+        };
+        
+        JVCOnlyShowWifiViewAPOpen  onlyShowWifiViewAPOpen = ^{
+            
+            self.networkSettingAPOpenBlock();
+            
         };
         
         NSString *strSsid     = [self.mdDeviceNetworkInfo objectForKey:(NSString *)kWifiWithSSID];
@@ -494,6 +497,7 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
         
         JVCOnlyShowWifiView *onlyShowView        = [[JVCOnlyShowWifiView alloc] initWithFrame:rect withSSIDName:strSsid withPassword:strPassword];
         onlyShowView.onlyShowWifiViewDetailBlock = onlyShowWifiViewDetailBlock;
+        onlyShowView.onlyShowWifiViewAPOpen      = onlyShowWifiViewAPOpen;
         
         return [onlyShowView autorelease];
     }

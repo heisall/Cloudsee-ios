@@ -21,6 +21,11 @@ typedef void (^JVCNetworkSettingSetWifiConnectTypeBlock)(NSString *strSSIDName ,
  */
 typedef void (^JVCNetworkSettingGetSSIDListBlock)();
 
+/**
+ *  打开设备的AP
+ */
+typedef void (^JVCNetworkSettingAPOpenBlock)();
+
 @interface JVCNetworkSettingViewController : JVCBaseWithGeneralViewController <UIGestureRecognizerDelegate,UIScrollViewDelegate> {
     
     NSMutableDictionary *mdDeviceNetworkInfo;
@@ -31,6 +36,7 @@ typedef void (^JVCNetworkSettingGetSSIDListBlock)();
 @property (nonatomic,copy)   JVCNetworkSettingBackBlock                 networkSettingBackBlock;
 @property (nonatomic,copy)   JVCNetworkSettingGetSSIDListBlock          networkSettingGetSSIDListBlock;
 @property (nonatomic,copy)   JVCNetworkSettingSetWifiConnectTypeBlock   networkSettingSetWifiConnectTypeBlock;
+@property (nonatomic,copy)   JVCNetworkSettingAPOpenBlock               networkSettingAPOpenBlock;
 
 /**
  *  刷新无线设备的热点信息

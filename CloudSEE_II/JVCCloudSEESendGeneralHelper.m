@@ -128,7 +128,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
         }
             break;
         case TextChatType_EffectInfo:
-           [self RemoteEffectModel:nJvChannelID effectType:remoteOperationCommand];
+           [self RemoteSetDeviceWithEffectModel:nJvChannelID withEffectType:remoteOperationCommand];
             break;
         case TextChatType_StorageMode:
             
@@ -142,6 +142,32 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
         case TextChatType_setMobileMonitoring:{
         
             [self RemoteSetMotionDetectingStatus:nJvChannelID withStatus:remoteOperationCommand];
+        }
+            break;
+        case TextChatType_setDeviceTimezone:{
+        
+            [self RemoteSetDeviceWithTimezone:nJvChannelID withTimezone:remoteOperationCommand];
+        }
+            break;
+        case TextChatType_setDevicePNMode:{
+            
+            [self RemoteSetDeviceWithPNMode:nJvChannelID withPNMode:remoteOperationCommand];
+        }
+            break;
+        case TextChatType_setDeviceFlashMode:{
+            
+            [self RemoteSetDeviceWithFlashMode:nJvChannelID withFlashMode:remoteOperationCommand];
+        }
+            break;
+        case TextChatType_setDeviceAPMode:{
+            
+            [self RemoteSetDeviceWithAPMode:nJvChannelID withAPModel:remoteOperationCommand];
+        }
+            break;
+            
+        case TextChatType_Capture:{
+            
+            [self RemoteDeviceWithCapture:nJvChannelID];
         }
             break;
         default:
@@ -164,7 +190,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
 	memcpy(&data[0],&remoteOperationCommand,4);
     
 	JVC_SendData(nJvChannelID, JVN_CMD_YTCTRL, (unsigned char *)data, 4);
-    
 }
 
 /**
@@ -189,9 +214,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)RemoteOperationSendDataToDevice:(int)nJvChannelID remoteOperationCommand:(int)remoteOperationCommand {
     
-    DDLogCVerbose(@"%s--nJvChannelID =%d----remoteOperationCommand=%d",__FUNCTION__,nJvChannelID,remoteOperationCommand);
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 0);
-    
 }
 
 /**
@@ -206,7 +229,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     JVC_SendData(nJvChannelID, remoteOperationCommand, NULL, 4);
 }
 
-
 /**
  *  远程发送的命令
  *
@@ -216,9 +238,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
  */
 -(void)remoteSendDataToDevice:(int)nJvChannelID remoteOperationType:(int)remoteOperationType remoteOperationCommandData:(char *)remoteOperationCommandData {
     
-    DDLogVerbose(@"%s----dataSize=%ld",__FUNCTION__,strlen(remoteOperationCommandData));
     JVC_SendData(nJvChannelID, remoteOperationType, (unsigned char *)remoteOperationCommandData, strlen(remoteOperationCommandData));
-    
 }
 
 /**
@@ -232,7 +252,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     unsigned long frameNumber=remoteOperationCommand;
     
     JVC_SendData(nJvChannelID, JVN_CMD_PLAYSEEK, (Byte*)&frameNumber, 4);
-    
 }
 
 /**
@@ -247,10 +266,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     memset(&g_stPacket, 0, sizeof(PAC));
     g_stPacket.nPacketType	= RC_LOADDLG;
     g_stPacket.nPacketID	= RC_SNAPSLIST;
-//    *((int*)g_stPacket.acData) =1;
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
-    
 }
 
 /**
@@ -279,7 +296,6 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     PAC	g_stPacket;
     g_stPacket.nPacketType	   = RC_LOADDLG; //0x05
     g_stPacket.nPacketID	   = RC_GETPARAM;
-//    *((int*)g_stPacket.acData) = 1;
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&g_stPacket, 8);
 }
 
@@ -339,10 +355,8 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     sprintf(acBuffer, "nMBPH=%d;",JVCCloudSEENetworkMacroOldHomeIPCStreamTypeMBPH);
     strcat(m_stPacket.acData+nOffset, acBuffer);
     
-    
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
 }
-
 
 /**
  *  老版本主控的码流切换
@@ -804,15 +818,13 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     sprintf(acBuffer, "%s=%s:00-%s:59;",[kDeviceAlarmTime0 UTF8String],[strBeginTime UTF8String],[strEndTime UTF8String]);
     strcat(m_pstExt->acData+nOffset, acBuffer);
     nOffset += strlen(acBuffer);
-    DDLogCVerbose(@"%s------alarmTime------%s",__FUNCTION__,m_pstExt->acData);
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_pstExt->acData));
     
     [self RemoteWithDeviceGetFrameParam:nJvChannelID];
 }
 
 #pragma mark 设置图像反转
--(void)RemoteEffectModel:(int)nJvChannelID
-           effectType:(int)effectType
+-(void)RemoteSetDeviceWithEffectModel:(int)nJvChannelID withEffectType:(int)nEffectType
 {
     
     PAC	m_stPacket;
@@ -825,7 +837,7 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     int nOffset=0;
     char acBuffer[256]={0};
     
-    sprintf(acBuffer, "%s=%d;",[KEFFECTFLAG UTF8String],effectType);
+    sprintf(acBuffer, "%s=%d;",[KEFFECTFLAG UTF8String],nEffectType);
     strcat(m_pstExt->acData+nOffset, acBuffer);
     
     JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_pstExt->acData));
@@ -860,5 +872,148 @@ static JVCCloudSEESendGeneralHelper *jvcCloudSEESendGeneralHelper = nil;
     
     JVC_SendData(nJvChannelID,JVN_RSP_TEXTDATA, (unsigned char*)&m_stPacket, 20+strlen(m_pstExt->acData));
 }
+
+#pragma mark --------------  惠通设备的定制接口 （闪光灯 、AP/STA、时区，P/N制式切换）
+
+/**
+ *  设置设备的闪光灯
+ *
+ *  @param nJvChannelID 本地连接的通道号
+ *  @param nFlashMode  闪光灯的类型
+ 
+     enum JVCCloudSEENetworkDeviceFlashMode{
+     
+     JVCCloudSEENetworkDeviceFlashModeAuto  = 0,  //自动
+     JVCCloudSEENetworkDeviceFlashModeOpen  = 1,  //打开
+     JVCCloudSEENetworkDeviceFlashModeClose = 2   //关闭
+     
+     };
+ */
+-(void)RemoteSetDeviceWithFlashMode:(int)nJvChannelID withFlashMode:(int)nFlashMode{
+    
+    PAC	m_stPacket;
+    
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s=%d;",[kDeviceFlashMode UTF8String],nFlashMode);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_stPacket.acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
+}
+
+/**
+ *  设置AP的工作方式
+ *
+ *  @param nJvChannelID  本地连接的通道号
+ *  @param nAPModel      STA/AP
+ 
+     enum JVCCloudSEENetworkDeviceAPMode{
+     
+     JVCCloudSEENetworkDeviceAPModeSta = 0,  STA模式
+     JVCCloudSEENetworkDeviceAPModeAP  = 1,  AP模式
+     
+     
+     };
+ */
+-(void)RemoteSetDeviceWithAPMode:(int)nJvChannelID withAPModel:(int)nAPModel{
+    
+    PAC	m_stPacket;
+    
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer, "%s=%d;",[kDeviceApModeOn UTF8String],nAPModel);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_stPacket.acData));
+    
+}
+
+/**
+ *  设置设备时区
+ *
+ *  @param nJvChannelID  本地通道号
+ *  @param nTimezone     设备的时区
+ */
+-(void)RemoteSetDeviceWithTimezone:(int)nJvChannelID withTimezone:(int)nTimezone{
+    
+    PAC	m_stPacket;
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    
+    sprintf(acBuffer,"%s=%d;",[kDeviceTimezone UTF8String],nTimezone);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    sprintf(acBuffer,"%s=1;",[@"bSntp" UTF8String]);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    nOffset += strlen(acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
+}
+
+/**
+ *  设置设备的画面制式
+ *
+ *  @param nJvChannelID  本地通道号
+ *  @param nPNMode       设备画面的制式
+ 
+     enum JVCCloudSEENetworkDevicePNModeType {
+     
+     JVCCloudSEENetworkDevicePNModeTypeP = 0, //P制式
+     JVCCloudSEENetworkDevicePNModeTypeN = 1, //N
+     };
+ */
+-(void)RemoteSetDeviceWithPNMode:(int)nJvChannelID withPNMode:(int)nPNMode{
+    
+    PAC	m_stPacket;
+    
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_SETPARAM;
+    
+    int nOffset=0;
+    char acBuffer[256]={0};
+    sprintf(acBuffer,"%s=%d;",[kDevicePNMode UTF8String],nPNMode);
+    strcat(m_stPacket.acData+nOffset, acBuffer);
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (const char*)&m_stPacket, 20+strlen(m_stPacket.acData));
+    
+    [self RemoteWithDeviceGetFrameParam:nJvChannelID];
+}
+
+/**
+ *  惠通闪光灯抓拍图片
+ *
+ *  @param nJvChannelID 本地通道号
+ */
+-(void)RemoteDeviceWithCapture:(int)nJvChannelID{
+
+    PAC	m_stPacket;
+    
+    memset(&m_stPacket, 0, sizeof(PAC));
+    m_stPacket.nPacketType=RC_EXTEND;
+    m_stPacket.nPacketCount=RC_EX_FlashJpeg;
+    
+    EXTEND *m_pstExt=(EXTEND*)m_stPacket.acData;
+    m_pstExt->acData[0]=0;
+    
+    JVC_SendData(nJvChannelID, JVN_RSP_TEXTDATA, (PAC*)&m_stPacket, 20+strlen(m_pstExt->acData));
+
+}
+
 
 @end

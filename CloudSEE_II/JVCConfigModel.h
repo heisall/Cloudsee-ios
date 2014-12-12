@@ -92,26 +92,31 @@ typedef NS_ENUM(int , DeviceBrowseModel)
     
     int  iDeviceBrowseModel;//设备浏览模式
     BOOL isChina;           //YES:中国
+    int  nCaptureMode;      //抓拍的模式
+    BOOL isEnableAPModel;   //是否启用STA切换AP功能
 }
+
+/**
+ 程序的抓拍方式
+ */
+enum JVCConfigModelCaptureModeType{
+
+    JVCConfigModelCaptureModeTypeDecoder = 0,  //解码抓拍
+    JVCConfigModelCaptureModeTypeDevice  = 1,  //设备抓拍（主要应用于惠通设备，闪光灯抓拍）
+};
+
 @property(nonatomic,assign) int _bISLocalLoginIn;
-
 @property(nonatomic,assign) int _netLinkType;
-
 @property(nonatomic,assign) int _iWatchType;
-
 @property(nonatomic,assign) BOOL tempModelInsert;
-
 @property(nonatomic,assign) int _bInitAccountSDKSuccess;
-
 @property(nonatomic,assign) BOOL _bNewVersion;
-
 @property(nonatomic,assign) BOOL bSwitchSafe;
-
 @property(nonatomic,assign) BOOL isLanSearchDevices;
-
 @property(nonatomic,assign) int  iDeviceBrowseModel;
 @property(nonatomic,assign) BOOL isChina;
-
+@property(nonatomic,assign) int  nCaptureMode;
+@property(nonatomic,assign) BOOL isEnableAPModel;
 
 /**
  *  单例
@@ -119,5 +124,7 @@ typedef NS_ENUM(int , DeviceBrowseModel)
  *  @return 返回AddDeviceAlertMaths的单例
  */
 + (JVCConfigModel *)shareInstance;
+
+
 
 @end
