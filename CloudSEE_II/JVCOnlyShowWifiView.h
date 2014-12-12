@@ -12,9 +12,12 @@
 
 typedef void (^JVCOnlyShowWifiViewDetailBlock)();
 
+typedef void (^JVCOnlyShowWifiViewAPOpen)();
+
 @interface JVCOnlyShowWifiView : UIView
 
 @property (nonatomic,copy)JVCOnlyShowWifiViewDetailBlock onlyShowWifiViewDetailBlock;
+@property (nonatomic,copy)JVCOnlyShowWifiViewAPOpen      onlyShowWifiViewAPOpen;
 
 /**
  *  初始化SSID和密码的文本框 父类视图

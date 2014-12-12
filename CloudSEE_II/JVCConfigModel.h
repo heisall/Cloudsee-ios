@@ -93,6 +93,7 @@ typedef NS_ENUM(int , DeviceBrowseModel)
     int  iDeviceBrowseModel;//设备浏览模式
     BOOL isChina;           //YES:中国
     int  nCaptureMode;      //抓拍的模式
+    BOOL isEnableAPModel;   //是否启用STA切换AP功能
 }
 
 /**
@@ -115,7 +116,7 @@ enum JVCConfigModelCaptureModeType{
 @property(nonatomic,assign) int  iDeviceBrowseModel;
 @property(nonatomic,assign) BOOL isChina;
 @property(nonatomic,assign) int  nCaptureMode;
-
+@property(nonatomic,assign) BOOL isEnableAPModel;
 
 /**
  *  单例

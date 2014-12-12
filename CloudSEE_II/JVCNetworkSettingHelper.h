@@ -99,4 +99,9 @@ enum ErrorType{
  */
 -(void)refreshWifiListInfo;
 
+/**
+ *  打开设备的AP
+ */
+-(void)openDeviceWithAp;
+
 @end

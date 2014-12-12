@@ -590,6 +590,7 @@
 "WIFI_DNS"  = "DNS";
 "WIFI_MAC"  = "MAC";
 "jvcOnlyShowWiFiView_detail" = "Wi-Fi detailed information";
+"jvcOnlyShowWiFiView_openAp" = "Switch to AP";
 "JVCWifiInfoTableViewController_title" = "Wi-Fi Info";
 "JVCNetworkSettingViewController_item1"="Ethernet";
 "JVCNetworkSettingViewController_item2"="Wi-Fi";

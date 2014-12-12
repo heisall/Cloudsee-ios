@@ -611,6 +611,7 @@
 "WIFI_DNS"  = "域名服务器";
 "WIFI_MAC"  = "网卡地址";
 "jvcOnlyShowWiFiView_detail" = "Wi-Fi详细信息";
+"jvcOnlyShowWiFiView_openAp" = "切换到AP";
 "JVCWifiInfoTableViewController_title" = "无线网络信息";
 "JVCNetworkSettingViewController_item1"="有线连接";
 "JVCNetworkSettingViewController_item2"="无线连接";

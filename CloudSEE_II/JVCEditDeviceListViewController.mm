@@ -612,18 +612,29 @@ static const NSTimeInterval  kPopRootTimeDelay                    = 0.2f;
                 }
             };
             
+            
+            JVCNetworkSettingAPOpenBlock networkSettingAPOpenBlock = ^{
+                
+                if (networkSettingObj) {
+                    
+                    [networkSettingObj openDeviceWithAp];
+                }
+            };
+            
             JVCNetworkSettingViewController *networkSettingViewController       = [[JVCNetworkSettingViewController alloc] init];
             networkSettingViewController.mdDeviceNetworkInfo                    = networkInfo;
             networkSettingViewController.networkSettingSetWiredConnectTypeBlock = networkSettingSetWiredConnectTypeBlock;
             networkSettingViewController.networkSettingBackBlock                = networkSettingBackBlock;
             networkSettingViewController.networkSettingGetSSIDListBlock         = networkSettingGetSSIDListBlock;
             networkSettingViewController.networkSettingSetWifiConnectTypeBlock  = networkSettingSetWifiConnectTypeBlock;
+            networkSettingViewController.networkSettingAPOpenBlock              = networkSettingAPOpenBlock;
             [self.navigationController pushViewController:networkSettingViewController animated:YES];
             [networkSettingViewController release];
         
         });
     
     };
+    
     
     networkSettingObj                                    = [[JVCNetworkSettingHelper alloc] init];
     networkSettingObj.networkSettingErrorBlock           = networkSettingErrorBlock;

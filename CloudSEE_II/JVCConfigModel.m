@@ -18,7 +18,7 @@
 @synthesize _bNewVersion;
 @synthesize bSwitchSafe,isLanSearchDevices;
 @synthesize iDeviceBrowseModel;
-@synthesize isChina,nCaptureMode;
+@synthesize isChina,nCaptureMode,isEnableAPModel;
 
 static JVCConfigModel *_shareInstance = nil;
 /**
@@ -36,8 +36,15 @@ static JVCConfigModel *_shareInstance = nil;
             
             _shareInstance._bISLocalLoginIn = 0;
             _shareInstance._netLinkType     = NETLINTYEPE_NONET;
-            //设置抓拍方式
-            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDevice;
+            
+            
+            //设置抓拍方式以及AP和STA切换（ 常规）
+            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDecoder;
+            _shareInstance.isEnableAPModel  = FALSE;
+            
+            //惠通的
+//            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDevice;
+//            _shareInstance.isEnableAPModel  = TRUE;
         }
         return _shareInstance;
     }
