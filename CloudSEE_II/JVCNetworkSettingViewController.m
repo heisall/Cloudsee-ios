@@ -480,8 +480,6 @@ static NSString const       *kWifiWithPassword          = @"WIFI_PW";      //无
                 [self.navigationController pushViewController:wiredInfoViewController animated:YES];
                 [wiredInfoViewController release];
                 
-                [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:1 remoteOperationType:TextChatType_setDeviceAPMode remoteOperationCommand:-1];
-            
             });
         
         };
