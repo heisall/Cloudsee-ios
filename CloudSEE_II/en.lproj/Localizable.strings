@@ -724,11 +724,11 @@
 "homeCurrenttimeZone"= "Current time zone";
 "HITVIS_Ap_Click" = "Pls wait patiently for 5s uitil device light changes from green to red and flashes once every second";
 "HITVIS_TIME_zoon" = "Time Zone";
-"JVCCloudSEENetworkDeviceFlashMode_0" = "自动";
-"JVCCloudSEENetworkDeviceFlashMode_1" = "打开";
-"JVCCloudSEENetworkDeviceFlashMode_2" = "关闭";
+"JVCCloudSEENetworkDeviceFlashMode_0" = "Open";
+"JVCCloudSEENetworkDeviceFlashMode_1" = "Close";
+"JVCCloudSEENetworkDeviceFlashMode_2" = "Auto";
 
-"PNMode"        =   "制式切换";
-"FlashMode"     =   "闪光灯切换";
-"timezone"      =   "设置时区";
-"deviceSafe"    = "报警设置";
+"PNMode"        =   "NTSC/PAL";
+"FlashMode"     =   "IR-Cut";
+"timezone"      =   "Time Zone";
+"deviceSafe"    = "Alarm";
