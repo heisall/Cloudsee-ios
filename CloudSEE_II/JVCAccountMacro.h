@@ -145,26 +145,19 @@ enum MODIFYLINKMODELTYPE
  */
 enum VALIDATIONUSERNAMETYPE{
     
-    
-    VALIDATIONUSERNAMETYPE_S=0,          //校验通过
-    VALIDATIONUSERNAMETYPE_LENGTH_E=-1,  //用户名长度只能在4-28位字符之间；
-    VALIDATIONUSERNAMETYPE_NUMBER_E=-2,//用户名不能全为数字
-    VALIDATIONUSERNAMETYPE_OTHER_E=-3, //用户名只能由英文、数字及“_”、“-”组成
-    
-    VALIDATIONUSERNAMETYPE_PHONE_E = -4,//手机号格式不正确
-    VALIDATIONUSERNAMETYPE_EMAIL_E = -5,//邮箱格式不正确
+    VALIDATIONUSERNAMETYPE_S        = 0,   //校验通过
+    VALIDATIONUSERNAMETYPE_LENGTH_E = -1,  //用户名长度只能在4-28位字符之间；
+    VALIDATIONUSERNAMETYPE_NUMBER_E = -2,  //用户名不能全为数字
+    VALIDATIONUSERNAMETYPE_OTHER_E  = -3,  //用户名只能由英文、数字及“_”、“-”组成
+    VALIDATIONUSERNAMETYPE_PHONE_E  = -4,  //手机号格式不正确
+    VALIDATIONUSERNAMETYPE_EMAIL_E  = -5,  //邮箱格式不正确
 };
 
-static const int  LOGINRUSULT_SUCCESS = 0;
-
-static const int  USERTYPE_NEW = 119;//新账号
-
-static const int  USERTYPE_OLD = 118;//老账号
-
-static const int RESERT_USER_AND_PASSWORD =  -16;  //重置用户名和密码
-
-static const int RESERT_PASSWORD    =  -17;             //重置密码
-
-static const int KlogoOffSet_y    =  80;             //logo的开始问题
+static const int  LOGINRUSULT_SUCCESS      = 0;
+static const int  USERTYPE_NEW             = 119;  //新账号
+static const int  USERTYPE_OLD             = 118;  //老账号
+static const int  RESERT_USER_AND_PASSWORD = -16;  //重置用户名和密码
+static const int  RESERT_PASSWORD          = -17;  //重置密码
+static const int  KlogoOffSet_y            = 80;   //logo的开始问题
 
 #endif
