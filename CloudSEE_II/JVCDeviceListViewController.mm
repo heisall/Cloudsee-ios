@@ -237,6 +237,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)didSelectItemRowAtIndex:(int)index
 {
+    JVCAppParameterModel *modelApp = [JVCAppParameterModel shareJVCAPPParameter];
     switch (index ) {
             
         case AddDevicePopType_NormalAddDevice:
@@ -254,8 +255,14 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         }
             break;
         case AddDevicePopType_VloceAddDevice:{
-        
-            [self beginVoiceencConfig];
+            if (modelApp.bHasVoiceDevice) {//如果
+                
+                [self beginVoiceencConfig];
+
+            }else{
+             [self ipAddDevice];
+            }
+            
             break;
         }
         case AddDevicePopType_IP:
