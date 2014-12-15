@@ -221,34 +221,87 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
     labEnPassWord.font = [UIFont systemFontOfSize:RESIGNFONT];
     [self.view addSubview:labEnPassWord];
     
-    /**
-     *  同意按钮
-     */
-    JVCControlHelper *controlHelp = [JVCControlHelper shareJVCControlHelper];
-    btnAgree = [controlHelp buttonWithTitile:nil normalImage:@"reg_btn_nor.png" horverimage:@"reg_btn_hor.png"];
-    btnAgree.frame = CGRectMake(labEnPassWord.left, labEnPassWord.bottom, btnAgree.width, btnAgree.height);
-    [btnAgree addTarget:self  action:@selector(changeUserAgreeState) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnAgree];
-    btnAgree.selected = YES;
+    JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
     
-//    "jvc_resign_Resign_Text" = "Read and agree";
-//    "jvc_resign_Resign_DownLineText" = "User agreement";
-    UILabel *labelUser = [controlHelp labelWithText:LOCALANGER(@"jvc_resign_Resign_Text") textFontSize:KUserRESIGNFONT];
-    labelUser.frame = CGRectMake(btnAgree.right, labEnPassWord.bottom-7, labelUser.width, labelUser.height);
-    [self.view addSubview:labelUser];
-    
-    UILabel *labelUserText = [controlHelp labelWithUnderLine:LOCALANGER(@"jvc_resign_Resign_DownLineText") fontSize:KUserRESIGNFONT];
-    labelUserText.frame = CGRectMake(labelUser.right, labelUser.top, labelUserText.width, labelUserText.height);
-    [self.view addSubview:labelUserText];
-    UIColor *colorDown = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KJVCresigDownLabecolor];
-    if (colorDown) {
-        
-        labelUserText.textColor = colorDown;
+    btnAgree = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnAgree.frame = CGRectMake(labEnPassWord.left, labEnPassWord.bottom, btnAgree.width, 0);
+
+    int addHeighBottom = SEPERATE;
+    switch (appModel.nHasRegister) {
+        case JVCRegisterType_Default:
+            addHeighBottom =0;
+            break;
+        case JVCRegisterType_China:
+        {
+            addHeighBottom =0;
+            
+            if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+                addHeighBottom = SEPERATE;
+                /**
+                 *  同意按钮
+                 */
+                JVCControlHelper *controlHelp = [JVCControlHelper shareJVCControlHelper];
+                btnAgree = [controlHelp buttonWithTitile:nil normalImage:@"reg_btn_nor.png" horverimage:@"reg_btn_hor.png"];
+                btnAgree.frame = CGRectMake(labEnPassWord.left, labEnPassWord.bottom, btnAgree.width, btnAgree.height);
+                [btnAgree addTarget:self  action:@selector(changeUserAgreeState) forControlEvents:UIControlEventTouchUpInside];
+                [self.view addSubview:btnAgree];
+                btnAgree.selected = YES;
+                UILabel *labelUser = [controlHelp labelWithText:LOCALANGER(@"jvc_resign_Resign_Text") textFontSize:KUserRESIGNFONT];
+                labelUser.frame = CGRectMake(btnAgree.right, labEnPassWord.bottom-7, labelUser.width, labelUser.height);
+                [self.view addSubview:labelUser];
+                
+                UILabel *labelUserText = [controlHelp labelWithUnderLine:LOCALANGER(@"jvc_resign_Resign_DownLineText") fontSize:KUserRESIGNFONT];
+                labelUserText.frame = CGRectMake(labelUser.right, labelUser.top, labelUserText.width, labelUserText.height);
+                [self.view addSubview:labelUserText];
+                UIColor *colorDown = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KJVCresigDownLabecolor];
+                if (colorDown) {
+                    
+                    labelUserText.textColor = colorDown;
+                }
+                labelUserText.userInteractionEnabled = YES;
+                UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserDetailTextView)];
+                [labelUserText addGestureRecognizer:gesture];
+                [gesture release];
+
+            }
+        }
+            
+            break;
+        case JVCRegisterType_ALL:
+        {
+            addHeighBottom = SEPERATE;
+
+            /**
+             *  同意按钮
+             */
+            JVCControlHelper *controlHelp = [JVCControlHelper shareJVCControlHelper];
+            btnAgree = [controlHelp buttonWithTitile:nil normalImage:@"reg_btn_nor.png" horverimage:@"reg_btn_hor.png"];
+            btnAgree.frame = CGRectMake(labEnPassWord.left, labEnPassWord.bottom, btnAgree.width, btnAgree.height);
+            [btnAgree addTarget:self  action:@selector(changeUserAgreeState) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:btnAgree];
+            btnAgree.selected = YES;
+            UILabel *labelUser = [controlHelp labelWithText:LOCALANGER(@"jvc_resign_Resign_Text") textFontSize:KUserRESIGNFONT];
+            labelUser.frame = CGRectMake(btnAgree.right, labEnPassWord.bottom-7, labelUser.width, labelUser.height);
+            [self.view addSubview:labelUser];
+            
+            UILabel *labelUserText = [controlHelp labelWithUnderLine:LOCALANGER(@"jvc_resign_Resign_DownLineText") fontSize:KUserRESIGNFONT];
+            labelUserText.frame = CGRectMake(labelUser.right, labelUser.top, labelUserText.width, labelUserText.height);
+            [self.view addSubview:labelUserText];
+            UIColor *colorDown = [[JVCRGBHelper shareJVCRGBHelper] rgbColorForKey:KJVCresigDownLabecolor];
+            if (colorDown) {
+                
+                labelUserText.textColor = colorDown;
+            }
+            labelUserText.userInteractionEnabled = YES;
+            UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserDetailTextView)];
+            [labelUserText addGestureRecognizer:gesture];
+            [gesture release];
+
+        }
+            break;
+        default:
+            break;
     }
-    labelUserText.userInteractionEnabled = YES;
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserDetailTextView)];
-    [labelUserText addGestureRecognizer:gesture];
-    [gesture release];
     
 
     //注册按钮
@@ -256,7 +309,7 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
     
     UIButton *btnResign = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    btnResign.frame = CGRectMake((self.view.width - imageBtn.size.width)/2.0, btnAgree.bottom+SEPERATE, imageBtn.size.width, imageBtn.size.height);
+    btnResign.frame = CGRectMake((self.view.width - imageBtn.size.width)/2.0, btnAgree.bottom+addHeighBottom, imageBtn.size.width, imageBtn.size.height);
     
     [btnResign setBackgroundImage:imageBtn forState:UIControlStateNormal];
     
@@ -516,11 +569,36 @@ static const int KUserRESIGNFONT  = 18;//font 的大小
 #pragma mark 注册按钮按下时间
 - (void)signUp
 {
-    if (!btnAgree.selected) {
+    JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
     
-        [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_resign_Resign_AgreeResign")];
-        return;
+    switch (appModel.nHasRegister) {
+        case JVCRegisterType_Default:
+            break;
+        case JVCRegisterType_China:
+        {
+            if ([[JVCSystemUtility shareSystemUtilityInstance] judgeAPPSystemLanguage]) {
+                if (!btnAgree.selected) {
+                    
+                    [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_resign_Resign_AgreeResign")];
+                    return;
+                }
+            }
+        }
+            break;
+        case JVCRegisterType_ALL:
+        {
+            if (!btnAgree.selected) {
+                
+                [[JVCAlertHelper shareAlertHelper] alertToastWithKeyWindowWithMessage:LOCALANGER(@"jvc_resign_Resign_AgreeResign")];
+                return;
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
+    
     
     /**
      *  检索用户输入的字符串是否合法

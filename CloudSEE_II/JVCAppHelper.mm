@@ -10,12 +10,11 @@
 #import "JVCAccountHelper.h"
 #import "JVCSystemUtility.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
-
+#import "JVCAppParameterModel.h"
 
 @implementation JVCAppHelper
 
 static JVCAppHelper *jvcAppHelper = nil;
-
 
 /**
  *  单例

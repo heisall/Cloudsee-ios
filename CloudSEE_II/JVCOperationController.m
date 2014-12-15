@@ -1696,7 +1696,7 @@ char remoteSendSearchFileBuffer[29] = {0};
     
     ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group,BOOL *stop){
         
-        JVCConfigModel *configModel = [JVCConfigModel shareInstance];
+        JVCAppParameterModel *configModel = [JVCAppParameterModel shareJVCAPPParameter];
         [JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper].jvcCloudSEENetworkHelperCaptureDelegate = self;
         [[JVCCloudSEENetworkHelper shareJVCCloudSEENetworkHelper] RemoteOperationSendDataToDevice:_managerVideo.nSelectedChannelIndex+1 remoteOperationType:configModel.nCaptureMode==JVCConfigModelCaptureModeTypeDecoder? RemoteOperationType_CaptureImage:TextChatType_Capture remoteOperationCommand:-1];
     };

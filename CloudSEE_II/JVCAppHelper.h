@@ -36,4 +36,11 @@
  */
 -(UIView *)duplicate:(UIView *)templateView;
 
+/**
+ *  初始化app
+ *
+ *  @param appName 应用的名称
+ */
+- (void)initAppParamer:(NSString *)appName;
+
 @end

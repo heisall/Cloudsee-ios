@@ -96,14 +96,7 @@ typedef NS_ENUM(int , DeviceBrowseModel)
     BOOL isEnableAPModel;   //是否启用STA切换AP功能
 }
 
-/**
- 程序的抓拍方式
- */
-enum JVCConfigModelCaptureModeType{
 
-    JVCConfigModelCaptureModeTypeDecoder = 0,  //解码抓拍
-    JVCConfigModelCaptureModeTypeDevice  = 1,  //设备抓拍（主要应用于惠通设备，闪光灯抓拍）
-};
 
 @property(nonatomic,assign) int _bISLocalLoginIn;
 @property(nonatomic,assign) int _netLinkType;

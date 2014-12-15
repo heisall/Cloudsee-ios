@@ -136,7 +136,13 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 //    }
     [self getDeviceList];
     
-    [self getAdevtiseInfo];
+    JVCAppParameterModel *model = [JVCAppParameterModel shareJVCAPPParameter];
+    
+    if (model.bHasAdvertising) {
+        
+        [self getAdevtiseInfo];
+
+    }
     
 
     [self setupRefresh];
@@ -231,6 +237,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
  */
 - (void)didSelectItemRowAtIndex:(int)index
 {
+    JVCAppParameterModel *modelApp = [JVCAppParameterModel shareJVCAPPParameter];
     switch (index ) {
             
         case AddDevicePopType_NormalAddDevice:
@@ -248,8 +255,14 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         }
             break;
         case AddDevicePopType_VloceAddDevice:{
-        
-            [self beginVoiceencConfig];
+            if (modelApp.bHasVoiceDevice) {//如果
+                
+                [self beginVoiceencConfig];
+
+            }else{
+             [self ipAddDevice];
+            }
+            
             break;
         }
         case AddDevicePopType_IP:
@@ -333,18 +346,33 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
     NSArray *titles = nil;
     NSArray *images = nil;
 
+    JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
     //设备列表界面
-
     if ([JVCConfigModel shareInstance]._bISLocalLoginIn == TYPELOGINTYPE_LOCAL) {//本地增加域名或ip添加设备
 
-        titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce"),LOCALANGER(@"jvc_DeviceList_add_ip")];
-        images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png",@"add_voice.png", @"add_IP.png"];
+        if (appModel.bHasVoiceDevice) {
+            
+            titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce"),LOCALANGER(@"jvc_DeviceList_add_ip")];
+            images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png",@"add_voice.png", @"add_IP.png"];
+
+        }else{
+        
+            titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"),LOCALANGER(@"jvc_DeviceList_add_ip")];
+            images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png", @"add_IP.png"];
+
+        }
         
     }else{
+        if (appModel.bHasVoiceDevice) {
+            
+            titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce")];
+            images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png",@"add_voice.png" ];
+            
+        }else{
         
-        
-        titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan"), LOCALANGER(@"jvc_DeviceList_add_volce")];
-        images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png",@"add_voice.png" ];
+            titles = @[LOCALANGER(@"jvc_DeviceList_add_yst"), LOCALANGER(@"jvc_DeviceList_add_eq"), LOCALANGER(@"jvc_DeviceList_add_wlan"),LOCALANGER(@"jvc_DeviceList_add_scan")];
+            images = @[@"add_normal.png", @"add_QR.png",@"add_wlan.png", @"add_scan.png" ];
+        }
     }
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -936,7 +964,16 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
 {
     switch (linkType) {
         case DEVICECLICKTYpe_Wire:
-            [self beginVoiceencConfig];
+        {
+            JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
+            if (appModel.bHasVoiceDevice) {
+            
+                [self beginVoiceencConfig];
+
+            }else{
+                [self AddWlanDevice];
+            }
+        }
             break;
         case DEVICECLICKTYpe_WireLess:
             [self AddDevice];
