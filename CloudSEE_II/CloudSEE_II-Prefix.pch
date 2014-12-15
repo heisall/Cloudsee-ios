@@ -38,6 +38,7 @@
 
     #import"MTA.h"
     #import"MTAConfig.h"
+#import"JVCAppParameterModel.h"
 
 #define LOCALANGER(A)  NSLocalizedString(A, nil)
 

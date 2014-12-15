@@ -56,6 +56,8 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
  */
 - (NSMutableArray *)getMoreSettingList
 {
+    JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
+    
     NSMutableArray *arrayList = [[NSMutableArray alloc] init];
     
     /**
@@ -154,12 +156,14 @@ static JVCMoreSettingHelper *shareMoreSettingHelper = nil;
     [modelAbout release];
     
     //意见反馈
-    JVCMoreSettingModel *modelSuggest = [[JVCMoreSettingModel alloc] init];
-    modelSuggest.itemName = LOCALANGER(@"jvc_more_suggest");
-    modelSuggest.iconImageName = @"mor_IconSug.png";
-    modelSuggest.bBtnState = NO;
-    [secondSectionArray addObject:modelSuggest];
-    [modelSuggest release];
+    if (appModel.bHasFeedback) {
+        JVCMoreSettingModel *modelSuggest = [[JVCMoreSettingModel alloc] init];
+        modelSuggest.itemName = LOCALANGER(@"jvc_more_suggest");
+        modelSuggest.iconImageName = @"mor_IconSug.png";
+        modelSuggest.bBtnState = NO;
+        [secondSectionArray addObject:modelSuggest];
+        [modelSuggest release];
+    }
 
     [arrayList addObject:secondSectionArray];
     

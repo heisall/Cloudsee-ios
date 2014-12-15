@@ -92,7 +92,7 @@ static const CGFloat        kButtonButtonWithTop               = 20.0f;
     [button setBackgroundImage:tBtnBg forState:UIControlStateNormal];
     [self addSubview:button];
     
-    if ([JVCConfigModel shareInstance].isEnableAPModel) {
+    if ([JVCAppParameterModel shareJVCAPPParameter].isEnableAPModel) {
         
         UIButton *APButton = [UIButton buttonWithType:UIButtonTypeCustom];
         APButton.frame = CGRectMake((self.frame.size.width-tBtnBg.size.width)/2.0, button.frame.size.height+button.origin.y+kButtonButtonWithTop, tBtnBg.size.width, tBtnBg.size.height);

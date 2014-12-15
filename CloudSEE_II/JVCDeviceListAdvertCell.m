@@ -89,7 +89,16 @@ static const kScrollewViewTag       = 11212;
 - (void)initCellContent
 {
     
+    JVCAppParameterModel *model = [JVCAppParameterModel shareJVCAPPParameter];
+    
+    if (model.bHasAdvertising) {
+        
     [self UpdateSaveAdvertiseInfo];
+        
+    }else{
+        [self setDefaultImageWithCount:1];
+        [self initContentView];
+    }
 
 }
 

@@ -285,15 +285,19 @@ static const CGFloat        kLongPressShowTime                  = 5.0f; //长按
     [btnLocal release];
     
     //演示点
-    UIButton *btnDemo = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_demo") normalImage:@"log_demBg.png" horverimage:nil];
-    [btnDemo retain];
-    
-    btnDemo.titleLabel.font =[UIFont systemFontOfSize:KDemoPointWithFontSize];
-    btnDemo.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -KDemoPointTitleWithOffsetBottom, 0);
-    btnDemo.frame = CGRectMake((self.view.width-btnDemo.width)/2.0,self.view.height - btnDemo.height, btnDemo.width, btnDemo.height);
-    [btnDemo addTarget:self action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnDemo];
-    [btnDemo release];
+    if ([JVCAppParameterModel shareJVCAPPParameter].bHasDemoPoint) {
+        
+        UIButton *btnDemo = [[JVCControlHelper shareJVCControlHelper] buttonWithTitile:LOCALANGER(@"jvc_log_demo") normalImage:@"log_demBg.png" horverimage:nil];
+        [btnDemo retain];
+        
+        btnDemo.titleLabel.font =[UIFont systemFontOfSize:KDemoPointWithFontSize];
+        btnDemo.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -KDemoPointTitleWithOffsetBottom, 0);
+        btnDemo.frame = CGRectMake((self.view.width-btnDemo.width)/2.0,self.view.height - btnDemo.height, btnDemo.width, btnDemo.height);
+        [btnDemo addTarget:self action:@selector(demoPointClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btnDemo];
+        [btnDemo release];
+    }
+   
     
     JVCControlHelper *controlObj = [JVCControlHelper shareJVCControlHelper];
     

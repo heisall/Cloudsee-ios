@@ -18,7 +18,7 @@
 @synthesize _bNewVersion;
 @synthesize bSwitchSafe,isLanSearchDevices;
 @synthesize iDeviceBrowseModel;
-@synthesize isChina,nCaptureMode,isEnableAPModel;
+@synthesize isChina;
 
 static JVCConfigModel *_shareInstance = nil;
 /**
@@ -39,8 +39,8 @@ static JVCConfigModel *_shareInstance = nil;
             
             
             //设置抓拍方式以及AP和STA切换（ 常规）
-            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDecoder;
-            _shareInstance.isEnableAPModel  = FALSE;
+//            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDecoder;
+//            _shareInstance.isEnableAPModel  = FALSE;
             
             //惠通的
 //            _shareInstance.nCaptureMode     = JVCConfigModelCaptureModeTypeDevice;
