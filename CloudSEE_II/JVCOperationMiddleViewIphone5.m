@@ -28,11 +28,14 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
     NSMutableArray *_arrayCellbglist;
     NSMutableArray *_arrayCellbglistHor;
 
-    
+    int    nIndexSelect;//选中的index
 }
 
 @end
 @implementation JVCOperationMiddleViewIphone5
+static const int kIntDefaultValue  = -1;//默认的值
+static const NSTimeInterval kDefaultDelayTimer  = 1;//默认的值
+
 @synthesize delegateIphone5BtnCallBack;
 /**
  *  这个方法之前，一定要设置view的frame
@@ -44,6 +47,8 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
  */
 - (void)updateViewWithTitleArray:(NSArray *)titleArray detailArray:(NSArray *)detailArray skinType:(int )skinType
 {
+    nIndexSelect = kIntDefaultValue;
+    
     [self initImageArray];
     
     [self initCellbgArray];
@@ -241,19 +246,39 @@ static const int kSperateNum       = 6;           //上下个2个共4个  中间
  */
 - (void)clickBackGroup:(UITapGestureRecognizer *)gesture
 {
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(clickBackGroundSelector) object:nil];
+    nIndexSelect = gesture.view.tag;
+    [self performSelector:@selector(clickBackGroundSelector) withObject:nil afterDelay:kDefaultDelayTimer];
+}
+
+
+-(void)clickBackGroundSelector
+{
+    NSLog(@"===============================");
+
     if (delegateIphone5BtnCallBack !=nil &&[delegateIphone5BtnCallBack respondsToSelector:@selector(operationMiddleIphone5BtnCallBack:)]) {
         
-        [delegateIphone5BtnCallBack operationMiddleIphone5BtnCallBack:(int )gesture.view.tag];
+        [delegateIphone5BtnCallBack operationMiddleIphone5BtnCallBack:nIndexSelect];
     }
 }
 
 - (void)imagebtnClick:(UIButton *)btn
 {
+    //先将未到时间执行前的任务取消。
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(responseClick:) object:btn];
+    [self performSelector:@selector(responseClick:) withObject:btn afterDelay:0.2f];
+    
+   
+
+}
+
+- (void)responseClick:(UIButton *)btn
+{
+    
     if (delegateIphone5BtnCallBack !=nil &&[delegateIphone5BtnCallBack respondsToSelector:@selector(operationMiddleIphone5BtnCallBack:)]) {
         
         [delegateIphone5BtnCallBack operationMiddleIphone5BtnCallBack:(int )btn.tag];
     }
-
 }
 
 /**

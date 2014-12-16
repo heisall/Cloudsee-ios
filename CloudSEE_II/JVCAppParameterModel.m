@@ -13,7 +13,7 @@ static JVCAppParameterModel *shareAppParameter = nil;
 @implementation JVCAppParameterModel
 @synthesize nHasRegister,nUpdateIdentification,nCaptureMode;
 @synthesize bHasDemoPoint,bHasFeedback,bHasVoiceDevice,bHasGuidHelp,bHasAdvertising,isEnableAPModel;
-@synthesize appleID,userName,passWord;
+@synthesize appleID,userName,passWord,appDisplayName;
 
 static const NSString *kCloudSee                = @"CloudSEE";  //Cloudsee
 static const NSString *kNVSIP                   = @"NVSIP";     //NVSIP
@@ -68,8 +68,8 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
     NSString *appName = [infoDictionary objectForKey:kAppBundleName];
     
     JVCAppParameterModel *appModel = [JVCAppParameterModel shareJVCAPPParameter];
-    appModel.nHasRegister           =JVCRegisterType_Default;
-
+    appModel.nHasRegister           = JVCRegisterType_Default;
+    appModel.appDisplayName          = appName;
     if ([appName isEqualToString:(NSString *)kCloudSee]) {
         //上传账号用户名：wyj@jovetech.com 密码：Jovetech86996685
         appModel.nCaptureMode           = JVCConfigModelCaptureModeTypeDecoder;
@@ -173,6 +173,7 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
 
 - (void)dealloc
 {
+    [appDisplayName release];
     [appleID release];
     [userName release];
     [passWord release];
