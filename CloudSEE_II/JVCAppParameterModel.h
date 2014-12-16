@@ -39,11 +39,12 @@ enum JVCConfigModelCaptureModeType{
 
     int         nHasRegister;          //注册协议
     int         nUpdateIdentification; //升级应用标识
-    int         nCaptureMode;      //抓拍的模式
+    int         nCaptureMode;           //抓拍的模式
 
     NSString    *appleID;               //程序的id
     NSString    *userName;              //用户名
     NSString    *passWord;              //密码
+    NSString    *appDisplayName;        //应用的名称
     
 
 }
@@ -62,6 +63,8 @@ enum JVCConfigModelCaptureModeType{
 @property(nonatomic,retain)NSString    *appleID;
 @property(nonatomic,retain)NSString    *userName;
 @property(nonatomic,retain)NSString    *passWord;
+@property(nonatomic,retain)NSString    *appDisplayName;
+
 
 /**
  *  单利
@@ -69,5 +72,47 @@ enum JVCConfigModelCaptureModeType{
  *  @return 返回单利对象
  */
 +(JVCAppParameterModel *)shareJVCAPPParameter;
+
+/**
+ *  获取用户名
+ *
+ *  @return 用户名
+ */
+- (NSString *)strUserName ;
+
+/**
+ *  获取密码
+ *
+ *  @return 密码
+ */
+- (NSString *)strPassword ;
+
+/**
+ *  获取最后一次登录时间
+ *
+ *  @return 最后一次登录时间
+ */
+- (NSString *)strLastLoginTimer ;
+
+/**
+ *  设置用户名
+ *
+ *  @param value 用户名
+ */
+- (void)setStrUserName:(NSString *)value ;
+
+/**
+ *  设置密码
+ *
+ *  @param value 密码
+ */
+- (void)setStrPassword:(NSString *)value ;
+
+/**
+ *  设置最后一次登录时间
+ *
+ *  @param value 最后登录时间
+ */
+- (void)setStrLastLoginTimer:(NSString *)value ;
 
 @end
