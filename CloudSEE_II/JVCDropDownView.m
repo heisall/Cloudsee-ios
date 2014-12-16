@@ -121,18 +121,25 @@ static const int KSeperate  = 10;//间距5
     UIColor *btnColorBlue  = [rgbLabelHelper rgbColorForKey:kJVCRGBColorMacroLoginBlue];
     
     //用户名
-    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(imageViewCell.frame.origin.x+imageViewCell.frame.size.width+KSeperate, imageViewCell.frame.origin.y, KLabelWith, imageViewCell.frame.size.height)];
+    UILabel *lblName = [[UILabel alloc] initWithFrame:CGRectMake(imageViewCell.frame.origin.x+imageViewCell.frame.size.width+KSeperate, 0, KLabelWith, cell.height)];
     [cell.contentView addSubview:lblName];
     lblName.text = useModel.userName;
     [lblName release];
+
+    UIImage *imageInPutLine = [UIImage imageNamed:@"log_line.png"];
+    UIImageView *imageviewInPutLine = [[UIImageView alloc] initWithFrame:CGRectMake(0,cell.height -imageInPutLine.size.height, cell.width, imageInPutLine.size.height)];
+    imageviewInPutLine.image = imageInPutLine;
+    [cell.contentView addSubview:imageviewInPutLine];
+    [imageviewInPutLine release];
 
     
     if ([useModel.userName isEqualToString:selctuserName]) {
         
         imageViewCell.image = imgCellS;
         lblName.textColor = btnColorBlue;
+        imageViewCell.hidden = NO;
     }else{
-        
+        imageViewCell.hidden = YES;
         lblName.textColor = btnColorGray;
     }
 
