@@ -533,6 +533,13 @@
 		AD1673C519D85FA00021CD1B /* mor_aphelpch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD1673C419D85FA00021CD1B /* mor_aphelpch@2x.png */; };
 		AD1673D419D9552E0021CD1B /* JVCBaseWithGeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */; };
 		AD1673D719D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */; };
+		AD2635851A40002F005ECEC7 /* JVCCustomMember.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2635781A40002F005ECEC7 /* JVCCustomMember.m */; };
+		AD2635861A40002F005ECEC7 /* JVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26357A1A40002F005ECEC7 /* JVCFoundation.m */; };
+		AD2635871A40002F005ECEC7 /* JVCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26357C1A40002F005ECEC7 /* JVCMember.m */; };
+		AD2635881A40002F005ECEC7 /* JVCType.m in Sources */ = {isa = PBXBuildFile; fileRef = AD26357E1A40002F005ECEC7 /* JVCType.m */; };
+		AD2635891A40002F005ECEC7 /* JVCTypeEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2635801A40002F005ECEC7 /* JVCTypeEncoding.m */; };
+		AD26358A1A40002F005ECEC7 /* NSObject+JVCJson2Model.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2635821A40002F005ECEC7 /* NSObject+JVCJson2Model.m */; };
+		AD26358B1A40002F005ECEC7 /* NSObject+JVCMember.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2635841A40002F005ECEC7 /* NSObject+JVCMember.m */; };
 		AD2BDB0719D28EE600AA6D73 /* dev_device_default_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */; };
 		AD2BDB0819D28EE600AA6D73 /* dev_device_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */; };
 		AD2BDB1119D28F0600AA6D73 /* edi_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */; };
@@ -1317,6 +1324,20 @@
 		AD1673D319D9552E0021CD1B /* JVCBaseWithGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseWithGeneralViewController.m; sourceTree = "<group>"; };
 		AD1673D519D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseWithTopToolViewAndDropListViewController.h; sourceTree = "<group>"; };
 		AD1673D619D9558E0021CD1B /* JVCBaseWithTopToolViewAndDropListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseWithTopToolViewAndDropListViewController.m; sourceTree = "<group>"; };
+		AD2635771A40002F005ECEC7 /* JVCCustomMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCCustomMember.h; sourceTree = "<group>"; };
+		AD2635781A40002F005ECEC7 /* JVCCustomMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCCustomMember.m; sourceTree = "<group>"; };
+		AD2635791A40002F005ECEC7 /* JVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCFoundation.h; sourceTree = "<group>"; };
+		AD26357A1A40002F005ECEC7 /* JVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCFoundation.m; sourceTree = "<group>"; };
+		AD26357B1A40002F005ECEC7 /* JVCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCMember.h; sourceTree = "<group>"; };
+		AD26357C1A40002F005ECEC7 /* JVCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCMember.m; sourceTree = "<group>"; };
+		AD26357D1A40002F005ECEC7 /* JVCType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCType.h; sourceTree = "<group>"; };
+		AD26357E1A40002F005ECEC7 /* JVCType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCType.m; sourceTree = "<group>"; };
+		AD26357F1A40002F005ECEC7 /* JVCTypeEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCTypeEncoding.h; sourceTree = "<group>"; };
+		AD2635801A40002F005ECEC7 /* JVCTypeEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCTypeEncoding.m; sourceTree = "<group>"; };
+		AD2635811A40002F005ECEC7 /* NSObject+JVCJson2Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JVCJson2Model.h"; sourceTree = "<group>"; };
+		AD2635821A40002F005ECEC7 /* NSObject+JVCJson2Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JVCJson2Model.m"; sourceTree = "<group>"; };
+		AD2635831A40002F005ECEC7 /* NSObject+JVCMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JVCMember.h"; sourceTree = "<group>"; };
+		AD2635841A40002F005ECEC7 /* NSObject+JVCMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JVCMember.m"; sourceTree = "<group>"; };
 		AD2BDB0519D28EE600AA6D73 /* dev_device_default_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_default_icon@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0619D28EE600AA6D73 /* dev_device_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dev_device_bg@2x.png"; sourceTree = "<group>"; };
 		AD2BDB0A19D28F0600AA6D73 /* edi_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edi_add@2x.png"; sourceTree = "<group>"; };
@@ -2605,6 +2626,27 @@
 			name = apConfigWifi;
 			sourceTree = "<group>";
 		};
+		AD2635761A400018005ECEC7 /* json2model */ = {
+			isa = PBXGroup;
+			children = (
+				AD2635771A40002F005ECEC7 /* JVCCustomMember.h */,
+				AD2635781A40002F005ECEC7 /* JVCCustomMember.m */,
+				AD2635791A40002F005ECEC7 /* JVCFoundation.h */,
+				AD26357A1A40002F005ECEC7 /* JVCFoundation.m */,
+				AD26357B1A40002F005ECEC7 /* JVCMember.h */,
+				AD26357C1A40002F005ECEC7 /* JVCMember.m */,
+				AD26357D1A40002F005ECEC7 /* JVCType.h */,
+				AD26357E1A40002F005ECEC7 /* JVCType.m */,
+				AD26357F1A40002F005ECEC7 /* JVCTypeEncoding.h */,
+				AD2635801A40002F005ECEC7 /* JVCTypeEncoding.m */,
+				AD2635811A40002F005ECEC7 /* NSObject+JVCJson2Model.h */,
+				AD2635821A40002F005ECEC7 /* NSObject+JVCJson2Model.m */,
+				AD2635831A40002F005ECEC7 /* NSObject+JVCMember.h */,
+				AD2635841A40002F005ECEC7 /* NSObject+JVCMember.m */,
+			);
+			name = json2model;
+			sourceTree = "<group>";
+		};
 		AD2BDB0919D28EEA00AA6D73 /* editDeviceViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3122,6 +3164,7 @@
 		ADA77C2619D0280E003EE7A1 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AD2635761A400018005ECEC7 /* json2model */,
 				A72928CF1A28973E00F4A214 /* jvcLeftbtn */,
 				A7B5D1DD1A26D57B007F3B16 /* crashObject */,
 				A7B172A51A1AEBE800D364CB /* customAlert */,
@@ -3833,6 +3876,7 @@
 				A72B4B6519D3B98900760695 /* JSONKit.m in Sources */,
 				AD616CD31A187F6F004214A5 /* JVCWheelShowOperationController.m in Sources */,
 				ADA22D4819DA611D0092F8B9 /* DDContextFilterLogFormatter.m in Sources */,
+				AD2635851A40002F005ECEC7 /* JVCCustomMember.m in Sources */,
 				A7F7177E19D83146008DB1C5 /* JVCAPConfigPreparaViewController.m in Sources */,
 				A7F5E26119D4464C00609BC3 /* JVCUserInfoModel.m in Sources */,
 				A72928BF1A2859ED00F4A214 /* JVCOperDevConManagerCell.m in Sources */,
@@ -3852,11 +3896,13 @@
 				AD3BDC7919EB75D3001B16D7 /* JVCLanScanDeviceModel.m in Sources */,
 				AD3BDC0B19E54637001B16D7 /* JVCChannelModel.m in Sources */,
 				A7F51E6719EBAFF60052F878 /* JVCAlarmModel.m in Sources */,
+				AD2635891A40002F005ECEC7 /* JVCTypeEncoding.m in Sources */,
 				A7F9E04719ED0E9600C1D69C /* TableViewControllerdd.m in Sources */,
 				AD616CD61A188051004214A5 /* JVCWheelShowOperationControllerIphone5.m in Sources */,
 				A7F9E04D19ED1A5A00C1D69C /* JVCDemoCell.m in Sources */,
 				A7EFFA6F19F530F100DF783D /* JVCDeviceMathsHelper.m in Sources */,
 				AD000A921A397093005EF8E4 /* JVCJson2Model.m in Sources */,
+				AD2635861A40002F005ECEC7 /* JVCFoundation.m in Sources */,
 				63BEBC581A3949BF00F2239C /* JVCTimeZoonViewController.m in Sources */,
 				A7F5556D19D90FB10009F75C /* SPLine.m in Sources */,
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
@@ -3891,6 +3937,7 @@
 				ADE03D0919D7B945002F65DA /* JVCAnimationHelper.m in Sources */,
 				A7F4458319F62B05002C984F /* JVCDeviceAlarmNoDeviceTableViewCell.m in Sources */,
 				AD916BCC19D4F73000B925A2 /* JVCTopToolBarView.m in Sources */,
+				AD2635881A40002F005ECEC7 /* JVCType.m in Sources */,
 				AD916BCB19D4F73000B925A2 /* JVCEditDeviceTopItemView.m in Sources */,
 				ADA77C2D19D02919003EE7A1 /* JVCAccountInterface.mm in Sources */,
 				ADA7AFCA1A1C3D5D00587B53 /* JVCLogListViewController.m in Sources */,
@@ -3926,6 +3973,7 @@
 				A7F8044319FF2E0900934507 /* JVCOldSouchModel.m in Sources */,
 				A7B2093E1A19C6370016E59B /* DCRoundSwitchToggleLayer.m in Sources */,
 				AD3BDC7619EB7439001B16D7 /* JVCLANScanWithSetHelpYSTNOHelper.m in Sources */,
+				AD2635871A40002F005ECEC7 /* JVCMember.m in Sources */,
 				A7EFFA5519F50B9800DF783D /* JVCAPConfingMiddleIphone5.m in Sources */,
 				A7F4457F19F5FEA5002C984F /* JVCAPConfigMiddleView.m in Sources */,
 				ADA47C151A136E6A003AA90A /* JVCWiredInfoTableViewController.m in Sources */,
@@ -3947,6 +3995,7 @@
 				A7F5559419D97E760009F75C /* UITabBarController+Rotation_IOS6.m in Sources */,
 				AD916BD319D543B400B925A2 /* JVCEditViewControllerDropListViewCell.m in Sources */,
 				ADA22D2819DA5AC90092F8B9 /* JVCCloudSEENetworkInterface.mm in Sources */,
+				AD26358A1A40002F005ECEC7 /* NSObject+JVCJson2Model.m in Sources */,
 				ADA77C0419D0250E003EE7A1 /* AppDelegate.m in Sources */,
 				A7F4347519DA883500E7ECA1 /* UIImage+BundlePath.m in Sources */,
 				AD014DF919F65EF500E3D0FB /* JVCSystemSoundHelper.m in Sources */,
@@ -4002,6 +4051,7 @@
 				A7F4457C19F5FE54002C984F /* JVCAPConfigPlayVideoIphone4ViewController.m in Sources */,
 				A7B6EE2E1A14D7290024F836 /* JVCPhotoViewController.m in Sources */,
 				ADA22D7519DA816C0092F8B9 /* JVCPlaySoundHelper.m in Sources */,
+				AD26358B1A40002F005ECEC7 /* NSObject+JVCMember.m in Sources */,
 				A7F5E25719D43FBD00609BC3 /* CommonFunc.m in Sources */,
 				A7F486AA19E662B600C10B2B /* JVCEditDeviceInfoViewController.m in Sources */,
 				ADA22D7219DA7ED60092F8B9 /* JVCCloudSEENetworkGeneralHelper.m in Sources */,
