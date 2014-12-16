@@ -20,6 +20,7 @@ static const NSString *kNVSIP                   = @"NVSIP";     //NVSIP
 static const NSString *kEhome                   = @"Ehome";     //Ehome
 static const NSString *kHITVIS                  = @"HITVIS";    //HITVIS
 static const NSString *kELEC                    = @"ELEC";    //elec
+static const NSString *kATVCloud                = @"ATVCloud";    //elec
 
 static const NSString *kAppBundleName           = @"CFBundleDisplayName";    //
 static const NSString       *KCloseGuid        =@"fistOpen";//第一次打开
@@ -130,7 +131,7 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
         appModel.userName               = (NSString *)kAppDefaultOEMUserName;
         appModel.passWord               = (NSString *)kAppDefaultOEmPassWord;
     }else if([appName isEqualToString:(NSString *)kELEC])
-    {//上传账号用户名： 密码：
+    {//上传账号用户名：elecapk@gmail.com  密码：Elec2014apple
         appModel.bHasDemoPoint          = NO;
         appModel.nHasRegister           = JVCRegisterType_Default;
         appModel.bHasGuidHelp           = NO;
@@ -141,6 +142,21 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
         appModel.isEnableAPModel        = NO;
         appModel.bHasFeedback           = YES;
         appModel.nUpdateIdentification  =  1010;
+        appModel.appleID                = @"";//nvsip的appleid
+        appModel.userName               = (NSString *)kAppDefaultOEMUserName;
+        appModel.passWord               = (NSString *)kAppDefaultOEmPassWord;
+    }else if([appName isEqualToString:(NSString *)kATVCloud]){
+        //
+        appModel.bHasDemoPoint          = NO;
+        appModel.nHasRegister           = JVCRegisterType_Default;
+        appModel.bHasGuidHelp           = NO;
+        appModel.bHasFeedback           = NO;
+        appModel.bHasAdvertising        = NO;
+        appModel.bHasVoiceDevice        = YES;
+        appModel.nCaptureMode           = JVCConfigModelCaptureModeTypeDecoder;
+        appModel.isEnableAPModel        = NO;
+        appModel.bHasFeedback           = YES;
+        appModel.nUpdateIdentification  =  1011;
         appModel.appleID                = @"";//nvsip的appleid
         appModel.userName               = (NSString *)kAppDefaultOEMUserName;
         appModel.passWord               = (NSString *)kAppDefaultOEmPassWord;

@@ -1005,7 +1005,12 @@ char remoteSendSearchFileBuffer[29] = {0};
 
 -(void)ytoHidenClick{
     
-    [[JVCCustomYTOView shareInstance] HidenYTOperationView];
+    JVCCustomYTOView *ytView = [JVCCustomYTOView shareInstance];
+    if ([ytView getYTViewShowState]) {
+        
+        [[JVCCustomYTOView shareInstance] HidenYTOperationView];
+
+    }
 }
 
 -(void)closeAlterViewAllDic{
@@ -1023,6 +1028,8 @@ char remoteSendSearchFileBuffer[29] = {0};
     [wheelAlterInfo dismissWithClickedButtonIndex:0 animated:NO];
     
     DDLogVerbose(@"___%s==========004",__FUNCTION__);
+    
+    [self ytoHidenClick];
 
     if (self.isPlayBackVideo) {
         
