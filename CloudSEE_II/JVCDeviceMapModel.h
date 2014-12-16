@@ -18,14 +18,14 @@
     int         dtype;      //设备的类型
     int         dvlt;       //设备的连接类型 （0:云视通 1：IP）
     int         dwifi;      //设备是否支持无线 1：支持
-    
+    int         dvport;    //设备的端口
+
     NSString    *dguid;     //设备的云视通号
     NSString    *dname;     //设备的昵称
     NSString    *dstype;    //设备的类型
     NSString    *dsv;       //设备的版本
     NSString    *dvip;      //设备的IP
     NSString    *dvpassword;//连接视频的密码
-    NSString    *dvport;    //设备的端口
     NSString    *dvusername;//连接视频的用户名
 }
 
@@ -37,6 +37,7 @@
 @property(nonatomic,assign)int         dtype;
 @property(nonatomic,assign)int         dvlt;
 @property(nonatomic,assign)int         dwifi;
+@property(nonatomic,assign)int         dvport;
 
 @property(nonatomic,retain)NSString    *dguid;
 @property(nonatomic,retain)NSString    *dname;
@@ -44,7 +45,6 @@
 @property(nonatomic,retain)NSString    *dsv;
 @property(nonatomic,retain)NSString    *dvip;
 @property(nonatomic,retain)NSString    *dvpassword;
-@property(nonatomic,retain)NSString    *dvport;
 @property(nonatomic,retain)NSString    *dvusername;
 
 @end

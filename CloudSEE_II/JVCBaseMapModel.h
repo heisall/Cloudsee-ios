@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+JVCJson2Model.h"
 
 @interface JVCBaseMapModel : NSObject
 {

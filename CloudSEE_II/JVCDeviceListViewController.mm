@@ -39,6 +39,8 @@
 #import "JVCOpenAdevitiseViewController.h"
 #import "JVCAdverImageModel.h"
 
+#import "JVCDeviceListMapModel.h"
+
 static const int             kTableViewCellInViewColumnCount         = 2 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellColorTypeCount            = 4 ;    //判断设备的颜色值是第几个数组
 static const int             kTableViewCellNODevice                  = 600;   //广告条的高度
@@ -764,6 +766,10 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             DDLogVerbose(@"获取设备的=%s==%@",__FUNCTION__,tdicDevice);
+            
+            JVCDeviceListMapModel *model = [JVCDeviceListMapModel modelWithDic:tdicDevice];
+            
+            NSLog(@"%@",[model description]);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
