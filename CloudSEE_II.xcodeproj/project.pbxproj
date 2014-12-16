@@ -19,6 +19,8 @@
 		63BEBC601A39595500F2239C /* timehead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC5F1A39595500F2239C /* timehead@2x.png */; };
 		63BEBC621A39596100F2239C /* celltimeZonedefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC611A39596100F2239C /* celltimeZonedefault@2x.png */; };
 		63BEBC641A39597200F2239C /* timezone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BEBC631A39597200F2239C /* timezone@2x.png */; };
+		63C134131A4001B300418B0E /* JVCDeviceMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C134121A4001B300418B0E /* JVCDeviceMapModel.m */; };
+		63C134161A400C0200418B0E /* JVCBaseMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C134151A400C0200418B0E /* JVCBaseMapModel.m */; };
 		63CFC5101A3E77CE0047C932 /* JVCAppParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CFC50F1A3E77CE0047C932 /* JVCAppParameterModel.m */; };
 		A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */; };
 		A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */; };
@@ -721,6 +723,10 @@
 		63BEBC5F1A39595500F2239C /* timehead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timehead@2x.png"; sourceTree = "<group>"; };
 		63BEBC611A39596100F2239C /* celltimeZonedefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "celltimeZonedefault@2x.png"; sourceTree = "<group>"; };
 		63BEBC631A39597200F2239C /* timezone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timezone@2x.png"; sourceTree = "<group>"; };
+		63C134111A4001B300418B0E /* JVCDeviceMapModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceMapModel.h; sourceTree = "<group>"; };
+		63C134121A4001B300418B0E /* JVCDeviceMapModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceMapModel.m; sourceTree = "<group>"; };
+		63C134141A400C0200418B0E /* JVCBaseMapModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCBaseMapModel.h; sourceTree = "<group>"; };
+		63C134151A400C0200418B0E /* JVCBaseMapModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseMapModel.m; sourceTree = "<group>"; };
 		63CFC50E1A3E77CE0047C932 /* JVCAppParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppParameterModel.h; sourceTree = "<group>"; };
 		63CFC50F1A3E77CE0047C932 /* JVCAppParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAppParameterModel.m; sourceTree = "<group>"; };
 		A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_hor@2x.png"; sourceTree = "<group>"; };
@@ -3104,6 +3110,10 @@
 				A7AC72DD1A1DDEAA00684990 /* JVCAdverImageModel.m */,
 				63CFC50E1A3E77CE0047C932 /* JVCAppParameterModel.h */,
 				63CFC50F1A3E77CE0047C932 /* JVCAppParameterModel.m */,
+				63C134111A4001B300418B0E /* JVCDeviceMapModel.h */,
+				63C134121A4001B300418B0E /* JVCDeviceMapModel.m */,
+				63C134141A400C0200418B0E /* JVCBaseMapModel.h */,
+				63C134151A400C0200418B0E /* JVCBaseMapModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -3860,6 +3870,7 @@
 				A7FA43D619E3CC3C00F7A8A4 /* JVCCustomOperationBottomView.m in Sources */,
 				A7F5557B19D9340C0009F75C /* JVCMorEditPassWordViewController.m in Sources */,
 				A7FB234C19EFF90C00A3FC01 /* JVCAlarmVideoPlayViewController.m in Sources */,
+				63C134131A4001B300418B0E /* JVCDeviceMapModel.m in Sources */,
 				A7FA43DE19E3CC3C00F7A8A4 /* JVCOperationMiddleViewIphone5.m in Sources */,
 				A7B9FB8F1A08F8F6005F7928 /* JVCOperationHelpView.m in Sources */,
 				A7AF72BB1A1594CC0030D490 /* JVCPhotoModelObj.m in Sources */,
@@ -3908,6 +3919,7 @@
 				A7F4346219DA340900E7ECA1 /* JVCBaseGeneralTableViewController.m in Sources */,
 				AD616CDD1A19C9D1004214A5 /* JVCHomeIPCUpdate.m in Sources */,
 				A7F4458F19F6527B002C984F /* JVCAddLockDeviceViewController.m in Sources */,
+				63C134161A400C0200418B0E /* JVCBaseMapModel.m in Sources */,
 				ADA22E0019DAAE2A0092F8B9 /* AQSController.mm in Sources */,
 				A7F6C5E119F8977D0090B6F0 /* JVCHorizontalScreenBar.m in Sources */,
 				AD3BDC9B19EBF8B6001B16D7 /* JVCVoiceencInputSSIDWithPasswordViewController.m in Sources */,

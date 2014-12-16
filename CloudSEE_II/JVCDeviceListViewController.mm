@@ -763,6 +763,7 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
+            DDLogVerbose(@"获取设备的=%s==%@",__FUNCTION__,tdicDevice);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
