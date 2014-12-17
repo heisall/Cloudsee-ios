@@ -22,7 +22,6 @@
 @implementation JVCURlRequestHelper
 @synthesize delegateUrl;
 @synthesize bShowNetWorkError;
-static  const   NSString *KMODELTYPEGETUPDATEINFO  =  @"1006";//版本号
 static  const   NSString  *KVersion =  @"Version";
 static  const   NSString  *KRequestType =  @"RequestType";
 static  const   NSString  *KRequestTypeValue =  @"3";
@@ -91,10 +90,11 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
     }else{
         [paramer setObject:@"2" forKey:KLanguage];
     }
-    [paramer setObject:KMODELTYPEGETUPDATEINFO forKey:KVersion];
+    [paramer setObject:[NSString stringWithFormat:@"%d",[JVCAppParameterModel shareJVCAPPParameter].nUpdateIdentification] forKey:KVersion];
     [paramer setObject:KMobileTypeValue forKey:KMobileType];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    NSLog(@"===%@==%d=",[NSString stringWithFormat:@"%@?%@",KSErVER_URl_VERSION_HEADER,[self getRequestKeyString: paramer]],[JVCAppParameterModel shareJVCAPPParameter].nUpdateIdentification);
     
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?%@",KSErVER_URl_VERSION_HEADER,[self getRequestKeyString: paramer]]]];
     [request setTimeoutInterval:KAnimationTimer];

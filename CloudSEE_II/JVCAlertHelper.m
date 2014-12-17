@@ -9,6 +9,7 @@
 #import "JVCAlertHelper.h"
 #import "JVCConfigModel.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 static  const    int    HUDTAG                  =   54545554;//HUd的tag
 
@@ -294,7 +295,14 @@ static JVCAlertHelper *shareAlertHelper = nil;
         }
         
         
-        [delegate presentViewController:controlAlert animated:YES completion:nil];
+        if ([delegate isKindOfClass:[UIViewController class]]) {
+            
+            [delegate presentViewController:controlAlert animated:YES completion:nil];
+            
+        }else{
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate.window.rootViewController  presentViewController:controlAlert animated:YES completion:nil];
+        }
         
     }else{
         

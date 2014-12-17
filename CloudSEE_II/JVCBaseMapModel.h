@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+JVCJson2Model.h"
+
+static const int kReceiveRTSuccess          =   0;//rt=0，成功
 
 @interface JVCBaseMapModel : NSObject
 {

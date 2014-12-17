@@ -12,6 +12,7 @@
 
 @class JVCDeviceModel;
 
+@class JVCDeviceListMapModel;
 /**
  *  判断用户名密码和是否超过最大数的枚举
  */
@@ -229,5 +230,15 @@ enum ADDDEVICE_TYPE
  *  @param ystNum     云视通号
  */
 - (void)newInterFaceAddDevice:(NSDictionary *)deviceInfo  ystNum:(NSString *)ystNum;
+
+
+                                        #pragma mark 映射的处理
+/*******************************************************************************************************************/
+/**
+ *  把从服务器收到的数据映射转化成model
+ *
+ *  @param tdicDevice 服务器收到的数据
+ */
+- (void)addDeviceMapDateToDeviceList:(JVCDeviceListMapModel *)deviceListMapModel;
 
 @end

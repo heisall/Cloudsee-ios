@@ -16,15 +16,17 @@
 {
     if (self = [super init]) {
         
-        self.strTypeIdentifier = strTypeIdentifier;
+        _strTypeIdentifier = strTypeIdentifier;
     }
     
     return self;
 }
 
 -(void)setStrTypeIdentifier:(NSString *)strTypeIdentifier{
+    
 
     _strTypeIdentifier = strTypeIdentifier;
+    
     
     if (_strTypeIdentifier.length == 0 || [_strTypeIdentifier isEqualToString:JVCTypeSEL] ||
         [_strTypeIdentifier isEqualToString:JVCTypeIvar] ||
@@ -42,6 +44,11 @@
         
         _fromFoundation = [JVCFoundation isClassFromFoundation:_typeClass];
     }
+}
+
+-(void)dealloc{
+
+    [super dealloc];
 }
 
 

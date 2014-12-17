@@ -11,6 +11,8 @@
 
 @implementation JVCCustomMember
 
+@synthesize type;
+
 /**
  *  初始化
  *
@@ -32,14 +34,15 @@
 -(void)setIvar:(Ivar)ivar {
 
     _ivar = ivar;
+
     
     // 1.成员变量名
-    _name = [NSString stringWithUTF8String:ivar_getName(ivar)];
+     _name = [NSString stringWithUTF8String:ivar_getName(ivar)] ;
     
     // 2.属性名
     if ([_name hasPrefix:@"_"]) {
         
-        _propertyName = [_name stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+        _propertyName = [_name stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""] ;
         
     } else {
         
@@ -49,23 +52,33 @@
     // 3.成员变量的类型符
     NSString *strTypeIdentifier = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivar)];
     
-    DDLogVerbose(@"001------strTypeIdentifier=%@",strTypeIdentifier);
-    _type = [[JVCType alloc] initWithTypeIdentifier:strTypeIdentifier];
+    
+    JVCType *jvcType = [[JVCType alloc] initWithTypeIdentifier:strTypeIdentifier];
+    self.type        =  jvcType;
+    [jvcType release];
+    
+    
 }
 
 -(void)setPropertyValue:(id)propertyValue{
 
-    if (_type.KVCDisabled) return;
+    if (self.type.KVCDisabled) return;
     [_memberInObject setValue:propertyValue forKey:_propertyName];
-    
-    DDLogVerbose(@"%@----finshed---------name=%@----result=%@",_memberInObject,_propertyName,propertyValue);
-
 }
 
 -(id)propertyValue{
 
-    if (_type.KVCDisabled) return [NSNull null];
+    if (self.type.KVCDisabled) return [NSNull null];
+    
     return [_memberInObject valueForKey:_propertyName];
+}
+
+
+-(void)dealloc{
+
+    [type release];
+    [super dealloc];
+
 }
 
 @end

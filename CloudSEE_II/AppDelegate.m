@@ -49,6 +49,11 @@
 #import "JVCDeviceMacro.h"
 #import "JSONKit.h"
 
+#import "MobClick.h"
+#import "JVCDataBaseHelper.h"
+#import "JVCUserInfoModel.h"
+
+
 @interface AppDelegate ()
 {
     JVCDeviceListViewController     *deviceListController; //设备管理界面
@@ -57,6 +62,9 @@
     JVCEditDeviceListViewController *editDeviceViewController;
     
     BOOL                            messageLoginIn;
+    
+    BOOL                            bHasRequestVersion;//请求app的版本信息的标志
+
 }
 
 @end
@@ -120,6 +128,9 @@ static const   int     KCheckLocationResultValue = 1;
     
     //腾讯云统计
     //[self initTencentSdk];
+    
+    //设置um
+    [self umengTrack];
     
     //openglView
     [self initOpenGlView];
@@ -196,7 +207,13 @@ static const   int     KCheckLocationResultValue = 1;
     [loginVC release];
     [rootNav release];
     
-    [self checkNewVersion];
+    if ([self checkVersionUpdateState]) {
+        
+        [self checkNewVersion];
+        
+        bHasRequestVersion = YES;
+        
+    }
 }
 
 /**
@@ -286,7 +303,14 @@ static const   int     KCheckLocationResultValue = 1;
     [editDeviceNav release];
     [moreNav release];
     [rootViewController release];
-    
+ 
+    if (!bHasRequestVersion) {
+        
+        
+        [self checkNewVersion];
+        
+        bHasRequestVersion = YES;
+    }
 }
 
 /**
@@ -920,13 +944,10 @@ static const   int     KCheckLocationResultValue = 1;
 
 - (void)checkNewVersion
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        JVCURlRequestHelper *jvcRequest = [[[JVCURlRequestHelper alloc] init] autorelease];
-        jvcRequest.bShowNetWorkError = YES;
-        [jvcRequest requeAppVersion];
+    JVCURlRequestHelper *jvcRequest = [[[JVCURlRequestHelper alloc] init] autorelease];
+    jvcRequest.bShowNetWorkError = YES;
+    [jvcRequest requeAppVersion];
     
-    });
 }
 
 /**
@@ -958,6 +979,57 @@ static const   int     KCheckLocationResultValue = 1;
         
         [JVCConfigModel shareInstance].iDeviceBrowseModel = YES;
     }
+}
+
+/**
+ *  设置um参数
+ */
+- (void)umengTrack {
+    
+    NSString *umKey = [JVCAppParameterModel shareJVCAPPParameter].appUmKey;
+    if (umKey.length>0) {
+        
+        //    [MobClick setCrashReportEnabled:NO]; // 如果不需要捕捉异常，注释掉此行
+//        [MobClick setLogEnabled:NO];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+        [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
+        //
+        [MobClick startWithAppkey:umKey reportPolicy:(ReportPolicy) REALTIME channelId:nil];
+        
+        [MobClick updateOnlineConfig];  //在线参数配置
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    }
+}
+
+- (void)onlineConfigCallBack:(NSNotification *)note {
+    
+    NSLog(@"online config has fininshed and note = %@", note.userInfo);
+}
+
+/**
+ *  判断什么时候去请求版本网络
+ *
+ *  @return yes  可以请求网络   no不能请求网络
+ */
+- (BOOL)checkVersionUpdateState
+{
+    NSArray *userArray = [[JVCDataBaseHelper shareDataBaseHelper]getAllUsers];
+    
+    if (userArray.count != 0) {//排序好了，第一个就是最后一次登录的用户
+        
+        JVCUserInfoModel *modeluse = [userArray objectAtIndex:0];
+        
+        if (modeluse.bAutoLoginState) {
+            
+            if (![[JVCSystemUtility shareSystemUtilityInstance] currentPhoneConnectWithWifiSSIDIsHomeIPC]) {
+                
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+    
 }
 
 @end

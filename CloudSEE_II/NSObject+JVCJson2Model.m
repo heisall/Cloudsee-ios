@@ -20,7 +20,7 @@
 + (instancetype)modelWithDic:(NSDictionary *)keyValues
 {
 
-    id model = [[self alloc] init];
+    id model = [[[self alloc] init] autorelease];
     
     [model setKeyValues:keyValues];
     

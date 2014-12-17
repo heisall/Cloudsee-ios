@@ -25,8 +25,6 @@
         
         Ivar *ivars = class_copyIvarList(c, &outCount);
         
-        NSLog(@"ClassNumber=%@",c);
-        
         // 2.遍历每一个成员变量
         for (int i = 0; i<outCount; i++) {
             
@@ -35,6 +33,8 @@
             ivar.memberInClass = c;
             
             block(ivar, stop);
+            
+            [ivar release];
         }
     
         // 3.释放内存

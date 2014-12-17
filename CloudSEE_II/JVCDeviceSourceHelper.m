@@ -13,6 +13,8 @@
 #import "JVCDeviceMacro.h"
 #import "JVCLanScanDeviceModel.h"
 
+#import "JVCDeviceListMapModel.h"
+
 static const int MAX_DEVICE_NUM = 100;//账号下面最大的值
 
 @interface JVCDeviceSourceHelper ()
@@ -164,6 +166,20 @@ static JVCDeviceSourceHelper *shareDeviceSourceHelper = nil;
         [_model release];
     }
 
+}
+
+/**
+ *  把从服务器收到的数据映射转化成model
+ *
+ *  @param tdicDevice 服务器收到的数据
+ */
+- (void)addDeviceMapDateToDeviceList:(JVCDeviceListMapModel *)deviceListMapModel
+{
+    
+    [self removeAllDeviceObject];
+    
+    [deviceArray addObject:deviceListMapModel.dlist];
+    
 }
 
 /**
