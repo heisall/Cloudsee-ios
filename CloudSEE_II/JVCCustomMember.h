@@ -19,9 +19,7 @@
 /** 成员变量的值 */
 @property (nonatomic) id propertyValue;
 /** 成员变量的类型 */
-@property (nonatomic, strong, readonly) JVCType *type;
-
-
+@property (nonatomic, retain) JVCType *type;
 
 
 /**

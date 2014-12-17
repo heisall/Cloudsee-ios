@@ -31,9 +31,6 @@
 -(void)setMemberInObject:(id)memberInObject {
 
     _memberInObject = memberInObject;
-    
-    NSLog(@"%s----------%@",__FUNCTION__,memberInObject);
-    
     _memberInClassFromFoundation = [JVCFoundation isClassFromFoundation:memberInObject];
 }
 
