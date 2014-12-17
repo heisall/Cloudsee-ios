@@ -22,6 +22,7 @@
 		63C134131A4001B300418B0E /* JVCDeviceMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C134121A4001B300418B0E /* JVCDeviceMapModel.m */; };
 		63C134161A400C0200418B0E /* JVCBaseMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C134151A400C0200418B0E /* JVCBaseMapModel.m */; };
 		63C134321A4031BB00418B0E /* JVCDeviceListMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C134311A4031BB00418B0E /* JVCDeviceListMapModel.m */; };
+		63C29A901A4144F8004247EE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C29A8E1A4144F8004247EE /* libMobClickLibrary.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		63CFC5101A3E77CE0047C932 /* JVCAppParameterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CFC50F1A3E77CE0047C932 /* JVCAppParameterModel.m */; };
 		A70503171A075AC800A52E4C /* reg_btn_hor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */; };
 		A705031C1A075C5400A52E4C /* reg_btn_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A705031B1A075C5400A52E4C /* reg_btn_nor@2x.png */; };
@@ -730,6 +731,8 @@
 		63C134151A400C0200418B0E /* JVCBaseMapModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCBaseMapModel.m; sourceTree = "<group>"; };
 		63C134301A4031BB00418B0E /* JVCDeviceListMapModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCDeviceListMapModel.h; sourceTree = "<group>"; };
 		63C134311A4031BB00418B0E /* JVCDeviceListMapModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCDeviceListMapModel.m; sourceTree = "<group>"; };
+		63C29A8E1A4144F8004247EE /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		63C29A8F1A4144F8004247EE /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		63CFC50E1A3E77CE0047C932 /* JVCAppParameterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVCAppParameterModel.h; sourceTree = "<group>"; };
 		63CFC50F1A3E77CE0047C932 /* JVCAppParameterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVCAppParameterModel.m; sourceTree = "<group>"; };
 		A70503151A075AC800A52E4C /* reg_btn_hor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_hor@2x.png"; sourceTree = "<group>"; };
@@ -1600,10 +1603,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
+				63C29A901A4144F8004247EE /* libMobClickLibrary.a in Frameworks */,
 				A7A576021A130ABD000D0BBC /* CoreTelephony.framework in Frameworks */,
 				A7A576001A130AB3000D0BBC /* AdSupport.framework in Frameworks */,
 				ADD3EFFC1A10C74000C7F329 /* libsqlite3.dylib in Frameworks */,
-				A7A575FE1A130AA2000D0BBC /* libz.dylib in Frameworks */,
 				ADD626781A0382B300BD877F /* libGlView_v2.0.2.a in Frameworks */,
 				A7A575FA1A130A57000D0BBC /* libmtasdk.a in Frameworks */,
 				A7F486B719E6AC4600C10B2B /* QuartzCore.framework in Frameworks */,
@@ -1657,6 +1661,15 @@
 				63BC43A91A387F56003C35AC /* timezone@2x.png */,
 			);
 			name = HITVIS;
+			sourceTree = "<group>";
+		};
+		63C29A8D1A4144E6004247EE /* umSDK */ = {
+			isa = PBXGroup;
+			children = (
+				63C29A8E1A4144F8004247EE /* libMobClickLibrary.a */,
+				63C29A8F1A4144F8004247EE /* MobClick.h */,
+			);
+			name = umSDK;
 			sourceTree = "<group>";
 		};
 		A709696119F22D8300C191F8 /* uinavicationbar */ = {
@@ -3206,6 +3219,7 @@
 		ADA77C2719D0281D003EE7A1 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				63C29A8D1A4144E6004247EE /* umSDK */,
 				ADC8289F1A2888F9002F87F5 /* datePicker */,
 				AD616CE01A1AEAFE004214A5 /* log */,
 				A7F46A6619F92D1000AC1B1F /* helpView */,

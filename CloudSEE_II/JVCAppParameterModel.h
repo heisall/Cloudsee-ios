@@ -45,6 +45,7 @@ enum JVCConfigModelCaptureModeType{
     NSString    *userName;              //用户名
     NSString    *passWord;              //密码
     NSString    *appDisplayName;        //应用的名称
+    NSString    *appUmKey;              //友盟统计key值
     
 
 }
@@ -64,6 +65,8 @@ enum JVCConfigModelCaptureModeType{
 @property(nonatomic,retain)NSString    *userName;
 @property(nonatomic,retain)NSString    *passWord;
 @property(nonatomic,retain)NSString    *appDisplayName;
+@property(nonatomic,retain)NSString    *appUmKey; 
+
 
 
 /**
