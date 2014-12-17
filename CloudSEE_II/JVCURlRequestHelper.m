@@ -94,7 +94,6 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
     [paramer setObject:KMobileTypeValue forKey:KMobileType];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    NSLog(@"===%@==%d=",[NSString stringWithFormat:@"%@?%@",KSErVER_URl_VERSION_HEADER,[self getRequestKeyString: paramer]],[JVCAppParameterModel shareJVCAPPParameter].nUpdateIdentification);
     
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?%@",KSErVER_URl_VERSION_HEADER,[self getRequestKeyString: paramer]]]];
     [request setTimeoutInterval:KAnimationTimer];
