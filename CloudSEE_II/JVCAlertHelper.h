@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MBProgressHUD.h"
 
+static const int  KTagDealWithSelf    = 1028323;//本身处理的tag
+
 @interface JVCAlertHelper : NSObject<MBProgressHUDDelegate>
 
 /**
