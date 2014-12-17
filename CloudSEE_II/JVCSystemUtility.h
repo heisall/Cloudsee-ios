@@ -235,4 +235,10 @@
 
 //删除目录
 - (void)removeAdvertiseDoc:(NSString *)fileName;
+
+/**
+ *  打开itunes 评论功能
+ */
+- (void) openItunsUpdate;
+
 @end

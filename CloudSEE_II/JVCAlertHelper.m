@@ -332,7 +332,7 @@ static JVCAlertHelper *shareAlertHelper = nil;
     if (alertView.tag == KTagDealWithSelf) {
         if (buttonIndex == 0) {
             
-             [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
+             [[JVCSystemUtility shareSystemUtilityInstance] openItunsUpdate];
         }
     }
 }

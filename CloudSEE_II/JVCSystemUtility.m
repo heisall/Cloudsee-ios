@@ -444,6 +444,17 @@ static JVCSystemUtility *shareInstance = nil;
 
 }
 
+/**
+ *  打开itunes 评论功能
+ */
+- (void) openItunsUpdate
+{
+    
+    NSString *str = [NSString stringWithFormat:@"http://itunes.apple.com/app/id%@?mt=8",kAPPIDNUM];
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+    
+}
+
 //返回保存用户名密码的plist路径
 - (NSString *)getUserInfoPlistPath
 {

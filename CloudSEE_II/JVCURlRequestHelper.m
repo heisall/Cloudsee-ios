@@ -382,7 +382,7 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
 
 - (void)openItunes
 {
-    [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
+    [[JVCSystemUtility shareSystemUtilityInstance] openItunsUpdate];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
