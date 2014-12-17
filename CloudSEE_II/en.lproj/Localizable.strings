@@ -446,7 +446,7 @@
 "jvc_more_suggestion_send_error"= "Failed to send message, please try again!";
 "jvc_more_suggestion_send_success"= "Send message successfully";
 "jvc_more_suggestion_send"= "Send";
-"jvc_more_suggestion_Phone_num" = "Your contact info(So we can contact you for feedback)";
+"jvc_more_suggestion_Phone_num" = "Your contact info";
 
 
 //修改密码的

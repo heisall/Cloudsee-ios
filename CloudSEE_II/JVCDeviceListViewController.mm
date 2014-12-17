@@ -767,9 +767,9 @@ static const int            kPlayVideoChannelsCount  = 1;   //直接观看的默
             NSDictionary *tdicDevice =[[JVCDeviceHelper sharedDeviceLibrary] getAccountByDeviceList];
             DDLogVerbose(@"获取设备的=%s==%@",__FUNCTION__,tdicDevice);
             
-            JVCDeviceListMapModel *model = [JVCDeviceListMapModel modelWithDic:tdicDevice];
-            
-            NSLog(@"%@",[model description]);
+//            JVCDeviceListMapModel *model = [JVCDeviceListMapModel modelWithDic:tdicDevice];
+//            
+//            NSLog(@"%@",[model description]);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
