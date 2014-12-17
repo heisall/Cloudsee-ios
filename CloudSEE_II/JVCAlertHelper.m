@@ -306,12 +306,34 @@ static JVCAlertHelper *shareAlertHelper = nil;
         
     }else{
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:delegate cancelButtonTitle:selectTitle otherButtonTitles:titlecancel, nil];
-        [alertView show];
-        alertView.delegate = delegate;
-        alertView.tag = alertTage;
-        [alertView release];
+        
+        if (alertTage !=  KTagDealWithSelf) {
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:delegate cancelButtonTitle:selectTitle otherButtonTitles:titlecancel, nil];
+            [alertView show];
+            alertView.delegate = delegate;
+            alertView.tag = alertTage;
+            [alertView release];
+            
+        }else{
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:selectTitle otherButtonTitles:titlecancel, nil];
+            [alertView show];
+            alertView.tag = alertTage;
+            [alertView release];
+        }
+       
     }
     
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == KTagDealWithSelf) {
+        if (buttonIndex == 0) {
+            
+             [[JVCSystemUtility shareSystemUtilityInstance] openItunsUpdate];
+        }
+    }
 }
 @end

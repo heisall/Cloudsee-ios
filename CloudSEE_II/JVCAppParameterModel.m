@@ -100,6 +100,7 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
         appModel.nUpdateIdentification  =  1007;
         appModel.nHasRegister           = JVCRegisterType_Default;
         appModel.appleID                = @"673070046";//nvsip的appleid
+        appModel.appUmKey                = @"5343d1ad56240b8da403ac1d";
         appModel.userName               = (NSString *)kAppDefaultOEMUserName;
         appModel.passWord               = (NSString *)kAppDefaultOEmPassWord;
     }else if([appName isEqualToString:(NSString *)kEhome])
@@ -114,6 +115,7 @@ static const NSString *kAppDefaultOEmPassWord   = @"";
         appModel.nHasRegister           =JVCRegisterType_China;
         appModel.bHasFeedback           = YES;
         appModel.nUpdateIdentification  =  1002;
+        appModel.appUmKey                = @"5343d1ad56240b8da403ac1d";
         appModel.appleID                = @"583826804";//nvsip的appleid
         appModel.userName               = (NSString *)kAppDefaultOEMUserName;
         appModel.passWord               = (NSString *)kAppDefaultOEmPassWord;

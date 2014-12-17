@@ -309,7 +309,7 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
 //        [alertView show];
 //        [alertView release];
         
-        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)alertTage:0];
+        [[JVCAlertHelper shareAlertHelper] alertControllerWithTitle:alertString delegate:self selectAction:@selector(openItunes) cancelAction:nil selectTitle:NSLocalizedString(@"UpdateBtn",nil ) cancelTitle:NSLocalizedString(@"local_location", nil)alertTage:KTagDealWithSelf];
     
     });
 }
@@ -381,7 +381,7 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
 
 - (void)openItunes
 {
-    [[JVCSystemUtility shareSystemUtilityInstance] openItunsCommet];
+    [[JVCSystemUtility shareSystemUtilityInstance] openItunsUpdate];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
