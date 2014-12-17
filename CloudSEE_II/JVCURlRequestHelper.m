@@ -284,7 +284,8 @@ static const    NSString  *kBoundaryShort                = @"----WebKitFormBound
     if ([JVCConfigModel shareInstance]._bNewVersion) {
         
         [JVCConfigModel shareInstance]._bNewVersion = YES;
-        [self showUpdateVeiwAlert:versionString];
+        NSString *alertContentString = [NSString stringWithFormat:@"%@&%@",LOCALANGER(@"jvcAppUpdateTitle"),versionString];
+        [self showUpdateVeiwAlert:alertContentString];
     
     }else{
         
